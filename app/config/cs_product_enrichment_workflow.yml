@@ -40,8 +40,8 @@ pimcore:
                           unpublish: false
                           condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
 
-                in_review:
-                    label: In Review
+                in_marcom_edit:
+                    label: In Marcom Edit
                     color: #377ea9
                     permissions:
                         -
@@ -52,17 +52,6 @@ pimcore:
                           unpublish: false
                           condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
                           
-                approved:
-                    label: Approved
-                    color: #377ea9
-                    permissions:
-                        -
-#                          objectLayout: 1
-                          save: true
-                          publish: false
-                          delete: false
-                          unpublish: false
-                          condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
                 in_publish:
                     label: Sent to Publish
                     color: #377ea9
@@ -118,79 +107,77 @@ pimcore:
                     from:
                         - open
                     to: in_process
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
                     options:
                         label: 'Send to process'
                         notes:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: save_version
-#                send_to_edit_again:
-#                    from:
-#                        - open
-#                    to: in_process
-#                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
-#                    options:
-#                        label: 'Send to process'
-#                        notes:
-#                            commentEnabled: true
-#                            commentRequired: false
-#                        changePublishedState: force_unpublished
                 send_to_edit:
                     from:
                         - paused
                         - published
                         - in_process
                     to: in_rd_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getProductOwner() == user.getId()))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getRnDUser() != null and subject.getRnDUser() != ''))
                     options:
                         label: 'Send to R&D Edit'
                         notes:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: save_version
-                send_for_review:
+                send_to_marcom:
                     from:
                         - in_rd_edit
-                    to: in_review
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS"))
+                    to: in_marcom_edit
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getRnDUser() == user.getId()) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
                     options:
-                        label: 'Send to review'
+                        label: 'Send to Marcom'
                         notes:
                             commentEnabled: true
                             commentRequired: true
                         changePublishedState: save_version
-                reject_product:
-                    from:
-                        - in_review
-                    to: in_process
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
-                    options:
-                        label: 'Sent for Fixes'
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
-                        changePublishedState: save_version
-
-                approve_product:
-                    from:
-                        - in_review
-                    to: approved
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
-                    options:
-                        label: 'Approve'
-                        notes:
-                            commentEnabled: true
-                            commentRequired: false
-                        changePublishedState: save_version
-                
                 send_to_publish:
                     from:
-                        - approved
+                        - in_marcom_edit
                     to: in_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS")) and (subject.getMarcomUser() == user.getId()) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
                     options:
                         label: 'Send to publish'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                reject_to_po:
+                    from:
+                        - in_publish
+                    to: in_process
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
+                    options:
+                        label: 'Reset'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                reject_to_rnd:
+                    from:
+                        - in_publish
+                    to: in_rd_edit
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getRnDUser() != null and subject.getRnDUser() != ''))
+                    options:
+                        label: 'Reset to R&D'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                reject_to_marcom:
+                    from:
+                        - in_publish
+                    to: in_marcom_edit
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
+                    options:
+                        label: 'Reset to Marcom'
                         notes:
                             commentEnabled: true
                             commentRequired: true
@@ -201,7 +188,7 @@ pimcore:
                     from:
                         - in_publish
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getUserOwner() == user.getId()))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()))
                     options:
                         label: 'Publish'
                         notes:
