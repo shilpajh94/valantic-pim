@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-09T16:08:50+05:30
-* Inheritance: no
+* Generated at: 2021-11-11T11:12:04+05:30
+* Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
 * IP: ::1
@@ -68,7 +68,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1636454329,
+   'modificationDate' => 1636609322,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -80,7 +80,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
+   'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 

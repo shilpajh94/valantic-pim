@@ -308,6 +308,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 continue;
                                             }
                                         }
+                                        $brickObject->setFieldname('ProductAttributes');
                                         $method = 'set' . $brick;
                                         $product->getProductAttributes()->$method($brickObject);
                                         if ($natureOfProduct == 1) {
