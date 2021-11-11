@@ -45,6 +45,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
+    <footer id="footer" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
+    </footer>
     
     <main id="content" role="main">
         <section class="fortressxp-belts">
@@ -1345,8 +1350,5 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
         </section>
         <?php endif; ?>
     </main>
-    <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
-    </footer>
 </div>
 <?php endif; ?>

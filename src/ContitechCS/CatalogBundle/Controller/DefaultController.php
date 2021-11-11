@@ -121,9 +121,9 @@ class DefaultController extends FrontendController
     public function templateTableOfContentsAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
         $this->view['footer_logo_src'] = $footer_logo_src;
     }
 
@@ -132,6 +132,10 @@ class DefaultController extends FrontendController
      */
     public function templateProductPageAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_product_page')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -553,6 +557,7 @@ class DefaultController extends FrontendController
             // p_r($productData);
             // die;
             $this->view['data'] = $productData;
+            $this->view['footer_logo_src']  = $footer_logo_src;
 
         }
     }
@@ -562,6 +567,10 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cover_compound_page')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -740,6 +749,7 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src']  = $footer_logo_src;
     }
 
     /**
@@ -754,6 +764,10 @@ class DefaultController extends FrontendController
      */
     public function templateCleatedBeltsAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -815,6 +829,7 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src']  = $footer_logo_src;
     }
 
     public function addPrefix($key): String
@@ -856,9 +871,8 @@ class DefaultController extends FrontendController
     public function templateContinentalConveyorServicesAction(Request $request)
     {   
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
         
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
         
         $default_image = $this->configProviderService->getDefaultImage();
       
@@ -913,11 +927,9 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
 
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
         
-
         $productData = [];
         if($catalogTableObject)
         {
@@ -958,6 +970,10 @@ class DefaultController extends FrontendController
     */
     public function templateContiInspectSystemsAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_inspect_systems')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -990,6 +1006,7 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
     /**
@@ -997,6 +1014,10 @@ class DefaultController extends FrontendController
     */
     public function templateMegaPipeBeltAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -1026,6 +1047,7 @@ class DefaultController extends FrontendController
         }
         
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
     /**
@@ -1033,6 +1055,10 @@ class DefaultController extends FrontendController
      */
     public function templateContiPipeBeltAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
         
@@ -1105,6 +1131,7 @@ class DefaultController extends FrontendController
         $productData['childProductData'] = $childProductData;
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
     /**
@@ -1143,6 +1170,10 @@ class DefaultController extends FrontendController
     {
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_textile_belt_services_page')->getElement();
 
+        $this->configProviderService = new ConfigProviderService();
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
         $productNameArr = [];
 
         if ($catalogCategoryObject)
@@ -1168,15 +1199,14 @@ class DefaultController extends FrontendController
                 $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';             
         }
         $this->view['data'] = $productNameArr;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
     public function templateSteelcordBeltConstructionAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
-
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
-        $this->view['footer_logo_src'] = $footer_logo_src;
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
         
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_steelcord_belt_construction_page')->getElement();
 
@@ -1213,9 +1243,8 @@ class DefaultController extends FrontendController
     public function templateQualityAndTheEnvironmentAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
-
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
 
         $this->view['footer_logo_src'] = $footer_logo_src;
       
@@ -1227,9 +1256,9 @@ class DefaultController extends FrontendController
     public function templateEcoSeriesPulleyAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+        
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
 
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
         $this->view['footer_logo_src'] = $footer_logo_src;
       
     }
@@ -1240,9 +1269,9 @@ class DefaultController extends FrontendController
     public function templateWoodProductAndApplicationAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
         $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
@@ -1252,13 +1281,10 @@ class DefaultController extends FrontendController
     public function templateSybercordTechnologyAction(Request $request)
     {
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
 
-        $header_title = $this->configProviderService->getWebSiteSetting('header_title');
-        
-        
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
 
             $productNameArr = [];
@@ -1300,7 +1326,7 @@ class DefaultController extends FrontendController
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
-        $this->view['header_title'] = $header_title;
+        
 
 
     }
@@ -1315,9 +1341,8 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_clean')->getElement();
 
         $this->configProviderService = new ConfigProviderService();
-        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
-
-        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+       
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
         
         $productData = [];
         if($catalogTableObject)
@@ -1365,6 +1390,11 @@ class DefaultController extends FrontendController
     {
 
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_alert')->getElement();
+
+        $this->configProviderService = new ConfigProviderService();
+       
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+  
         $productData = [];
         if($catalogTableObject)
         {
@@ -1381,5 +1411,6 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
 }

@@ -123,19 +123,20 @@ class ConfigProviderService
      *
      * @return string
      */
-    public function getDefaultImage()
-    {   
+    public function getDefaultImage($setting_key = 'default_image')
+    { 
         try{
 
-            $obj        = $this->getWebSiteSetting('default_image');
+            $obj = $this->getWebSiteSetting($setting_key);
 
             $thumbnail = $obj->getThumbnail('catalog_thumb');
-           
+
             return $thumbnail;
         }
         catch(Exception $e)
-        {   
+        { 
             throw new Exception($e->getMessage());
         }
     }
 }
+
