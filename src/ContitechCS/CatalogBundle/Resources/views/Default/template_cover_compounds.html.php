@@ -24,23 +24,13 @@ $coverCompound = $data['coverCompoundData'];
         <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-                    <strong>
-                        <?php if($this->editmode): ?>
-                                <?php if($this->input("CC_HierarchyNameLevel1")->isEmpty()): ?>
-                                        <?= $this->input("CC_HierarchyNameLevel1")->setDataFromResource($coverCompound['HierarchyNameLevel1']) ?>
-                                <?php else: ?>
-                                        <?= $this->input("CC_HierarchyNameLevel1"); ?>
-                                <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("CC_HierarchyNameLevel1") ?>
-                        <?php endif; ?>
-                
-                
-                    </strong>
-                </div>
-                <div class="print-pg-no"></div>
+                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
+                <span class="second-title">
+                    <?= $this->input("CC_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
-        </header>
+            <div class="print-pg-no"></div>
+        </div>
+    </header> 
         <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -146,7 +136,8 @@ $coverCompound = $data['coverCompoundData'];
                     </strong>  
                     </h1>
                     <?php if($data['CCAARows']): ?>
-                    <div class="table-data compounds-table">
+                    
+                     <div class="table-data compounds-table mb-4">
                         <table width="100%" class="white-bg">
                             <thead>
                                 <tr>
@@ -190,7 +181,7 @@ $coverCompound = $data['coverCompoundData'];
                                                     $value = '';
                                                 }
                                         ?>
-                                            <td <?= $style; ?> <?= $class; ?>><?= $value; ?></td>
+                                            <td <?= $style; ?> <?= $class; ?>><?= $value; ?> <span class="white-bg"></span></td>
 
                                         <?php 
                                             } 
@@ -207,6 +198,7 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                     <?php endif; ?>
 
+                    <div class="page-break"></div>
                     <h1 class="orange">
                         <?php if($this->editmode): ?>
                             <?php if($this->input("CC_Title_Standard_Compounds")->isEmpty()): ?>
@@ -257,6 +249,7 @@ $coverCompound = $data['coverCompoundData'];
                 <?php 
                     $singleProductPage = $data['singleProductPage'];
                 ?>
+                <div class="page-break"></div>
                 <h1 class="orange">
                 
                     <?php if($this->editmode): ?>
@@ -299,7 +292,7 @@ $coverCompound = $data['coverCompoundData'];
                         if($CCHRPage_productImageObj)
                         {
                         ?>
-                        <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100"/>
+                       <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
                         <?php
                         }
                     }
@@ -364,17 +357,16 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                 <?php } ?>
                         
-                <div class="environment-quality-sec">
-                    
+               <div class="environment-quality-sec">
+                <div class="media my-4">
+
                     <?php
                         if($this->editmode)
                         {
                             ?>
-                            <div class="media my-4">
                             <?php
                             echo $this->image("CCHRPage_tempratureImage");
                             ?>
-                            </div>
                             <?php
                         }
                         else
@@ -383,9 +375,7 @@ $coverCompound = $data['coverCompoundData'];
                             if($CCHRPage_tempratureImageObj)
                             {
                             ?>
-                            <div class="media my-4">
-                            <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images w-50 ml-0"/>
-                            </div>
+                            <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images  ml-0"/>
                             <?php
                             }
                         }
@@ -397,8 +387,8 @@ $coverCompound = $data['coverCompoundData'];
                                         foreach ($singleProductPage['Level4ObjChildData'] as $chKey => $chValue) {
                                         ?>
                                             <tr>
-                                                <td class="orange" width="15%"><?= $chValue['Name'] ?></td>
-                                                <td width="80%"><?= $chValue['LongText'] ?></td>
+                                                <td class="orange" width="25%"><?= $chValue['Name'] ?></td>
+                                                <td width="75%"><?= $chValue['LongText'] ?></td>
                                             </tr>
                                         <?php
                                         }
@@ -406,20 +396,23 @@ $coverCompound = $data['coverCompoundData'];
                             </table>
 
                             <?php if($this->editmode): ?>
-                                <p class="note">
+                                <p class="table-notes">
                                     <?= $this->textarea("CCHRPage_Comment"); ?>
                                 </p>
                             <?php else: ?>
                                 <?php if(!$this->textarea("CCHRPage_Comment")->isEmpty()): ?>
-                                    <p class="note">
+                                    <p class="table-notes">
                                         <?= $this->textarea("CCHRPage_Comment") ?>
                                     </p>
                                 <?php endif; ?>
                             <?php endif; ?>
                     </div>
                     <?php } ?>
+                    </div>
+
                 </div>
 
+                <div class="page-break"></div>
                 <div class="belts-information">
                     <h1><span class="orange">
                         <strong>

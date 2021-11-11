@@ -19,20 +19,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="header-sec">
                 <div class="header-txt">
                 <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("MPB_HierarchyNameLevel1")->isEmpty()): ?>
-                            <span class="second-title"> <?= $this->input("MPB_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?> </span>
-                        <?php else: ?>
-                            <span class="second-title">  <?= $this->input("MPB_HierarchyNameLevel1"); ?></span>
-                        <?php endif; ?>
-                <?php else: ?>
-                    <span class="second-title"><?= $this->input("MPB_HierarchyNameLevel1") ?></span>
-                <?php endif; ?>
-        
-                </div>
-                <div class="print-pg-no"></div>
+                <span class="second-title">
+                    <?= $this->input("MPB_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
-        </header>
+            <div class="print-pg-no"></div>
+        </div>
+    </header> 
 
         <footer id="footer" class="footer">
         <div class="footer-logo">

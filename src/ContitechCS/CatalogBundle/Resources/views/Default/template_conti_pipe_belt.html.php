@@ -23,24 +23,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-                    <b>
-                        <?php if($this->editmode): ?>
-                                <?php if($this->input("CPB_HierarchyNameLevel1")->isEmpty()): ?>
-                                        <?= $this->input("CPB_HierarchyNameLevel1")->setDataFromResource($parentProductData['HierarchyNameLevel1']) ?>
-                                <?php else: ?>
-                                        <?= $this->input("CPB_HierarchyNameLevel1"); ?>
-                                <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("CPB_HierarchyNameLevel1") ?>
-                        <?php endif; ?>
-                    </b>
-                    <span class="second-title">
-                        <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?>
-                    </span>
-                </div>
-                <div class="print-pg-no"></div>
+                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
+                <span class="second-title">
+                    <?= $this->input("CPB_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
-        </header>
+            <div class="print-pg-no"></div>
+        </div>
+    </header> 
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -74,7 +63,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </span>
                 </h1>
                 
-                <p>
+                <div class="feature-benefit-list">
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBParent_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBParent_ShortText")->setDataFromResource($parentProductData['ShortText']) ?>
@@ -84,7 +73,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                             <?= $this->wysiwyg("CPBParent_ShortText") ?>
                     <?php endif; ?>
-                </p>
+                </div>
 
                 <?php if($parentProductData['Applications']): ?>
                 <div class="table">
@@ -161,12 +150,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if($CPBParent_ProductImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
-                        <img src="<?= $CPBParent_ProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" width="280">
+                        <img src="<?= $CPBParent_ProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4">
                         <?php
                         }
                     }
                 ?>
-
+                <div class="page-break"></div>
                 <h2>
                     <span class="orange">
                         <?php if($this->editmode): ?>
@@ -179,7 +168,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?= $this->input("CPBChild_ProductNameBeltInfo") ?>
                         <?php endif; ?>
                     </span> 
-                    
+                    <span class="light-black">
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CPBChild_BeltInfoLabel")->isEmpty()): ?>
                                     <?= $this->input("CPBChild_BeltInfoLabel",['placeholder'=>'Belt Information']) ?>
@@ -189,8 +178,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                             <?= $this->input("CPBChild_BeltInfoLabel") ?>
                     <?php endif; ?>
-            
+                </span>
                 </h2>
+                <div class="feature-benefit-list">
 
                 <h3 class="orange mb-0">
                     <?php if($this->editmode): ?>
@@ -203,8 +193,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?= $this->input("CPBChild_ProductClaimSlogan") ?>
                     <?php endif; ?>
                 </h3>
-                <p>
-                    
+                
+                   <div> 
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBChild_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBChild_ShortText")->setDataFromResource($childProductData['ShortText']) ?>
@@ -214,7 +204,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                             <?= $this->wysiwyg("CPBChild_ShortText") ?>
                     <?php endif; ?> 
-                </p>
+                </div>
+
+                <div class="feature-benefit-list black-bold">
+
 
 
                 <div class="feature-benefit-list">
@@ -247,7 +240,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if($CPBChild_ProductImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
-                        <img src="<?= $CPBChild_ProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" width="280">
+                        <img src="<?= $CPBChild_ProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" >
                         <?php
                         }
                     }
@@ -320,7 +313,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </table>
                     </div>
 
-                    <p class="note w-80">
+                    <p class="table-notes w-80">
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CPBChild_Note")->isEmpty()): ?>
                                 <?= $this->input("CPBChild_Note",['placeholder'=>'notes']) ?>

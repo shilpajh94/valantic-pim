@@ -17,26 +17,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
 <?php if($data): ?>
 <div class="wrapper">
-    <header id="header">
-        <div class="header-sec">
-            <div class="header-txt">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
-
-            
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("ContiA_HierarchyNameLevel1")->isEmpty()): ?>
-                        <span class="second-title">  <?= $this->input("ContiA_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?></span>
-                    <?php else: ?>
-                        <span class="second-title"><?= $this->input("ContiA_HierarchyNameLevel1"); ?></span>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("ContiA_HierarchyNameLevel1") ?>
-            <?php endif; ?>
-            </span>
-        </div>
+        <header id="header">
+            <div class="header-sec">
+                <div class="header-txt">
+                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
+                <span class="second-title">
+                    <?= $this->input("ContiA_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+            </div>
             <div class="print-pg-no"></div>
         </div>
-    </header>
+    </header> 
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
