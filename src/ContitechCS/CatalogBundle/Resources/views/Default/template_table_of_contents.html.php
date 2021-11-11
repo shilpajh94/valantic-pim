@@ -9,7 +9,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
              <div class="header-txt">
 <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span> 
                 <?php if($this->input("TOC_header_title")->isEmpty()): ?>
-                                <span class="second-title"><?= $this->input("TOC_header_title")->setDataFromResource('Table of Contents'); ?></span>
+                                <span class="second-title"><?= $this->input("TOC_header_title",['placeholder' => 'Table of Contents']); ?></span>
 
                 <?php else: ?>
                 <span class="second-title"><?= $this->input("TOC_header_title"); ?></span>
@@ -27,7 +27,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <section class="table-content-sec">
             <?php if($this->editmode): ?>
             <?php if($this->input("CBS_TOC_Heading")->isEmpty()): ?>
-            <h1 class="orange"><?= $this->input("CBS_TOC_Heading")->setDataFromResource('Table of contents'); ?></h1>
+            <h1 class="orange"><?= $this->input("CBS_TOC_Heading",['placeholder' => 'Table of Contents']); ?></h1>
             <?php else: ?>
             <h1 class="orange"><?= $this->input("CBS_TOC_Heading"); ?></h1>
             <?php endif; ?>
