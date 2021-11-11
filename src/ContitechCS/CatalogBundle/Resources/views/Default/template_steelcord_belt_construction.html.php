@@ -18,7 +18,7 @@
     <div class="wrapper">
         <header id="header">
             <div class="header-sec">
-                <div class="header-txt"><span class="first-title">Conveying Solutions</span>
+                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
                     <span class="second-title">
                         <?= $this->input("STBC_title",["placeholder" =>"Enter Your  Title"]); ?></span>
                 </div>
