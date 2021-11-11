@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-11T12:26:35+05:30
+* Generated at: 2021-11-11T16:01:17+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -29,14 +29,16 @@ Fields Summary:
 -- LongText [textarea]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
-- Benefits [manyToManyObjectRelation]
 - CSProductApplications [manyToManyObjectRelation]
 - CSProductIndustries [manyToManyObjectRelation]
 - CoverCompounds [manyToManyObjectRelation]
-- Features [manyToManyObjectRelation]
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
+- BenefitBlock [block]
+-- Benefit [input]
+- FeatureBlock [block]
+-- Feature [input]
 - ProductAttributes [objectbricks]
 - LogoImage [image]
 - productImage [image]
@@ -68,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1636613794,
+   'modificationDate' => 1636626676,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1741,43 +1743,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
-                         'visibleFields' => 'BenefitName',
-                         'allowToCreateNewObject' => false,
-                         'optimizedAdminLoading' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'CSBenefits',
-                          ),
-                        ),
-                         'pathFormatterClass' => '',
-                         'name' => 'Benefits',
-                         'title' => 'Benefits',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                         'fieldtype' => 'manyToManyObjectRelation',
-                         'width' => 495,
-                         'height' => '',
-                         'maxItems' => '',
-                         'queryColumnType' => 'text',
-                         'phpdocType' => 'array',
-                         'relationType' => true,
                          'visibleFields' => 'ApplicationName',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
@@ -1806,7 +1771,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1843,7 +1808,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1919,43 +1884,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'CSFeatures',
-                          ),
-                        ),
-                         'pathFormatterClass' => '',
-                         'name' => 'Features',
-                         'title' => 'Features',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                         'fieldtype' => 'manyToManyObjectRelation',
-                         'width' => 495,
-                         'height' => '',
-                         'maxItems' => '',
-                         'queryColumnType' => 'text',
-                         'phpdocType' => 'array',
-                         'relationType' => true,
-                         'visibleFields' => 'FeatureName',
-                         'allowToCreateNewObject' => false,
-                         'optimizedAdminLoading' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
                             'classes' => 'CSFeaturesAndBenefits',
                           ),
                         ),
@@ -1974,7 +1902,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -2011,7 +1939,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -2059,6 +1987,153 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/label.svg',
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Features & Benefits',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Features & Benefits',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                 'fieldtype' => 'block',
+                 'lazyLoading' => false,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsible' => true,
+                 'collapsed' => false,
+                 'maxItems' => NULL,
+                 'columnType' => 'longtext',
+                 'styleElement' => '',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => NULL,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Benefit',
+                     'title' => 'Benefit',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'layout' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'name' => 'BenefitBlock',
+                 'title' => 'Benefit',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'margin-left:10px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                 'fieldtype' => 'block',
+                 'lazyLoading' => false,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsible' => true,
+                 'collapsed' => false,
+                 'maxItems' => NULL,
+                 'columnType' => 'longtext',
+                 'styleElement' => '',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => NULL,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Feature',
+                     'title' => 'Feature',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'layout' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'name' => 'FeatureBlock',
+                 'title' => 'Feature',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'margin-left:10px;margin-top:10px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/low_priority.svg',
+          )),
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,
@@ -2139,7 +2214,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/input.svg',
           )),
-          2 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,
@@ -2875,7 +2950,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
           )),
-          3 => 
+          4 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,
