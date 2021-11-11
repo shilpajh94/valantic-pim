@@ -1146,22 +1146,43 @@ class DefaultController extends FrontendController
 
         $data = [];
 
-        $bricks = $childObject[0]->getChildren();
+        $childs = $childObject[0]->getChildren();
         
-        if($bricks)
+        if($childs)
         {
-            foreach($bricks as $obj)
+            foreach($childs as $obj)
             {
                 $obj_attr = $obj->getProductAttributes();
                 
-                //Diameter
-                if($obj_attr->getProdAttrSetAC()->getDiameter())
+                $diameter_in = '5.9';
+                $diameter_mm = '';
+
+                if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameter'))
                 {
-                    $data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
+                    $diameter_mm = $obj_attr->getProdAttrSetAC()->getDiameter();
                 }
+
+                $data[] = [
+                    [$diameter_in,$diameter_mm],
+                    ['23.6','600'],
+                    ['•','•'],
+                ];
+                
+                //Diameter
+                //$data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
+                
+                // $data['Diameter']['in'][] = '5.9';
+                
+                // //Belt Width
+                // $data['Belt_Width']['mm'][] = '600';
+                // $data['Belt_Width']['in'][] = '23.6';
+                
+                // //Type
+                // $data['Type']['Fabric'][] = '•';
+                // $data['Type']['Steel'][] = '•';
+                
             }
         }
-        
         return $data;
     }
 

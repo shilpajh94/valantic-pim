@@ -175,20 +175,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                 {
                                                     ?>
                                                         <td>
-                                                            <?= $obj->getName();?>
-                                                        </td>
+                                                            <?= $obj->getName();?></td>
                                                     <?php   
                                                 }
                                                 ?></tr><?php
                                             }
                                         }
                                     ?>
-
-                                        <tr>
-                                            <td>Defender® Series</td>
-                                            <td>Gold Series</td>
-                                            <td>Shield Series</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -434,7 +427,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                 ?>
                                                 <tr>
                                                     <th class="orange text-right"><?= $fieldName; ?></th>
-                                                    <td colspan="6"><?= $fieldValue; ?> in</td>
+                                                    <td colspan="6">
+                                                        <?= $fieldValue; ?>
+                                                        <?= $this->translate('CS_Unit_in') ?>
+                                                    </td>
                                                 </tr>
                                                 <?php
                                             }

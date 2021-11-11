@@ -34,6 +34,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?= $this->input("CPB_HierarchyNameLevel1") ?>
                         <?php endif; ?>
                     </b>
+                    <span class="second-title">
+                        <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?>
+                    </span>
                 </div>
                 <div class="print-pg-no"></div>
             </div>
@@ -251,7 +254,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
 
                 <div class="belts-information">
-                    <h3>ContiPipe™ and MegaPipe® Sizes</h3>
+                    <h3><?= $this->input("CPBContiPipe_MegaPipe",['placeholder'=>'Enter Heading']); ?></h3>
                     <div class="table-data contipipe-table w-80">
                         <table width="100%">
                             <thead>
@@ -259,68 +262,59 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <th colspan="10">&nbsp;</th>
                                 </tr>
                                 <tr class="grey-bg">
-                                    <th colspan="2">Diameter</th>
-                                    <th colspan="2">Belt Width</th>
-                                    <th colspan="2">Type</th>
+                                    <th colspan="2">
+                                        <?= $this->translate('CS_Diameter') ?>
+                                    </th>
+                                    <th colspan="2">
+                                        <?= $this->translate('CS_Belt_Width') ?>
+                                    </th>
+                                    <th colspan="2">
+                                    <?= $this->translate('CS_Type') ?>
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <th width="16.5%">in.</th>
-                                    <th width="16.5%">mm</th>
-                                    <th width="16.5%">in.</th>
-                                    <th width="16.5%">mm</th>
-                                    <th width="16.5%">Fabric</th>
-                                    <th width="16.5%">Steel</th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Unit_in') ?>.
+                                    </th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Unit_mm') ?>
+                                    </th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Unit_in') ?>.
+                                    </th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Unit_mm') ?>
+                                    </th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Fabric') ?>
+                                    </th>
+                                    <th width="16.5%">
+                                        <?= $this->translate('CS_Steel') ?>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td>•</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td>•</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>5.9</td>
-                                    <td>150</td>
-                                    <td>23.6</td>
-                                    <td>600</td>
-                                    <td>•</td>
-                                    <td>•</td>
-                                </tr>
+
+                                <?php
+
+                                if(isset($data['productSpecificData']) && $data['productSpecificData'])
+                                {
+                                    foreach($data['productSpecificData'] as $val)
+                                    {   
+                                        ?>
+                                            <tr align="center">
+                                                <td><?= $val[0][0]; ?></td>
+                                                <td><?= $val[0][1]; ?></td>
+                                                <td><?= $val[1][0]; ?></td>
+                                                <td><?= $val[1][1]; ?></td>
+                                                <td><?= $val[2][0]; ?></td>
+                                                <td><?= $val[2][1]; ?></td>
+                                            </tr>
+                                        <?php
+                                    }
+                                }    
+
+                                ?>
 
                             </tbody>
                         </table>
