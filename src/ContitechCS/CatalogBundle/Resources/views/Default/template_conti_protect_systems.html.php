@@ -103,15 +103,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         }
                                         echo "</ul>";
                                     }
-                                /**if($this->editmode): ?>
-                                        <?php if($this->input("CPS_Benefits")->isEmpty()): ?>
-                                                <?= $this->input("CPS_Benefits")->setDataFromResource($data['Benefits']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("CPS_Benefits"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("CPS_Benefits") ?>
-                                <?php endif; */?>
+                                ?>
                             </div>
                         </div>
 
