@@ -23,12 +23,12 @@ return [
     ],
     3 => [
         "id" => 3,
-        "name" => "header_title",
+        "name" => "CS_footer_logo",
         "language" => "",
-        "type" => "text",
-        "data" => "Conveying Solutions",
+        "type" => "asset",
+        "data" => 14870,
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1636533827
+        "modificationDate" => 1636613066
     ]
 ];

@@ -37,7 +37,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </header>
         <footer id="footer" class="footer">
             <div class="footer-logo">
-            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+                <img src="<?= $footer_logo_src; ?>" alt="" width="150">
             </div>
         </footer>
        

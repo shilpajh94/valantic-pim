@@ -36,6 +36,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
+    <footer id="footer" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
+    </footer>
     
     <main id="content" role="main">
         <section class="fortressxp-belts">
@@ -210,11 +215,5 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
 	    </section>
         </main>
-        <footer id="footer" class="footer">
-            <div class="footer-logo">
-            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
-            </div>
-        </footer>
-    
 </div>
 <?php endif; ?>
