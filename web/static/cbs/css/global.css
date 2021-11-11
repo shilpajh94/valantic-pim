@@ -393,7 +393,7 @@ section {
     margin-top: 20px;
 }
 .pt-4 {
-    padding-top: 20px;
+    padding-top: 20px !important;
 }
 .align-item-ends {
     align-items: flex-end !important;
@@ -450,7 +450,7 @@ section {
     padding: 0 15px;
 }
 .mx-auto {
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 .border-b {
     border-bottom: 0px !important;

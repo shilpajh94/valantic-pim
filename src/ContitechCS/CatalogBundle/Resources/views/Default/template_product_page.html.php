@@ -55,7 +55,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <section class="fortressxp-belts">
             <h1 class="orange">
             
-            <strong>
+            
             
 
             <?php if($this->editmode): ?>
@@ -69,7 +69,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php endif; ?>
             
             
-            </strong>
+           
             
                 <?php if($data['TitleTagSloganRequired']) { ?>
                     <span class="sub-title">
@@ -279,7 +279,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                     
 
                         <?php if($this->editmode): ?>
-                            <h2 class="orange">
+                            <h3 class="orange">
                                 <?php if($this->input("PP_PowerOfFortressTechnology")->isEmpty()): ?>
                                         <?= $this->input("PP_PowerOfFortressTechnology")->setDataFromResource('Fortified with the Power of Fortress™ Technology') ?>
                                 <?php else: ?>
@@ -291,14 +291,14 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                                 <?php else: ?>
                                         <?= $this->input("PP_ConveyorBeltsComponents"); ?>
                                 <?php endif; ?>
-                            </h2>
+                            </h3>
                         <?php else: ?>  
                                 <?php if(!$this->input("PP_PowerOfFortressTechnology")->isEmpty() || !$this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
-                                    <h2 class="orange">
+                                    <h3 class="orange">
                                         <?= $this->input("PP_PowerOfFortressTechnology") ?>
                                     <br />
                                         <?= $this->input("PP_ConveyorBeltsComponents") ?>
-                                    </h2>
+                                    </h3>
                                 <?php endif; ?>
                         <?php endif; ?>
                     
@@ -387,7 +387,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             ?>
             <div class="featuring-sec">
                 <h2><span class="orange">
-                        <strong>
+                        
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("PPSS_ProductName")->isEmpty()): ?>
                                             <?= $this->input("PPSS_ProductName")->setDataFromResource($data['ProductName']) ?>
@@ -397,8 +397,9 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             <?php else: ?>
                                     <?= $this->input("PPSS_ProductName") ?>
                             <?php endif; ?>
-                        </strong>
+                        
                     </span> 
+                    <span class="light-black">
 
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("PPSS_Title")->isEmpty()): ?>
@@ -409,6 +410,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                         <?php else: ?>
                                 <?= $this->input("PPSS_Title") ?>
                         <?php endif; ?>
+                         <span class="orange">
                 </h2>
                 <div class="media">
                     <?php 
@@ -523,13 +525,14 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                     
                     </strong>
                 </span>
+                <span class="light-black">
                 
                 <?php if($this->input("PP_FeaturesBeneFit")->isEmpty()): ?>
                         <?= $this->input("PP_FeaturesBeneFit")->setDataFromResource('Features and Benefits') ?>
                 <?php else: ?>
                         <?= $this->input("PP_FeaturesBeneFit"); ?>
                 <?php endif; ?>
-            
+            </span>
             </h1>
 
             <?php if($data['FeaturesAndBenefits']) { 
@@ -648,8 +651,8 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             
                 <table width="100%">
                     <thead>
-                        <tr align="left" class="orange-bg">
-                            <th colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
+                        <tr  class="orange-bg">
+                            <th align="left"  colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                         </tr>
                         <?php 
                             $theadSecondRow = $value['theadSecondRow'];
@@ -661,7 +664,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             {
                                 $style = '';
                                     if($firstKey == $key){
-                                        $style = 'align="left" width="21.1%"';
+                                       $style = 'align="left" width="17.2%"';
                                     }
                                     else{
                                         $style = 'width="9.2%"';
@@ -707,7 +710,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             </div>
 
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                    <p class="table-notes">
                         <?= $this->textarea("PP_Conveyor_Belt_Data_Comment"); ?>
                     </p>
                 <?php else: ?>
@@ -786,7 +789,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                                     $style = 'width="7.2%"';
                                 }
                             ?>
-                            <th <?= $style; ?>><?= $this->translate($td) ?></th>
+                            <th align="left" <?= $style; ?>><?= $this->translate($td) ?></th>
                         <?php
                         }
                         ?>
@@ -827,12 +830,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 
             </div>
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                     <p class="table-notes">
                         <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment"); ?>
                     </p>
                 <?php else: ?>
                     <?php if(!$this->textarea("PP_Load_Support_Maximum_Belt_Comment")->isEmpty()): ?>
-                        <p class="note">
+                         <p class="table-notes">
                             <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment") ?>
                         </p>
                     <?php endif; ?>
@@ -891,7 +894,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                                     $style = 'width="8.8%"';
                                 }
                             ?>
-                            <th <?= $style; ?>><?= $td ?></th>
+                            <th align="left" <?= $style; ?>><?= $td ?></th>
                         <?php
                         }
                         ?>
@@ -953,12 +956,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 
             </div>
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                    <p class="table-notes">
                         <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment"); ?>
                     </p>
                 <?php else: ?>
                     <?php if(!$this->textarea("PP_Troughability_Minimum_Belt_Width_Comment")->isEmpty()): ?>
-                        <p class="note">
+                        <p class="table-notes">
                             <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment") ?>
                         </p>
                     <?php endif; ?>
@@ -1049,12 +1052,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                     <p class="table-notes">
                         <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment"); ?>
                     </p>
                 <?php else: ?>
                     <?php if(!$this->textarea("PP_Minimum_Pulley_Diameters_Comment")->isEmpty()): ?>
-                        <p class="note">
+                        <p class="table-notes">
                             <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment") ?>
                         </p>
                     <?php endif; ?>
@@ -1064,7 +1067,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             }
             ?>
 
-            <?php if(isset($data['productTables']['Elevator Belt Data'])){ ?>
+             <?php if(isset($data['productTables']['Elevator Belt Data'])){ ?>
             <h3>
             <strong>
             <?php if($this->editmode): ?>
@@ -1091,7 +1094,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <table width="100%">
                     <thead>
                         <tr align="left" class="orange-bg">
-                            <th colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
+                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                         </tr>
                         <?php 
                             $theadSecondRow = $value['theadSecondRow'];
@@ -1103,10 +1106,10 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             {
                                 $style = '';
                                     if($firstKey == $key){
-                                        $style = 'align="left" width="21.1%"';
+                                        $style = 'align="left" width="17.2%"';
                                     }
                                 ?>
-                                <th <?= $style; ?>><?= $td ?></th>
+                                <th align="left" <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1145,12 +1148,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                    <p class="table-notes">
                         <?= $this->textarea("PP_Elevator_Belt_Data_Comment"); ?>
                     </p>
                 <?php else: ?>
                     <?php if(!$this->textarea("PP_Elevator_Belt_Data_Comment")->isEmpty()): ?>
-                        <p class="note">
+                        <p class="table-notes">
                             <?= $this->textarea("PP_Elevator_Belt_Data_Comment") ?>
                         </p>
                     <?php endif; ?>
@@ -1187,7 +1190,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <table width="100%">
                     <thead>
                         <tr align="left" class="orange-bg">
-                            <th colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
+                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                         </tr>
                         <?php 
                             $theadSecondRow = $value['theadSecondRow'];
@@ -1199,11 +1202,11 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             {
                                 $style = '';
                                     if($firstKey == $key){
-                                        $style = 'align="left" width="21.1%"';
+                                        $style = 'align="left" width="17.2%"';
                                         //$value = $this->translate($value);
                                     }
                                 ?>
-                                <th <?= $style; ?>><?= $td ?></th>
+                                <th align="left" <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1242,12 +1245,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <p class="note">
+                    <p class="table-notes">
                         <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment"); ?>
                     </p>
                 <?php else: ?>
                     <?php if(!$this->textarea("PP_Maximum_Bucket_Projection_Comment")->isEmpty()): ?>
-                        <p class="note">
+                        <p class="table-notes">
                             <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment") ?>
                         </p>
                     <?php endif; ?>
@@ -1284,7 +1287,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <table width="100%">
                     <thead>
                         <tr align="left" class="orange-bg">
-                            <th colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
+                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                         </tr>
                         <?php 
                             $theadSecondRow = $value['theadSecondRow'];
@@ -1296,10 +1299,10 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             {
                                 $style = '';
                                     if($firstKey == $key){
-                                        $style = 'align="left" width="21.1%"';
+                                        $style = 'align="left" width="17.2%"';
                                     }
                                 ?>
-                                <th <?= $style; ?>><?= $td ?></th>
+                                <th align="left" <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1340,7 +1343,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <?php if($this->editmode): ?>
                     <?= $this->textarea('PP_Standard_Specifications_Comment', ['class'=>'note']); ?>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Standard_Specifications_Comment'); ?></p>
+                    <p class="table-notes"><?= $this->textarea('PP_Standard_Specifications_Comment'); ?></p>
                 <?php endif; ?>
 
             <?php 

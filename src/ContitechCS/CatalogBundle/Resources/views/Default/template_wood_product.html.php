@@ -20,6 +20,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
     <main id="content" role="main">
         <section class="wood-product-applications">
+        <?= $this->areablock('myAreablock'); ?>
             <h1 class="orange"><?= $this->input("CBS_WPA_Heading",[
             "placeholder" =>
             "Enter Your  Heading"]); ?></h1>
@@ -67,6 +68,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h2><?= $this->input("CBS_CBRT_Heading",[
             "placeholder" =>
             "Enter Your  Heading"]); ?></h2>
+            <?= $this->areablock('myAreablock2'); ?>
 
             <div class="environment-quality-sec">
                 <div class="media">
@@ -165,6 +167,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
                 }
             ?>
+            
         </section>
     </main>
 </div>

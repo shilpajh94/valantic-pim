@@ -228,6 +228,10 @@ h3 {
     font-weight: normal !important;
 }
 
+.table.construction-tab table tbody th {
+    font-size: 12px;
+}
+
 .table td {
     font-size: 12px;
 }
@@ -265,7 +269,7 @@ h3 {
     padding-bottom: 2px;
 }
 .labels table tr {
-    border: 2px solid rgb(155, 146, 133);
+    border: 2px solid #ffa500;
     border-left: 0px;
 }
 
@@ -357,9 +361,11 @@ h3 {
 .table-data td,
 .table-data th {
     font-size: 10px;
+    word-break: break-word;
 }
 
-.table-data th {
+.table-data th,
+.table-data td:first-child {
     font-family: "ContinentalStagSansLCG-Book";
     font-weight: normal !important;
 }
@@ -437,11 +443,11 @@ h3 {
     border-top: 1px solid #ffa500;
 }
 .table-data thead tr:first-child th:before {
-    border-top: 2px solid #000;
+    border-top: 1.5px solid #000;
     z-index: 20;
 }
 .table-data thead th:before {
-    border-bottom: 2px solid #000;
+    border-bottom: 1.5px solid #000;
     border-top: 0px;
 }
 .table-data tbody tr:first-child td:before {
@@ -454,7 +460,7 @@ h3 {
 .table-data.spartan-table thead tr:last-child th:before,
 .table-data.textile-table thead tr:last-child th:before {
     border-bottom: 0px;
-    border-top: 2px solid #000;
+    border-top: 1.5px solid #000;
 }
 .table-data.textile-table thead tr:last-child th:before {
     z-index: 20;
@@ -509,12 +515,34 @@ h3 {
 }
 
 .table-data.compounds-table thead th:first-child::before {
-    border-bottom: 2px solid transparent;
+    border-bottom: 1.5px solid transparent;
 }
 
-.table-data.compounds-table tbody td.orange-bg::before,
-.table-data.compounds-table tbody td.white-bg::before {
-    border-top: 1px solid #ffffff;
+.table-data.compounds-table tbody td.orange-bg::before {
+    border-top: 0px solid #ffffff;
+}
+.table-data.compounds-table tbody td.orange-bg::after {
+    right: -1px;
+}
+
+.table-data.compounds-table tbody {
+    position: relative;
+    overflow: hidden;
+}
+.table-data.compounds-table tbody td.orange-bg {
+    overflow: visible;
+    height: 35px;
+}
+
+.table-data.compounds-table tbody td.orange-bg .white-bg {
+    border-bottom: 3px solid #ffffff;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0px;
+    position: absolute;
+    z-index: 20;
+    background: transparent;
 }
 
 .table-data.compounds-table tbody tr:first-child td.orange-bg::before {
@@ -552,8 +580,9 @@ h3 {
 }
 
 .process-table td,
-.process-table th {
+.table.process-table th {
     border-top: 1px solid #000;
+    font-size: 12px;
 }
 .process-table tr:last-child td {
     border-bottom: 1px solid #000;
@@ -644,12 +673,26 @@ h3 {
 .wpa-table tbody td p {
     margin-bottom: 5px;
 }
-
+.compounds-table tr {
+    height: 35px;
+}
+.compounds-table th.orange {
+    font-size: 12px;
+}
 .compounds-table th {
-    padding: 12px 4px;
+    padding: 10px 4px 7px;
+}
+.compounds-table thead tr th:first-child,
+thead tr:first-child th {
+    font-family: "ContinentalStagSansLCG-Medium";
+    height: auto;
+}
+.compounds-table th,
+.compounds-table td:first-child {
+    font-family: "ContinentalStagSansLCG-Book";
 }
 .compounds-table th.rotate {
-    height: 120px;
+    height: 110px;
     white-space: nowrap;
     text-align: center;
 }
@@ -953,6 +996,12 @@ h3 {
     text-align: center;
     border-bottom: 1px solid #000000;
     padding: 4px 9px;
+}
+.construction-tab tr:last-child th {
+    font-family: "ContinentalStagSansLCG-Book" !important;
+}
+.construction-tab td {
+    font-family: "ContinentalStagSansLCG-Book" !important;
 }
 .construction-tab h2 {
     font-size: 20px;
