@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-11T11:12:04+05:30
+* Generated at: 2021-11-11T17:16:54+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -19,12 +19,14 @@ Fields Summary:
 - isArchived [checkbox]
 - NatureOfProduct [input]
 - CSSegment [multiselect]
+- EcommerceFlag [booleanSelect]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
 - CSPerformanceCategory [multiselect]
 - SelectCountries [multiselect]
 - CSRegion [multiselect]
+- PrintedCatalogFlag [booleanSelect]
 - localizedfields [localizedfields]
 -- ProductDescription [textarea]
 -- ShortText [textarea]
@@ -68,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1636609322,
+   'modificationDate' => 1636631213,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1292,6 +1294,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'yes',
+                         'noLabel' => 'no',
+                         'emptyLabel' => 'empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'no',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 300,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
+                         'phpdocType' => 'boolean',
+                         'name' => 'EcommerceFlag',
+                         'title' => 'Ecommerce Flag',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -1403,13 +1448,73 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
+                          0 => 
+                          array (
+                            'key' => 'Abrasion Compounds',
+                            'value' => 7071239,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'ContiFlex Compounds',
+                            'value' => 7071241,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Cut & Gouge Compounds',
+                            'value' => 7071240,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'Flame And Heat Compounds',
+                            'value' => 7071247,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'Flame And Oil Resistant Compounds',
+                            'value' => 7071245,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'Flame And Vegetable Oil Compounds',
+                            'value' => 7071244,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'Flame Compounds',
+                            'value' => 7071242,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'Flame Underground Compounds',
+                            'value' => 7071243,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'Gold Oil Compounds',
+                            'value' => 7071246,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'Solar-Shield Heat Compounds',
+                            'value' => 7071248,
+                          ),
+                          10 => 
+                          array (
+                            'key' => 'Special Service Compounds',
+                            'value' => 7071249,
+                          ),
+                          11 => 
+                          array (
+                            'key' => 'White Compounds',
+                            'value' => 7071250,
+                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSPerformanceCategories|PerformanceCategory',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',
@@ -1533,6 +1638,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'yes',
+                         'noLabel' => 'no',
+                         'emptyLabel' => 'empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'no',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 300,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
+                         'phpdocType' => 'boolean',
+                         'name' => 'PrintedCatalogFlag',
+                         'title' => 'Printed Catalog Flag',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1871,9 +2019,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
-                         'visibleFields' => 
-                        array (
-                        ),
+                         'visibleFields' => 'Name',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
                          'visibleFieldDefinitions' => 
@@ -1881,6 +2027,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => 'CSProducts',
+                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'CoverCompounds',
