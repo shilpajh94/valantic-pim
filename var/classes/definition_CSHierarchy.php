@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-22T15:35:26+05:30
+* Generated at: 2021-10-29T14:29:08+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,6 +12,7 @@ Fields Summary:
 - Name [input]
 - Level [select]
 - RelatedBricks [multiselect]
+- ParentBricks [multiselect]
 */ 
 
 
@@ -20,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634897126,
+   'modificationDate' => 1635497948,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -57,7 +58,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
-         'labelWidth' => 100,
+         'labelWidth' => 120,
          'layout' => NULL,
          'border' => false,
          'name' => 'Layout',
@@ -344,8 +345,39 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'phpdocType' => 'array',
              'dynamicOptions' => false,
              'name' => 'RelatedBricks',
-             'title' => 'RelatedBricks',
+             'title' => 'Related Bricks',
              'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
+             'options' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'tags',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
+             'dynamicOptions' => false,
+             'name' => 'ParentBricks',
+             'title' => 'Parent Bricks',
+             'tooltip' => 'Parent bricks will be mapped to the child level automatically.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,

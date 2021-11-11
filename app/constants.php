@@ -87,7 +87,7 @@ define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_D
 define("CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_attribute_validation.yml");
 define("CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yml");
 define("CS_WORKFLOW_CONFIG",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
-
+define("CS_SEGMENT_COUNTRIES_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/segment_based_country_list.yml");
 // Files older than these many days will be moved to S3 from archive folder
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
 

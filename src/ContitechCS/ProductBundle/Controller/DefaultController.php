@@ -20,7 +20,7 @@ use ContitechCS\ProductBundle\Services\ConfigProviderService;
 class DefaultController extends FrontendController
 {
     private $configProviderService;
-    
+
     /**
      * @Route("/contitech_cs_product")
      */
@@ -58,8 +58,16 @@ class DefaultController extends FrontendController
      */
     public function getUsers(Request $request)
     {
+        $param = $request->get('param');
+        if ($param == 'owner') {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
+        } else if ($param == 'marcom') {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_MARCOM_ROLES;
+        } else {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_EDITOR_ROLES;
+        }
         $rolesList = new User\Role\Listing();
-        $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
+        //$ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
         $conditionArr = [];
         foreach ($ownerRoles as $roleName) {
             $conditionArr[] = 'name = ' . $rolesList->quote($roleName);
@@ -93,6 +101,87 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/get_parent_bricks")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getParentBricks(Request $request)
+    {
+        $parentId = $request->get('parentId');
+        $parentId = json_decode($parentId);
+
+        if ($parentId) {
+            $hierarchyObj = new \Pimcore\Model\DataObject\CSHierarchy;
+            $parentObj = $hierarchyObj::getById($parentId);
+            if ($parentObj) {
+                $parentBricks = $hierarchyObj::getById($parentId)->getRelatedBricks();
+                if ($parentBricks) {
+                    foreach ($parentBricks as $parentBrick) {
+                        $result[] = array('text' => $parentBrick, 'id' => $parentBrick);
+                    }
+                }
+            }
+        }
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+
+    /**
+     * @Route("/get_countries")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountries(Request $request)
+    {
+        $segmentId = $request->get('segmentId');
+        $segmentId = json_decode($segmentId);
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+        if ($segmentId) {
+            foreach ($segmentId as $id) {
+                foreach ($segmentCountryConfig as $segment => $countries) {
+                    $segmentObj = new \Pimcore\Model\DataObject\CSSegment;
+                    $requestedSegmentName = $segmentObj::getById($id)->getSegmentName();
+                    if ($segment == $requestedSegmentName) {
+                        foreach ($countries as $country) {
+                            $result[] = array('text' => $country, 'id' => $country);
+                        }
+                    }
+                }
+            }
+        }
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+    /**
+     * @Route("/get_countries_complete")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountriesComplete(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+
+        foreach ($segmentCountryConfig as $countries) {
+            foreach ($countries as $country) {
+                $result[] = array('text' => $country, 'id' => $country);
+            }
+        }
+
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+    /**
      * @Route("/save_product")
      *
      * @param Request $request
@@ -100,7 +189,7 @@ class DefaultController extends FrontendController
      */
     public function saveProduct(Request $request)
     {
-        
+
         $this->configProviderService = new ConfigProviderService();
         $unitValueConfig = $this->configProviderService->getUnitValueConfig();
         $success = true;
@@ -114,6 +203,8 @@ class DefaultController extends FrontendController
             $productCategoryId = $request->get('categoryId');
             $productCategoryCheck = $request->get('productCategoryCheck');
             $userId = $request->get('userId');
+            $marcomId = $request->get('marcomId');
+            $editorId = $request->get('editorId');
 
             $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
             $CSHierarchyPath = $CSHierarchyObj->getPath();
@@ -182,6 +273,8 @@ class DefaultController extends FrontendController
                         }
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
+                        $product->setMarcomUser($marcomId);
+                        $product->setRnDUser($editorId);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
                         //$product->setNatureOfProduct($natureOfProduct);
@@ -202,7 +295,7 @@ class DefaultController extends FrontendController
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
                                 foreach ($unitValueConfig as $unit => $unitValue) {
-                                    
+
 
                                     $fieldKey = ucfirst($unitValue['fieldName']);
                                     $objectBrickFieldMethod = 'set' . $fieldKey;
@@ -213,6 +306,7 @@ class DefaultController extends FrontendController
                                         continue;
                                     }
                                 }
+                                $brickObject->setFieldname('ProductAttributes');
                                 $method = 'set' . $brick;
                                 $product->getProductAttributes()->$method($brickObject);
                             }
@@ -221,8 +315,7 @@ class DefaultController extends FrontendController
                         $product->save();
                         $parentId = $product->getId();
                         /** code added below to change workflow state on creation of product **/
-                        /* $productWorkflow = \Pimcore::getContainer()->get('state_machine.product_enrichment');
-			$productWorkflow->apply($product, 'send_to_process'); */
+                        
                         /** code added above to change workflow state on creation of product **/
                         \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
