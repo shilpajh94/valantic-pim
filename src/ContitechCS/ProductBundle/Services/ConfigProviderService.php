@@ -129,8 +129,13 @@ class ConfigProviderService
 
             $obj = $this->getWebSiteSetting($setting_key);
 
-            $thumbnail = $obj->getThumbnail('catalog_thumb');
+            $thumbnail = '';
 
+            if(method_exists($obj,'getThumbnail'))
+            {
+                $thumbnail = $obj->getThumbnail('catalog_thumb');
+            }
+            
             return $thumbnail;
         }
         catch(Exception $e)
