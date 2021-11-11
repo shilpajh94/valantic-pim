@@ -1,8 +1,13 @@
 <?php 
 
 /** 
+<<<<<<< HEAD
 * Generated at: 2021-11-09T21:29:37+01:00
 * Inheritance: no
+=======
+* Generated at: 2021-11-11T12:26:35+05:30
+* Inheritance: yes
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
 * Variants: no
 * Changed by: admin (2)
 * IP: 127.0.0.1
@@ -13,27 +18,32 @@ Fields Summary:
 - CorporateBrand [input]
 - ProductBrand [input]
 - ProductOwner [user]
+- MarcomUser [user]
+- RnDUser [user]
 - isPaused [checkbox]
 - isArchived [checkbox]
 - NatureOfProduct [input]
-- CSSegment [multiselect]
-- CSRegion [multiselect]
-- Benefits [input]
-- Features [input]
 - ProductClaimSlogan [input]
-- SelectCountries [multiselect]
 - CSPerformanceCategory [multiselect]
+<<<<<<< HEAD
 - PrintedCatalogFlag [booleanSelect]
+=======
+- CSSegment [multiselect]
+- SelectCountries [multiselect]
+- CSRegion [multiselect]
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
 - localizedfields [localizedfields]
 -- ProductDescription [textarea]
 -- ShortText [textarea]
 -- LongText [textarea]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
+- Benefits [manyToManyObjectRelation]
 - CSProductApplications [manyToManyObjectRelation]
-- CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSProductIndustries [manyToManyObjectRelation]
 - CoverCompounds [manyToManyObjectRelation]
+- Features [manyToManyObjectRelation]
+- CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
 - ProductAttributes [objectbricks]
@@ -67,7 +77,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
+<<<<<<< HEAD
    'modificationDate' => 1636489777,
+=======
+   'modificationDate' => 1636613794,
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -79,7 +93,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
+   'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 
@@ -323,185 +337,364 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           11 => 
                           array (
+<<<<<<< HEAD
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
                           12 => 
+=======
+                            'value' => 73,
+                            'key' => 'Editor_1',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'Editor_2',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 22,
+                            'key' => 'Eric (Eric Dupont)',
+                          ),
+                          14 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 28,
                             'key' => 'Jarek (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           13 => 
+=======
+                          15 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 20,
                             'key' => 'Jeff (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           14 => 
+=======
+                          16 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 25,
                             'key' => 'Jeremy (Jeremy Lidgett)',
                           ),
+<<<<<<< HEAD
                           15 => 
+=======
+                          17 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 14,
                             'key' => 'Joe (joe glandorf)',
                           ),
+<<<<<<< HEAD
                           16 => 
+=======
+                          18 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 26,
                             'key' => 'Karina (Karina Robinson)',
                           ),
+<<<<<<< HEAD
                           17 => 
+=======
+                          19 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 17,
                             'key' => 'Laszlo (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           18 => 
+=======
+                          20 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 12,
                             'key' => 'macenzie',
                           ),
+<<<<<<< HEAD
                           19 => 
+=======
+                          21 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'MarCom_1',
+                          ),
+                          22 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'MarCom_2',
+                          ),
+                          23 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'MarCom_3',
+                          ),
+                          24 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 8,
                             'key' => 'Mark (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           20 => 
+=======
+                          25 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 24,
                             'key' => 'MarkR (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           21 => 
+=======
+                          26 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 51,
                             'key' => 'ncem057 (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           22 => 
+=======
+                          27 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 15,
                             'key' => 'Nicole (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           23 => 
+=======
+                          28 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 48,
                             'key' => 'nlndv68 (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           24 => 
+=======
+                          29 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 27,
                             'key' => 'Paul (Paul Whiffin)',
                           ),
+<<<<<<< HEAD
                           25 => 
+=======
+                          30 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 35,
                             'key' => 'Pradeep',
                           ),
+<<<<<<< HEAD
                           26 => 
+=======
+                          31 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 34,
                             'key' => 'productmanager',
                           ),
+<<<<<<< HEAD
                           27 => 
+=======
+                          32 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'ProductManager_1',
+                          ),
+                          33 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'RajeshReadOnly (Rajesh Kumar)',
+                          ),
+                          34 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 29,
                             'key' => 'Randy (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           28 => 
+=======
+                          35 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 9,
                             'key' => 'Reji',
                           ),
+<<<<<<< HEAD
                           29 => 
+=======
+                          36 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'RnD_1',
+                          ),
+                          37 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 13,
                             'key' => 'Rohit',
                           ),
+<<<<<<< HEAD
                           30 => 
+=======
+                          38 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 18,
                             'key' => 'Steve (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           31 => 
                           array (
                             'value' => 58,
                             'key' => 'uib98517 (Toks Ajepe)',
                           ),
                           32 => 
+=======
+                          39 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 41,
                             'key' => 'uic58260 (Evan Wasen)',
                           ),
+<<<<<<< HEAD
                           33 => 
+=======
+                          40 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 30,
                             'key' => 'uic60917 (Krishnan Kumar)',
                           ),
+<<<<<<< HEAD
                           34 => 
+=======
+                          41 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 52,
                             'key' => 'uie20462 (Steven De Alwis)',
                           ),
+<<<<<<< HEAD
                           35 => 
+=======
+                          42 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 40,
                             'key' => 'V000320 (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           36 => 
+=======
+                          43 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 37,
                             'key' => 'v000696 (Mark Dario)',
                           ),
+<<<<<<< HEAD
                           37 => 
+=======
+                          44 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 43,
                             'key' => 'v001713 (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           38 => 
+=======
+                          45 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 39,
                             'key' => 'v002041 (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           39 => 
+=======
+                          46 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 45,
                             'key' => 'v002044 (Zach Christenson)',
                           ),
+<<<<<<< HEAD
                           40 => 
+=======
+                          47 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 46,
                             'key' => 'v002065 (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           41 => 
+=======
+                          48 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 44,
                             'key' => 'V104718 (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           42 => 
+=======
+                          49 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 53,
                             'key' => 'v106287 (Joe Glandorf)',
                           ),
+<<<<<<< HEAD
                           43 => 
                           array (
                             'value' => 56,
                             'key' => 'v106566 (Don Salandanan)',
                           ),
                           44 => 
+=======
+                          50 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 49,
                             'key' => 'V111211 (James Dusek)',
                           ),
+<<<<<<< HEAD
                           45 => 
+=======
+                          51 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 50,
                             'key' => 'v111296 (Scott Retzlaff)',
                           ),
+<<<<<<< HEAD
                           46 => 
+=======
+                          52 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 54,
                             'key' => 'V112497 (Morgan Lackey)',
                           ),
+<<<<<<< HEAD
                           47 => 
+=======
+                          53 => 
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           array (
                             'value' => 19,
                             'key' => 'Zach (Zach Christenson)',
@@ -517,7 +710,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => 'string',
                          'dynamicOptions' => false,
                          'name' => 'ProductOwner',
-                         'title' => 'ProductOwner',
+                         'title' => 'Product Owner',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -533,62 +726,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'fieldtype' => 'checkbox',
-                         'defaultValue' => 0,
-                         'queryColumnType' => 'tinyint(1)',
-                         'columnType' => 'tinyint(1)',
-                         'phpdocType' => 'boolean',
-                         'name' => 'isPaused',
-                         'title' => 'Is Paused',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'fieldtype' => 'checkbox',
-                         'defaultValue' => 0,
-                         'queryColumnType' => 'tinyint(1)',
-                         'columnType' => 'tinyint(1)',
-                         'phpdocType' => 'boolean',
-                         'name' => 'isArchived',
-                         'title' => 'Is Archived',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                         'fieldtype' => 'user',
                          'unique' => false,
+<<<<<<< HEAD
                          'showCharCount' => false,
                          'name' => 'NatureOfProduct',
                          'title' => 'Nature of product',
@@ -660,10 +801,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
+=======
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                          'options' => 
                         array (
                           0 => 
                           array (
+<<<<<<< HEAD
                             'key' => 'Australia / South Pacific',
                             'value' => 7500449,
                           ),
@@ -711,20 +855,288 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'key' => 'Western Europe',
                             'value' => 7500443,
+=======
+                            'value' => 47,
+                            'key' => 'a070825 (Alan Hickenbottom)',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 36,
+                            'key' => 'a352850 (Reji Joseph)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 55,
+                            'key' => 'a389752 (Randy Kish)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 2,
+                            'key' => 'admin',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 23,
+                            'key' => 'Andy (Andy Speidel)',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 16,
+                            'key' => 'Ben (Ben Tracey)',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 11,
+                            'key' => 'cory (Cory Walter)',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'CSProductManager_2',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 21,
+                            'key' => 'Dave (Dave Smith)',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 42,
+                            'key' => 'dobol (Laszlo Dobo)',
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
+                          ),
+                          10 => 
+                          array (
+                            'value' => 33,
+                            'key' => 'editor',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'Editor_1',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'Editor_2',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 22,
+                            'key' => 'Eric (Eric Dupont)',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 28,
+                            'key' => 'Jarek (Jarek Zakrzewski)',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 20,
+                            'key' => 'Jeff (Jeff Epperson)',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 25,
+                            'key' => 'Jeremy (Jeremy Lidgett)',
+                          ),
+                          17 => 
+                          array (
+                            'value' => 14,
+                            'key' => 'Joe (joe glandorf)',
+                          ),
+                          18 => 
+                          array (
+                            'value' => 26,
+                            'key' => 'Karina (Karina Robinson)',
+                          ),
+                          19 => 
+                          array (
+                            'value' => 17,
+                            'key' => 'Laszlo (Laszlo Dobo)',
+                          ),
+                          20 => 
+                          array (
+                            'value' => 12,
+                            'key' => 'macenzie',
+                          ),
+                          21 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'MarCom_1',
+                          ),
+                          22 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'MarCom_2',
+                          ),
+                          23 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'MarCom_3',
+                          ),
+                          24 => 
+                          array (
+                            'value' => 8,
+                            'key' => 'Mark (Rohan Kumar)',
+                          ),
+                          25 => 
+                          array (
+                            'value' => 24,
+                            'key' => 'MarkR (Mark Rosetta)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 51,
+                            'key' => 'ncem057 (Steve Davison)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 15,
+                            'key' => 'Nicole (Nicole Kostelnick)',
+                          ),
+                          28 => 
+                          array (
+                            'value' => 48,
+                            'key' => 'nlndv68 (Jeff Epperson)',
+                          ),
+                          29 => 
+                          array (
+                            'value' => 27,
+                            'key' => 'Paul (Paul Whiffin)',
+                          ),
+                          30 => 
+                          array (
+                            'value' => 35,
+                            'key' => 'Pradeep',
+                          ),
+                          31 => 
+                          array (
+                            'value' => 34,
+                            'key' => 'productmanager',
+                          ),
+                          32 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'ProductManager_1',
+                          ),
+                          33 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'RajeshReadOnly (Rajesh Kumar)',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 29,
+                            'key' => 'Randy (Rohan Kumar)',
+                          ),
+                          35 => 
+                          array (
+                            'value' => 9,
+                            'key' => 'Reji',
+                          ),
+                          36 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'RnD_1',
+                          ),
+                          37 => 
+                          array (
+                            'value' => 13,
+                            'key' => 'Rohit',
+                          ),
+                          38 => 
+                          array (
+                            'value' => 18,
+                            'key' => 'Steve (Steve Davison)',
+                          ),
+                          39 => 
+                          array (
+                            'value' => 41,
+                            'key' => 'uic58260 (Evan Wasen)',
+                          ),
+                          40 => 
+                          array (
+                            'value' => 30,
+                            'key' => 'uic60917 (Krishnan Kumar)',
+                          ),
+                          41 => 
+                          array (
+                            'value' => 52,
+                            'key' => 'uie20462 (Steven De Alwis)',
+                          ),
+                          42 => 
+                          array (
+                            'value' => 40,
+                            'key' => 'V000320 (Jarek Zakrzewski)',
+                          ),
+                          43 => 
+                          array (
+                            'value' => 37,
+                            'key' => 'v000696 (Mark Dario)',
+                          ),
+                          44 => 
+                          array (
+                            'value' => 43,
+                            'key' => 'v001713 (Nicole Kostelnick)',
+                          ),
+                          45 => 
+                          array (
+                            'value' => 39,
+                            'key' => 'v002041 (Cory Walter)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 45,
+                            'key' => 'v002044 (Zach Christenson)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 46,
+                            'key' => 'v002065 (Mark Rosetta)',
+                          ),
+                          48 => 
+                          array (
+                            'value' => 44,
+                            'key' => 'V104718 (Ben Tracey)',
+                          ),
+                          49 => 
+                          array (
+                            'value' => 53,
+                            'key' => 'v106287 (Joe Glandorf)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 49,
+                            'key' => 'V111211 (James Dusek)',
+                          ),
+                          51 => 
+                          array (
+                            'value' => 50,
+                            'key' => 'v111296 (Scott Retzlaff)',
+                          ),
+                          52 => 
+                          array (
+                            'value' => 54,
+                            'key' => 'V112497 (Morgan Lackey)',
+                          ),
+                          53 => 
+                          array (
+                            'value' => 19,
+                            'key' => 'Zach (Zach Christenson)',
                           ),
                         ),
-                         'width' => 300,
-                         'height' => '',
-                         'maxItems' => '',
-                         'renderType' => 'tags',
-                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
-                         'optionsProviderData' => 'CSRegion|RegionName',
-                         'queryColumnType' => 'text',
-                         'columnType' => 'text',
-                         'phpdocType' => 'array',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'optionsProviderClass' => NULL,
+                         'optionsProviderData' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
                          'dynamicOptions' => false,
-                         'name' => 'CSRegion',
-                         'title' => 'Region',
+                         'name' => 'MarcomUser',
+                         'title' => 'Marcom User',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -737,6 +1149,383 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                         'fieldtype' => 'user',
+                         'unique' => false,
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'value' => 47,
+                            'key' => 'a070825 (Alan Hickenbottom)',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 36,
+                            'key' => 'a352850 (Reji Joseph)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 55,
+                            'key' => 'a389752 (Randy Kish)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 2,
+                            'key' => 'admin',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 23,
+                            'key' => 'Andy (Andy Speidel)',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 16,
+                            'key' => 'Ben (Ben Tracey)',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 11,
+                            'key' => 'cory (Cory Walter)',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'CSProductManager_2',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 21,
+                            'key' => 'Dave (Dave Smith)',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 42,
+                            'key' => 'dobol (Laszlo Dobo)',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 33,
+                            'key' => 'editor',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'Editor_1',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'Editor_2',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 22,
+                            'key' => 'Eric (Eric Dupont)',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 28,
+                            'key' => 'Jarek (Jarek Zakrzewski)',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 20,
+                            'key' => 'Jeff (Jeff Epperson)',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 25,
+                            'key' => 'Jeremy (Jeremy Lidgett)',
+                          ),
+                          17 => 
+                          array (
+                            'value' => 14,
+                            'key' => 'Joe (joe glandorf)',
+                          ),
+                          18 => 
+                          array (
+                            'value' => 26,
+                            'key' => 'Karina (Karina Robinson)',
+                          ),
+                          19 => 
+                          array (
+                            'value' => 17,
+                            'key' => 'Laszlo (Laszlo Dobo)',
+                          ),
+                          20 => 
+                          array (
+                            'value' => 12,
+                            'key' => 'macenzie',
+                          ),
+                          21 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'MarCom_1',
+                          ),
+                          22 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'MarCom_2',
+                          ),
+                          23 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'MarCom_3',
+                          ),
+                          24 => 
+                          array (
+                            'value' => 8,
+                            'key' => 'Mark (Rohan Kumar)',
+                          ),
+                          25 => 
+                          array (
+                            'value' => 24,
+                            'key' => 'MarkR (Mark Rosetta)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 51,
+                            'key' => 'ncem057 (Steve Davison)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 15,
+                            'key' => 'Nicole (Nicole Kostelnick)',
+                          ),
+                          28 => 
+                          array (
+                            'value' => 48,
+                            'key' => 'nlndv68 (Jeff Epperson)',
+                          ),
+                          29 => 
+                          array (
+                            'value' => 27,
+                            'key' => 'Paul (Paul Whiffin)',
+                          ),
+                          30 => 
+                          array (
+                            'value' => 35,
+                            'key' => 'Pradeep',
+                          ),
+                          31 => 
+                          array (
+                            'value' => 34,
+                            'key' => 'productmanager',
+                          ),
+                          32 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'ProductManager_1',
+                          ),
+                          33 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'RajeshReadOnly (Rajesh Kumar)',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 29,
+                            'key' => 'Randy (Rohan Kumar)',
+                          ),
+                          35 => 
+                          array (
+                            'value' => 9,
+                            'key' => 'Reji',
+                          ),
+                          36 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'RnD_1',
+                          ),
+                          37 => 
+                          array (
+                            'value' => 13,
+                            'key' => 'Rohit',
+                          ),
+                          38 => 
+                          array (
+                            'value' => 18,
+                            'key' => 'Steve (Steve Davison)',
+                          ),
+                          39 => 
+                          array (
+                            'value' => 41,
+                            'key' => 'uic58260 (Evan Wasen)',
+                          ),
+                          40 => 
+                          array (
+                            'value' => 30,
+                            'key' => 'uic60917 (Krishnan Kumar)',
+                          ),
+                          41 => 
+                          array (
+                            'value' => 52,
+                            'key' => 'uie20462 (Steven De Alwis)',
+                          ),
+                          42 => 
+                          array (
+                            'value' => 40,
+                            'key' => 'V000320 (Jarek Zakrzewski)',
+                          ),
+                          43 => 
+                          array (
+                            'value' => 37,
+                            'key' => 'v000696 (Mark Dario)',
+                          ),
+                          44 => 
+                          array (
+                            'value' => 43,
+                            'key' => 'v001713 (Nicole Kostelnick)',
+                          ),
+                          45 => 
+                          array (
+                            'value' => 39,
+                            'key' => 'v002041 (Cory Walter)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 45,
+                            'key' => 'v002044 (Zach Christenson)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 46,
+                            'key' => 'v002065 (Mark Rosetta)',
+                          ),
+                          48 => 
+                          array (
+                            'value' => 44,
+                            'key' => 'V104718 (Ben Tracey)',
+                          ),
+                          49 => 
+                          array (
+                            'value' => 53,
+                            'key' => 'v106287 (Joe Glandorf)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 49,
+                            'key' => 'V111211 (James Dusek)',
+                          ),
+                          51 => 
+                          array (
+                            'value' => 50,
+                            'key' => 'v111296 (Scott Retzlaff)',
+                          ),
+                          52 => 
+                          array (
+                            'value' => 54,
+                            'key' => 'V112497 (Morgan Lackey)',
+                          ),
+                          53 => 
+                          array (
+                            'value' => 19,
+                            'key' => 'Zach (Zach Christenson)',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'optionsProviderClass' => NULL,
+                         'optionsProviderData' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'RnDUser',
+                         'title' => 'R&D User',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'fieldtype' => 'checkbox',
+                         'defaultValue' => 0,
+                         'queryColumnType' => 'tinyint(1)',
+                         'columnType' => 'tinyint(1)',
+                         'phpdocType' => 'boolean',
+                         'name' => 'isPaused',
+                         'title' => 'Is Paused',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'fieldtype' => 'checkbox',
+                         'defaultValue' => 0,
+                         'queryColumnType' => 'tinyint(1)',
+                         'columnType' => 'tinyint(1)',
+                         'phpdocType' => 'boolean',
+                         'name' => 'isArchived',
+                         'title' => 'Is Archived',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'NatureOfProduct',
+                         'title' => 'Nature of product',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -772,62 +1561,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'Benefits',
-                         'title' => 'Benefits',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'Features',
-                         'title' => 'Features',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
                          'name' => 'ProductClaimSlogan',
                          'title' => 'Product Claim/Slogan',
                          'tooltip' => '',
@@ -843,6 +1576,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'CSPerformanceCategory',
+                         'title' => 'Performance Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'AMERICAS',
+                            'value' => 7067081,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'APAC',
+                            'value' => 7067080,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'EMEA',
+                            'value' => 7067079,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'SERVICE',
+                            'value' => 7067082,
+                          ),
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSSegment|SegmentName',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'CSSegment',
+                         'title' => 'Segment',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                       )),
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -882,6 +1697,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+<<<<<<< HEAD
                             'key' => 'Abrasion Compounds',
                             'value' => 7500367,
                           ),
@@ -939,20 +1755,74 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'key' => 'White Compounds',
                             'value' => 7500378,
+=======
+                            'key' => 'Australia / South Pacific',
+                            'value' => 7070485,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'China & Mongolia',
+                            'value' => 7070483,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Eastern Europe/Russia',
+                            'value' => 7070480,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'India',
+                            'value' => 7070484,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'Middle East/North Africa',
+                            'value' => 7070481,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'North America',
+                            'value' => 7070477,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'South America',
+                            'value' => 7070478,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'South East Asia',
+                            'value' => 7070486,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'Subsahara/South Africa',
+                            'value' => 7070482,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'Western Europe',
+                            'value' => 7070479,
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                           ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
+<<<<<<< HEAD
                          'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSCoverCompoundsOptionProvider',
                          'optionsProviderData' => '',
+=======
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSRegion|RegionName',
+>>>>>>> origin/CBS_Material_Benefit_Features_Masters
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',
                          'dynamicOptions' => false,
-                         'name' => 'CSPerformanceCategory',
-                         'title' => 'Performance Category',
+                         'name' => 'CSRegion',
+                         'title' => 'Region',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1265,7 +2135,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
-                         'visibleFields' => 'ApplicationName',
+                         'visibleFields' => 'BenefitName',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
                          'visibleFieldDefinitions' => 
@@ -1275,12 +2145,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'CSApplications',
+                            'classes' => 'CSBenefits',
                           ),
                         ),
                          'pathFormatterClass' => '',
-                         'name' => 'CSProductApplications',
-                         'title' => 'Applications',
+                         'name' => 'Benefits',
+                         'title' => 'Benefits',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1302,7 +2172,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
-                         'visibleFields' => 'FeatureName',
+                         'visibleFields' => 'ApplicationName',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
                          'visibleFieldDefinitions' => 
@@ -1312,12 +2182,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'CSFeaturesAndBenefits',
+                            'classes' => 'CSApplications',
                           ),
                         ),
                          'pathFormatterClass' => '',
-                         'name' => 'CSProductFeaturesAndBenefits',
-                         'title' => 'Features and Benefits',
+                         'name' => 'CSProductApplications',
+                         'title' => 'Applications',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1435,6 +2305,80 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
+                         'visibleFields' => 'FeatureName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSFeatures',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'Features',
+                         'title' => 'Features',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'FeatureName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSFeaturesAndBenefits',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSProductFeaturesAndBenefits',
+                         'title' => 'Features and Benefits',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
                          'visibleFields' => 'Name',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
@@ -1463,7 +2407,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      1 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1557,18 +2501,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   19 => 'ProdAttrSetU',
                   20 => 'ProdAttrSetV',
                   21 => 'ProdAttrSetY',
-                  22 => 'ProdAttrSetX',
-                  23 => 'ProdAttrSetW',
-                  24 => 'ProdAttrSetAA',
-                  25 => 'ProdAttrSetAB',
-                  26 => 'ProdAttrSetAC',
-                  27 => 'ProdAttrSetZ',
-                  28 => 'ProdAttrSetAD',
-                  29 => 'ProdAttrSetAE',
-                  30 => 'ProdAttrSetAF',
-                  31 => 'ProdAttrSetAG',
-                  32 => 'ProdAttrSetAH',
-                  33 => 'ProdAttrSetAI',
+                  22 => 'ProdAttrSetW',
+                  23 => 'ProdAttrSetAA',
+                  24 => 'ProdAttrSetAB',
+                  25 => 'ProdAttrSetAC',
+                  26 => 'ProdAttrSetZ',
+                  27 => 'ProdAttrSetAD',
+                  28 => 'ProdAttrSetAE',
+                  29 => 'ProdAttrSetAF',
+                  30 => 'ProdAttrSetAG',
+                  31 => 'ProdAttrSetAH',
+                  32 => 'ProdAttrSetAI',
+                  33 => 'ProdAttrSetX',
                 ),
                  'maxItems' => '',
                  'border' => false,

@@ -58,8 +58,16 @@ class DefaultController extends FrontendController
      */
     public function getUsers(Request $request)
     {
+        $param = $request->get('param');
+        if ($param == 'owner') {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
+        } else if ($param == 'marcom') {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_MARCOM_ROLES;
+        } else {
+            $ownerRoles = UserConstants::ALLOWED_PRODUCT_EDITOR_ROLES;
+        }
         $rolesList = new User\Role\Listing();
-        $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
+        //$ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
         $conditionArr = [];
         foreach ($ownerRoles as $roleName) {
             $conditionArr[] = 'name = ' . $rolesList->quote($roleName);
@@ -195,6 +203,8 @@ class DefaultController extends FrontendController
             $productCategoryId = $request->get('categoryId');
             $productCategoryCheck = $request->get('productCategoryCheck');
             $userId = $request->get('userId');
+            $marcomId = $request->get('marcomId');
+            $editorId = $request->get('editorId');
 
             $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
             $CSHierarchyPath = $CSHierarchyObj->getPath();
@@ -263,6 +273,8 @@ class DefaultController extends FrontendController
                         }
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
+                        $product->setMarcomUser($marcomId);
+                        $product->setRnDUser($editorId);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
                         //$product->setNatureOfProduct($natureOfProduct);
@@ -294,6 +306,7 @@ class DefaultController extends FrontendController
                                         continue;
                                     }
                                 }
+                                $brickObject->setFieldname('ProductAttributes');
                                 $method = 'set' . $brick;
                                 $product->getProductAttributes()->$method($brickObject);
                             }
@@ -302,8 +315,7 @@ class DefaultController extends FrontendController
                         $product->save();
                         $parentId = $product->getId();
                         /** code added below to change workflow state on creation of product **/
-                        /* $productWorkflow = \Pimcore::getContainer()->get('state_machine.product_enrichment');
-			$productWorkflow->apply($product, 'send_to_process'); */
+                        
                         /** code added above to change workflow state on creation of product **/
                         \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";

@@ -63,6 +63,7 @@ class ObjectListener
     {
         $object = $event->getObject();
         $type = $object->getType();
+
         if ($type != 'folder') {
             $className = $object->getClassName();
 
@@ -73,6 +74,7 @@ class ObjectListener
                 $applyvalidation = false;
                 if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                     //custom brick validation
+
                     $product_name = trim($object->getName());
                     $parent = $object->getParent();
                     $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
@@ -81,7 +83,12 @@ class ObjectListener
                         $applyvalidation = true;
                     } else {
                         if ($parent != "/Contitech_ConveyorSolution/Products") {
-                            $parent_name = trim($parent->getName());
+                            if ($parent->getType() == 'folder') {
+                                $parent_name = $parent->getParent()->getName();
+                            } else {
+                                $parent_name = trim($parent->getName());
+                            }
+
                             if (isset($config[$parent_name])) {
                                 $applyvalidation = true;
                                 $product_name = $parent_name;
@@ -126,12 +133,14 @@ class ObjectListener
                         throw new \Pimcore\Model\Element\ValidationException($msg, 1234);
                     }
                 }
-                
+
                 $response = $this->checkArchivedAssetMapping($object);
-                if (empty($response['success']) ) {
+                if (empty($response['success'])) {
                     throw new \Pimcore\Model\Element\ValidationException('Archived asset can not be mapped with Product.');
                 }
+                //if (php_sapi_name() != "cli") {
                 $object->setGetInheritedValues(true);
+                //}
                 $this->percentageCompletionService->completenessPercentage($object);
             }
         }
@@ -139,67 +148,67 @@ class ObjectListener
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
-//        if (php_sapi_name() != "cli") {
-            // to also get the inherited values
-            
-            
-                
-                //$this->checkUniqueProduct($object);
+        //        if (php_sapi_name() != "cli") {
+        // to also get the inherited values
 
-                /**
-                 * update the unit conversion attributes
-                 */
-                //$this->updateUnitConversionAttributes($object);
-            
-//        }
+
+
+        //$this->checkUniqueProduct($object);
+
+        /**
+         * update the unit conversion attributes
+         */
+        //$this->updateUnitConversionAttributes($object);
+
+        //        }
     }
-    
-    public function checkArchivedAssetMapping(DataObject\CSProducts $product) {
+
+    public function checkArchivedAssetMapping(DataObject\CSProducts $product)
+    {
         $classDefinition = DataObject\ClassDefinition::getByName($product->getClassName());
         $fieldDef = $classDefinition->getFieldDefinitions();
-        
-//        $langs = \Pimcore\Tool::getValidLanguages();
-//        foreach ($langs as $lang) {
-            foreach ($fieldDef as $field) {
-                $fieldType = $field->getFieldType();
-                $getter = "get".ucfirst($field->getName());
-                if ($fieldType == 'image') {
-                    $asset = $product->$getter();
-                    if (!empty($asset) && (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false)) {
-                        return ['success' => false, 'fieldName' => $field->getTitle()];
-                    }
-                } elseif ($fieldType == 'imageGallery') {
-                    $gallery = $product->$getter();
-                    if (!empty($gallery) && !empty($gallery->getItems())) {
-                        $items = $gallery->getItems();
-                        foreach ($items as $item) {
-                            if (!empty($item)) {
-                                $asset = $item->getImage();
-                                if (!empty($asset) && (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false)) {
-                                    return ['success' => false, 'fieldName' => $field->getTitle()];
-                                }
+
+        //        $langs = \Pimcore\Tool::getValidLanguages();
+        //        foreach ($langs as $lang) {
+        foreach ($fieldDef as $field) {
+            $fieldType = $field->getFieldType();
+            $getter = "get" . ucfirst($field->getName());
+            if ($fieldType == 'image') {
+                $asset = $product->$getter();
+                if (!empty($asset) && (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false)) {
+                    return ['success' => false, 'fieldName' => $field->getTitle()];
+                }
+            } elseif ($fieldType == 'imageGallery') {
+                $gallery = $product->$getter();
+                if (!empty($gallery) && !empty($gallery->getItems())) {
+                    $items = $gallery->getItems();
+                    foreach ($items as $item) {
+                        if (!empty($item)) {
+                            $asset = $item->getImage();
+                            if (!empty($asset) && (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false)) {
+                                return ['success' => false, 'fieldName' => $field->getTitle()];
                             }
                         }
                     }
-                } elseif ($fieldType == 'video') {
-                    $video = $product->$getter();
-                    if (!empty($video) && $video->getType()=='asset') {
-                        $asset = $video->getData();
-                        if (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false) {
-                            return ['success' => false, 'fieldName' => $field->getTitle()];
-                        }
+                }
+            } elseif ($fieldType == 'video') {
+                $video = $product->$getter();
+                if (!empty($video) && $video->getType() == 'asset') {
+                    $asset = $video->getData();
+                    if (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false) {
+                        return ['success' => false, 'fieldName' => $field->getTitle()];
                     }
-                } elseif ($fieldType == 'manyToManyRelation') {
-                    $docs = $product->$getter();
-                    foreach ($docs as $asset) {
-                        if (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false) {
-                            return ['success' => false, 'fieldName' => $field->getTitle()];
-                        }
+                }
+            } elseif ($fieldType == 'manyToManyRelation') {
+                $docs = $product->$getter();
+                foreach ($docs as $asset) {
+                    if (strpos($asset->getRealFullPath(), '/Contitech_ConveyorSolution/Internal Assets/') !== false) {
+                        return ['success' => false, 'fieldName' => $field->getTitle()];
                     }
                 }
             }
-            return ['success' => true];
-        
+        }
+        return ['success' => true];
     }
 
 

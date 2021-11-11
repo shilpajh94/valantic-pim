@@ -15,35 +15,61 @@ parameters:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment to RND'
             notificationTo: 
                 users:
+                    - RnDUser
                 roles:
-                    - EditorCS
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        send_for_review:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Review To Marcom'
+        send_to_marcom:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
             notificationTo: 
                 users:
+                    - MarComUser
                 roles:
-                    - MarComCS
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        reject_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Sent for Fixes'
+    
+        send_to_publish:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
             notificationTo: 
                 users:
                     - ProductOwner
+#                    - UserOwner   
+                    # user owner is product creator means Product Manager
                 roles:
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
+        reject_to_rnd:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Sent for Fixes to RnD'
+            notificationTo: 
+                users:
+                    - RnDUser
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        reject_to_marcom:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Sent for Fixes to marcom'
+            notificationTo: 
+                users:
+                    - MarcomUser
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        
 #        approve_product:
 #            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Approved'
 #            notificationTo: 
@@ -55,24 +81,12 @@ parameters:
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        send_to_publish:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
-            notificationTo: 
-                users:
-                    - UserOwner   
-                    # user owner is product creator means Product Manager
-                roles:
-#            notificationCC: 
-#                users: 
-#                    - ProductOwner
-#                    - UserOwner
-#                roles:
-    
         publish_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Notification for Publish Product to PO'
             notificationTo: 
                 users:
-                    - ProductOwner
+                    - UserOwner
+                    - MarcomUser
                 roles:
 #            notificationCC: 
 #                users: 
@@ -85,8 +99,8 @@ parameters:
                 users:
                     - ProductOwner
                     - UserOwner
+                    - MarcomUser
                 roles:
-                    - MarComCS
                     
 #            notificationCC: 
 #                users: 
@@ -101,8 +115,9 @@ parameters:
                 users:
                     - ProductOwner
                     - UserOwner
+                    - MarcomUser
                 roles:
-                    - MarComCS
+                    
             action: 
                 isArchived: true
                 published: false
@@ -113,9 +128,22 @@ parameters:
                 isPaused: false
             condition:
                 
-        approve_product:
+        send_to_marcom:
             condition:
                 methods: [checkForMandatoryValidation]
+                
+        send_to_publish:
+            condition:
+                methods: [checkForMandatoryValidation] 
+                
+        publish_product:
+            action: 
+                isPaused: false
+                published: true
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+                    - checkIfParentUnPublished
                 
         pause_product:
             action: 
@@ -129,10 +157,7 @@ parameters:
                 published: false
             condition:
                 methods: [checkIfChildsArchive]
-        publish_product:
-            action: 
-                isPaused: false
-                published: true
+        
                 
         archive_asset:
             action:
@@ -143,26 +168,3 @@ parameters:
             action:
                 path: '/Contitech_ConveyorSolution/Product Assets/Unarchived'
         
-    # Workflow reminder configuration
-    # Places: Places is name of the Place which defined in workflow configuration in app/config.yml
-    reminder:
-        places:
-            enrich:
-                subject: 'Product Enrich'
-                # If further action could not performed by recipent, then a reminder email will be send.
-                reminderIntervalDay:
-                    'First Reminder': 2
-                    'Second Reminder': 4
-                    'Final Reminder': 5
-                # If User will take action till last reminder, then send reminder to BU Admin after specified days.
-                reminderToBUAdminIntervalDay: [5]
-                templatePath: '/Workflow/Email Template/productEnrichReminder'
-            review_content:
-                subject: 'Product Review'
-                reminderIntervalDay:
-                    'First Reminder': 2
-                    'Second Reminder': 4
-                    'Final Reminder': 5
-                reminderToBUAdminIntervalDay: [5]
-                templatePath: '/Workflow/Email Template/productReviewReminder'
-            buAdminTemplatePath: '/Workflow/Email Template/productReminderBUAdmin'

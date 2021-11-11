@@ -13,9 +13,9 @@ class ProductEnrichmentListener
 {
     private $config;
     private $transitionConfig;
-    
+    private $validationService;
     public function __construct() {
-        
+        $this->validationService = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\MandatoryValidationService');
         $wfConfigData = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getWorkflowConfig()['parameters'];
         $this->config = isset($wfConfigData['completed']) ? $wfConfigData['completed'] : false;
         $this->transitionConfig = isset($wfConfigData['transition']) ? $wfConfigData['transition'] : false;
@@ -30,7 +30,7 @@ class ProductEnrichmentListener
     }
 
 
-    public function checkIfChildsArchive($product) {
+    public function checkIfChildsArchive($product, $transitionName) {
         $list = new DataObject\CSProducts\Listing();
         $list->setIgnoreLocalizedFields(true);
         $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`isArchived` is NULL OR `isArchived` = false) ');
@@ -42,18 +42,36 @@ class ProductEnrichmentListener
         }
     }
     
-    public function checkForMandatoryValidation($product) {
-        $serviceObj = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\MandatoryValidationService');
-        $validationApplicability = $serviceObj->checkValidationApplicability($product);
+    public function checkForMandatoryValidation($product, $transitionName) {
+        
+        
+        $validationApplicability = $this->validationService->checkValidationApplicability($product);
         $success = true;
         $msg = '';
         if ($validationApplicability) {
             try {
-                $serviceObj->checkForMandatoryValidation($product);
+                $reqAttributesByUser = [];
+                if($transitionName != "publish_product") {
+                    $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
+                    $reqAttributesByUser = \ContitechCS\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
+                }
+                $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
             } catch (\Exception $ex) {
                 $success = false;
                 $msg = $ex->getMessage();
             }
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+    
+    public function checkIfParentUnPublished($product, $transitionName) {
+        $success = true;
+        $msg = '';
+        try {
+            $this->validationService->checkForParentUnpublishValidation($product);
+        }  catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
         }
         return ['success' => $success, 'msg' => $msg];
     }
@@ -68,7 +86,7 @@ class ProductEnrichmentListener
                 if (!empty($transitionConfig['condition'])) {
                     $validationMethods = $transitionConfig['condition']['methods'];
                     foreach ($validationMethods as $method) {
-                        $response = $this->$method($product);
+                        $response = $this->$method($product, $transitionName);
                         if (empty($response['success'])) {
                             throw new ValidationException($response['msg']);
                         }
@@ -146,17 +164,25 @@ class ProductEnrichmentListener
         if (!empty($userRolesArray)) {
             if (!empty($userRolesArray['users']) && count($userRolesArray['users']) >0) {
                 $userIds = [];
-                if (in_array('ProductOwner', $userRolesArray['users'])) {
-                    $userIds[] = $product->getProductOwner();
-                } 
-                if (in_array('UserOwner', $userRolesArray['users'])) {
-                    $userIds[] = $product->getUserOwner();
+                foreach ($userRolesArray['users'] as $userField) {
+                    if (!empty($userField)) {
+                        $getter = "get".ucfirst($userField);
+                        $userIds[] = $product->$getter();
+                    }
                 }
-                $userList = new \Pimcore\Model\User\Listing();
-                $userList->setCondition("`id` IN (".implode(", ", $userIds).")");
-                foreach($userList as $user) {
-                    if (!empty($user) && ($user instanceof \Pimcore\Model\User) && !empty($user->getEmail())) {
-                        array_push($emailIds, $user->getEmail());
+//                if (in_array('ProductOwner', $userRolesArray['users'])) {
+//                    $userIds[] = $product->getProductOwner();
+//                } 
+//                if (in_array('UserOwner', $userRolesArray['users'])) {
+//                    $userIds[] = $product->getUserOwner();
+//                }
+                if (count($userIds)>0) {
+                    $userList = new \Pimcore\Model\User\Listing();
+                    $userList->setCondition("`id` IN (".implode(", ", $userIds).")");
+                    foreach($userList as $user) {
+                        if (!empty($user) && ($user instanceof \Pimcore\Model\User) && !empty($user->getEmail())) {
+                            array_push($emailIds, $user->getEmail());
+                        }
                     }
                 }
             }
