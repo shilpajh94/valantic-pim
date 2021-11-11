@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-11T11:12:04+05:30
+* Generated at: 2021-11-11T12:26:35+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -18,11 +18,9 @@ Fields Summary:
 - isPaused [checkbox]
 - isArchived [checkbox]
 - NatureOfProduct [input]
-- CSSegment [multiselect]
-- Benefits [input]
-- Features [input]
 - ProductClaimSlogan [input]
 - CSPerformanceCategory [multiselect]
+- CSSegment [multiselect]
 - SelectCountries [multiselect]
 - CSRegion [multiselect]
 - localizedfields [localizedfields]
@@ -31,9 +29,11 @@ Fields Summary:
 -- LongText [textarea]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
+- Benefits [manyToManyObjectRelation]
 - CSProductApplications [manyToManyObjectRelation]
 - CSProductIndustries [manyToManyObjectRelation]
 - CoverCompounds [manyToManyObjectRelation]
+- Features [manyToManyObjectRelation]
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
@@ -68,7 +68,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1636609322,
+   'modificationDate' => 1636613794,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1241,7 +1241,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => 'margin-left:30px;',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'ProductClaimSlogan',
+                         'title' => 'Product Claim/Slogan',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'CSPerformanceCategory',
+                         'title' => 'Performance Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -1292,144 +1373,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                    ),
-                     'locked' => false,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => 'margin-left:30px;',
-                     'datatype' => 'layout',
-                     'permissions' => NULL,
-                     'childs' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'Benefits',
-                         'title' => 'Benefits',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'Features',
-                         'title' => 'Features',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'ProductClaimSlogan',
-                         'title' => 'Product Claim/Slogan',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                         'fieldtype' => 'multiselect',
-                         'options' => 
-                        array (
-                        ),
-                         'width' => 300,
-                         'height' => '',
-                         'maxItems' => '',
-                         'renderType' => 'tags',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                         'queryColumnType' => 'text',
-                         'columnType' => 'text',
-                         'phpdocType' => 'array',
-                         'dynamicOptions' => false,
-                         'name' => 'CSPerformanceCategory',
-                         'title' => 'Performance Category',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -1460,7 +1404,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      5 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -1797,6 +1741,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
+                         'visibleFields' => 'BenefitName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSBenefits',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'Benefits',
+                         'title' => 'Benefits',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
                          'visibleFields' => 'ApplicationName',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
@@ -1825,7 +1806,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      1 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1862,7 +1843,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1938,6 +1919,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+                            'classes' => 'CSFeatures',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'Features',
+                         'title' => 'Features',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'FeatureName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
                             'classes' => 'CSFeaturesAndBenefits',
                           ),
                         ),
@@ -1956,7 +1974,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      1 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -1993,7 +2011,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
@@ -2087,18 +2105,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   19 => 'ProdAttrSetU',
                   20 => 'ProdAttrSetV',
                   21 => 'ProdAttrSetY',
-                  22 => 'ProdAttrSetX',
-                  23 => 'ProdAttrSetW',
-                  24 => 'ProdAttrSetAA',
-                  25 => 'ProdAttrSetAB',
-                  26 => 'ProdAttrSetAC',
-                  27 => 'ProdAttrSetZ',
-                  28 => 'ProdAttrSetAD',
-                  29 => 'ProdAttrSetAE',
-                  30 => 'ProdAttrSetAF',
-                  31 => 'ProdAttrSetAG',
-                  32 => 'ProdAttrSetAH',
-                  33 => 'ProdAttrSetAI',
+                  22 => 'ProdAttrSetW',
+                  23 => 'ProdAttrSetAA',
+                  24 => 'ProdAttrSetAB',
+                  25 => 'ProdAttrSetAC',
+                  26 => 'ProdAttrSetZ',
+                  27 => 'ProdAttrSetAD',
+                  28 => 'ProdAttrSetAE',
+                  29 => 'ProdAttrSetAF',
+                  30 => 'ProdAttrSetAG',
+                  31 => 'ProdAttrSetAH',
+                  32 => 'ProdAttrSetAI',
+                  33 => 'ProdAttrSetX',
                 ),
                  'maxItems' => '',
                  'border' => false,
