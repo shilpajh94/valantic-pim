@@ -31,6 +31,7 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH);
     }
+
     public function getUnitValueConfig()
     {
         return $this->getConfigFromYmlFile(CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
@@ -49,6 +50,16 @@ class ConfigProviderService
     }
 
 
+    public function getCatalogProductTablesConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH);
+    }
+
+    public function getCatalogImageMappingConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH);
+    }
+    
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
@@ -73,4 +84,64 @@ class ConfigProviderService
         }
         return $config;
     }
+
+
+    /**
+     * get website settings
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getWebSiteSetting($key = false)
+    {   
+        try
+        {   
+            if(!$key)
+            {
+                throw new Exception("Website setting key is required");
+            }
+
+            $val    = false;
+            $obj    =  \Pimcore\Model\WebsiteSetting::getByName($key, null, 'en');
+
+            if($obj)
+            {
+                $val = $obj->getData();
+            }
+
+           return $val;
+
+        }
+        catch(Exception $e)
+        {   
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * get default image
+     *
+     * @return string
+     */
+    public function getDefaultImage($setting_key = 'default_image')
+    { 
+        try{
+
+            $obj = $this->getWebSiteSetting($setting_key);
+
+            $thumbnail = '';
+
+            if(method_exists($obj,'getThumbnail'))
+            {
+                $thumbnail = $obj->getThumbnail('catalog_thumb');
+            }
+            
+            return $thumbnail;
+        }
+        catch(Exception $e)
+        { 
+            throw new Exception($e->getMessage());
+        }
+    }
 }
+
