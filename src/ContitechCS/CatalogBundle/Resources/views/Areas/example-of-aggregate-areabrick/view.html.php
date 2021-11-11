@@ -29,7 +29,7 @@
 <table width="100%">
     <thead>
         <tr align="right">
-			<th colspan="4" class="p-0">
+			<th colspan="4" class="p-0" >
             <?php
                     if($this->editmode)
                     {
@@ -49,11 +49,15 @@
                         if($CSSImgSrcObj)
                         {
                             ?>
-                                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" style="float:right" class="w-80"/>
+<div class="process-image">
+
+                                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="w-80"   />
+</div>
                             <?php
                         }
                     }
             ?>
+
 			</th>
 		</tr>
         <tr valign="bottom">
@@ -87,4 +91,3 @@
         ?>
     </tbody>
 </table>
-

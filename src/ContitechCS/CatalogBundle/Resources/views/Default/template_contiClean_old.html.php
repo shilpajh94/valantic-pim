@@ -18,7 +18,7 @@
 <div class="wrapper conticleanpage">
     <header id="header">
         <div class="header-sec">
-<div class="header-txt"><span class="first-title">Conveying Solutions</span>  
+<div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>  
             <div class="print-pg-no"></div>
         </div>
     </header>

@@ -7,7 +7,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <header id="header">
         <div class="header-sec">
              <div class="header-txt">
-<span class="first-title"><strong>Conveying Solutions</strong></span>
+<div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span> 
                 <?php if($this->input("TOC_header_title")->isEmpty()): ?>
                                 <span class="second-title"><?= $this->input("TOC_header_title")->setDataFromResource('Table of Contents'); ?></span>
 
