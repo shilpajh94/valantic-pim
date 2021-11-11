@@ -22,7 +22,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <div class="wrapper">
         <header id="header">
             <div class="header-sec">
-                <div class="header-txt">
                 <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
                 <span class="second-title">
                     <?= $this->input("CPB_title",["placeholder" =>"Enter Your  Title"]); ?></span>
@@ -180,8 +179,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                 </span>
                 </h2>
-                <div class="feature-benefit-list">
-
+                <div class="feature-benefit-list">	
                 <h3 class="orange mb-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CPBChild_ProductClaimSlogan")->isEmpty()): ?>
@@ -193,8 +191,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?= $this->input("CPBChild_ProductClaimSlogan") ?>
                     <?php endif; ?>
                 </h3>
-                
-                   <div> 
+                    
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBChild_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBChild_ShortText")->setDataFromResource($childProductData['ShortText']) ?>
@@ -204,13 +201,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                             <?= $this->wysiwyg("CPBChild_ShortText") ?>
                     <?php endif; ?> 
-                </div>
+                    </div>
 
                 <div class="feature-benefit-list black-bold">
-
-
-
-                <div class="feature-benefit-list">
 
                     <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("CPBChild_Benefits")->isEmpty()): ?>

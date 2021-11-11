@@ -23,7 +23,6 @@ $coverCompound = $data['coverCompoundData'];
 <div class="wrapper">
         <header id="header">
             <div class="header-sec">
-                <div class="header-txt">
                 <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
                 <span class="second-title">
                     <?= $this->input("CC_title",["placeholder" =>"Enter Your  Title"]); ?></span>
@@ -262,19 +261,6 @@ $coverCompound = $data['coverCompoundData'];
                             <?= $this->input("CCHRPage_NamePerformanceCategory") ?>
                     <?php endif; ?>
                 </h1>
-                <p>
-                    <?php if($this->editmode): ?>
-                            <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
-                                    <?= $this->textarea("CCHRPage_LongText")->setDataFromResource($singleProductPage['LongText']) ?>
-                            <?php else: ?>
-                                    <?= $this->textarea("CCHRPage_LongText"); ?>
-                            <?php endif; ?>
-                    <?php else: ?>
-                            <?= $this->textarea("CCHRPage_LongText") ?>
-                    <?php endif; ?>
-                    
-                </p>
-
                 <?php
                     if($this->editmode)
                     {
@@ -292,11 +278,26 @@ $coverCompound = $data['coverCompoundData'];
                         if($CCHRPage_productImageObj)
                         {
                         ?>
-                       <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
+                        <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
                         <?php
                         }
                     }
                 ?>
+
+                <p>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
+                                    <?= $this->textarea("CCHRPage_LongText")->setDataFromResource($singleProductPage['LongText']) ?>
+                            <?php else: ?>
+                                    <?= $this->textarea("CCHRPage_LongText"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->textarea("CCHRPage_LongText") ?>
+                    <?php endif; ?>
+                    
+                </p>
+
+                
                         
                 <?php if($singleProductPage['FeaturesAndBenefits']) {  ?>
                     <div class="features-benefit-sec">
@@ -357,7 +358,7 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                 <?php } ?>
                         
-               <div class="environment-quality-sec">
+                <div class="environment-quality-sec">
                 <div class="media my-4">
 
                     <?php
