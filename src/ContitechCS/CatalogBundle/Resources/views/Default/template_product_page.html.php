@@ -177,7 +177,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
-                                        <?= $this->input("PPF_FeatureBenefitsLabel")->setDataFromResource('Features and Benefits') ?>
+                                        <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder' => 'Features and Benefits']); ?>
                                 <?php else: ?>
                                         <?= $this->input("PPF_FeatureBenefitsLabel"); ?>
                                 <?php endif; ?>
@@ -198,8 +198,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if($this->editmode): ?>
                     <p>
                         <?php if($this->textarea("PPFB_Comment")->isEmpty()): ?>
-                                <?= $this->textarea("PPFB_Comment")->setDataFromResource('CONTI® Titan is available in operating tensions up to 1500 PIW in 2-ply design. Combined with one of Continental’s
-high-performance covers, CONTI® Titan will provide the lowest cost of ownership in demanding applications.') ?>
+                                <?= $this->textarea("PPFB_Comment",['placeholder' => 'Enter text']); ?>
                         <?php else: ?>
                                 <?= $this->textarea("PPFB_Comment"); ?>
                         <?php endif; ?>
@@ -258,7 +257,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <?php if($this->editmode): ?>
                     <p class="note">
                         <?php if($this->input("PP_ApplicationComment")->isEmpty()): ?>
-                                <?= $this->input("PP_ApplicationComment")->setDataFromResource('See the process diagram for Aggregate, Hard Rock Mining, Sand and Gravel markets on page 9 for alternative belt recommendations.') ?>
+                                <?= $this->input("PP_ApplicationComment",['placeholder' => 'Enter application comment']); ?>
                         <?php else: ?>
                                 <?= $this->input("PP_ApplicationComment"); ?>
                         <?php endif; ?>
@@ -281,13 +280,13 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                         <?php if($this->editmode): ?>
                             <h2 class="orange">
                                 <?php if($this->input("PP_PowerOfFortressTechnology")->isEmpty()): ?>
-                                        <?= $this->input("PP_PowerOfFortressTechnology")->setDataFromResource('Fortified with the Power of Fortress™ Technology') ?>
+                                        <?= $this->input("PP_PowerOfFortressTechnology",['placeholder' => 'Fortified with the Power of Fortress™ Technology']); ?>
                                 <?php else: ?>
                                         <?= $this->input("PP_PowerOfFortressTechnology"); ?>
                                 <?php endif; ?>
                             <br />
                                 <?php if($this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
-                                        <?= $this->input("PP_ConveyorBeltsComponents")->setDataFromResource('Conveyor Belt Components') ?>
+                                        <?= $this->input("PP_ConveyorBeltsComponents",['placeholder' => 'Conveyor Belt Components']); ?>
                                 <?php else: ?>
                                         <?= $this->input("PP_ConveyorBeltsComponents"); ?>
                                 <?php endif; ?>
@@ -338,14 +337,14 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                     <tr>
                         <th>
                             <?php if($this->input("PP_CostPerTon")->isEmpty()): ?>
-                                    <?= $this->input("PP_CostPerTon")->setDataFromResource('Get a lower cost-per-ton conveyed') ?>
+                                    <?= $this->input("PP_CostPerTon",['placeholder' => 'Enter text']); ?>
                             <?php else: ?>
                                     <?= $this->input("PP_CostPerTon"); ?>
                             <?php endif; ?>
                         </th>
                         <th class="orange-bg">
                             <?php if($this->input("PP_TensionRange")->isEmpty()): ?>
-                                    <?= $this->input("PP_TensionRange")->setDataFromResource('Tension Range: 330 – 1500 PIW') ?>
+                                    <?= $this->input("PP_TensionRange",['placeholder' => 'Enter text']); ?>
                             <?php else: ?>
                                     <?= $this->input("PP_TensionRange"); ?>
                             <?php endif; ?>
@@ -402,7 +401,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
 
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("PPSS_Title")->isEmpty()): ?>
-                                        <?= $this->input("PPSS_Title")->setDataFromResource('Featuring Solar-Shield') ?>
+                                        <?= $this->input("PPSS_Title",['placeholder' => 'Featuring Solar-Shield']); ?>
                                 <?php else: ?>
                                         <?= $this->input("PPSS_Title"); ?>
                                 <?php endif; ?>
@@ -433,10 +432,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                         <?php if($this->editmode): ?>
                             <p>
                                 <?php if($this->textarea("PPSS_Description1")->isEmpty()): ?>
-                                        <?= $this->textarea("PPSS_Description1")->setDataFromResource('Solar-Shield® belts are part of the Plylon Plus® family. They’re
-                            offered with polyester/nylon, polyester/polyester and fiberglass
-                            fabric reinforcements to deliver high performance in extremely hot
-                            material applications.') ?>
+                                        <?= $this->textarea("PPSS_Description1",['placeholder' => 'Enter description']); ?>
                                 <?php else: ?>
                                         <?= $this->textarea("PPSS_Description1"); ?>
                                 <?php endif; ?>
@@ -452,7 +448,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                         <?php if($this->editmode): ?>
                             <strong>
                                 <?php if($this->input("PPSS_SubTitle")->isEmpty()): ?>
-                                        <?= $this->input("PPSS_SubTitle")->setDataFromResource('Solar-Shield® Extreme compound with fiberglass reinforcement') ?>
+                                        <?= $this->input("PPSS_SubTitle",['placeholder' => 'Enter text']); ?>
                                 <?php else: ?>
                                         <?= $this->input("PPSS_SubTitle"); ?>
                                 <?php endif; ?>
@@ -468,9 +464,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             <?php if($this->editmode): ?>
                                 <p>
                                     <?php if($this->textarea("PPSS_Description2")->isEmpty()): ?>
-                                            <?= $this->textarea("PPSS_Description2")->setDataFromResource("The fiberglass option offers the highest degree of burn-through
-                            resistance of any current available fabric reinforcement – resisting
-                            “hot shots” burn-through up to 1,000˚F (538˚C).") ?>
+                                            <?= $this->textarea("PPSS_Description2",['placeholder' => 'Enter description']); ?>
                                     <?php else: ?>
                                             <?= $this->textarea("PPSS_Description2"); ?>
                                     <?php endif; ?>
@@ -486,7 +480,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                             <?php if($this->editmode): ?>
                                 <p class="note">
                                     <?php if($this->textarea("PPSS_Note")->isEmpty()): ?>
-                                            <?= $this->textarea("PPSS_Note")->setDataFromResource("See page 79 for more information on Solar-Shield®.") ?>
+                                            <?= $this->textarea("PPSS_Note",['placeholder' => 'Enter text']); ?>
                                     <?php else: ?>
                                             <?= $this->textarea("PPSS_Note"); ?>
                                     <?php endif; ?>
@@ -525,7 +519,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 </span>
                 
                 <?php if($this->input("PP_FeaturesBeneFit")->isEmpty()): ?>
-                        <?= $this->input("PP_FeaturesBeneFit")->setDataFromResource('Features and Benefits') ?>
+                        <?= $this->input("PP_FeaturesBeneFit",['placeholder' =>'Features and Benefits']); ?>
                 <?php else: ?>
                         <?= $this->input("PP_FeaturesBeneFit"); ?>
                 <?php endif; ?>
@@ -611,7 +605,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
 
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_MoreInfo")->isEmpty()): ?>
-                            <?= $this->input("PP_MoreInfo")->setDataFromResource('Belt Information') ?>
+                            <?= $this->input("PP_MoreInfo",['placeholder' => 'Belt Information']); ?>
                     <?php else: ?>
                             <?= $this->input("PP_MoreInfo"); ?>
                     <?php endif; ?>
@@ -627,7 +621,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Conveyor_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Conveyor_Belt_Data")->setDataFromResource($data['ProductName']. ' Conveyor Belt Data') ?>
+                            <?= $this->input("PP_Conveyor_Belt_Data")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Conveyor_Belt_Data')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Conveyor_Belt_Data"); ?>
                     <?php endif; ?>
@@ -727,7 +721,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("PP_Load_Support_Maximum_Belt")->isEmpty()): ?>
-                                <?= $this->input("PP_Load_Support_Maximum_Belt")->setDataFromResource($data['ProductName']. ' Load Support – Maximum Belt Width Data') ?>
+                                <?= $this->input("PP_Load_Support_Maximum_Belt")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Load_Support_Maximum_Belt_Width_Data')) ?>
                         <?php else: ?>
                                 <?= $this->input("PP_Load_Support_Maximum_Belt"); ?>
                         <?php endif; ?>
@@ -846,7 +840,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                 <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("PP_Troughability_Minimum_Belt_Width")->isEmpty()): ?>
-                                <?= $this->input("PP_Troughability_Minimum_Belt_Width")->setDataFromResource($data['ProductName']. ' Troughability Minimum Belt Width') ?>
+                                <?= $this->input("PP_Troughability_Minimum_Belt_Width")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Troughability_Minimum_Belt_Width')) ?>
                         <?php else: ?>
                                 <?= $this->input("PP_Troughability_Minimum_Belt_Width"); ?>
                         <?php endif; ?>
@@ -973,7 +967,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Minimum_Pulley_Diameters")->isEmpty()): ?>
-                            <?= $this->input("PP_Minimum_Pulley_Diameters")->setDataFromResource($data['ProductName']. ' Minimum Pulley Diameters') ?>
+                            <?= $this->input("PP_Minimum_Pulley_Diameters")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Minimum_Pulley_Diameters')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Minimum_Pulley_Diameters"); ?>
                     <?php endif; ?>
@@ -1069,7 +1063,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Elevator_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Elevator_Belt_Data")->setDataFromResource($data['ProductName']. ' Elevator Belt Data') ?>
+                            <?= $this->input("PP_Elevator_Belt_Data")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Elevator_Belt_Data')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Elevator_Belt_Data"); ?>
                     <?php endif; ?>
@@ -1165,7 +1159,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Maximum_Bucket_Projection")->isEmpty()): ?>
-                            <?= $this->input("PP_Maximum_Bucket_Projection")->setDataFromResource($data['ProductName']. ' Maximum Bucket Projection') ?>
+                            <?= $this->input("PP_Maximum_Bucket_Projection")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Maximum_Bucket_Projection')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Maximum_Bucket_Projection"); ?>
                     <?php endif; ?>
@@ -1262,7 +1256,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Standard_Specifications")->isEmpty()): ?>
-                            <?= $this->input("PP_Standard_Specifications")->setDataFromResource($data['ProductName']. ' Standard Specifications') ?>
+                            <?= $this->input("PP_Standard_Specifications")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Standard_Specifications')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Standard_Specifications"); ?>
                     <?php endif; ?>
