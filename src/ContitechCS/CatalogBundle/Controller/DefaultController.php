@@ -1389,17 +1389,10 @@ class DefaultController extends FrontendController
 
             $productData['Benefits'] = $benefits;
 
-            $material = ['Alumina','Cement','Coal','Gypsum', 'Limestone', 'Potash', 'Salt', 'Sand', 'Silica', 'Tailings'];
-                if($material)
-                {
-                    $materialHtml = '<ul>';
-                    foreach ($material as $value) {
-                        $materialHtml .= '<li><span class="orange">›</span> '.$value.' </li>';
-                    }
-                    $materialHtml .= '</ul>';
-                }
-                $productData['Material'] = $materialHtml;
-
+            $this->view['data'] = $productData;
+            
+            $productData['material'] = ['Alumina','Cement','Coal','Gypsum', 'Limestone', 'Potash', 'Salt', 'Sand', 'Silica', 'Tailings'];
+                
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 

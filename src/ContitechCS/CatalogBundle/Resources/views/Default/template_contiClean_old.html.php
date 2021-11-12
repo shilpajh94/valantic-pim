@@ -119,18 +119,16 @@
                             <h3 class="orange">
                            <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
                 </h3>
-            <ul class="materials-list">
-                                    <li><span class="orange">›</span> Alumina</li>
-                                    <li><span class="orange">›</span> Cement</li>
-                                    <li><span class="orange">›</span> Coal</li>
-                                    <li><span class="orange">›</span> Gypsum</li>
-                                    <li><span class="orange">›</span> Limestone</li>
-                                    <li><span class="orange">›</span> Potash</li>
-                                    <li><span class="orange">›</span> Salt</li>
-                                    <li><span class="orange">›</span> Sand</li>
-                                    <li><span class="orange">›</span> Silica</li>
-                                    <li><span class="orange">›</span> Tailings</li>
-                                </ul>
+                            <ul class="materials-list">
+
+                            <?php 
+                                foreach ($data['material'] as $key => $item) {
+                                    ?>
+                                        <li><span class="orange">›</span> <?= $item ?></li>
+                                    <?php
+                                }
+                            ?>
+                            </ul>
                         </div>
                     </div>    
                 <div class="nexcolumtarget">
