@@ -122,10 +122,13 @@
                             <ul class="materials-list">
 
                             <?php 
-                                foreach ($data['material'] as $key => $item) {
-                                    ?>
-                                        <li><span class="orange">›</span> <?= $item ?></li>
-                                    <?php
+                                if($data['material'])
+                                {
+                                    foreach ($data['material'] as $key => $item) {
+                                        ?>
+                                            <li><span class="orange">›</span> <?= $item ?></li>
+                                        <?php
+                                    }
                                 }
                             ?>
                             </ul>
