@@ -652,6 +652,9 @@ border-bottom:0px;
 .wpa-table tbody td p{
     margin-bottom: 5px;
 }
+.table-data.compounds-table{
+    overflow: hidden;
+}
 .compounds-table tr{
     height: 35px;
 }
