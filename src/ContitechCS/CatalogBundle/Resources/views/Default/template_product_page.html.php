@@ -17,34 +17,50 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
 <?php if($data): ?>
 <div class="wrapper">
-    <header id="header">
-        <div class="header-sec">
-            <div class="header-txt"><strong>
-            
-            <?php if($this->editmode): ?>
+    <?php if($this->editmode): ?>
+        <header id="header">
+            <div class="header-sec">
+                <div class="header-txt">
+                    <strong>
+
                     <?php if($this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
                             <?= $this->input("PP_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
                     <?php else: ?>
                             <?= $this->input("PP_HierarchyNameLevel1"); ?>
                     <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_HierarchyNameLevel1") ?>
-            <?php endif; ?>
-            
-            </strong> 
-            <?php if($this->editmode): ?>
+                    
+                    </strong> 
+
                     <?php if($this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
                             <?= $this->input("PP_HierarchyNameLevel2")->setDataFromResource($data['HierarchyNameLevel2']) ?>
                     <?php else: ?>
                             <?= $this->input("PP_HierarchyNameLevel2"); ?>
                     <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_HierarchyNameLevel2") ?>
-            <?php endif; ?>
-        </div>
-            <div class="print-pg-no"></div>
-        </div>
-    </header>
+                </div>
+                <div class="print-pg-no"></div>
+            </div>
+        </header>
+    <?php else: ?>
+        <header id="header">
+            <div class="header-sec">
+                <div class="header-txt">
+                    <strong>
+                    <?php if(!$this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
+                        <?= $this->input("PP_HierarchyNameLevel1"); ?>
+                    <?php endif; ?>
+                    </strong> 
+
+                    <?php if(!$this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
+                            <?= $this->input("PP_HierarchyNameLevel2"); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="print-pg-no"></div>
+            </div>
+        </header>
+
+    <?php endif; ?>
+
+
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -52,266 +68,151 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
     
     <main id="content" role="main">
-        <section class="fortressxp-belts">
-            <h1 class="orange">
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_ProductName")->isEmpty()): ?>
-                            <?= $this->input("PP_ProductName")->setDataFromResource($data['ProductName']) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_ProductName"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_ProductName") ?>
-            <?php endif; ?>
-                <?php if($data['TitleTagSloganRequired']) { ?>
-                    <span class="sub-title">
-                        <?= $this->input("PP_TitleTagSlogan", ['placeholder'=>'TexSteel® Will Take You There']) ?>
-                    </span>
-                <?php } ?>
-                <!-- span tag add accroding to page 55 -->
-            </h1>
-
-            <?php if($data['ShortTextRequired']) { ?>
-                <?php if($this->editmode): ?>
-                    <p>
-                        <?php if($this->input("PP_ShortText")->isEmpty()): ?>
-                                <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
+        <?php if($this->editmode): ?>
+            <section class="fortressxp-belts">
+                <h1 class="orange">
+                        <?php if($this->input("PP_ProductName")->isEmpty()): ?>
+                                <?= $this->input("PP_ProductName")->setDataFromResource($data['ProductName']) ?>
                         <?php else: ?>
-                                <?= $this->input("PP_ShortText"); ?>
+                                <?= $this->input("PP_ProductName"); ?>
                         <?php endif; ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
-                        <p>
-                        <?= $this->input("PP_ShortText") ?>
-                        </p>
-                    <?php endif; ?>
-                <?php endif; ?>
-            <?php } ?>
 
-            <?php if($data['LongTextRequired'] || $data['ProductImageRequired']) { ?>
-            <div class="media pt-0">
-                <?php if($data['LongTextRequired']) { ?>
-                    <?php if($this->editmode): ?>
-                        <div class="media-body">
-                            <p>
-                            <?php if($this->input("PP_LongText")->isEmpty()): ?>
-                                    <?= $this->input("PP_LongText")->setDataFromResource($data['LongText']) ?>
+                        <span class="sub-title">
+                            <?php if($this->input("PP_TitleTagSlogan")->isEmpty()): ?>
+                                    <?= $this->input("PP_TitleTagSlogan")->setDataFromResource($data['ProductName']) ?>
                             <?php else: ?>
-                                    <?= $this->input("PP_LongText"); ?>
+                                    <?= $this->input("PP_TitleTagSlogan"); ?>
                             <?php endif; ?>
-                            </p>
-                        </div>
+                        </span>
+                </h1>
+
+                <p>
+                    <?php if($this->input("PP_ShortText")->isEmpty()): ?>
+                            <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
                     <?php else: ?>
-                        <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
-                            <div class="media-body">
-                                <p>
-                                <?= $this->input("PP_LongText") ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
+                            <?= $this->input("PP_ShortText"); ?>
                     <?php endif; ?>
-                <?php } ?>
+                </p>
 
-                <?php
-                    if($data['ProductImageRequired'])
-                    {
-                        if($this->editmode)
-                        {
-                            ?>
-                            <div class="seal-image">
-                            <?php
-                            if($this->image("PP_Product_Image")->isEmpty())
-                            {
-                                echo $this->image("PP_Product_Image")->setImage($data['ProductImage']);
-                            }
-                            else{
-                                echo $this->image("PP_Product_Image");
-                            }
-                            ?>
-                            </div>
-                            <?php
-                            
-                        }
-                        else
-                        {
-                            $productImgSrcObj =  $this->image("PP_Product_Image");
-                            if($productImgSrcObj)
-                            {
-                            ?>
-                            <div class="seal-image">
-                            <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                            </div>
-                            <?php
-                            }
-                        }
-                    }
-                    ?>
-            </div>
-            <?php } ?>
+                <div class="media pt-0">
+                    <div class="media-body">
+                        <p>
+                        <?php if($this->input("PP_LongText")->isEmpty()): ?>
+                                <?= $this->input("PP_LongText")->setDataFromResource($data['LongText']) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_LongText"); ?>
+                        <?php endif; ?>
+                        </p>
+                    </div>
 
-            <?php if($data['FeaturesAndBenefitsWithoutImages']){ ?>
-            <div class="feature-benefit-list">
-                <h3><span class="orange">
-                        <strong>
-                        <?php if($this->editmode): ?>
+                    <div class="seal-image">
+                        <?php
+                        if($this->image("PP_Product_Image")->isEmpty())
+                        {
+                            echo $this->image("PP_Product_Image")->setImage($data['ProductImage']);
+                        }
+                        else{
+                            echo $this->image("PP_Product_Image");
+                        }
+                        ?>
+                    </div>
+                </div>
+                
+                <?php if($data['FeaturesAndBenefitsWithoutImages']){ ?>
+                    <div class="feature-benefit-list">
+                        <h3>
+                            <span class="orange">
+                            <strong>
                                 <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
                                         <?= $this->input("PPF_ProductName")->setDataFromResource($data['ProductName']) ?>
                                 <?php else: ?>
                                         <?= $this->input("PPF_ProductName"); ?>
                                 <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("PPF_ProductName") ?>
-                        <?php endif; ?>
-                        
-                        </strong>
-                    </span> 
-                    
-                        <?php if($this->editmode): ?>
-                                <?php if($this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
-                                        <?= $this->input("PPF_FeatureBenefitsLabel")->setDataFromResource('Features and Benefits') ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPF_FeatureBenefitsLabel"); ?>
-                                <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("PPF_FeatureBenefitsLabel") ?>
-                        <?php endif; ?>
-                    </h3>
-                <ul>
-                    <?php 
-                        foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item) {
+                            </strong>
+                            </span>
+
+                            <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
+
+                        </h3>
+
+                        <ul>
+                            <?php 
+                                foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item) {
+                                    ?>
+                                        <li><?= $item ?></li>
+                                    <?php
+                                }
                             ?>
-                                <li><?= $item ?></li>
-                            <?php
-                        }
-                    ?>
-                </ul>
+                        </ul>
 
-                <?php if($this->editmode): ?>
-                    <p>
-                        <?php if($this->textarea("PPFB_Comment")->isEmpty()): ?>
-                                <?= $this->textarea("PPFB_Comment",['placeholder'=>'Enter text'])->setDataFromResource('') ?>
-                        <?php else: ?>
-                                <?= $this->textarea("PPFB_Comment"); ?>
-                        <?php endif; ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PPFB_Comment")->isEmpty()): ?>
                         <p>
-                            <?= $this->textarea("PPFB_Comment") ?>
+                            <?= $this->textarea("PPFB_Comment",['placeholder'=>'Enter text']) ?>
                         </p>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-            <?php } ?>
+                    </div>
+                <?php } ?>
 
-            <?php if($data['ApplicationRequired'] || $data['MarketsRequired'] || $data['CoverCompoundsRequired']){ ?>
+                <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
 
-            <div class="table">
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <?php if($data['MarketsRequired'] && $data['Markets']){ ?>
-                                <th width="30%" class="orange"><?= $this->translate('CS_Markets_Label') ?></th>
-                            <?php } ?>
+                    <div class="table">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <?php if($data['Markets']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Markets_Label') ?></th>
+                                    <?php } ?>
 
-                            <?php if($data['ApplicationRequired'] && $data['Applications']){ ?>
-                                <th width="30%" class="orange"><?= $this->translate('CS_Applications_Label') ?></th>
-                            <?php } ?>
+                                    <?php if($data['Applications']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Applications_Label') ?></th>
+                                    <?php } ?>
 
-                            <?php if($data['CoverCompoundsRequired'] && $data['CoverCompounds']){ ?>
-                                <th width="30%" class="orange"><?= $this->translate('CS_Cover_Compounds_Label') ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr valign="top">
-                            <?php if($data['MarketsRequired'] && $data['Markets']){ ?>
-                                <td>
-                                    <?= $data['Markets'] ?>                                        
-                                </td>
-                            <?php } ?>
-                            <?php if($data['ApplicationRequired'] && $data['Applications']){ ?>
-                                <td>
-                                    <?= $data['Applications'] ?>
-                                </td>
-                            <?php } ?>
+                                    <?php if($data['CoverCompounds']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Cover_Compounds_Label') ?></th>
+                                    <?php } ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr valign="top">
+                                    <?php if($data['Markets']){ ?>
+                                        <td>
+                                            <?= $data['Markets'] ?>                                        
+                                        </td>
+                                    <?php } ?>
+                                    <?php if($data['Applications']){ ?>
+                                        <td>
+                                            <?= $data['Applications'] ?>
+                                        </td>
+                                    <?php } ?>
 
-                            <?php if($data['CoverCompoundsRequired'] && $data['CoverCompounds']){ ?>
-                                <td>
-                                    <?= $data['CoverCompounds'] ?>
-                                    <p class="details"><?= $this->input("PP_CoverCompoundComment", ['placeholder' => 'Enter comment']) ?></p>
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    </tbody>
-                </table>
-                <?php if($this->editmode): ?>
-                    <p class="note">
-                        <?php if($this->input("PP_ApplicationComment")->isEmpty()): ?>
-                                <?= $this->input("PP_ApplicationComment")->setDataFromResource('See the process diagram for Aggregate, Hard Rock Mining, Sand and Gravel markets on page 9 for alternative belt recommendations.') ?>
-                        <?php else: ?>
-                                <?= $this->input("PP_ApplicationComment"); ?>
-                        <?php endif; ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->input("PP_ApplicationComment")->isEmpty()): ?>
+                                    <?php if($data['CoverCompounds']){ ?>
+                                        <td>
+                                            <?= $data['CoverCompounds'] ?>
+                                            <p class="details"><?= $this->input("PP_CoverCompoundComment", ['placeholder' => 'Enter comment']) ?></p>
+                                        </td>
+                                    <?php } ?>
+                                </tr>
+                            </tbody>
+                        </table>
+
                         <p class="note">
-                        <?= $this->input("PP_ApplicationComment") ?>
+                            <?= $this->input("PP_ApplicationComment", ['placeholder'=>'Enter Text']) ?>
                         </p>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
+                        
+                    </div>
 
-            <?php } ?>
+                <?php } ?>
 
-            <?php if($data['PowerOfFortressRequired']){ ?>
                 <div class="components-sec">
-                    
-
-                        <?php if($this->editmode): ?>
-                            <h3 class="orange">
-                                <?php if($this->input("PP_PowerOfFortressTechnology")->isEmpty()): ?>
-                                        <?= $this->input("PP_PowerOfFortressTechnology")->setDataFromResource('Fortified with the Power of Fortress™ Technology') ?>
-                                <?php else: ?>
-                                        <?= $this->input("PP_PowerOfFortressTechnology"); ?>
-                                <?php endif; ?>
-                            <br />
-                                <?php if($this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
-                                        <?= $this->input("PP_ConveyorBeltsComponents")->setDataFromResource('Conveyor Belt Components') ?>
-                                <?php else: ?>
-                                        <?= $this->input("PP_ConveyorBeltsComponents"); ?>
-                                <?php endif; ?>
-                            </h3>
-                        <?php else: ?>  
-                                <?php if(!$this->input("PP_PowerOfFortressTechnology")->isEmpty() || !$this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
-                                    <h3 class="orange">
-                                        <?= $this->input("PP_PowerOfFortressTechnology") ?>
-                                    <br />
-                                        <?= $this->input("PP_ConveyorBeltsComponents") ?>
-                                    </h3>
-                                <?php endif; ?>
-                        <?php endif; ?>
+                    <h3 class="orange">
+                        <?= $this->input("PP_PowerOfFortressTechnology", ['placeholder'=>'Fortified with the Power of Fortress™ Technology']) ?>
+                    <br />
+                        <?= $this->input("PP_ConveyorBeltsComponents", ['placeholder'=>'Conveyor Belt Components']) ?>
+                    </h3>
                     
                     <div class="media">
                         <div class="media-img">
-                            <?php 
-                                if($this->editmode)
-                                {
-                                    echo $this->image("PP_ConveyorBeltsComponents_Image");
-                                }
-                                else
-                                {
-                                    $cbcImgSrcObj =  $this->image("PP_ConveyorBeltsComponents_Image");
-                                    if($cbcImgSrcObj)
-                                    {
-                                    ?>
-                                    <img src="<?= $cbcImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                                    <?php
-                                    }
-                                }
-                            ?>
+                            <?php echo $this->image("PP_ConveyorBeltsComponents_Image"); ?>
                         </div>
+
                         <div class="media-body">
                             <ul class="components">
                                 <?php while($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
@@ -321,181 +222,353 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     </div>
                 </div>
-            <?php } ?>
-            
-            <?php if($data['CostPerTonRequired']){ ?>
-            <div class="labels">
-                <table width="100%">
-                    <tr>
-                        <th>
-                            <?php if($this->input("PP_CostPerTon")->isEmpty()): ?>
-                                    <?= $this->input("PP_CostPerTon")->setDataFromResource('Get a lower cost-per-ton conveyed') ?>
-                            <?php else: ?>
-                                    <?= $this->input("PP_CostPerTon"); ?>
-                            <?php endif; ?>
-                        </th>
-                        <th class="orange-bg">
-                            <?php if($this->input("PP_TensionRange")->isEmpty()): ?>
-                                    <?= $this->input("PP_TensionRange")->setDataFromResource('Tension Range: 330 – 1500 PIW') ?>
-                            <?php else: ?>
-                                    <?= $this->input("PP_TensionRange"); ?>
-                            <?php endif; ?>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <?php } ?>
-
-            <?php 
-                if($data['BannerRequired']){
-                    if($this->editmode)
-                    {
-                        ?>
-                        <div class="full-image-sec">
-                            <?php
-                                echo $this->image("PP_BannerImage");
-                            ?>
-                        </div>
-                        <?php
-                    }
-                    else
-                    {
-                        $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                        if($ppBannerImgSrcObj)
-                        {
-                        ?>
-                        <div class="full-image-sec">
-                            <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                        </div>
-                        <?php
-                        }
-                    }
-                }
-            ?>
-
-            <?php 
-            if($data['FeaturingSolarShield']){
-            ?>
-            <div class="featuring-sec">
-                <h2><span class="orange">
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->input("PPSS_ProductName")->isEmpty()): ?>
-                                            <?= $this->input("PPSS_ProductName")->setDataFromResource($data['ProductName']) ?>
-                                    <?php else: ?>
-                                            <?= $this->input("PPSS_ProductName"); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->input("PPSS_ProductName") ?>
-                            <?php endif; ?>
-                    </span> 
-                    <span class="light-black">
-                        <?php if($this->editmode): ?>
-                                <?php if($this->input("PPSS_Title")->isEmpty()): ?>
-                                        <?= $this->input("PPSS_Title")->setDataFromResource('Featuring Solar-Shield') ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPSS_Title"); ?>
-                                <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("PPSS_Title") ?>
-                        <?php endif; ?>
-                     </span> 
-                </h2>
-                <div class="media">
-                    <?php 
-                        if($this->editmode)
-                        {
-                            echo $this->image("PPSS_Image");
-                        }
-                        else
-                        {
-                            $ppssImgSrcObj =  $this->image("PPSS_Image");
-                            if($ppssImgSrcObj)
-                            {
-                            ?>
-                            <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
-                            <?php
-                            }
-                        }
+                
+                <div class="labels">
+                    <table width="100%">
+                        <tr>
+                            <th>
+                                <?= $this->input("PP_CostPerTon", ['placeholder'=>'Get a lower cost-per-ton conveyed']) ?>
+                            </th>
+                            <th class="orange-bg">
+                                <?= $this->input("PP_TensionRange", ['placeholder'=>'Tension Range: 330 – 1500 PIW']) ?>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="full-image-sec">
+                    <?php
+                        echo $this->image("PP_BannerImage");
                     ?>
+                </div>
 
-                    <div class="media-body">
+                <div class="featuring-sec">
+                    <h2><span class="orange">
+                            <?php if($this->input("PPSS_ProductName")->isEmpty()): ?>
+                                    <?= $this->input("PPSS_ProductName")->setDataFromResource($data['ProductName']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("PPSS_ProductName"); ?>
+                            <?php endif; ?>
+                        </span> 
+                        <span class="light-black">
+                            <?= $this->input("PPSS_Title", ['placeholder'=>'Featuring Solar-Shield']) ?>
+                        </span> 
+                    </h2>
+                    <div class="media">
+                        <?php 
+                                echo $this->image("PPSS_Image");
+                        ?>
 
-                        <?php if($this->editmode): ?>
+                        <div class="media-body">
+
                             <p>
-                                <?php if($this->textarea("PPSS_Description1")->isEmpty()): ?>
-                                        <?= $this->textarea("PPSS_Description1")->setDataFromResource('Solar-Shield® belts are part of the Plylon Plus® family. They’re
-                            offered with polyester/nylon, polyester/polyester and fiberglass
-                            fabric reinforcements to deliver high performance in extremely hot
-                            material applications.') ?>
-                                <?php else: ?>
-                                        <?= $this->textarea("PPSS_Description1"); ?>
-                                <?php endif; ?>
+                                <?= $this->textarea("PPSS_Description1", ['placeholder'=>"Enter Description"]) ?>
                             </p>
-                        <?php else: ?>
-                            <?php if(!$this->textarea("PPSS_Description1")->isEmpty()): ?>
-                                <p>
-                                <?= $this->textarea("PPSS_Description1") ?>
-                                </p>
-                            <?php endif; ?>
-                        <?php endif; ?>
 
-                        <?php if($this->editmode): ?>
                             <strong>
-                                <?php if($this->input("PPSS_SubTitle")->isEmpty()): ?>
-                                        <?= $this->input("PPSS_SubTitle")->setDataFromResource('Solar-Shield® Extreme compound with fiberglass reinforcement') ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPSS_SubTitle"); ?>
-                                <?php endif; ?>
+                                <?= $this->input("PPSS_SubTitle", ['placeholder'=>"Enter Description"]) ?>
                             </strong>
-                        <?php else: ?>
-                            <?php if(!$this->input("PPSS_SubTitle")->isEmpty()): ?>
-                                <strong>
-                                <?= $this->input("PPSS_SubTitle") ?>
-                                </strong>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                        
-                            <?php if($this->editmode): ?>
-                                <p>
-                                    <?php if($this->textarea("PPSS_Description2")->isEmpty()): ?>
-                                            <?= $this->textarea("PPSS_Description2")->setDataFromResource("The fiberglass option offers the highest degree of burn-through
-                            resistance of any current available fabric reinforcement – resisting
-                            “hot shots” burn-through up to 1,000˚F (538˚C).") ?>
-                                    <?php else: ?>
-                                            <?= $this->textarea("PPSS_Description2"); ?>
-                                    <?php endif; ?>
-                                </p>
-                            <?php else: ?>
-                                <?php if(!$this->textarea("PPSS_Description2")->isEmpty()): ?>
-                                    <p>
-                                        <?= $this->textarea("PPSS_Description2") ?>
-                                    </p>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        
-                            <?php if($this->editmode): ?>
-                                <p class="note">
-                                    <?php if($this->textarea("PPSS_Note")->isEmpty()): ?>
-                                            <?= $this->textarea("PPSS_Note")->setDataFromResource("See page 79 for more information on Solar-Shield®.") ?>
-                                    <?php else: ?>
-                                            <?= $this->textarea("PPSS_Note"); ?>
-                                    <?php endif; ?>
-                                </p>
-                            <?php else: ?>
-                                <?php if(!$this->textarea("PPSS_Note")->isEmpty()): ?>
-                                    <p class="note">
-                                        <?= $this->textarea("PPSS_Note") ?>
-                                    </p>
-                                <?php endif; ?>
-                            <?php endif; ?>
+
+                            <p>
+                                <?= $this->textarea("PPSS_Description2",['placeholder'=>'Enter Text']) ?>
+                            </p>
+                            
+                            <p class="note">
+                                <?= $this->textarea("PPSS_Note", ["placeholder"=>'Enter Text']) ?>
+                            </p>
+                                
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php } ?>
 
-	    </section>
+            </section>
+        <?php else: ?>
+            <section class="fortressxp-belts">
+                <?php if(!$this->input("PP_ProductName")->isEmpty()): ?>
+                    <h1 class="orange">
+                        <?= $this->input("PP_ProductName"); ?>
 
-        <?php if($data['FeaturesAndBenefitRequired'] && $data['FeaturesAndBenefits']){ ?>
+                        <?php if(!$this->input("PP_TitleTagSlogan")->isEmpty()): ?>
+                            <span class="sub-title">
+                                <?= $this->input("PP_TitleTagSlogan") ?>
+                            </span>
+                        <?php endif; ?>
+                    </h1>
+                <?php endif; ?>
+
+                <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
+                        <?= $this->input("PP_ShortText"); ?>
+                <?php endif; ?>
+
+                <?php 
+                    $productImgSrcObj =  $this->image("PP_Product_Image");
+                    if(!($this->input("PP_LongText")->isEmpty() || $productImgSrcObj->getThumbnail('catalog_thumb'))){
+                    ?>
+                    <div class="media pt-0">
+                        <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
+                            <div class="media-body">
+                                <p>
+                                    <?= $this->input("PP_LongText"); ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php
+                            
+                            if($productImgSrcObj->getThumbnail('catalog_thumb'))
+                            {
+                            ?>
+                            <div class="seal-image">
+                            <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                            </div>
+                            <?php
+                            } 
+                        ?>
+                    </div>
+                <?php } ?>
+                
+                <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
+                    <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty() || $this->textarea("PPFB_Comment")->isEmpty()) || $data['FeaturesAndBenefitsWithoutImages']): ?>
+                        <div class="feature-benefit-list">
+                            <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty())): ?>
+                                <h3>
+                                    <?php if(!$this->input("PPF_ProductName")->isEmpty()): ?>
+                                        <span class="orange">
+                                        <strong>
+                                            <?= $this->input("PPF_ProductName"); ?>
+                                        </strong>
+                                        </span>
+                                    <?php endif; ?>
+
+                                    <?php if(!$this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
+                                            <?= $this->input("PPF_FeatureBenefitsLabel"); ?>
+                                    <?php endif; ?>
+                                </h3>
+                            <?php endif; ?>
+                            
+                            <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
+                            <ul>
+                                <?php 
+                                    foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item) {
+                                        ?>
+                                            <li><?= $item ?></li>
+                                        <?php
+                                    }
+                                ?>
+                            </ul>
+                            <?php endif; ?>
+
+                            <?php if(!$this->textarea("PPFB_Comment")->isEmpty()): ?>
+                                <p>    
+                                    <?= $this->textarea("PPFB_Comment"); ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
+
+                    <div class="table">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <?php if($data['Markets']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Markets_Label') ?></th>
+                                    <?php } ?>
+
+                                    <?php if($data['Applications']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Applications_Label') ?></th>
+                                    <?php } ?>
+
+                                    <?php if($data['CoverCompounds']){ ?>
+                                        <th width="30%" class="orange"><?= $this->translate('CS_Cover_Compounds_Label') ?></th>
+                                    <?php } ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr valign="top">
+                                    <?php if($data['Markets']){ ?>
+                                        <td>
+                                            <?= $data['Markets'] ?>                                        
+                                        </td>
+                                    <?php } ?>
+                                    <?php if($data['Applications']){ ?>
+                                        <td>
+                                            <?= $data['Applications'] ?>
+                                        </td>
+                                    <?php } ?>
+
+                                    <?php if($data['CoverCompounds']){ ?>
+                                        <td>
+                                            <?= $data['CoverCompounds'] ?>
+                                            <p class="details"><?= $this->input("PP_CoverCompoundComment", ['placeholder' => 'Enter comment']) ?></p>
+                                        </td>
+                                    <?php } ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <?php if(!$this->input("PP_ApplicationComment")->isEmpty()): ?>
+                            <p class="note">
+                                <?= $this->input("PP_ApplicationComment"); ?>
+                            </p>
+                        <?php endif; ?>
+                        
+                    </div>
+
+                <?php } ?>
+
+                <?php 
+                $cbcImgSrcObj =  $this->image("PP_ConveyorBeltsComponents_Image");
+                if(!($this->input("PP_PowerOfFortressTechnology")->isEmpty() || $this->input("PP_ConveyorBeltsComponents")->isEmpty()) || $cbcImgSrcObj->getThumbnail('catalog_thumb') || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
+                    <div class="components-sec">
+                        <?php if(!($this->input("PP_PowerOfFortressTechnology")->isEmpty() || $this->input("PP_ConveyorBeltsComponents")->isEmpty())): ?>
+                            <h3 class="orange">
+                                <?php if(!$this->input("PP_PowerOfFortressTechnology")->isEmpty()): ?>
+                                        <?= $this->input("PP_PowerOfFortressTechnology"); ?>
+                                <?php endif; ?>
+                            <br />
+                                <?php if(!$this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
+                                        <?= $this->input("PP_ConveyorBeltsComponents"); ?>
+                                <?php endif; ?>
+                            </h3>
+                        <?php endif; ?>
+                        
+                        <?php 
+                        
+                        if($cbcImgSrcObj->getThumbnail('catalog_thumb') || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
+                            <div class="media">
+                                <?php
+                                    
+                                    if($cbcImgSrcObj->getThumbnail('catalog_thumb'))
+                                    {
+                                    ?>
+                                    <div class="media-img">
+                                    <img src="<?= $cbcImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                                    </div>
+                                    <?php
+                                    }
+                                ?>
+                                <?php if($this->block("PP_ConveyorBeltsComponents_Points")): ?>
+                                    <div class="media-body">
+                                        <ul class="components">
+                                            <?php while($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
+                                                <li><?= $this->input("pp_points", ['placeholder' => 'Enter comment']) ?></p1>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                
+                <?php if(!($this->input("PP_CostPerTon")->isEmpty() || $this->input("PP_TensionRange")->isEmpty())): ?>
+                    <div class="labels">
+                        <table width="100%">
+                            <tr>
+                                <th>
+                                    <?php if(!$this->input("PP_CostPerTon")->isEmpty()): ?>
+                                            <?= $this->input("PP_CostPerTon"); ?>
+                                    <?php endif; ?>
+                                </th>
+                                <th class="orange-bg">
+                                    <?php if(!$this->input("PP_TensionRange")->isEmpty()): ?>
+                                            <?= $this->input("PP_TensionRange"); ?>
+                                    <?php endif; ?>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                <?php endif; ?>
+                <?php 
+                    $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
+                    if($ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
+                    {
+                    ?>
+                    <div class="full-image-sec">
+                        <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                    </div>
+                    <?php
+                    }
+                ?>
+                <?php
+                $ppssImgSrcObj =  $this->image("PPSS_Image");
+                if($ppssImgSrcObj->getThumbnail('catalog_thumb') || !($this->input("PPSS_ProductName")->isEmpty() || $this->input("PPSS_Title")->isEmpty() || $this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())){
+                    ?>
+                    <div class="featuring-sec">
+                        <?php if(!($this->input("PPSS_ProductName")->isEmpty() || $this->input("PPSS_Title")->isEmpty())): ?>
+                            <h2>
+                                <?php if(!$this->input("PPSS_ProductName")->isEmpty()): ?>
+                                    <span class="orange">
+                                        <?= $this->input("PPSS_ProductName"); ?>
+                                    </span> 
+                                <?php endif; ?>
+                            
+                            
+                                <?php if(!$this->input("PPSS_Title")->isEmpty()): ?>
+                                    <span class="light-black">
+                                        <?= $this->input("PPSS_Title"); ?>
+                                    </span> 
+                                <?php endif; ?>
+                                
+                            </h2>
+                        <?php endif; ?>
+
+                        <?php
+                            
+
+                            if($ppssImgSrcObj->getThumbnail('catalog_thumb') || !($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())){
+                            ?>
+                            <div class="media">
+                                <?php
+                                    if($ppssImgSrcObj->getThumbnail('catalog_thumb'))
+                                    {
+                                    ?>
+                                    <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                    <?php
+                                    }
+                                ?>
+                                
+                                <?php if(!($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())): ?>
+                                    <div class="media-body">
+
+                                            <?php if(!$this->textarea("PPSS_Description1")->isEmpty()): ?>
+                                                <p>
+                                                    <?= $this->textarea("PPSS_Description1"); ?>
+                                                </p>    
+                                            <?php endif; ?>
+
+                                            <?php if(!$this->input("PPSS_SubTitle")->isEmpty()): ?>
+                                                <strong>
+                                                    <?= $this->input("PPSS_SubTitle"); ?>
+                                                </strong>
+                                            <?php endif; ?>
+                                        
+                                            <?php if(!$this->textarea("PPSS_Description2")->isEmpty()): ?>
+                                                <p>
+                                                    <?= $this->textarea("PPSS_Description2"); ?>
+                                                </p>
+                                            <?php endif; ?>
+                                        
+                                            <?php if(!$this->textarea("PPSS_Note")->isEmpty()): ?>
+                                                <p class="note">
+                                                    <?= $this->textarea("PPSS_Note"); ?>
+                                                </p>
+                                            <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+
+            </section>
+        <?php endif; ?>
+        
+        <?php if($data['FeaturesAndBenefits']){ ?>
         <section class="features-benefit-sec">
             <h1>
                 <span class="orange">

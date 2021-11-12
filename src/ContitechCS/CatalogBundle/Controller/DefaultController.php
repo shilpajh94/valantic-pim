@@ -189,43 +189,43 @@ class DefaultController extends FrontendController
                 // $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
                 // $productData['ProductDescription'] = $productObj->getProductDescription();
 
-                if($PGInfo['TitleTagSloganRequired'])
-                {
-                    $productData['TitleTagSloganRequired'] = $PGInfo['TitleTagSloganRequired'];
-                }
+                // if($PGInfo['TitleTagSloganRequired'])
+                // {
+                    $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+                // }
 
-                $productData['ShortTextRequired'] = $PGInfo['ShortTextRequired'];
-                if(isset($PGInfo['ShortTextRequired']) && $PGInfo['ShortTextRequired'])
-                {
+                // $productData['ShortTextRequired'] = $PGInfo['ShortTextRequired'];
+                // if(isset($PGInfo['ShortTextRequired']) && $PGInfo['ShortTextRequired'])
+                // {
                     $productData['ShortText'] = $productObj->getShortText();
-                }
+                // }
 
-                $productData['LongTextRequired'] = $PGInfo['LongTextRequired'];
-                if(isset($PGInfo['LongTextRequired']) && $PGInfo['LongTextRequired'])
-                {
+                // $productData['LongTextRequired'] = $PGInfo['LongTextRequired'];
+                // if(isset($PGInfo['LongTextRequired']) && $PGInfo['LongTextRequired'])
+                // {
                     $productData['LongText'] = $productObj->getLongText();
-                }
+                // }
 
-                $productData['ProductImageRequired'] = $PGInfo['ProductImageRequired'];
-                if(isset($PGInfo['ProductImageRequired']) && $PGInfo['ProductImageRequired'])
-                {
+                // $productData['ProductImageRequired'] = $PGInfo['ProductImageRequired'];
+                // if(isset($PGInfo['ProductImageRequired']) && $PGInfo['ProductImageRequired'])
+                // {
                     $productData['ProductImage'] = $productObj->getProductImage();
-                }
+                // }
 
-                $productData['FeaturesRequired'] = $PGInfo['FeaturesRequired'];
-                if(isset($PGInfo['FeaturesRequired']) && $PGInfo['FeaturesRequired'])
-                {
+                // $productData['FeaturesRequired'] = $PGInfo['FeaturesRequired'];
+                // if(isset($PGInfo['FeaturesRequired']) && $PGInfo['FeaturesRequired'])
+                // {
                     $productData['Features'] = $productObj->getFeatures();
-                }
+                // }
 
-                $productData['BenefitsRequired'] = $PGInfo['BenefitsRequired'];
-                if(isset($PGInfo['BenefitsRequired']) && $PGInfo['BenefitsRequired'])
-                {
+                // $productData['BenefitsRequired'] = $PGInfo['BenefitsRequired'];
+                // if(isset($PGInfo['BenefitsRequired']) && $PGInfo['BenefitsRequired'])
+                // {
                     $productData['Benefits'] = $productObj->getBenefits();
-                }
+                // }
 
-                $productData['ApplicationRequired'] = $PGInfo['ApplicationRequired'];
-                if( $PGInfo['ApplicationRequired'] && $productObj->getCSProductApplications())
+                // $productData['ApplicationRequired'] = $PGInfo['ApplicationRequired'];
+                if( $productObj->getCSProductApplications())
                 {
                     $applicationsHtml = '<ul>';
                     foreach ($productObj->getCSProductApplications() as $key => $value) {
@@ -235,8 +235,8 @@ class DefaultController extends FrontendController
                 }
                 $productData['Applications'] = $applicationsHtml;
 
-                $productData['CoverCompoundsRequired'] = $PGInfo['CoverCompoundsRequired'];
-                if( $PGInfo['CoverCompoundsRequired'] && $productObj->getCoverCompounds())
+                // $productData['CoverCompoundsRequired'] = $PGInfo['CoverCompoundsRequired'];
+                if( $productObj->getCoverCompounds())
                 {
                     $CoverCompoundHtml = '<ul>';
                     foreach ($productObj->getCoverCompounds() as $key => $value) {
@@ -246,8 +246,8 @@ class DefaultController extends FrontendController
                 }
                 $productData['CoverCompounds'] = $CoverCompoundHtml;
 
-                $productData['MarketsRequired'] = $PGInfo['MarketsRequired'];
-                if($PGInfo['MarketsRequired'] && $productObj->getCSProductIndustries())
+                // $productData['MarketsRequired'] = $PGInfo['MarketsRequired'];
+                if($productObj->getCSProductIndustries())
                 {
                     $marketsHtml = '<ul>';
                     foreach ($productObj->getCSProductIndustries() as $key => $value) {
@@ -258,14 +258,14 @@ class DefaultController extends FrontendController
                 $productData['Markets'] = $marketsHtml;
 
 
-                $productData['PowerOfFortressRequired'] = $PGInfo['PowerOfFortressRequired'];
-                $productData['FeaturingSolarShield'] = $PGInfo['FeaturingSolarShield'];
-                $productData['BannerRequired'] = $PGInfo['BannerRequired'];
+                // $productData['PowerOfFortressRequired'] = $PGInfo['PowerOfFortressRequired'];
+                // $productData['FeaturingSolarShield'] = $PGInfo['FeaturingSolarShield'];
+                // $productData['BannerRequired'] = $PGInfo['BannerRequired'];
 
-                $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
+                // $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
                 $FeaturesAndBenefits = [];
                 $FeaturesAndBenefitsWithoutImages = [];
-                if($PGInfo['FeaturesAndBenefitRequired'] && $productObj->getCSProductFeaturesAndBenefits())
+                if($productObj->getCSProductFeaturesAndBenefits())
                 {
                     foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value) {
                         if($value->getFeatureImage())
@@ -288,7 +288,7 @@ class DefaultController extends FrontendController
                 }
 
                 $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-                $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
+                // $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
 
                 $MoreThanOneProduct = 0;
                 $childrenData = [];

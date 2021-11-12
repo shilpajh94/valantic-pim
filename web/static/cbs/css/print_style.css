@@ -214,7 +214,7 @@ body{
 }
 
 
-@page:left { 
+@page:right { 
     margin-left: 60px;
     margin-right: 40px;
 
@@ -262,7 +262,7 @@ body{
    
 }
 
-@page:right { 
+@page:left { 
     margin-left: 40px;
     margin-right: 60px;
  
