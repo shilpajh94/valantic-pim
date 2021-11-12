@@ -283,7 +283,6 @@ $coverCompound = $data['coverCompoundData'];
                         }
                     }
                 ?>
-
                 <p>
                     <?php if($this->editmode): ?>
                             <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
@@ -296,8 +295,6 @@ $coverCompound = $data['coverCompoundData'];
                     <?php endif; ?>
                     
                 </p>
-
-                
                         
                 <?php if($singleProductPage['FeaturesAndBenefits']) {  ?>
                     <div class="features-benefit-sec">

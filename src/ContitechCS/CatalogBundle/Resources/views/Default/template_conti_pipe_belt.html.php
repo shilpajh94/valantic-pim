@@ -191,7 +191,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?= $this->input("CPBChild_ProductClaimSlogan") ?>
                     <?php endif; ?>
                 </h3>
-                    
+                
+                 
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBChild_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBChild_ShortText")->setDataFromResource($childProductData['ShortText']) ?>
@@ -201,9 +202,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                             <?= $this->wysiwyg("CPBChild_ShortText") ?>
                     <?php endif; ?> 
-                    </div>
+                </div>
 
                 <div class="feature-benefit-list black-bold">
+
+
+
+                <div class="feature-benefit-list">
 
                     <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("CPBChild_Benefits")->isEmpty()): ?>
