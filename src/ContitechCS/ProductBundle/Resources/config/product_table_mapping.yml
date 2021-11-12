@@ -3347,6 +3347,21 @@ Common Product Page:
                     CarcassWeightKGM:
                         # fieldTitle: Carcass Weight (kg/sq. m)
                         objectType: ProdAttrSetD
+    Conti Alert:
+        Product Group Information:
+            HierarchyNameLevel1: 'Conveying Solutions'
+            TitleTagSloganRequired: true
+            ShortTextRequired: true
+            LongTextRequired: true 
+            ProductImageRequired: true
+            FeaturesRequired: false
+            BenefitsRequired: false
+            ApplicationRequired: false
+            PowerOfFortressRequired: true
+            MarketsRequired: false
+            CoverCompoundsRequired: false
+            FeaturesAndBenefitRequired: true
+            CostPerTonRequired: false
     Belt Monitoring Systems:
 Cover Options:
     Cover Compound Attributes:

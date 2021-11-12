@@ -256,7 +256,11 @@ class DefaultController extends FrontendController
                 if ($counter == $productHierCount) {
                     $allObjectBricks = $relatedBricksSameLevel;
                 }
-                $allObjectBricks = array_unique($allObjectBricks);
+
+                if($allObjectBricks){
+                    $allObjectBricks = array_unique($allObjectBricks);
+                }
+                
                 $CSProductObj = DataObject\CSProducts::getByPath($productPath);
                 if (!$CSProductObj) {
 

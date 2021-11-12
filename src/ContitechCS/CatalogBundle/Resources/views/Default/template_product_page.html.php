@@ -190,8 +190,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if($this->editmode): ?>
                     <p>
                         <?php if($this->textarea("PPFB_Comment")->isEmpty()): ?>
-                                <?= $this->textarea("PPFB_Comment")->setDataFromResource('CONTI® Titan is available in operating tensions up to 1500 PIW in 2-ply design. Combined with one of Continental’s
-high-performance covers, CONTI® Titan will provide the lowest cost of ownership in demanding applications.') ?>
+                                <?= $this->textarea("PPFB_Comment",['placeholder'=>'Enter text'])->setDataFromResource('') ?>
                         <?php else: ?>
                                 <?= $this->textarea("PPFB_Comment"); ?>
                         <?php endif; ?>
