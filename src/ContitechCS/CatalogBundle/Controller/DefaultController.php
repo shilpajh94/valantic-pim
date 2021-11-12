@@ -1391,13 +1391,46 @@ class DefaultController extends FrontendController
 
             $this->view['data'] = $productData;
             
-            $productData['material'] = ['Alumina','Cement','Coal','Gypsum', 'Limestone', 'Potash', 'Salt', 'Sand', 'Silica', 'Tailings'];
-                
+            $productData['material'] = $this->getContiCleanMaterials($productObject);
+
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+
+    /**
+     * Get Conti Clean Materials
+     * @param object $productObject
+     * @access private 
+     * @return array
+     */
+    private function getContiCleanMaterials($productObject)
+    {
+        try
+        {
+            $materials  = [];
+            $objAttr    = $productObject->getProductAttributes();
+    
+            if(method_exists($objAttr,'getProdAttrSetX') && method_exists($objAttr->getProdAttrSetX(),'getMaterial'))
+            {
+                $arr = $objAttr->getProdAttrSetX()->getMaterial();
+
+                if($arr)
+                {
+                    foreach($arr as $val)
+                    {
+                        $materials[] = $val; 
+                    }
+                }
+            }
+            return $materials;
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function templateContiAlertAction(Request $request)
