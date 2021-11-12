@@ -1,7 +1,7 @@
 <div class="environment-quality-sec">
     <div class="media">
 
-        <div>
+        
         <?php
             $image_position = 'right';
             if($this->editmode):
@@ -39,7 +39,7 @@
                 }
             }
         ?>
-        <div>
+        
 
         <div class="media-body">
 
