@@ -82,10 +82,9 @@ class DefaultController extends FrontendController
         $this->configProviderService = new ConfigProviderService();
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
-        $productTables = 'Product Tables';
-        if(isset($productDataImportConfig['Common Product Page'][$product][$productTables]))
+        if(isset($productDataImportConfig['Common Product Page'][$product]))
         {
-            foreach ($productDataImportConfig[$product][$productTables] as $table => $value) {
+            foreach ($productDataImportConfig[$product] as $table => $value) {
                 $result[] = array('id' => trim($table), 'text' => trim($table));
             }
             $res['data'] = $result;
@@ -173,7 +172,6 @@ class DefaultController extends FrontendController
 
             if($productObj && isset($productDataImportConfig['Common Product Page'][$productName])) ///isset variable is assigned a value or not null
             {
-                $PGInfo = $productDataImportConfig['Common Product Page'][$productName]['Product Group Information'];
 
                 $hierarchyId = $categoryObj->getSecondLevelCategory();
                 if($hierarchyId)
@@ -182,49 +180,14 @@ class DefaultController extends FrontendController
                 }
 
                 $productData['HierarchyNameLevel2'] = $hierarchyObj->getName();
-                $productData['HierarchyNameLevel1'] = $PGInfo['HierarchyNameLevel1'];
-
                 $productData['ProductName'] = $productNameTitle;
+                $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+                $productData['ShortText'] = $productObj->getShortText();
+                $productData['LongText'] = $productObj->getLongText();
+                $productData['ProductImage'] = $productObj->getProductImage();
+                $productData['Features'] = $productObj->getFeatures();
+                $productData['Benefits'] = $productObj->getBenefits();
 
-                // $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
-                // $productData['ProductDescription'] = $productObj->getProductDescription();
-
-                // if($PGInfo['TitleTagSloganRequired'])
-                // {
-                    $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
-                // }
-
-                // $productData['ShortTextRequired'] = $PGInfo['ShortTextRequired'];
-                // if(isset($PGInfo['ShortTextRequired']) && $PGInfo['ShortTextRequired'])
-                // {
-                    $productData['ShortText'] = $productObj->getShortText();
-                // }
-
-                // $productData['LongTextRequired'] = $PGInfo['LongTextRequired'];
-                // if(isset($PGInfo['LongTextRequired']) && $PGInfo['LongTextRequired'])
-                // {
-                    $productData['LongText'] = $productObj->getLongText();
-                // }
-
-                // $productData['ProductImageRequired'] = $PGInfo['ProductImageRequired'];
-                // if(isset($PGInfo['ProductImageRequired']) && $PGInfo['ProductImageRequired'])
-                // {
-                    $productData['ProductImage'] = $productObj->getProductImage();
-                // }
-
-                // $productData['FeaturesRequired'] = $PGInfo['FeaturesRequired'];
-                // if(isset($PGInfo['FeaturesRequired']) && $PGInfo['FeaturesRequired'])
-                // {
-                    $productData['Features'] = $productObj->getFeatures();
-                // }
-
-                // $productData['BenefitsRequired'] = $PGInfo['BenefitsRequired'];
-                // if(isset($PGInfo['BenefitsRequired']) && $PGInfo['BenefitsRequired'])
-                // {
-                    $productData['Benefits'] = $productObj->getBenefits();
-                // }
-
-                // $productData['ApplicationRequired'] = $PGInfo['ApplicationRequired'];
                 if( $productObj->getCSProductApplications())
                 {
                     $applicationsHtml = '<ul>';
@@ -235,7 +198,6 @@ class DefaultController extends FrontendController
                 }
                 $productData['Applications'] = $applicationsHtml;
 
-                // $productData['CoverCompoundsRequired'] = $PGInfo['CoverCompoundsRequired'];
                 if( $productObj->getCoverCompounds())
                 {
                     $CoverCompoundHtml = '<ul>';
@@ -246,7 +208,6 @@ class DefaultController extends FrontendController
                 }
                 $productData['CoverCompounds'] = $CoverCompoundHtml;
 
-                // $productData['MarketsRequired'] = $PGInfo['MarketsRequired'];
                 if($productObj->getCSProductIndustries())
                 {
                     $marketsHtml = '<ul>';
@@ -257,12 +218,6 @@ class DefaultController extends FrontendController
                 }
                 $productData['Markets'] = $marketsHtml;
 
-
-                // $productData['PowerOfFortressRequired'] = $PGInfo['PowerOfFortressRequired'];
-                // $productData['FeaturingSolarShield'] = $PGInfo['FeaturingSolarShield'];
-                // $productData['BannerRequired'] = $PGInfo['BannerRequired'];
-
-                // $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
                 $FeaturesAndBenefits = [];
                 $FeaturesAndBenefitsWithoutImages = [];
                 if($productObj->getCSProductFeaturesAndBenefits())
@@ -288,7 +243,6 @@ class DefaultController extends FrontendController
                 }
 
                 $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-                // $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
 
                 $MoreThanOneProduct = 0;
                 $childrenData = [];
@@ -310,7 +264,7 @@ class DefaultController extends FrontendController
                 {
 
 
-                    $tables = $productDataImportConfig['Common Product Page'][$productName]['Product Tables'];
+                    $tables = $productDataImportConfig['Common Product Page'][$productName];
                     // unset($tables['Conveyor Belt Data']);
                     // unset($tables['Load Support – Maximum Belt Width Data']);
                     // unset($tables['Troughability Minimum Belt Width']);
@@ -781,7 +735,7 @@ class DefaultController extends FrontendController
 
             $productDetails = DataObject\CSProducts::getById($productId);
 
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+            $productData['HierarchyNameLevel2'] = $productDetails->getName();
             $productData['Name'] = $productDetails->getName();
             $productData['LongText'] = $productDetails->getLongText();
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
@@ -981,6 +935,8 @@ class DefaultController extends FrontendController
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
+            
+            $productData['HierarchyNameLevel2'] = $productObject->getName();
             $productData['Name'] = $productObject->getName();
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
@@ -1391,13 +1347,46 @@ class DefaultController extends FrontendController
 
             $this->view['data'] = $productData;
             
-            $productData['material'] = ['Alumina','Cement','Coal','Gypsum', 'Limestone', 'Potash', 'Salt', 'Sand', 'Silica', 'Tailings'];
-                
+            $productData['material'] = $this->getContiCleanMaterials($productObject);
+
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+
+    /**
+     * Get Conti Clean Materials
+     * @param object $productObject
+     * @access private 
+     * @return array
+     */
+    private function getContiCleanMaterials($productObject)
+    {
+        try
+        {
+            $materials  = [];
+            $objAttr    = $productObject->getProductAttributes();
+    
+            if(method_exists($objAttr,'getProdAttrSetX') && method_exists($objAttr->getProdAttrSetX(),'getMaterial'))
+            {
+                $arr = $objAttr->getProdAttrSetX()->getMaterial();
+
+                if($arr)
+                {
+                    foreach($arr as $val)
+                    {
+                        $materials[] = $val; 
+                    }
+                }
+            }
+            return $materials;
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function templateContiAlertAction(Request $request)

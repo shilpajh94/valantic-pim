@@ -79,29 +79,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                         <span class="sub-title">
                             <?php if($this->input("PP_TitleTagSlogan")->isEmpty()): ?>
-                                    <?= $this->input("PP_TitleTagSlogan")->setDataFromResource($data['ProductName']) ?>
+                                    <?= $this->input("PP_TitleTagSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
                             <?php else: ?>
                                     <?= $this->input("PP_TitleTagSlogan"); ?>
                             <?php endif; ?>
                         </span>
                 </h1>
-
-                <p>
-                    <?php if($this->input("PP_ShortText")->isEmpty()): ?>
-                            <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_ShortText"); ?>
-                    <?php endif; ?>
-                </p>
-
                 <div class="media pt-0">
                     <div class="media-body">
                         <p>
-                        <?php if($this->input("PP_LongText")->isEmpty()): ?>
-                                <?= $this->input("PP_LongText")->setDataFromResource($data['LongText']) ?>
-                        <?php else: ?>
-                                <?= $this->input("PP_LongText"); ?>
-                        <?php endif; ?>
+                            <?php if($this->input("PP_ShortText")->isEmpty()): ?>
+                                    <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("PP_ShortText"); ?>
+                            <?php endif; ?>
                         </p>
                     </div>
 
@@ -117,7 +108,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         ?>
                     </div>
                 </div>
-                
+
+                <div class="p-medium">
+                    <p>
+                    <?php if($this->input("PP_LongText")->isEmpty()): ?>
+                            <?= $this->input("PP_LongText")->setDataFromResource($data['LongText']) ?>
+                    <?php else: ?>
+                            <?= $this->input("PP_LongText"); ?>
+                    <?php endif; ?>
+                    </p>
+                </div>
+
                 <?php if($data['FeaturesAndBenefitsWithoutImages']){ ?>
                     <div class="feature-benefit-list">
                         <h3>
@@ -296,36 +297,34 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h1>
                 <?php endif; ?>
 
-                <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
-                        <?= $this->input("PP_ShortText"); ?>
-                <?php endif; ?>
+                <?php $productImgSrcObj =  $this->image("PP_Product_Image"); ?>
+                
+                <?php if(!$this->input("PP_ShortText")->isEmpty() || $productImgSrcObj->getThumbnail('catalog_thumb')): ?>
+                <div class="media pt-0">
+                    
+                    <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
+                        <div class="media-body">
+                            <p>
+                                <?= $this->input("PP_ShortText"); ?>
+                            </p>
+                        </div>
+                    <?php endif; ?>
 
-                <?php 
-                    $productImgSrcObj =  $this->image("PP_Product_Image");
-                    if(!($this->input("PP_LongText")->isEmpty() || $productImgSrcObj->getThumbnail('catalog_thumb'))){
-                    ?>
-                    <div class="media pt-0">
-                        <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
-                            <div class="media-body">
-                                <p>
-                                    <?= $this->input("PP_LongText"); ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php
-                            
-                            if($productImgSrcObj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                            <div class="seal-image">
+                    <?php if($productImgSrcObj->getThumbnail('catalog_thumb')): ?>
+                        <div class="seal-image">
                             <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                            </div>
-                            <?php
-                            } 
-                        ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                
+                <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
+                    <div class="p-medium">
+                        <p>
+                            <?= $this->input("PP_LongText"); ?>
+                        </p>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
                 
                 <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
                     <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty() || $this->textarea("PPFB_Comment")->isEmpty()) || $data['FeaturesAndBenefitsWithoutImages']): ?>
@@ -585,12 +584,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                 </span>
                 <span class="light-black">
-
-                <?php if($this->input("PP_FeaturesBeneFit")->isEmpty()): ?>
-                        <?= $this->input("PP_FeaturesBeneFit")->setDataFromResource('Features and Benefits') ?>
-                <?php else: ?>
-                        <?= $this->input("PP_FeaturesBeneFit"); ?>
-                <?php endif; ?>
+                        <?= $this->input("PP_FeaturesBeneFit", ['placeholder'=>'Features and Benefits']) ?>
                 </span>            
             </h1>
 
@@ -666,28 +660,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?= $this->input("PP_MoreInfoHeading") ?>
             <?php endif; ?>
             
-            
             </span> 
             <span class="light-black">
-
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_MoreInfo")->isEmpty()): ?>
-                            <?= $this->input("PP_MoreInfo")->setDataFromResource('Belt Information') ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_MoreInfo"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_MoreInfo") ?>
-            <?php endif; ?>
+                <?= $this->input("PP_MoreInfo",['placeholder'=>'Belt Information']) ?>
             </span>
             </h1>
-
 
             <?php if(isset($data['productTables']['Conveyor Belt Data'])){ ?>
             <h3>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Conveyor_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Conveyor_Belt_Data")->setDataFromResource($data['ProductName']. ' Conveyor Belt Data') ?>
+                            <?= $this->input("PP_Conveyor_Belt_Data")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Conveyor_Belt_Data')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Conveyor_Belt_Data"); ?>
                     <?php endif; ?>
@@ -785,7 +768,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h3>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("PP_Load_Support_Maximum_Belt")->isEmpty()): ?>
-                                <?= $this->input("PP_Load_Support_Maximum_Belt")->setDataFromResource($data['ProductName']. ' Load Support – Maximum Belt Width Data') ?>
+                                <?= $this->input("PP_Load_Support_Maximum_Belt")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Load_Support_Maximum_Belt_Width_Data')) ?>
                         <?php else: ?>
                                 <?= $this->input("PP_Load_Support_Maximum_Belt"); ?>
                         <?php endif; ?>
@@ -823,7 +806,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 }
 
                             ?>
-                            <th align="left" colspan="<?= $colspan ?>" <?= $style ?>><?= $this->translate($key) ?></th>
+                            <th colspan="<?= $colspan ?>" <?= $style ?>><?= $this->translate($key) ?></th>
                         <?php
                         }
                         ?>
@@ -843,7 +826,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     $style = 'width="7.2%"';
                                 }
                             ?>
-                            <th align="left" <?= $style; ?>><?= $this->translate($td) ?></th>
+                            <th <?= $style; ?>><?= $this->translate($td) ?></th>
                         <?php
                         }
                         ?>
@@ -903,7 +886,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("PP_Troughability_Minimum_Belt_Width")->isEmpty()): ?>
-                                <?= $this->input("PP_Troughability_Minimum_Belt_Width")->setDataFromResource($data['ProductName']. ' Troughability Minimum Belt Width') ?>
+                                <?= $this->input("PP_Troughability_Minimum_Belt_Width")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Troughability_Minimum_Belt_Width')) ?>
                         <?php else: ?>
                                 <?= $this->input("PP_Troughability_Minimum_Belt_Width"); ?>
                         <?php endif; ?>
@@ -948,7 +931,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     $style = 'width="8.8%"';
                                 }
                             ?>
-                            <th align="left" <?= $style; ?>><?= $td ?></th>
+                            <th <?= $style; ?>><?= $td ?></th>
                         <?php
                         }
                         ?>
@@ -1030,7 +1013,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Minimum_Pulley_Diameters")->isEmpty()): ?>
-                            <?= $this->input("PP_Minimum_Pulley_Diameters")->setDataFromResource($data['ProductName']. ' Minimum Pulley Diameters') ?>
+                            <?= $this->input("PP_Minimum_Pulley_Diameters")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Minimum_Pulley_Diameters')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Minimum_Pulley_Diameters"); ?>
                     <?php endif; ?>
@@ -1067,7 +1050,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         $style = 'align="left" width="17.2%"';
                                     }
                                 ?>
-                                <th align="left" <?= $style; ?>><?= $td ?></th>
+                                <th <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1126,7 +1109,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Elevator_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Elevator_Belt_Data")->setDataFromResource($data['ProductName']. ' Elevator Belt Data') ?>
+                            <?= $this->input("PP_Elevator_Belt_Data")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Elevator_Belt_Data')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Elevator_Belt_Data"); ?>
                     <?php endif; ?>
@@ -1163,7 +1146,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         $style = 'align="left" width="17.2%"';
                                     }
                                 ?>
-                                <th align="left" <?= $style; ?>><?= $td ?></th>
+                                <th <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1222,7 +1205,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Maximum_Bucket_Projection")->isEmpty()): ?>
-                            <?= $this->input("PP_Maximum_Bucket_Projection")->setDataFromResource($data['ProductName']. ' Maximum Bucket Projection') ?>
+                            <?= $this->input("PP_Maximum_Bucket_Projection")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Maximum_Bucket_Projection')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Maximum_Bucket_Projection"); ?>
                     <?php endif; ?>
@@ -1260,7 +1243,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         //$value = $this->translate($value);
                                     }
                                 ?>
-                                <th align="left" <?= $style; ?>><?= $td ?></th>
+                                <th <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>
@@ -1319,7 +1302,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <strong>
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_Standard_Specifications")->isEmpty()): ?>
-                            <?= $this->input("PP_Standard_Specifications")->setDataFromResource($data['ProductName']. ' Standard Specifications') ?>
+                            <?= $this->input("PP_Standard_Specifications")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Standard_Specifications')) ?>
                     <?php else: ?>
                             <?= $this->input("PP_Standard_Specifications"); ?>
                     <?php endif; ?>
@@ -1356,7 +1339,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         $style = 'align="left" width="17.2%"';
                                     }
                                 ?>
-                                <th align="left" <?= $style; ?>><?= $td ?></th>
+                                <th <?= $style; ?>><?= $td ?></th>
                             <?php
                             }
                             ?>

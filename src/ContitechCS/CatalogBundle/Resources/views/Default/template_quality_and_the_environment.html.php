@@ -16,8 +16,9 @@
         </div>
     </footer>
     <main id="content" role="main">
-        <section class="fortressxp-belts">
+        <section class="fortressxp-belts ">
             <?= $this->areablock('myAreablock'); ?>
-        </section>    
+        </section>  
+         
     </main>
 </div>
