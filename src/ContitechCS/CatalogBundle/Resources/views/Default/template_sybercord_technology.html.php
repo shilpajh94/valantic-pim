@@ -33,13 +33,13 @@
         <section class="fortressxp-belts">
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
-                <?php if($this->input("Header_title")->isEmpty()): ?>
-                <?= $this->input("Header_title")->setDataFromResource($data['Name']) ?>
+                <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
                 <?php else: ?>
-                <?= $this->input("Header_title"); ?>
+                <?= $this->input("CS_ProductName"); ?>
                 <?php endif; ?>
                 <?php else: ?>
-                <?= $this->input("Header_title") ?>
+                <?= $this->input("CS_ProductName") ?>
                 <?php endif; ?>
             </h1>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">

@@ -39,13 +39,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <h1 class="orange">
                     
                     <?php if($this->editmode): ?>
-                            <?php if($this->input("CPBParent_ProductName")->isEmpty()): ?>
-                                    <?= $this->input("CPBParent_ProductName")->setDataFromResource($parentProductData['Name']) ?>
+                            <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                                    <?= $this->input("CS_ProductName")->setDataFromResource($parentProductData['Name']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CPBParent_ProductName"); ?>
+                                    <?= $this->input("CS_ProductName"); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CPBParent_ProductName") ?>
+                            <?= $this->input("CS_ProductName") ?>
                     <?php endif; ?>
                 
                     <span class="sub-title">

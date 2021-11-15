@@ -61,10 +61,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <?php if($this->editmode): ?>
             <section class="fortressxp-belts">
                 <h1 class="orange">
-                        <?php if($this->input("PP_ProductName")->isEmpty()): ?>
-                                <?= $this->input("PP_ProductName")->setDataFromResource($data['ProductName']) ?>
+                        <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                                <?= $this->input("CS_ProductName")->setDataFromResource($data['ProductName']) ?>
                         <?php else: ?>
-                                <?= $this->input("PP_ProductName"); ?>
+                                <?= $this->input("CS_ProductName"); ?>
                         <?php endif; ?>
 
                         <span class="sub-title">
@@ -275,9 +275,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </section>
         <?php else: ?>
             <section class="fortressxp-belts">
-                <?php if(!$this->input("PP_ProductName")->isEmpty()): ?>
+                <?php if(!$this->input("CS_ProductName")->isEmpty()): ?>
                     <h1 class="orange">
-                        <?= $this->input("PP_ProductName"); ?>
+                        <?= $this->input("CS_ProductName"); ?>
 
                         <?php if(!$this->input("PP_TitleTagSlogan")->isEmpty()): ?>
                             <span class="sub-title">

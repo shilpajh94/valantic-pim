@@ -40,13 +40,13 @@ $coverCompound = $data['coverCompoundData'];
                 <h1 class="orange">
                     <strong>
                         <?php if($this->editmode): ?>
-                                <?php if($this->input("CC_Name")->isEmpty()): ?>
-                                        <?= $this->input("CC_Name")->setDataFromResource($coverCompound['Name']) ?>
+                                <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                                        <?= $this->input("CS_ProductName")->setDataFromResource($coverCompound['Name']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CC_Name"); ?>
+                                        <?= $this->input("CS_ProductName"); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CC_Name") ?>
+                                <?= $this->input("CS_ProductName") ?>
                         <?php endif; ?>
                     </strong>
                     <span class="sub-title">

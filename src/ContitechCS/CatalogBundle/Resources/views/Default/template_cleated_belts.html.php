@@ -41,13 +41,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <section class="fortressxp-belts">
             <h1 class="orange">
                 <?php if($this->editmode): ?>
-                        <?php if($this->input("CB_ProductName")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductName")->setDataFromResource($data['Name']) ?>
+                        <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                                <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CB_ProductName"); ?>
+                                <?= $this->input("CS_ProductName"); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CB_ProductName") ?>
+                        <?= $this->input("CS_ProductName") ?>
                 <?php endif; ?> 
             </h1>
             <p class="p-medium">

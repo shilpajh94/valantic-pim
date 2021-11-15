@@ -35,13 +35,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <h1 class="orange">
                 
                     <?php if($this->editmode): ?>
-                            <?php if($this->input("CPS_Conveyor_Belt_Diagnostic_Technologies")->isEmpty()): ?>
-                                    <?= $this->input("CPS_Conveyor_Belt_Diagnostic_Technologies")->setDataFromResource($data['Name']) ?>
+                            <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                                    <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CPS_Conveyor_Belt_Diagnostic_Technologies"); ?>
+                                    <?= $this->input("CS_ProductName"); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CPS_Conveyor_Belt_Diagnostic_Technologies") ?>
+                            <?= $this->input("CS_ProductName") ?>
                     <?php endif; ?>        
                 
                 </h1>
