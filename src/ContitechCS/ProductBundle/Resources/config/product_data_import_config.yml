@@ -878,28 +878,14 @@ Product Brand:
     fieldName: ProductBrand
     fieldType: Input
     objectType: class
-# Benefits:
-#     fieldName: Benefits
-#     fieldType: Input
-#     objectType: class
-# Features:
-#     fieldName: Features
-#     fieldType: Input
-#     objectType: class
 Benefits:
-    fieldName: Benefit
-    blockName: BenefitBlock
-    fieldType: Block
+    fieldName: Benefits
+    fieldType: Input
     objectType: class
-    className: CSProducts
-    createFlag: false
 Features:
-    fieldName: Feature
-    blockName: FeatureBlock
-    fieldType: Block
+    fieldName: Features
+    fieldType: Input
     objectType: class
-    className: CSProducts
-    createFlag: false
 Applications:
     fieldName: CSProductApplications
     fieldType: manyToManyObjectRelation
