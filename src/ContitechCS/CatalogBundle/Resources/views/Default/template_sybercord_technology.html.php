@@ -145,21 +145,27 @@
                 </div>
             </div>
 
-
-            <div class="feature-benefit-list">
-                <h3 class="black-bold black mb-3">
-                    <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
-                <ul>
-                    <?php 
-                        foreach ($data['Features'] as $key => $item) {
-                            ?>
-                    <li><?= $item ?></li>
-                    <?php
-                        }
+            
+            <?php
+                if(isset($data['Features']) && $data['Features'])
+                {
                     ?>
-                </ul>
-            </div>
-
+                        <div class="feature-benefit-list">
+                            <h3 class="black-bold black mb-3">
+                                <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
+                            <ul>
+                                <?php 
+                                    foreach ($data['Features'] as $key => $item) {
+                                        ?>
+                                <li><?= $item ?></li>
+                                <?php
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                    <?php
+                }
+            ?>
 
             <div class="colum-2 p-0">
                 <div class="feature-benefit-list my-0">
