@@ -20,6 +20,8 @@
             ]);
         endif;
     ?>
+    
+
     <?php
         $heading_type = 'h2';
         $heading_color = '#000000';

@@ -71,19 +71,29 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?= $this->wysiwyg("MPB_ShortText") ?>
                         <?php endif; ?>
                 </div>
-
-                <div class="feature-benefit-list">
-                        <h3 class="orange">
-                    <?= $this->input("ST_advantage_heading",["placeholder" => "Technical Information"]); ?></h3>
-                <ul>
-                    <?php 
-                        foreach ($data['Features'] as $key => $item) {
-                            ?>
-                    <li><?= $item ?></li>
-                    <?php
-                        }
-                    ?>
                 
+                <div class="feature-benefit-list">
+                        <?php
+                        if(isset($data['Features']) && $data['Features'])
+                        {
+                                ?>
+
+                                <h3 class="orange">
+                                        <?= $this->input("ST_advantage_heading",["placeholder" => "Technical Information"]); ?>
+                                </h3>
+                                <ul>
+                                        <?php 
+                                                foreach ($data['Features'] as $key => $item)
+                                                {
+                                                        ?>
+                                                                <li><?= $item ?></li>
+                                                        <?php
+                                                }
+                                        ?>
+                                </ul>
+                                <?php
+                        }
+                        ?>
                     <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
                     <ul>
                         <?php

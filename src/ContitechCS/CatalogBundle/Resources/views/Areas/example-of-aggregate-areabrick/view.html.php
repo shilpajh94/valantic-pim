@@ -25,69 +25,70 @@
         $total_rows++;
     }
 ?>
-
-<table width="100%">
-    <thead>
-        <tr align="right">
-			<th colspan="4" class="p-0" >
-            <?php
-                    if($this->editmode)
-                    {
-                        if($this->image("fieldPhoto")->isEmpty())
+<div class="table process-table">
+    <table width="100%">
+        <thead>
+            <tr align="right">
+                <th colspan="4" class="p-0" >
+                <?php
+                        if($this->editmode)
                         {
-                            echo $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
+                            if($this->image("fieldPhoto")->isEmpty())
+                            {
+                                echo $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
+                            }
+                            else
+                            {
+                                echo $this->image("fieldPhoto");
+                            }
                         }
                         else
                         {
-                            echo $this->image("fieldPhoto");
+                            $CSSImgSrcObj =  $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
+                            
+                            if($CSSImgSrcObj)
+                            {
+                                ?>
+            <div class="process-image">
+
+                                            <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="w-80"   />
+            </div>
+                                <?php
+                            }
                         }
-                    }
-                    else
+                ?>
+
+                </th>
+            </tr>
+            <tr valign="bottom">
+                <?php
+                    foreach($columns as $col_name)
                     {
-                        $CSSImgSrcObj =  $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
-                        
-                        if($CSSImgSrcObj)
-                        {
-                            ?>
-<div class="process-image">
-
-                                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="w-80"   />
-</div>
-                            <?php
-                        }
+                        ?><th width="25%"><?= $col_name; ?></th><?php
                     }
-            ?>
+                ?>
+            </tr>
+        <thead>
 
-			</th>
-		</tr>
-        <tr valign="bottom">
+        <tbody>
             <?php
-                foreach($columns as $col_name)
-                {
-                    ?><th width="25%"><?= $col_name; ?></th><?php
+                for($i=0;$i<=$total_rows-1;$i++)
+                {   
+                    ?>
+                        <tr align="left">
+                            <?php 
+                                if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
+                                {
+                                    foreach($tds["row_".$i] as $key => $td)
+                                    {   
+                                        ?><td><?= $td; ?></td><?php
+                                    }
+                                }
+                            ?>
+                        </tr>
+                    <?php
                 }
             ?>
-        </tr>
-    <thead>
-
-    <tbody>
-        <?php
-            for($i=0;$i<=$total_rows-1;$i++)
-            {   
-                ?>
-                    <tr align="left">
-                        <?php 
-                            if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
-                            {
-                                foreach($tds["row_".$i] as $key => $td)
-                                {   
-                                    ?><td><?= $td; ?></td><?php
-                                }
-                            }
-                        ?>
-                    </tr>
-                <?php
-            }
-        ?>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

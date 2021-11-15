@@ -5,6 +5,12 @@
    ?>
 <div class="wrapper">
     <header id="header">
+            <?php 
+                if($this->editmode)
+                {
+                    echo $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']);
+                }
+            ?>
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">

@@ -985,17 +985,8 @@ class DefaultController extends FrontendController
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['Benefits'] = $productObject->getBenefits();
-            $productData['Features'] = $productObject->getFeatures();
-                
-                $features[0] = 'Conveyance over mine slopes with inclinations ≤ 34°';
-                $features[1] = 'Mine depths of up to 700 m and mass flows of 5000 t/h and even more!';
-                $features[2] = 'Nominal belt breaking strength of up to 9500 N/mm';
-                $features[3] = 'Outer pipe diameter of up to 900 mm (belt width 3200 mm)';
-                $features[4] = 'Primary crushed material with lump sizes up to 350 mm';
-                $features[5] = 'Conveyor belts with steelcord and fabric carcasses';
-                $features[6] = 'Cost and Energy Efficient Siemens DirectDrives®';
-
-                $productData['Features'] = $features;
+            
+            $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
 
             $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
@@ -1024,9 +1015,6 @@ class DefaultController extends FrontendController
             $childObject = $catalogTableObject->getChildren();
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-            
-            
-            //echo "<pre>";
             
             if($categoryObj)
             {
@@ -1189,7 +1177,7 @@ class DefaultController extends FrontendController
 
         $productNameArr = [];
 
-        if ($catalogCategoryObject)
+        if($catalogCategoryObject)
         {
             $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -1209,6 +1197,7 @@ class DefaultController extends FrontendController
             $productNameArr['ProductImage'] = $productObject->getProductImage();
             $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
             $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;    
         }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -1266,7 +1255,7 @@ class DefaultController extends FrontendController
 
             $productNameArr = [];
 
-            if ($catalogCategoryObject)
+            if($catalogCategoryObject)
             {
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -1287,25 +1276,42 @@ class DefaultController extends FrontendController
                 $productNameArr['LogoImage'] = $productObject->getLogoImage();     
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                
-                $productNameArr['Features'] = $productObject->getFeatures();
-                
-                $features[0] = 'Higher dynamic belt and splice efficiency';
-                $features[1] = 'Less complex splice with fewer stages';
-                $features[2] = 'Potential for reduced pulley diameters';
-                $features[3] = 'Improved corrosion protection lowers maintenance costs';
-                $features[4] = 'Lighter belt weight reduces energy consumption';
-                
-                $productNameArr['Features'] = $features;
+        
+                // get features
+                $productNameArr['Features'] = $this->getSybercordTechnologyFeature($productObject);
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
                 $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';          
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
-        
+    }
 
+    /**
+     * Get sybercord technology's feature
+     * @param object
+     * @access private 
+     * @return array
+     */
+    private function getSybercordTechnologyFeature($productObject)
+    {
+        try
+        {
+            $feature = [];
 
+            if(method_exists($productObject,'getFeatureBlock') && $productObject->getFeatureBlock())
+            {
+                foreach($productObject->getFeatureBlock() as $obj)
+                {
+                    $feature[] = $obj['Feature']->getData();
+                }
+            }
+            return $feature;
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
     
     public function templateConveyorBeltGroupAction(Request $request)
@@ -1334,26 +1340,43 @@ class DefaultController extends FrontendController
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
             $productData['reportImage'] = $productObject->getReportImage();
             
-            
-            $productData['Benefits'] = $productObject->getBenefits();
-
-            $benefits[0] = 'Reduced Buildup on Idlers';
-            $benefits[1] = 'Improved Housekeeping';
-            $benefits[2] = 'Increased Material Transfer';
-            $benefits[3] = 'Improved Scraper Life';
-            $benefits[4] = 'Increased Belt Life';
-
-            $productData['Benefits'] = $benefits;
-
             $this->view['data'] = $productData;
             
             $productData['material'] = $this->getContiCleanMaterials($productObject);
+
+            $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
 
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+
+    /**
+     * Get Conti Clean Materials
+     * @param object $productObject
+     * @access private 
+     * @return array
+     */
+    private function getContiCleanBenefits($productObject)
+    {   
+        try
+        {
+            $benefits = [];
+            if(method_exists($productObject,'getBenefitBlock') && $productObject->getBenefitBlock())
+            {
+                foreach($productObject->getBenefitBlock() as $obj)
+                {
+                    $benefits[] = $obj['Benefit']->getData();
+                }
+            }
+            return $benefits;
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     /**

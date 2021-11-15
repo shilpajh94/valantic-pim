@@ -26,50 +26,52 @@
     }
 ?>
 
-<table width="100%">
-    <thead>
-        <tr>
-            <?php
-                foreach($columns as $col_name)
-                {
-                    ?><th width="9.2%"><?= $col_name; ?></th><?php
-                }
-            ?>
-        </tr>
+<div class="table-data textile-table">
+    <table width="100%">
         <thead>
-
-        <tbody>
-            <?php
-            for($i=0;$i<=$total_rows-1;$i++)
-            {   
+            <tr>
+                <?php
+                    foreach($columns as $col_name)
+                    {
+                        ?><th width="9.2%"><?= $col_name; ?></th><?php
+                    }
                 ?>
-            <tr align="center" <?= ($total_rows-1 == $i)?"class='white-bg'":""; ?>>
-                <?php 
-                            if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
-                            {
-                                foreach($tds["row_".$i] as $key => $td)
-                                {   
-                                    if(($total_rows-1 == $i) && $key == 0)
+            </tr>
+            <thead>
+
+            <tbody>
+                <?php
+                for($i=0;$i<=$total_rows-1;$i++)
+                {   
+                    ?>
+                <tr align="center" <?= ($total_rows-1 == $i)?"class='white-bg'":""; ?>>
+                    <?php 
+                                if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
+                                {
+                                    foreach($tds["row_".$i] as $key => $td)
                                     {   
-                                        ?><td align="left"><b><?= $td; ?></b></td><?php
-                                    }
-                                    else
-                                    {   
-                                        if($key == 0)
-                                        {
-                                            ?><td align="left"><?= $td; ?></td><?php
+                                        if(($total_rows-1 == $i) && $key == 0)
+                                        {   
+                                            ?><td align="left"><b><?= $td; ?></b></td><?php
                                         }
                                         else
-                                        {
-                                            ?><td><?= $td; ?></td><?php
-                                        }  
+                                        {   
+                                            if($key == 0)
+                                            {
+                                                ?><td align="left"><?= $td; ?></td><?php
+                                            }
+                                            else
+                                            {
+                                                ?><td><?= $td; ?></td><?php
+                                            }  
+                                        }
                                     }
                                 }
-                            }
-                        ?>
-            </tr>
-            <?php
-            }
-        ?>
-        </tbody>
-</table>
+                            ?>
+                </tr>
+                <?php
+                }
+            ?>
+            </tbody>
+    </table>
+</div>    
