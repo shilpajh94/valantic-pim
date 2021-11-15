@@ -170,9 +170,8 @@ class DefaultController extends FrontendController
 
             $productName =  trim($productObj->getName());
 
-            if($productObj && isset($productDataImportConfig['Common Product Page'][$productName])) ///isset variable is assigned a value or not null
+            if($productObj && array_key_exists($productName, $productDataImportConfig['Common Product Page'])) ///isset variable is assigned a value or not null
             {
-
                 $hierarchyId = $categoryObj->getSecondLevelCategory();
                 if($hierarchyId)
                 {
