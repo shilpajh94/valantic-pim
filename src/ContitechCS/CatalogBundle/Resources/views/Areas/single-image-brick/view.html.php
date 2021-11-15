@@ -9,7 +9,9 @@
         if($imgSrcObj)
         {
             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+            <div class="full-image-sec">
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
+            </div>
             <?php
         }
     }

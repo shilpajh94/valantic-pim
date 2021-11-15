@@ -116,8 +116,20 @@ li span {
     height: auto;    
 }
 .environment-quality-sec .features-images{
-    margin-left: 20px;
-    max-width: 50%;
+    margin: 0px;
+    max-width: 100%;
+}
+
+.environment-quality-sec .media-body {
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.environment-quality-sec .media-image-sec{
+    max-width: 50%; display: flex; flex-direction: column; margin-left: 20px;
+}
+.environment-quality-sec img:nth-child(2){
+    margin-top: 20px;
 }
 .environment-quality-sec .media{
     margin-top: 20px;
@@ -160,14 +172,14 @@ li span {
 /* .fortressxp-belts p {
     font-size: 11px;
 } */
-.p-medium{
+/* .p-medium{
     font-size: 14px;
     line-height: 1.4;
-}
+} */
 
 .p-medium p, .environment-quality-sec .media .p-medium p{
     font-size: 14px;
-    line-height: 1.4;
+    /* line-height: 1.4; */
    }
 
 .media p{

@@ -161,20 +161,19 @@
             </div>
 
 
-            <div class="colum-2 p-0">
+            <div class="row">
+                <div class="col-6">
                 <div class="feature-benefit-list my-0">
-                    
-
                     <?php
-            if(count($data['CSProductApplications']) > 0)
-                {
-                 ?>
-            <h3 class="black-bold black mb-3">
-            <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
-             </h3>
-            <?php
-                }
-            ?>
+                    if(count($data['CSProductApplications']) > 0)
+                    {
+                    ?>
+                    <h3 class="black-bold black mb-3">
+                    <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
+                    </h3>
+                    <?php
+                    }
+                    ?>
                    
                        
                     <ul>
@@ -186,7 +185,12 @@
                         } ?>
                     </ul>
 
-                    <div class="nexcolumtarget">
+                    </div>
+                    </div>
+
+                    <div class="col-6">
+                <div class="feature-benefit-list my-0">
+
                         <h3 class="black-bold black mb-3"><?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
                         </h3>
                         <ul>
@@ -194,8 +198,8 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
+
             </div>
         </section>
     </main>
