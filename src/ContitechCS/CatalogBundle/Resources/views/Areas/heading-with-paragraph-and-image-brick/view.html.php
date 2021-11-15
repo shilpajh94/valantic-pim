@@ -96,6 +96,22 @@
                         <?php
                     }
                 }
+
+                if($this->editmode)
+                {
+                    echo $this->image("Image");
+                }
+                else
+                {
+                    $imgSrcObj =  $this->image("Image");
+                    if($imgSrcObj)
+                    {
+                        ?>
+                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                        style="max-height:350px" />
+                        <?php
+                    }
+                }
             }
         ?>
     </div>
