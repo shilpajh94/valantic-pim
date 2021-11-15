@@ -391,9 +391,7 @@ class CSProductDataImportCommand extends AbstractCommand
                 }
                 $incorrectData = implode(", ",$incorrectDataArray);
                 $colName = implode(", ",$colNameArray);
-                // p_r($prodHierarchy);
                 if($productNameLog ==null){
-                    // $b = substr($prodHierarchy, 0, strrpos($prodHierarchy, '/'));
                     $pieces = explode('/', $prodHierarchy);
                     $productNameLog = array_pop($pieces);
                     if($productNameLog == ''){
