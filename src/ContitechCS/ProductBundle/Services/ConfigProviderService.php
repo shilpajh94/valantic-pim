@@ -123,7 +123,7 @@ class ConfigProviderService
      *
      * @return string
      */
-    public function getDefaultImage($setting_key = 'default_image')
+    public function getDefaultImage($setting_key = 'CS_default_image')
     { 
         try{
 

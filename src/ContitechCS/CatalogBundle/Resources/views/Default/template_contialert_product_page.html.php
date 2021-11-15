@@ -19,8 +19,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <div class="wrapper">
         <header id="header">
             <div class="header-sec">
-                <div class="header-txt">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
+                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
                     <?= $this->input("ContiA_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>

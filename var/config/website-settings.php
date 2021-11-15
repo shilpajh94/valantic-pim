@@ -11,16 +11,6 @@ return [
         "creationDate" => 0,
         "modificationDate" => 1631020509
     ],
-    2 => [
-        "id" => 2,
-        "name" => "default_image",
-        "language" => "",
-        "type" => "asset",
-        "data" => 6227,
-        "siteId" => 0,
-        "creationDate" => 0,
-        "modificationDate" => 1636452830
-    ],
     3 => [
         "id" => 3,
         "name" => "CS_footer_logo",
@@ -30,5 +20,15 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1636613066
+    ],
+    5 => [
+        "id" => 5,
+        "name" => "CS_default_image",
+        "language" => "",
+        "type" => "asset",
+        "data" => 14899,
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1636954604
     ]
 ];

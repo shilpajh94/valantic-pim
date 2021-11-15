@@ -1427,4 +1427,13 @@ class DefaultController extends FrontendController
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
     }
+
+    public function templateCreatedWithBricksAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+
+        $this->view['footer_logo_src'] = $footer_logo_src;
+    }
 }
