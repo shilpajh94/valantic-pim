@@ -18,7 +18,7 @@
     <div class="wrapper">
         <header id="header">
             <div class="header-sec">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
+                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                     <span class="second-title">
                         <?= $this->input("STBC_title",["placeholder" =>"Enter Your  Title"]); ?></span>
                 </div>
@@ -161,4 +161,4 @@
             </section>
         </main>
     </div>
-    <?php endif; ?>
+<?php endif; ?>

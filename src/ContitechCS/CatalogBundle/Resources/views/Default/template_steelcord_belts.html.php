@@ -6,7 +6,7 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span> 
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span> 
             <span class="second-title">
             <?= $this->input("TBS_title",[
                 "placeholder" =>
@@ -15,9 +15,11 @@
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
-    </footer>
+     <footer id="footer" class="footer">
+            <div class="footer-logo">
+                <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
 

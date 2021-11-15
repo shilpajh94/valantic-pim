@@ -17,20 +17,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
 <?php if($data): ?>
 <div class="wrapper">
-    <?php if($this->editmode): ?>
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt">
-                    <strong>
-
-                    <?php if($this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
-                            <?= $this->input("PP_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_HierarchyNameLevel1"); ?>
-                    <?php endif; ?>
-                    
-                    </strong> 
-
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+            <?php if($this->editmode): ?>
                     <?php if($this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
                             <?= $this->input("PP_HierarchyNameLevel2")->setDataFromResource($data['HierarchyNameLevel2']) ?>
                     <?php else: ?>
