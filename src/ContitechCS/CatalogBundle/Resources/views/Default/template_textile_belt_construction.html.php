@@ -19,11 +19,21 @@
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
-                    <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                    <?php
+                        if($this->input("STBC_title")->isEmpty())
+                            {
+                                echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("TBC_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
- </header>
+                <div class="print-pg-no"></div>
+            </div>
+    </header>
        <footer id="footer" class="footer">
             <div class="footer-logo">
                 <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -115,29 +125,7 @@
                 <?php
                                     }
                                 }
-                            ?>
-
-                <h1 class="orange"><?= $this->input("TBA_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h1>
-
-                <div class="table-data textile-table">
-                    <?= $this->area('myArea', ['type' => 'textile-belt-applications-areabrick']); ?>
-                </div>
-
-                <h3 class="mt-4"><?= $this->input("Example_Header",["placeholder" =>"Enter Your  ExampleTagLine"]); ?>
-                </h3>
-
-                <div class="table process-table">
-                    <?= $this->area('myArea2', ['type' => 'example-of-aggregate-areabrick','params' =>
-                        [
-                            'example-of-aggregate-areabrick' => [
-                                'data' => $data
-                            ]
-                        ]
-                    ]); ?>
-                </div>
-
-                <p class="note"><?= $this->textarea("Note",["placeholder" =>"Enter Your  Note"]); ?></p>
-
+                            ?>       
             </section>
         </main>
 </div>

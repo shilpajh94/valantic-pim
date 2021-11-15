@@ -15,11 +15,13 @@
             echo $this->select("heading_color", [
                 "store" => [
                     ['#000000', 'Black'],
-                    ['#ffa500', 'Orange']
+                    ['#ffa500', 'Yellow']
                 ]
             ]);
         endif;
     ?>
+    
+
     <?php
         $heading_type = 'h2';
         $heading_color = '#000000';

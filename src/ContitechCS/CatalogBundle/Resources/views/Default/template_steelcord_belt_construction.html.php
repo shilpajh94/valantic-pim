@@ -20,7 +20,17 @@
             <div class="header-sec">
                 <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                     <span class="second-title">
-                        <?= $this->input("STBC_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                        <?php
+                            if($this->input("STBC_title")->isEmpty())
+                            {
+                                echo $this->input("STBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("STBC_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
                 </div>
                 <div class="print-pg-no"></div>
             </div>
@@ -34,13 +44,13 @@
             <section class="fortressxp-belts">
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
-                    <?php if($this->input("Header_title")->isEmpty()): ?>
-                    <?= $this->input("Header_title")->setDataFromResource($data['Name']) ?>
-                    <?php else: ?>
-                    <?= $this->input("Header_title"); ?>
-                    <?php endif; ?>
-                    <?php else: ?>
-                    <?= $this->input("Header_title") ?>
+                        <?php if($this->input("Header_title")->isEmpty()): ?>
+                            <?= $this->input("Header_title")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                            <?= $this->input("Header_title"); ?>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->input("Header_title") ?>
                     <?php endif; ?>
                 </h1>
 
