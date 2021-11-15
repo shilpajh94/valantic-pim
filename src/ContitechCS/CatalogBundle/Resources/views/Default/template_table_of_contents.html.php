@@ -6,14 +6,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-             <div class="header-txt">
-                <span class="first-title"><?= $this->translate('CS_header_title') ?></span> 
-                <?php if($this->input("TOC_header_title")->isEmpty()): ?>
-                                <span class="second-title"><?= $this->input("TOC_header_title",['placeholder' => 'Table of Contents']); ?></span>
-
-                <?php else: ?>
-                <span class="second-title"><?= $this->input("TOC_header_title"); ?></span>
-                <?php endif; ?>
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+                <span class="second-title">
+                    <?= $this->input("TOC_title",["placeholder" =>"Table Of Contents"]); ?></span>
             </div>
             <div class="print-pg-no"></div>
         </div>

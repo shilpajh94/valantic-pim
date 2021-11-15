@@ -1172,7 +1172,8 @@ class DefaultController extends FrontendController
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
                 $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';             
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
+                $productNameArr['HierarchyNameLevel2'] = $hierarchyName;           
         }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
