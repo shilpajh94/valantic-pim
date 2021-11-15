@@ -1,44 +1,64 @@
 <div class="environment-quality-sec">
     <div class="media">
-
-        
-        <?php
-            $image_position = 'right';
-            if($this->editmode):
-                ?><h3>Select Image Position</h3><?php
-                echo $this->select("image_position", [
-                        "store" => [
-                            ['left', 'Left'],
-                            ['right', 'Right']
-                        ],
-                        "default" => "unlimited"
-                    ]);
-            endif;
-            
-            if($this->select("image_position")->getData())
-            {
-                $image_position = $this->select("image_position")->getData();
-            }
-
-            if($image_position == 'left')
-            {
-                if($this->editmode)
+            <?php   
+                $image_position = 'right';
+                if($this->editmode):
+                    ?><h3>Select Image Position</h3><?php
+                    echo $this->select("image_position", [
+                            "store" => [
+                                ['left', 'Left'],
+                                ['right', 'Right']
+                            ],
+                            "default" => "unlimited"
+                        ]);
+                endif;
+                
+                if($this->select("image_position")->getData())
                 {
-                    echo $this->image("Environment_Image");
+                    $image_position = $this->select("image_position")->getData();
                 }
-                else
-                {
-                    $imgSrcObj =  $this->image("Environment_Image");
-                    if($imgSrcObj)
+
+                if($image_position == 'left')
+                {   
+                    if(!$this->editmode && ($this->image("Image")->getThumbnail('catalog_thumb') || $this->image("Environment_Image")->getThumbnail('catalog_thumb')))
                     {
-                        ?>
-                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-4 ml-0"
-                        style="max-height:350px" />
-                        <?php
+                        ?><div class="media-image-sec"><?php
                     }
+                        
+                    if($this->editmode)
+                    {
+                        echo $this->image("Environment_Image");
+                    }
+                    else
+                    {
+                        $imgSrcObj =  $this->image("Environment_Image");
+                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        {
+                            ?>
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-4 ml-0"
+                            style="max-height:350px" />
+                            <?php
+                        }
+                    }
+
+                    if($this->editmode)
+                    {
+                        echo $this->image("Image");
+                    }
+                    else
+                    {
+                        $imgSrcObj =  $this->image("Image");
+                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        {   
+                            ?>
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                            style="max-height:350px" />
+                            <?php
+                        }
+                    }
+                    ?></div><?php
                 }
-            }
-        ?>
+            ?>
         
 
         <div class="media-body">
@@ -80,39 +100,58 @@
         </div>
         <?php
             if($image_position == 'right')
-            {
-                if($this->editmode)
-                {
-                    echo $this->image("Environment_Image");
-                }
-                else
-                {
-                    $imgSrcObj =  $this->image("Environment_Image");
-                    if($imgSrcObj)
+            {   
+                ?>
+                
+                <?php
+                    
+                    if(!$this->editmode && ($this->image("Image")->getThumbnail('catalog_thumb') || $this->image("Environment_Image")->getThumbnail('catalog_thumb')))
                     {
                         ?>
-                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
-                        style="max-height:350px" />
+                            <div class="media-image-sec">
                         <?php
                     }
-                }
 
-                if($this->editmode)
-                {
-                    echo $this->image("Image");
-                }
-                else
-                {
-                    $imgSrcObj =  $this->image("Image");
-                    if($imgSrcObj)
+                    if($this->editmode)
                     {
-                        ?>
-                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
-                        style="max-height:350px" />
-                        <?php
+                        echo $this->image("Environment_Image");
                     }
-                }
+                    else
+                    {
+                        $imgSrcObj1 =  $this->image("Environment_Image");
+
+                        
+                        if($imgSrcObj1->getThumbnail('catalog_thumb'))
+                        {
+                            ?>
+                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                            style="max-height:350px" />
+                            <?php
+                        }
+                    }
+
+                    if($this->editmode)
+                    {
+                        echo $this->image("Image");
+                    }
+                    else
+                    {
+                        $imgSrcObj =  $this->image("Image");
+
+                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        {   
+                            ?>
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                            style="max-height:350px" />
+                            <?php
+                        }
+                    }
+                    if(!$this->editmode && ($this->image("Image")->getThumbnail('catalog_thumb') || $this->image("Environment_Image")->getThumbnail('catalog_thumb')))
+                    {
+                        ?></div><?php
+                    }
             }
         ?>
+        
     </div>
 </div>

@@ -1176,7 +1176,7 @@ class DefaultController extends FrontendController
 
         $productNameArr = [];
 
-        if ($catalogCategoryObject)
+        if($catalogCategoryObject)
         {
             $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -1196,6 +1196,7 @@ class DefaultController extends FrontendController
             $productNameArr['ProductImage'] = $productObject->getProductImage();
             $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
             $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;    
         }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
