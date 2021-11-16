@@ -20,15 +20,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     $childProductData = $data['childProductData'];
     ?>
     <div class="wrapper">
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
-                    <?= $this->input("CPB_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                    <?php
+                        if($this->input("CPB_title")->isEmpty())
+                            {
+                                echo $this->input("CPB_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("CPB_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
-    </header> 
+                <div class="print-pg-no"></div>
+            </div>
+    </header>
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">

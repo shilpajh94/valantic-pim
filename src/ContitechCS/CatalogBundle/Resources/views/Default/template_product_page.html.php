@@ -36,27 +36,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="print-pg-no"></div>
             </div>
         </header>
-    <?php else: ?>
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt">
-                    <strong>
-                    <?php if(!$this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
-                        <?= $this->input("PP_HierarchyNameLevel1"); ?>
-                    <?php endif; ?>
-                    </strong> 
-
-                    <?php if(!$this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
-                            <?= $this->input("PP_HierarchyNameLevel2"); ?>
-                    <?php endif; ?>
-                </div>
-                <div class="print-pg-no"></div>
-            </div>
-        </header>
-
-    <?php endif; ?>
-
-
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">

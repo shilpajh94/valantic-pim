@@ -19,10 +19,20 @@
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
-                    <?= $this->input("ST_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                    <?php
+                        if($this->input("ST_title")->isEmpty())
+                            {
+                                echo $this->input("ST_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("ST_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
+                <div class="print-pg-no"></div>
+            </div>
     </header>
     <footer id="footer" class="footer">
         <div class="footer-logo">

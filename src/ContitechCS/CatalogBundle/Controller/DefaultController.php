@@ -557,6 +557,7 @@ class DefaultController extends FrontendController
                 // p_r($HierarchyProductPath);
                 
                 $coverCompoundData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                $coverCompoundData['HierarchyNameLevel2'] = $hierarchyName;
                 $coverCompoundData['Name'] = $HierarchyProductPath->getName();
                 $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
                 $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
@@ -701,7 +702,9 @@ class DefaultController extends FrontendController
             $productData['coverCompoundData'] = $coverCompoundData;
         }
 
+
         $this->view['data'] = $productData;
+        $this->view['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
         $this->view['footer_logo_src']  = $footer_logo_src;
     }
 
@@ -850,7 +853,8 @@ class DefaultController extends FrontendController
             $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productNameArr['ShortText'] = $productObject->getShorttext();
             $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
-
+            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
+            
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
@@ -1065,7 +1069,7 @@ class DefaultController extends FrontendController
                 $childProductData['ShortText'] = $singleProductObj->getShortText();
                 $childProductData['ProductImage'] = $singleProductObj->getProductImage();
                 $childProductData['Benefits'] = $singleProductObj->getBenefits();
-                
+                $productData['HierarchyNameLevel2'] = $hierarchyName;
             }
 
         }
@@ -1281,7 +1285,10 @@ class DefaultController extends FrontendController
                 $productNameArr['Features'] = $this->getSybercordTechnologyFeature($productObject);
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';          
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions'; 
+                $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
+              
+         
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -1424,6 +1431,7 @@ class DefaultController extends FrontendController
         $productData = [];
         if($catalogTableObject)
         {
+            
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
