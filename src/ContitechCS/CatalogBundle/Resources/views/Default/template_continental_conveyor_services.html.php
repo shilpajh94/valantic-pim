@@ -84,34 +84,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="features-benefit-sec ccs-service">
                 <?php if($data['childrenData']) {
                     foreach ($data['childrenData'] as $key => $child) {
-
                     ?>
                 <div class="media">
                     <?php
-                                if($this->editmode)
-                                {
-                                    if($this->image("CSS_Images_{$key}")->isEmpty())
-                                    {
-                                        ?>
-                                            <img src="<?= $default_image; ?>" alt="" width="150">
-                                        <?Php
-                                        
-                                    }
-                                    else{
-                                        echo $this->image("CSS_Images_{$key}");
-                                    }
-                                }
-                                else
-                                {
-                                    $CSSImgSrcObj =  $this->image("CSS_Images_{$key}");
-                                    if($CSSImgSrcObj)
-                                    {
-                                    ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" />
-                    <?php
-                                    }
-                                }
+                               
+                        if(method_exists($child['ProductImage'],'getThumbnail'))
+                        {   
                             ?>
+                                <img src="<?= $child['ProductImage']->getThumbnail('catalog_thumb'); ?>" alt="" width="150">
+                            <?Php
+                        }
+                        else
+                        {   
+                            ?>
+                                <img src="<?= $default_image; ?>" alt="" width="150">
+                            <?Php
+                            
+                        }
+                                
+                    ?>
 
                     <div class="media-body">
                         <h2 class="orange">
