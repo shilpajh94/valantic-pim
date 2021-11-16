@@ -3310,7 +3310,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) END as `Hierarchy Level`, FROM_UNIXTIME(`o_creationDate`) as`Creation Date`, REPLACE(REPLACE(o1.`o_published`,'1','Published'), 0, 'Unpublished') as`Status` FROM object_CSProducts o1 WHERE ( (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))) ORDER BY (o1.`o_creationDate` ) DESC",
+                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' \nTHEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) \nEND as `Hierarchy Level`, \nFROM_UNIXTIME(`o_creationDate`) as`Creation Date`, \nwf.`place` as Status\nFROM object_CSProducts o1 JOIN element_workflow_state wf\nWHERE ( (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))) \nORDER BY (o1.`o_creationDate` ) DESC",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -3325,7 +3325,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel905-1"
+                "id" => "extModel302-1"
             ],
             [
                 "name" => "Hierarchy Level",
@@ -3334,7 +3334,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel905-2"
+                "id" => "extModel302-2"
             ],
             [
                 "name" => "Creation Date",
@@ -3343,7 +3343,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel905-3"
+                "id" => "extModel302-3"
             ],
             [
                 "name" => "Status",
@@ -3352,7 +3352,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel905-4"
+                "id" => "extModel302-4"
             ],
             [
                 "name" => "Id",
@@ -3362,7 +3362,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel905-5"
+                "id" => "extModel302-5"
             ]
         ],
         "niceName" => "CS_New Products Last One Week",
@@ -3378,7 +3378,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1637044840,
+        "modificationDate" => 1637055732,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
