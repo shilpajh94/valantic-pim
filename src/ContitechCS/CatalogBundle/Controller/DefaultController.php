@@ -893,6 +893,10 @@ class DefaultController extends FrontendController
             $productData['Benefits'] = $productObject->getBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
 
+            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
@@ -930,6 +934,7 @@ class DefaultController extends FrontendController
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
+            
             
             $productData['HierarchyNameLevel2'] = $productObject->getName();
             $productData['Name'] = $productObject->getName();
