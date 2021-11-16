@@ -3,7 +3,8 @@
             <?php   
                 $image_position = 'right';
                 if($this->editmode):
-                    ?><h3>Select Image Position</h3><?php
+                    ?><div style="width:100%; display:block"><?php
+                        ?><h3>Select Image Position</h3><?php
                     echo $this->select("image_position", [
                             "store" => [
                                 ['left', 'Left'],
@@ -11,6 +12,7 @@
                             ],
                             "default" => "unlimited"
                         ]);
+                    ?></div><?php
                 endif;
                 
                 if($this->select("image_position")->getData())
@@ -22,7 +24,7 @@
                 {   
                     if(!$this->editmode && ($this->image("Image")->getThumbnail('catalog_thumb') || $this->image("Environment_Image")->getThumbnail('catalog_thumb')))
                     {
-                        ?><div class="media-image-sec"><?php
+                        ?><div class="media-image-sec mr-4 ml-0"><?php
                     }
                         
                     if($this->editmode)
@@ -35,7 +37,7 @@
                         if($imgSrcObj->getThumbnail('catalog_thumb'))
                         {
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-4 ml-0"
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
                             style="max-height:350px" />
                             <?php
                         }
@@ -51,7 +53,7 @@
                         if($imgSrcObj->getThumbnail('catalog_thumb'))
                         {   
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
                             style="max-height:350px" />
                             <?php
                         }
@@ -124,7 +126,7 @@
                         if($imgSrcObj1->getThumbnail('catalog_thumb'))
                         {
                             ?>
-                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
                             style="max-height:350px" />
                             <?php
                         }
@@ -141,7 +143,7 @@
                         if($imgSrcObj->getThumbnail('catalog_thumb'))
                         {   
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
                             style="max-height:350px" />
                             <?php
                         }
