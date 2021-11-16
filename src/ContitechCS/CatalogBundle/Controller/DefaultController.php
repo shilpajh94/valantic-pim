@@ -972,10 +972,15 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
         $productData = [];
         if($catalogTableObject)
-        {
+        { 
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
+
+            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
             $productData['Name'] = $productObject->getName();
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
