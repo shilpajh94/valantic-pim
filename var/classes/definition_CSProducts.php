@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-11T19:52:09+05:30
+* Generated at: 2021-11-11T17:16:54+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -39,10 +39,6 @@ Fields Summary:
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
-- FeatureBlock [block]
--- Feature [input]
-- BenefitBlock [block]
--- Benefit [input]
 - ProductAttributes [objectbricks]
 - LogoImage [image]
 - productImage [image]
@@ -74,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1636640527,
+   'modificationDate' => 1636631213,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1332,7 +1328,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1684,7 +1680,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -2200,153 +2196,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'name' => 'Feature & Benefits',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Feature & Benefits',
-             'width' => NULL,
-             'height' => NULL,
-             'collapsible' => true,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'permissions' => NULL,
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-                 'fieldtype' => 'block',
-                 'lazyLoading' => false,
-                 'disallowAddRemove' => false,
-                 'disallowReorder' => false,
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'maxItems' => NULL,
-                 'columnType' => 'longtext',
-                 'styleElement' => '',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
-                 'childs' => 
-                array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => NULL,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Feature',
-                     'title' => 'Feature',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                ),
-                 'layout' => NULL,
-                 'referencedFields' => 
-                array (
-                ),
-                 'name' => 'FeatureBlock',
-                 'title' => 'Feature Block',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-                 'fieldtype' => 'block',
-                 'lazyLoading' => false,
-                 'disallowAddRemove' => false,
-                 'disallowReorder' => false,
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'maxItems' => NULL,
-                 'columnType' => 'longtext',
-                 'styleElement' => '',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
-                 'childs' => 
-                array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => NULL,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Benefit',
-                     'title' => 'Benefit',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                ),
-                 'layout' => NULL,
-                 'referencedFields' => 
-                array (
-                ),
-                 'name' => 'BenefitBlock',
-                 'title' => 'Benefit Block',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-            ),
-             'locked' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/low_priority.svg',
-          )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
-             'labelWidth' => 100,
-             'layout' => NULL,
-             'border' => false,
              'name' => 'Product Specific Data',
              'type' => NULL,
              'region' => NULL,
@@ -2388,18 +2237,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   19 => 'ProdAttrSetU',
                   20 => 'ProdAttrSetV',
                   21 => 'ProdAttrSetY',
-                  22 => 'ProdAttrSetW',
-                  23 => 'ProdAttrSetAA',
-                  24 => 'ProdAttrSetAB',
-                  25 => 'ProdAttrSetAC',
-                  26 => 'ProdAttrSetZ',
-                  27 => 'ProdAttrSetAD',
-                  28 => 'ProdAttrSetAE',
-                  29 => 'ProdAttrSetAF',
-                  30 => 'ProdAttrSetAG',
-                  31 => 'ProdAttrSetAH',
-                  32 => 'ProdAttrSetAI',
-                  33 => 'ProdAttrSetX',
+                  22 => 'ProdAttrSetX',
+                  23 => 'ProdAttrSetW',
+                  24 => 'ProdAttrSetAA',
+                  25 => 'ProdAttrSetAB',
+                  26 => 'ProdAttrSetAC',
+                  27 => 'ProdAttrSetZ',
+                  28 => 'ProdAttrSetAD',
+                  29 => 'ProdAttrSetAE',
+                  30 => 'ProdAttrSetAF',
+                  31 => 'ProdAttrSetAG',
+                  32 => 'ProdAttrSetAH',
+                  33 => 'ProdAttrSetAI',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -2422,7 +2271,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/input.svg',
           )),
-          3 => 
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,
@@ -3158,7 +3007,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
           )),
-          4 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,

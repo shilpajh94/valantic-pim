@@ -99,22 +99,31 @@
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
                     <div class="row">
-                        <div class="col-7">
-                             <h3 class="orange">
-                            <?= $this->input("ContiC_BenefitsLabel", ['placeholder'=>'ContiClean® Benefits']) ?>
-                </h3>
-            <div class="feature-benefit-list my-0">        
-                <ul>
-                    <?php 
-                        foreach ($data['Benefits'] as $key => $item) {
-                            ?>
-                                <li><span class="orange">›</span> <?= $item ?></li>
-                            <?php
-                        }
-                    ?>
-                </ul>
-                </div>
-                        </div>
+                        
+                        <?php
+                            if(isset($data['Benefits']) && $data['Benefits'])
+                            {
+                                ?>
+                                    <div class="col-7">
+                                        <h3 class="orange">
+                                            <?= $this->input("ContiC_BenefitsLabel", ['placeholder'=>'ContiClean® Benefits']) ?>
+                                        </h3>
+                                        <div class="feature-benefit-list my-0">        
+                                            <ul>
+                                                <?php 
+                                                    foreach ($data['Benefits'] as $key => $item){
+                                                        ?>
+                                                            <li><span class="orange">›</span> <?= $item ?></li>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>            
+
                         <div class="col-5">
                             <h3 class="orange">
                            <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>

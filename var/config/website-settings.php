@@ -26,9 +26,9 @@ return [
         "name" => "CS_default_image",
         "language" => "",
         "type" => "asset",
-        "data" => 14899,
+        "data" => 14810,
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1636954604
+        "modificationDate" => 1637071219
     ]
 ];

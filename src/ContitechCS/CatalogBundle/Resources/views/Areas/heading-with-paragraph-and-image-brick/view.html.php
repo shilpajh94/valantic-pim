@@ -4,7 +4,7 @@
                 $image_position = 'right';
                 if($this->editmode):
                     ?><div style="width:100%; display:block"><?php
-                     ?><h3>Select Image Position</h3><?php
+                        ?><h3>Select Image Position</h3><?php
                     echo $this->select("image_position", [
                             "store" => [
                                 ['left', 'Left'],
@@ -13,8 +13,6 @@
                             "default" => "unlimited"
                         ]);
                     ?></div><?php
-
-
                 endif;
                 
                 if($this->select("image_position")->getData())

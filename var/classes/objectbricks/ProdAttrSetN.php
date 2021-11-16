@@ -1,8 +1,13 @@
 <?php 
 
 /** 
+* Generated at: 2021-11-16T06:16:14+01:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - FabricType [input]
+- SteelType [input]
 */ 
 
 
@@ -111,6 +116,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'showCharCount' => false,
                      'name' => 'FabricType',
                      'title' => 'Fabric Type',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'SteelType',
+                     'title' => 'Steel Type',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,

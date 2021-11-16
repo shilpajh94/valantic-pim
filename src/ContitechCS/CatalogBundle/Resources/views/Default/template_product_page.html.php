@@ -41,7 +41,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-			<span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+			        <span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                     <span class="second-title">
                         <?php
                             if(!$this->input("STBC_title")->isEmpty())

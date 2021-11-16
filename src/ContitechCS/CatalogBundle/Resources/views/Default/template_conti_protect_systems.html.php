@@ -15,15 +15,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 <?php if($data): ?>
     <div class="wrapper">
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
-                    <?= $this->input("CPS_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                    <?php
+                        if($this->input("CPS_title")->isEmpty())
+                            {
+                                echo $this->input("CPS_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("CPS_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
-    </header>                       
+                <div class="print-pg-no"></div>
+            </div>
+    </header>                      
         <footer id="footer" class="footer">
             <div class="footer-logo">
                 <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -61,34 +71,38 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php endif; ?>
 
                             </p>
-
-                            <div class="feature-benefit-list mb-0">
-                                <h3 class="f-12 conti-grey">
-                                
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
-                                                <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("CPS_BenefitLabel"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("CPS_BenefitLabel") ?>
-                                <?php endif; ?>
-                                
-                                </h3>
-
-                                <?php 
-                                    if($monitoring_system)
-                                    {   
-                                        echo "<ul>";
-                                        foreach($monitoring_system as $val)
-                                        {
-                                            echo "<li>".$val."</li>";
-                                        }
-                                        echo "</ul>";
-                                    }
-                                ?>
-                            </div>
+                            
+                            <?php
+                                if($monitoring_system)
+                                {
+                                    ?>
+                                        <div class="feature-benefit-list mb-0">
+                                            <h3 class="f-12 conti-grey">
+                                            
+                                            <?php if($this->editmode): ?>
+                                                    <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
+                                                            <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
+                                                    <?php else: ?>
+                                                            <?= $this->input("CPS_BenefitLabel"); ?>
+                                                    <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("CPS_BenefitLabel") ?>
+                                            <?php endif; ?>
+                                            
+                                            </h3>
+            
+                                            <?php 
+                                                echo "<ul>";
+                                                foreach($monitoring_system as $val)
+                                                {
+                                                    echo "<li>".$val."</li>";
+                                                }
+                                                echo "</ul>";
+                                            ?>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
 
                         <?php

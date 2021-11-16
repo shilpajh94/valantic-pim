@@ -560,6 +560,7 @@ class DefaultController extends FrontendController
                 // p_r($HierarchyProductPath);
                 
                 $coverCompoundData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                $coverCompoundData['HierarchyNameLevel2'] = $hierarchyName;
                 $coverCompoundData['Name'] = $HierarchyProductPath->getName();
                 $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
                 $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
@@ -704,7 +705,9 @@ class DefaultController extends FrontendController
             $productData['coverCompoundData'] = $coverCompoundData;
         }
 
+
         $this->view['data'] = $productData;
+        $this->view['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
         $this->view['footer_logo_src']  = $footer_logo_src;
     }
 
@@ -853,7 +856,8 @@ class DefaultController extends FrontendController
             $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productNameArr['ShortText'] = $productObject->getShorttext();
             $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
-
+            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
+            
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
@@ -899,6 +903,10 @@ class DefaultController extends FrontendController
             $productData['Benefits'] = $productObject->getBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
 
+            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
@@ -912,10 +920,9 @@ class DefaultController extends FrontendController
             }
 
             $productData['childrenData'] = $childrenData;
-        }
 
-        $this->view['monitoring_system'] = ['Best-in-class sensor technology
-        ','Reliability and high-quality data output','User-friendly graphical interfaces'];
+            $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
+        }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -937,6 +944,7 @@ class DefaultController extends FrontendController
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
+            
             
             $productData['HierarchyNameLevel2'] = $productObject->getName();
             $productData['Name'] = $productObject->getName();
@@ -979,10 +987,15 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
         $productData = [];
         if($catalogTableObject)
-        {
+        { 
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
+
+            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
             $productData['Name'] = $productObject->getName();
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
@@ -1011,17 +1024,14 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
         
-        
         if($catalogTableObject)
         {
-
             $childObject = $catalogTableObject->getChildren();
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
             
             if($categoryObj)
             {
-                
                 $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
                 
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
@@ -1035,7 +1045,6 @@ class DefaultController extends FrontendController
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
                     
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                    
                     
                     if($productObject)
                     {
@@ -1058,9 +1067,8 @@ class DefaultController extends FrontendController
                     }
                 }
                 
-                $selectedProduct = $catalogTableObject->getProducts();
-
-                $singleProduct = $selectedProduct[0];
+                $selectedProduct    = $catalogTableObject->getProducts();
+                $singleProduct      = $selectedProduct[0];
 
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
                 $childProductData['Name'] = $singleProductObj->getName();
@@ -1068,7 +1076,7 @@ class DefaultController extends FrontendController
                 $childProductData['ShortText'] = $singleProductObj->getShortText();
                 $childProductData['ProductImage'] = $singleProductObj->getProductImage();
                 $childProductData['Benefits'] = $singleProductObj->getBenefits();
-                
+                $productData['HierarchyNameLevel2'] = $hierarchyName;
             }
 
         }
@@ -1088,45 +1096,56 @@ class DefaultController extends FrontendController
      */
     private function prepareProductAttributes($productObject)
     {
-        $childObject = $productObject->getChildren();
+        $childObject    = $productObject->getChildren();
+        $data           = [];
+        $childs         = $childObject[0]->getChildren();
 
-        $data = [];
-
-        $childs = $childObject[0]->getChildren();
-        
         if($childs)
         {
             foreach($childs as $obj)
-            {
-                $obj_attr = $obj->getProductAttributes();
-                
-                $diameter_in = '5.9';
-                $diameter_mm = '';
+            {   
+                $obj_attr           =   $obj->getProductAttributes();
+                $diameter_in        =   '';
+                $diameter_mm        =   '';
+                $belt_width_in      =   '';
+                $belt_width_mm      =   '';
+                $fabric_type        =   '';
+                $steel_type         =   '';
 
+                // diameter
                 if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameter'))
                 {
                     $diameter_mm = $obj_attr->getProdAttrSetAC()->getDiameter();
                 }
 
+                if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameterInch'))
+                {
+                    $diameter_in = $obj_attr->getProdAttrSetAC()->getDiameterInch();
+                }
+
+                // BeltWidth
+                if(method_exists($obj_attr,'getProdAttrSetT') && method_exists($obj_attr->getProdAttrSetT(),'getBeltWidthInch'))
+                {  
+                    $belt_width_in = $obj_attr->getProdAttrSetT()->getBeltWidthInch();
+                }
+                
+                // Type
+                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getFabricType'))
+                {  
+                    $fabric_type = $obj_attr->getProdAttrSetN()->getFabricType();
+                }
+
+                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getSteelType'))
+                {  
+                    $steel_type = $obj_attr->getProdAttrSetN()->getSteelType();
+                }
+                
+                
                 $data[] = [
                     [$diameter_in,$diameter_mm],
-                    ['23.6','600'],
-                    ['•','•'],
+                    [$belt_width_in,$belt_width_mm],
+                    [$fabric_type,$steel_type],
                 ];
-                
-                //Diameter
-                //$data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
-                
-                // $data['Diameter']['in'][] = '5.9';
-                
-                // //Belt Width
-                // $data['Belt_Width']['mm'][] = '600';
-                // $data['Belt_Width']['in'][] = '23.6';
-                
-                // //Type
-                // $data['Type']['Fabric'][] = '•';
-                // $data['Type']['Steel'][] = '•';
-                
             }
         }
         return $data;
@@ -1284,7 +1303,10 @@ class DefaultController extends FrontendController
                 $productNameArr['Features'] = $this->getSybercordTechnologyFeature($productObject);
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';          
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions'; 
+                $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
+              
+         
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -1427,6 +1449,7 @@ class DefaultController extends FrontendController
         $productData = [];
         if($catalogTableObject)
         {
+            
             $selectedProduct = $catalogTableObject->getProducts();
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);

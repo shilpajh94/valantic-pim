@@ -15,15 +15,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 <?php if($data): ?>
     <div class="wrapper">
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
-                    <?= $this->input("MPB_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+                    <?php
+                        if($this->input("MPB_title")->isEmpty())
+                            {
+                                echo $this->input("MPB_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("MPB_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
+                    </span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
-    </header> 
+                <div class="print-pg-no"></div>
+            </div>
+    </header>
 
         <footer id="footer" class="footer">
         <div class="footer-logo">
@@ -94,15 +104,27 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?php
                         }
                         ?>
-                    <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
-                    <ul>
-                        <?php
-                        foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion) {
+                     
+                    <?php
+                        if(isset($data['CSProductFeaturesAndBenefits']) && $data['CSProductFeaturesAndBenefits'])
+                        {
                            ?>
-                        <li><?= $applictaion->getFeatureName(); ?></li>
-                        <?php
-                        } ?>
-                    </ul>
+
+                                <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
+                                <ul>
+                                        <?php
+                                                foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion)
+                                                {
+                                                        ?>
+                                                        <li><?= $applictaion->getFeatureName(); ?></li>
+                                                        <?php
+                                                } 
+                                        ?>
+                                </ul>
+                           <?php
+                        }
+                    ?>
+                     
                 
 
                     

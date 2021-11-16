@@ -20,7 +20,7 @@
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
                     <?php
-                        if($this->input("STBC_title")->isEmpty())
+                        if($this->input("TBC_title")->isEmpty())
                             {
                                 echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
                             }
