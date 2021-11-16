@@ -36,7 +36,7 @@
     padding: 0 0.2em;
 }
 .pimcore_tag_input{
-    display:inline;
+    display:inline-block;
   }
 
   .fortressxp-belts .features-benefit-sec h1, .fortressxp-belts .belts-information h1 {
@@ -57,11 +57,12 @@
     margin-left: 20px;
 }
 
-.features-benefit-sec .pimcore_tag_image{
+.features-benefit-sec .pimcore_tag_image, .featuring-sec .pimcore_tag_image{
     width: 150px;
     height: 108px;
     margin-right: 20px;
 }
+
 .bottom-end-sec .pimcore_tag_input{
     transform: rotate(-90deg);
     }

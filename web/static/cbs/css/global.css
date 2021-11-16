@@ -192,12 +192,15 @@ strong {
     font-weight: normal !important;
 }
 
-.black-bold{
+.black-bold, .book{
   font-family: 'ContinentalStagSansLCG-Book' !important;
 }
-.light-black{
+.light-black, .light{
   font-family: 'ContinentalStagSansLCG-light' !important;
 
+}
+.medium{
+  font-family: 'ContinentalStagSansLCG-Medium' !important;
 }
 
 em,
@@ -303,7 +306,10 @@ table td {
 }
 
 section {
-  padding: 40px 0px 50px;
+  padding: 0px 0px 50px;
+}
+section:first-child{
+  padding-top: 40px;
 }
 
 /* .features-benefit-sec, .fortressxp-belts, .belts-information{
@@ -347,7 +353,7 @@ section {
   padding-right: 20px !important;
 }
 .mr-4{
-  padding-right: 20px !important;
+  margin-right: 20px !important;
 }
 .my-4 {
   padding: 20px 0px;

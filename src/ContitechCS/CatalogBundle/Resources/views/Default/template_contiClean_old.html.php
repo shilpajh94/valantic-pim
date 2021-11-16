@@ -127,7 +127,7 @@
                         <div class="col-5">
                             <h3 class="orange">
                            <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
-                </h3>
+                             </h3>
                             <ul class="materials-list">
 
                             <?php 
@@ -142,7 +142,8 @@
                             ?>
                             </ul>
                         </div>
-                    </div>    
+                    </div>
+                </div>    
                 <div class="nexcolumtarget">
                     <div class="feature-benefit-list">
                         <h3 class="orange"><?= $this->input("CCSM_Header3", [

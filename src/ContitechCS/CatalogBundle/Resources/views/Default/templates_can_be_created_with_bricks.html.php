@@ -25,7 +25,7 @@
         </div>
     </footer>
     <main id="content" role="main">
-        <section class="fortressxp-belts ">
+        <section class="fortressxp-belts wood-product-applications">
             <?= $this->areablock('myAreablock'); ?>
         </section>       
     </main>
