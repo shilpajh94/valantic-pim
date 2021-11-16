@@ -17,22 +17,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
 <?php if($data): ?>
 <div class="wrapper">
-    <header id="header">
-        <div class="header-sec">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
-                <span class="second-title">
-                    <?php
-                        if($this->input("STBC_title")->isEmpty())
-                            {
-                                echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
-                            }
-                            else
-                            {
-                                echo $this->input("TBC_title",['placeholder' => 'Enter your title']);
-                            }
-                        ?>
-                </span>
-            </div>
+    <?php if($this->editmode): ?>
+        <header id="header">
+            <div class="header-sec">
+                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+                    <span class="second-title">
+                        <?php
+                            if($this->input("STBC_title")->isEmpty())
+                                {
+                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                                }
+                                else
+                                {
+                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title']);
+                                }
+                            ?>
+                    </span>
+                </div>
                 <div class="print-pg-no"></div>
             </div>
         </header>
@@ -40,15 +41,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-                    <strong>
-                    <?php if(!$this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
-                        <?= $this->input("PP_HierarchyNameLevel1"); ?>
-                    <?php endif; ?>
-                    </strong> 
-
-                    <?php if(!$this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
-                            <?= $this->input("PP_HierarchyNameLevel2"); ?>
-                    <?php endif; ?>
+			<span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+                    <span class="second-title">
+                        <?php
+                            if(!$this->input("STBC_title")->isEmpty())
+                                {
+                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                                }
+                                
+                            ?>
+                    </span>
                 </div>
                 <div class="print-pg-no"></div>
             </div>
@@ -702,7 +704,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         $style = 'align="left" width="17.2%"';
                                     }
                                     else{
-                                        $style = 'width="9.2%"';
+                                        // $style = 'width="9.2%"';
                                     }
                                 ?>
                                 <th <?= $style; ?>><?= $td ?></th>
@@ -774,7 +776,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
             </h3>
             
-            <div class="table-data mt-4">
+            <div class="table-data">
             <?php 
                 
                 $LoadSupportMaximumBeltWidthData = $data['productTables']['Load Support – Maximum Belt Width Data'];
@@ -893,7 +895,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </strong>
             </h3>
             
-            <div class="table-data mt-4">
+            <div class="table-data">
 
             <?php 
                 
@@ -924,7 +926,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     $style = 'colspan="2" align="left"';
                                 }
                                 else{
-                                    $style = 'width="8.8%"';
+                                    // $style = 'width="8.8%"';
                                 }
                             ?>
                             <th <?= $style; ?>><?= $td ?></th>
