@@ -264,13 +264,6 @@ class DefaultController extends FrontendController
 
 
                     $tables = $productDataImportConfig['Common Product Page'][$productName];
-                    // unset($tables['Conveyor Belt Data']);
-                    // unset($tables['Load Support – Maximum Belt Width Data']);
-                    // unset($tables['Troughability Minimum Belt Width']);
-                    // unset($tables['Minimum Pulley Diameters']);
-                    // unset($tables['Elevator Belt Data']);
-                    // unset($tables['Maximum Bucket Projection']);
-
 
                     foreach ($tables as $tablekey => $MetricImperialFields) {
 
@@ -909,10 +902,9 @@ class DefaultController extends FrontendController
             }
 
             $productData['childrenData'] = $childrenData;
-        }
 
-        $this->view['monitoring_system'] = ['Best-in-class sensor technology
-        ','Reliability and high-quality data output','User-friendly graphical interfaces'];
+            $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
+        }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
