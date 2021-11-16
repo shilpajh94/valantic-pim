@@ -181,36 +181,41 @@
                 <div class="feature-benefit-list my-0">
                     
 
-                    <?php
-            if(count($data['CSProductApplications']) > 0)
-                {
-                 ?>
-            <h3 class="black-bold black mb-3">
-            <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
-             </h3>
             <?php
-                }
-            ?>
-                   
-                       
-                    <ul>
-                        <?php
-                        foreach($data['CSProductApplications'] as $key => $applictaion) {
-                           ?>
-                        <li><?= $applictaion->getApplicationName(); ?></li>
-                        <?php
-                        } ?>
-                    </ul>
-
-                    <div class="nexcolumtarget">
-                        <h3 class="black-bold black mb-3"><?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
+                if(count($data['CSProductApplications']) > 0)
+                {
+                    ?>
+                        <h3 class="black-bold black mb-3">
+                            <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
                         </h3>
                         <ul>
-                            <li><?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
+                            <?php
+                                foreach($data['CSProductApplications'] as $key => $applictaion)
+                                {
+                                    ?>
+                                    <li>
+                                        <?php 
+                                            echo $applictaion->getApplicationName();
+                                        ?>
+                                    </li>
+                                    <?php
+                                }
+                            ?>
+                        </ul>
+                    <?php
+                }
+            ?>
+                    <div class="nexcolumtarget">
+                        <h3 class="black-bold black mb-3">
+                            <?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
+                        </h3>
+                        <ul>
+                            <li>
+                                <?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
                             </li>
                         </ul>
                     </div>
-
+                    
                 </div>
             </div>
         </section>

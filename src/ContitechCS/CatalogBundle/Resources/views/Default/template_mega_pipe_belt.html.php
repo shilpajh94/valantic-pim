@@ -104,15 +104,27 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?php
                         }
                         ?>
-                    <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
-                    <ul>
-                        <?php
-                        foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion) {
+                     
+                    <?php
+                        if(isset($data['CSProductFeaturesAndBenefits']) && $data['CSProductFeaturesAndBenefits'])
+                        {
                            ?>
-                        <li><?= $applictaion->getFeatureName(); ?></li>
-                        <?php
-                        } ?>
-                    </ul>
+
+                                <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
+                                <ul>
+                                        <?php
+                                                foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion)
+                                                {
+                                                        ?>
+                                                        <li><?= $applictaion->getFeatureName(); ?></li>
+                                                        <?php
+                                                } 
+                                        ?>
+                                </ul>
+                           <?php
+                        }
+                    ?>
+                     
                 
 
                     

@@ -142,6 +142,10 @@ Diameter:
     fieldName: Diameter
     fieldType: Number
     objectType: ProdAttrSetAC
+Diameter in inch:
+    fieldName: DiameterInch
+    fieldType: Number
+    objectType: ProdAttrSetAC
 Weight:
     fieldName: WeightKG
     fieldType: Number
@@ -470,6 +474,10 @@ Fabric Type:
     fieldName: FabricType
     fieldType: Input
     objectType: ProdAttrSetN
+Steel Type:
+    fieldName: SteelType
+    fieldType: Input
+    objectType: ProdAttrSetN
 carcass gauge in mm:
     fieldName: CarcassGaugeinMM
     fieldType: Number
@@ -693,6 +701,14 @@ Volume Flow:
 Belt Width:
     fieldName: BeltWidth
     fieldType: Input
+    objectType: ProdAttrSetT
+Belt width in mm:
+    fieldName: BeltWidthMM
+    fieldType: Number
+    objectType: ProdAttrSetT
+Belt Width in in.:
+    fieldName: BeltWidthInch
+    fieldType: Number
     objectType: ProdAttrSetT
 Belt Speed:
     fieldName: BeltSpeed

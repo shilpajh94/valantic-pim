@@ -264,13 +264,6 @@ class DefaultController extends FrontendController
 
 
                     $tables = $productDataImportConfig['Common Product Page'][$productName];
-                    // unset($tables['Conveyor Belt Data']);
-                    // unset($tables['Load Support – Maximum Belt Width Data']);
-                    // unset($tables['Troughability Minimum Belt Width']);
-                    // unset($tables['Minimum Pulley Diameters']);
-                    // unset($tables['Elevator Belt Data']);
-                    // unset($tables['Maximum Bucket Projection']);
-
 
                     foreach ($tables as $tablekey => $MetricImperialFields) {
 
@@ -913,10 +906,9 @@ class DefaultController extends FrontendController
             }
 
             $productData['childrenData'] = $childrenData;
-        }
 
-        $this->view['monitoring_system'] = ['Best-in-class sensor technology
-        ','Reliability and high-quality data output','User-friendly graphical interfaces'];
+            $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
+        }
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -1012,17 +1004,14 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
         
-        
         if($catalogTableObject)
         {
-
             $childObject = $catalogTableObject->getChildren();
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
             
             if($categoryObj)
             {
-                
                 $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
                 
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
@@ -1036,7 +1025,6 @@ class DefaultController extends FrontendController
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
                     
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                    
                     
                     if($productObject)
                     {
@@ -1059,9 +1047,8 @@ class DefaultController extends FrontendController
                     }
                 }
                 
-                $selectedProduct = $catalogTableObject->getProducts();
-
-                $singleProduct = $selectedProduct[0];
+                $selectedProduct    = $catalogTableObject->getProducts();
+                $singleProduct      = $selectedProduct[0];
 
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
                 $childProductData['Name'] = $singleProductObj->getName();
@@ -1089,45 +1076,56 @@ class DefaultController extends FrontendController
      */
     private function prepareProductAttributes($productObject)
     {
-        $childObject = $productObject->getChildren();
+        $childObject    = $productObject->getChildren();
+        $data           = [];
+        $childs         = $childObject[0]->getChildren();
 
-        $data = [];
-
-        $childs = $childObject[0]->getChildren();
-        
         if($childs)
         {
             foreach($childs as $obj)
-            {
-                $obj_attr = $obj->getProductAttributes();
-                
-                $diameter_in = '5.9';
-                $diameter_mm = '';
+            {   
+                $obj_attr           =   $obj->getProductAttributes();
+                $diameter_in        =   '';
+                $diameter_mm        =   '';
+                $belt_width_in      =   '';
+                $belt_width_mm      =   '';
+                $fabric_type        =   '';
+                $steel_type         =   '';
 
+                // diameter
                 if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameter'))
                 {
                     $diameter_mm = $obj_attr->getProdAttrSetAC()->getDiameter();
                 }
 
+                if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameterInch'))
+                {
+                    $diameter_in = $obj_attr->getProdAttrSetAC()->getDiameterInch();
+                }
+
+                // BeltWidth
+                if(method_exists($obj_attr,'getProdAttrSetT') && method_exists($obj_attr->getProdAttrSetT(),'getBeltWidthInch'))
+                {  
+                    $belt_width_in = $obj_attr->getProdAttrSetT()->getBeltWidthInch();
+                }
+                
+                // Type
+                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getFabricType'))
+                {  
+                    $fabric_type = $obj_attr->getProdAttrSetN()->getFabricType();
+                }
+
+                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getSteelType'))
+                {  
+                    $steel_type = $obj_attr->getProdAttrSetN()->getSteelType();
+                }
+                
+                
                 $data[] = [
                     [$diameter_in,$diameter_mm],
-                    ['23.6','600'],
-                    ['•','•'],
+                    [$belt_width_in,$belt_width_mm],
+                    [$fabric_type,$steel_type],
                 ];
-                
-                //Diameter
-                //$data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
-                
-                // $data['Diameter']['in'][] = '5.9';
-                
-                // //Belt Width
-                // $data['Belt_Width']['mm'][] = '600';
-                // $data['Belt_Width']['in'][] = '23.6';
-                
-                // //Type
-                // $data['Type']['Fabric'][] = '•';
-                // $data['Type']['Steel'][] = '•';
-                
             }
         }
         return $data;

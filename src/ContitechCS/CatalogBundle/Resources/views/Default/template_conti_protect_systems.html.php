@@ -61,34 +61,38 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php endif; ?>
 
                             </p>
-
-                            <div class="feature-benefit-list mb-0">
-                                <h3 class="f-12 conti-grey">
-                                
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
-                                                <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("CPS_BenefitLabel"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("CPS_BenefitLabel") ?>
-                                <?php endif; ?>
-                                
-                                </h3>
-
-                                <?php 
-                                    if($monitoring_system)
-                                    {   
-                                        echo "<ul>";
-                                        foreach($monitoring_system as $val)
-                                        {
-                                            echo "<li>".$val."</li>";
-                                        }
-                                        echo "</ul>";
-                                    }
-                                ?>
-                            </div>
+                            
+                            <?php
+                                if($monitoring_system)
+                                {
+                                    ?>
+                                        <div class="feature-benefit-list mb-0">
+                                            <h3 class="f-12 conti-grey">
+                                            
+                                            <?php if($this->editmode): ?>
+                                                    <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
+                                                            <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
+                                                    <?php else: ?>
+                                                            <?= $this->input("CPS_BenefitLabel"); ?>
+                                                    <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("CPS_BenefitLabel") ?>
+                                            <?php endif; ?>
+                                            
+                                            </h3>
+            
+                                            <?php 
+                                                echo "<ul>";
+                                                foreach($monitoring_system as $val)
+                                                {
+                                                    echo "<li>".$val."</li>";
+                                                }
+                                                echo "</ul>";
+                                            ?>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
 
                         <?php
