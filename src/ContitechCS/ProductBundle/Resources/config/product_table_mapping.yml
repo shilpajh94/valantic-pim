@@ -3479,8 +3479,8 @@ Cover Options:
         InternationalStandards: ProdAttrSetJ
         MinTemperatureF: ProdAttrSetR
         MaxTemperatureF: ProdAttrSetR
-        MinTemperatureC: ProdAttrSetR
-        MaxTemperatureC: ProdAttrSetR
+        # MinTemperatureC: ProdAttrSetR
+        # MaxTemperatureC: ProdAttrSetR
         AbrasionResistance: ProdAttrSetR
         CutAndGougeResistance: ProdAttrSetR
         OilResistance: ProdAttrSetR
