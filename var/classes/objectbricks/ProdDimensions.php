@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-17T13:39:21+01:00
+* Generated at: 2021-11-17T14:52:34+01:00
 * IP: 127.0.0.1
 
 
@@ -10,22 +10,26 @@ Fields Summary:
 - MinimumBeltMMWidth [numeric]
 - WeightKG [numeric]
 - BeltWidth [numeric]
+- DiameterInch [numeric]
 - AvailableProfilePatternWidths [numeric]
 - MaximumBeltWidthMMUnit [input]
 - MinimumBeltWidthMMUnit [input]
 - WeightKGUnit [input]
 - BeltWidthUnit [input]
+- DiameterInchUnit [input]
 - AvailableProfilePatternWidthsUnit [input]
 - MaximumBeltWidthInch [numeric]
 - MinimumBeltWidthInch [numeric]
 - WeightLb [numeric]
-- VolumeFlow [numeric]
+- BeltWidthmm3 [numeric]
 - Diameter [numeric]
+- VolumeFlow [numeric]
 - MaximumBeltWidthInchUnit [input]
 - MinimumBeltWidthInchUnit [input]
 - WeightLbUnit [input]
-- VolumeFlowUnit [input]
+- BeltWidthmm3Unit [input]
 - DiameterUnit [input]
+- VolumeFlowUnit [input]
 */ 
 
 
@@ -259,6 +263,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'DiameterInch',
+                     'title' => 'Diameter',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'AvailableProfilePatternWidths',
                      'title' => 'Available Profile Pattern Widths',
                      'tooltip' => '',
@@ -421,6 +456,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'DiameterInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'AvailableProfilePatternWidthsUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -567,8 +630,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'VolumeFlow',
-                     'title' => 'Volume Flow',
+                     'name' => 'BeltWidthmm3',
+                     'title' => 'Belt Width',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -600,6 +663,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'Diameter',
                      'title' => 'Diameter',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:80px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'VolumeFlow',
+                     'title' => 'Volume Flow',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -732,11 +826,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'VolumeFlowUnit',
+                     'name' => 'BeltWidthmm3Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding-left:10px;',
@@ -765,6 +859,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'VolumeFlowUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding-left:10px;',
