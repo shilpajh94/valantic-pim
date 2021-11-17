@@ -17,48 +17,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
 <?php if($data): ?>
 <div class="wrapper">
-    <?php if($this->editmode): ?>
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
-                    <span class="second-title">
-                        <?php
-                            if($this->input("STBC_title")->isEmpty())
-                                {
-                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
-                                }
-                                else
-                                {
-                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title']);
-                                }
-                            ?>
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+                <span class="second-title">
+                    <?php
+                        if($this->input("PP_title")->isEmpty())
+                            {
+                                echo $this->input("PP_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                            }
+                            else
+                            {
+                                echo $this->input("PP_title",['placeholder' => 'Enter your title']);
+                            }
+                        ?>
                     </span>
-                </div>
+            </div>
                 <div class="print-pg-no"></div>
             </div>
-        </header>
-    <?php else: ?>
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt">
-			        <span class="first-title"><?= $this->translate('CS_header_title') ?></span>
-                    <span class="second-title">
-                        <?php
-                            if(!$this->input("STBC_title")->isEmpty())
-                                {
-                                    echo $this->input("TBC_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
-                                }
-                                
-                            ?>
-                    </span>
-                </div>
-                <div class="print-pg-no"></div>
-            </div>
-        </header>
-
-    <?php endif; ?>
-
-
+    </header>
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
