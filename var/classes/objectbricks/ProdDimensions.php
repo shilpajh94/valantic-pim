@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-02T17:51:48+05:30
-* IP: ::1
+* Generated at: 2021-11-17T13:39:21+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -34,8 +34,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'ABC',
-      'fieldname' => 'bricks',
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
     ),
   ),
    'dao' => NULL,

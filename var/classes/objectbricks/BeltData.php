@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-02T13:48:44+05:30
-* IP: ::1
+* Generated at: 2021-11-17T13:44:20+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -11,6 +11,7 @@ Fields Summary:
 - ElasticModulusinKNMM [numeric]
 - MinimumPulleyDiameterinMMTailsAndSnubs [numeric]
 - MinimumPulleyDiameterinMM40Tension [numeric]
+- MinimumPulleyDiameterinMM60Tension [numeric]
 - MinimumPulleyDiameterinMM40_60Tension [numeric]
 - MinimumPulleyDiameterinMM60_80Tension [numeric]
 - MinimumPulleyDiameterinMMGreaterThan80Tension [numeric]
@@ -21,12 +22,15 @@ Fields Summary:
 - SpecificBeltMassinKGM [numeric]
 - NominalCableDiameterinMM [numeric]
 - CoverWeightPer1mmThicknessKGM [numeric]
+- ElevatorRatingPIW [numeric]
+- MaximumBucketProjectionInch [numeric]
 - AveragePermanentElongationPercentage [numeric]
 - beltRatingNMMUnit [input]
 - CarcassWeightKGMUnit [input]
 - ElasticModulusinKNMMUnit [input]
 - MinimumPulleyDiameterinMMTailsAndSnubs_Unit [input]
 - MinimumPulleyDiameterinMM40Tension_Unit [input]
+- MinimumPulleyDiameterinMM60Tension_Unit [input]
 - MinimumPulleyDiameterinMM40_60Tension_Unit [input]
 - MinimumPulleyDiameterinMM60_80Tension_Unit [input]
 - MinimumPulleyDiameterinMMGreaterThan80Tension_Unit [input]
@@ -37,12 +41,15 @@ Fields Summary:
 - SpecificBeltMassinKGMUnit [input]
 - NominalCableDiameterinMMUnit [input]
 - CoverWeightPer1mmThicknessKGMUnit [input]
+- ElevatorRatingPIWUnit [input]
+- MaximumBucketProjectionInchUnit [input]
 - AveragePermanentElongationPercentageUnit [input]
 - beltRatingPIW [numeric]
 - CarcassWeightLBS [numeric]
 - ElasticModulusinPIW [numeric]
 - MinimumPulleyDiameterinInchTailsAndSnubs [numeric]
 - MinimumPulleyDiameterinInch40Tension [numeric]
+- MinimumPulleyDiameterinInch60Tension [numeric]
 - MinimumPulleyDiameterinInch40_60Tension [numeric]
 - MinimumPulleyDiameterinInch60_80Tension [numeric]
 - MinimumPulleyDiameterinInchGreaterThan80Tension [numeric]
@@ -53,11 +60,14 @@ Fields Summary:
 - SpecificBeltMassinLBS [numeric]
 - NominalCableDiameterinInch [numeric]
 - CoverWeightPer132inThicknessLBS [numeric]
+- ElevatorRatingNmm [numeric]
+- MaximumBucketProjectionMM [numeric]
 - beltRatingPIWUnit [input]
 - CarcassWeightLBSUnit [input]
 - ElasticModulusinPIWUnit [input]
 - MinimumPulleyDiameterinInchTailsAndSnubs_Unit [input]
 - MinimumPulleyDiameterinInch40Tension_Unit [input]
+- MinimumPulleyDiameterinInch60Tension_Unit [input]
 - MinimumPulleyDiameterinInch40_60Tension_Unit [input]
 - MinimumPulleyDiameterinInch60_80Tension_Unit [input]
 - MinimumPulleyDiameterinInchGreaterThan80Tension_Unit [input]
@@ -68,16 +78,24 @@ Fields Summary:
 - SpecificBeltMassinLBSUnit [input]
 - NominalCableDiameterinInchUnit [input]
 - CoverWeightPer132inThicknessLBSUnit [input]
+- ElevatorRatingNmmUnit [input]
+- MaximumBucketProjectionMMUnit [input]
 - localizedfields [localizedfields]
 -- CoverGaugeExamplesMetricinMM [input]
 -- CoverGaugeExamplesImperialinInch [input]
 -- CleatSize [input]
+-- AdditionalInformation [input]
 */ 
 
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
+    0 => 
+    array (
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
+    ),
   ),
    'dao' => NULL,
    'key' => 'BeltData',
@@ -331,6 +349,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'MinimumPulleyDiameterinMM60Tension',
+                     'title' => 'Minimum pulley diameter (@up to 60 % tension)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'MinimumPulleyDiameterinMM40_60Tension',
                      'title' => 'Minimum pulley diameter (@40 % to 60 % tension)',
                      'tooltip' => '',
@@ -347,7 +396,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -378,7 +427,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -409,7 +458,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -440,7 +489,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -461,7 +510,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -471,7 +520,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -502,7 +551,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -533,7 +582,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -564,7 +613,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -595,7 +644,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  14 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -626,7 +675,69 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  15 => 
+                  16 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'ElevatorRatingPIW',
+                     'title' => 'Elevator Rating',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  17 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'MaximumBucketProjectionInch',
+                     'title' => 'Maximum Bucket Projection',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  18 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -831,6 +942,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'MinimumPulleyDiameterinMM60Tension_Unit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-top:9px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'MinimumPulleyDiameterinMM40_60Tension_Unit',
                      'title' => '',
                      'tooltip' => '',
@@ -847,7 +986,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -875,7 +1014,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -903,7 +1042,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -931,7 +1070,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -949,7 +1088,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -959,7 +1098,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -987,7 +1126,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1015,7 +1154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1043,7 +1182,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1071,7 +1210,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  14 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1099,7 +1238,63 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  15 => 
+                  16 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'ElevatorRatingPIWUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-top:3px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  17 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'MaximumBucketProjectionInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-top:3px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  18 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1319,6 +1514,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'MinimumPulleyDiameterinInch60Tension',
+                     'title' => 'Minimum pulley diameter (@up to 60 % tension)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:40px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'MinimumPulleyDiameterinInch40_60Tension',
                      'title' => 'Minimum pulley diameter (@40 % to 60 % tension)',
                      'tooltip' => '',
@@ -1335,7 +1561,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1366,7 +1592,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1397,7 +1623,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1428,7 +1654,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1449,7 +1675,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left:40px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1459,7 +1685,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1490,7 +1716,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1521,7 +1747,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1552,7 +1778,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1583,7 +1809,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  14 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -1600,6 +1826,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'CoverWeightPer132inThicknessLBS',
                      'title' => 'Cover weight per 1/32 in. thickness',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:40px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  16 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'ElevatorRatingNmm',
+                     'title' => 'Elevator Rating',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:40px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  17 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'MaximumBucketProjectionMM',
+                     'title' => 'Maximum Bucket Projection',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1788,6 +2076,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'MinimumPulleyDiameterinInch60Tension_Unit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:9px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'MinimumPulleyDiameterinInch40_60Tension_Unit',
                      'title' => '',
                      'tooltip' => '',
@@ -1804,7 +2120,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1832,7 +2148,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1860,7 +2176,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1888,7 +2204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1906,7 +2222,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1916,7 +2232,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1944,7 +2260,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1972,7 +2288,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -2000,7 +2316,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -2028,7 +2344,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  14 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -2041,6 +2357,62 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'CoverWeightPer132inThicknessLBSUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:3px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  16 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'ElevatorRatingNmmUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:3px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  17 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'MaximumBucketProjectionMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -2142,7 +2514,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'AdditionalInformation',
+                 'title' => 'Additional Information',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
