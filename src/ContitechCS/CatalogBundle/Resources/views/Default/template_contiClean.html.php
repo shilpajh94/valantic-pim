@@ -17,8 +17,11 @@
 <?php if($data): ?>
 <div class="wrapper conticleanpage">
     <header id="header">
-        <div class="header-sec">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>  
+            <div class="header-sec">
+                <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
+                <span class="second-title">
+                    <?= $this->input("ContiA_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+            </div>
             <div class="print-pg-no"></div>
         </div>
     </header>
