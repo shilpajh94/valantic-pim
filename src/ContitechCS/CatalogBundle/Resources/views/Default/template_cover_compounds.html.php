@@ -151,10 +151,14 @@ $coverCompound = $data['coverCompoundData'];
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th colspan="15" class="orange">Applications</th>
+                                    <th colspan="15" class="orange">
+                                        <?= $this->translate('CS_Applications') ?>
+                                    </th>
                                 </tr>
                                 <tr class="vertical-head">
-                                    <th align="left" width="13%" class="orange">Compounds</th>
+                                    <th align="left" width="13%" class="orange">
+                                    <?= $this->translate('CS_Compounds') ?>
+                                    </th>
                                     
                                     <?php 
                                         $applicationData = $data['applicationData'];

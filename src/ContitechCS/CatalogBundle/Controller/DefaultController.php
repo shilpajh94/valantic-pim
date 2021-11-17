@@ -740,7 +740,7 @@ class DefaultController extends FrontendController
         if($catalogTableObject)
         {   
             $this->configProviderService = new ConfigProviderService();
-            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();   
 
             $selectedProduct = $catalogTableObject->getProducts();
 
@@ -755,9 +755,11 @@ class DefaultController extends FrontendController
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
             $productData['cover_compounds'] = $productDetails->getCoverCompounds();
 
+
             if(isset($productDataImportConfig[$productDetails->getName()]))
             {
                 $CommonBeltProfileAttributes = $productDataImportConfig[$productDetails->getName()]['Common Belt Profile Attributes'];
+            
             }
 
             $productChildrenData = $productDetails->getchildren(); 
@@ -786,7 +788,6 @@ class DefaultController extends FrontendController
                         }
                     }   
                     $data['tableFieldData'] = $tableFieldData;
-                    
                     
                     $childrenData[] = $data;
                 }
