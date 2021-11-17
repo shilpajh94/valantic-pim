@@ -740,7 +740,10 @@ class DefaultController extends FrontendController
 
             $productDetails = DataObject\CSProducts::getById($productId);
 
-            $productData['HierarchyNameLevel2'] = $productDetails->getName();
+            $objParent = DataObject\CSProducts::getById($productDetails->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+            
             $productData['Name'] = $productDetails->getName();
             $productData['LongText'] = $productDetails->getLongText();
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
@@ -946,8 +949,10 @@ class DefaultController extends FrontendController
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
             
-            
-            $productData['HierarchyNameLevel2'] = $productObject->getName();
+            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+
+            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
             $productData['Name'] = $productObject->getName();
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();

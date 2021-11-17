@@ -141,9 +141,9 @@
                                             <li><span class="orange">›</span> <?= $item ?></li>
                                         <?php
                                     }
-                                    ?></ul><?php
                                 }
                             ?>
+                            </ul>
                         </div>
                     </div>
                 </div>    
