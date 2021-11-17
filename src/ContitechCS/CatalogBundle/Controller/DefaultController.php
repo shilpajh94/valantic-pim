@@ -1134,6 +1134,11 @@ class DefaultController extends FrontendController
                 {  
                     $belt_width_in = $obj_attr->getProdAttrSetT()->getBeltWidthInch();
                 }
+
+                if(method_exists($obj_attr,'getProdAttrSetT') && method_exists($obj_attr->getProdAttrSetT(),'getBeltWidthMM'))
+                {  
+                    $belt_width_mm = $obj_attr->getProdAttrSetT()->getBeltWidthMM();
+                }
                 
                 // Type
                 if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getFabricType'))
@@ -1145,6 +1150,7 @@ class DefaultController extends FrontendController
                 {  
                     $steel_type = $obj_attr->getProdAttrSetN()->getSteelType();
                 }
+
                 
                 
                 $data[] = [
