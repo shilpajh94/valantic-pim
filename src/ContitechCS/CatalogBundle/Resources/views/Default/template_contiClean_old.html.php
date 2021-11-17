@@ -125,22 +125,24 @@
                         ?>            
 
                         <div class="col-5">
-                            <h3 class="orange">
-                           <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
-                </h3>
-                            <ul class="materials-list">
-
+                            
                             <?php 
                                 if($data['material'])
-                                {
+                                {   
+                                    ?>
+                                        <h3 class="orange">
+                                            <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
+                                        </h3>
+                                        <ul class="materials-list">
+                                    <?php
                                     foreach ($data['material'] as $key => $item) {
                                         ?>
                                             <li><span class="orange">›</span> <?= $item ?></li>
                                         <?php
                                     }
+                                    ?></ul><?php
                                 }
                             ?>
-                            </ul>
                         </div>
                     </div>    
                 <div class="nexcolumtarget">
