@@ -98,7 +98,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                         if($this->image("PP_Product_Image")->isEmpty())
                         {
-                            echo $this->image("PP_Product_Image")->setImage($data['ProductImage']);
+                            echo $this->image("PP_Product_Image")->setImage($data['LogoImage']);
                         }
                         else{
                             echo $this->image("PP_Product_Image");

@@ -183,7 +183,7 @@ class DefaultController extends FrontendController
                 $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
                 $productData['ShortText'] = $productObj->getShortText();
                 $productData['LongText'] = $productObj->getLongText();
-                $productData['ProductImage'] = $productObj->getProductImage();
+                $productData['LogoImage'] = $productObj->getLogoImage();
                 $productData['Features'] = $productObj->getFeatures();
                 $productData['Benefits'] = $productObj->getBenefits();
 
@@ -260,11 +260,19 @@ class DefaultController extends FrontendController
                         }
                     }
 
+                    if($childrenData)
+                    {
+                        foreach ($childrenData as $chKey => $chValue) {
+                            if(!$chValue->getPrintedCatalogFlag())
+                            {
+                                unset($childrenData[$chKey]);
+                            }
+                        }
+                    }
+
                     $productTables = array();
                     if($childrenData)
                     {
-
-
                         $tables = $productDataImportConfig['Common Product Page'][$productName];
                         // unset($tables['Conveyor Belt Data']);
                         // unset($tables['Load Support – Maximum Belt Width Data']);
