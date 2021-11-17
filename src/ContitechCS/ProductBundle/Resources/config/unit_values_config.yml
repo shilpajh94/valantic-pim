@@ -163,25 +163,35 @@ nominal cable diameter in inch  Unit:
   fieldType: Input
   fieldValue: inch
   objectType: BeltData
-Cleat Height Unit in mm:
-  fieldName: CleatHeightMMUnit
-  fieldType: Input
-  fieldValue: mm
-  objectType: BeltData
-Cleat Height Unit in inch:
-  fieldName: CleatHeightInchUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: BeltData
+# Cleat Height Unit in mm:
+#   fieldName: CleatHeightMMUnit
+#   fieldType: Input
+#   fieldValue: mm
+#   objectType: BeltData
+# Cleat Height Unit in inch:
+#   fieldName: CleatHeightInchUnit
+#   fieldType: Input
+#   fieldValue: inch
+#   objectType: BeltData
 Minimum ultimate tension PIW:
   fieldName: MinimumUltimateTensionPIWUnit
   fieldType: Input
   fieldValue: PIW
   objectType: BeltData
 Minimum ultimate tension kN/m:
-  fieldName: MinimumUltimateTensionkNmUnit
+  fieldName: MinimumUltimateTensionKNMUnit
   fieldType: Input
   fieldValue: kN/m
+  objectType: BeltData
+Belt Modulus in kN/m:
+  fieldName: BeltModulusKNMUnit
+  fieldType: Input
+  fieldValue: kN/m
+  objectType: BeltData
+Belt Modulus in  PIW:
+  fieldName: BeltModulusPIWUnit
+  fieldType: Input
+  fieldValue: PIW
   objectType: BeltData
 Step Length Unit in mm:
   fieldName: StepLengthinMM_Unit
@@ -243,16 +253,16 @@ Carcass gauge Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: Material
-# Cleat Height Unit in mm:
-#   fieldName: CleatHeightMMUnit
-#   fieldType: Input
-#   fieldValue: mm
-#   objectType: Material
-# Cleat Height Unit in inch:
-#   fieldName: CleatHeightInchUnit
-#   fieldType: Input
-#   fieldValue: inch
-#   objectType: Material
+Cleat Height Unit in mm:
+  fieldName: CleatHeightMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: Material
+Cleat Height Unit in inch:
+  fieldName: CleatHeightInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: Material
 Length Unit:
   fieldName: LengthMMUnit
   fieldType: Input
@@ -413,8 +423,343 @@ Weight Lb Unit:
   fieldType: Input
   fieldValue: lb
   objectType: ProdDimensions
+Belt Width Unit:
+  fieldName: BeltWidthUnit
+  fieldType: Input
+  fieldValue: mm3
+  objectType: ProdDimensions
 Available Profile Pattern Widths Unit:
   fieldName: AvailableProfilePatternWidthsUnit
   fieldType: Input
   fieldValue: inch
   objectType: ProdDimensions
+Thickness MM Unit:
+  fieldName: ThicknessMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: Performance2
+Max Temperature Unit celcius:
+  fieldName: MaxTemperatureCUnit
+  fieldType: Input
+  fieldValue: °C
+  objectType: Performance2
+Min Temperature Unit celcius:
+  fieldName: MinTemperatureCUnit
+  fieldType: Input
+  fieldValue: °C
+  objectType: Performance2
+Abrasion Rotating Unit in mm:
+  fieldName: AbrasionRotatingUnitMM
+  fieldType: Input
+  fieldValue: mm
+  objectType: Performance2
+Abrasion Non Rotating Unit in mm:
+  fieldName: AbrasionNonRotatingUnitMM
+  fieldType: Input
+  fieldValue: mm
+  objectType: Performance2
+Shore Hardness Unit:
+  fieldName: ShoreHardnessUnit
+  fieldType: Input
+  fieldValue: ShoreA
+  objectType: Performance2
+Specific weight unit:
+  fieldName: SpecificWeightUnit
+  fieldType: Input
+  fieldValue: g/cm^3
+  objectType: Performance2
+Outer Diameter Unit:
+  fieldName: OuterDiameterUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: Performance2
+ThicknessInch Unit:
+  fieldName: ThicknessInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: Performance2
+Max Temperature Unit F:
+  fieldName: MaxTemperatureFUnit
+  fieldType: Input
+  fieldValue: °F
+  objectType: Performance2
+Min Temperature Unit F:
+  fieldName: MinTemperatureFUnit
+  fieldType: Input
+  fieldValue: °F
+  objectType: Performance2
+Abrasion Rotating Unit in inch:
+  fieldName: AbrasionRotatingInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: Performance2
+Abrasion Non Rotating Unit in inch:
+  fieldName: AbrasionNonRotatingInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: Performance2
+Inner Diameter Unit:
+  fieldName: InnerDiameterUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: Performance2
+Tensile strength:
+  fieldName: TensileStrengthUnit
+  fieldType: Input
+  fieldValue: kN/m
+  objectType: Performance2
+Tensile strength in PIW:
+  fieldName: TensileStrengthUnitPIW
+  fieldType: Input
+  fieldValue: PIW
+  objectType: Performance2
+Load-support maximum belt width (0-640 kg/m²; 20 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM640KGM20_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (0-640 kg/m²; 35 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM640KGM35_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (0-640 kg/m²; 45 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM640KGM45_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 20 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1280KGM20_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 35 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1280KGM35_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 45 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1280KGM45_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 20 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1920KGM20_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 35 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1920KGM35_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 45 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMM1920KGM45_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 20 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 35 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 45 °) Unit in mm:
+  fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Troughability minimum belts width (20 °) Unit in mm:
+  fieldName: TroughabilityMinimumBeltsWidthinMM20_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Troughability minimum belts width (35 °) Unit in mm:
+  fieldName: TroughabilityMinimumBeltsWidthinMM35_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Troughability minimum belts width (45 °) Unit in mm:
+  fieldName: TroughabilityMinimumBeltsWidthinMM45_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: LoadSupport
+Vulcanized And Fastener Rating Unit in KNM:
+  fieldName: VulcanizedAndFastenerRatinginNMMUnit
+  fieldType: Input
+  fieldValue: N/mm
+  objectType: LoadSupport
+Load-support maximum belt width (0-640 kg/m²; 20 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch640KGM20_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (0-640 kg/m²; 35 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch640KGM35_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (0-640 kg/m²; 45 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch640KGM45_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 20 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1280KGM20_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 35 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1280KGM35_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (641-1280 kg/m²; 45 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1280KGM45_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 20 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1920KGM20_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 35 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1920KGM35_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (1281-1920 kg/m²; 45 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInch1920KGM45_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 20 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 35 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Load-support maximum belt width (>1920 kg/m²; 45 °) Unit in inch:
+  fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Troughability minimum belts width (20 °) Unit in inch:
+  fieldName: TroughabilityMinimumBeltsWidthinInch20_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Troughability minimum belts width (35 °) Unit in inch:
+  fieldName: TroughabilityMinimumBeltsWidthinInch35_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Troughability minimum belts width (45 °) Unit in inch:
+  fieldName: TroughabilityMinimumBeltsWidthinInch45_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: LoadSupport
+Vulcanized And Fastener Rating Unit in PIW:
+  fieldName: VulcanizedAndFastenerRatinginPIWUnit
+  fieldType: Input
+  fieldValue: PIW
+  objectType: LoadSupport
+Type of Idler In line 20inch Unit:
+  fieldName: TypeofIdlerInline20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler In line 35inch Unit:
+  fieldName: TypeofIdlerInline35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler In line 45inch Unit:
+  fieldName: TypeofIdlerInline45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 20inch Unit:
+  fieldName: TypeofIdlerOffsetEqual20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 35inch Unit:
+  fieldName: TypeofIdlerOffsetEqual35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 45inch Unit:
+  fieldName: TypeofIdlerOffsetEqual45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 20inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 35inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 45inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: TypeOfIdler
+Type of Idler Inline 20mm Unit:
+  fieldName: TypeofIdlerInline20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Inline 35mm Unit:
+  fieldName: TypeofIdlerInline35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Inline 45mm Unit:
+  fieldName: TypeofIdlerInline45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 20mm Unit:
+  fieldName: TypeofIdlerOffsetEqual20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 35mm Unit:
+  fieldName: TypeofIdlerOffsetEqual35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset Equal 45mm Unit:
+  fieldName: TypeofIdlerOffsetEqual45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 20mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 35mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
+Type of Idler Offset LCRoll 45mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: TypeOfIdler
