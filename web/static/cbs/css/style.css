@@ -113,8 +113,11 @@
     }
 
     .features-benefit-sec .features-images{
+        max-width: 150px;
+        max-height: 108px;
         width: 150px;
-        height: auto;    
+        min-height:108px;
+        /* height: auto;     */
     }
     .environment-quality-sec .features-images{
         margin: 0px;
@@ -186,6 +189,7 @@
 
     .p-medium p, .environment-quality-sec .media .p-medium p{
         font-size: 14px;
+        line-height: normal;
         /* line-height: 1.4; */
     }
 
@@ -926,11 +930,11 @@
         width: 45%;
         font-family: 'ContinentalStagSansLCG-Book';
         font-size: 8px;
-        padding-right: 20px;
+        padding-right: 30px;
         margin-bottom: 0;
         color: #ffffff;
         line-height: 1.4;
-        letter-spacing: 0;
+        letter-spacing: 0.2px;
 
     }
     .bottom-mid-sec p{
@@ -1027,11 +1031,16 @@
         border-bottom: 1px solid #000000;
         padding: 4px 9px;
     }
-    .construction-tab tr:last-child th{
+    .construction-tab thead tr:nth-child(2) th{
         font-family: 'ContinentalStagSansLCG-Book' !important;
+        font-size: 10px;
+    }
+    .construction-tab tbody th{
+        font-family: 'ContinentalStagSansLCG-Medium';
     }
     .construction-tab td{
         font-family: 'ContinentalStagSansLCG-Book' !important;
+        font-size: 10px;
     }
     .construction-tab h2{
         font-size: 20px;
@@ -1057,7 +1066,7 @@
         margin-right: 20px;
     }
 
-    .construction-tab td > table th, .construction-tab td > table  td{
+    .construction-tab .d-flex table td {
         white-space: nowrap;
     }
 

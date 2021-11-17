@@ -99,6 +99,12 @@ if (!isset($this->parentContainer)) {
     @top-right {
         content: "";
     }
+    @bottom-left {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
 }
 
 @page title80:left {
