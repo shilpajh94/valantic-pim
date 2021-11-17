@@ -3125,53 +3125,52 @@ Common Product Page:
                     # fieldTitle: Carcass Weight (kg/sq. m)
                     objectType: ProdAttrSetD      
     Flexsteel:
-        Product Tables:
-            Standard Specifications:
-                ColumnKeys: true
-                Imperial:
-                    # # AdditionalHeaderKey: Flexsteel
-                    HeaderKeys: 
-                        OperatingTensioninPIW: OperatingTensioninPIW
-                    OperatingTensioninPIW:
-                        # fieldTitle: Operating Tension (PIW)
-                        objectType: ProdAttrSetD
-                    CoverGaugeExamplesImperialinInch:
-                        # fieldTitle: Cover Gauge Examples (Top & Pulley Side) (in.)
-                        objectType: ProdAttrSetD
-                    NominalCableDiameterinInch:
-                        # fieldTitle: Cable Diameter (Nominal) (in.)
-                        objectType: ProdAttrSetG
-                    BeltThicknessinInch: 
-                        # fieldTitle: Belt Thickness (in.)
-                        objectType: ProdAttrSetD
-                    SpecificBeltMassinLBS: 
-                        # fieldTitle: Specific Belt Mass (lb./sq. ft.)
-                        objectType: ProdAttrSetD
-                    CarcassWeightLBS:
-                        # fieldTitle: Carcass Weight (lb./sq.ft.)
-                        objectType: ProdAttrSetD
-                Metric: 
-                    # # AdditionalHeaderKey: Flexsteel
-                    HeaderKeys: 
-                        OperatingTensioninKNM: OperatingTensioninKNM
-                    OperatingTensioninKNM:
-                        # fieldTitle: Operating Tension (kN/m)
-                        objectType: ProdAttrSetD
-                    CoverGaugeExamplesMetricinMM:
-                        # fieldTitle: Cover Gauge Examples (Top & Pulley Side) (mm)
-                        objectType: ProdAttrSetD
-                    NominalCableDiameterinMM:
-                        # fieldTitle: Cable Diameter (Nominal) (mm)
-                        objectType: ProdAttrSetG
-                    BeltThicknessinMM: 
-                        # fieldTitle: Belt Thickness (mm)
-                        objectType: ProdAttrSetD
-                    SpecificBeltMassinKGM: 
-                        # fieldTitle: Specific Belt Mass (kg/sq. m)
-                        objectType: ProdAttrSetD
-                    CarcassWeightKGM:
-                        # fieldTitle: Carcass Weight (kg/sq. m)
-                        objectType: ProdAttrSetD
+        Standard Specifications:
+            ColumnKeys: true
+            Imperial:
+                # # AdditionalHeaderKey: Flexsteel
+                HeaderKeys: 
+                    OperatingTensioninPIW: OperatingTensioninPIW
+                OperatingTensioninPIW:
+                    # fieldTitle: Operating Tension (PIW)
+                    objectType: ProdAttrSetD
+                CoverGaugeExamplesImperialinInch:
+                    # fieldTitle: Cover Gauge Examples (Top & Pulley Side) (in.)
+                    objectType: ProdAttrSetD
+                NominalCableDiameterinInch:
+                    # fieldTitle: Cable Diameter (Nominal) (in.)
+                    objectType: ProdAttrSetG
+                BeltThicknessinInch: 
+                    # fieldTitle: Belt Thickness (in.)
+                    objectType: ProdAttrSetD
+                SpecificBeltMassinLBS: 
+                    # fieldTitle: Specific Belt Mass (lb./sq. ft.)
+                    objectType: ProdAttrSetD
+                CarcassWeightLBS:
+                    # fieldTitle: Carcass Weight (lb./sq.ft.)
+                    objectType: ProdAttrSetD
+            Metric: 
+                # # AdditionalHeaderKey: Flexsteel
+                HeaderKeys: 
+                    OperatingTensioninKNM: OperatingTensioninKNM
+                OperatingTensioninKNM:
+                    # fieldTitle: Operating Tension (kN/m)
+                    objectType: ProdAttrSetD
+                CoverGaugeExamplesMetricinMM:
+                    # fieldTitle: Cover Gauge Examples (Top & Pulley Side) (mm)
+                    objectType: ProdAttrSetD
+                NominalCableDiameterinMM:
+                    # fieldTitle: Cable Diameter (Nominal) (mm)
+                    objectType: ProdAttrSetG
+                BeltThicknessinMM: 
+                    # fieldTitle: Belt Thickness (mm)
+                    objectType: ProdAttrSetD
+                SpecificBeltMassinKGM: 
+                    # fieldTitle: Specific Belt Mass (kg/sq. m)
+                    objectType: ProdAttrSetD
+                CarcassWeightKGM:
+                    # fieldTitle: Carcass Weight (kg/sq. m)
+                    objectType: ProdAttrSetD
     TransConti:
         Conveyor Belt Data: 
             ColumnKeys: true
