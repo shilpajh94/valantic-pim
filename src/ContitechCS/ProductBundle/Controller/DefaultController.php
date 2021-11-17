@@ -256,11 +256,10 @@ class DefaultController extends FrontendController
                 if ($counter == $productHierCount) {
                     $allObjectBricks = $relatedBricksSameLevel;
                 }
-
-                if($allObjectBricks){
+                if (is_array($allObjectBricks) && !empty($allObjectBricks)) {
                     $allObjectBricks = array_unique($allObjectBricks);
                 }
-                
+
                 $CSProductObj = DataObject\CSProducts::getByPath($productPath);
                 if (!$CSProductObj) {
 
@@ -319,7 +318,7 @@ class DefaultController extends FrontendController
                         $product->save();
                         $parentId = $product->getId();
                         /** code added below to change workflow state on creation of product **/
-                        
+
                         /** code added above to change workflow state on creation of product **/
                         \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
