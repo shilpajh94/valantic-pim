@@ -454,7 +454,7 @@ $coverCompound = $data['coverCompoundData'];
                                             $style = 'align="left"';
                                         }
                                         ?>
-                                            <th <?= $style; ?> width="8%"><?= $headerValue; ?></th>
+                                            <th <?= $style; ?> width="8%"><?= $this->translate($headerValue); ?></th>
                                         <?php
                                     }
                                 ?>

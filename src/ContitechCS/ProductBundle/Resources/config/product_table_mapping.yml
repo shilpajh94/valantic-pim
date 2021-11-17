@@ -29,6 +29,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -73,6 +74,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -835,6 +837,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -879,6 +882,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -1228,6 +1232,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -1272,6 +1277,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -1533,6 +1539,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -1577,6 +1584,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -1698,18 +1706,6 @@ Common Product Page:
                     # fieldTitle: 45
                     objectType: ProdAttrSetAA
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20:
-                    # fieldTitle: 20
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35:
-                    # fieldTitle: 35
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45:
-                    # fieldTitle: 45
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
@@ -1850,6 +1846,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -1894,6 +1891,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -2015,18 +2013,6 @@ Common Product Page:
                     # fieldTitle: 45
                     objectType: ProdAttrSetAA
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20:
-                    # fieldTitle: 20
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35:
-                    # fieldTitle: 35
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
-                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45:
-                    # fieldTitle: 45
-                    objectType: ProdAttrSetAA
-                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
@@ -2167,6 +2153,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -2211,6 +2198,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -2472,6 +2460,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -2516,6 +2505,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -2762,6 +2752,10 @@ Common Product Page:
                 FabricType: 
                     # fieldTitle: Fabric Type*
                     objectType: ProdAttrSetN
+                AveragePermanentElongationPercentage:
+                    # fieldTitle: Average Permanent Elongation (%)**
+                    objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 VulcanizedAndFastenerRatinginPIW:
                     # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: ProdAttrSetAA
@@ -2774,9 +2768,6 @@ Common Product Page:
                 CoverWeightPer132inThicknessLBS:
                     # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: ProdAttrSetC
-                AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
-                    objectType: ProdAttrSetD
                 ElasticModulusinPIW:
                     # fieldTitle: Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -2803,6 +2794,10 @@ Common Product Page:
                 FabricType: 
                     # fieldTitle: Fabric Type*
                     objectType: ProdAttrSetN
+                AveragePermanentElongationPercentage:
+                    # fieldTitle: Average Permanent Elongation (%)**
+                    objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 beltRatingNMM: 
                     # fieldTitle: Belt Rating (kN/m)
                     objectType: ProdAttrSetD
@@ -2818,9 +2813,6 @@ Common Product Page:
                 CoverWeightPer1mmThicknessKGM:
                     # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: ProdAttrSetC
-                AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
-                    objectType: ProdAttrSetD
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
@@ -3200,6 +3192,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
@@ -3244,6 +3237,7 @@ Common Product Page:
                 AveragePermanentElongationPercentage:
                     # fieldTitle: Average Permanent Elongation (%)**
                     objectType: ProdAttrSetD
+                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD

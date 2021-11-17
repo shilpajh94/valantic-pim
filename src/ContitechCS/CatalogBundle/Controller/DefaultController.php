@@ -376,14 +376,15 @@ class DefaultController extends FrontendController
                                     }
 
                                     foreach ($childrenData as $childValue) {
-
+                                        $percentageSymbol = '';
                                         $bricks = $childValue->getProductAttributes();
                                         $data = [];
                                         foreach ($MIValues as $key => $value) {
                                             $brickName = $value['objectType'];
+                                            $percentageSymbol = $value['percentageSymbol'];
                                             $getBrick = 'get' . $brickName;
                                             $getField = 'get' . $key;
-                                            $data[$key] = $bricks->$getBrick()->$getField();
+                                            $data[$key] = ($bricks->$getBrick()->$getField()).$percentageSymbol;
                                         }
 
                                         if($ColumnKeys)
@@ -647,6 +648,7 @@ class DefaultController extends FrontendController
                                 $bricks = $child->getProductAttributes();
 
                                 foreach ($coverOptionsAttributes as $key => $brickName) {
+                                    
 
                                     $getBrick = 'get' . $brickName;
                                     $getField = 'get' . $key;
@@ -654,7 +656,7 @@ class DefaultController extends FrontendController
                                     {
                                         if(!$onlyOnce)
                                         {
-                                            $coverCompoundsHeaderKeys[] = $key;
+                                            $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
                                         }
                                         $coverCompounds[$coverCompoundName][$level4Name][] = $bricks->$getBrick()->$getField();
                                     }
