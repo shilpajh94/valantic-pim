@@ -93,7 +93,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
 
 
 
-    postSaveObject: function (object) {
+    postSaveObject: function (object, treenodelocator) {
 
         // reload hierarchy object on save
         if (object.data.general.o_className == "CSHierarchy") {
@@ -101,8 +101,34 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                 object.reload();
             }, 1);
         }
-
+        console.log(object.id);
+        if (object.data.general.o_className == "CSProducts") {
+            pimcore.elementservice.refreshNodeAllTrees()
+            //pimcore.globalmanager.treenodelocator.load();
+            //pimcore.treenodelocator.showInTree(object.id, "object");
+            //this.reloadNode.bind(this);
+            //pimcore.elementservice.reload(mLastClikedNode);
+            // setTimeout(function () {
+            //     pimcore.globalmanager.treenodelocator.reload();
+            // }, 1);
+            //alert("SS");
+            //pimcore.globalmanager.get("layout_document_tree").tree.getStore().load();
+            //pimcore.globalmanager.treenodelocator.reload();
+        }
     },
+
+    // reloadNode: function (tree, record) {
+    //     pimcore.elementservice.refreshNode(record);
+    // },
+
+    // pimcore.elementservice.refreshNode = function (node) {
+    //     var ownerTree = node.getOwnerTree();
+
+    //     node.data.expanded = true;
+    //     ownerTree.getStore().load({
+    //         node: node
+    //     });
+    // },
 
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
@@ -340,7 +366,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: users,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             forceSelection: true,
             msgTarget: 'under',
@@ -388,7 +414,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: marcom,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             forceSelection: true,
             msgTarget: 'under',
@@ -436,7 +462,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: editor,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             forceSelection: true,
             msgTarget: 'under',
