@@ -125,24 +125,17 @@
                         ?>            
 
                         <div class="col-5">
-<<<<<<< HEAD:src/ContitechCS/CatalogBundle/Resources/views/Default/template_contiClean.html.php
-                            <h3 class="orange">
-                           <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
-                             </h3>
-                            <ul class="materials-list">
-
-=======
                             
->>>>>>> 87d04e248e476d2a81cf333ea0806c3c08998d3f:src/ContitechCS/CatalogBundle/Resources/views/Default/template_contiClean_old.html.php
                             <?php 
                                 if($data['material'])
-                                {   
+                                {
                                     ?>
                                         <h3 class="orange">
-                                            <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
+                                    <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
                                         </h3>
                                         <ul class="materials-list">
                                     <?php
+                                    
                                     foreach ($data['material'] as $key => $item) {
                                         ?>
                                             <li><span class="orange">›</span> <?= $item ?></li>

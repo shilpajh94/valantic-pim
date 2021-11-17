@@ -155,7 +155,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <td class="border-b  pt-4">
                                 <?php
                                 
-                                
                                 $cover_compounds = array_chunk($data['cover_compounds'],3);
                                 ?>
                                 <table width="50%" class="mx-auto">
@@ -353,17 +352,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <tbody>
                         <tr class="grip-col">
                             <td width="50%" class="pr-5">
-                            
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
-                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
-                                    <?php else: ?>
-                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
-                            <?php endif; ?>
-
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
+                                        <?php else: ?>
+                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
+                                <?php endif; ?>
                             </td>
                             <td>
                             
