@@ -168,55 +168,55 @@ class ObjectListener
      *  Moving product to Region folder after clicking on Save and Publish
      * @param DataObjectEvent $event
      */
-    // public function moveProductToRegion(DataObjectEvent $event)
-    // {
-    //     $object = $event->getObject();
-    //     $type = $object->getType();
+    public function moveProductToRegion(DataObjectEvent $event)
+    {
+        $object = $event->getObject();
+        $type = $object->getType();
 
-    //     if ($type != 'folder') {
-    //         $className = $object->getClassName();
+        if ($type != 'folder') {
+            $className = $object->getClassName();
 
-    //         if ($className == 'CSProducts') {
-    //             $argument = $event->getArguments();
-    //             if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
-    //                 $regionArray = $object->getCSRegion();
-    //                 if (is_array($regionArray) && !empty($regionArray)) {
-    //                     $folderCreationPath = '';
-    //                     $masterRegionArray = $this->getAllRegions();
-    //                     $firstRegionId = trim($regionArray[0]);
-    //                     $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
-    //                     $parent = $object->getParent();
-    //                     $folderCreationPath = $object->getPath();
+            if ($className == 'CSProducts' && php_sapi_name() != "cli") {
+                $argument = $event->getArguments();
+                if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
+                    $regionArray = $object->getCSRegion();
+                    if (is_array($regionArray) && !empty($regionArray)) {
+                        $folderCreationPath = '';
+                        $masterRegionArray = $this->getAllRegions();
+                        $firstRegionId = trim($regionArray[0]);
+                        $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
+                        $parent = $object->getParent();
+                        $folderCreationPath = $object->getPath();
 
-    //                     foreach ($masterRegionArray as $region) {
-    //                         if (strpos($folderCreationPath, $region) !== false) {
-    //                             $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
-    //                         }
-    //                     }
-    //                     foreach ($masterRegionArray as $region) {
-    //                         if (strpos($folderCreationPath, $region) === false && $region == $regionName) {
-    //                             $folderCreationPath = $folderCreationPath . "/" . $regionName;
-    //                         }
-    //                     }
-    //                     $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
-    //                     $object->setParentId($parentId);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+                        foreach ($masterRegionArray as $region) {
+                            if (strpos($folderCreationPath, $region) !== false) {
+                                $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
+                            }
+                        }
+                        foreach ($masterRegionArray as $region) {
+                            if (strpos($folderCreationPath, $region) === false && $region == $regionName) {
+                                $folderCreationPath = $folderCreationPath . "/" . $regionName;
+                            }
+                        }
+                        $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
+                        $object->setParentId($parentId);
+                    }
+                }
+            }
+        }
+    }
 
-    // public function getAllRegions()
-    // {
-    //     $regionList = new \Pimcore\Model\DataObject\CSRegion\Listing();
-    //     $regionList->load();
+    public function getAllRegions()
+    {
+        $regionList = new \Pimcore\Model\DataObject\CSRegion\Listing();
+        $regionList->load();
 
-    //     $fieldArray = array();
-    //     foreach ($regionList as $list) {
-    //         $fieldArray[] = $list->getRegionName();
-    //     }
-    //     return $fieldArray;
-    // }
+        $fieldArray = array();
+        foreach ($regionList as $list) {
+            $fieldArray[] = $list->getRegionName();
+        }
+        return $fieldArray;
+    }
 
     public function checkArchivedAssetMapping(DataObject\CSProducts $product)
     {
