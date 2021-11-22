@@ -789,7 +789,7 @@ class DefaultController extends FrontendController
 
                     $tableFieldData = [];
                     if($bricks)
-                    {
+                    {  
                         foreach ($CommonBeltProfileAttributes as $fieldName => $brickName) {
 
                             $getBrick = 'get' . $brickName;
