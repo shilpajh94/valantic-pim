@@ -266,12 +266,11 @@ class DefaultController extends FrontendController
                         }
                     }
 
-
-
                     $productTables = array();
                     if($childrenData)
                     {
                         $tables = $productDataImportConfig['Common Product Page'][$productName];
+
                         // unset($tables['Conveyor Belt Data']);
                         // unset($tables['Load Support – Maximum Belt Width Data']);
                         // unset($tables['Troughability Minimum Belt Width']);
