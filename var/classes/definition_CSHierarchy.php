@@ -1,15 +1,16 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-29T14:29:08+05:30
+* Generated at: 2021-11-22T13:55:48+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
-- Name [input]
+- localizedfields [localizedfields]
+-- Name [input]
 - Level [select]
 - RelatedBricks [multiselect]
 - ParentBricks [multiselect]
@@ -21,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1635497948,
+   'modificationDate' => 1637585748,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -75,32 +76,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => 300,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'Name',
-             'title' => 'Name',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'Name',
+                 'title' => 'Name',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'margin-left:7px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => NULL,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'tooltip' => NULL,
+             'mandatory' => NULL,
+             'noteditable' => NULL,
+             'index' => NULL,
+             'locked' => NULL,
+             'style' => NULL,
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -165,173 +201,248 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
+                'key' => 'BeltData',
+                'value' => 'BeltData',
+              ),
+              1 => 
+              array (
+                'key' => 'DigitalSolution',
+                'value' => 'DigitalSolution',
+              ),
+              2 => 
+              array (
+                'key' => 'Functionality',
+                'value' => 'Functionality',
+              ),
+              3 => 
+              array (
+                'key' => 'LoadSupport',
+                'value' => 'LoadSupport',
+              ),
+              4 => 
+              array (
+                'key' => 'Material',
+                'value' => 'Material',
+              ),
+              5 => 
+              array (
+                'key' => 'OptionsStandards',
+                'value' => 'OptionsStandards',
+              ),
+              6 => 
+              array (
+                'key' => 'Performance1',
+                'value' => 'Performance1',
+              ),
+              7 => 
+              array (
+                'key' => 'Performance2',
+                'value' => 'Performance2',
+              ),
+              8 => 
+              array (
                 'key' => 'ProdAttrSetAA',
                 'value' => 'ProdAttrSetAA',
               ),
-              1 => 
+              9 => 
               array (
                 'key' => 'ProdAttrSetAB',
                 'value' => 'ProdAttrSetAB',
               ),
-              2 => 
+              10 => 
               array (
                 'key' => 'ProdAttrSetAC',
                 'value' => 'ProdAttrSetAC',
               ),
-              3 => 
+              11 => 
               array (
                 'key' => 'ProdAttrSetAD',
                 'value' => 'ProdAttrSetAD',
               ),
-              4 => 
+              12 => 
               array (
                 'key' => 'ProdAttrSetAE',
                 'value' => 'ProdAttrSetAE',
               ),
-              5 => 
+              13 => 
               array (
                 'key' => 'ProdAttrSetAF',
                 'value' => 'ProdAttrSetAF',
               ),
-              6 => 
+              14 => 
               array (
                 'key' => 'ProdAttrSetAG',
                 'value' => 'ProdAttrSetAG',
               ),
-              7 => 
+              15 => 
               array (
                 'key' => 'ProdAttrSetAH',
                 'value' => 'ProdAttrSetAH',
               ),
-              8 => 
+              16 => 
               array (
                 'key' => 'ProdAttrSetAI',
                 'value' => 'ProdAttrSetAI',
               ),
-              9 => 
+              17 => 
               array (
                 'key' => 'ProdAttrSetA',
                 'value' => 'ProdAttrSetA',
               ),
-              10 => 
+              18 => 
               array (
                 'key' => 'ProdAttrSetC',
                 'value' => 'ProdAttrSetC',
               ),
-              11 => 
+              19 => 
               array (
                 'key' => 'ProdAttrSetD',
                 'value' => 'ProdAttrSetD',
               ),
-              12 => 
+              20 => 
               array (
                 'key' => 'ProdAttrSetE',
                 'value' => 'ProdAttrSetE',
               ),
-              13 => 
+              21 => 
               array (
                 'key' => 'ProdAttrSetF',
                 'value' => 'ProdAttrSetF',
               ),
-              14 => 
+              22 => 
               array (
                 'key' => 'ProdAttrSetG',
                 'value' => 'ProdAttrSetG',
               ),
-              15 => 
+              23 => 
               array (
                 'key' => 'ProdAttrSetH',
                 'value' => 'ProdAttrSetH',
               ),
-              16 => 
+              24 => 
               array (
                 'key' => 'ProdAttrSetI',
                 'value' => 'ProdAttrSetI',
               ),
-              17 => 
+              25 => 
               array (
                 'key' => 'ProdAttrSetJ',
                 'value' => 'ProdAttrSetJ',
               ),
-              18 => 
+              26 => 
               array (
                 'key' => 'ProdAttrSetK',
                 'value' => 'ProdAttrSetK',
               ),
-              19 => 
+              27 => 
               array (
                 'key' => 'ProdAttrSetL',
                 'value' => 'ProdAttrSetL',
               ),
-              20 => 
+              28 => 
               array (
                 'key' => 'ProdAttrSetM',
                 'value' => 'ProdAttrSetM',
               ),
-              21 => 
+              29 => 
               array (
                 'key' => 'ProdAttrSetN',
                 'value' => 'ProdAttrSetN',
               ),
-              22 => 
+              30 => 
               array (
                 'key' => 'ProdAttrSetO',
                 'value' => 'ProdAttrSetO',
               ),
-              23 => 
+              31 => 
               array (
                 'key' => 'ProdAttrSetP',
                 'value' => 'ProdAttrSetP',
               ),
-              24 => 
+              32 => 
               array (
                 'key' => 'ProdAttrSetQ',
                 'value' => 'ProdAttrSetQ',
               ),
-              25 => 
+              33 => 
               array (
                 'key' => 'ProdAttrSetR',
                 'value' => 'ProdAttrSetR',
               ),
-              26 => 
+              34 => 
               array (
                 'key' => 'ProdAttrSetS',
                 'value' => 'ProdAttrSetS',
               ),
-              27 => 
+              35 => 
               array (
                 'key' => 'ProdAttrSetT',
                 'value' => 'ProdAttrSetT',
               ),
-              28 => 
+              36 => 
               array (
                 'key' => 'ProdAttrSetU',
                 'value' => 'ProdAttrSetU',
               ),
-              29 => 
+              37 => 
               array (
                 'key' => 'ProdAttrSetV',
                 'value' => 'ProdAttrSetV',
               ),
-              30 => 
+              38 => 
               array (
                 'key' => 'ProdAttrSetW',
                 'value' => 'ProdAttrSetW',
               ),
-              31 => 
+              39 => 
               array (
                 'key' => 'ProdAttrSetX',
                 'value' => 'ProdAttrSetX',
               ),
-              32 => 
+              40 => 
               array (
                 'key' => 'ProdAttrSetY',
                 'value' => 'ProdAttrSetY',
               ),
-              33 => 
+              41 => 
               array (
                 'key' => 'ProdAttrSetZ',
                 'value' => 'ProdAttrSetZ',
+              ),
+              42 => 
+              array (
+                'key' => 'ProdDimensions',
+                'value' => 'ProdDimensions',
+              ),
+              43 => 
+              array (
+                'key' => 'ProdSpec',
+                'value' => 'ProdSpec',
+              ),
+              44 => 
+              array (
+                'key' => 'SalesOrga',
+                'value' => 'SalesOrga',
+              ),
+              45 => 
+              array (
+                'key' => 'SpliceData',
+                'value' => 'SpliceData',
+              ),
+              46 => 
+              array (
+                'key' => 'TensionElevatorBelt',
+                'value' => 'TensionElevatorBelt',
+              ),
+              47 => 
+              array (
+                'key' => 'TypeOfIdler',
+                'value' => 'TypeOfIdler',
+              ),
+              48 => 
+              array (
+                'key' => 'WidthLength',
+                'value' => 'WidthLength',
               ),
             ),
              'width' => '',
