@@ -3,10 +3,10 @@
 if (CUSTOM_ENV == "prod") {
 
     define("CDN_ENABLE", 1);
-    define("CDN_HOST", "https://doq3hlp8ldkf1.cloudfront.net");
+    define("CDN_HOST", "https://d3hxu0uwhrukhz.cloudfront.net");
     define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
-    define("S3_BUCKET", "contitech-assets-prod");
-    define("S3_REGION", "us-east-1");
+    define("S3_BUCKET", "pimcore-contitech-assets");
+    define("S3_REGION", "eu-central-1");
 
     define("S3_BUCKET_BW_SAP_ARCHIVE", "sap-import-archive-prod");
     define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
