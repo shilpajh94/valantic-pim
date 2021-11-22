@@ -138,9 +138,9 @@ class ObjectListener
                 if (empty($response['success'])) {
                     throw new \Pimcore\Model\Element\ValidationException('Archived asset can not be mapped with Product.');
                 }
-                //if (php_sapi_name() != "cli") {
-                $object->setGetInheritedValues(true);
-                //}
+                if (php_sapi_name() != "cli") {
+                    $object->setGetInheritedValues(true);
+                }
                 $this->percentageCompletionService->completenessPercentage($object);
             }
         }
