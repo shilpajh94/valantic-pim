@@ -187,6 +187,14 @@ body{
 
     }
 
+    .beltinfotable section:nth-of-type(1){
+            margin-top:-60px;
+    }  
+    .beltinfotable section.features-benefit-sec, 
+    .beltinfotable section.belts-information {
+        margin-top:-15px;
+    }  
+
     #header {
         height: 0.5in;
     }
@@ -398,3 +406,14 @@ body{
 }
 
 
+@page title12{
+    padding-top: 155px;
+
+    @top-center{
+        content: element(headingInfo);
+        position: relative;
+        top: 95px;
+        left:0;
+        width:100%;
+    }
+}

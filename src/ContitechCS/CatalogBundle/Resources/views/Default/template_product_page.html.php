@@ -16,7 +16,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 
 <?php if($data): ?>
-<div class="wrapper">
+<div class="wrapper beltinfotable">
     <header id="header">
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
@@ -544,7 +544,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         
         <?php if($data['FeaturesAndBenefits']){ ?>
         <section class="features-benefit-sec">
-            <h1>
+            <h1 class="heading-info">
                 <span class="orange">
 
                     <?php if($this->editmode): ?>
@@ -623,7 +623,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <?php } ?>
         <?php if($data['productTables']): ?>
         <section class="belts-information">
-            <h1>
+            <h1 class="heading-info">
             <span class="orange">
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_MoreInfoHeading")->isEmpty()): ?>

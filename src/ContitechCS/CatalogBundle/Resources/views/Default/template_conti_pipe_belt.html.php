@@ -300,18 +300,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                                 if(isset($data['productSpecificData']) && $data['productSpecificData'])
                                 {
-                                    foreach($data['productSpecificData'] as $val)
+                                    foreach($data['productSpecificData'] as $arr)
                                     {   
-                                        ?>
-                                            <tr align="center">
-                                                <td><?= $val[0][0]; ?></td>
-                                                <td><?= $val[0][1]; ?></td>
-                                                <td><?= $val[1][0]; ?></td>
-                                                <td><?= $val[1][1]; ?></td>
-                                                <td><?= $val[2][0]; ?></td>
-                                                <td><?= $val[2][1]; ?></td>
-                                            </tr>
-                                        <?php
+                                        ?><tr align="center"><?php
+                                        foreach($arr as $val)
+                                        {
+                                            ?>
+                                                <td><?= $val; ?></td>
+                                            <?php
+                                        }
+                                        ?></tr><?php
                                     }
                                 }    
 

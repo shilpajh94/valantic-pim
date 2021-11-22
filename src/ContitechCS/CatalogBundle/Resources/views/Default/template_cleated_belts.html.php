@@ -141,56 +141,63 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             <hr class="divider" />
 
-            <div class="table w-90 construction-tab">
-                <table width="100%">
-                    <tbody>
-                        <tr>
-                            <td class="border-b">
-                                <div class="<?= (!$this->editmode)?'d-flex':'';  ?>">
-                                    <?= $this->areablock('BeltConstruction'); ?>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border-b  pt-4">
-                                <?php
-                                
-                                $cover_compounds = array_chunk($data['cover_compounds'],3);
-                                ?>
-                                <table width="50%" class="mx-auto">
-                                    <thead>
-                                        <tr>
-                                            <th class="orange" colspan="3">
-                                            <?= $this->input("P_N_Belt_Construction"); ?>   
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+            <?php
+                if($displayTablesFlag)
+                {
+                    ?>
+                    <div class="table w-90 construction-tab">
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td class="border-b">
+                                        <div class="<?= (!$this->editmode)?'d-flex':'';  ?>">
+                                            <?= $this->areablock('BeltConstruction'); ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border-b  pt-4">
+                                        <?php
+                                        
+                                        $cover_compounds = array_chunk($data['cover_compounds'],3);
+                                        ?>
+                                        <table width="50%" class="mx-auto">
+                                            <thead>
+                                                <tr>
+                                                    <th class="orange" colspan="3">
+                                                    <?= $this->input("P_N_Belt_Construction"); ?>   
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                    <?php
-                                        if($cover_compounds)
-                                        {
-                                            foreach($cover_compounds as $arr)
-                                            {
-                                                ?><tr><?php
-                                                foreach($arr as $obj)
+                                            <?php
+                                                if($cover_compounds)
                                                 {
-                                                    ?>
-                                                        <td>
-                                                            <?= $obj->getName();?></td>
-                                                    <?php   
+                                                    foreach($cover_compounds as $arr)
+                                                    {
+                                                        ?><tr><?php
+                                                        foreach($arr as $obj)
+                                                        {
+                                                            ?>
+                                                                <td>
+                                                                    <?= $obj->getName();?></td>
+                                                            <?php   
+                                                        }
+                                                        ?></tr><?php
+                                                    }
                                                 }
-                                                ?></tr><?php
-                                            }
-                                        }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>    
-                    </tbody>        
-                </table>
-            </div>
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>    
+                            </tbody>        
+                        </table>
+                    </div>
+                    <?php
+                }
+            ?>
 
             <div class="page-break"></div>
 
@@ -426,13 +433,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         <?php 
                                             foreach ($child['tableFieldData'] as $fieldName => $fieldValue) {
                                                 ?>
-                                                <tr>
-                                                    <th class="orange text-right"><?= $fieldName; ?></th>
-                                                    <td colspan="6">
-                                                        <?= $fieldValue; ?>
-                                                        <?= $this->translate('CS_Unit_in') ?>
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <th class="orange text-right">
+                                                            <?= $this->translate($fieldName); ?>
+                                                        </th>
+                                                        <td colspan="6">
+                                                            <?= $fieldValue; ?>
+                                                            <?= $this->translate('CS_Unit_in') ?>
+                                                        </td>
+                                                    </tr>
                                                 <?php
                                             }
                                         ?>

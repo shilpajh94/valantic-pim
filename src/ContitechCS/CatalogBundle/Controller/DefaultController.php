@@ -153,10 +153,8 @@ class DefaultController extends FrontendController
             if($selectedProduct){
                 foreach ($selectedProduct as $key => $singleProduct) {
 
-
-                    $productObject = DataObject\CSProducts::getById($singleProduct);
-
-                    $productNameArr[] = trim($productObject->getName());
+                    $productObject      = DataObject\CSProducts::getById($singleProduct);
+                    $productNameArr[]   = trim($productObject->getName());
 
                     if(!$productObj)
                     {
@@ -165,10 +163,8 @@ class DefaultController extends FrontendController
                 }
             }
 
-            $productNameTitle = implode(' and ', $productNameArr);
-
-
-            $productName =  trim($productObj->getName());
+            $productNameTitle   = implode(' and ', $productNameArr);
+            $productName        =  trim($productObj->getName());
 
             if($productObj) ///isset variable is assigned a value or not null
             {
@@ -270,6 +266,8 @@ class DefaultController extends FrontendController
                         }
                     }
 
+
+
                     $productTables = array();
                     if($childrenData)
                     {
@@ -291,6 +289,7 @@ class DefaultController extends FrontendController
                             $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
                             $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
 
+                            
 
                             unset($MetricImperialFields['ColumnKeys']);
                             unset($MetricImperialFields['CS_Trough_Angle_Label']);
@@ -331,7 +330,7 @@ class DefaultController extends FrontendController
                                     {
                                         $AdditionalHeaderKey = "Trough_Angle_Label";
                                     }
-
+                                    
                                     if($CS_Idler_Angle_Label)
                                     {
                                         $AdditionalHeaderKey = "Idler_Angle_Label";
@@ -354,7 +353,7 @@ class DefaultController extends FrontendController
                                     {
                                         $groupingTitle[$AdditionalGroupKey] = 1;
                                     }
-
+                                    
                                     foreach ($MIValues as $key => $value) {
                                         // $keysTitle[$key] = $value['fieldTitle'];
 
@@ -379,19 +378,28 @@ class DefaultController extends FrontendController
                                         $percentageSymbol = '';
                                         $bricks = $childValue->getProductAttributes();
                                         $data = [];
+                                        
                                         foreach ($MIValues as $key => $value) {
                                             $brickName = $value['objectType'];
                                             $percentageSymbol = $value['percentageSymbol'];
                                             $getBrick = 'get' . $brickName;
                                             $getField = 'get' . $key;
-                                            $data[$key] = ($bricks->$getBrick()->$getField()).$percentageSymbol;
+
+                                            if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
+                                            {   
+                                                $data[$key] = ($bricks->$getBrick()->$getField()).$percentageSymbol;
+
+                                            }
                                         }
+
+                                        
 
                                         if($ColumnKeys)
                                         {
                                             foreach ($HeaderKeys as $hValue) {
                                                 $tableHeaderKeys[] = $data[$hValue];
                                             }
+
 
                                             if($tableHeaderKeys)
                                             {
@@ -738,7 +746,8 @@ class DefaultController extends FrontendController
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
 
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
-        $productData = [];
+        $productData    = [];
+        $displayTablesFlag  = false;
         if($catalogTableObject)
         {   
             $this->configProviderService = new ConfigProviderService();
@@ -764,7 +773,6 @@ class DefaultController extends FrontendController
             if(isset($productDataImportConfig[$productDetails->getName()]))
             {
                 $CommonBeltProfileAttributes = $productDataImportConfig[$productDetails->getName()]['Common Belt Profile Attributes'];
-            
             }
 
             $productChildrenData = $productDetails->getchildren(); 
@@ -787,8 +795,11 @@ class DefaultController extends FrontendController
                             $getBrick = 'get' . $brickName;
                             $getField = 'get' . $fieldName;
                             if($bricks->$getBrick())
-                            {
-                                $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
+                            {   
+                                if($bricks->$getBrick()->$getField())
+                                {   $fieldName = $this->addPrefix($fieldName);
+                                    $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
+                                }
                             }
                         }
                     }   
@@ -799,11 +810,53 @@ class DefaultController extends FrontendController
             }
 
             $productData['childrenData'] = $childrenData;
+
+            $regionsArr = $this->getCSRegionNameByIds($productDetails->getCSRegion());
+
+            $configProviderService = new ConfigProviderService();
+            $ymlData = $configProviderService->getBrickMappingConfig();
+            
+            if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && in_array($ymlData['cleated_belts_table_display_in_region']['regionName'],$regionsArr))
+            {
+                $displayTablesFlag = true;
+            }
         }
 
-        $this->view['data'] = $productData;
+        $this->view['data']             = $productData;
+        $this->view['displayTablesFlag']    = $displayTablesFlag;
         $this->view['footer_logo_src']  = $footer_logo_src;
     }
+
+    /** Get Reasion Name By id
+     *  @return array
+     *  @param array $ids_arr
+     */
+    private function getCSRegionNameByIds($ids_arr)
+    {
+        try
+        {
+            $regionsArr = [];
+
+            $entries = new DataObject\CSRegion\Listing();
+
+            $entries->setCondition("oo_id IN (?)", [$ids_arr]); 
+
+            if(count($entries))
+            {
+                foreach($entries as $obj)
+                {
+                    $regionsArr[] = $obj->getRegionName();
+                }
+            }
+            return $regionsArr;
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+
 
     public function addPrefix($key): String
     {
@@ -1079,7 +1132,7 @@ class DefaultController extends FrontendController
                         }
                         $parentProductData['Applications'] = $applications;
                         
-                        $productData['productSpecificData'] = $this->prepareProductAttributes($productObject);
+                        $productData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($productObject);
                     }
                 }
                 
@@ -1110,67 +1163,44 @@ class DefaultController extends FrontendController
      * @access private 
      * @return array
      */
-    private function prepareProductAttributes($productObject)
+    private function prepareContiPipeAndMegaPipeAttributes($productObject)
     {
         $childObject    = $productObject->getChildren();
         $data           = [];
         $childs         = $childObject[0]->getChildren();
+
+        $this->configProviderService = new ConfigProviderService();
+        $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+
+        $attributes = [];
+
+        if(isset($productDataImportConfig['ContiPipe and MegaPipe Sizes']['ContiPipe and MegaPipe Table Attributes']))
+        {
+           $attributes  = $productDataImportConfig['ContiPipe and MegaPipe Sizes']['ContiPipe and MegaPipe Table Attributes'];
+        }
+
+        $total_attr = count($attributes);
 
         if($childs)
         {
             foreach($childs as $obj)
             {   
                 $obj_attr           =   $obj->getProductAttributes();
-                $diameter_in        =   '';
-                $diameter_mm        =   '';
-                $belt_width_in      =   '';
-                $belt_width_mm      =   '';
-                $fabric_type        =   '';
-                $steel_type         =   '';
 
-                // diameter
-                if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameter'))
+                foreach ($attributes as $fieldName => $brickName)
                 {
-                    $diameter_mm = $obj_attr->getProdAttrSetAC()->getDiameter();
-                }
+                    $getBrick = 'get' . $brickName;
+                    $getField = 'get' . $fieldName;
 
-                if(method_exists($obj_attr,'getProdAttrSetAC') && method_exists($obj_attr->getProdAttrSetAC(),'getDiameterInch'))
-                {
-                    $diameter_in = $obj_attr->getProdAttrSetAC()->getDiameterInch();
+                    if(method_exists($obj_attr,$getBrick) && method_exists($obj_attr->$getBrick(),$getField))
+                    {
+                        $data[] = $obj_attr->$getBrick()->$getField();
+                    }
                 }
-
-                // BeltWidth
-                if(method_exists($obj_attr,'getProdAttrSetT') && method_exists($obj_attr->getProdAttrSetT(),'getBeltWidthInch'))
-                {  
-                    $belt_width_in = $obj_attr->getProdAttrSetT()->getBeltWidthInch();
-                }
-
-                if(method_exists($obj_attr,'getProdAttrSetT') && method_exists($obj_attr->getProdAttrSetT(),'getBeltWidthMM'))
-                {  
-                    $belt_width_mm = $obj_attr->getProdAttrSetT()->getBeltWidthMM();
-                }
-                
-                // Type
-                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getFabricType'))
-                {  
-                    $fabric_type = $obj_attr->getProdAttrSetN()->getFabricType();
-                }
-
-                if(method_exists($obj_attr,'getProdAttrSetN') && method_exists($obj_attr->getProdAttrSetN(),'getSteelType'))
-                {  
-                    $steel_type = $obj_attr->getProdAttrSetN()->getSteelType();
-                }
-
-                
-                
-                $data[] = [
-                    [$diameter_in,$diameter_mm],
-                    [$belt_width_in,$belt_width_mm],
-                    [$fabric_type,$steel_type],
-                ];
             }
         }
-        return $data;
+
+        return $data ? array_chunk($data,$total_attr) : [];
     }
 
 

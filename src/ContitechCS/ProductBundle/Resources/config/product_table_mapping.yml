@@ -33,9 +33,9 @@ Common Product Page:
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
-                # SpliceType:
+                SpliceType:
                 #     # fieldTitle: Step Length (in.)
-                    # objectType: ProdAttrSetE
+                     objectType: ProdAttrSetE
                 RecommendedFastenerPlate: 
                     # fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -78,9 +78,9 @@ Common Product Page:
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
-                # SpliceType:
+                SpliceType:
                 #     # fieldTitle: Step Length (mm)
-                    # objectType: ProdAttrSetE
+                    objectType: ProdAttrSetE
                 RecommendedFastenerPlate: 
                     # fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -3497,3 +3497,11 @@ Cleated Conveyor Belts:
         AvailableProfilePatternWidths: ProdAttrSetZ
     # ContiRoll Belt Profile Attributes:
     #     AvailableProfilePatternWidths: ProdAttrSetZ
+ContiPipe and MegaPipe Sizes:
+    ContiPipe and MegaPipe Table Attributes:
+        DiameterInch:   ProdAttrSetAC #diameter in
+        Diameter:       ProdAttrSetAC #diameter mm
+        BeltWidthInch:  ProdAttrSetT #BeltWidth in
+        BeltWidthMM:    ProdAttrSetT #BeltWidth mm
+        FabricType:     ProdAttrSetN #BeltWidth mm
+        SteelType:      ProdAttrSetN #BeltWidth mm

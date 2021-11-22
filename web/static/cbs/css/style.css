@@ -307,6 +307,7 @@
 
     .table-notes {
         font-size: 8px !important;
+        padding-bottom: 5px;
     }
     .note {
         font-size: 10px !important;
@@ -359,7 +360,7 @@
         vertical-align: middle;
     }
 
-    .belts-information h3 {
+    .belts-information h3:nth-of-type(1) {
         padding-top: 15px;
     }
 
@@ -1118,3 +1119,11 @@
         z-index: 999;
     }
     
+.beltinfotable .features-benefit-sec, .beltinfotable .belts-information{
+    page:title12;
+}
+
+.beltinfotable .features-benefit-sec .heading-info, .beltinfotable .belts-information .heading-info{
+    position: running(headingInfo);
+    margin-bottom: 1rem;
+}
