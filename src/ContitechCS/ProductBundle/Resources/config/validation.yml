@@ -1,0 +1,2167 @@
+Fortress XP:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+ContiTitan:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+ContiFlex:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+ContiFlex Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+Plylon Plus:
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+Spartan:
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Wood Sawyer:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+Wood Sawyer Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+Pathfinder Plus:
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Texsteel:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Recommended fastener plate:
+      fieldName: RecommendedFastenerPlate
+      objectType: ProdAttrSetAA
+    hinge:
+        fieldName: Hinge
+        objectType: ProdAttrSetAB
+ContiAlert:
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+ContiClean:
+    Benefits:
+        fieldName: Benefits
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class  
+    Material:
+        fieldName: Material
+        objectType: ProdAttrSetX
+Cleated Conveyor Belts:
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+XE:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+XOE:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+XE+2:
+    Region:
+        fieldName: CSRegion
+        objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+XST:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Type II:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Type III:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+ContiPipe:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Sicon 100:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Belt width in mm:
+        fieldName: BeltWidthMM
+        objectType: ProdAttrSetT
+    Belt Width in in.:
+        fieldName: BeltWidthInch
+        objectType: ProdAttrSetT
+Sicon 1000:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product Brand:
+        fieldName: ProductBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Belt width in mm:
+        fieldName: BeltWidthMM
+        objectType: ProdAttrSetT
+    Belt Width in in.:
+        fieldName: BeltWidthInch
+        objectType: ProdAttrSetT
+Sliding belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Supporting belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Skid queuing belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Lifting belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Track belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Worker conveyance belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Product description:
+        fieldName: ProductDescription
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Product Options:
+        fieldName: ProductOptions
+        objectType: ProdAttrSetI
+Continental Vacuum filter belt:
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Industries:
+        fieldName: CSProductIndustries
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Continental belts for screening conveyors:
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+Survivor:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Benefits:
+        fieldName: Benefits
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Corporate Brand:
+        fieldName: CorporateBrand
+        objectType: class
+    Short Text:
+        fieldName: ShortText
+        objectType: class
+    Long Text:
+        fieldName: LongText
+        objectType: class
+    Product Claim/Slogan:
+        fieldName: ProductClaimSlogan
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max. Abrasion Non-Rotating:
+        fieldName: MaxAbrasionNonRotatingMM
+        objectType: ProdAttrSetR
+    Typical Abrasion Non-Rotating:
+        fieldName: TypicalAbrasionNonRotatingMM
+        objectType: ProdAttrSetR
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Min. Elongation (%):
+        fieldName: MinElongationPercent
+        objectType: ProdAttrSetR
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Min. Tensile (PSI):
+        fieldName: MinTensileMPa
+        objectType: ProdAttrSetR
+    Typical Tensile (PSI):
+        fieldName: TypicalTensilePSI
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Survivor Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Stacker:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Defender:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Defender Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Easyrider:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Monsterhide:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Monsterhide Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Stacker Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Sentry:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Sentry Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Coaline:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Coaline Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FR-2G:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FR-CSA-C:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FRAR-2G:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FRAR-CSA-C:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FRUG-2G:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield ARMA Tough:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield ARMA Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FRORS-2G:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Conti AgriFlex:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Pathfinder Supreme:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Pathfinder Arctic:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Pathfinder CSA:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Shield FRHT-2G:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Gold Classic:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Gold Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Gold Extreme:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Gold Arctic:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Gold Arctic Plus:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Solar Shield:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Solar-Shield Classic:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
+Solar-Shield Ultimate:
+    Segment:
+      fieldName: CSSegment
+      objectType: class
+    Applications:
+        fieldName: CSProductApplications
+        objectType: class
+    Features and Benefits (combination of text and pic):
+        fieldName: CSProductFeaturesAndBenefits
+        objectType: class
+    Cut And Gouge Resistance:
+        fieldName: CutAndGougeResistance
+        objectType: ProdAttrSetR
+    International Standards:
+        fieldName: InternationalStandards
+        objectType: ProdAttrSetJ
+    Shore hardness:
+        fieldName: ShoreHardness
+        objectType: ProdAttrSetV
+    Max Temperature:
+        fieldName: MaxTemperatureC
+        objectType: ProdAttrSetV
+    Min Temperature:
+        fieldName: MinTemperatureC
+        objectType: ProdAttrSetV
+    Typical Elongation (%):
+        fieldName: TypicalElongationPercent
+        objectType: ProdAttrSetR    
+    Typical Tensile (MPa):
+        fieldName: TypicalTensileMPa
+        objectType: ProdAttrSetR
+    Abrasion Resistance:
+        fieldName: AbrasionResistance
+        objectType: ProdAttrSetR
+    Oil Resistance:
+        fieldName: OilResistance
+        objectType: ProdAttrSetR
+    Flame Resistance:
+        fieldName: FlameResistance
+        objectType: ProdAttrSetR
+    ISO 284 Static Conductive:
+        fieldName: ISO284StaticConductive
+        objectType: ProdAttrSetR
