@@ -3876,23 +3876,14 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) END as `Hierarchy Level`, FROM_UNIXTIME(`o_creationDate`) as`Creation Date`, REPLACE(REPLACE(o1.`o_published`,'1','Published'), 0, 'Unpublished') as`Status`",
-                "from" => "FROM object_CSProducts o1",
-                "where" => " (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))",
+                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' \nTHEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) \nEND as `Hierarchy Level`, \nFROM_UNIXTIME(`o_creationDate`) as`Creation Date`, \nwf.`place` as Status\nFROM object_CSProducts o1 JOIN element_workflow_state wf\nWHERE ( (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))) \nORDER BY (o1.`o_creationDate` ) DESC",
+                "from" => "",
+                "where" => "",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-            [
-                "name" => "Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel885-1"
-            ],
             [
                 "name" => "Name",
                 "display" => TRUE,
@@ -3900,7 +3891,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel885-2"
+                "id" => "extModel302-1"
             ],
             [
                 "name" => "Hierarchy Level",
@@ -3909,7 +3900,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel885-3"
+                "id" => "extModel302-2"
             ],
             [
                 "name" => "Creation Date",
@@ -3918,7 +3909,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel885-4"
+                "id" => "extModel302-3"
             ],
             [
                 "name" => "Status",
@@ -3927,7 +3918,17 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel885-5"
+                "id" => "extModel302-4"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel302-5"
             ]
         ],
         "niceName" => "CS_New Products Last One Week",
@@ -3943,7 +3944,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635419569,
+        "modificationDate" => 1637055732,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4067,16 +4068,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-1"
-            ],
-            [
-                "name" => "Pimcore Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1029-2"
+                "id" => "extModel2142-1"
             ],
             [
                 "name" => "Corporate Brand",
@@ -4085,7 +4077,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-3"
+                "id" => "extModel2142-3"
             ],
             [
                 "name" => "Product Brand",
@@ -4094,7 +4086,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-4"
+                "id" => "extModel2142-4"
             ],
             [
                 "name" => "Logo Image",
@@ -4103,7 +4095,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-5"
+                "id" => "extModel2142-5"
             ],
             [
                 "name" => "Field Photo",
@@ -4112,7 +4104,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-6"
+                "id" => "extModel2142-6"
             ],
             [
                 "name" => "Product Image",
@@ -4121,7 +4113,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-7"
+                "id" => "extModel2142-7"
             ],
             [
                 "name" => "Software Image",
@@ -4130,7 +4122,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-8"
+                "id" => "extModel2142-8"
             ],
             [
                 "name" => "Application Image",
@@ -4139,7 +4131,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-9"
+                "id" => "extModel2142-9"
             ],
             [
                 "name" => "Report Image",
@@ -4148,7 +4140,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-10"
+                "id" => "extModel2142-10"
             ],
             [
                 "name" => "Functionality Image",
@@ -4157,7 +4149,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-11"
+                "id" => "extModel2142-11"
             ],
             [
                 "name" => "Damage Image",
@@ -4166,7 +4158,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-12"
+                "id" => "extModel2142-12"
             ],
             [
                 "name" => "Deviation Angle For Vertical Curves",
@@ -4175,7 +4167,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-13"
+                "id" => "extModel2142-13"
             ],
             [
                 "name" => "Deviation Angle For Horizontal",
@@ -4184,7 +4176,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-14"
+                "id" => "extModel2142-14"
             ],
             [
                 "name" => "Sidewall Sizes",
@@ -4193,7 +4185,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-15"
+                "id" => "extModel2142-15"
             ],
             [
                 "name" => "Sidewall Qualities",
@@ -4202,7 +4194,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-16"
+                "id" => "extModel2142-16"
             ],
             [
                 "name" => "Angles of Inclination",
@@ -4211,16 +4203,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-17"
-            ],
-            [
-                "name" => "Increasing Inclination Angle",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1029-18"
+                "id" => "extModel2142-17"
             ],
             [
                 "name" => "Image Cross Section Of Products",
@@ -4229,7 +4212,16 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-19"
+                "id" => "extModel2142-19"
+            ],
+            [
+                "name" => "Increasing Inclination Angle",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2142-18"
             ],
             [
                 "name" => "Belt Roll Diameters",
@@ -4238,7 +4230,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-20"
+                "id" => "extModel2142-20"
             ],
             [
                 "name" => "Overview Image of System",
@@ -4247,7 +4239,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-21"
+                "id" => "extModel2142-21"
             ],
             [
                 "name" => "Image Gallery",
@@ -4256,7 +4248,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-22"
+                "id" => "extModel2142-22"
             ],
             [
                 "name" => "System Animation",
@@ -4265,7 +4257,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-23"
+                "id" => "extModel2142-23"
             ],
             [
                 "name" => "System Video",
@@ -4274,7 +4266,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-24"
+                "id" => "extModel2142-24"
             ],
             [
                 "name" => "Product Animation",
@@ -4283,7 +4275,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-25"
+                "id" => "extModel2142-25"
             ],
             [
                 "name" => "Documents",
@@ -4292,7 +4284,17 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1029-26"
+                "id" => "extModel2142-26"
+            ],
+            [
+                "name" => "Pimcore Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel2142-2"
             ]
         ],
         "niceName" => "CS_MissingAssetsOnProducts",
@@ -4308,7 +4310,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635417835,
+        "modificationDate" => 1636980707,
         "creationDate" => 1632215120,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4339,16 +4341,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-1"
-            ],
-            [
-                "name" => "Pimcore Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel16094-2"
+                "id" => "extModel1420-1"
             ],
             [
                 "name" => "Corporate Brand",
@@ -4357,7 +4350,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-3"
+                "id" => "extModel1420-3"
             ],
             [
                 "name" => "Product Brand",
@@ -4366,7 +4359,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-4"
+                "id" => "extModel1420-4"
             ],
             [
                 "name" => "Product Description in English",
@@ -4375,7 +4368,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-5"
+                "id" => "extModel1420-5"
             ],
             [
                 "name" => "Short Text in English",
@@ -4384,7 +4377,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-6"
+                "id" => "extModel1420-6"
             ],
             [
                 "name" => "Long Text in English",
@@ -4393,7 +4386,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-7"
+                "id" => "extModel1420-7"
             ],
             [
                 "name" => "Product Description in German",
@@ -4402,7 +4395,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-8"
+                "id" => "extModel1420-8"
             ],
             [
                 "name" => "Short Text in German",
@@ -4411,7 +4404,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-9"
+                "id" => "extModel1420-9"
             ],
             [
                 "name" => "Long Text in German",
@@ -4420,7 +4413,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-10"
+                "id" => "extModel1420-10"
             ],
             [
                 "name" => "Product Description in French",
@@ -4429,7 +4422,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-11"
+                "id" => "extModel1420-11"
             ],
             [
                 "name" => "Short Text in French",
@@ -4438,7 +4431,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-12"
+                "id" => "extModel1420-12"
             ],
             [
                 "name" => "Long Text in French",
@@ -4447,7 +4440,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-13"
+                "id" => "extModel1420-13"
             ],
             [
                 "name" => "Product Description in Portuguese (Brazil)",
@@ -4456,7 +4449,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-14"
+                "id" => "extModel1420-14"
             ],
             [
                 "name" => "Short Text in Portuguese (Brazil)",
@@ -4465,7 +4458,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-15"
+                "id" => "extModel1420-15"
             ],
             [
                 "name" => "Long Text in Portuguese (Brazil)",
@@ -4474,7 +4467,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-16"
+                "id" => "extModel1420-16"
             ],
             [
                 "name" => "Product Description in Chinese",
@@ -4483,7 +4476,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-17"
+                "id" => "extModel1420-17"
             ],
             [
                 "name" => "Short Text in Chinese",
@@ -4492,7 +4485,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-18"
+                "id" => "extModel1420-18"
             ],
             [
                 "name" => "Long Text in Chinese",
@@ -4501,7 +4494,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-19"
+                "id" => "extModel1420-19"
             ],
             [
                 "name" => "Product Description in Spanish",
@@ -4510,7 +4503,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-20"
+                "id" => "extModel1420-20"
             ],
             [
                 "name" => "Short Text in Spanish",
@@ -4519,7 +4512,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-21"
+                "id" => "extModel1420-21"
             ],
             [
                 "name" => "Long Text in Spanish",
@@ -4528,7 +4521,17 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel16094-22"
+                "id" => "extModel1420-22"
+            ],
+            [
+                "name" => "Pimcore Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1420-2"
             ]
         ],
         "niceName" => "CS_TranslationsMissingProduct",
@@ -4544,7 +4547,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1636547544,
+        "modificationDate" => 1636980864,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4622,7 +4625,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635414500,
+        "modificationDate" => 1636981726,
         "creationDate" => 1632215600,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [

@@ -163,6 +163,11 @@ Diameter Unit:
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetAC
+Diameter inch Unit:
+  fieldName: DiameterInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAC
 Weight kg Unit:
   fieldName: WeightKGUnit
   fieldType: Input
@@ -608,6 +613,16 @@ Min Temperature C Unit:
   fieldType: Input
   fieldValue: °C
   objectType: ProdAttrSetR
+Belt width in mm Unit:
+  fieldName: BeltWidthMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetT
+Belt Width in in. Unit:
+  fieldName: BeltWidthInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetT
 Thickness MM Unit:
   fieldName: ThicknessMMUnit
   fieldType: Input

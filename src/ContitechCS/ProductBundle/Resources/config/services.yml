@@ -31,6 +31,7 @@ services:
     ContitechCS\ProductBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: moveProductToRegion }
 
     ContitechCS\ProductBundle\EventListener\HierarchyListener:
         tags:
