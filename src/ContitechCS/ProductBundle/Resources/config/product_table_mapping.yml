@@ -33,9 +33,9 @@ Common Product Page:
                 ElasticModulusinPIW:
                     # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
-                # SpliceType:
+                SpliceType:
                 #     # fieldTitle: Step Length (in.)
-                    # objectType: ProdAttrSetE
+                     objectType: ProdAttrSetE
                 RecommendedFastenerPlate: 
                     # fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -78,9 +78,9 @@ Common Product Page:
                 ElasticModulusinKNMM:
                     # fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
-                # SpliceType:
+                SpliceType:
                 #     # fieldTitle: Step Length (mm)
-                    # objectType: ProdAttrSetE
+                    objectType: ProdAttrSetE
                 RecommendedFastenerPlate: 
                     # fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -3491,9 +3491,19 @@ Cover Options:
     Product Page: Solar-Shield Series
 Cleated Conveyor Belts:
     Common Belt Profile Attributes:
-        # CleatHeightMM: ProdAttrSetP
-        CleatHeightInch: ProdAttrSetP
-        BeltWidth: ProdAttrSetT
-        AvailableProfilePatternWidths: ProdAttrSetZ
+        CleatHeightInch: ProdAttrSetP # Cleat Height in
+        BeltWidth: ProdAttrSetT #Available Belt Widths
+        BeltWidthMM: ProdAttrSetT #Belt Width MM
+        BeltWidthInch: ProdAttrSetT # Belt Width in
+        AvailableProfilePatternWidths: ProdAttrSetZ #Available Pattern Widths
+
     # ContiRoll Belt Profile Attributes:
     #     AvailableProfilePatternWidths: ProdAttrSetZ
+ContiPipe and MegaPipe Sizes:
+    ContiPipe and MegaPipe Table Attributes:
+        DiameterInch:   ProdAttrSetAC #diameter in
+        Diameter:       ProdAttrSetAC #diameter mm
+        BeltWidthInch:  ProdAttrSetT #BeltWidth in
+        BeltWidthMM:    ProdAttrSetT #BeltWidth mm
+        FabricType:     ProdAttrSetN #BeltWidth mm
+        SteelType:      ProdAttrSetN #BeltWidth mm

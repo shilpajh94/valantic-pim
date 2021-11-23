@@ -16,7 +16,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 
 <?php if($data): ?>
-<div class="wrapper">
+<div class="wrapper beltinfotable">
     <header id="header">
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
@@ -544,7 +544,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         
         <?php if($data['FeaturesAndBenefits']){ ?>
         <section class="features-benefit-sec">
-            <h1>
+            <h1 class="heading-info">
                 <span class="orange">
 
                     <?php if($this->editmode): ?>
@@ -623,7 +623,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <?php } ?>
         <?php if($data['productTables']): ?>
         <section class="belts-information">
-            <h1>
+            <h1 class="heading-info">
             <span class="orange">
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_MoreInfoHeading")->isEmpty()): ?>
@@ -642,723 +642,787 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </h1>
 
             <?php if(isset($data['productTables']['Conveyor Belt Data'])){ ?>
-            <h3>
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_Conveyor_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Conveyor_Belt_Data")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Conveyor_Belt_Data')) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_Conveyor_Belt_Data"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_Conveyor_Belt_Data") ?>
-            <?php endif; ?>
             
-            </h3>
+            <?php 
+                $conveyorBeltDataArray = $data['productTables']['Conveyor Belt Data'];
 
-            <div class="table-data">
-            <?php
-                $conveyorBeltData = $data['productTables']['Conveyor Belt Data'];
-                
-                foreach ($conveyorBeltData as $key => $value) {
-                
+                foreach ($conveyorBeltDataArray as $chunkKey => $conveyorBeltData) {
                 ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr  class="orange-bg">
-                            <th align="left"  colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
-                        </tr>
-                        <?php 
-                            $theadSecondRow = $value['theadSecondRow'];
-                            ?>
-                            <tr class="grey-bg">
-                            <?php
-                            $firstKey = array_key_first($theadSecondRow);
-                            foreach($theadSecondRow as $key => $td)
-                            {
-                                $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left" width="17.2%"';
-                                    }
-                                    else{
-                                        // $style = 'width="9.2%"';
-                                    }
-                                ?>
-                                <th <?= $style; ?>><?= $td ?></th>
-                            <?php
-                            }
-                            ?>
+                <h3>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("PP_Conveyor_Belt_Data_{$chunkKey}")->isEmpty()): ?>
+                                <?= $this->input("PP_Conveyor_Belt_Data_{$chunkKey}")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Conveyor_Belt_Data')) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Conveyor_Belt_Data_{$chunkKey}"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("PP_Conveyor_Belt_Data_{$chunkKey}") ?>
+                <?php endif; ?>
+                
+                </h3>
+
+                <div class="table-data">
+                <?php
+                    
+                    
+                    foreach ($conveyorBeltData as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr  class="orange-bg">
+                                <th align="left"  colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                             </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
-                            {
+                            <?php 
+                                $theadSecondRow = $value['theadSecondRow'];
                                 ?>
-                                <tr align="center">
+                                <tr class="grey-bg">
                                 <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
                                     $style = '';
                                         if($firstKey == $key){
-                                            $style = 'align="left"';
-                                            $value = $this->translate($value);
+                                            $style = 'align="left" width="17.2%"';
+                                        }
+                                        else{
+                                            // $style = 'width="9.2%"';
                                         }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody>
-                </table>
-                <?php 
-                } 
-            ?>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+                                        ?>
+                                        <td <?= $style; ?>><?= $value ?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    <?php 
+                    } 
+                ?>
+                </div>
 
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Conveyor_Belt_Data_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Conveyor_Belt_Data_Comment")->isEmpty()): ?>
+                    <?php if($this->editmode): ?>
                         <p class="table-notes">
-                            <?= $this->textarea("PP_Conveyor_Belt_Data_Comment") ?>
+                            <?= $this->textarea("PP_Conveyor_Belt_Data_Comment_{$chunkKey}"); ?>
                         </p>
+                    <?php else: ?>
+                        <?php if(!$this->textarea("PP_Conveyor_Belt_Data_Comment_{$chunkKey}")->isEmpty()): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Conveyor_Belt_Data_Comment_{$chunkKey}") ?>
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
 
-            <?php 
+                <?php 
+                }
             }
             ?>
 
             <?php if(isset($data['productTables']['Load Support – Maximum Belt Width Data'])){ ?>
-            <h3>
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("PP_Load_Support_Maximum_Belt")->isEmpty()): ?>
-                                <?= $this->input("PP_Load_Support_Maximum_Belt")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Load_Support_Maximum_Belt_Width_Data')) ?>
-                        <?php else: ?>
-                                <?= $this->input("PP_Load_Support_Maximum_Belt"); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("PP_Load_Support_Maximum_Belt") ?>
-                <?php endif; ?>
-                
-            </h3>
-            
-            <div class="table-data">
-            <?php 
-                
-                $LoadSupportMaximumBeltWidthData = $data['productTables']['Load Support – Maximum Belt Width Data'];
-                
-                foreach ($LoadSupportMaximumBeltWidthData as $key => $value) {
-                   
-                ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr class="orange-bg">
-                            <th  colspan="<?= $value['theadfirstRowColspan'] ?>" align="left" ><?= $this->translate($key) ?></th>
-                        </tr>
 
-                        <tr class="white-bg">
-                        <?php
-                        $theadSecondRowGroup = $value['theadSecondRowGroup'];
-                        $firstKey = array_key_first($theadSecondRowGroup);
-                        // $firstKey = array_key_first($theadSecondRow);
-                        foreach($theadSecondRowGroup as $key => $colspan)
-                        {
-                            $style = '';
-                                if($firstKey == $key){
-                                    $style = 'align="left"';
-                                }
+                <?php 
 
-                            ?>
-                            <th colspan="<?= $colspan ?>" <?= $style ?>><?= $this->translate($key) ?></th>
-                        <?php
-                        }
-                        ?>
-                        </tr>
-                        
-                        <tr class="white-bg">
-                        <?php
-                        $theadSecondRow = $value['theadSecondRow'];
-                        $firstKey = array_key_first($theadSecondRow);
-                        foreach($theadSecondRow as $key => $td)
-                        {
-                            $style = '';
-                                if($firstKey == $key){
-                                    $style = 'align="left" width="13.6%"';
-                                }
-                                else{
-                                    $style = 'width="7.2%"';
-                                }
-                            ?>
-                            <th <?= $style; ?>><?= $this->translate($td) ?></th>
-                        <?php
-                        }
-                        ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
+                $LoadSupportMaximumBeltWidthDataArr = $data['productTables']['Load Support – Maximum Belt Width Data'];
+                                
+                foreach ($LoadSupportMaximumBeltWidthDataArr as $chunkKey => $LoadSupportMaximumBeltWidthData) {
+                    ?>
+                <h3>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("PP_Load_Support_Maximum_Belt_{$chunkKey}")->isEmpty()): ?>
+                                    <?= $this->input("PP_Load_Support_Maximum_Belt_{$chunkKey}")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Load_Support_Maximum_Belt_Width_Data')) ?>
+                            <?php else: ?>
+                                    <?= $this->input("PP_Load_Support_Maximum_Belt_{$chunkKey}"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("PP_Load_Support_Maximum_Belt_{$chunkKey}") ?>
+                    <?php endif; ?>
+                    
+                </h3>
+                
+                <div class="table-data">
+                <?php 
+                    
+                    
+                    foreach ($LoadSupportMaximumBeltWidthData as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr class="orange-bg">
+                                <th  colspan="<?= $value['theadfirstRowColspan'] ?>" align="left" ><?= $this->translate($key) ?></th>
+                            </tr>
+
+                            <tr class="white-bg">
+                            <?php
+                            $theadSecondRowGroup = $value['theadSecondRowGroup'];
+                            $firstKey = array_key_first($theadSecondRowGroup);
+                            // $firstKey = array_key_first($theadSecondRow);
+                            foreach($theadSecondRowGroup as $key => $colspan)
                             {
+                                $style = '';
+                                    if($firstKey == $key){
+                                        $style = 'align="left"';
+                                    }
+
                                 ?>
-                                <tr align="center">
-                                <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
-                                {
-                                    $style = '';
-                                        if($firstKey == $key){ ?>
-                                            <th align="left" class="grey-bg border-bottom-0" scope="row"><?= $value ?></th>
-                                        <?php }else{ ?>
-                                            <td><?= $value ?></td>
-                                        <?php } ?>
-                                <?php
-                                }
-                                ?>
-                                </tr>
-                                <?php
+                                <th colspan="<?= $colspan ?>" <?= $style ?>><?= $this->translate($key) ?></th>
+                            <?php
                             }
                             ?>
-                    </tbody>
-                </table>
-                
+                            </tr>
+                            
+                            <tr class="white-bg">
+                            <?php
+                            $theadSecondRow = $value['theadSecondRow'];
+                            $firstKey = array_key_first($theadSecondRow);
+                            foreach($theadSecondRow as $key => $td)
+                            {
+                                $style = '';
+                                    if($firstKey == $key){
+                                        $style = 'align="left" width="13.6%"';
+                                    }
+                                    else{
+                                        $style = 'width="7.2%"';
+                                    }
+                                ?>
+                                <th <?= $style; ?>><?= $this->translate($td) ?></th>
+                            <?php
+                            }
+                            ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){ ?>
+                                                <th align="left" class="grey-bg border-bottom-0" scope="row"><?= $value ?></th>
+                                            <?php }else{ ?>
+                                                <td><?= $value ?></td>
+                                            <?php } ?>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    
+                    <?php 
+                    }
+                    
+                ?>
+                    
+                </div>
+                    <?php if($this->editmode): ?>
+                        <p class="table-notes">
+                            <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment_{$chunkKey}"); ?>
+                        </p>
+                    <?php else: ?>
+                        <?php if(!$this->textarea("PP_Load_Support_Maximum_Belt_Comment_{$chunkKey}")->isEmpty()): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment_{$chunkKey}") ?>
+                            </p>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 <?php 
                 }
-                
-            ?>
-                
-            </div>
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Load_Support_Maximum_Belt_Comment")->isEmpty()): ?>
-                        <p class="table-notes">
-                            <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment") ?>
-                        </p>
-                    <?php endif; ?>
-                <?php endif; ?>
-            <?php 
             }
             ?>
 
             <?php if(isset($data['productTables']['Troughability Minimum Belt Width'])){ ?>
-            <h3>
-                <strong>
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("PP_Troughability_Minimum_Belt_Width")->isEmpty()): ?>
-                                <?= $this->input("PP_Troughability_Minimum_Belt_Width")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Troughability_Minimum_Belt_Width')) ?>
-                        <?php else: ?>
-                                <?= $this->input("PP_Troughability_Minimum_Belt_Width"); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("PP_Troughability_Minimum_Belt_Width") ?>
-                <?php endif; ?>
-                
-                </strong>
-            </h3>
-            
-            <div class="table-data">
 
-            <?php 
-                
-                $TroughabilityMinimumBeltWidth = $data['productTables']['Troughability Minimum Belt Width'];
-                
-                foreach ($TroughabilityMinimumBeltWidth as $key => $value) {
-                   
-                ?>
-                <table width="100%">
-                    <thead>
-                        <tr class="orange-bg">
-                            <th colspan="<?= $value['theadfirstRowColspan'] ?>"  align="left"><?= $this->translate($key) ?></th>
-                        </tr>
+                <?php
 
-                        <tr class="grey-bg">
-                        <?php
-                        $theadSecondRow = $value['theadSecondRow'];
-                        // $firstKey = array_key_first($theadSecondRow);
-                        foreach($theadSecondRow as $key => $td)
-                        {
-                            if($key < 1)
-                            {
-                                continue;
-                            }
-
-                            $style = '';
-                                if($key == 1){
-                                    $style = 'colspan="2" align="left"';
-                                }
-                                else{
-                                    // $style = 'width="8.8%"';
-                                }
-                            ?>
-                            <th <?= $style; ?>><?= $td ?></th>
-                        <?php
-                        }
-                        ?>
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            $onlyOnce = false;
-                            $onlyOnceStyle = false;
-                            foreach($tbody as $key => $trows)
-                            {
-                                ?>
-                                <tr align="center">
-                                <?php
-
-                                $onlyOnceData = $trows[0];
+                $TroughabilityMinimumBeltWidthArray = $data['productTables']['Troughability Minimum Belt Width'];
                                 
-                                unset($trows[0]);
-                                if(!$onlyOnce)
-                                {
-                                    ?>
-                                <th rowspan="3" class="border-0 w-20"><?= $this->translate($onlyOnceData) ?></th>
+                foreach ($TroughabilityMinimumBeltWidthArray as $chunkKey => $TroughabilityMinimumBeltWidth) {
+                ?>
+                    <h3>
+                        <strong>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("PP_Troughability_Minimum_Belt_Width_{$chunkKey}")->isEmpty()): ?>
+                                        <?= $this->input("PP_Troughability_Minimum_Belt_Width_{$chunkKey}")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Troughability_Minimum_Belt_Width')) ?>
+                                <?php else: ?>
+                                        <?= $this->input("PP_Troughability_Minimum_Belt_Width_{$chunkKey}"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Troughability_Minimum_Belt_Width_{$chunkKey}") ?>
+                        <?php endif; ?>
+                        
+                        </strong>
+                    </h3>
+                    
+                    <div class="table-data">
+                        <?= $this->input("Table_Note_$chunkKey",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
+
+                    <?php 
+                        
+                        
+                        foreach ($TroughabilityMinimumBeltWidth as $key => $value) {
+                        
+                        ?>
+                        <table width="100%">
+                            <thead>
+                                <tr class="orange-bg">
+                                    <th colspan="<?= $value['theadfirstRowColspan'] ?>"  align="left"><?= $this->translate($key) ?></th>
+                                </tr>
+
+                                <tr class="grey-bg">
                                 <?php
-                                $onlyOnce = true;
-                                }
-
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $theadSecondRow = $value['theadSecondRow'];
+                                // $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
-                                    $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left"';
-                                        $value = $this->translate($value);
+                                    if($key < 1)
+                                    {
+                                        continue;
                                     }
 
-                                    if(!$onlyOnceStyle)
-                                    {
-                                        $style .= ' class="border-right w-20"';
-                                        $onlyOnceStyle = true;
-                                    }
+                                    $style = '';
+                                        if($key == 1){
+                                            $style = 'colspan="2" align="left"';
+                                        }
+                                        else{
+                                            // $style = 'width="8.8%"';
+                                        }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody> 
-                </table>
-                
-                <?php 
-                }
-                
-            ?>
-                
-            </div>
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Troughability_Minimum_Belt_Width_Comment")->isEmpty()): ?>
-                        <p class="table-notes">
-                            <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment") ?>
-                        </p>
-                    <?php endif; ?>
-                <?php endif; ?>
+                                
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    $tbody = $value['tbody'];
+                                    $onlyOnce = false;
+                                    $onlyOnceStyle = false;
+                                    foreach($tbody as $key => $trows)
+                                    {
+                                        ?>
+                                        <tr align="center">
+                                        <?php
 
-            <?php 
-            }
+                                        $onlyOnceData = $trows[0];
+                                        
+                                        unset($trows[0]);
+                                        if(!$onlyOnce)
+                                        {
+                                            ?>
+                                        <th rowspan="3" class="border-0 w-20"><?= $this->translate($onlyOnceData) ?></th>
+                                        <?php
+                                        $onlyOnce = true;
+                                        }
+
+                                        $firstKey = array_key_first($trows);
+                                        foreach($trows as $key => $value)
+                                        {
+                                            $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+
+                                            if(!$onlyOnceStyle)
+                                            {
+                                                $style .= ' class="border-right w-20"';
+                                                $onlyOnceStyle = true;
+                                            }
+                                            ?>
+                                            <td <?= $style; ?>><?= $value ?></td>
+                                        <?php
+                                        }
+                                        ?>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                            </tbody> 
+                        </table>
+                        
+                        <?php 
+                        }
+                        
+                    ?>
+                        
+                    </div>
+                        <?php if($this->editmode): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment_{$chunkKey}"); ?>
+                            </p>
+                        <?php else: ?>
+                            <?php if(!$this->textarea("PP_Troughability_Minimum_Belt_Width_Comment_{$chunkKey}")->isEmpty()): ?>
+                                <p class="table-notes">
+                                    <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment_{$chunkKey}") ?>
+                                </p>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                    <?php 
+                    }
+                }
             ?>
 
             <?php if(isset($data['productTables']['Minimum Pulley Diameters'])){ ?>
-            <h3>
-            <strong>
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_Minimum_Pulley_Diameters")->isEmpty()): ?>
-                            <?= $this->input("PP_Minimum_Pulley_Diameters")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Minimum_Pulley_Diameters')) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_Minimum_Pulley_Diameters"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_Minimum_Pulley_Diameters") ?>
-            <?php endif; ?>
-            
-            </strong>
-            </h3>
 
-            <div class="table-data">
-            <?php
-                $MinimumPulleyDiameters = $data['productTables']['Minimum Pulley Diameters'];
+                <?php
+                $MinimumPulleyDiametersArray = $data['productTables']['Minimum Pulley Diameters'];
                 
-                foreach ($MinimumPulleyDiameters as $key => $value) {
-                
+                foreach ($MinimumPulleyDiametersArray as $chunkKey => $MinimumPulleyDiameters) {
                 ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr align="left" class="orange-bg">
-                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
-                        </tr>
-                        <?php 
-                            $theadSecondRow = $value['theadSecondRow'];
-                            ?>
-                            <tr class="grey-bg">
-                            <?php
-                            $firstKey = array_key_first($theadSecondRow);
-                            foreach($theadSecondRow as $key => $td)
-                            {
-                                $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left" width="17.2%"';
-                                    }
-                                ?>
-                                <th <?= $style; ?>><?= $td ?></th>
-                            <?php
-                            }
-                            ?>
+
+                <h3>
+                <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("PP_Minimum_Pulley_Diameters_{$chunkKey}")->isEmpty()): ?>
+                                <?= $this->input("PP_Minimum_Pulley_Diameters_{$chunkKey}")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Minimum_Pulley_Diameters')) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Minimum_Pulley_Diameters_{$chunkKey}"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("PP_Minimum_Pulley_Diameters_{$chunkKey}") ?>
+                <?php endif; ?>
+                
+                </strong>
+                </h3>
+
+                <div class="table-data">
+                <?php
+                    
+                    foreach ($MinimumPulleyDiameters as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr align="left" class="orange-bg">
+                                <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>">
+                                    <?= $this->translate($key) ?>
+                                    <?php
+                                        if($key == 'CS_Metric')
+                                        {
+                                            echo " (".$this->translate('CS_Unit_mm').") ";
+                                        }
+                                        elseif($key == 'CS_Imperial')
+                                        {
+                                            echo "(".$this->translate('CS_Unit_in').").";
+                                        }
+                                    ?>
+                                </th>
                             </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
-                            {
+                            <?php 
+                                $theadSecondRow = $value['theadSecondRow'];
                                 ?>
-                                <tr align="center">
+                                <tr class="grey-bg">
                                 <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
                                     $style = '';
                                         if($firstKey == $key){
-                                            $style = 'align="left"';
-                                            $value = $this->translate($value);
+                                            $style = 'align="left" width="17.2%"';
                                         }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody>
-                </table>
-                <?php 
-                } 
-            ?>
-            </div>
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Minimum_Pulley_Diameters_Comment")->isEmpty()): ?>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+                                        ?>
+                                        <td <?= $style; ?>><?= $value ?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    <?php 
+                    } 
+                ?>
+                </div>
+                    <?php if($this->editmode): ?>
                         <p class="table-notes">
-                            <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment") ?>
+                            <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment_{$chunkKey}"); ?>
                         </p>
+                    <?php else: ?>
+                        <?php if(!$this->textarea("PP_Minimum_Pulley_Diameters_Comment_{$chunkKey}")->isEmpty()): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment_{$chunkKey}") ?>
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
 
-            <?php 
+                <?php 
+                }
             }
             ?>
 
             <?php if(isset($data['productTables']['Elevator Belt Data'])){ ?>
-            <h3>
-            <strong>
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_Elevator_Belt_Data")->isEmpty()): ?>
-                            <?= $this->input("PP_Elevator_Belt_Data")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Elevator_Belt_Data')) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_Elevator_Belt_Data"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_Elevator_Belt_Data") ?>
-            <?php endif; ?>
-            
-            </strong>
-            </h3>
 
-            <div class="table-data">
-            <?php
-                $ElevatorBeltData = $data['productTables']['Elevator Belt Data'];
+                <?php
+                $ElevatorBeltDataArray = $data['productTables']['Elevator Belt Data'];
                 
-                foreach ($ElevatorBeltData as $key => $value) {
+                foreach ($ElevatorBeltDataArray as $chunkKey => $ElevatorBeltData) {
                 
                 ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr align="left" class="orange-bg">
-                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
-                        </tr>
-                        <?php 
-                            $theadSecondRow = $value['theadSecondRow'];
-                            ?>
-                            <tr class="grey-bg">
-                            <?php
-                            $firstKey = array_key_first($theadSecondRow);
-                            foreach($theadSecondRow as $key => $td)
-                            {
-                                $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left" width="17.2%"';
-                                    }
-                                ?>
-                                <th <?= $style; ?>><?= $td ?></th>
-                            <?php
-                            }
-                            ?>
+
+                <h3>
+                <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("PP_Elevator_Belt_Data_{$chunkKey}")->isEmpty()): ?>
+                                <?= $this->input("PP_Elevator_Belt_Data_{$chunkKey}")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Elevator_Belt_Data')) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Elevator_Belt_Data_{$chunkKey}"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("PP_Elevator_Belt_Data_{$chunkKey}") ?>
+                <?php endif; ?>
+                
+                </strong>
+                </h3>
+
+                <div class="table-data">
+                <?php
+                    
+                    foreach ($ElevatorBeltData as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr align="left" class="orange-bg">
+                                <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                             </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
-                            {
+                            <?php 
+                                $theadSecondRow = $value['theadSecondRow'];
                                 ?>
-                                <tr align="center">
+                                <tr class="grey-bg">
                                 <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
                                     $style = '';
                                         if($firstKey == $key){
-                                            $style = 'align="left"';
-                                            $value = $this->translate($value);
+                                            $style = 'align="left" width="17.2%"';
                                         }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody>
-                </table>
-                <?php 
-                } 
-            ?>
-            </div>
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Elevator_Belt_Data_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Elevator_Belt_Data_Comment")->isEmpty()): ?>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+                                        ?>
+                                        <td <?= $style; ?>><?= $value ?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    <?php 
+                    } 
+                ?>
+                </div>
+                    <?php if($this->editmode): ?>
                         <p class="table-notes">
-                            <?= $this->textarea("PP_Elevator_Belt_Data_Comment") ?>
+                            <?= $this->textarea("PP_Elevator_Belt_Data_Comment_{$chunkKey}"); ?>
                         </p>
+                    <?php else: ?>
+                        <?php if(!$this->textarea("PP_Elevator_Belt_Data_Comment_{$chunkKey}")->isEmpty()): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Elevator_Belt_Data_Comment_{$chunkKey}") ?>
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
 
-            <?php 
+                <?php 
+                }
             }
             ?>
 
             <?php if(isset($data['productTables']['Maximum Bucket Projection'])){ ?>
-            <h3>
-            <strong>
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_Maximum_Bucket_Projection")->isEmpty()): ?>
-                            <?= $this->input("PP_Maximum_Bucket_Projection")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Maximum_Bucket_Projection')) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_Maximum_Bucket_Projection"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_Maximum_Bucket_Projection") ?>
-            <?php endif; ?>
-            
-            </strong>
-            </h3>
 
-            <div class="table-data">
-            <?php
-                $MaximumBucketProjection = $data['productTables']['Maximum Bucket Projection'];
+                <?php
+                $MaximumBucketProjectionArray = $data['productTables']['Maximum Bucket Projection'];
                 
-                foreach ($MaximumBucketProjection as $key => $value) {
+                foreach ($MaximumBucketProjectionArray as $chunkKey => $MaximumBucketProjection) {
                 
                 ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr align="left" class="orange-bg">
-                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
-                        </tr>
-                        <?php 
-                            $theadSecondRow = $value['theadSecondRow'];
-                            ?>
-                            <tr class="grey-bg">
-                            <?php
-                            $firstKey = array_key_first($theadSecondRow);
-                            foreach($theadSecondRow as $key => $td)
-                            {
-                                $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left" width="17.2%"';
-                                        //$value = $this->translate($value);
-                                    }
-                                ?>
-                                <th <?= $style; ?>><?= $td ?></th>
-                            <?php
-                            }
-                            ?>
+                <h3>
+                <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("PP_Maximum_Bucket_Projection_{$chunkKey}")->isEmpty()): ?>
+                                <?= $this->input("PP_Maximum_Bucket_Projection_{$chunkKey}")->setDataFromResource($data['ProductName']. ' '.$this->translate('CS_Maximum_Bucket_Projection')) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Maximum_Bucket_Projection_{$chunkKey}"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("PP_Maximum_Bucket_Projection_{$chunkKey}") ?>
+                <?php endif; ?>
+                
+                </strong>
+                </h3>
+
+                <div class="table-data">
+                <?php
+                    
+                    foreach ($MaximumBucketProjection as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr align="left" class="orange-bg">
+                                <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                             </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
-                            {
+                            <?php 
+                                $theadSecondRow = $value['theadSecondRow'];
                                 ?>
-                                <tr align="center">
+                                <tr class="grey-bg">
                                 <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
                                     $style = '';
                                         if($firstKey == $key){
-                                            $style = 'align="left"';
-                                            $value = $this->translate($value);
+                                            $style = 'align="left" width="17.2%"';
+                                            //$value = $this->translate($value);
                                         }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody>
-                </table>
-                <?php 
-                } 
-            ?>
-            </div>
-                <?php if($this->editmode): ?>
-                    <p class="table-notes">
-                        <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment"); ?>
-                    </p>
-                <?php else: ?>
-                    <?php if(!$this->textarea("PP_Maximum_Bucket_Projection_Comment")->isEmpty()): ?>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+                                        ?>
+                                        <td <?= $style; ?>><?= $value ?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    <?php 
+                    } 
+                ?>
+                </div>
+                    <?php if($this->editmode): ?>
                         <p class="table-notes">
-                            <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment") ?>
+                            <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment_{$chunkKey}"); ?>
                         </p>
+                    <?php else: ?>
+                        <?php if(!$this->textarea("PP_Maximum_Bucket_Projection_Comment_{$chunkKey}")->isEmpty()): ?>
+                            <p class="table-notes">
+                                <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment_{$chunkKey}") ?>
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
 
-            <?php 
+                <?php 
+                }
             }
             ?>
 
             <?php if(isset($data['productTables']['Standard Specifications'])){ ?>
-            <h3>
-            <strong>
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_Standard_Specifications")->isEmpty()): ?>
-                            <?= $this->input("PP_Standard_Specifications")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Standard_Specifications')) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_Standard_Specifications"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_Standard_Specifications") ?>
-            <?php endif; ?>
-            
-            </strong>
-            </h3>
 
-            <div class="table-data">
-            <?php
-                $StandardSpecifications = $data['productTables']['Standard Specifications'];
+                <?php
+                $StandardSpecificationsArray = $data['productTables']['Standard Specifications'];
                 
-                foreach ($StandardSpecifications as $key => $value) {
+                foreach ($StandardSpecificationsArray as $chunkKey => $StandardSpecifications) {
                 
                 ?>
-            
-                <table width="100%">
-                    <thead>
-                        <tr align="left" class="orange-bg">
-                            <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
-                        </tr>
-                        <?php 
-                            $theadSecondRow = $value['theadSecondRow'];
-                            ?>
-                            <tr class="grey-bg">
-                            <?php
-                            $firstKey = array_key_first($theadSecondRow);
-                            foreach($theadSecondRow as $key => $td)
-                            {
-                                $style = '';
-                                    if($firstKey == $key){
-                                        $style = 'align="left" width="17.2%"';
-                                    }
-                                ?>
-                                <th <?= $style; ?>><?= $td ?></th>
-                            <?php
-                            }
-                            ?>
+
+                <h3>
+                <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("PP_Standard_Specifications_{$chunkKey}")->isEmpty()): ?>
+                                <?= $this->input("PP_Standard_Specifications_{$chunkKey}")->setDataFromResource($data['ProductName'].' '.$this->translate('CS_Standard_Specifications')) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_Standard_Specifications_{$chunkKey}"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("PP_Standard_Specifications_{$chunkKey}") ?>
+                <?php endif; ?>
+                
+                </strong>
+                </h3>
+
+                <div class="table-data">
+                <?php
+                    
+                    foreach ($StandardSpecifications as $key => $value) {
+                    
+                    ?>
+                
+                    <table width="100%">
+                        <thead>
+                            <tr align="left" class="orange-bg">
+                                <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
                             </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $tbody = $value['tbody'];
-                            
-                            foreach($tbody as $key => $trows)
-                            {
+                            <?php 
+                                $theadSecondRow = $value['theadSecondRow'];
                                 ?>
-                                <tr align="center">
+                                <tr class="grey-bg">
                                 <?php
-                                $firstKey = array_key_first($trows);
-                                foreach($trows as $key => $value)
+                                $firstKey = array_key_first($theadSecondRow);
+                                foreach($theadSecondRow as $key => $td)
                                 {
                                     $style = '';
                                         if($firstKey == $key){
-                                            $style = 'align="left"';
-                                            $value = $this->translate($value);
+                                            $style = 'align="left" width="17.2%"';
                                         }
                                     ?>
-                                    <td <?= $style; ?>><?= $value ?></td>
+                                    <th <?= $style; ?>><?= $td ?></th>
                                 <?php
                                 }
                                 ?>
                                 </tr>
-                                <?php
-                            }
-                            ?>
-                    </tbody>
-                </table>
-                <?php 
-                } 
-            ?>
-            </div>
-                <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Standard_Specifications_Comment', ['class'=>'note']); ?>
-                <?php else: ?>
-                    <p class="table-notes"><?= $this->textarea('PP_Standard_Specifications_Comment'); ?></p>
-                <?php endif; ?>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $tbody = $value['tbody'];
+                                
+                                foreach($tbody as $key => $trows)
+                                {
+                                    ?>
+                                    <tr align="center">
+                                    <?php
+                                    $firstKey = array_key_first($trows);
+                                    foreach($trows as $key => $value)
+                                    {
+                                        $style = '';
+                                            if($firstKey == $key){
+                                                $style = 'align="left"';
+                                                $value = $this->translate($value);
+                                            }
+                                        ?>
+                                        <td <?= $style; ?>><?= $value ?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                    </table>
+                    <?php 
+                    } 
+                ?>
+                </div>
+                    <?php if($this->editmode): ?>
+                        <?= $this->textarea("PP_Standard_Specifications_Comment_{$chunkKey}", ['class'=>'note']); ?>
+                    <?php else: ?>
+                        <p class="table-notes"><?= $this->textarea("PP_Standard_Specifications_Comment_{$chunkKey}"); ?></p>
+                    <?php endif; ?>
 
-            <?php 
+                <?php 
+                }
             }
             ?>
 
