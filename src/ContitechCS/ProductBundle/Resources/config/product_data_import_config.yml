@@ -42,12 +42,28 @@ elastic modulus in kN/mm:
     fieldName: ElasticModulusinKNMM
     fieldType: Number
     objectType: BeltData
+Belt Modulus:
+    fieldName: BeltModulusKNM
+    fieldType: Number
+    objectType: BeltData
+Elevator Rating:
+    fieldName: ElevatorRatingPIW
+    fieldType: Number
+    objectType: BeltData
+Maximum Bucket Projection (in.):
+    fieldName: MaximumBucketProjectionInch
+    fieldType: Number
+    objectType: BeltData
 minimum pulley diameter in mm (@tails and snubs):
     fieldName: MinimumPulleyDiameterinMMTailsAndSnubs
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@up to 40 % tension):
     fieldName: MinimumPulleyDiameterinMM40Tension
+    fieldType: Number
+    objectType: BeltData
+Minimum pulley diameter (@up to 60 % tension):
+    fieldName: MinimumPulleyDiameterinMM60Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@40 % to 60 % tension):
@@ -102,6 +118,10 @@ minimum pulley diameter in inch (@up to 40 % tension):
     fieldName: MinimumPulleyDiameterinInch40Tension
     fieldType: Number
     objectType: BeltData
+Minimum pulley diameter in inch (@up to 60 % tension):
+    fieldName: MinimumPulleyDiameterinInch60Tension
+    fieldType: Number
+    objectType: BeltData
 minimum pulley diameter in inch (@40 % to 60 % tension):
     fieldName: MinimumPulleyDiameterinInch40_60Tension
     fieldType: Number
@@ -134,6 +154,14 @@ Belt Rating:
     fieldName: BeltRating
     fieldType: Input
     objectType: BeltData
+Belt Modulus in PIW:
+    fieldName: BeltModulusInPIW
+    fieldType: Number
+    objectType: BeltData
+Elevator Rating (N/mm):
+    fieldName: ElevatorRatingNmm
+    fieldType: Number
+    objectType: BeltData
 nominal cable diameter in mm:
     fieldName: NominalCableDiameterinMM
     fieldType: Number
@@ -142,25 +170,29 @@ nominal cable diameter in inch:
     fieldName: NominalCableDiameterinInch
     fieldType: Number
     objectType: BeltData
-Cleat Height:
-    fieldName: CleatHeightMM
-    fieldType: Number
-    objectType: BeltData
-Cleat Height in inch:
-    fieldName: CleatHeightInch
-    fieldType: Number
-    objectType: BeltData
 Cleat profile sizes:
     fieldName: CleatProfileSizes
     fieldType: Input
+    objectType: BeltData
+Maximum Bucket Projection (mm):
+    fieldName: MaximumBucketProjectionMM
+    fieldType: Number
     objectType: BeltData
 Minimum ultimate tension PIW:
     fieldName: MinimumUltimateTensionPIW
     fieldType: Number
     objectType: BeltData
 Minimum ultimate tension kN/m:
-    fieldName: MinimumUltimateTensionkNm
+    fieldName: MinimumUltimateTensionKNM
     fieldType: Number
+    objectType: BeltData
+Cleat Size (Width x Length):
+    fieldName: CleatSize
+    fieldType: Input
+    objectType: BeltData
+Additional Information:
+    fieldName: AdditionalInformation
+    fieldType: Input
     objectType: BeltData
 splice type:
     fieldName: SpliceType
@@ -282,18 +314,18 @@ number of plies:
     fieldName: NumberofPlies
     fieldType: Number
     objectType: Material
-# Cleat Height:
-#     fieldName: CleatHeightMM
-#     fieldType: Number
-#     objectType: Material
-# Cleat Height in inch:
-#     fieldName: CleatHeightInch
-#     fieldType: Number
-#     objectType: Material
-# Cleat profile sizes:
-#     fieldName: CleatProfileSizes
-#     fieldType: Input
-#     objectType: Material
+Cleat Height:
+    fieldName: CleatHeightMM
+    fieldType: Number
+    objectType: Material
+carcass construction:
+    fieldName: CarcassConstruction
+    fieldType: Select
+    objectType: Material
+Cleat Height in inch:
+    fieldName: CleatHeightInch
+    fieldType: Number
+    objectType: Material
 Plastic Liner Type:
     fieldName: PlasticLinerType
     fieldType: Multiselection
@@ -312,6 +344,10 @@ Polymer Type:
     objectType: Material
 Plastic Liner Color:
     fieldName: PlasticLinerColor
+    fieldType: Input
+    objectType: Material
+Steel Type:
+    fieldName: SteelType
     fieldType: Input
     objectType: Material
 PermanentElongation:
@@ -443,7 +479,7 @@ Typical Tensile (MPa):
     fieldType: Number
     objectType: Performance1
 Min. Tensile (PSI):
-    fieldName: MinTensileMPa
+    fieldName: MinTensilePSI
     fieldType: Number
     objectType: Performance1
 Typical Tensile (PSI):
@@ -549,6 +585,14 @@ Maximum Belt Width Inch:
 Diameter:
     fieldName: Diameter
     fieldType: Number
+    objectType: ProdDimensions
+Diameter Inch:
+    fieldName: DiameterInch
+    fieldType: Number
+    objectType: ProdDimensions
+Belt Width mm:
+    fieldName: BeltWidthmm3
+    fieldType: Input
     objectType: ProdDimensions
 Weight:
     fieldName: WeightKG
@@ -961,6 +1005,18 @@ Product Image:
     fieldName: productImage
     fieldType: Image
     objectType: class
+Performance categories:
+    fieldName: CSPerformanceCategory
+    fieldType: Multiselection
+    objectType: class
+Ecommerce:
+    fieldName: EcommerceFlag
+    fieldType: Boolean Select
+    objectType: class
+Printed Catalog Flag:
+    fieldName: PrintedCatalogFlag
+    fieldType: Boolean Select
+    objectType: class
 Application Image:
     fieldName: applicationImage
     fieldType: Image
@@ -1009,3 +1065,19 @@ Product Claim/Slogan:
     fieldName: ProductClaimSlogan
     fieldType: Input
     objectType: class
+Region:
+    fieldName: CSRegion
+    fieldType: Multiselection
+    className: CSRegion
+    fieldNameToSearch: RegionName
+    objectType: class
+    mandatoryFields: "RegionName"
+    createFlag: false
+Segment:
+    fieldName: CSSegment
+    fieldType: Multiselection
+    className: CSSegment
+    fieldNameToSearch: SegmentName
+    objectType: class
+    mandatoryFields: "SegmentName"
+    createFlag: false
