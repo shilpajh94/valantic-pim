@@ -150,10 +150,6 @@ cover gauge examples imperial in inch:
     fieldName: CoverGaugeExamplesImperialinInch
     fieldType: Input
     objectType: BeltData
-Belt Rating:
-    fieldName: BeltRating
-    fieldType: Input
-    objectType: BeltData
 Belt Modulus in PIW:
     fieldName: BeltModulusInPIW
     fieldType: Number
@@ -173,7 +169,7 @@ nominal cable diameter in inch:
 Cleat profile sizes:
     fieldName: CleatProfileSizes
     fieldType: Input
-    objectType: BeltData
+    objectType: Material
 Maximum Bucket Projection (mm):
     fieldName: MaximumBucketProjectionMM
     fieldType: Number
