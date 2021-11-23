@@ -305,7 +305,7 @@ h3 {
 
 .table-notes {
   font-size: 8px !important;
-  padding-bottom: 5px;
+  margin-bottom: 18px;
 }
 .note {
   font-size: 10px !important;
@@ -360,8 +360,11 @@ h3 {
 
 .belts-information h3:nth-of-type(1) {
   padding-top: 15px;
+  margin-top: 0px;
 }
-
+.belts-information h3 {
+  margin-top: 20px;
+}
 .table-data {
   margin-bottom: 5px;
 }
@@ -1139,13 +1142,37 @@ thead tr:first-child th {
 }
 
 .beltinfotable .features-benefit-sec,
-.beltinfotable .belts-information {
+.beltinfotable .belts-information{
   page: title12;
 }
 
+.beltinfotable .cleated-belts {
+  page:title88
+}
+
 .beltinfotable .features-benefit-sec .heading-info,
-.beltinfotable .belts-information .heading-info {
+.beltinfotable .belts-information .heading-info,
+.beltinfotable .cleated-belts .heading-info
+{
   position: running(headingInfo);
   margin-bottom: 1rem;
   font-size: 22px;
+}
+
+.beltinfotable h2 span.sub-title{
+  padding-top: 7px;
+}
+.cleated-belts .construction-tab th:first-child, .cleated-belts .construction-tab td:first-child{
+padding-left: 0px;
+}
+
+.cleated-belts .construction-tab table.w-80 th:first-child, .cleated-belts .construction-tab table.w-80 td:first-child{
+  padding-left:9px;
+}
+
+.cleated-belts .construction-tab .grip-col td:first-child{
+  font-family: 'ContinentalStagSansLCG-Light' !important;
+}
+.cleated-belts  .construction-tab table:first-child.mt-4{
+margin-top: -20px !important;
 }

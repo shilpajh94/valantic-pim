@@ -388,7 +388,7 @@ section {
         content: none;
     }
 }
-@page coverPage:left{
+@page coverPage:right{
 
     @top-right{
       content: string(sectionTitle, last);
@@ -402,7 +402,7 @@ section {
 
 }
 
-@page coverPage:right{
+@page coverPage:left{
     @top-left-corner{
         content: string(sectionTitle, first);
         text-align: left;
@@ -441,6 +441,19 @@ section {
 
 @page title12{
     padding-top: 155px;
+
+    @top-center{
+        content: element(headingInfo);
+        position: relative;
+        top: 95px;
+        left:0;
+        width:100%;
+    }
+}
+
+
+@page title88{
+    padding-top: 190px;
 
     @top-center{
         content: element(headingInfo);
