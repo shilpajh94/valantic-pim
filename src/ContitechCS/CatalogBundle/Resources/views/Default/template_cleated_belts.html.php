@@ -15,7 +15,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 
 <?php if($data): ?>
-<div class="wrapper">
+<div class="wrapper beltinfotable">
     <header id="header">
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
@@ -211,8 +211,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameBeltRoll") ?>
                 <?php endif; ?> 
-            </h2>
-            <span class="sub-title">
+                <span class="sub-title">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameBeltRollDiameters")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRollDiameters", ['placeholder'=>'Belt Roll Diameters']) ?>
@@ -223,6 +222,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
                 <?php endif; ?> 
                 </span>
+            </h2>
+           
 
             <?php
                 if($this->editmode)
@@ -261,21 +262,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameAngleIncline") ?>
                 <?php endif; ?> 
-
-            </h2>
-            <span class="sub-title">
+                <span class="sub-title">
             
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameAngleOfInclination", ['placeholder'=>'Angles of Inclination']) ?>
-                        <?php else: ?>
-                                <?= $this->input("CB_ProductNameAngleOfInclination"); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("CB_ProductNameAngleOfInclination") ?>
-                <?php endif; ?>
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
+                            <?= $this->input("CB_ProductNameAngleOfInclination", ['placeholder'=>'Angles of Inclination']) ?>
+                    <?php else: ?>
+                            <?= $this->input("CB_ProductNameAngleOfInclination"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("CB_ProductNameAngleOfInclination") ?>
+            <?php endif; ?>
 
-                </span>
+            </span>
+            </h2>
+            
             
             <?php
                 if($this->editmode)
@@ -303,9 +304,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="page-break"></div>
 
 
-
-            <h2 class="orange">
-            
+    <div class="cleated-belts">
+            <h2 class="orange heading-info">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameProfileOptions")->setDataFromResource($data['Name']) ?>
@@ -316,20 +316,22 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameProfileOptions") ?>
                 <?php endif; ?> 
 
+                <span class="sub-title">
+            
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
+                            <?= $this->input("CB_ProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
+                    <?php else: ?>
+                            <?= $this->input("CB_ProductNameProfileOptionsLabel"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
+            <?php endif; ?>
+        
+            </span>
+
             </h2>
-            <span class="sub-title">
             
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
-                        <?php else: ?>
-                                <?= $this->input("CB_ProductNameProfileOptionsLabel"); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
-                <?php endif; ?>
-            
-                </span>
 
             <?php if($data['childrenData']): ?>
             <div class="table construction-tab">
@@ -455,7 +457,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php } ?>
             </div>
             <?php endif; ?>
-        </section>
+
+    </div>
+    </section>
     </main>
    
 </div>
