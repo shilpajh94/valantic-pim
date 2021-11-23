@@ -894,6 +894,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h3>
                     
                     <div class="table-data">
+                        <?= $this->input("Table_Note_$chunkKey",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
 
                     <?php 
                         
