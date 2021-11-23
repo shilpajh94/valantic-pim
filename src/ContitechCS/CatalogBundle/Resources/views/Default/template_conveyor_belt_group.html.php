@@ -8,17 +8,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <div class="black-bg">
             <div class="top-sec">
 
-                <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",[
-                    "placeholder" =>
-                    "Enter Your  Heading"
-                    ]); ?>
+                <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",["placeholder" =>"Enter Your  Heading"]); ?>     
                 </h1>
 
-                <?= $this->wysiwyg("CBG_About",[
-                    "placeholder" =>
-                    "Enter Your  Description"
-                ]);?>
-
+                <?= $this->wysiwyg("CBG_About",["placeholder" =>"Enter Your  Description" ]);?>
+    
             </div>
             <div class="bottom-sect">
                 <div class="backcover-logo">
