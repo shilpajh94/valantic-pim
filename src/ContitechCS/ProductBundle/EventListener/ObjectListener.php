@@ -20,6 +20,7 @@ use ContitechCS\ProductBundle\Services\UnitConverterService;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use ContitechCS\ImportBundle\Services\ImportConstants;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use ContitechCS\ProductBundle\Tool\Utils;
@@ -63,6 +64,7 @@ class ObjectListener
     {
         $object = $event->getObject();
         $type = $object->getType();
+
         if ($type != 'folder') {
             $className = $object->getClassName();
 
@@ -73,6 +75,7 @@ class ObjectListener
                 $applyvalidation = false;
                 if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                     //custom brick validation
+
                     $product_name = trim($object->getName());
                     $parent = $object->getParent();
                     $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
@@ -81,7 +84,12 @@ class ObjectListener
                         $applyvalidation = true;
                     } else {
                         if ($parent != "/Contitech_ConveyorSolution/Products") {
-                            $parent_name = trim($parent->getName());
+                            if ($parent->getType() == 'folder') {
+                                $parent_name = $parent->getParent()->getName();
+                            } else {
+                                $parent_name = trim($parent->getName());
+                            }
+
                             if (isset($config[$parent_name])) {
                                 $applyvalidation = true;
                                 $product_name = $parent_name;
@@ -131,9 +139,9 @@ class ObjectListener
                 if (empty($response['success'])) {
                     throw new \Pimcore\Model\Element\ValidationException('Archived asset can not be mapped with Product.');
                 }
-                if (php_sapi_name() != "cli") {
-                    $object->setGetInheritedValues(true);
-                }
+                //if (php_sapi_name() != "cli") {
+                $object->setGetInheritedValues(true);
+                //}
                 $this->percentageCompletionService->completenessPercentage($object);
             }
         }
@@ -154,6 +162,60 @@ class ObjectListener
         //$this->updateUnitConversionAttributes($object);
 
         //        }
+    }
+
+    /**
+     *  Moving product to Region folder after clicking on Save and Publish
+     * @param DataObjectEvent $event
+     */
+    public function moveProductToRegion(DataObjectEvent $event)
+    {
+        $object = $event->getObject();
+        $type = $object->getType();
+
+        if ($type != 'folder') {
+            $className = $object->getClassName();
+
+            if ($className == 'CSProducts' && php_sapi_name() != "cli") {
+                $argument = $event->getArguments();
+                if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
+                    $regionArray = $object->getCSRegion();
+                    if (is_array($regionArray) && !empty($regionArray)) {
+                        $folderCreationPath = '';
+                        $masterRegionArray = $this->getAllRegions();
+                        $firstRegionId = trim($regionArray[0]);
+                        $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
+                        $parent = $object->getParent();
+                        $folderCreationPath = $object->getPath();
+
+                        foreach ($masterRegionArray as $region) {
+                            if (strpos($folderCreationPath, $region) !== false) {
+                                $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
+                            }
+                        }
+                        foreach ($masterRegionArray as $region) {
+                            if (strpos($folderCreationPath, $region) === false && $region == $regionName) {
+                                $folderCreationPath = $folderCreationPath . "/" . $regionName;
+                            }
+                        }
+                        $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
+                        $object->setParentId($parentId);
+                    }
+                }
+            }
+        }
+    }
+
+    public function getAllRegions()
+    {
+        $regionList = new \Pimcore\Model\DataObject\CSRegion\Listing();
+        $regionList->load();
+
+        $fieldArray = array();
+        foreach ($regionList as $list) {
+            $fieldArray[] = $list->getRegionName();
+        }
+        return $fieldArray;
     }
 
     public function checkArchivedAssetMapping(DataObject\CSProducts $product)

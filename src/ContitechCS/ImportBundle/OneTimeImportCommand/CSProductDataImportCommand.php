@@ -17,6 +17,7 @@ use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Logger;
 
+
 class CSProductDataImportCommand extends AbstractCommand
 {
     private $configProviderService;
@@ -52,8 +53,11 @@ class CSProductDataImportCommand extends AbstractCommand
         $this->csvLog($csvLogFileHandle, array(
             "Import Sheet Row Number",
             "Name",
+            "Hierarchy",
+            "Hierarchy Status",
+            "Data Issue Column",
+            "Incorrect Data",
             "Comment",
-            "Missing Column Name",
             "Extra attribute data given"
         ));
 
@@ -66,281 +70,365 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
+            // Get all region list from Region Masters
+            $masterRegionArray = $this->getAllRegions();
+
             //$data = \array_slice($data, 0, 1);
             $removeSlashInProductName = [];
 
-            $i = 0;
+            $i = 1;
             foreach ($data as $key => $productData) {
-                $missingColName = '';
-
                 $i++;
-
-                $failedProducts = [];
-
-                $allObjectBricks = [];
-
-                $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
-
-                $productHier = explode('/', $productData['Product Hierarchy']);
-
-                $productHier = array_filter($productHier);
-                $productHier = array_values($productHier);
-
-                if (strpos($productData['Region'], '|') && ($productData['Product Flag'] == 1)) {
-                    $region = explode('|', $productData['Region'])[0];
-                    $productName = $productData['Product Name'] . '-' . trim($region);
-                } else if (($productData['Region'] != null) && ($productData['Product Flag'] == 1)) {
-                    $productName = $productData['Product Name'] . '-' . trim($productData['Region']);
-                } else {
-                    $productName = $productData['Product Name'];
+                $extraAttrString ='';
+                $productNameLog ='';
+                $comment = '';
+                $hierarchyStatus = '';
+                $incorrectDataArray = [];
+                $colNameArray = [];
+                $productHierarchyArray = [];
+                $productHierarchyArray = explode('/',$productData['Product Hierarchy']);
+                $name = '';
+                foreach($productHierarchyArray as $eachHierarchyName){
+                    $name = $name. '/'.trim($eachHierarchyName);
                 }
-                $productCol = $productData['Product'];
-
-                if ($productData['Product'] != null) {
-                    $productNameCombined = $productName . '/' . $productCol;
-                    $removeSlashInProductName[$productNameCombined] = $productName;
-                    $productName = $productNameCombined;
+                $productHierarchy = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . $name;
+                if($productData['Product Flag'] == 0){
+                    $productHierarchy = $productHierarchy. '/'.$productData['Product Name'];
                 }
+                $productHierarchyPathObj = DataObject\CSHierarchy::getByPath($productHierarchy);
+                if($productHierarchyPathObj){
+                    $prodHierarchy = $productHierarchy;
+                    $hierarchyStatus = 'Hierarchy Matched';
 
-                $productHier[] = $productName;
+                    $allObjectBricks = [];
 
-                unset($productData['Product Hierarchy']);
-                unset($productData['Product Name']);
-                // // $productData = array_slice($productData, 2);
-                $parentHierarchyObj = $parentObjForLeaf = '';
-                foreach ($productHier as $key => $hierarchy) {
+                    $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
-                    $hierarchyArr = array_slice($productHier, 0, $key + 1);
+                    $productHier = explode('/', $productData['Product Hierarchy']);
 
-                    $func = function ($value) {
-                        return DataObject\Service::getValidKey($value, "object");
-                    };
-                    $parentHierArr = $hierarchyArr = array_map($func, $hierarchyArr);
-                    array_pop($parentHierArr);
+                    $productHier = array_filter($productHier);
+                    $productHier = array_values($productHier);
+                    $regionArray = $region = '';
 
-                    $hierarchyString = implode('/', $hierarchyArr);
-                    $parentProductObject = '';
-                    if ($parentHierArr) {
-                        $parentHierNewString = implode('/', $parentHierArr);
-                        $parentProductPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $parentHierNewString;
-                        $parentProductObject = DataObject\CSProducts::getByPath($parentProductPath);
-                    }
-
-                    $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
-
-                    $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
-
-                    $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
-
-
-                    if ($hierarchyPathObj) {
-                        $parentObjForLeaf = $hierarchyPathObj;
-                        if ($hierarchyPathObj->getLevel() != 'Level 1') {
-                            $parentHierarchyObj = $hierarchyPathObj->getParent();
+                    if (($productData['Region'] != null) && ($productData['Product Flag'] == 1)) {
+                        if (strpos($productData['Region'], '|') !== false) {
+                            $regionArray = explode('|', $productData['Region']);
+                        } else {
+                            $regionArray = array($productData['Region']);
                         }
 
-                        $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
-
-                        if ($CSHierarchyRelatedBricks) {
-                            $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
-                            $allObjectBricks = array_unique($allObjectBricks);
+                        foreach ($regionArray as $regionName) {
+                            if (in_array(trim($regionName), $masterRegionArray)) {
+                                $region = $regionName;
+                                if (strpos($region, "/") !== false) {
+                                    $region = str_replace("/", "-", $region);
+                                }
+                                break;
+                            }
                         }
                     }
 
-                    $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+                    $productName = trim($productData['Product Name']);
+                    $productCol = $productData['Product'];
 
-                    if (!$CSProductObj) {
-                        try {
+                    if ($productData['Product'] != null) {
+                        $productNameCombined = $productName . '/' . $productCol;
+                        $removeSlashInProductName[$productNameCombined] = $productName;
+                        $productName = $productNameCombined;
+                    }
 
-                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
-                            $product = new DataObject\CSProducts();
-                            $product->setKey($hierarchyKey);
+                    $productHier[] = $productName;
 
-                            if (isset($removeSlashInProductName[$hierarchy])) {
-                                $product->setName($removeSlashInProductName[$hierarchy]);
-                            } else {
-                                $product->setName($hierarchy);
+                    unset($productData['Product Hierarchy']);
+                    unset($productData['Product Name']);
+                    // // $productData = array_slice($productData, 2);
+                    $parentHierarchyObj = $parentObjForLeaf = '';
+                    foreach ($productHier as $key => $hierarchy) {
+                        $incorrectDataArray = [];
+                        $colNameArray = [];
+                        $hierarchyArr = array_slice($productHier, 0, $key + 1);
+
+                        $func = function ($value) {
+                            return DataObject\Service::getValidKey($value, "object");
+                        };
+                        $parentHierArr = $hierarchyArr = array_map($func, $hierarchyArr);
+                        array_pop($parentHierArr);
+
+                        $hierarchyString = implode('/', $hierarchyArr);
+                        if ($parentHierArr) {
+                            $parentHierNewString = implode('/', $parentHierArr);
+                            
+                            $parentProductPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $parentHierNewString;
+                        }
+
+                        $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
+
+                        $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
+
+                        $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
+
+                        if ($hierarchyPathObj) {
+                            $parentObjForLeaf = $hierarchyPathObj;
+                            if ($hierarchyPathObj->getLevel() != 'Level 1') {
+                                $parentHierarchyObj = $hierarchyPathObj->getParent();
                             }
-                            if ($hierarchyPathObj) {
-                                $product->setParentCategory([$parentHierarchyObj]);
-                            } else {
-                                $product->setParentCategory([$parentObjForLeaf]);
-                            }
 
-                            $product->setParentId($parentId);
-                            $product->setOmitMandatoryCheck(true);
-                            $product->setPublished(true);
-                            $product->save();
-                            $bricksData = [];
-                            $natureOfProduct = 0;
+                            $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
 
-                            foreach ($productData as $fieldCVSKey => $fieldValue) {
-                                $fieldCVSKey = trim($fieldCVSKey);
+                            if ($CSHierarchyRelatedBricks) {
+                                $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
+                                if(is_array($allObjectBricks) && !empty($allObjectBricks)){
+                                    $allObjectBricks = array_unique($allObjectBricks);
 
-                                if (isset($productDataImportConfig[$fieldCVSKey])) {
-                                    $fieldConfig = $productDataImportConfig[$fieldCVSKey];
-                                    $fieldName = ucfirst($fieldConfig['fieldName']);
-                                    if ($fieldConfig['objectType'] == 'class') {
-                                        if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
-
-                                            $masterValueArray = explode("|", trim(ucwords($fieldValue)));
-
-                                            $masterValueArray = array_map('trim', $masterValueArray);
-
-                                            $masterObjects = array();
-
-                                            foreach ($masterValueArray as $val) {
-                                                $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'], $fieldConfig['createFlag']);
-                                            }
-
-                                            $method = 'set' . $fieldName;
-                                            $product->$method($masterObjects);
-                                        } else if ($fieldConfig['fieldType'] == 'Multiselection') {
-                                            $fieldValue = trim($fieldValue);
-                                            $fieldValueArr = explode('|', $fieldValue);
-
-                                            if ($fieldName == 'CSRegion') {
-                                                $regionValueArr = [];
-                                                foreach ($fieldValueArr as $eachRegion) {
-                                                    $regionValue = trim($eachRegion);
-                                                    $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
-                                                    $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
-                                                    if ($regionPathObj) {
-                                                        $regionPathObjId = $regionPathObj->getId();
-                                                        $regionValueArr[] = $regionPathObjId;
-                                                    }
-                                                }
-                                                $fieldValue = array_map('trim', $regionValueArr);
-                                            } else if ($fieldName == 'CSSegment') {
-                                                $segmentValueArr = [];
-                                                foreach ($fieldValueArr as $eachSegment) {
-                                                    $segmentValue = trim($eachSegment);
-                                                    $segmentPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_SEGMENT_FOLDER . '/' . $segmentValue;
-                                                    $segmentPathObj = DataObject\CSSegment::getByPath($segmentPath);
-                                                    if ($segmentPathObj) {
-                                                        $segmentPathObjId = $segmentPathObj->getId();
-                                                        $segmentValueArr[] = $segmentPathObjId;
-                                                    }
-                                                }
-                                                $fieldValue = array_map('trim', $segmentValueArr);
-                                            } else {
-                                                $fieldValue = array_map('trim', $fieldValueArr);
-                                            }
-                                            $method = 'set' . $fieldName;
-                                            $product->$method($fieldValue);
-                                        } else {
-                                            if ($fieldName == 'NatureOfProduct') {
-                                                if ($fieldValue) {
-                                                    $fieldValue = 'Final Product';
-                                                    $natureOfProduct = 1;
-                                                } else {
-                                                    $fieldValue = 'Product Group';
-                                                }
-                                            }
-                                            $method = 'set' . $fieldName;
-                                            $product->$method($fieldValue);
-                                        }
-                                    } else {
-                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
-                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
-                                        $configAttributeArray[] = $fieldValue;
-                                    }
                                 }
                             }
+                        }
+                        // Creating folder for each region
+                        if (!empty($region)) {
+                            if (strpos($productName, "/") !== false) {
+                                $productName = str_replace("/", "-", $productName);
+                            }
+                            if (strpos($productPath, $productName) !== false) {
+                                $productPath = str_replace($productName, "", $productPath);
 
-                            if ($allObjectBricks) {
-                                foreach ($allObjectBricks as $brick) {
+                                $regionPath = $productPath . $region;
+                                $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
+                                $productPath = $productPath . $region . "/" . $productName;
+                            }
+                        }
 
-                                    if (isset($bricksData[$brick])) {
-                                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                                        $brickObject = new $class($product);
+                        $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+                        $productNameLog = $hierarchy;
+                        if (!$CSProductObj) {
+                            $productNameLog = $hierarchy;
+                            try {
+                                $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
+                                $product = new DataObject\CSProducts();
+                                $product->setKey($hierarchyKey);
 
-                                        foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
-                                            $fieldValue = trim($fieldData['fieldValue']);
-                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+                                if (isset($removeSlashInProductName[$hierarchy])) {
+                                    $product->setName($removeSlashInProductName[$hierarchy]);
+                                } else {
+                                    $product->setName($hierarchy);
+                                }
+                                if ($hierarchyPathObj) {
+                                    $product->setParentCategory([$parentHierarchyObj]);
+                                } else {
+                                    $product->setParentCategory([$parentObjForLeaf]);
+                                }
 
-                                            if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
+                                $product->setParentId($parentId);
+                                $product->setOmitMandatoryCheck(true);
+                                $product->setPublished(true);
+                                $product->save();
+                                $bricksData = [];
+                                $natureOfProduct = 0;
+
+                                foreach ($productData as $fieldCVSKey => $fieldValue) {
+                                    $fieldCVSKey = trim($fieldCVSKey);
+
+                                    if (isset($productDataImportConfig[$fieldCVSKey])) {
+                                        $fieldConfig = $productDataImportConfig[$fieldCVSKey];
+                                        $fieldName = ucfirst($fieldConfig['fieldName']);
+                                        if ($fieldConfig['objectType'] == 'class') {
+                                            if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
+
+                                                $masterValueArray = explode("|", trim(ucwords($fieldValue)));
+
+                                                $masterValueArray = array_map('trim', $masterValueArray);
+
+                                                $masterObjects = array();
+
+                                                foreach ($masterValueArray as $val) {
+                                                    $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'], $fieldConfig['createFlag']);
+                                                }
+
+                                                $method = 'set' . $fieldName;
+                                                $product->$method($masterObjects);
+                                            } else if ($fieldConfig['fieldType'] == 'Multiselection') {
+                                                $fieldValue = trim($fieldValue);
                                                 $fieldValueArr = explode('|', $fieldValue);
-                                                $fieldValue = array_map('trim', $fieldValueArr);
-                                            }
-                                            $brickObject->$objectBrickFieldMethod($fieldValue);
-                                        }
 
-                                        foreach ($unitValueConfig as $unit => $unitValue) {
-
-                                            $fieldKey = ucfirst($unitValue['fieldName']);
-                                            $objectBrickFieldMethod = 'set' . $fieldKey;
-
-                                            if ($unitValue['objectType'] == $brick) {
-                                                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                                if ($fieldName == 'CSRegion') {
+                                                    $regionValueArr = [];
+                                                    foreach ($fieldValueArr as $eachRegion) {
+                                                        $regionValue = trim($eachRegion);
+                                                        if (strpos($regionValue, "/") !== false) {
+                                                            $regionValue = str_replace("/", "-", $regionValue);
+                                                        }
+                                                        $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
+                                                        $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
+                                                        if ($regionPathObj) {
+                                                            $regionPathObjId = $regionPathObj->getId();
+                                                            $regionValueArr[] = $regionPathObjId;
+                                                        }
+                                                    }
+                                                    $fieldValue = array_map('trim', $regionValueArr);
+                                                } else if ($fieldName == 'CSSegment') {
+                                                    $segmentValueArr = [];
+                                                    foreach ($fieldValueArr as $eachSegment) {
+                                                        $segmentValue = trim($eachSegment);
+                                                        $segment = new \Pimcore\Model\DataObject\CSSegment\Listing();
+                                                        $segment->setCondition('SegmentName = ?', $segmentValue);
+                                                        foreach ($segment as $seg) {
+                                                            $segmentValueArr[] = $seg->getId();
+                                                        }
+                                                    }
+                                                    $fieldValue = array_map('trim', $segmentValueArr);
+                                                } else {
+                                                    $fieldValue = array_map('trim', $fieldValueArr);
+                                                }
+                                                $method = 'set' . $fieldName;
+                                                $product->$method($fieldValue);
                                             } else {
-                                                continue;
+                                                if ($fieldName == 'NatureOfProduct') {
+                                                    if ($fieldValue) {
+                                                        $fieldValue = 'Final Product';
+                                                        $natureOfProduct = 1;
+                                                    } else {
+                                                        $fieldValue = 'Product Group';
+                                                    }
+                                                }
+                                                $method = 'set' . $fieldName;
+                                                $product->$method($fieldValue);
+                                            }
+                                        } else {
+                                            $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                            $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
+                                            $configAttributeArray[] = $fieldValue;
+                                        }
+                                    }
+                                }
+
+                                if ($allObjectBricks) {
+                                    foreach ($allObjectBricks as $brick) {
+
+                                        if (isset($bricksData[$brick])) {
+                                            $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                                            $brickObject = new $class($product);
+
+                                            foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
+                                                $fieldValue = trim($fieldData['fieldValue']);
+
+                                                if(($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)){
+                                                    $colNameArray[] = $fieldKey;
+                                                    $incorrectDataArray[] = $fieldValue;
+                                                }
+
+                                                $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                                if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
+                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                    $fieldValue = array_map('trim', $fieldValueArr);
+                                                }
+                                                $brickObject->$objectBrickFieldMethod($fieldValue);
+                                            }
+
+                                            foreach ($unitValueConfig as $unit => $unitValue) {
+
+                                                $fieldKey = ucfirst($unitValue['fieldName']);
+                                                $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                                if ($unitValue['objectType'] == $brick) {
+                                                    $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                                } else {
+                                                    continue;
+                                                }
+                                            }
+                                            $method = 'set' . $brick;
+                                            $product->getProductAttributes()->$method($brickObject);
+                                            if ($natureOfProduct == 1) {
+                                                unset($bricksData[$brick]);
                                             }
                                         }
+                                        $brickObject->setFieldname('ProductAttributes');
                                         $method = 'set' . $brick;
-                                        $product->getProductAttributes()->$method($brickObject);
-                                        if ($natureOfProduct == 1) {
-                                            unset($bricksData[$brick]);
-                                        }
+                                        // $product->getProductAttributes()->$method($brickObject);
+                                        // if ($natureOfProduct == 1) {
+                                        //     unset($bricksData[$brick]);
+                                        // }
                                     }
-                                }
-                                $extraAttrString = '';
-                                if ($natureOfProduct == 1) {
-                                    foreach ($bricksData as $extraBricks) {
-                                        foreach ($extraBricks as $b => $v) {
-                                            if (!empty($v['fieldValue'])) {
-                                                $extraAttrString = $b . ", " . $extraAttrString;
+                                    $extraAttrString = '';
+                                    if ($natureOfProduct == 1) {
+                                        foreach ($bricksData as $extraBricks) {
+                                            // p_r($bricksData);
+                                            foreach ($extraBricks as $b => $v) {
+                                                if (!empty($v['fieldValue'])) {
+                                                    $extraAttrString = $b . ", " . $extraAttrString;
+                                                }
                                             }
                                         }
                                     }
                                 }
+                                $result = $product->save();
+                                $parentId = $result->getId();
+                                echo "\n".'---------------------------';
+                                echo "\n" ."Product added successfully";
+                                echo "\n Hierarchy created: " . $productPath;
+                                $comment = "Product added successfully";
+                                echo "\n Product asset folder creation started.";
+                                // \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
+                                echo "\n Product asset folder creation Done.";
+                                echo "\n";
+                                
+                            } catch (\Throwable $th) {
+                               
+                               p_r($th->getTraceAsString()) ;
                             }
-                            $product->setGetInheritedValues(false);
-                            $result = $product->save();
-                            $parentId = $result->getId();
-                            echo "\n" . $msg = "Product added successfully";
-                            echo "\n Hierarchy created: " . $productPath;
-                            $comment = "Product added successfully";
-                            echo "\n Product asset folder creation started.";
-                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
-                            echo "\n Product asset folder creation Done.";
-                            $missingColName = 'None';
-                        } catch (\Throwable $th) {
-
-                            $failedProducts[] = $product->getName();
-                            Logger::error("[ CsProductDataImportCommand ] " . $th->getMessage());
-                            $msg =  $th->getMessage();
-                            preg_match_all("/\[([^\]]*)\]/", $msg, $matches);
-                            $missingCol = $matches[1];
-                            $missingColName = '';
-                            foreach ($missingCol as $val) {
-                                $missingColName = $missingColName . '   ' . $val;
-                            }
-                            $success = false;
-                            p_r('Cannot save Product!!!.');
+                            
+                        } else {
+                            $parentId = $CSProductObj->getId();
                         }
-
-
-                        if (count($failedProducts)  > 0) {
-                            $comment = "Products which COULD NOT be saved: [" . implode(", ", $failedProducts) . "]";
-                        }
-
-                        $this->csvLog($csvLogFileHandle, array(
-                            $i,
-                            $hierarchyKey,
-                            $comment,
-                            $missingColName,
-                            $extraAttrString
-                        ));
-                    } else {
-                        $parentId = $CSProductObj->getId();
+                    }
+                } else{ 
+                    $prodHierarchy = $productHierarchy;
+                    $hierarchyStatus = 'Hierarchy Mismatched';
+                    $comment = 'Product Not Saved';
+                    $productNameLog = $productData['Product Name'];
+                    if($productData['Product Hierarchy'] == null){
+                        $productNameLog = 'Empty Row';
+                    }
+                    echo "\n".'---------------------------';
+                    echo "\n".$comment;
+                    echo "\n".$hierarchyStatus;
+                    echo "\n". $prodHierarchy;
+                }
+                $incorrectData = implode(", ",$incorrectDataArray);
+                $colName = implode(", ",$colNameArray);
+                if($productNameLog ==null){
+                    $pieces = explode('/', $prodHierarchy);
+                    $productNameLog = array_pop($pieces);
+                    if($productNameLog == ''){
+                        $productNameLog = array_pop($pieces);
                     }
                 }
+                $this->csvLog($csvLogFileHandle, array(
+                    $i,
+                    $productNameLog,
+                    $prodHierarchy,
+                    $hierarchyStatus,
+                    $colName,
+                    $incorrectData,
+                    $comment,
+                    $extraAttrString
+                ));
             }
             fclose($csvLogFileHandle);
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
+    }
+
+    public function getAllRegions()
+    {
+        $regionList = new \Pimcore\Model\DataObject\CSRegion\Listing();
+        $regionList->load();
+
+        $fieldArray = array();
+        foreach ($regionList as $list) {
+            $fieldArray[] = $list->getRegionName();
+        }
+        return $fieldArray;
     }
 
     public function createHierarchy($result, $brick, $parentId)
