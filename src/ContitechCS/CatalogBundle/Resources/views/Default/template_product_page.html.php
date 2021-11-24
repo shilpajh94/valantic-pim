@@ -662,6 +662,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
 
                 <div class="table-data">
+                <?= $this->input("PP_Conveyor_Belt_Data_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php
                     
                     
@@ -768,6 +769,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
                 
                 <div class="table-data">
+                <?= $this->input("PP_Load_Support_Maximum_Belt_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php 
                     
                     
@@ -894,7 +896,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h3>
                     
                     <div class="table-data">
-                        <?= $this->input("Table_Note_$chunkKey",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
+                        <?= $this->input("PP_Troughability_Minimum_Belt_Width_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
 
                     <?php 
                         
@@ -1029,6 +1031,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
 
                 <div class="table-data">
+                <?= $this->input("PP_Minimum_Pulley_Diameters_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php
                     
                     foreach ($MinimumPulleyDiameters as $key => $value) {
@@ -1145,6 +1148,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
 
                 <div class="table-data">
+                <?= $this->input("PP_Elevator_Belt_Data_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php
                     
                     foreach ($ElevatorBeltData as $key => $value) {
@@ -1248,6 +1252,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
 
                 <div class="table-data">
+                <?= $this->input("PP_Maximum_Bucket_Projection_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php
                     
                     foreach ($MaximumBucketProjection as $key => $value) {
@@ -1353,6 +1358,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
 
                 <div class="table-data">
+                <?= $this->input("PP_Standard_Specifications_Head_Note_{$chunkKey}",["placeholder" =>"Table based on ISO 703 testing procedure." ]);?>
                 <?php
                     
                     foreach ($StandardSpecifications as $key => $value) {
