@@ -38,6 +38,26 @@ Cover weight per 1/32 in. thickness Unit:
   fieldType: Input
   fieldValue: lb./sq.ft.
   objectType: BeltData
+Elevator Rating Unit:
+  fieldName: ElevatorRatingPIWUnit
+  fieldType: Input
+  fieldValue: PIW
+  objectType: BeltData
+Elevator Rating Unit in Nmm:
+  fieldName: ElevatorRatingNmmUnit
+  fieldType: Input
+  fieldValue: N/mm
+  objectType: BeltData
+Maximum Bucket Projection (in.) Unit:
+  fieldName: MaximumBucketProjectionInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: BeltData
+Maximum Bucket Projection (mm) Unit:
+  fieldName: MaximumBucketProjectionMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: BeltData
 Belt rating Unit:
   fieldName: beltRatingNMMUnit
   fieldType: Input
@@ -60,6 +80,11 @@ Minimum pulley diameter (@tails and snubs) Unit in mm:
   objectType: BeltData
 Minimum pulley diameter (@up to 40 % tension) Unit in mm:
   fieldName: MinimumPulleyDiameterinMM40Tension_Unit
+  fieldType: Input
+  fieldValue: mm
+  objectType: BeltData
+Minimum pulley diameter (@up to 60 % tension) Unit in mm:
+  fieldName: MinimumPulleyDiameterinMM60Tension_Unit
   fieldType: Input
   fieldValue: mm
   objectType: BeltData
@@ -115,6 +140,11 @@ Minimum pulley diameter (@tails and snubs) Unit in inch:
   objectType: BeltData
 Minimum pulley diameter (@up to 40 % tension) Unit in inch:
   fieldName: MinimumPulleyDiameterinInch40Tension_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: BeltData
+Minimum pulley diameter (@up to 60 % tension) Unit in inch:
+  fieldName: MinimumPulleyDiameterinInch60Tension_Unit
   fieldType: Input
   fieldValue: inch
   objectType: BeltData
@@ -188,7 +218,7 @@ Belt Modulus in kN/m:
   fieldType: Input
   fieldValue: kN/m
   objectType: BeltData
-Belt Modulus in  PIW:
+Belt Modulus in PIW:
   fieldName: BeltModulusPIWUnit
   fieldType: Input
   fieldValue: PIW
@@ -413,6 +443,11 @@ Diameter Unit:
   fieldType: Input
   fieldValue: mm
   objectType: ProdDimensions
+Diameter Inch Unit:
+  fieldName: DiameterInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdDimensions
 Weight kg Unit:
   fieldName: WeightKGUnit
   fieldType: Input
@@ -426,7 +461,12 @@ Weight Lb Unit:
 Belt Width Unit:
   fieldName: BeltWidthUnit
   fieldType: Input
-  fieldValue: mm3
+  fieldValue: inch
+  objectType: ProdDimensions
+Belt Width mm Unit:
+  fieldName: BeltWidthmmUnit
+  fieldType: Input
+  fieldValue: mm
   objectType: ProdDimensions
 Available Profile Pattern Widths Unit:
   fieldName: AvailableProfilePatternWidthsUnit
@@ -503,7 +543,7 @@ Inner Diameter Unit:
   fieldType: Input
   fieldValue: mm
   objectType: Performance2
-Tensile strength:
+Tensile strength unit:
   fieldName: TensileStrengthUnit
   fieldType: Input
   fieldValue: kN/m

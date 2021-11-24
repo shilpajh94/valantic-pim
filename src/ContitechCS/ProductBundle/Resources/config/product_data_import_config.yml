@@ -587,7 +587,7 @@ Diameter Inch:
     fieldType: Number
     objectType: ProdDimensions
 Belt Width mm:
-    fieldName: BeltWidthmm3
+    fieldName: BeltWidthmm
     fieldType: Input
     objectType: ProdDimensions
 Weight:
