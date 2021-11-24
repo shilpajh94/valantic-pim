@@ -102,7 +102,7 @@ class PercentageCompletionService
                 foreach($brickDef as $key => $def) {
                     $keyGetter = "get".ucfirst($key);
                     if ($key=='localizedfields') {
-                        foreach($def->getChilds() as $attr) {
+                        foreach($def->getFieldDefinitions() as $attr) {
                             $name = $attr->getName();
                             $attrTitle = $attr->getTitle();
                             if(in_array($name, $skippedField)) {

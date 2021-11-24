@@ -220,7 +220,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $product->setParentId($parentId);
                                 $product->setOmitMandatoryCheck(true);
                                 $product->setPublished(true);
-                                $product->save();
+                                //$product->save();
                                 $bricksData = [];
                                 $natureOfProduct = 0;
 
@@ -335,13 +335,14 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     continue;
                                                 }
                                             }
+                                            $brickObject->setFieldname('ProductAttributes');
                                             $method = 'set' . $brick;
                                             $product->getProductAttributes()->$method($brickObject);
                                             if ($natureOfProduct == 1) {
                                                 unset($bricksData[$brick]);
                                             }
                                         }
-                                        $brickObject->setFieldname('ProductAttributes');
+                                        
                                         $method = 'set' . $brick;
                                         // $product->getProductAttributes()->$method($brickObject);
                                         // if ($natureOfProduct == 1) {
@@ -362,18 +363,19 @@ class CSProductDataImportCommand extends AbstractCommand
                                 }
                                 $result = $product->save();
                                 $parentId = $result->getId();
+                                $prd = DataObject\CSProducts::getById($parentId, true);
+                                $prd->save();
                                 echo "\n".'---------------------------';
                                 echo "\n" ."Product added successfully";
                                 echo "\n Hierarchy created: " . $productPath;
                                 $comment = "Product added successfully";
                                 echo "\n Product asset folder creation started.";
-                                // \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
+                                 \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
                                 echo "\n Product asset folder creation Done.";
                                 echo "\n";
                                 
                             } catch (\Throwable $th) {
-                               
-                               p_r($th->getTraceAsString()) ;
+                               p_r($th->getMessage());
                             }
                             
                         } else {
