@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-22T13:55:48+01:00
+* Generated at: 2021-11-23T10:22:29+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637585748,
+   'modificationDate' => 1637659349,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -125,12 +125,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => NULL,
-             'mandatory' => NULL,
-             'noteditable' => NULL,
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
              'index' => NULL,
-             'locked' => NULL,
-             'style' => NULL,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -241,205 +241,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               ),
               8 => 
               array (
-                'key' => 'ProdAttrSetAA',
-                'value' => 'ProdAttrSetAA',
-              ),
-              9 => 
-              array (
-                'key' => 'ProdAttrSetAB',
-                'value' => 'ProdAttrSetAB',
-              ),
-              10 => 
-              array (
-                'key' => 'ProdAttrSetAC',
-                'value' => 'ProdAttrSetAC',
-              ),
-              11 => 
-              array (
-                'key' => 'ProdAttrSetAD',
-                'value' => 'ProdAttrSetAD',
-              ),
-              12 => 
-              array (
-                'key' => 'ProdAttrSetAE',
-                'value' => 'ProdAttrSetAE',
-              ),
-              13 => 
-              array (
-                'key' => 'ProdAttrSetAF',
-                'value' => 'ProdAttrSetAF',
-              ),
-              14 => 
-              array (
-                'key' => 'ProdAttrSetAG',
-                'value' => 'ProdAttrSetAG',
-              ),
-              15 => 
-              array (
-                'key' => 'ProdAttrSetAH',
-                'value' => 'ProdAttrSetAH',
-              ),
-              16 => 
-              array (
-                'key' => 'ProdAttrSetAI',
-                'value' => 'ProdAttrSetAI',
-              ),
-              17 => 
-              array (
-                'key' => 'ProdAttrSetA',
-                'value' => 'ProdAttrSetA',
-              ),
-              18 => 
-              array (
-                'key' => 'ProdAttrSetC',
-                'value' => 'ProdAttrSetC',
-              ),
-              19 => 
-              array (
-                'key' => 'ProdAttrSetD',
-                'value' => 'ProdAttrSetD',
-              ),
-              20 => 
-              array (
-                'key' => 'ProdAttrSetE',
-                'value' => 'ProdAttrSetE',
-              ),
-              21 => 
-              array (
-                'key' => 'ProdAttrSetF',
-                'value' => 'ProdAttrSetF',
-              ),
-              22 => 
-              array (
-                'key' => 'ProdAttrSetG',
-                'value' => 'ProdAttrSetG',
-              ),
-              23 => 
-              array (
-                'key' => 'ProdAttrSetH',
-                'value' => 'ProdAttrSetH',
-              ),
-              24 => 
-              array (
-                'key' => 'ProdAttrSetI',
-                'value' => 'ProdAttrSetI',
-              ),
-              25 => 
-              array (
-                'key' => 'ProdAttrSetJ',
-                'value' => 'ProdAttrSetJ',
-              ),
-              26 => 
-              array (
-                'key' => 'ProdAttrSetK',
-                'value' => 'ProdAttrSetK',
-              ),
-              27 => 
-              array (
-                'key' => 'ProdAttrSetL',
-                'value' => 'ProdAttrSetL',
-              ),
-              28 => 
-              array (
-                'key' => 'ProdAttrSetM',
-                'value' => 'ProdAttrSetM',
-              ),
-              29 => 
-              array (
-                'key' => 'ProdAttrSetN',
-                'value' => 'ProdAttrSetN',
-              ),
-              30 => 
-              array (
-                'key' => 'ProdAttrSetO',
-                'value' => 'ProdAttrSetO',
-              ),
-              31 => 
-              array (
-                'key' => 'ProdAttrSetP',
-                'value' => 'ProdAttrSetP',
-              ),
-              32 => 
-              array (
-                'key' => 'ProdAttrSetQ',
-                'value' => 'ProdAttrSetQ',
-              ),
-              33 => 
-              array (
-                'key' => 'ProdAttrSetR',
-                'value' => 'ProdAttrSetR',
-              ),
-              34 => 
-              array (
-                'key' => 'ProdAttrSetS',
-                'value' => 'ProdAttrSetS',
-              ),
-              35 => 
-              array (
-                'key' => 'ProdAttrSetT',
-                'value' => 'ProdAttrSetT',
-              ),
-              36 => 
-              array (
-                'key' => 'ProdAttrSetU',
-                'value' => 'ProdAttrSetU',
-              ),
-              37 => 
-              array (
-                'key' => 'ProdAttrSetV',
-                'value' => 'ProdAttrSetV',
-              ),
-              38 => 
-              array (
-                'key' => 'ProdAttrSetW',
-                'value' => 'ProdAttrSetW',
-              ),
-              39 => 
-              array (
-                'key' => 'ProdAttrSetX',
-                'value' => 'ProdAttrSetX',
-              ),
-              40 => 
-              array (
-                'key' => 'ProdAttrSetY',
-                'value' => 'ProdAttrSetY',
-              ),
-              41 => 
-              array (
-                'key' => 'ProdAttrSetZ',
-                'value' => 'ProdAttrSetZ',
-              ),
-              42 => 
-              array (
                 'key' => 'ProdDimensions',
                 'value' => 'ProdDimensions',
               ),
-              43 => 
+              9 => 
               array (
                 'key' => 'ProdSpec',
                 'value' => 'ProdSpec',
               ),
-              44 => 
+              10 => 
               array (
                 'key' => 'SalesOrga',
                 'value' => 'SalesOrga',
               ),
-              45 => 
+              11 => 
               array (
                 'key' => 'SpliceData',
                 'value' => 'SpliceData',
               ),
-              46 => 
+              12 => 
               array (
                 'key' => 'TensionElevatorBelt',
                 'value' => 'TensionElevatorBelt',
               ),
-              47 => 
+              13 => 
               array (
                 'key' => 'TypeOfIdler',
                 'value' => 'TypeOfIdler',
               ),
-              48 => 
+              14 => 
               array (
                 'key' => 'WidthLength',
                 'value' => 'WidthLength',
