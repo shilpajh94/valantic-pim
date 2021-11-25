@@ -1627,7 +1627,7 @@ Shield FRORS-2G:
     ISO 284 Static Conductive:
         fieldName: ISO284StaticConductive
         objectType: ProdAttrSetR
-Conti AgriFlex:
+ContiAgriFlex:
     Segment:
       fieldName: CSSegment
       objectType: class
