@@ -124,6 +124,32 @@ class DefaultController extends FrontendController
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
         
         $this->view['footer_logo_src'] = $footer_logo_src;
+
+        $listing = new \Pimcore\Model\Document\Listing(); 
+        $listing->setCondition("parentId = 214");
+        $listing->load();
+      //  p_r(count($listing));die;
+       $all_doc_arr = [];
+       $section_arr = [];
+        foreach($listing as $doc) {
+            
+            if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
+
+                $obj = $doc->getElement('TOC_Section_Title');
+                $section_arr [] = $obj->getData();
+            } else{ 
+                $obj = $doc->getElement('CS_ProductName');
+                p_r( $obj);
+                if ($obj) {
+                $all_doc_arr[] = $obj->getData();
+                }
+
+            }        
+        }
+        dump($all_doc_arr);
+        dump($section_arr);
+        die;
+        
     }
 
     /**
