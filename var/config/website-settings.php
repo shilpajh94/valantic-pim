@@ -30,5 +30,15 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1637071219
+    ],
+    6 => [
+        "id" => 6,
+        "name" => "CS_catalogs_container_pdf_folder",
+        "language" => "",
+        "type" => "text",
+        "data" => "Contitech_ConveyorSolution/container_pdf",
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1637830358
     ]
 ];

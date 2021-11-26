@@ -10,7 +10,21 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     },
 
     pimcoreReady: function (params, broker) {
-        // alert("CatalogUIApiBundle ready!");
+        //alert("CatalogUIApiBundle ready!");
+    },
+    postOpenDocument: function(doc,type){
+
+        
+
+        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/EMEA/";
+
+        let docPath = doc.data.path;
+        let docType = doc.data.type;
+
+        if(docType == "printcontainer" && docPath.startsWith(parentFolderPath)){
+            let printPageObject = new pimcore.plugin.lpe.printPage(doc);
+            printPageObject.addPublishPdfButton();
+        }
     }
 });
 
