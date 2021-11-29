@@ -125,30 +125,58 @@ class DefaultController extends FrontendController
         
         $this->view['footer_logo_src'] = $footer_logo_src;
 
+        $folderId =$this->document->getParent()->getId();
         $listing = new \Pimcore\Model\Document\Listing(); 
-        $listing->setCondition("parentId = 214");
+        $listing->setCondition("parentId = $folderId");
         $listing->load();
-      //  p_r(count($listing));die;
-       $all_doc_arr = [];
-       $section_arr = [];
+        $listing->setOrderKey("index");
+        $listing->setOrder("asc");
+        
+        $all_doc_arr = [];
+        $section_arr = [];
         foreach($listing as $doc) {
+           // p_r($doc->getKey());
             
             if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
 
                 $obj = $doc->getElement('TOC_Section_Title');
                 $section_arr [] = $obj->getData();
-            } else{ 
-                $obj = $doc->getElement('CS_ProductName');
-                p_r( $obj);
-                if ($obj) {
-                $all_doc_arr[] = $obj->getData();
-                }
+            }  
+                if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_page.html.php' || $doc->getTemplate() == 'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php' || $doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
 
-            }        
-        }
-        dump($all_doc_arr);
-        dump($section_arr);
-        die;
+                    $obj = $doc->getElement('CS_ProductName');
+                   // p_r($obj);
+                    if ($obj) {
+                    $all_doc_arr[] = $obj->getData();
+                    } else {
+                        $obj = $doc->getElement('TOC_Section_Title');
+                        if($obj) {
+                        $all_doc_arr[] = $obj->getData();
+                        }
+                    }
+                }
+                    
+        }//die;
+        $all_doc_arr = array_filter($all_doc_arr); //empty titles ko remove krde 
+          //dump($all_doc_arr);
+          //dump($section_arr);
+          //die;
+        $table_of_content_data = [];
+        $title = [];
+            foreach ($all_doc_arr as $doc_arr) {
+                if (in_array($doc_arr,$section_arr)) {
+                    $title = $doc_arr;  //all section page 
+                   // print_r($title);
+                }
+                if ($title) {
+                    if($doc_arr !=  $title) {
+                        $table_of_content_data[$title][] = $doc_arr;
+
+                    }
+                }
+            }
+           // dump($table_of_content_title);die;
+           $this->view['data'] = $table_of_content_data;     
         
     }
 
