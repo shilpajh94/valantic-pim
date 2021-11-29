@@ -13,6 +13,7 @@ class PercentageCompletionService
     {
         $count = 0;
         $emptyFieldCounter = 0;
+        $emptyFieldLocalizedCounter = 0;
         $emptyAttributes='';
         $emptyAttributesLocalized = '';
         $completedPercentage = 0;
@@ -36,7 +37,7 @@ class PercentageCompletionService
                             $attributes = $object->getProductAttributes(); //bricksgetter and values in attributes
                             $bricks = $attributes->getBrickGetters();
                             if (!empty($bricks)){
-                                $this->objectbricks($bricks,$lang, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter);
+                                $this->objectbricks($bricks,$lang, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter, $emptyAttributesLocalized, $emptyFieldLocalizedCounter);
                             }
 
                         }else {
@@ -54,7 +55,7 @@ class PercentageCompletionService
                         }
 
                     } else {
-                        $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributesLocalized , $emptyFieldCounter);
+                        $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributesLocalized , $emptyFieldLocalizedCounter);
                     }
 
                 }
@@ -63,6 +64,7 @@ class PercentageCompletionService
             $object->setCompletenessPercentage($completedPercentage,$lang);
             $object->setEmptyFields($emptyAttributes.$emptyAttributesLocalized ,$lang);
             $emptyFieldCounter = 0;
+            $emptyFieldLocalizedCounter = 0;
             $count = 0;
             $totalFields = 0;
             $emptyAttributes = '';
@@ -70,10 +72,11 @@ class PercentageCompletionService
         }
     }
 
-    private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldCounter)
+    private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldLocalizedCounter)
     {
-        $emptyFieldCounter = 0;
-        $emptyAttributesLocalized  .= "\n\n [ LOCALIZED ATTRIBUTES ]";
+        //$emptyAttributesLocalized  .= "\n\n [ LOCALIZED ATTRIBUTES ]";
+        $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
+        $emptyFieldLabels = '';
         foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
             $totalFields++;
             $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
@@ -82,14 +85,23 @@ class PercentageCompletionService
             if (!empty($localizedFieldValue)) {   // if value present so count
                 $count++;
             } else {
-                $emptyAttributesLocalized .= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldTitle; //emptychildattributes
+                $emptyFieldLabels .= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$localizedFieldTitle; //emptychildattributes
             }
         }
-
+        if ($emptyFieldLocalizedCounter >0) {
+            if (empty($emptyAttributesLocalized)) {
+                $emptyAttributesLocalized .= $localizedHeading;
+            }
+            if (!empty($emptyFieldLabels)) {
+                $emptyAttributesLocalized .= $emptyFieldLabels;
+            }
+        }
     }
 
-    private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter)
+    private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
     {
+        $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
+        $emptyLocalizedFieldLabels = '';
         $skippedField = CompletenessUnitValueList::completenessPercentageUnitList();
         foreach ($bricks as $brick) {
             $brickData = $attributes->$brick(); //empty
@@ -114,7 +126,15 @@ class PercentageCompletionService
                             if (!empty($value)) {
                                 $count++;
                             } else {
-                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickTitle.'~'.$attrTitle; //emptychildattributes
+                                $emptyLocalizedFieldLabels.= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$brickTitle.'~'.$attrTitle; //emptychildattributes
+                            }
+                        }
+                        if ($emptyFieldLocalizedCounter >0) {
+                            if (empty($emptyAttributesLocalized)) {
+                                $emptyAttributesLocalized .= $localizedHeading;
+                            }
+                            if (!empty($emptyLocalizedFieldLabels)) {
+                                $emptyAttributesLocalized .= $emptyLocalizedFieldLabels;
                             }
                         }
                     } else {

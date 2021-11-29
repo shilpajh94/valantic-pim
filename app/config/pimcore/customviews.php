@@ -141,6 +141,18 @@ return [
             'sort' => '10',
             'expanded' => false,
             'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0
+                    ]
+                ]
+            ]
         ],
         [
             'treetype' => 'object',
