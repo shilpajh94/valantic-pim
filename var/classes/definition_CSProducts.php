@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-26T13:27:17+01:00
+* Generated at: 2021-11-29T09:00:43+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637929635,
+   'modificationDate' => 1638172840,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2111,22 +2111,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'AMERICAS',
-                            'value' => 7500454,
+                            'value' => 7501271,
                           ),
                           1 => 
                           array (
                             'key' => 'APAC',
-                            'value' => 7500453,
+                            'value' => 7501270,
                           ),
                           2 => 
                           array (
                             'key' => 'EMEA',
-                            'value' => 7500452,
+                            'value' => 7501269,
                           ),
                           3 => 
                           array (
                             'key' => 'SERVICE',
-                            'value' => 7500455,
+                            'value' => 7501272,
                           ),
                         ),
                          'width' => 300,
@@ -2162,52 +2162,52 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Australia / South Pacific',
-                            'value' => 7500449,
+                            'value' => 7501266,
                           ),
                           1 => 
                           array (
                             'key' => 'China & Mongolia',
-                            'value' => 7500447,
+                            'value' => 7501264,
                           ),
                           2 => 
                           array (
                             'key' => 'Eastern Europe/Russia',
-                            'value' => 7500444,
+                            'value' => 7501261,
                           ),
                           3 => 
                           array (
                             'key' => 'India',
-                            'value' => 7500448,
+                            'value' => 7501265,
                           ),
                           4 => 
                           array (
                             'key' => 'Middle East/North Africa',
-                            'value' => 7500445,
+                            'value' => 7501262,
                           ),
                           5 => 
                           array (
                             'key' => 'North America',
-                            'value' => 7500441,
+                            'value' => 7501258,
                           ),
                           6 => 
                           array (
                             'key' => 'South America',
-                            'value' => 7500442,
+                            'value' => 7501259,
                           ),
                           7 => 
                           array (
                             'key' => 'South East Asia',
-                            'value' => 7500450,
+                            'value' => 7501267,
                           ),
                           8 => 
                           array (
                             'key' => 'Subsahara/South Africa',
-                            'value' => 7500446,
+                            'value' => 7501263,
                           ),
                           9 => 
                           array (
                             'key' => 'Western Europe',
-                            'value' => 7500443,
+                            'value' => 7501260,
                           ),
                         ),
                          'width' => 300,
@@ -2296,62 +2296,57 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Abrasion Compounds',
-                            'value' => 7500367,
+                            'value' => 7501184,
                           ),
                           1 => 
                           array (
                             'key' => 'ContiFlex Compounds',
-                            'value' => 7500369,
+                            'value' => 7501186,
                           ),
                           2 => 
                           array (
                             'key' => 'Cut & Gouge Compounds',
-                            'value' => 7500368,
+                            'value' => 7501185,
                           ),
                           3 => 
                           array (
                             'key' => 'Flame And Heat Compounds',
-                            'value' => 7500375,
+                            'value' => 7501192,
                           ),
                           4 => 
                           array (
                             'key' => 'Flame And Oil Resistant Compounds',
-                            'value' => 7500373,
+                            'value' => 7501190,
                           ),
                           5 => 
                           array (
                             'key' => 'Flame And Vegetable Oil Compounds',
-                            'value' => 7500372,
+                            'value' => 7501189,
                           ),
                           6 => 
                           array (
                             'key' => 'Flame Compounds',
-                            'value' => 7500370,
+                            'value' => 7501187,
                           ),
                           7 => 
                           array (
                             'key' => 'Flame Underground Compounds',
-                            'value' => 7500371,
+                            'value' => 7501188,
                           ),
                           8 => 
                           array (
                             'key' => 'Gold Oil Compounds',
-                            'value' => 7500374,
+                            'value' => 7501191,
                           ),
                           9 => 
                           array (
                             'key' => 'Solar-Shield Heat Compounds',
-                            'value' => 7500376,
+                            'value' => 7501193,
                           ),
                           10 => 
                           array (
                             'key' => 'Special Service Compounds',
-                            'value' => 7500377,
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'White Compounds',
-                            'value' => 7500378,
+                            'value' => 7501194,
                           ),
                         ),
                          'width' => 300,

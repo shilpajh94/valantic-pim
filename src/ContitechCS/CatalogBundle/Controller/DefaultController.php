@@ -597,7 +597,6 @@ class DefaultController extends FrontendController
                 $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
 
                 $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $region);
-                // p_r($CSHierarchyObjChild);
 
                 $coverOptionsAttributes = $productDataImportConfig['Cover Options']['Cover Compound Attributes'];
                 $productPage = $productDataImportConfig['Cover Options']['Product Page'];
@@ -617,118 +616,111 @@ class DefaultController extends FrontendController
                 if($CSHierarchyObjChild)
                 {
                     foreach ($CSHierarchyObjChild as $objectLevel3rd) {
-
-                        $level3Data['Name'] = $objectLevel3rd->getName();
-                        $level3Data['LongText'] = $objectLevel3rd->getLongText();
-                        $level3rdObjectData[] = $level3Data;
-
-                        if($objectLevel3rd->getKey() === $productPage){
-
-                            p_r($objectLevel3rd);
-
-                            $performanceCategoryIds = $objectLevel3rd->getCSPerformanceCategory();
-
-                            $performanceCategoryName = [];
-                            $performanceCategoryNameString = '';
-
-                            if($performanceCategoryIds)
-                            {
-                                p_r($coverCompoundMasterList);
-                                p_r($performanceCategoryIds);
-
-                                foreach ($performanceCategoryIds as $key => $id) {
-                                    $performanceCategoryName[] = $coverCompoundMasterList[$id];
-                                }
-                                if($performanceCategoryName)
-                                {
-                                    $performanceCategoryNameString = implode(' ', $performanceCategoryName);
-                                }
-                            }
-
-                            p_r($performanceCategoryName);
-                            // die;
-                            echo $NamePerformanceCategory =  $level3Data['Name']. $performanceCategoryNameString;
-                            die;
-
-                            $singleProductPage['Name'] = $level3Data['Name'];
-                            $singleProductPage['NamePerformanceCategory'] = $NamePerformanceCategory;
-                            $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
-                            $singleProductPage['LongText'] = $objectLevel3rd->getLongText();
-
-                            $FeaturesAndBenefits = [];
-
-                            foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
-                                if($value->getFeatureImage())
-                                {
-                                    $feature['FeatureName'] = $value->getFeatureName();
-                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                    $feature['FeatureImage'] = $value->getFeatureImage();
-                                    $FeaturesAndBenefits[] = $feature;
-                                }
-                            }
-
-                            $singleProductPage['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-
-                            $Level4ObjChild = $this->getAllRegionChildern($objectLevel3rd, $region);
-
-                            $level4ObjectData = [];
-
-                            if($Level4ObjChild)
-                            {
-                                foreach ($Level4ObjChild as $level4Value) {
-                                    $level4DataPart['Name'] = $level4Value->getName();
-                                    $level4DataPart['LongText'] = $level4Value->getLongText();
-                                    $level4ObjectData[] = $level4DataPart;
-                                }
-                            }
-
-                            $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
-                        }
-
-                        $label4Childs = $this->getAllRegionChildern($objectLevel3rd, $region);
-                        // p_r($label4Childs);
-                        // die;
-
-                        if($label4Childs)
+                        if($objectLevel3rd->getPrintedCatalogFlag() === true)
                         {
-                            foreach ($label4Childs as $child) {
-                                $level4Name = trim($child->getName());
+                            $level3Data['Name'] = $objectLevel3rd->getName();
+                            $level3Data['LongText'] = $objectLevel3rd->getLongText();
+                            $level3rdObjectData[] = $level3Data;
 
-                                if($child->getCSPerformanceCategory())
+                            if($objectLevel3rd->getKey() === $productPage){
+
+                                $performanceCategoryIds = $objectLevel3rd->getCSPerformanceCategory();
+
+                                $performanceCategoryName = [];
+                                $performanceCategoryNameString = '';
+
+                                if($performanceCategoryIds)
                                 {
-                                    foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
-                                        $coverCompoundName = $coverCompoundMasterList[$coverCompound];
-                                        $coverCompounds[$coverCompoundName][$level4Name][] = $level4Name;
-                                        $bricks = $child->getProductAttributes();
+                                    foreach ($performanceCategoryIds as $key => $id) {
+                                        $performanceCategoryName[] = $coverCompoundMasterList[$id];
+                                    }
+                                    if($performanceCategoryName)
+                                    {
+                                        $performanceCategoryNameString = implode(' ', $performanceCategoryName);
+                                    }
+                                }
 
-                                        foreach ($coverOptionsAttributes as $key => $brickName) {
-                                            
+                                $NamePerformanceCategory =  $level3Data['Name']. $performanceCategoryNameString;
 
-                                            $getBrick = 'get' . $brickName;
-                                            $getField = 'get' . $key;
-                                            if($bricks->$getBrick())
-                                            {
-                                                if(!$onlyOnce)
-                                                {
-                                                    $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                $singleProductPage['Name'] = $level3Data['Name'];
+                                $singleProductPage['NamePerformanceCategory'] = $NamePerformanceCategory;
+                                $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
+                                $singleProductPage['LongText'] = $objectLevel3rd->getLongText();
+
+                                $FeaturesAndBenefits = [];
+
+                                foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
+                                    if($value->getFeatureImage())
+                                    {
+                                        $feature['FeatureName'] = $value->getFeatureName();
+                                        $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                        $feature['FeatureImage'] = $value->getFeatureImage();
+                                        $FeaturesAndBenefits[] = $feature;
+                                    }
+                                }
+
+                                $singleProductPage['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+
+                                $Level4ObjChild = $this->getAllRegionChildern($objectLevel3rd, $region);
+
+                                $level4ObjectData = [];
+
+                                if($Level4ObjChild)
+                                {
+                                    foreach ($Level4ObjChild as $level4Value) {
+                                        $level4DataPart['Name'] = $level4Value->getName();
+                                        $level4DataPart['LongText'] = $level4Value->getLongText();
+                                        $level4ObjectData[] = $level4DataPart;
+                                    }
+                                }
+
+                                $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
+                            }
+
+                            $label4Childs = $this->getAllRegionChildern($objectLevel3rd, $region);
+                        
+                            if($label4Childs)
+                            {
+                                foreach ($label4Childs as $child) {
+                                    $level4Key = trim($child->getKey());
+                                    $level4Name = trim($child->getName());
+                                    if($child->getPrintedCatalogFlag() === true)
+                                    {
+                                        if($child->getCSPerformanceCategory())
+                                        {
+                                            foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
+                                                $coverCompoundName = $coverCompoundMasterList[$coverCompound];
+                                                $coverCompounds[$coverCompoundName][$level4Key][] = $level4Name;
+                                                $bricks = $child->getProductAttributes();
+
+                                                foreach ($coverOptionsAttributes as $key => $brickName) {
+                                                    
+
+                                                    $getBrick = 'get' . $brickName;
+                                                    $getField = 'get' . $key;
+                                                    if($bricks->$getBrick())
+                                                    {
+                                                        if(!$onlyOnce)
+                                                        {
+                                                            $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                                        }
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    }
+                                                
                                                 }
-                                                $coverCompounds[$coverCompoundName][$level4Name][] = $bricks->$getBrick()->$getField();
+                                                $onlyOnce = true;
                                             }
-                                        
                                         }
-                                        $onlyOnce = true;
+                                        
+                                        if($child->getCSProductApplications())
+                                        {
+                                            foreach ($child->getCSProductApplications() as $key => $application) {
+                                                
+                                                $applicationData[$application->getApplicationName()] = $application->getApplicationName();
+                                                $level4Data[$level4Name][] = $application->getApplicationName();
+                                            }
+                                        }
                                     }
-                                }
-                                
-                                if($child->getCSProductApplications())
-                                {
-                                    foreach ($child->getCSProductApplications() as $key => $application) {
-                                        $applicationData[$application->getApplicationName()] = $application->getApplicationName();
-                                        $level4Data[$level4Name][] = $application->getApplicationName();
-                                    }
-                                }
-                                else{
-                                    $level4Data[$level4Name] = [];
                                 }
                             }
                         }
@@ -737,7 +729,6 @@ class DefaultController extends FrontendController
                 
                 if($level4Data)
                 {
-                    // p_r($applicationData);
                     foreach ($level4Data as $lkey => $lvalue) {
                         $data[] = $lkey;
                         foreach ($applicationData as $avalue) {
@@ -771,8 +762,6 @@ class DefaultController extends FrontendController
 
             $productData['coverCompoundData'] = $coverCompoundData;
         }
-
-
         $this->view['data'] = $productData;
         $this->view['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
         $this->view['footer_logo_src']  = $footer_logo_src;
