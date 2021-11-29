@@ -254,7 +254,7 @@ Size:
     fieldName: Size
     fieldType: Input
     objectType: WidthLength
-Available Belt Widths in inch:
+Available Belt Widths in in:
     fieldName: AvailableBeltWidthInch
     fieldType: Number
     objectType: WidthLength
