@@ -1,15 +1,16 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-13T20:35:53+02:00
+* Generated at: 2021-11-29T02:13:01-05:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
-- Name [input]
+- localizedfields [localizedfields]
+-- Name [input]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSCoverCompounds',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634150153,
+   'modificationDate' => 1638169981,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -55,7 +56,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
-         'labelWidth' => 100,
+         'labelWidth' => 200,
          'layout' => NULL,
          'border' => false,
          'name' => 'Layout',
@@ -72,32 +73,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'Name',
-             'title' => 'Name',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'Name',
+                 'title' => 'Name',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => 'Cover Compounds',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => 200,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'tooltip' => NULL,
+             'mandatory' => NULL,
+             'noteditable' => NULL,
+             'index' => NULL,
              'locked' => NULL,
-             'style' => '',
+             'style' => NULL,
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
         ),
          'locked' => false,

@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-22T13:57:21+01:00
+* Generated at: 2021-11-29T02:14:21-05:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSPerformanceCategories',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637585841,
+   'modificationDate' => 1638170060,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -114,7 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'height' => '',
              'maxTabs' => NULL,
-             'labelWidth' => NULL,
+             'labelWidth' => 200,
              'border' => false,
              'provideSplitView' => false,
              'tabPosition' => NULL,
@@ -122,12 +122,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => NULL,
-             'mandatory' => NULL,
-             'noteditable' => NULL,
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
              'index' => NULL,
-             'locked' => NULL,
-             'style' => NULL,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
