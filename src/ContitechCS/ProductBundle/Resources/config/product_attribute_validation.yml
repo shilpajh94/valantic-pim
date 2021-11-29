@@ -4118,4 +4118,4 @@ Pick-up Belts:
         objectType: class
     Product Claim/Slogan:
         fieldName: ProductClaimSlogan
-        objectType: class
+        objectType: class  
