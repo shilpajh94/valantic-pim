@@ -63,7 +63,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                 ?>
                                                     <li>
                                                         <span
-                                                            class="chapter"><?= $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
+                                                            class="chapter">
+                                                            <?php
+                                                            if($this->input("CBS_TOC_Title$k_$key")->isEmpty())
+                                                            {
+                                                              echo $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); 
+                                                            }
+                                                            else 
+                                                            {
+                                                                echo $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.']);
+                                                            }
+                                                            ?>  
                                                         </span>
                                                         <span
                                                             class="page"><?= $this->input("CBS_TOC_Page$k_$key", ['placeholder' => 'Enter page number here.']); ?></span>
