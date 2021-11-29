@@ -32,39 +32,75 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-of-contents">
                 <div class="colum-2">
                 <?php
-                $i=1; 
-                while($this->block("CBS_TOC_HeadingBlock")->loop())
-                {   
-                    ?>
-                        <h3 class="orange-bg">
-                            <?= $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Featured Solutions']); ?>
-                        </h3>
-                        <ul>
-                        <?php 
-                            while($this->block("CBS_TOC_ContentBlock")->loop()) 
-                            { 
-                                ?>
-                                    <li>
-                                        <span
-                                            class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.']); ?></span>
-                                        <span
-                                            class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
-                                    </li>
-                                    <!-- <ul>
-                                        <?php while($this->block("CBS_TOC_ContentBlockInner")->loop()) { ?>
-                                        <li>
-                                            <span
-                                                class="chapter"><?= $this->input("CBS_TOC_Title_Inner", ['placeholder' => 'Enter inner title here.']); ?></span>
-                                            <span
-                                                class="page"><?= $this->input("CBS_TOC_Page_Inner", ['placeholder' => 'Enter page number here.']); ?></span>
-                                        </li>
-                                        <?php } ?>
-                                    </ul> -->
+                $i=1;
+                while($this->block("CBS_TOC_HeadingBlock",['default' => 1])->loop())
+                {       
+                    if($data && $i==1):
+                        $j=0;
+                        foreach($data as $section => $childs):
+                            ?>
+                                <h3 class="orange-bg">
+                                    <?php
+                                    if($this->input("CBS_TOC_HeadingName_".$i.'_'.$j)->isEmpty())
+                                    {
+                                        echo $this->input("CBS_TOC_HeadingName_".$i.'_'.$j, ['placeholder' => 'Featured Solutions'])->setDataFromResource($section);
+                                    }
+                                    else
+                                    {
+                                        echo $this->input("CBS_TOC_HeadingName_".$i.'_'.$j, ['placeholder' => 'Featured Solutions']);  
+                                    }
+                                    ?>
+                                </h3>
+                                <ul>
                                 <?php 
-                            }
+                                    $k=0;
+                                    while($this->block("CBS_TOC_ContentBlock_$i_$j",['default' => 1])->loop()) 
+                                    {   
+                                        foreach($childs as $key => $pageName){
+                                            ?>
+                                                <li>
+                                                    <span
+                                                        class="chapter"><?= $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
+                                                    </span>
+                                                    <span
+                                                        class="page"><?= $this->input("CBS_TOC_Page$k_$key", ['placeholder' => 'Enter page number here.']); ?></span>
+                                                </li>
+
+                                                <!-- add rest html here -->
+                                                
+                                            <?php 
+                                        }
+                                    }
+                                ?>
+                                </ul>
+                            <?php
+                            $j++;
+                        endforeach;
+                    else:
                         ?>
-                        </ul>
-                    <?php
+                            <h3 class="orange-bg">
+                                    <?= $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Featured Solutions']); ?>
+                                </h3>
+                                <ul>
+                                <?php 
+                                    while($this->block("CBS_TOC_ContentBlock")->loop()) 
+                                    { 
+                                        ?>
+                                            <li>
+                                                <span
+                                                    class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.']); ?></span>
+                                                <span
+                                                    class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
+                                            </li>
+
+                                            <!-- add rest html here -->
+                                            
+                                        <?php 
+                                    }
+                                ?>
+                                </ul>
+                        <?php     
+                    endif;
                 $i++;
                 } 
                 ?>

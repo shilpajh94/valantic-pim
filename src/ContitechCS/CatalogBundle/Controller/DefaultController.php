@@ -130,8 +130,7 @@ class DefaultController extends FrontendController
         $listing->setCondition("parentId = $folderId");
         $listing->load();
         $listing->setOrderKey("index");
-        $listing->setOrder("asc");
-        
+        $listing->setOrder("asc");        
         $all_doc_arr = [];
         $section_arr = [];
         foreach($listing as $doc) {
@@ -158,9 +157,9 @@ class DefaultController extends FrontendController
                     
         }//die;
         $all_doc_arr = array_filter($all_doc_arr); //empty titles ko remove krde 
-          //dump($all_doc_arr);
-          //dump($section_arr);
-          //die;
+         /*  dump($all_doc_arr);
+          dump($section_arr);
+          die; */
         $table_of_content_data = [];
         $title = [];
             foreach ($all_doc_arr as $doc_arr) {
@@ -175,7 +174,6 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-           // dump($table_of_content_title);die;
            $this->view['data'] = $table_of_content_data;     
         
     }
