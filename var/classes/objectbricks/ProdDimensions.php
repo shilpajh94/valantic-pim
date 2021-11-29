@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:30:10+01:00
+* Generated at: 2021-11-24T09:44:33+01:00
 * IP: 127.0.0.1
 
 
@@ -12,24 +12,31 @@ Fields Summary:
 - BeltWidth [numeric]
 - DiameterInch [numeric]
 - AvailableProfilePatternWidths [numeric]
+- FingerLengthMM [numeric]
 - MaximumBeltWidthMMUnit [input]
 - MinimumBeltWidthMMUnit [input]
 - WeightKGUnit [input]
 - BeltWidthUnit [input]
 - DiameterInchUnit [input]
 - AvailableProfilePatternWidthsUnit [input]
+- FingerLengthMMUnit [input]
 - MaximumBeltWidthInch [numeric]
 - MinimumBeltWidthInch [numeric]
 - WeightLb [numeric]
 - BeltWidthmm3 [numeric]
 - Diameter [numeric]
 - VolumeFlow [numeric]
+- FingerLengthInch [numeric]
 - MaximumBeltWidthInchUnit [input]
 - MinimumBeltWidthInchUnit [input]
 - WeightLbUnit [input]
 - BeltWidthmm3Unit [input]
 - DiameterUnit [input]
 - VolumeFlowUnit [input]
+- FingerLengthInchUnit [input]
+- BeltWidthBlock [block]
+-- AvailableBeltWidth [select]
+-- AvailablePatternWidth [multiselect]
 */ 
 
 
@@ -310,6 +317,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'FingerLengthMM',
+                     'title' => 'FingerLength (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -492,6 +530,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:4px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'FingerLengthMMUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -708,6 +774,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'FingerLengthInch',
+                     'title' => 'FingerLength (inch)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -898,11 +995,170 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'FingerLengthInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
               )),
             ),
              'locked' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+             'fieldtype' => 'block',
+             'lazyLoading' => false,
+             'disallowAddRemove' => false,
+             'disallowReorder' => false,
+             'collapsible' => false,
+             'collapsed' => false,
+             'maxItems' => NULL,
+             'columnType' => 'longtext',
+             'styleElement' => '',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'fieldtype' => 'select',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 24,
+                    'value' => 7501897,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 30,
+                    'value' => 7501898,
+                  ),
+                ),
+                 'width' => '',
+                 'defaultValue' => '',
+                 'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                 'optionsProviderData' => 'CSAvailableBeltWidths|AvailableBeltWidthInch',
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'dynamicOptions' => false,
+                 'name' => 'AvailableBeltWidth',
+                 'title' => 'Available Belt Width',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'fieldtype' => 'multiselect',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 18,
+                    'value' => 7501902,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 24,
+                    'value' => 7501901,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 30,
+                    'value' => 7501905,
+                  ),
+                  3 => 
+                  array (
+                    'key' => 42,
+                    'value' => 7501904,
+                  ),
+                  4 => 
+                  array (
+                    'key' => 48,
+                    'value' => 7501903,
+                  ),
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => '',
+                 'renderType' => 'list',
+                 'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                 'optionsProviderData' => 'CSAvailablePatternWidths|AvailableProfilePatternWidthsInch',
+                 'queryColumnType' => 'text',
+                 'columnType' => 'text',
+                 'phpdocType' => 'array',
+                 'dynamicOptions' => false,
+                 'name' => 'AvailablePatternWidth',
+                 'title' => 'Available Pattern Width',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'layout' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'name' => 'BeltWidthBlock',
+             'title' => '',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
           )),
         ),
          'locked' => false,

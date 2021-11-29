@@ -405,7 +405,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 {
                                     if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
                                     {
-                                        $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
                                     }
                                     else{
                                         echo $this->image("CB_ProfileOptionImage2_{$md5Key}");

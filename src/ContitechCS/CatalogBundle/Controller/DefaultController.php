@@ -170,13 +170,15 @@ class DefaultController extends FrontendController
 
             if($productObj) ///isset variable is assigned a value or not null
             {
-                $hierarchyId = $categoryObj->getSecondLevelCategory();
-                if($hierarchyId)
-                {
-                    $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                }
+                $parentParentObj = $productObj->getParent();
 
-                $productData['HierarchyNameLevel2'] = $hierarchyObj->getName();
+                // $hierarchyId = $categoryObj->getSecondLevelCategory();
+                // if($hierarchyId)
+                // {
+                //     $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+                // }
+
+                $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
                 $productData['ProductName'] = $productNameTitle;
                 $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
                 $productData['ShortText'] = $productObj->getShortText();
@@ -253,31 +255,12 @@ class DefaultController extends FrontendController
                     if($selectedProduct){
                         foreach ($selectedProduct as $key => $singleProduct) {
                             $productObjSingle = DataObject\CSProducts::getById($singleProduct);
-                            $objectTypeFolderchildren = $productObjSingle->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
-
-                            if($objectTypeFolderchildren)
-                            {
-                                foreach ($objectTypeFolderchildren as $objectChildFolder) {
-                                    if(strtolower($objectChildFolder->getKey()) === strtolower($region))
-                                    {
-                                        // p_r($objectChildFolder->getKey());
-                                        $children = $objectChildFolder->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                                        $childrenData = array_merge($childrenData, $children);
-                                    }
-                                }
-                            }
-                            else{
-                                $children = $productObjSingle->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                                $childrenData = array_merge($childrenData, $children);
-                            }
+                            $childrenData = $this->getAllRegionChildern($productObjSingle, $region);
                         }
                     }
-                    // p_r($childrenData);
                     if($childrenData)
                     {
                         foreach ($childrenData as $chKey => $chValue) {
-                            // p_r($chValue->getName());
-                            // p_r($chValue->getPrintedCatalogFlag());
                             if($chValue->getPrintedCatalogFlag() != true)
                             {
                                 unset($childrenData[$chKey]);
@@ -579,6 +562,7 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {
+        $region = $this->document->getProperty('region');
         $this->configProviderService = new ConfigProviderService();
 
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -590,46 +574,35 @@ class DefaultController extends FrontendController
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
-            // $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $coverCompoundData = [];
-            // echo 'dfgdf';
             if($catalogTableObject)
             {
-                // $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-
                 $selectedCategoryId = $catalogTableObject->getSecondLevelCategory();
-
-                // p_r($selectedCategoryId);
 
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
 
-                // p_r($hierarchyObj);
-
                 $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getName();
+                $hierarchyName = $hierarchyObj->getKey();
 
                 $hierarchyFullName = $hierarchyPath.$hierarchyName;
                 $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
 
                 $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-                // echo 'fgd';
-                // p_r($HierarchyProductPath);
                 
-                $coverCompoundData['HierarchyNameLevel1'] = 'Conveying Solutions';
-                $coverCompoundData['HierarchyNameLevel2'] = $hierarchyName;
-                $coverCompoundData['Name'] = $HierarchyProductPath->getName();
+                $coverCompoundData['HierarchyNameLevel2'] = trim($HierarchyProductPath->getName());
+                $coverCompoundData['Name'] = trim($HierarchyProductPath->getName());
                 $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
                 $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
                 $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
                 $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
 
-                $CSHierarchyObjChild = $HierarchyProductPath->getchildren(); 
+                $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $region);
+                // p_r($CSHierarchyObjChild);
 
                 $coverOptionsAttributes = $productDataImportConfig['Cover Options']['Cover Compound Attributes'];
                 $productPage = $productDataImportConfig['Cover Options']['Product Page'];
 
                 $coverCompoundMasterList = $this->getCoverCompoundMasterList();
-                // p_r($coverCompoundMasterList);
                 
                 // level 3rd object
                 $applicationData = [];
@@ -641,96 +614,133 @@ class DefaultController extends FrontendController
                 $coverCompoundsHeaderKeys[] = 'Compounds';
                 $onlyOnce = false;
                 
-                foreach ($CSHierarchyObjChild as $objectLevel3rd) {
+                if($CSHierarchyObjChild)
+                {
+                    foreach ($CSHierarchyObjChild as $objectLevel3rd) {
 
-                    $level3Data['Name'] = $objectLevel3rd->getName();
-                    $level3Data['LongText'] = $objectLevel3rd->getLongText();
-                    $level3rdObjectData[] = $level3Data;
+                        $level3Data['Name'] = $objectLevel3rd->getName();
+                        $level3Data['LongText'] = $objectLevel3rd->getLongText();
+                        $level3rdObjectData[] = $level3Data;
 
-                    if($level3Data['Name'] === $productPage){
+                        if($objectLevel3rd->getKey() === $productPage){
 
-                        $singleProductPage['Name'] = $level3Data['Name'];
-                        $singleProductPage['NamePerformanceCategory'] = $level3Data['Name']. ' Heat Resistant Compounds';
-                        // $singleProductPage['PerformanceCategory'] = ' Heat Resistant Compounds';
-                        $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
-                        $singleProductPage['LongText'] = $objectLevel3rd->getLongText();
+                            p_r($objectLevel3rd);
 
-                        $FeaturesAndBenefits = [];
+                            $performanceCategoryIds = $objectLevel3rd->getCSPerformanceCategory();
 
-                        foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
-                            if($value->getFeatureImage())
+                            $performanceCategoryName = [];
+                            $performanceCategoryNameString = '';
+
+                            if($performanceCategoryIds)
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                $FeaturesAndBenefits[] = $feature;
+                                p_r($coverCompoundMasterList);
+                                p_r($performanceCategoryIds);
+
+                                foreach ($performanceCategoryIds as $key => $id) {
+                                    $performanceCategoryName[] = $coverCompoundMasterList[$id];
+                                }
+                                if($performanceCategoryName)
+                                {
+                                    $performanceCategoryNameString = implode(' ', $performanceCategoryName);
+                                }
                             }
+
+                            p_r($performanceCategoryName);
+                            // die;
+                            echo $NamePerformanceCategory =  $level3Data['Name']. $performanceCategoryNameString;
+                            die;
+
+                            $singleProductPage['Name'] = $level3Data['Name'];
+                            $singleProductPage['NamePerformanceCategory'] = $NamePerformanceCategory;
+                            $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
+                            $singleProductPage['LongText'] = $objectLevel3rd->getLongText();
+
+                            $FeaturesAndBenefits = [];
+
+                            foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
+                                if($value->getFeatureImage())
+                                {
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    $FeaturesAndBenefits[] = $feature;
+                                }
+                            }
+
+                            $singleProductPage['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+
+                            $Level4ObjChild = $this->getAllRegionChildern($objectLevel3rd, $region);
+
+                            $level4ObjectData = [];
+
+                            if($Level4ObjChild)
+                            {
+                                foreach ($Level4ObjChild as $level4Value) {
+                                    $level4DataPart['Name'] = $level4Value->getName();
+                                    $level4DataPart['LongText'] = $level4Value->getLongText();
+                                    $level4ObjectData[] = $level4DataPart;
+                                }
+                            }
+
+                            $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
                         }
 
-                        $singleProductPage['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-
-                        $Level4ObjChild = $objectLevel3rd->getchildren(); 
-                        $level4ObjectData = [];
-                        foreach ($Level4ObjChild as $level4Value) {
-                            $level4DataPart['Name'] = $level4Value->getName();
-                            $level4DataPart['LongText'] = $level4Value->getLongText();
-                            $level4ObjectData[] = $level4DataPart;
-                        }
-
-                        $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
-                    }
-
-                    $label4Childs = $objectLevel3rd->getchildren();
-
-                    foreach ($label4Childs as $child) {
-                        $level4Name = trim($child->getName());
-                        // p_r($child->getCoverCompound());
+                        $label4Childs = $this->getAllRegionChildern($objectLevel3rd, $region);
+                        // p_r($label4Childs);
                         // die;
 
-                        if($child->getCSPerformanceCategory())
+                        if($label4Childs)
                         {
-                            foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
-                                $coverCompoundName = $coverCompoundMasterList[$coverCompound];
-                                $coverCompounds[$coverCompoundName][$level4Name][] = $level4Name;
-                                $bricks = $child->getProductAttributes();
+                            foreach ($label4Childs as $child) {
+                                $level4Name = trim($child->getName());
 
-                                foreach ($coverOptionsAttributes as $key => $brickName) {
-                                    
+                                if($child->getCSPerformanceCategory())
+                                {
+                                    foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
+                                        $coverCompoundName = $coverCompoundMasterList[$coverCompound];
+                                        $coverCompounds[$coverCompoundName][$level4Name][] = $level4Name;
+                                        $bricks = $child->getProductAttributes();
 
-                                    $getBrick = 'get' . $brickName;
-                                    $getField = 'get' . $key;
-                                    if($bricks->$getBrick())
-                                    {
-                                        if(!$onlyOnce)
-                                        {
-                                            $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                        foreach ($coverOptionsAttributes as $key => $brickName) {
+                                            
+
+                                            $getBrick = 'get' . $brickName;
+                                            $getField = 'get' . $key;
+                                            if($bricks->$getBrick())
+                                            {
+                                                if(!$onlyOnce)
+                                                {
+                                                    $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                                }
+                                                $coverCompounds[$coverCompoundName][$level4Name][] = $bricks->$getBrick()->$getField();
+                                            }
+                                        
                                         }
-                                        $coverCompounds[$coverCompoundName][$level4Name][] = $bricks->$getBrick()->$getField();
+                                        $onlyOnce = true;
                                     }
-                                
                                 }
-                                $onlyOnce = true;
+                                
+                                if($child->getCSProductApplications())
+                                {
+                                    foreach ($child->getCSProductApplications() as $key => $application) {
+                                        $applicationData[$application->getApplicationName()] = $application->getApplicationName();
+                                        $level4Data[$level4Name][] = $application->getApplicationName();
+                                    }
+                                }
+                                else{
+                                    $level4Data[$level4Name] = [];
+                                }
                             }
-                        }
-                        
-                        if($child->getCSProductApplications())
-                        {
-                            foreach ($child->getCSProductApplications() as $key => $application) {
-                                $applicationData[$application->getApplicationName()] = $application->getApplicationName();
-                                $level4Data[$level4Name][] = $application->getApplicationName();
-                            }
-                        }
-                        else{
-                            $level4Data[$level4Name] = [];
                         }
                     }
                 }
                 
                 if($level4Data)
                 {
+                    // p_r($applicationData);
                     foreach ($level4Data as $lkey => $lvalue) {
                         $data[] = $lkey;
-                        foreach ($applicationData as $akey => $avalue) {
+                        foreach ($applicationData as $avalue) {
 
                             if(in_array($avalue,$lvalue))
                             {
@@ -790,7 +800,6 @@ class DefaultController extends FrontendController
         $displayTablesFlag  = false;
         if($catalogTableObject)
         {   
-            $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();   
 
             $selectedProduct = $catalogTableObject->getProducts();
@@ -799,12 +808,12 @@ class DefaultController extends FrontendController
 
             $productDetails = DataObject\CSProducts::getById($productId);
 
-            $objParent = DataObject\CSProducts::getById($productDetails->getParentId());
+            // $objParent = $productDetails->getParent();
 
-            $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-            
+            // $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+            $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
             $productData['Name'] = $productDetails->getName();
-            $productData['LongText'] = $productDetails->getLongText();
+            $productData['LongText'] = $productDetails->getShortText();
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
             $productData['cover_compounds'] = $productDetails->getCoverCompounds();
@@ -815,54 +824,40 @@ class DefaultController extends FrontendController
                 $CommonBeltProfileAttributes = $productDataImportConfig['Common Belt Profile Attributes'];
             }
 
-            $productChildrenData = [];
-            $objectTypeFolderchildren = $productDetails->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
-
-            if($objectTypeFolderchildren)
-            {
-                foreach ($objectTypeFolderchildren as $objectChildFolder) {
-                    if(strtolower($objectChildFolder->getKey()) === strtolower($region))
-                    {
-                        $children = $objectChildFolder->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                        $productChildrenData = array_merge($productChildrenData, $children);
-                    }
-                }
-            }
-            else{
-                $children = $productDetails->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                $productChildrenData = array_merge($productChildrenData, $children);
-            }
+            $productChildrenData = $this->getAllRegionChildern($productDetails, $region);
 
             $childrenData = [];
-            foreach ($productChildrenData as $child) {
-                if($child->getPrintedCatalogFlag() === true)
-                {
-                    $data['Name'] = $child->getName();
-                    $data['LongText'] = $child->getLongText();
-                    $data['ProductImage'] = $child->getProductImage();
-                    $data['ApplicationImage'] = $child->getApplicationImage();
 
-                    $bricks = $child->getProductAttributes();
+            if($productChildrenData)
+            {
+                foreach ($productChildrenData as $child) {
+                    if($child->getPrintedCatalogFlag() === true)
+                    {
+                        $data['Name'] = $child->getName();
+                        $data['LongText'] = $child->getShortText();
+                        $data['ProductImage'] = $child->getProductImage();
+                        $data['ApplicationImage'] = $child->getApplicationImage();
 
-                    $tableFieldData = [];
-                    if($bricks)
-                    {  
-                        foreach ($CommonBeltProfileAttributes as $fieldName => $brickName) {
+                        $bricks = $child->getProductAttributes();
 
-                            $getBrick = 'get' . $brickName;
-                            $getField = 'get' . $fieldName;
-                            if($bricks->$getBrick())
-                            {   
-                                if($bricks->$getBrick()->$getField())
-                                {   $fieldName = $this->addPrefix($fieldName);
+                        $tableFieldData = [];
+                        if($bricks)
+                        {  
+                            foreach ($CommonBeltProfileAttributes as $fieldName => $brickName) {
+
+                                $getBrick = 'get' . $brickName;
+                                $getField = 'get' . $fieldName;
+                                if($bricks->$getBrick() && $bricks->$getBrick()->$getField())
+                                {   
+                                    $fieldName = $this->addPrefix($fieldName);
                                     $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
                                 }
                             }
-                        }
-                    }   
-                    $data['tableFieldData'] = $tableFieldData;
-                    
-                    $childrenData[] = $data;
+                        }   
+                        $data['tableFieldData'] = $tableFieldData;
+                        
+                        $childrenData[] = $data;
+                    }
                 }
             }
 
@@ -870,8 +865,7 @@ class DefaultController extends FrontendController
 
             $regionsArr = $this->getCSRegionNameByIds($productDetails->getCSRegion());
 
-            $configProviderService = new ConfigProviderService();
-            $ymlData = $configProviderService->getBrickMappingConfig();
+            $ymlData = $this->configProviderService->getBrickMappingConfig();
             
             if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && in_array($ymlData['cleated_belts_table_display_in_region']['regionName'],$regionsArr))
             {
@@ -913,7 +907,28 @@ class DefaultController extends FrontendController
         }
     }
 
+    public function getAllRegionChildern($productObject, $region): Array
+    {
+        $productChildrenData = [];
+        $objectTypeFolderchildren = $productObject->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
 
+        if($objectTypeFolderchildren)
+        {
+            foreach ($objectTypeFolderchildren as $objectChildFolder) {
+                if(strtolower($objectChildFolder->getKey()) === strtolower($region))
+                {
+                    $children = $objectChildFolder->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                    $productChildrenData = array_merge($productChildrenData, $children);
+                }
+            }
+        }
+        else{
+            $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+            $productChildrenData = array_merge($productChildrenData, $children);
+        }
+        
+        return $productChildrenData;
+    }
 
     public function addPrefix($key): String
     {
@@ -924,9 +939,21 @@ class DefaultController extends FrontendController
         return $key;
     }
 
-    public function getCoverCompoundMasterList(){
-        $query = "select oo_id, PerformanceCategory from object_query_CSPerformanceCategories";
-        return $this->db->fetchPairs($query);
+    public function getCoverCompoundMasterList(): Array {
+        $productsList = new DataObject\CSPerformanceCategories\Listing();
+        $productsList = $productsList->load();
+
+        $performanceList = [];
+        if($productsList)
+        {
+            foreach ($productsList as $value) {
+                $performanceList[$value->getId()] = $value->getPerformanceCategory();
+            }
+        }
+
+        return $performanceList;
+        // $query = "select oo_id, PerformanceCategory from object_query_CSPerformanceCategories";
+        // return $this->db->fetchPairs($query);
     }
 
     public function getS3ImageSrc($src)
@@ -953,6 +980,7 @@ class DefaultController extends FrontendController
     */
     public function templateContinentalConveyorServicesAction(Request $request)
     {   
+        $region = $this->document->getProperty('region');
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -970,7 +998,7 @@ class DefaultController extends FrontendController
             $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
 
             $hierarchyPath = $hierarchyObj->getPath();
-            $hierarchyName = $hierarchyObj->getName();
+            $hierarchyName = $hierarchyObj->getKey();
 
             $hierarchyFullName = $hierarchyPath.$hierarchyName;
             $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
@@ -978,20 +1006,24 @@ class DefaultController extends FrontendController
             $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
             $productNameArr['Name'] = trim($productObject->getName());
             $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-            $productNameArr['ShortText'] = $productObject->getShorttext();
-            $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
-            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
+            $productNameArr['ShortText'] = $productObject->getShortText();
+            $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());
             
             $childrenData = [];
-            $childObject = $productObject->getChildren();
-            foreach ($childObject as $childValue) {
-                if ($childValue->getPrintedCatalogFlag() === true) {
-                    $data['Name'] = $childValue->getName();
-                    $data['LongText'] = $childValue->getLongtext();
-                    $data['ProductImage'] = $childValue->getProductImage();
 
-                    $childrenData[] = $data;
-                    unset($data);
+            $childObject = $this->getAllRegionChildern($productObject, $region);
+
+            if($childObject)
+            {
+                foreach ($childObject as $childValue) {
+                    if ($childValue->getPrintedCatalogFlag() === true) {
+                        $data['Name'] = $childValue->getName();
+                        $data['LongText'] = $childValue->getLongtext();
+                        $data['ProductImage'] = $childValue->getProductImage();
+
+                        $childrenData[] = $data;
+                        unset($data);
+                    }
                 }
             }
 
@@ -1008,6 +1040,7 @@ class DefaultController extends FrontendController
     */
     public function templateContiProtectSystemsAction(Request $request)
     {
+        $region = $this->document->getProperty('region');
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
 
         $this->configProviderService = new ConfigProviderService();
@@ -1025,14 +1058,14 @@ class DefaultController extends FrontendController
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
             $productData['Benefits'] = $productObject->getBenefits();
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
 
-            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+            $objParent = $productObject->getParent();
 
             $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
 
             $childrenData = [];
-            $childObject = $productObject->getChildren();
+            $childObject = $this->getAllRegionChildern($productObject, $region);
+
             foreach ($childObject as $childValue) {
                 if($childValue->getPrintedCatalogFlag() === true){
                     $data['Name'] = $childValue->getName();
@@ -1057,6 +1090,7 @@ class DefaultController extends FrontendController
     */
     public function templateContiInspectSystemsAction(Request $request)
     {
+        $region = $this->document->getProperty('region');
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1069,7 +1103,7 @@ class DefaultController extends FrontendController
             $singleProduct = $selectedProduct[0];
             $productObject = DataObject\CSProducts::getById($singleProduct);
             
-            $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+            $objParent = $productObject->getParent();
 
             $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
 
@@ -1079,18 +1113,21 @@ class DefaultController extends FrontendController
             $productData['ReportImage'] = $productObject->getReportImage();
             
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
-            $productData['Benefits'] = $productObject->getBenefits();
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+            $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
 
             $childrenData = [];
-            $childObject = $productObject->getChildren();
-            foreach ($childObject as $childValue) {
-                if($childValue->getPrintedCatalogFlag() === true){
-                    $data['Name'] = $childValue->getName();
-                    $data['ShortText'] = $childValue->getShortText();
+            $childObject = $this->getAllRegionChildern($productObject, $region);
 
-                    $childrenData[] = $data;
-                    unset($data);
+            if($childObject)
+            {
+                foreach ($childObject as $childValue) {
+                    if($childValue->getPrintedCatalogFlag() === true){
+                        $data['Name'] = $childValue->getName();
+                        $data['ShortText'] = $childValue->getShortText();
+
+                        $childrenData[] = $data;
+                        unset($data);
+                    }
                 }
             }
 
@@ -1143,6 +1180,7 @@ class DefaultController extends FrontendController
      */
     public function templateContiPipeBeltAction(Request $request)
     {
+        $region = $this->document->getProperty('region');
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1152,58 +1190,45 @@ class DefaultController extends FrontendController
         
         if($catalogTableObject)
         {
-            $catalogCategoryObjectId = $catalogTableObject->getParentId();
-            $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-            
-            if($categoryObj)
+            $selectedProduct    = $catalogTableObject->getProducts();
+            $singleProduct      = $selectedProduct[0];
+
+            $singleProductObj = DataObject\CSProducts::getById($singleProduct);
+            $childProductData['Name'] = $singleProductObj->getName();
+            $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
+            $childProductData['ShortText'] = $singleProductObj->getShortText();
+            $childProductData['ProductImage'] = $singleProductObj->getProductImage();
+            $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $region);
+
+            $FeaturesAndBenefits = [];
+            if($singleProductObj->getCSProductFeaturesAndBenefits())
             {
-                $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
+                foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
+                    $FeaturesAndBenefits[] = $value->getFeatureName();
+                }
+            }
+            $childProductData['Benefits'] = $FeaturesAndBenefits;
+
+            $productObject = $singleProductObj->getParent();
+
+            if($productObject)
+            {
+                $parentProductData['Name'] = $productObject->getName();
+                $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                $parentProductData['ShortText'] = $productObject->getShortText();
+                $parentProductData['ProductImage'] = $productObject->getProductImage();
                 
-                $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-                
-                if($hierarchyObj)
+                $applications = [];
+                if($productObject->getCSProductApplications())
                 {
-                    $hierarchyPath = $hierarchyObj->getPath();
-                    $hierarchyName = $hierarchyObj->getName();
-                    
-                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-                    
-                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                    
-                    if($productObject)
-                    {
-                        $parentProductData['Name'] = $productObject->getName();
-                        $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                        $parentProductData['ShortText'] = $productObject->getShortText();
-                        $parentProductData['ProductImage'] = $productObject->getProductImage();
-                        $parentProductData['HierarchyNameLevel1'] = 'Conveying Solutions';
-                        
-                        $applications = [];
-                        if($productObject->getCSProductApplications())
-                        {
-                            foreach ($productObject->getCSProductApplications() as $value) {
-                                $applications[] = $value->getApplicationName();
-                            }
-                        }
-                        $parentProductData['Applications'] = $applications;
-                        
-                        $productData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($productObject);
+                    foreach ($productObject->getCSProductApplications() as $value) {
+                        $applications[] = $value->getApplicationName();
                     }
                 }
+                $parentProductData['Applications'] = $applications;
+                $parentProductData['HierarchyNameLevel2'] = $productObject->getName();;
                 
-                $selectedProduct    = $catalogTableObject->getProducts();
-                $singleProduct      = $selectedProduct[0];
-
-                $singleProductObj = DataObject\CSProducts::getById($singleProduct);
-                $childProductData['Name'] = $singleProductObj->getName();
-                $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
-                $childProductData['ShortText'] = $singleProductObj->getShortText();
-                $childProductData['ProductImage'] = $singleProductObj->getProductImage();
-                $childProductData['Benefits'] = $singleProductObj->getBenefits();
-                $productData['HierarchyNameLevel2'] = $hierarchyName;
             }
-
         }
 
         $productData['parentProductData'] = $parentProductData;
@@ -1219,11 +1244,9 @@ class DefaultController extends FrontendController
      * @access private 
      * @return array
      */
-    private function prepareContiPipeAndMegaPipeAttributes($productObject)
+    private function prepareContiPipeAndMegaPipeAttributes($productObject, $region)
     {
-        $childObject    = $productObject->getChildren();
-        $data           = [];
-        $childs         = $childObject[0]->getChildren();
+        $childObject = $this->getAllRegionChildern($productObject, $region);
 
         $this->configProviderService = new ConfigProviderService();
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
@@ -1232,14 +1255,14 @@ class DefaultController extends FrontendController
 
         if(isset($productDataImportConfig['ContiPipe and MegaPipe Table Attributes']))
         {
-        $attributes  = $productDataImportConfig['ContiPipe and MegaPipe Table Attributes'];
+            $attributes  = $productDataImportConfig['ContiPipe and MegaPipe Table Attributes'];
         }
 
         $total_attr = count($attributes);
 
-        if($childs)
+        if($childObject)
         {
-            foreach($childs as $obj)
+            foreach($childObject as $obj)
             {   
                 $obj_attr           =   $obj->getProductAttributes();
 
@@ -1250,13 +1273,38 @@ class DefaultController extends FrontendController
 
                     if(method_exists($obj_attr,$getBrick) && method_exists($obj_attr->$getBrick(),$getField))
                     {
-                        $data[] = $obj_attr->$getBrick()->$getField();
+                        if(in_array($fieldName,["FabricType","SteelType"]))
+                        {
+                            $data[] = ($obj_attr->$getBrick()->$getField()) ? '•' : '';
+                        }
+                        else{
+                            $data[] = $obj_attr->$getBrick()->$getField();
+                        }
                     }
                 }
             }
         }
 
-        return $data ? array_chunk($data,$total_attr) : [];
+        $data = $data ? array_chunk($data,$total_attr) : [];
+
+        if($data)
+        {
+            foreach ($data as $key => $array) {
+                $isTrue = false;
+                foreach ($array as $value) {
+                    if($value)
+                    {
+                        $isTrue = true;
+                    }
+                }
+                if(!$isTrue)
+                {
+                    unset($data[$key]);
+                }
+            }
+        }
+
+        return $data;
     }
 
 
@@ -1277,21 +1325,20 @@ class DefaultController extends FrontendController
             $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
 
             $hierarchyPath = $hierarchyObj->getPath();
-            $hierarchyName = $hierarchyObj->getName();
+            $hierarchyKeyName = $hierarchyObj->getKey();
 
-            $hierarchyFullName = $hierarchyPath.$hierarchyName;
+            $hierarchyFullName = $hierarchyPath.$hierarchyKeyName;
             $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
 
             $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
     
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['ProductImage'] = $productObject->getProductImage();
-                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
-                $productNameArr['HierarchyNameLevel2'] = $hierarchyName;           
+            $productNameArr['Name'] = trim($productObject->getName());
+            $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productNameArr['ShortText'] = $productObject->getShortText();
+            $productNameArr['ProductImage'] = $productObject->getProductImage();
+            $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+            $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
+            $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());;           
         }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -1314,7 +1361,7 @@ class DefaultController extends FrontendController
             $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
 
             $hierarchyPath = $hierarchyObj->getPath();
-            $hierarchyName = $hierarchyObj->getName();
+            $hierarchyName = $hierarchyObj->getKey();
 
             $hierarchyFullName = $hierarchyPath.$hierarchyName;
             $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
@@ -1326,48 +1373,9 @@ class DefaultController extends FrontendController
             $productNameArr['ShortText'] = $productObject->getShortText();
             $productNameArr['ProductImage'] = $productObject->getProductImage();
             $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-            $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
-            $productNameArr['HierarchyNameLevel2'] = $hierarchyName;    
+            $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());  
         }
         $this->view['data'] = $productNameArr;
-        $this->view['footer_logo_src'] = $footer_logo_src;
-    }
-    
-    /**
-     * @Route("/contitech_cs_catalog/template_quality_and_the _environment")
-    */
-    public function templateQualityAndTheEnvironmentAction(Request $request)
-    {
-        $this->configProviderService = new ConfigProviderService();
-        
-        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
-
-        $this->view['footer_logo_src'] = $footer_logo_src;
-    
-    }
-    
-    /**
-     * @Route("/contitech_cs_catalog/template_template_eco_series_pulley")
-    */
-    public function templateEcoSeriesPulleyAction(Request $request)
-    {
-        $this->configProviderService = new ConfigProviderService();
-        
-        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
-
-        $this->view['footer_logo_src'] = $footer_logo_src;
-    
-    }
-    
-    /**
-     * @Route("/contitech_cs_catalog/template_wood_product")
-    */
-    public function templateWoodProductAndApplicationAction(Request $request)
-    {
-        $this->configProviderService = new ConfigProviderService();
-
-        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
-
         $this->view['footer_logo_src'] = $footer_logo_src;
     }
     
@@ -1379,26 +1387,20 @@ class DefaultController extends FrontendController
         $this->configProviderService = new ConfigProviderService();
 
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
-        
 
-        $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
 
-            $productNameArr = [];
+        $productNameArr = [];
 
-            if($catalogCategoryObject)
-            {
-                $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
 
-                $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+            if($selectedProduct){
 
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getName();
-
-                $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                
+                $singleProduct = $selectedProduct[0];
+                $productObject = DataObject\CSProducts::getById($singleProduct);
+                $parentProductObject = $productObject->getParent();
             
                 $productNameArr['Name'] = trim($productObject->getName());
                 $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -1406,16 +1408,21 @@ class DefaultController extends FrontendController
                 $productNameArr['LogoImage'] = $productObject->getLogoImage();     
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-        
-                // get features
-                $productNameArr['Features'] = $this->getSybercordTechnologyFeature($productObject);
+                
+                $FeaturesAndBenefits = [];
+                if($productObject->getCSProductFeaturesAndBenefits())
+                {
+                    foreach ($productObject->getCSProductFeaturesAndBenefits() as $value) {
+                        $FeaturesAndBenefits[] = $value->getFeatureName();
+                    }
+                }
+
+                $productNameArr['Features'] = $FeaturesAndBenefits;
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions'; 
-                $productNameArr['HierarchyNameLevel2'] = $hierarchyName;
-            
-        
+                $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
             }
+        }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
     }
@@ -1449,7 +1456,6 @@ class DefaultController extends FrontendController
     
     public function templateConveyorBeltGroupAction(Request $request)
     {
-    //  print_r('hey');
     }
 
     public function templateContiCleanAction(Request $request)
@@ -1478,8 +1484,6 @@ class DefaultController extends FrontendController
             $productData['material'] = $this->getContiCleanMaterials($productObject);
 
             $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
-
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
         $this->view['data'] = $productData;
@@ -1525,15 +1529,16 @@ class DefaultController extends FrontendController
             $materials  = [];
             $objAttr    = $productObject->getProductAttributes();
     
-            if(method_exists($objAttr,'getProdAttrSetX') && method_exists($objAttr->getProdAttrSetX(),'getMaterial'))
+            if(method_exists($objAttr,'getMaterial') && method_exists($objAttr->getMaterial(),'getMaterial'))
             {
-                $arr = $objAttr->getProdAttrSetX()->getMaterial();
+                $arr = $objAttr->getMaterial()->getMaterial();
 
                 if($arr)
                 {
-                    foreach($arr as $val)
+                    foreach($arr as $materialId)
                     {
-                        $materials[] = $val; 
+                        $value = DataObject\CSMaterial::getById($materialId)->getMaterialName();
+                        $materials[] = $value; 
                     }
                 }
             }
@@ -1543,36 +1548,7 @@ class DefaultController extends FrontendController
         {
             throw new \Exception($e->getMessage());
         }
-    }
-
-    public function templateContiAlertAction(Request $request)
-    {
-
-        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_alert')->getElement();
-
-        $this->configProviderService = new ConfigProviderService();
-    
-        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
-
-        $productData = [];
-        if($catalogTableObject)
-        {
-            
-            $selectedProduct = $catalogTableObject->getProducts();
-            $singleProduct = $selectedProduct[0];
-            $productObject = DataObject\CSProducts::getById($singleProduct);
-            $productData['Name'] = $productObject->getName();
-            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-            $productData['ShortText'] = $productObject->getShortText();
-            $productData['ProductImage'] = $productObject->getProductImage();
-            $productData['Benefits'] = $productObject->getBenefits();
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
-            $productData['Benefits'][0]= 'sdfdsf';
-        }
-
-        $this->view['data'] = $productData;
-        $this->view['footer_logo_src'] = $footer_logo_src;
-    }
+    }    
 
     public function templateCreatedWithBricksAction(Request $request)
     {

@@ -942,8 +942,6 @@ Common Product Page:
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -951,50 +949,37 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 LoadSupportMaximumBeltWidthinInch640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1002,53 +987,40 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 LoadSupportMaximumBeltWidthinMM640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
-                # AdditionalHeaderKey: ContiFlex
-                # Idlers: true
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1056,23 +1028,16 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
             Metric:
-                # AdditionalHeaderKey: ContiFlex
-                # Idlers: true
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1080,24 +1045,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: ContiFlex
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1105,28 +1064,20 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
             Metric: 
-                # AdditionalHeaderKey: ContiFlex
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1134,123 +1085,87 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData      
     Spartan: 
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Spartan
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 CarcassGaugeinInch:
-                    # fieldTitle: Carcass Gauge (in.)
                     objectType: Material
                 CarcassWeightLBS:
-                    # fieldTitle: Carcass Weight (lb./sq. ft.)
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
-                    # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinPIW:
-                    # fieldTitle: Elastic Modulus (PIW)
                     objectType: BeltData
                 StepLengthinInch:
-                    # fieldTitle: Step Length (in.)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
             Metric: 
-                # AdditionalHeaderKey: Spartan
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
-                    # fieldTitle: Vulcanized & Fastener Rating (kN/m)
                     objectType: LoadSupport
                 CarcassGaugeinMM:
-                    # fieldTitle: Carcass Gauge (mm)
                     objectType: Material
                 CarcassWeightKGM:
-                    # fieldTitle: Carcass Weight (kg/sq.m)
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
-                    # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinKNMM:
-                    # fieldTitle: Elastic Modulus (kN/m)
                     objectType: BeltData
                 StepLengthinMM:
-                    # fieldTitle: Step Length (mm)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1258,50 +1173,37 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 LoadSupportMaximumBeltWidthinInch640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
-                # # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1309,53 +1211,40 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 LoadSupportMaximumBeltWidthinMM640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
-                # AdditionalHeaderKey: Spartan
-                # Idlers: true
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1363,23 +1252,16 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
             Metric:
-                # AdditionalHeaderKey: Spartan
-                # Idlers: true
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1387,24 +1269,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Spartan
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1412,28 +1288,20 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
             Metric: 
-                # AdditionalHeaderKey: Spartan
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1441,123 +1309,87 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData      
     Wood Sawyer:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 CarcassGaugeinInch:
-                    # fieldTitle: Nominal Carcass Gauge (in.)
                     objectType: Material
                 CarcassWeightLBS:
-                    # fieldTitle: Nominal Carcass Weight (lb./sq. ft.)
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
-                    # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinPIW:
-                    # fieldTitle: Elastic Modulus (PIW)
                     objectType: BeltData
                 StepLengthinInch:
-                    # fieldTitle: Step Length (in.)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
             Metric: 
-                # AdditionalHeaderKey: Wood Sawyer
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
-                    # fieldTitle: Vulcanized & Fastener Rating (kN/m)
                     objectType: LoadSupport
                 CarcassGaugeinMM:
-                    # fieldTitle: Nominal Carcass Gauge (mm)
                     objectType: Material
                 CarcassWeightKGM:
-                    # fieldTitle: Nominal Carcass Weight (kg/sq.m)
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
-                    # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinKNMM:
-                    # fieldTitle: Elastic Modulus (kN/m)
                     objectType: BeltData
                 StepLengthinMM:
-                    # fieldTitle: Step Length (mm)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1565,50 +1397,37 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 LoadSupportMaximumBeltWidthinInch640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1616,53 +1435,40 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 LoadSupportMaximumBeltWidthinMM640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer
-                # Idlers: true
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1670,23 +1476,16 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
             Metric:
-                # AdditionalHeaderKey: Wood Sawyer
-                # Idlers: true
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1694,24 +1493,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1719,28 +1512,20 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
             Metric: 
-                # AdditionalHeaderKey: Wood Sawyer
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1748,123 +1533,87 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
     Wood Sawyer Plus:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer Plus
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 CarcassGaugeinInch:
-                    # fieldTitle: Nominal Carcass Gauge (in.)
                     objectType: Material
                 CarcassWeightLBS:
-                    # fieldTitle: Nominal Carcass Weight (lb./sq. ft.)
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
-                    # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinPIW:
-                    # fieldTitle: Elastic Modulus (PIW)
                     objectType: BeltData
                 StepLengthinInch:
-                    # fieldTitle: Step Length (in.)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
             Metric: 
-                # AdditionalHeaderKey: Wood Sawyer Plus
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
-                    # fieldTitle: Vulcanized & Fastener Rating (kN/m)
                     objectType: LoadSupport
                 CarcassGaugeinMM:
-                    # fieldTitle: Nominal Carcass Gauge (mm)
                     objectType: Material
                 CarcassWeightKGM:
-                    # fieldTitle: Nominal Carcass Weight (kg/sq.m)
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
-                    # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinKNMM:
-                    # fieldTitle: Elastic Modulus (kN/m)
                     objectType: BeltData
                 StepLengthinMM:
-                    # fieldTitle: Step Length (mm)
                     objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1872,50 +1621,37 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 LoadSupportMaximumBeltWidthinInch640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
                 LoadSupportMaximumBeltWidthinInch1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1923,53 +1659,40 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 LoadSupportMaximumBeltWidthinMM640KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM640KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1280KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM20:
-                    # fieldTitle: 20
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM35:
-                    # fieldTitle: 35
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
                 LoadSupportMaximumBeltWidthinMM1920KGM45:
-                    # fieldTitle: 45
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer Plus
-                # Idlers: true
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1977,23 +1700,16 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
             Metric:
-                # AdditionalHeaderKey: Wood Sawyer Plus
-                # Idlers: true
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -2001,24 +1717,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Wood Sawyer Plus
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -2026,28 +1736,20 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
             Metric: 
-                # AdditionalHeaderKey: Wood Sawyer Plus
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -2055,123 +1757,95 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData      
     Pathfinder Plus:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Pathfinder Plus
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
+                ElevatorRatingPIW: 
+                    objectType: BeltData
+                MaximumBucketProjectionInch: 
+                    objectType: BeltData
                 CarcassGaugeinInch:
-                    # fieldTitle: Nominal Carcass Gauge (in.)
                     objectType: Material
                 CarcassWeightLBS:
-                    # fieldTitle: Nominal Carcass Weight (lb./sq. ft.)
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
-                    # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinPIW:
-                    # fieldTitle: Elastic Modulus (PIW)
                     objectType: BeltData
-                # StepLengthinInch:
-                #     # fieldTitle: Step Length (in.)
-                #     objectType: SpliceData
+                StepLengthinInch:
+                    objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
             Metric: 
-                # AdditionalHeaderKey: Pathfinder Plus
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
-                    # fieldTitle: Vulcanized & Fastener Rating (kN/m)
                     objectType: LoadSupport
+                ElevatorRatingNmm:
+                    objectType: BeltData
+                MaximumBucketProjectionMM: 
+                    objectType: BeltData
                 CarcassGaugeinMM:
-                    # fieldTitle: Nominal Carcass Gauge (mm)
                     objectType: Material
                 CarcassWeightKGM:
-                    # fieldTitle: Nominal Carcass Weight (kg/sq.m)
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
-                    # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinKNMM:
-                    # fieldTitle: Elastic Modulus (kN/m)
                     objectType: BeltData
-                # StepLengthinMM:
-                #     # fieldTitle: Step Length (mm)
-                #     objectType: SpliceData
+                StepLengthinMM:
+                    objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
                 Hinge:
-                    # fieldTitle: Hinge
                     objectType: SpliceData
                 Hinge2:
-                    # fieldTitle: Hinge 2
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             CS_Idler_Angle_Label: true
             CS_Type_Of_Idler_Label: true
             Imperial:
-                # AdditionalGroupKey: Type of Idler
-                # AdditionalHeaderKey: Idler Angle
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -2179,50 +1853,37 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TypeofIdlerInline20inch:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlineinch
                 TypeofIdlerInline35inch:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlineinch
                 TypeofIdlerInline45inch:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlineinch
                 TypeofIdlerOffsetEqual20inch:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualinch
                 TypeofIdlerOffsetEqual35inch:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualinch
                 TypeofIdlerOffsetEqual45inch:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualinch
                 TypeofIdlerOffsetLCRoll20inch:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollinch
                 TypeofIdlerOffsetLCRoll35inch:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollinch
                 TypeofIdlerOffsetLCRoll45inch:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollinch
             Metric: 
-                # AdditionalGroupKey: Type of Idler
-                # # AdditionalHeaderKey: Idler Angle
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -2230,53 +1891,40 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TypeofIdlerInline20mm:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlinemm
                 TypeofIdlerInline35mm:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlinemm
                 TypeofIdlerInline45mm:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlinemm
                 TypeofIdlerOffsetEqual20mm:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualmm
                 TypeofIdlerOffsetEqual35mm:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualmm
                 TypeofIdlerOffsetEqual45mm:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetEqualmm
                 TypeofIdlerOffsetLCRoll20mm:
-                    # fieldTitle: 20
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollmm
                 TypeofIdlerOffsetLCRoll35mm:
-                    # fieldTitle: 35
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollmm
                 TypeofIdlerOffsetLCRoll45mm:
-                    # fieldTitle: 45
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollmm
         Troughability Minimum Belt Width:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
-                # # AdditionalHeaderKey: Pathfinder Plus
-                # Idlers: true
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -2284,23 +1932,16 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
             Metric:
-                # # AdditionalHeaderKey: Pathfinder Plus
-                # Idlers: true
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -2308,24 +1949,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
                     objectType: LoadSupport
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                # # AdditionalHeaderKey: Pathfinder Plus
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -2333,28 +1968,20 @@ Common Product Page:
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
             Metric: 
-                # # AdditionalHeaderKey: Pathfinder Plus
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -2362,25 +1989,18 @@ Common Product Page:
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
                     objectType: BeltData
                 MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
                     objectType: BeltData
     Texsteel:
         Conveyor Belt Data: 
@@ -2710,313 +2330,65 @@ Common Product Page:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                # AdditionalHeaderKey: Contiflex
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: LoadSupport
                 CarcassGaugeinInch:
-                    # fieldTitle: Nominal Carcass Gauge (in.)
                     objectType: Material
                 CarcassWeightLBS:
-                    # fieldTitle: Nominal Carcass Weight (lb./sq. ft.)
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
-                    # fieldTitle: Approximate 1/32 in. Cover Weight (lb./sq. ft.)
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinPIW:
-                    # fieldTitle: Average Elastic Modulus (PIW)
                     objectType: BeltData
-                # StepLengthinInch:
-                #     # fieldTitle: Step Length (in.)
-                #     objectType: SpliceData
+                StepLengthinInch:
+                    objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
-                # Hinge:
-                #     # fieldTitle: Hinge
-                #     objectType: SpliceData
-                # Hinge2:
-                #     # fieldTitle: Hinge 2
-                #     objectType: SpliceData
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
             Metric: 
-                # AdditionalHeaderKey: Contiflex
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
                 NumberofPlies:
-                    # fieldTitle: Number of Plies
                     objectType: Material
                 FabricType: 
-                    # fieldTitle: Fabric Type*
                     objectType: Material
                 beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
-                    # fieldTitle: Vulcanized & Fastener Rating (kN/m)
                     objectType: LoadSupport
                 CarcassGaugeinMM:
-                    # fieldTitle: Carcass Gauge (mm)
                     objectType: Material
                 CarcassWeightKGM:
-                    # fieldTitle: Carcass Weight (kg/sq.m)
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
-                    # fieldTitle: Approximate 1 mm Cover Weight (kg/sq.m
                     objectType: BeltData
                 AveragePermanentElongationPercentage:
-                    # fieldTitle: Average Permanent Elongation (%)**
                     objectType: BeltData
                     percentageSymbol: '%'
                 ElasticModulusinKNMM:
-                    # fieldTitle: Elastic Modulus (kN/m)
                     objectType: BeltData
-                # StepLengthinMM:
-                #     # fieldTitle: Step Length (mm)
-                #     objectType: SpliceData
+                StepLengthinMM:
+                    objectType: SpliceData
                 RecommendedFastenerPlate: 
-                    # fieldTitle: Recommended Fastener Plate 
                     objectType: LoadSupport
-                # Hinge:
-                #     # fieldTitle: Hinge
-                #     objectType: SpliceData
-                # Hinge2:
-                #     # fieldTitle: Hinge 2
-                #     objectType: SpliceData
-        Load Support – Maximum Belt Width Data:
-            ColumnKeys: false
-            CS_Trough_Angle_Label: true
-            CS_Material_Weight_Label: true
-            Imperial:
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
-                KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
-                    objectType: LoadSupport
-                LoadSupportMaximumBeltWidthinInch640KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
-                LoadSupportMaximumBeltWidthinInch640KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
-                LoadSupportMaximumBeltWidthinInch640KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
-                LoadSupportMaximumBeltWidthinInch1280KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
-                LoadSupportMaximumBeltWidthinInch1280KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
-                LoadSupportMaximumBeltWidthinInch1280KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
-                LoadSupportMaximumBeltWidthinInch1920KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
-                LoadSupportMaximumBeltWidthinInch1920KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
-                LoadSupportMaximumBeltWidthinInch1920KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
-            Metric: 
-                # AdditionalGroupKey: Material Weight
-                # AdditionalHeaderKey: Trough Angle
-                KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
-                    objectType: BeltData
-                LoadSupportMaximumBeltWidthinMM640KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
-                LoadSupportMaximumBeltWidthinMM640KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
-                LoadSupportMaximumBeltWidthinMM640KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
-                LoadSupportMaximumBeltWidthinMM1280KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
-                LoadSupportMaximumBeltWidthinMM1280KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
-                LoadSupportMaximumBeltWidthinMM1280KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
-                LoadSupportMaximumBeltWidthinMM1920KGM20:
-                    # fieldTitle: 20
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
-                LoadSupportMaximumBeltWidthinMM1920KGM35:
-                    # fieldTitle: 35
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
-                LoadSupportMaximumBeltWidthinMM1920KGM45:
-                    # fieldTitle: 45
-                    objectType: LoadSupport
-                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
-        Troughability Minimum Belt Width:
-            ColumnKeys: true
-            CS_Idlers_Label: true
-            Imperial:
-                # AdditionalHeaderKey: Contiflex
-                # Idlers: true
-                KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
-                    objectType: LoadSupport
-                TroughabilityMinimumBeltsWidthinInch20:
-                    # fieldTitle: 20 degree
-                    objectType: LoadSupport
-                TroughabilityMinimumBeltsWidthinInch35:
-                    # fieldTitle: 35 degree
-                    objectType: LoadSupport
-                TroughabilityMinimumBeltsWidthinInch45:
-                    # fieldTitle: 45 degree
-                    objectType: LoadSupport
-            Metric:
-                # AdditionalHeaderKey: Contiflex
-                # Idlers: true
-                KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
-                    objectType: BeltData
-                TroughabilityMinimumBeltsWidthinMM20:
-                    # fieldTitle: 20 degree
-                    objectType: LoadSupport
-                TroughabilityMinimumBeltsWidthinMM35:
-                    # fieldTitle: 35 degree
-                    objectType: LoadSupport
-                TroughabilityMinimumBeltsWidthinMM45:
-                    # fieldTitle: 45 degree
-                    objectType: LoadSupport
-        Minimum Pulley Diameters:
-            ColumnKeys: true
-            Imperial:
-                # AdditionalHeaderKey: Contiflex
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    # fieldTitle: Vulcanized & Fastener Rating (PIW)
-                    objectType: LoadSupport
-                MinimumPulleyDiameterinInchGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinInch60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinInch40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinInch40Tension:
-                    # fieldTitle: Up to 40% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinInchTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
-                    objectType: BeltData
-            Metric: 
-                # AdditionalHeaderKey: Contiflex
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    # fieldTitle: Number of Plies
-                    objectType: Material
-                beltRatingNMM: 
-                    # fieldTitle: Belt Rating (kN/m)
-                    objectType: BeltData
-                MinimumPulleyDiameterinMMGreaterThan80Tension:
-                    # fieldTitle: Over 80% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinMM60_80Tension:
-                    # fieldTitle: 60% to 80% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinMM40_60Tension:
-                    # fieldTitle: 40% to 60% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinMM40Tension:
-                    # fieldTitle: Up to 40% Tension
-                    objectType: BeltData
-                MinimumPulleyDiameterinMMTailsAndSnubs:
-                    # fieldTitle: Tails and Snubs
-                    objectType: BeltData      
-    
-    # Conti Alert:
-
-    # Belt Monitoring Systems:
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
 Cover Options:
     Cover Compound Attributes:
         InternationalStandards: OptionsStandards

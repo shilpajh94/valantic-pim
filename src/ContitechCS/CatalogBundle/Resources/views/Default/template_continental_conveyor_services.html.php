@@ -14,7 +14,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     ?>
 <?php endif; ?>
 <?php if($data): ?>
-<div class="wrapper">
+<div class="wrapper conveyor-system">
     <header id="header">
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
@@ -42,7 +42,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange">
-
+                <span class="ccss-title">
                 <?php if($this->editmode): ?>
                 <?php if($this->input("CCS_Name")->isEmpty()): ?>
                 <?= $this->input("CCS_Name")->setDataFromResource($data['Name']) ?>
@@ -52,7 +52,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                 <?= $this->input("CCS_Name") ?>
                 <?php endif; ?>
-
+                </span>
                 <span class="sub-title">
                     <?php if($this->editmode): ?>
                     <?php if($this->input("CCS_ProductClaimSlogan")->isEmpty()): ?>
@@ -68,18 +68,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             </h1>
 
-            <p class="p-medium">
-
-                <?php if($this->editmode): ?>
-                <?php if($this->textarea("CSS_ShortText")->isEmpty()): ?>
-                <?= $this->textarea("CSS_ShortText")->setDataFromResource($data['ShortText']) ?>
-                <?php else: ?>
-                <?= $this->textarea("CSS_ShortText"); ?>
+            <div class="p-medium">
+                <p>
+                    <?php if($this->editmode): ?>
+                    <?php if($this->textarea("CSS_ShortText")->isEmpty()): ?>
+                    <?= $this->textarea("CSS_ShortText")->setDataFromResource($data['ShortText']) ?>
+                    <?php else: ?>
+                    <?= $this->textarea("CSS_ShortText"); ?>
+                    <?php endif; ?>
+                    <?php else: ?>
+                    <?= $this->textarea("CSS_ShortText") ?>
                 <?php endif; ?>
-                <?php else: ?>
-                <?= $this->textarea("CSS_ShortText") ?>
-                <?php endif; ?>
-            </p>
+                </p>
+            </div>
 
             <div class="features-benefit-sec ccs-service">
                 <?php if($data['childrenData']) {

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:28:04+01:00
+* Generated at: 2021-11-24T18:18:03+01:00
 * IP: 127.0.0.1
 
 
@@ -220,29 +220,21 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'EPDM for additionally wax resistance',
-                        'value' => 'EPDM for additionally wax resistance',
-                        'id' => 'extModel990-1',
+                        'key' => 'Alumina',
+                        'value' => 7501910,
                       ),
                       1 => 
                       array (
-                        'key' => 'V for additionally oil, grease and welding resistance',
-                        'value' => 'V for additionally oil, grease and welding resistance',
-                        'id' => 'extModel990-2',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'CE Standard black 57 Shore A rubber, KTL proof',
-                        'value' => 'CE Standard black 57 Shore A rubber, KTL proof',
-                        'id' => 'extModel990-3',
+                        'key' => 'Cement',
+                        'value' => 7501911,
                       ),
                     ),
                      'width' => 200,
                      'height' => 30,
                      'maxItems' => '',
                      'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
+                     'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                     'optionsProviderData' => 'CSMaterial|MaterialName',
                      'queryColumnType' => 'text',
                      'columnType' => 'text',
                      'phpdocType' => 'array',
