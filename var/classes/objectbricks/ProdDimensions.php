@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-24T09:44:33+01:00
+* Generated at: 2021-11-24T14:48:32+01:00
 * IP: 127.0.0.1
 
 
@@ -23,20 +23,17 @@ Fields Summary:
 - MaximumBeltWidthInch [numeric]
 - MinimumBeltWidthInch [numeric]
 - WeightLb [numeric]
-- BeltWidthmm3 [numeric]
+- BeltWidthmm [numeric]
 - Diameter [numeric]
 - VolumeFlow [numeric]
 - FingerLengthInch [numeric]
 - MaximumBeltWidthInchUnit [input]
 - MinimumBeltWidthInchUnit [input]
 - WeightLbUnit [input]
-- BeltWidthmm3Unit [input]
+- BeltWidthmmUnit [input]
 - DiameterUnit [input]
 - VolumeFlowUnit [input]
 - FingerLengthInchUnit [input]
-- BeltWidthBlock [block]
--- AvailableBeltWidth [select]
--- AvailablePatternWidth [multiselect]
 */ 
 
 
@@ -383,7 +380,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'MaximumBeltWidthMMUnit',
-                     'title' => '',
+                     'title' => 'MaximumBeltWidthMMUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -411,7 +408,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'MinimumBeltWidthMMUnit',
-                     'title' => '',
+                     'title' => 'MinimumBeltWidthMMUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -439,7 +436,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'WeightKGUnit',
-                     'title' => '',
+                     'title' => 'WeightKGUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -467,7 +464,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'BeltWidthUnit',
-                     'title' => '',
+                     'title' => 'BeltWidthUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -495,7 +492,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'DiameterInchUnit',
-                     'title' => '',
+                     'title' => 'DiameterInchUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -523,7 +520,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'AvailableProfilePatternWidthsUnit',
-                     'title' => '',
+                     'title' => 'AvailableProfilePatternWidthsUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -696,7 +693,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'BeltWidthmm3',
+                     'name' => 'BeltWidthmm',
                      'title' => 'Belt Width',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -840,7 +837,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'MaximumBeltWidthInchUnit',
-                     'title' => '',
+                     'title' => 'MaximumBeltWidthInchUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -868,7 +865,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'MinimumBeltWidthInchUnit',
-                     'title' => '',
+                     'title' => 'MinimumBeltWidthInchUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -896,7 +893,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'WeightLbUnit',
-                     'title' => '',
+                     'title' => 'WeightLbUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -923,8 +920,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'BeltWidthmm3Unit',
-                     'title' => '',
+                     'name' => 'BeltWidthmmUnit',
+                     'title' => 'BeltWidthmmUnit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -1023,41 +1020,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                ),
-                 'locked' => false,
-              )),
-            ),
-             'locked' => false,
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-             'fieldtype' => 'block',
-             'lazyLoading' => false,
-             'disallowAddRemove' => false,
-             'disallowReorder' => false,
-             'collapsible' => false,
-             'collapsed' => false,
-             'maxItems' => NULL,
-             'columnType' => 'longtext',
-             'styleElement' => '',
-             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'fieldtype' => 'select',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 24,
-                    'value' => 7501897,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 30,
-                    'value' => 7501898,
-                  ),
                 ),
                  'width' => '',
                  'defaultValue' => '',

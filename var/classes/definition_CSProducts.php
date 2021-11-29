@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-29T09:00:43+01:00
+* Generated at: 2021-11-29T01:39:06-05:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -18,8 +18,6 @@ Fields Summary:
 -- ProductDescription [textarea]
 -- ShortText [textarea]
 -- LongText [textarea]
--- Features [input]
--- Benefits [input]
 -- featureBlock [block]
 --- Feature [input]
 -- benefitBlock [block]
@@ -74,7 +72,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638172840,
+   'modificationDate' => 1638167940,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -261,7 +259,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -274,55 +271,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'NatureOfProduct',
-                     'title' => 'Nature of product',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => true,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                     'fieldtype' => 'textarea',
-                     'width' => 800,
-                     'height' => 150,
-                     'maxLength' => NULL,
-                     'showCharCount' => false,
-                     'excludeFromSearchIndex' => false,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'name' => 'ProductDescription',
-                     'title' => 'Product Description',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                     'fieldtype' => 'textarea',
-                     'width' => 800,
-                     'height' => 150,
-                     'maxLength' => NULL,
                      'showCharCount' => false,
                      'excludeFromSearchIndex' => false,
                      'queryColumnType' => 'longtext',
@@ -343,7 +291,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 800,
@@ -369,14 +317,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'fieldtype' => 'textarea',
+                     'width' => 800,
+                     'height' => 150,
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -397,14 +347,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'fieldtype' => 'textarea',
+                     'width' => 800,
+                     'height' => 150,
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -1310,38 +1262,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           3 => 
                           array (
-                            'value' => 55,
-                            'key' => 'a389752 (Randy Kish)',
+                            'value' => 63,
+                            'key' => 'a207963 (Mark Merklein)',
                           ),
                           4 => 
                           array (
-                            'value' => 2,
-                            'key' => 'admin',
+                            'value' => 94,
+                            'key' => 'a294838 (Karina Robinson)',
                           ),
                           5 => 
+                          array (
+                            'value' => 57,
+                            'key' => 'a339063 (Marie-Josee Brisson)',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 36,
+                            'key' => 'a352850 (Reji Joseph)',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 55,
+                            'key' => 'a389752 (Randy Kish)',
+                          ),
+                          8 => 
                           array (
                             'value' => 23,
                             'key' => 'Andy (Andy Speidel)',
                           ),
-                          6 => 
+                          9 => 
                           array (
                             'value' => 16,
                             'key' => 'Ben (Ben Tracey)',
-                          ),
-                          7 => 
-                          array (
-                            'value' => 11,
-                            'key' => 'cory (Cory Walter)',
-                          ),
-                          8 => 
-                          array (
-                            'value' => 21,
-                            'key' => 'Dave (Dave Smith)',
-                          ),
-                          9 => 
-                          array (
-                            'value' => 42,
-                            'key' => 'dobol (Laszlo Dobo)',
                           ),
                           10 => 
                           array (
@@ -1592,123 +1544,123 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           5 => 
                           array (
-                            'value' => 23,
-                            'key' => 'Andy (Andy Speidel)',
+                            'value' => 15,
+                            'key' => 'Nicole (Nicole Kostelnick)',
                           ),
                           6 => 
                           array (
-                            'value' => 16,
-                            'key' => 'Ben (Ben Tracey)',
+                            'value' => 48,
+                            'key' => 'nlndv68 (Jeff Epperson)',
                           ),
                           7 => 
                           array (
-                            'value' => 11,
-                            'key' => 'cory (Cory Walter)',
+                            'value' => 27,
+                            'key' => 'Paul (Paul Whiffin)',
                           ),
                           8 => 
                           array (
-                            'value' => 21,
-                            'key' => 'Dave (Dave Smith)',
+                            'value' => 35,
+                            'key' => 'Pradeep',
                           ),
-                          9 => 
+                          40 => 
                           array (
-                            'value' => 42,
-                            'key' => 'dobol (Laszlo Dobo)',
+                            'value' => 34,
+                            'key' => 'productmanager',
                           ),
-                          10 => 
+                          41 => 
                           array (
-                            'value' => 33,
-                            'key' => 'editor',
+                            'value' => 62,
+                            'key' => 'rajputa (Amit Rajput)',
                           ),
-                          11 => 
+                          42 => 
                           array (
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
                           12 => 
                           array (
-                            'value' => 28,
-                            'key' => 'Jarek (Jarek Zakrzewski)',
+                            'value' => 82,
+                            'key' => 'rowshm (Mehdi Rowshannahad)',
                           ),
                           13 => 
                           array (
-                            'value' => 20,
-                            'key' => 'Jeff (Jeff Epperson)',
+                            'value' => 67,
+                            'key' => 'schickedanzm (Malte Schickedanz)',
                           ),
                           14 => 
                           array (
-                            'value' => 25,
-                            'key' => 'Jeremy (Jeremy Lidgett)',
+                            'value' => 70,
+                            'key' => 'steinerd (Daniel Steiner)',
                           ),
                           15 => 
                           array (
-                            'value' => 14,
-                            'key' => 'Joe (joe glandorf)',
+                            'value' => 18,
+                            'key' => 'Steve (Steve Davison)',
                           ),
                           16 => 
                           array (
-                            'value' => 26,
-                            'key' => 'Karina (Karina Robinson)',
+                            'value' => 85,
+                            'key' => 'uia54546 (Tatjana Kempf)',
                           ),
                           17 => 
                           array (
-                            'value' => 17,
-                            'key' => 'Laszlo (Laszlo Dobo)',
+                            'value' => 86,
+                            'key' => 'uia54883 (Janina Gruebel)',
                           ),
                           18 => 
                           array (
-                            'value' => 12,
-                            'key' => 'macenzie',
+                            'value' => 88,
+                            'key' => 'uia56532 (Simone Wieland)',
                           ),
                           19 => 
                           array (
-                            'value' => 8,
-                            'key' => 'Mark (Rohan Kumar)',
+                            'value' => 87,
+                            'key' => 'uia94201 (Annika Duerr)',
                           ),
                           20 => 
                           array (
-                            'value' => 24,
-                            'key' => 'MarkR (Mark Rosetta)',
+                            'value' => 78,
+                            'key' => 'uib09594 (Lars Tiedje)',
                           ),
                           21 => 
                           array (
-                            'value' => 51,
-                            'key' => 'ncem057 (Steve Davison)',
+                            'value' => 64,
+                            'key' => 'uib68208 (Krishan Kumar)',
                           ),
                           22 => 
                           array (
-                            'value' => 15,
-                            'key' => 'Nicole (Nicole Kostelnick)',
+                            'value' => 65,
+                            'key' => 'uib68209 (Siddharth Chaudhery)',
                           ),
                           23 => 
                           array (
-                            'value' => 48,
-                            'key' => 'nlndv68 (Jeff Epperson)',
+                            'value' => 58,
+                            'key' => 'uib98517 (Toks Ajepe)',
                           ),
                           24 => 
                           array (
-                            'value' => 27,
-                            'key' => 'Paul (Paul Whiffin)',
+                            'value' => 72,
+                            'key' => 'uic39540 (Cedric Schulz)',
                           ),
                           25 => 
                           array (
-                            'value' => 35,
-                            'key' => 'Pradeep',
+                            'value' => 69,
+                            'key' => 'uic52020 (Oktay Oezcan)',
                           ),
                           26 => 
                           array (
-                            'value' => 34,
-                            'key' => 'productmanager',
+                            'value' => 41,
+                            'key' => 'uic58260 (Evan Wasen)',
                           ),
                           27 => 
                           array (
-                            'value' => 29,
-                            'key' => 'Randy (Rohan Kumar)',
+                            'value' => 90,
+                            'key' => 'uie32847 (Andrea Traeger)',
                           ),
                           28 => 
                           array (
-                            'value' => 9,
-                            'key' => 'Reji',
+                            'value' => 80,
+                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
                           ),
                           29 => 
                           array (
