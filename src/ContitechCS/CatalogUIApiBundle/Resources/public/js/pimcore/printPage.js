@@ -51,8 +51,14 @@ pimcore.plugin.lpe.printPage = Class.create({
             myMask.hide();
         }, 3000);
 
-        return false; */
-        
+        return false; */ 
+
+
+        /* var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+
+        myMask.unMask(); */
+    
+
         Ext.Ajax.request({
             url: "/move-container-pdf-to-assets",
             params: {
