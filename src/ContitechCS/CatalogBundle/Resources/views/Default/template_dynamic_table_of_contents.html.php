@@ -55,21 +55,40 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <?php 
                                     $k=0;
                                     while($this->block("CBS_TOC_ContentBlock_$i_$j",['default' => 1])->loop()) 
-                                    {   
-                                        foreach($childs as $key => $pageName){
+                                    {      
+                                        if($k==0)
+                                        {
+                                            foreach($childs as $key => $pageName)
+                                            {
+                                                ?>
+                                                    <li>
+                                                        <span
+                                                            class="chapter"><?= $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
+                                                        </span>
+                                                        <span
+                                                            class="page"><?= $this->input("CBS_TOC_Page$k_$key", ['placeholder' => 'Enter page number here.']); ?></span>
+                                                    </li>
+    
+                                                    <!-- add rest html here -->
+                                                    
+                                                <?php 
+                                            }
+                                        }
+                                        else
+                                        {
                                             ?>
                                                 <li>
                                                     <span
-                                                        class="chapter"><?= $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
+                                                        class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
                                                     </span>
                                                     <span
-                                                        class="page"><?= $this->input("CBS_TOC_Page$k_$key", ['placeholder' => 'Enter page number here.']); ?></span>
+                                                        class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
                                                 </li>
 
                                                 <!-- add rest html here -->
-                                                
-                                            <?php 
+                                            <?php
                                         }
+                                    $k++;    
                                     }
                                 ?>
                                 </ul>
