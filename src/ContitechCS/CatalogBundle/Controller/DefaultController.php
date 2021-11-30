@@ -609,8 +609,9 @@ class DefaultController extends FrontendController
                 $coverCompounds = [];
                 $level3rdObjectData = [];
                 $singleProductPage = [];
+                $CS_Compounds = $this->addPrefix('Compounds');
                 $coverCompoundsHeaderKeys = [];
-                $coverCompoundsHeaderKeys[] = 'Compounds';
+                $coverCompoundsHeaderKeys[] = $CS_Compounds;
                 $onlyOnce = false;
                 
                 if($CSHierarchyObjChild)
@@ -694,7 +695,6 @@ class DefaultController extends FrontendController
                                                 $bricks = $child->getProductAttributes();
 
                                                 foreach ($coverOptionsAttributes as $key => $brickName) {
-                                                    
 
                                                     $getBrick = 'get' . $brickName;
                                                     $getField = 'get' . $key;
@@ -829,21 +829,78 @@ class DefaultController extends FrontendController
 
                         $bricks = $child->getProductAttributes();
 
-                        $tableFieldData = [];
+                        // $tableFieldData = [];
+                        $rowsData = [];
+                        $array_count = 1;
                         if($bricks)
                         {  
-                            foreach ($CommonBeltProfileAttributes as $fieldName => $brickName) {
-
+                            foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
+                                $fieldNameConfigArray = explode('~',$fieldNameConfig);
+                                $brickName = $fieldNameConfigArray[0];
                                 $getBrick = 'get' . $brickName;
                                 $getField = 'get' . $fieldName;
-                                if($bricks->$getBrick() && $bricks->$getBrick()->$getField())
-                                {   
-                                    $fieldName = $this->addPrefix($fieldName);
-                                    $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
+                                // p_r($fieldName);
+                                // p_r($bricks->$getBrick());
+
+                                if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
+                                {
+                                    if($bricks->$getBrick() && $bricks->$getBrick()->$getField())
+                                    {   
+                                        $fieldName = $this->addPrefix($fieldName);
+                                        // $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
+                                        $colData[] = $fieldName;
+                                        $colData[] = $bricks->$getBrick()->$getField();
+                                    }
                                 }
+                                else
+                                {
+                                    $fieldBlockName = $fieldNameConfigArray[1];
+                                    $getfieldBlockName = 'get' . $fieldBlockName;
+                                    if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
+                                    {
+                                        $fieldData = [];
+                                        $fieldNameWithPrefix = $this->addPrefix($fieldName);
+                                        $colData[] = $fieldNameWithPrefix;
+                                        foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
+                                        {
+                                            $fieldData[] = $obj[$fieldName]->getData();
+                                            $colDataMultiSelect = $obj[$fieldName]->getData();
+                                            if(is_array($colDataMultiSelect))
+                                            {
+                                                foreach ($colDataMultiSelect as  $value) {
+                                                    $colData[] = $value;
+                                                }
+                                            }
+                                            else{
+                                                $colData[] = $obj[$fieldName]->getData();
+                                            }
+                                            
+                                        }
+                                        
+                                        // $tableFieldData[$fieldName] = $fieldData;
+                                        
+                                        // $colData[] = $fieldData;
+                                    }
+                                }
+                                
+                                if($colData)
+                                {
+                                    $colData = \array_unique($colData);
+                                    if($array_count < count($colData))
+                                    {
+                                        $array_count = count($colData);
+                                    }
+
+                                    $rowsData[] = $colData;
+                                }
+                                unset($colData);
                             }
                         }   
-                        $data['tableFieldData'] = $tableFieldData;
+                        $data['tableFieldData'] = $rowsData;
+                        // $data['ntableFieldData'] = $rowsData;
+                        $data['maxColumns'] = $array_count;
+                        // p_r($data);
+                        // die;
                         
                         $childrenData[] = $data;
                     }
@@ -852,11 +909,11 @@ class DefaultController extends FrontendController
 
             $productData['childrenData'] = $childrenData;
 
-            $regionsArr = $this->getCSRegionNameByIds($productDetails->getCSRegion());
+            // $regionsArr = $this->getCSRegionNameByIds($productDetails->getCSRegion());
 
             $ymlData = $this->configProviderService->getBrickMappingConfig();
             
-            if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && in_array($ymlData['cleated_belts_table_display_in_region']['regionName'],$regionsArr))
+            if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
             {
                 $displayTablesFlag = true;
             }

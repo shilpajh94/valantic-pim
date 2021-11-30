@@ -2401,18 +2401,20 @@ Cover Options:
         OilResistance: Performance1
         FlameResistance: Performance1
         ISO284StaticConductive: Performance1
+        ASTMShoreHardness: Performance2
         MinTensilePSI: Performance1
         MinElongationPercent: Performance1
+        DINAbrasion: Performance2
     Product Page: Solar-Shield Series
 Common Belt Profile Attributes:
-    CleatHeightInch: Material # Cleat Height in
-    AvailableBeltWidthInch: WidthLength
-    AvailableProfilePatternWidths: ProdDimensions #Available Pattern Widths
-    BeltWidth: ProdDimensions
-    BeltWidthmm3: ProdDimensions
-    ProfileWidthMM: WidthLength
-    ProfileWidthInch: WidthLength
-    AdditionalInformation: BeltData
+    CleatHeightInch: Material~input
+    availableBeltWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~select
+    availablePatternWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~multiselect
+    # BeltWidth: ProdDimensions
+    # BeltWidthmm3: ProdDimensions
+    # ProfileWidthMM: WidthLength
+    # ProfileWidthInch: WidthLength
+    # AdditionalInformation: BeltData
 ContiPipe and MegaPipe Table Attributes:
     DiameterInch:   ProdDimensions #diameter in
     Diameter:       ProdDimensions #diameter mm

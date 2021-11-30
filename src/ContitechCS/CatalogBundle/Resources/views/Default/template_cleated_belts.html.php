@@ -165,7 +165,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             <thead>
                                                 <tr>
                                                     <th class="orange" colspan="3">
-                                                    <?= $this->input("P_N_Belt_Construction"); ?>   
+                                                    <?= $this->input("P_N_Belt_Construction", ['placeholder'=>'Cleated Belt Compounds']); ?>   
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -433,18 +433,39 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <tbody>
 
                                         <?php 
-                                            foreach ($child['tableFieldData'] as $fieldName => $fieldValue) {
+                                            $maxColumns = $child['maxColumns'];
+                                            foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
+                                                $colspan = ($maxColumns - count($rowArray)) + 1;
+                                                $firstKey = array_key_first($rowArray);
+
                                                 ?>
-                                                    <tr>
-                                                        <th class="orange text-right">
-                                                            <?= $this->translate($fieldName); ?>
-                                                        </th>
-                                                        <td colspan="6">
-                                                            <?= $fieldValue; ?>
-                                                            <?= $this->translate('CS_Unit_in') ?>
-                                                        </td>
-                                                    </tr>
+
+                                                <tr>
+
                                                 <?php
+                                                $i = 0;
+                                                // for ($i=0; $i < ; $i++) { 
+                                                    # code...
+                                                // }
+                                                for ($i; $i < $maxColumns; $i++ ) {
+
+                                                    if($firstKey == $i)
+                                                    {
+                                                        ?>
+                                                        <th class="orange text-right">
+                                                            <?= $this->translate($rowArray[$i]); ?>
+                                                        </th>
+                                                    <?php
+                                                    }
+                                                    else{
+                                                        ?>
+                                                        <td colspan="<?= $colspan?>">
+                                                            <?= $rowArray[$i]; ?>
+                                                            
+                                                        </td>
+                                                        <?php
+                                                    }
+                                                }
                                             }
                                         ?>
                                     </tbody>
