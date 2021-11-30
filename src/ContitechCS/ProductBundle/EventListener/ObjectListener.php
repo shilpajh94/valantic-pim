@@ -178,30 +178,39 @@ class ObjectListener
 
             if ($className == 'CSProducts' && php_sapi_name() != "cli") {
                 $argument = $event->getArguments();
-                if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
-                    $regionArray = $object->getCSRegion();
-                    if (is_array($regionArray) && !empty($regionArray)) {
-                        $folderCreationPath = '';
-                        $masterRegionArray = $this->getAllRegions();
-                        $firstRegionId = trim($regionArray[0]);
-                        $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
-                        $parent = $object->getParent();
-                        $folderCreationPath = $object->getPath();
-
-                        foreach ($masterRegionArray as $region) {
-                            if (strpos($folderCreationPath, $region) !== false) {
-                                $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
-                            }
-                        }
-                        foreach ($masterRegionArray as $region) {
-                            if (strpos($folderCreationPath, $region) === false && $region == $regionName) {
-                                $folderCreationPath = $folderCreationPath . "/" . $regionName;
-                            }
-                        }
-                        $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
-                        $object->setParentId($parentId);
+                //if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
+                $regionArray = $object->getCSRegion();
+                if (is_array($regionArray) && !empty($regionArray)) {
+                    $folderCreationPath = '';
+                    $masterRegionArray = $this->getAllRegions();
+                    $firstRegionId = trim($regionArray[0]);
+                    $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
+                    $parent = $object->getParent();
+                    $folderCreationPath = $object->getPath();
+                    if (strpos($regionName, "/") !== false) {
+                        $regionName = str_replace("/", "-", $regionName);
                     }
+
+                    foreach ($masterRegionArray as $region) {
+                        if (strpos($region, "/") !== false) {
+                            $region = str_replace("/", "-", $region);
+                        }
+                        if (strpos($folderCreationPath, $region) !== false) {
+                            $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
+                        }
+                    }
+                    foreach ($masterRegionArray as $region) {
+                        if (strpos($region, "/") !== false) {
+                            $region = str_replace("/", "-", $region);
+                        }
+                        if ((strpos($folderCreationPath, $region) === false) && $region == $regionName) {
+                            $folderCreationPath = $folderCreationPath . "/" . $regionName;
+                        }
+                    }
+                    $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
+                    $object->setParentId($parentId);
                 }
+                //}
             }
         }
     }
