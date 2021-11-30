@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-29T01:39:06-05:00
+* Generated at: 2021-11-30T05:20:33-05:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -72,7 +72,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638167940,
+   'modificationDate' => 1638267633,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
