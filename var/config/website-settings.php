@@ -40,5 +40,25 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1637830358
+    ],
+    7 => [
+        "id" => 7,
+        "name" => "CS_cover_page_folder_name",
+        "language" => "",
+        "type" => "text",
+        "data" => "coverPage",
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1638176697
+    ],
+    8 => [
+        "id" => 8,
+        "name" => "CS_cover_page_assets_folder",
+        "language" => "",
+        "type" => "text",
+        "data" => "Contitech_ConveyorSolution/container_pdf/cover_page",
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1638178979
     ]
 ];

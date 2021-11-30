@@ -16,7 +16,7 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
 
         
 
-        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/EMEA/";
+        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/EMEA/en/";
 
         let docPath = doc.data.path;
         let docType = doc.data.type;

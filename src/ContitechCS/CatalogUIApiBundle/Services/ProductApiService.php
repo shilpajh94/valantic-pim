@@ -12,6 +12,8 @@ use Pimcore\Model\DataObject;
 use ContitechCS\CatalogUIApiBundle\Interfaces\ConstantsInterface;
 use \Exception;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
+use Symfony\Component\HttpFoundation\Request;
+
 
 
 class ProductApiService implements ConstantsInterface
@@ -84,10 +86,10 @@ class ProductApiService implements ConstantsInterface
             ];
             return $response; */
 
-
             $result = $this->dbModelService->getProductgroupCatalogs();
 
-            if(!$result){
+            if(!$result)
+            {
               throw new Exception(self::RECORDS_NOT_FOUND);
             }
 
@@ -96,17 +98,19 @@ class ProductApiService implements ConstantsInterface
             $data = [];
             foreach($result as $val)
             {   
-                $containerId = $val['ContainerId'];
-                $arr = [];
-                $object = \Pimcore\Model\DataObject::getById($val['ProductgGroupId']);
-                if(method_exists($object,'getName')){
+                $containerId  = $val['ContainerId'];
+                $arr          = [];
+                $object       = \Pimcore\Model\DataObject::getById($val['ProductgGroupId']);
+                if(method_exists($object,'getName'))
+                {
                   $arr['name'] = $object->getName();
                 }
-                else{
+                else
+                {
                   $arr['name'] = '';
                 }
-                $arr['id'] = $object->getId();
 
+                $arr['id']    = $object->getId();
                 $objContainer = \Pimcore\Model\Document::getById($containerId);
 
                 if(method_exists($objContainer,'getAllChildren') && $objContainer->getAllChildren())
@@ -131,16 +135,58 @@ class ProductApiService implements ConstantsInterface
                     }
                   }
                 }
-                
                 $data[] = $arr;
-            }
+              }
+              $response['backAndFrontCoverPDF'] =   $this->getCoverPagePdfLink();
+              $response['catalog']              =   $data;
             
-            return $data;
+            return $response;
         }
         catch (Exception $e) 
         {  
             throw new Exception($e->getMessage());
         }
     }
+
+    private function getCoverPagePdfLink()
+    {    
+        try
+        {
+          $req            = Request::createFromGlobals();
+          $language       = $req->get('language');
+
+          $parentPath = $this->ConfigProviderService->getWebSiteSetting('CS_cover_page_assets_folder');
+          $parentPath = $parentPath ? $parentPath.'/'.$language : 'Contitech_ConveyorSolution/container_pdf/cover_page/'.$language;
+          
+          $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath"); 
+          
+          $pdfArr = [];
+          if($obj)
+          {
+            $listing = new \Pimcore\Model\Asset\Listing(); 
+            $listing->setCondition("parentId = ".$obj->getId());
+            
+            if(count($listing))
+            {
+              foreach($listing as $key => $objAsset)
+              {
+                if($key == 0)
+                {
+                  $pdfArr['frontCoverPDF'] = $objAsset->getPath().$objAsset->getFileName();
+                }
+                else
+                {
+                  $pdfArr['backCoverPDF'] = $objAsset->getPath().$objAsset->getFileName();
+                }
+              }
+            }
+          }
+          return $pdfArr;
+        }
+        catch (Exception $e) 
+        {  
+            throw new Exception($e->getMessage());
+        }
+    } 
 }
 
