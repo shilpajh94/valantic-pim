@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:27:51+01:00
-* IP: 127.0.0.1
+* Generated at: 2021-11-30T04:09:39-05:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -15,9 +15,9 @@ Fields Summary:
 - LoadSupportMaximumBeltWidthinMM1920KGM20 [numeric]
 - LoadSupportMaximumBeltWidthinMM1920KGM35 [numeric]
 - LoadSupportMaximumBeltWidthinMM1920KGM45 [numeric]
+- LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20 [numeric]
 - LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35 [numeric]
 - LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45 [numeric]
-- LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20 [numeric]
 - TroughabilityMinimumBeltsWidthinMM20 [numeric]
 - TroughabilityMinimumBeltsWidthinMM35 [numeric]
 - TroughabilityMinimumBeltsWidthinMM45 [numeric]
@@ -32,9 +32,9 @@ Fields Summary:
 - LoadSupportMaximumBeltWidthinMM1920KGM20_Unit [input]
 - LoadSupportMaximumBeltWidthinMM1920KGM35_Unit [input]
 - LoadSupportMaximumBeltWidthinMM1920KGM45_Unit [input]
+- LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20_Unit [input]
 - LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35_Unit [input]
 - LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45_Unit [input]
-- LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20_Unit [input]
 - TroughabilityMinimumBeltsWidthinMM20_Unit [input]
 - TroughabilityMinimumBeltsWidthinMM35_Unit [input]
 - TroughabilityMinimumBeltsWidthinMM45_Unit [input]
@@ -48,9 +48,9 @@ Fields Summary:
 - LoadSupportMaximumBeltWidthinInch1920KGM20 [numeric]
 - LoadSupportMaximumBeltWidthinInch1920KGM35 [numeric]
 - LoadSupportMaximumBeltWidthinInch1920KGM45 [numeric]
+- LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20 [numeric]
 - LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35 [numeric]
 - LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45 [numeric]
-- LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20 [numeric]
 - TroughabilityMinimumBeltsWidthinInch20 [numeric]
 - TroughabilityMinimumBeltsWidthinInch35 [numeric]
 - TroughabilityMinimumBeltsWidthinInch45 [numeric]
@@ -64,9 +64,9 @@ Fields Summary:
 - LoadSupportMaximumBeltWidthinInch1920KGM20_Unit [input]
 - LoadSupportMaximumBeltWidthinInch1920KGM35_Unit [input]
 - LoadSupportMaximumBeltWidthinInch1920KGM45_Unit [input]
+- LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20_Unit [input]
 - LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35_Unit [input]
 - LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45_Unit [input]
-- LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20_Unit [input]
 - TroughabilityMinimumBeltsWidthinInch20_Unit [input]
 - TroughabilityMinimumBeltsWidthinInch35_Unit [input]
 - TroughabilityMinimumBeltsWidthinInch45_Unit [input]
@@ -459,8 +459,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 35 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20',
+                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 20 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -490,8 +490,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 45 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35',
+                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 35 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -521,8 +521,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 20 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45',
+                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 45 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -975,14 +975,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;margin-top:9px;',
+                     'style' => 'padding-left:10px;margin-top:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1003,7 +1003,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1031,14 +1031,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;margin-top:10px;',
+                     'style' => 'padding-left:10px;margin-top:9px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1197,7 +1197,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch640KGM20',
-                     'title' => 'Load-support maximum belt width (0-640 kg/m²; 20 °)',
+                     'title' => 'Load-support maximum belt width in inches (0-40 lb./cu. ft.; 20°)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1228,7 +1228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch640KGM35',
-                     'title' => 'Load-support maximum belt width (0-640 kg/m²; 35 °)',
+                     'title' => 'Load-support maximum belt width in inches (0-40 lb./cu. ft.; 35 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1259,7 +1259,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch640KGM45',
-                     'title' => 'Load-support maximum belt width (0-640 kg/m²; 45 °)',
+                     'title' => 'Load-support maximum belt width in inches (0-40 lb./cu. Ft.; 45 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1290,7 +1290,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1280KGM20',
-                     'title' => 'Load-support maximum belt width (641-1280 kg/m²; 20 °)',
+                     'title' => 'Load-support maximum belt width in inches (41-80 lb./cu. ft.; 20 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1321,7 +1321,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1280KGM35',
-                     'title' => 'Load-support maximum belt width (641-1280 kg/m²; 35 °)',
+                     'title' => 'Load-support maximum belt width in inches (41-80 lb./cu. ft.; 35 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1352,7 +1352,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1280KGM45',
-                     'title' => 'Load-support maximum belt width (641-1280 kg/m²; 45 °)',
+                     'title' => 'Load-support maximum belt width in inches (41-80 lb./cu. ft.; 45 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1383,7 +1383,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1920KGM20',
-                     'title' => 'Load-support maximum belt width (1281-1920 kg/m²; 20 °)',
+                     'title' => 'Load-support maximum belt width in inches (81-120 lb./cu. ft.; 20 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1414,7 +1414,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1920KGM35',
-                     'title' => 'Load-support maximum belt width (1281-1920 kg/m²; 35 °)',
+                     'title' => 'Load-support maximum belt width in inches (81-120 lb./cu. ft.; 35 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1445,7 +1445,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'LoadSupportMaximumBeltWidthinInch1920KGM45',
-                     'title' => 'Load-support maximum belt width (1281-1920 kg/m²; 45 °)',
+                     'title' => 'Load-support maximum belt width in inches (81-120 lb./cu. ft.; 45 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1475,8 +1475,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 35 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20',
+                     'title' => 'Load-support maximum belt width in inches (Over 120 lb./cu. ft.; 20 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1506,8 +1506,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 45 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35',
+                     'title' => 'Load-support maximum belt width in inches (Over 120 lb./cu. ft.; 35 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1537,8 +1537,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20',
-                     'title' => 'Load-support maximum belt width (>1920 kg/m²; 20 °)',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45',
+                     'title' => 'Load-support maximum belt width in inches (Over 120 lb./cu. ft.; 45 °)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1703,7 +1703,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
-                     'defaultValue' => 'inch',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1963,14 +1963,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;margin-top:9px;',
+                     'style' => 'padding-left:10px;margin-top:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1991,7 +1991,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -2019,14 +2019,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20_Unit',
+                     'name' => 'LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45_Unit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;margin-top:10px;',
+                     'style' => 'padding-left:10px;margin-top:9px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
