@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-30T05:00:07-05:00
-* IP: ::1
+* Generated at: 2021-11-30T14:43:47+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -38,6 +38,9 @@ Fields Summary:
 - DiameterUnit [input]
 - VolumeFlowUnit [input]
 - FingerLengthInchUnit [input]
+- AvailableBeltPatternWidthBlock [block]
+-- availableBeltWidthInch [select]
+-- availablePatternWidthInch [multiselect]
 */ 
 
 
@@ -212,7 +215,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -341,7 +344,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => false,
+                     'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
@@ -473,7 +476,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:10px;margin-top:4px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -590,7 +593,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => false,
+                     'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
@@ -725,7 +728,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -986,7 +989,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:10px;margin-top:4px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1141,6 +1144,165 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               )),
             ),
              'locked' => false,
+          )),
+        ),
+         'locked' => false,
+         'icon' => '',
+      )),
+      1 => 
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+         'fieldtype' => 'panel',
+         'labelWidth' => 100,
+         'layout' => NULL,
+         'border' => false,
+         'name' => 'Layout',
+         'type' => NULL,
+         'region' => NULL,
+         'title' => '',
+         'width' => NULL,
+         'height' => NULL,
+         'collapsible' => false,
+         'collapsed' => false,
+         'bodyStyle' => '',
+         'datatype' => 'layout',
+         'permissions' => NULL,
+         'childs' => 
+        array (
+          0 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+             'fieldtype' => 'block',
+             'lazyLoading' => false,
+             'disallowAddRemove' => false,
+             'disallowReorder' => false,
+             'collapsible' => false,
+             'collapsed' => false,
+             'maxItems' => NULL,
+             'columnType' => 'longtext',
+             'styleElement' => '',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\BlockElement[][]',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'fieldtype' => 'select',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => '24',
+                    'value' => 24,
+                  ),
+                  1 => 
+                  array (
+                    'key' => '30',
+                    'value' => 30,
+                  ),
+                ),
+                 'width' => '',
+                 'defaultValue' => '',
+                 'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\AvailableBeltWidthOptionProvider',
+                 'optionsProviderData' => '',
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'dynamicOptions' => false,
+                 'name' => 'availableBeltWidthInch',
+                 'title' => 'Available Belt Width (in)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'fieldtype' => 'multiselect',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => '24',
+                    'value' => NULL,
+                  ),
+                  1 => 
+                  array (
+                    'key' => '18',
+                    'value' => NULL,
+                  ),
+                  2 => 
+                  array (
+                    'key' => '48',
+                    'value' => NULL,
+                  ),
+                  3 => 
+                  array (
+                    'key' => '42',
+                    'value' => NULL,
+                  ),
+                  4 => 
+                  array (
+                    'key' => '30',
+                    'value' => NULL,
+                  ),
+                  5 => 
+                  array (
+                    'key' => 'countinues',
+                    'value' => NULL,
+                  ),
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => '',
+                 'renderType' => 'tags',
+                 'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\AvailablePatternWidthOptionProvider',
+                 'optionsProviderData' => '',
+                 'queryColumnType' => 'text',
+                 'columnType' => 'text',
+                 'phpdocType' => 'array',
+                 'dynamicOptions' => false,
+                 'name' => 'availablePatternWidthInch',
+                 'title' => 'Available Pattern Width (inch)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'layout' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'name' => 'AvailableBeltPatternWidthBlock',
+             'title' => 'Available Belt / Pattern Width Block',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
           )),
         ),
          'locked' => false,
