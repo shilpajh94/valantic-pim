@@ -3997,15 +3997,59 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n   oo_id As 'Pimcore Id', \n    Name,\n    CorporateBrand As 'Corporate Brand',\n    ProductBrand As 'Product Brand',\n   IF(object_CSProducts.`isArchived` = 1, \"True\", \"False\") AS `Archived`",
-                "from" => "FROM object_CSProducts",
-                "where" => "WHERE isArchived = 1",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  o1.CorporateBrand As 'Corporate Brand',\n  o1.ProductBrand As 'Product Brand',\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \n  where wf.place = 'archived' ORDER BY\n  (o1.`o_creationDate`) DESC",
+                "from" => "",
+                "where" => "",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-
+            [
+                "name" => "Pimcore Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1021-1"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1021-2"
+            ],
+            [
+                "name" => "Corporate Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1021-3"
+            ],
+            [
+                "name" => "Product Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1021-4"
+            ],
+            [
+                "name" => "Archived",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1021-5"
+            ]
         ],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
@@ -4020,7 +4064,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635414958,
+        "modificationDate" => 1638359483,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
