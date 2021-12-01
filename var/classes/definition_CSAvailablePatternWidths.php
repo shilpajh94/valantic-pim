@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-30T13:27:22+01:00
+* Generated at: 2021-12-01T06:45:59+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -11,7 +11,8 @@
 Fields Summary: 
 - AvailableProfilePatternWidthsMM [numeric]
 - AvailableProfilePatternWidthsInch [numeric]
-- AvailablePatternWidthText [input]
+- localizedfields [localizedfields]
+-- AvailablePatternWidthText [input]
 - AvailableProfilePatternWidthsMMUnit [input]
 - AvailableProfilePatternWidthsInchUnit [input]
 */ 
@@ -22,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSAvailablePatternWidths',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638275241,
+   'modificationDate' => 1638337552,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -176,32 +177,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'AvailablePatternWidthText',
-                     'title' => 'Available Pattern Width Text',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                     'fieldtype' => 'localizedfields',
+                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'AvailablePatternWidthText',
+                         'title' => 'Available Pattern Width Text',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'name' => 'localizedfields',
+                     'region' => NULL,
+                     'layout' => NULL,
+                     'title' => '',
+                     'width' => '',
+                     'height' => '',
+                     'maxTabs' => NULL,
+                     'labelWidth' => NULL,
+                     'border' => false,
+                     'provideSplitView' => false,
+                     'tabPosition' => NULL,
+                     'hideLabelsWhenTabsReached' => NULL,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'tooltip' => NULL,
+                     'mandatory' => NULL,
+                     'noteditable' => NULL,
+                     'index' => NULL,
                      'locked' => NULL,
-                     'style' => 'margin-left:10px;',
+                     'style' => NULL,
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
                      'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
+                     'visibleGridView' => true,
+                     'visibleSearch' => true,
                   )),
                 ),
                  'locked' => false,

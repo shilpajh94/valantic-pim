@@ -46,10 +46,10 @@ class AvailablePatternWidthOptionProvider implements MultiSelectOptionsProviderI
         foreach ($AvailablePatternWidthList as $option) {
             if($option->getAvailableProfilePatternWidthsInch())
             {
-                $result[] = array('key' => $option->getKey(), 'value' => $option->getAvailableProfilePatternWidthsInch());
+                $result[] = array('key' => $option->getAvailableProfilePatternWidthsInch(), 'value' => $option->getId());
             }
             else{
-                $result[] = array('key' => $option->getKey(), 'value' => $option->getAvailablePatternWidthText());
+                $result[] = array('key' => $option->getAvailablePatternWidthText(), 'value' => $option->getId());
             }
         }
         return $result;

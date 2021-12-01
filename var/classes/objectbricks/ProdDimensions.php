@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-30T14:43:47+01:00
+* Generated at: 2021-12-01T06:50:34+01:00
 * IP: 127.0.0.1
 
 
@@ -1189,13 +1189,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'key' => '24',
-                    'value' => 24,
+                    'key' => 24,
+                    'value' => 7501897,
                   ),
                   1 => 
                   array (
-                    'key' => '30',
-                    'value' => 30,
+                    'key' => 30,
+                    'value' => 7501898,
                   ),
                 ),
                  'width' => '',
@@ -1213,7 +1213,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1230,33 +1230,33 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'key' => '24',
-                    'value' => NULL,
+                    'key' => 24,
+                    'value' => 7501901,
                   ),
                   1 => 
                   array (
-                    'key' => '18',
-                    'value' => NULL,
+                    'key' => 18,
+                    'value' => 7501902,
                   ),
                   2 => 
                   array (
-                    'key' => '48',
-                    'value' => NULL,
+                    'key' => 48,
+                    'value' => 7501903,
                   ),
                   3 => 
                   array (
-                    'key' => '42',
-                    'value' => NULL,
+                    'key' => 42,
+                    'value' => 7501904,
                   ),
                   4 => 
                   array (
-                    'key' => '30',
-                    'value' => NULL,
+                    'key' => 30,
+                    'value' => 7501905,
                   ),
                   5 => 
                   array (
-                    'key' => 'countinues',
-                    'value' => NULL,
+                    'key' => 'continues',
+                    'value' => 7501927,
                   ),
                 ),
                  'width' => '',
@@ -1275,7 +1275,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1295,7 +1295,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
