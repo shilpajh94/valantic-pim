@@ -15,10 +15,10 @@
 
 namespace ContitechCS\ProductBundle\OptionProvider;
 
-use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 use Pimcore\Model\DataObject;
 
-class AvailablePatternWidthOptionProvider implements SelectOptionsProviderInterface
+class AvailablePatternWidthOptionProvider implements MultiSelectOptionsProviderInterface
 {
 
     /**
@@ -44,7 +44,7 @@ class AvailablePatternWidthOptionProvider implements SelectOptionsProviderInterf
         $AvailablePatternWidthList = $AvailablePatternWidthList->load();
 
         foreach ($AvailablePatternWidthList as $option) {
-            if(!trim($option->getAvailableProfilePatternWidthsInch()))
+            if($option->getAvailableProfilePatternWidthsInch())
             {
                 $result[] = array('key' => $option->getKey(), 'value' => $option->getAvailableProfilePatternWidthsInch());
             }
