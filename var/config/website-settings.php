@@ -66,9 +66,9 @@ return [
         "name" => "CS_modular_catalogs_folder_path",
         "language" => "",
         "type" => "text",
-        "data" => "ConveyorBeltSolutions/ModularCatalogs",
+        "data" => "/ConveyorBeltSolutions/ModularCatalogs/",
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1638333409
+        "modificationDate" => 1638337447
     ]
 ];

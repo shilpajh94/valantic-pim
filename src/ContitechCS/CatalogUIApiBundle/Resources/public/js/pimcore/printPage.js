@@ -53,10 +53,22 @@ pimcore.plugin.lpe.printPage = Class.create({
         return false; */ 
 
 
-        /* var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+/*         var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+ */
 
-        myMask.unMask(); */
-    
+            /* var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+            //myMask.show();
+            var window = Ext.create('Ext.window.Window', {
+                title: 'Hello',
+                height: 200,
+                width: 400
+            });
+            setTimeout(function() {
+                window.show();
+                myMask.hide();
+            }, 3000);
+
+            return false; */
 
         Ext.Ajax.request({
             url: "/move-container-pdf-to-assets",

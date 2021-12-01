@@ -53,5 +53,5 @@ function getFolderPath()
 
         }.bind(this)
     });
-    return "/"+folderPath+"/";
+    return folderPath;
 }
