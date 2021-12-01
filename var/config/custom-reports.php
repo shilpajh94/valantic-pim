@@ -4006,22 +4006,13 @@ return [
         ],
         "columnConfiguration" => [
             [
-                "name" => "Pimcore Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1021-1"
-            ],
-            [
                 "name" => "Name",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1021-2"
+                "id" => "extModel1569-2"
             ],
             [
                 "name" => "Corporate Brand",
@@ -4030,7 +4021,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1021-3"
+                "id" => "extModel1569-3"
             ],
             [
                 "name" => "Product Brand",
@@ -4039,16 +4030,26 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1021-4"
+                "id" => "extModel1569-4"
             ],
             [
-                "name" => "Archived",
+                "name" => "Creation Date",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1021-5"
+                "id" => "extModel1569-5"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1569-1"
             ]
         ],
         "niceName" => "CS_ArchivedProducts",
@@ -4064,7 +4065,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1638359483,
+        "modificationDate" => 1638362480,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
