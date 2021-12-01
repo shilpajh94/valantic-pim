@@ -63,7 +63,7 @@ class ProductModelService
         
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
-        $conArray['fields']   = ['oo_id'];
+        $conArray['fields']   = ['oo_id'=> ['string']];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
         
 
@@ -203,14 +203,27 @@ class ProductModelService
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $finalProductArray[$sixDigit]['images'] = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            if(count($images) > 0){
+                $finalProductArray[$sixDigit]['images'] = $images;
+            }
             // To get the base alt image & document URL
-            if(isset($certificationImageID) && !empty($certificationImageID)) {
-                $finalProductArray[$sixDigit]['CertificationImage'] = $this->getPropertyAssetData($certificationImageID);
+            if(
+                isset($certificationImageID) && 
+                !empty($certificationImageID) && 
+                ($propertyAssetData = $this->getPropertyAssetData($certificationImageID) )
+            ) {
+                    $finalProductArray[$sixDigit]['CertificationImage'] = $propertyAssetData;
             }
-            if(isset($certificationDocumentID) && !empty($certificationDocumentID)) {
-                $finalProductArray[$sixDigit]['CertificationDocument'] = $this->getPropertyAssetData($certificationDocumentID);
+
+            if(
+                isset($certificationDocumentID) && 
+                !empty($certificationDocumentID) && 
+                ( $propertyAssetData = $this->getPropertyAssetData($certificationDocumentID) ) 
+            ) {
+                    $finalProductArray[$sixDigit]['CertificationDocument'] = $propertyAssetData;
             }
+
         }
         
         return $finalProductArray;
@@ -282,6 +295,8 @@ class ProductModelService
             $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
             if(!empty($brandName)){
                 $baseDetail['brandName'] = $brandName;
+            }else{
+                unset($baseDetail['brandName']);
             }
         }
         // Getting document URL from object_metadata_1 table
@@ -322,10 +337,15 @@ class ProductModelService
             foreach($imagesFields as $ikey=>$ivalue){
                 if(isset($value[$ivalue]) && !empty($value[$ivalue])){
                     if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
-                        $imageDetail[$value[$ivalue]] = $this->getPropertyAssetData($value[$ivalue]);
+                        if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
+                            $imageDetail[$value[$ivalue]] = $propertyAssetData;  
+                        }
                     }
-                    $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
-                    $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
+                    if( $this->getPropertyAssetData($value[$ivalue])){
+                        $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
+                        $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
+                    }
+                    
                 }
             }
         }
@@ -348,10 +368,10 @@ class ProductModelService
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
-                foreach($bvalue['Fields'] as $fkey=>$fvalue){
+                foreach($bvalue['Fields'] as $fieldName=>$fieldConfig){
 
                     $brickText = "get".ucfirst($bkey).ucfirst($productType);
-                    $fieldText = "get".ucfirst($fvalue);
+                    $fieldText = "get".ucfirst($fieldName);
 
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
@@ -359,18 +379,20 @@ class ProductModelService
                     // Get Field Definition.
 
                     if($product->$productBrickField()->$brickText()){
-                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
+                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
 
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
-                                   if($fvalue==='brandName'){
+                                   if($fieldName ==='brandName'){
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
-                                    $bData[] = $objectIndv->getName();
+                                    if($objectIndv) {
+                                        $bData[] = $objectIndv->getName();
+                                    }
                                    }
                                 }
                              }
@@ -379,8 +401,12 @@ class ProductModelService
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
                        }
                     }
-                    if(!empty($bData) || $bData===0){
-                        $productObjectBricksData[$fvalue] = $bData;
+                    if(!empty($bData) || $bData===0){            
+                        if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
+                            $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                            $bData = round(strval($bData), $decimalPoints);
+                        }
+                        $productObjectBricksData[$fieldName] = $bData;
                     }
                 }
             }
@@ -401,9 +427,15 @@ class ProductModelService
         $assetId ='';
         if($assetIdflag){
             $asset = Asset::getById($assetIdPath);
+            if(!$asset){
+                return null;
+            }
             $assetId= $assetIdPath;
         }else{
             $asset = Asset::getByPath($assetIdPath);
+            if(!$asset){
+                return null;
+            }
             $assetId= $asset->getId();
         }
         $assetType = $asset->getType();
@@ -454,7 +486,9 @@ class ProductModelService
         foreach($productData as $key=>$value){
             $formattedArray[$i] =$value;
             $formattedArray[$i]['9digit'] =array_values($value['9digit']);
-            $formattedArray[$i]['images'] =array_values($value['images']);
+            if(is_array($value['images'])){
+                $formattedArray[$i]['images'] =array_values($value['images']);
+            }
             $i++;
         }
         return $formattedArray;

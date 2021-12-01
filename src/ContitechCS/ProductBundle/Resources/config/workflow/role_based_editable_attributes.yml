@@ -285,29 +285,9 @@ ProductManagerCS:
     - CSRelatedProducts
     - ParentCategory
 MarComCS:
-    - Name
-    - CorporateBrand
-    - ProductBrand
-    - ProductOwner
-    - isPaused
-    - isArchived
-    - NatureOfProduct
-    - CSSegment
-    - CSRegion
-    - CSPerformanceCategory
-    - Benefits
-    - Features
-    - ProductClaimSlogan
-    - SelectCountries
     - ProductDescription
     - ShortText
     - LongText
-    - CSProductApplications
-    - CSProductFeaturesAndBenefits
-    - CSProductIndustries
-    - CoverCompounds
-    - CSRelatedProducts
-    - ParentCategory
 EditorCS:
     - LoadSupportMaximumBeltWidthinMM640KGM20
     - LoadSupportMaximumBeltWidthinMM640KGM35

@@ -115,7 +115,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                     if($imgSrcObj4)
                     {
                     ?>
-                    <img src="<?= $imgSrcObj4->getThumbnail('catalog_thumb'); ?>" width="61" height="60"/>
+                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj4,$this->imageWidth); ?>" width="61" height="60"/>
                     <?php
                     }
                 }
@@ -208,7 +208,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                     if($imgSrcObj1)
                                     {
                                     ?>
-                                    <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" class="lImg" width="226" height="150"/>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
                                     <?php
                                     }
                                 }
@@ -222,7 +222,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                     if($imgSrcObj2)
                                     {
                                     ?>
-                                    <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" class="rImg" width="226" height="150"/>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
                                     <?php
                                     }
                                 }

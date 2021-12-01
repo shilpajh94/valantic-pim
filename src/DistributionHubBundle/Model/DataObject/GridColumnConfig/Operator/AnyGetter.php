@@ -4,6 +4,9 @@ namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\Model\AbstractModel;
+use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
+use \DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
+use Pimcore\Model\DataObject\Data\ObjectMetadata;
 
 
 class AnyGetter extends AbstractOperator
@@ -83,10 +86,23 @@ class AnyGetter extends AbstractOperator
                         return $result;
                     }
                 }
+                $value = null;
 
-                $valueContainer = $c->getLabeledValue($forwardObject);
+                if($c instanceof DefaultValue){
+                    $customDefaultValue = new CustomDefaultValue($c);
+                    $childResult = $customDefaultValue->getLabeledValue($element);
+                    $value = $childResult->value;
+                    $fieldDefinition = $childResult->def;
+                }elseif ($c instanceof AnyGetter || $c instanceof \DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter){
+                    $customDefaultValue = $this->getCustomAnyGetter($c);
+                    $childResult = $customDefaultValue->getLabeledValue($element);
+                    $value = $childResult->value[0];
+                    $fieldDefinition = $childResult->def;
+                }else{
+                    $valueContainer = $c->getLabeledValue($forwardObject);
+                    $value = $valueContainer->value;
+                }
 
-                $value = $valueContainer->value;
                 if ($value || $this->getReturnLastResult()) {
                     $resultElementValue = $value;
                 } else {
@@ -100,7 +116,10 @@ class AnyGetter extends AbstractOperator
                             // ------- customization open ----------------------
                             if(is_array($o)){
                                 $o = $o[0];
+                            }elseif($o instanceof ObjectMetadata){
+                                $o = $o->getObject();
                             }
+                            
                             // -------- customiation closed --------------------
                             if ($this->attribute && method_exists($o, $getter)) {
                                 $targetValue = $o->$getter($this->getParam1());
@@ -222,5 +241,24 @@ class AnyGetter extends AbstractOperator
     public function setReturnLastResult($returnLastResult)
     {
         $this->returnLastResult = $returnLastResult;
+    }
+
+    private function getCustomAnyGetter(AbstractOperator $anyGetter)
+    {
+        $config = new \stdClass();
+
+        $refletionObject = new \ReflectionObject($anyGetter);
+        $anyGetterProperties = ['label','childs','attribute','param1','isArrayType','forwardAttribute',
+            'forwardParam1','returnLastResult'];
+        foreach ($anyGetterProperties as $property) {
+            $reflectionProperty = $refletionObject->getProperty($property);
+            $reflectionProperty->setAccessible(true);
+            $config->$property = $reflectionProperty->getValue($anyGetter);
+        }
+        $reflectionProperty = $refletionObject->getProperty('context');
+        $reflectionProperty->setAccessible(true);
+        $context = $reflectionProperty->getValue($anyGetter);
+
+        return new CustomAnyGetter($config,$context);
     }
 }
