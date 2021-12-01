@@ -68,7 +68,14 @@ class ProductApiController extends FrontendController implements ConstantsInterf
     {   
         try
         {   
-            $result = $this->productApiService->getCSProducts();
+            $language = $request->get('language');
+
+            if(!$language)
+            {
+                return Rest::output(false, self::LANGUAGE_TXT.' '.self::REQUIRED_MSG);
+            }
+            
+            $result = $this->productApiService->getCSProducts($language);
 
             return Rest::output(true,self::RECORD_LIST_MSG,$this->httpCode,$result);
         }

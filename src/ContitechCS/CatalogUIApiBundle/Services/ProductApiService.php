@@ -31,7 +31,7 @@ class ProductApiService implements ConstantsInterface
      * Get cs products
      * @return array
      */
-    public function getCSProducts()
+    public function getCSProducts($language)
     {   
         try
         {   
@@ -50,7 +50,7 @@ class ProductApiService implements ConstantsInterface
             
             foreach($entries as $obj)
             {
-                $result[] =['name' => $obj->getName(),'id' => $obj->getId()]; 
+                $result[] =['name' => $obj->getName($language),'id' => $obj->getId()]; 
             }
             return $result;
         }
@@ -68,7 +68,9 @@ class ProductApiService implements ConstantsInterface
     {   
         try
         {  
-            $result = $this->dbModelService->getProductgroupCatalogs();
+            $req       = Request::createFromGlobals();
+            $result    = $this->dbModelService->getProductgroupCatalogs();
+            $language  = $req->get('language');
 
             if(!$result)
             {
@@ -83,9 +85,10 @@ class ProductApiService implements ConstantsInterface
                 $containerId  = $val['ContainerId'];
                 $arr          = [];
                 $object       = \Pimcore\Model\DataObject::getById($val['ProductgGroupId']);
+
                 if(method_exists($object,'getName'))
                 {
-                  $arr['name'] = $object->getName();
+                  $arr['name'] = $object->getName($language);
                 }
                 else
                 {
