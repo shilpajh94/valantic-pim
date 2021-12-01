@@ -44,7 +44,7 @@ class AvailableBeltWidthOptionProvider implements SelectOptionsProviderInterface
         $AvailableBeltWidthList = $AvailableBeltWidthList->load();
 
         foreach ($AvailableBeltWidthList as $option) {
-            $result[] = array('key' => $option->getKey(), 'value' => $option->getAvailableBeltWidthInch());
+            $result[] = array('key' => $option->getAvailableBeltWidthInch(), 'value' => $option->getId());
         }
         return $result;
     }
