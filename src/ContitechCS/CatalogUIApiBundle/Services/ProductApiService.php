@@ -35,9 +35,12 @@ class ProductApiService implements ConstantsInterface
     {   
         try
         {   
+            $ProductgGroupId = $this->dbModelService->getProductGroupIds();
+            
             $result = [];
             $entries = new DataObject\CSProducts\Listing();
             $entries->setOrderKey("Name");
+            $entries->setCondition("oo_id IN(?)",[$ProductgGroupId]);
             $entries->load();
 
             if(!count($entries))
@@ -49,7 +52,6 @@ class ProductApiService implements ConstantsInterface
             {
                 $result[] =['name' => $obj->getName(),'id' => $obj->getId()]; 
             }
-
             return $result;
         }
         catch (Exception $e) 
@@ -65,27 +67,7 @@ class ProductApiService implements ConstantsInterface
     public function getProductGroupCatalogs()
     {   
         try
-        {   
-            /* $response = [
-                'backAndFrontCoverPDF' => [
-                  'frontCoverPDF' => 'https://cdn.pim.conti.de/sampleFrontCover.pdf',
-                  'backCoverPDF' => 'https://cdn.pim.conti.de/sampleBackCover.pdf',
-                ],
-                'catalogs' => [
-                  0 => [
-                    'id' => 12345, // product Gruop id
-                    'name' => 'Fortress XP', product group name
-                    'tableOfContentPageInfo' => [
-                      0 => [
-                        'title' => 'Fortress XP Features',
-                      ],
-                    ],
-                    'pdfLink' => 'https://cdn.pim.conti.de/sample.pdf', //links
-                  ],
-                ],
-            ];
-            return $response; */
-
+        {  
             $result = $this->dbModelService->getProductgroupCatalogs();
 
             if(!$result)
@@ -128,13 +110,14 @@ class ProductApiService implements ConstantsInterface
 
                         if(method_exists($objDoc,'getElement'))
                         {
-                          $editables[$config_val] = $objDoc->getElement($config_val)->getData();
+                          $editables[] = ['title' => $objDoc->getElement($config_val)->getData()];
                         }
                       }  
                       $arr['tableOfContentPageInfo'][] = $editables;
                     }
                   }
                 }
+                $arr['pdfLink'] = $val['PdfLink'];
                 $data[] = $arr;
               }
               $response['backAndFrontCoverPDF'] =   $this->getCoverPagePdfLink();
@@ -148,15 +131,41 @@ class ProductApiService implements ConstantsInterface
         }
     }
 
+    public function getAssetFullPath($objAsset)
+    {
+      try
+      {
+        if($objAsset)
+        {
+          return PIMCORE_TRANSFORMED_ASSET_URL.''.$objAsset->getRealFullPath();
+        }
+      }
+      catch (Exception $e) 
+      {  
+          throw new Exception($e->getMessage());
+      }
+    }
+
     private function getCoverPagePdfLink()
     {    
         try
         {
           $req            = Request::createFromGlobals();
           $language       = $req->get('language');
+          $regionId       = $req->get('region');
+          $regionName     = '';
+          $objRegion       =    DataObject::getById($regionId);
+          
+          if(!$objRegion)
+          {
+            throw new Exception(SELF::INVALID_REGION_ID_MSG);
+          }
 
+          $regionName   = $objRegion->getRegionName();
+          $regionName = \Pimcore\File::getValidFilename($regionName);
+      
           $parentPath = $this->ConfigProviderService->getWebSiteSetting('CS_cover_page_assets_folder');
-          $parentPath = $parentPath ? $parentPath.'/'.$language : 'Contitech_ConveyorSolution/container_pdf/cover_page/'.$language;
+          $parentPath = $parentPath ? $parentPath.'/'.$regionName.'/'.$language : 'Contitech_ConveyorSolution/container_pdf/cover_page/'.$language;
           
           $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath"); 
           
@@ -172,11 +181,11 @@ class ProductApiService implements ConstantsInterface
               {
                 if($key == 0)
                 {
-                  $pdfArr['frontCoverPDF'] = $objAsset->getPath().$objAsset->getFileName();
+                  $pdfArr['frontCoverPDF'] = $this->getAssetFullPath($objAsset);
                 }
                 else
                 {
-                  $pdfArr['backCoverPDF'] = $objAsset->getPath().$objAsset->getFileName();
+                  $pdfArr['backCoverPDF'] = $this->getAssetFullPath($objAsset);
                 }
               }
             }
@@ -188,5 +197,34 @@ class ProductApiService implements ConstantsInterface
             throw new Exception($e->getMessage());
         }
     } 
+
+    public function getRegion()
+    {
+      try
+      {
+          $entries = new DataObject\CSRegion\Listing();
+          $entries->setOrderKey("RegionName");
+          $entries->setOrder("asc");
+          $entries->load();
+
+          if(!count($entries))
+          { 
+            throw new Exception(self::RECORDS_NOT_FOUND);
+          }
+
+          $result = [];
+
+          foreach($entries as $obj)
+          {
+            $result[] = ['id' => $obj->getId(),'name' => $obj->getRegionName()];
+          }
+
+          return $result;
+      }
+      catch (Exception $e) 
+      {  
+          throw new Exception($e->getMessage());
+      }
+    }
 }
 

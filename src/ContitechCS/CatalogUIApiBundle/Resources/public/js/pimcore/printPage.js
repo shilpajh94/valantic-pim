@@ -27,11 +27,10 @@ pimcore.plugin.lpe.printPage = Class.create({
         let docToolbar = this.doc.toolbar;
 
         let publishPdfButton = new Ext.Button({
-            text: '<div class="pimcore_save_button">Publish PDF</div>',
+            text: '<div class="pimcore_save_button">Save PDF</div>',
             scale: "medium",
             handler: this.publishPdf.bind(this)
         });
-
 
         docToolbar.insert(16,publishPdfButton);
 

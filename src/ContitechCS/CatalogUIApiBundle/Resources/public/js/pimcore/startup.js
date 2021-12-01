@@ -14,9 +14,7 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     },
     postOpenDocument: function(doc,type){
 
-        
-
-        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/EMEA/en/";
+        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/";
 
         let docPath = doc.data.path;
         let docType = doc.data.type;
@@ -29,3 +27,9 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
 });
 
 var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
+
+
+function getFolderPath()
+{
+    return "test";
+}

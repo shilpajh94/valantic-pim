@@ -21,4 +21,6 @@ interface ConstantsInterface
     public const LANGUAGE_TXT           = 'Language';
     public const REGION_TXT             = 'Region';
     public const PRODUCT_GROUP_TXT      = 'Product group';
+    public const INVALID_REGION_ID_MSG      = 'Invalid region Id';
+    
 }

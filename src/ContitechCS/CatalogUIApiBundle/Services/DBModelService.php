@@ -11,8 +11,10 @@ use Pimcore\Model\DataObject;
 use \Exception;
 use Pimcore\Db;
 use Symfony\Component\HttpFoundation\Request;
+use ContitechCS\CatalogUIApiBundle\Interfaces\ConstantsInterface;
 
-class DBModelService
+
+class DBModelService implements ConstantsInterface
 {   
     protected $db;
 
@@ -77,7 +79,7 @@ class DBModelService
 
           if($region)
           {
-            $where[]="Region like '%$region%'";
+            $where[]="Region = '$region'";
           }
 
           if($language)
@@ -90,6 +92,34 @@ class DBModelService
           $result = $this->db->fetchAll($sql);
 
           return $result;
+        }
+        catch (Exception $e) 
+        {  
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Get product's group from modular catalog
+     * @return array
+     * @access public
+     */
+    public function getProductGroupIds()
+    { 
+        try
+        { 
+
+          $sql    = "SELECT ProductgGroupId FROM product_group_catalogs";
+          
+          $result = $this->db->fetchAll($sql);
+
+          if(!$result)
+          {
+            throw new Exception(self::RECORDS_NOT_FOUND);
+          }
+          
+          return  array_column($result, 'ProductgGroupId');
+
         }
         catch (Exception $e) 
         {  

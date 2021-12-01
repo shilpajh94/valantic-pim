@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use ContitechCS\CatalogUIApiBundle\Services\DBModelService;
 use \Pimcore\Model\Document;
+use ContitechCS\CatalogUIApiBundle\Services\ProductApiService;
 
 class DefaultController extends FrontendController
 {
@@ -28,11 +29,9 @@ class DefaultController extends FrontendController
         try
         {   
             $docId                  = $request->get('docId');
-            $pdfTmpSaveDirectory    = PIMCORE_SYSTEM_TEMP_DIRECTORY;
-            $savedPdfFileName       = "web2print-document-" . $docId . ".pdf";
-            $savedPdfFilePath       = $pdfTmpSaveDirectory . "/" . $savedPdfFileName;
-            $language               = 'en';
-            $region                 = '';
+            $language               =   '';
+            $regionName             =   '';
+            $productGroupId         =   '';
 
             //print container object
             $docObj                 = Document::getById($docId);	
@@ -41,18 +40,43 @@ class DefaultController extends FrontendController
             {
                 $language = $docObj->getProperty('language');
             }
-
-            $this->publishCoverPagePdf($docObj,$language);
-
-            if($docObj->getProperty('language'))
-            {
-              $language = $docObj->getProperty('language');
-            }
-
+            
             if($docObj->getProperty('region')->getRegionName())
             {
-                $region = $docObj->getProperty('region')->getRegionName();
+                $regionName = $docObj->getProperty('region')->getRegionName();
+                $regionId = $docObj->getProperty('region')->getId();
             }
+
+            if(!$language)
+            {
+                return $this->json(array("success" => false,"msg" => "Unable to find language"));
+            }
+
+            if(!$regionName)
+            {
+                return $this->json(array("success" => false,"msg" => "Unable to find region. Please drop region and property key would be region"));
+            }
+
+            // get product group id
+            if($docObj && method_exists($docObj,'getProperties'))
+            {
+                $properties = $docObj->getProperties();
+
+                if(isset($properties['ProductGroup']) && method_exists($properties['ProductGroup'],'getData') and method_exists($properties['ProductGroup']->getData(),'getId'))
+                {
+                    $productGroupId = $properties['ProductGroup']->getData()->getId();
+                }
+            }
+
+            if(!$productGroupId)
+            {
+                return $this->json(array("success" => false,"msg" => "Unable to find product. Please drop product and property key would be ProductGroup"));
+            }
+
+            $pdfTmpSaveDirectory    = PIMCORE_SYSTEM_TEMP_DIRECTORY;
+            $savedPdfFileName       = $productGroupId . ".pdf";
+            $tempFileName           = "web2print-document-" . $docId . ".pdf";
+            $savedPdfFilePath       = $pdfTmpSaveDirectory . "/" . $tempFileName;
 
             if(file_exists($savedPdfFilePath))
             {  
@@ -62,29 +86,31 @@ class DefaultController extends FrontendController
                 
                 //check if pdf already there
                 $asset =\Pimcore\Model\Asset::getByPath("/".$parentPath.'/'.$savedPdfFileName);
-
+                
                 if($asset){
                     $asset->delete();
                 }
                 
                 $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath");
                 $parentFolder = $obj->getPath().$obj->getFileName();
-
+                
                 $newAsset = new \Pimcore\Model\Asset();
                 $newAsset->setFilename($savedPdfFileName);
                 $newAsset->setData(file_get_contents($savedPdfFilePath));
                 $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
                 $newAsset->save();
+                
+                $this->savePdfIntoDb($newAsset,$docId,$language,$regionId,$productGroupId);
 
-                $this->savePdfIntoDb($newAsset,$docId,$language,$region);
-
+                // public cover pages
+                $this->publishCoverPagePdf($docObj,$language,$regionName);
+                
                 return $this->json(array("success" => true,"msg" => "Pdf Published Successfully"));
             }
             else
             {
                 return $this->json(array("success" => false,"msg" => "No PDF file found.Please generate PDF first to publish it."));
             }
-
         }
         catch(\Exception $e)
         {
@@ -95,7 +121,7 @@ class DefaultController extends FrontendController
     /**
      * publish cover page pdf
      */
-    private function publishCoverPagePdf($objPrintContainer,$language)
+    private function publishCoverPagePdf($objPrintContainer,$language,$region)
     {   
         try
         {
@@ -105,7 +131,9 @@ class DefaultController extends FrontendController
 
             $parentPath = $parentPath ? $parentPath: "Contitech_ConveyorSolution/container_pdf/$language";
 
-            $parentPath = $parentPath."/".$language;
+            $regionFolder = \Pimcore\File::getValidFilename($region);
+
+            $parentPath = $parentPath."/".$regionFolder."/".$language;
             
             foreach($objPrintContainer->getParent()->getChildren() as $obj)
             {   
@@ -158,27 +186,18 @@ class DefaultController extends FrontendController
     /**
      * Save pdf into db
      */
-    private function savePdfIntoDb($objPdf,$containerId,$language,$region)
+    private function savePdfIntoDb($objPdf,$containerId,$language,$region,$productGroupId)
     {
         try
         {   
             $objContainer = \Pimcore\Model\Document::getById($containerId);
 
-            $productGroupId = $fileLink = '';
+            $fileLink = '';
 
             if($objPdf)
             {
-                $fileLink = $objPdf->getPath().$objPdf->getFileName();
-            }
-
-            if($objContainer && method_exists($objContainer,'getProperties'))
-            {
-                $properties = $objContainer->getProperties();
-
-                if(isset($properties['ProductGroup']) && method_exists($properties['ProductGroup'],'getData') and method_exists($properties['ProductGroup']->getData(),'getId'))
-                {
-                    $productGroupId = $properties['ProductGroup']->getData()->getId();
-                }
+                $objApiService = new ProductApiService();
+                $fileLink = $objApiService->getAssetFullPath($objPdf);
             }
 
             $objDbService = new DBModelService();

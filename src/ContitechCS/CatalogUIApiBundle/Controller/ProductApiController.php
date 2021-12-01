@@ -116,4 +116,27 @@ class ProductApiController extends FrontendController implements ConstantsInterf
             return Rest::output(false, $e->getMessage());
         }
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response Object
+     *
+     * @Route("/api/get-region", methods={"GET"}, requirements={
+     * "Content-Type" = "application/json"
+     * })
+     */
+    public function getRegions(Request $request)
+    {   
+        try
+        {
+            $result = $this->productApiService->getRegion();
+
+            return Rest::output(true,self::RECORD_LIST_MSG,$this->httpCode,$result);
+        }
+        catch (Exception $e) 
+        {  
+            return Rest::output(false, $e->getMessage());
+        }
+    }  
 }
