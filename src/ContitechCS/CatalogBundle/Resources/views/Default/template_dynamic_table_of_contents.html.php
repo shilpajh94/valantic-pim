@@ -21,14 +21,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <main id="content" role="main">
         <section class="table-content-sec">
             <?php if($this->editmode): ?>
-            <?php if($this->input("CBS_TOC_Heading")->isEmpty()): ?>
-            <h1 class="orange"><?= $this->input("CBS_TOC_Heading",['placeholder' => 'Table of Contents']); ?></h1>
-            <?php else: ?>
-            <h1 class="orange"><?= $this->input("CBS_TOC_Heading"); ?></h1>
-            <?php endif; ?>
-            <?php else: ?>
-            <h1 class="orange"><?= $this->input("CBS_TOC_Heading") ?></h1>
-            <?php endif; ?>
+                <?php if($this->input("CBS_TOC_Heading")->isEmpty()): ?>
+                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading",['placeholder' => 'Table of Contents']); ?></h1>
+                <?php else: ?>
+                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading"); ?></h1>
+                <?php endif; ?>
+                <?php else: ?>
+                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading") ?></h1>
+                <?php endif; ?>
             <div class="table-of-contents">
                 <div class="colum-2">
                 <?php
