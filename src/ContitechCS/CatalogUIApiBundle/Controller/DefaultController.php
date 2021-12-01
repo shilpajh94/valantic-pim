@@ -208,4 +208,27 @@ class DefaultController extends FrontendController
             throw new \Exception($e->getMessage());
         }
     }
+
+    /**
+     * Get website settings
+     * @Route("/modular-catalogs-folder-path")
+     */
+    public function getModularCatalogsFolderPath()
+    {   
+        try
+        {   
+            $folderPath     =   'ConveyorBeltSolutions/ModularCatalogs';
+            $objConfig      =   new ConfigProviderService();
+            if($objConfig->getWebSiteSetting('CS_modular_catalogs_folder_path'))
+            {
+                $folderPath     =   $objConfig->getWebSiteSetting('CS_modular_catalogs_folder_path');
+            }
+
+            return $this->json(array("success" => true,'path'=>$folderPath,"msg" => "modular catalogs folder parth"));
+        }
+        catch(\Exception $e)
+        {       
+            return $this->json(array("success" => false,"msg" => $e->getMessage()));
+        }
+    }
 }

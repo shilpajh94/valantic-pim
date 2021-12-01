@@ -60,5 +60,15 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1638178979
+    ],
+    9 => [
+        "id" => 9,
+        "name" => "CS_modular_catalogs_folder_path",
+        "language" => "",
+        "type" => "text",
+        "data" => "ConveyorBeltSolutions/ModularCatalogs",
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1638333409
     ]
 ];

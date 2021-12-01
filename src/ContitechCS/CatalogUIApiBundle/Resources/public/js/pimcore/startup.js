@@ -14,10 +14,9 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     },
     postOpenDocument: function(doc,type){
 
-        let parentFolderPath = "/ConveyorBeltSolutions/ModularCatalogs/";
-
-        let docPath = doc.data.path;
-        let docType = doc.data.type;
+        let parentFolderPath    = getFolderPath();
+        let docPath             = doc.data.path;
+        let docType             = doc.data.type;
 
         if(docType == "printcontainer" && docPath.startsWith(parentFolderPath)){
             let printPageObject = new pimcore.plugin.lpe.printPage(doc);
@@ -31,5 +30,28 @@ var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
 
 function getFolderPath()
 {
-    return "test";
+    var folderPath = '';
+    Ext.Ajax.request({
+        url: "/modular-catalogs-folder-path",
+        params: {},
+        async:false,
+        success: function (response)
+        {
+            response = Ext.decode(response.responseText);
+            console.log(response);
+
+            if(response.success == true)
+            {
+                let msg = response.msg;
+                folderPath = response.path;
+            }
+            else if(response.success == false)
+            {
+                let msg = response.msg;
+                Ext.MessageBox.alert(t("Info"),msg);
+            }
+
+        }.bind(this)
+    });
+    return "/"+folderPath+"/";
 }
