@@ -21,118 +21,93 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <main id="content" role="main">
         <section class="table-content-sec">
             <?php if($this->editmode): ?>
-                <?php if($this->input("CBS_TOC_Heading")->isEmpty()): ?>
-                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading",['placeholder' => 'Table of Contents']); ?></h1>
-                <?php else: ?>
-                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading"); ?></h1>
-                <?php endif; ?>
-                <?php else: ?>
-                    <h1 class="orange"><?= $this->input("CBS_TOC_Heading") ?></h1>
-                <?php endif; ?>
+            <?php if($this->input("CBS_TOC_Heading")->isEmpty()): ?>
+            <h1 class="orange"><?= $this->input("CBS_TOC_Heading",['placeholder' => 'Table of Contents']); ?></h1>
+            <?php else: ?>
+            <h1 class="orange"><?= $this->input("CBS_TOC_Heading"); ?></h1>
+            <?php endif; ?>
+            <?php else: ?>
+            <h1 class="orange"><?= $this->input("CBS_TOC_Heading") ?></h1>
+            <?php endif; ?>
             <div class="table-of-contents">
                 <div class="colum-2">
-                <?php
-                $i=1;
-                while($this->block("CBS_TOC_HeadingBlock",['default' => 1])->loop())
-                {       
-                    if($data && $i==1):
-                        $j=0;
-                        foreach($data as $section => $childs):
-                            ?>
-                                <h3 class="orange-bg">
-                                    <?php
-                                    if($this->input("CBS_TOC_HeadingName_".$i.'_'.$j)->isEmpty())
-                                    {
-                                        echo $this->input("CBS_TOC_HeadingName_".$i.'_'.$j, ['placeholder' => 'Featured Solutions'])->setDataFromResource($section);
+                    <?php
+                        $parents = array_keys($data);
+                    ?>
+
+                    <?php
+                    $i = 0; 
+                    while($this->block("CBS_TOC_HeadingBlock",['default' => count($parents)])->loop())
+                    {   
+                        $headingVal = isset($parents[$i])?$parents[$i]:'';
+                        ?>
+                            <h3 class="orange-bg">
+                                
+                                <?php
+                                    if($this->input("CBS_TOC_HeadingName")->isEmpty())
+                                    {    
+                                        echo $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Enter Title'])->setDataFromResource($headingVal);
                                     }
                                     else
                                     {
-                                        echo $this->input("CBS_TOC_HeadingName_".$i.'_'.$j, ['placeholder' => 'Featured Solutions']);  
-                                    }
-                                    ?>
-                                </h3>
-                                <ul>
-                                <?php 
-                                    $k=0;
-                                    while($this->block("CBS_TOC_ContentBlock_$i_$j",['default' => 1])->loop()) 
-                                    {      
-                                        if($k==0)
-                                        {
-                                            foreach($childs as $key => $pageName)
-                                            {
-                                                ?>
-                                                    <li>
-                                                        <span
-                                                            class="chapter">
-                                                            <?php
-                                                            if($this->input("CBS_TOC_Title$k_$key")->isEmpty())
-                                                            {
-                                                              echo $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); 
-                                                            }
-                                                            else 
-                                                            {
-                                                                echo $this->input("CBS_TOC_Title$k_$key", ['placeholder' => 'Enter title here.']);
-                                                            }
-                                                            ?>  
-                                                        </span>
-                                                        <span
-                                                            class="page"><?= $this->input("CBS_TOC_Page$k_$key", ['placeholder' => 'Enter page number here.']); ?></span>
-                                                    </li>
-    
-                                                    <!-- add rest html here -->
-                                                    
-                                                <?php 
-                                            }
-                                        }
-                                        else
-                                        {
-                                            ?>
-                                                <li>
-                                                    <span
-                                                        class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageName); ?>
-                                                    </span>
-                                                    <span
-                                                        class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
-                                                </li>
-
-                                                <!-- add rest html here -->
-                                            <?php
-                                        }
-                                    $k++;    
+                                        echo $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Enter Title']);
                                     }
                                 ?>
-                                </ul>
-                            <?php
-                            $j++;
-                        endforeach;
-                    else:
-                        ?>
-                            <h3 class="orange-bg">
-                                    <?= $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Featured Solutions']); ?>
-                                </h3>
-                                <ul>
-                                <?php 
-                                    while($this->block("CBS_TOC_ContentBlock")->loop()) 
-                                    { 
+                            </h3>
+                            <ul>
+                                <?php
+                                    $j=0;
+                                    $totalChilds = isset($data[$headingVal])?count($data[$headingVal]):0;
+
+                                    while($this->block("CBS_TOC_ContentBlock",['default' => $totalChilds])->loop())
+                                    {   
+                                        $pageTitle = '';
+                                        if(isset($data[$headingVal][$j]))
+                                        {
+                                           $pageTitle =  $data[$headingVal][$j];
+                                        }
                                         ?>
                                             <li>
                                                 <span
-                                                    class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.']); ?></span>
+                                                    class="chapter">
+                                                    <?php
+                                                        if($this->input("CBS_TOC_Title")->isEmpty())
+                                                        {
+                                                            echo $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.'])->setDataFromResource($pageTitle);
+                                                        }
+                                                        else
+                                                        {
+                                                            echo $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.']);
+                                                        }
+                                                    ?>
+                                                </span>
                                                 <span
-                                                    class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
+                                                    class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?>
+                                                </span>
                                             </li>
-
-                                            <!-- add rest html here -->
-                                            
+                                            <ul>
+                                                <?php while($this->block("CBS_TOC_ContentBlockInner")->loop())
+                                                {
+                                                    ?>
+                                                        <li>
+                                                            <span
+                                                                class="chapter"><?= $this->input("CBS_TOC_Title_Inner", ['placeholder' => 'Enter inner title here.']); ?></span>
+                                                            <span
+                                                                class="page"><?= $this->input("CBS_TOC_Page_Inner", ['placeholder' => 'Enter page number here.']); ?></span>
+                                                        </li>
+                                                    <?php 
+                                                } 
+                                            ?>
+                                            </ul>
                                         <?php 
+                                        $j++;
                                     }
                                 ?>
-                                </ul>
-                        <?php     
-                    endif;
-                $i++;
-                } 
-                ?>
+                            </ul>
+                        <?php
+                        $i++;    
+                    }
+                    ?>
                 </div>
             </div>
         </section>
