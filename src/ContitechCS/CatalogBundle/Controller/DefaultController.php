@@ -133,42 +133,61 @@ class DefaultController extends FrontendController
         $listing->setOrder("asc");        
         $all_doc_arr = [];
         $section_arr = [];
+        $templateArray = [
+            'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_inspect_systems.html.php',
+            'ContitechCSCatalogBundle:Default:template_steelcord_belt_construction.html.php',
+            'ContitechCSCatalogBundle:Default:template_continental_conveyor_services.html.php',
+            'ContitechCSCatalogBundle:Default:template_eco_series_pulley.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_pipe_belt.html.php',
+            'ContitechCSCatalogBundle:Default:template_mega_pipe_belt.html.php',
+            'ContitechCSCatalogBundle:Default:template_sybercord_technology.html.php',
+            'ContitechCSCatalogBundle:Default:template_cleated_belts.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_protect_systems.html.php',
+            'ContitechCSCatalogBundle:Default:template_product_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_contialert_product_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_conveyor_belt_group.html.php',
+            'ContitechCSCatalogBundle:Default:template_product_section_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_textile_belt_construction.html.php',
+            'ContitechCSCatalogBundle:Default:template_contiClean.html.php',
+            'ContitechCSCatalogBundle:Default:template_cover_compounds.html.php',
+            'ContitechCSCatalogBundle:Default:template_quality_and_the_environment.html.php',
+            'ContitechCSCatalogBundle:Default:template_wood_product.html.php'
+        ];
         foreach($listing as $doc) {
-            
             if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
-
                 $obj = $doc->getElement('TOC_Section_Title');
                 $section_arr [] = $obj->getData();  // all section pages
             }  
-                if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_page.html.php' || $doc->getTemplate() == 'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php' || $doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
+            if (in_array($doc->getTemplate(), $templateArray)) {
 
-                    $obj = $doc->getElement('CS_ProductName');
-                    if ($obj) {
-                    $all_doc_arr[] = $obj->getData();
-                    } else {
-                        $obj = $doc->getElement('TOC_Section_Title');
-                        if($obj) {
-                        $all_doc_arr[] = $obj->getData(); // all three doc 
-                        }
-                    }
-                }
-                    
-        }
-        $all_doc_arr = array_filter($all_doc_arr); 
-        
-        $table_of_content_data = [];
-        $title = [];
-            foreach ($all_doc_arr as $doc_arr) {
-                if (in_array($doc_arr,$section_arr)) {
-                    $title = $doc_arr;  //all section pages 
-                }
-                if ($title) {
-                    if($doc_arr !=  $title) {
-                        $table_of_content_data[$title][] = $doc_arr;
-
+                $obj = $doc->getElement('CS_ProductName');
+                if ($obj) {
+                $all_doc_arr[] = $obj->getData();
+                } else {
+                    $obj = $doc->getElement('TOC_Section_Title');
+                    if($obj) {
+                    $all_doc_arr[] = $obj->getData(); // all three doc 
                     }
                 }
             }
+                    
+        }
+        $all_doc_arr = array_filter($all_doc_arr); 
+        $table_of_content_data = [];
+        $title = [];
+        foreach ($all_doc_arr as $doc_arr) {
+            if (in_array($doc_arr, $section_arr)) {
+                $title = $doc_arr;  //all section pages 
+            }
+            if ($title) {
+                if($doc_arr !=  $title) {
+                    $table_of_content_data[$title][] = $doc_arr;
+
+                }
+            }
+        }
+//        print_r($table_of_content_data); die;
         $this->view['data'] = $table_of_content_data;     
         
     }
