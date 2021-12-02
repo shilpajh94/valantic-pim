@@ -261,7 +261,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
                                         } else if ($fieldConfig['fieldType'] == 'Block') {
-                                            $name = '';
                                             $fieldValue = trim($fieldValue);
 
                                             if (strpos($fieldValue, "\n") !== false) {
