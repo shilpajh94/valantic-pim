@@ -1003,35 +1003,49 @@ class DefaultController extends FrontendController
                         $tableArray = [];
                         if($removeField)
                         {
-                            // $removeFieldArray = $ContiRollConfig['removeField'];
-                            // foreach ($removeFieldArray as $key => $value) {
-                            //     $fieldToRemove = $this->addPrefix($key);
-                            //     unset($modifiedData[$fieldToRemove]);
-                            // }
+                            $removeFieldArray = $ContiRollConfig['removeField'];
+                            foreach ($removeFieldArray as $key => $value) {
+                                $fieldToRemove = $this->addPrefix($key);
+                                unset($modifiedData[$fieldToRemove]);
+                            }
 
-                            // $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
-                            // $tableArray = [];
-                            // foreach ($groupingAndOrderingArray as $key => $value) {
-                            //     $fieldKey = $this->addPrefix($key);
+                            $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
+                            $concatnateOperator = $ContiRollConfig['concatnateOperator'];
+                            $tableArray = [];
+                            foreach ($groupingAndOrderingArray as $key => $value) {
+                                $fieldKey = $this->addPrefix($key);
 
-                            //     if(is_array($value))
-                            //     {
-                            //         foreach ($value as $key => $newvalue) {
-                            //             $fieldKeyNew = $this->addPrefix($newvalue);
+                                if(is_array($value))
+                                {
+                                    foreach ($value as $key => $newvalue) {
+                                        $fieldKeyNew = $this->addPrefix($newvalue);
+                                        $internalArray = $modifiedData[$fieldKeyNew];
+
+                                        if(is_array($internalArray))
+                                        {
+                                            // foreach ($internalArray as $lastkey => $lastvalue) {
+                                            //     // $lastvalueNew = $this->addPrefix($lastvalue);
+                                            //     $internalArray[] = $lastvalue;
+                                            // }
+                                            // $valueString = implode($concatnateOperator, $internalArray);
+                                            $newArray[] = $internalArray;
+                                        }
+                                        else{
+                                            $newArray[] = $internalArray;
+                                        }
                                         
-                            //             $newArray[] = $modifiedData[$fieldKeyNew];
-                            //         }
-                            //         $tableArray[$fieldKey] = $newArray;
-                            //     }
-                            //     else{
-                            //         $tableArray[$fieldKey] = $modifiedData[$fieldKey];
-                            //     }
+                                    }
+                                    $tableArray[$fieldKey] = $newArray;
+                                }
+                                else{
+                                    $tableArray[$fieldKey] = $modifiedData[$fieldKey];
+                                }
 
-                            // }
+                            }
 
                         }
 
-                        // p_r($tableArray);
+                        p_r($tableArray);
                         
                         // p_r($modifiedData);
                         
