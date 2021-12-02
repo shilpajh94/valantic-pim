@@ -2452,6 +2452,6 @@ ContiPipe and MegaPipe Table Attributes:
     DiameterInch:   ProdDimensions #diameter in
     Diameter:       ProdDimensions #diameter mm
     BeltWidth:  ProdDimensions #BeltWidth in
-    BeltWidthmm3:    ProdDimensions #BeltWidth mm
+    BeltWidthmm:    ProdDimensions #BeltWidth mm
     FabricType:     Material #BeltWidth mm
     SteelType:      Material #BeltWidth mm
