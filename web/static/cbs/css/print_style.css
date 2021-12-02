@@ -22,6 +22,9 @@ body{
         min-height: auto;
         max-width: 100%;
     } */
+.innercoverpage {
+    max-width: 100%;
+}
 
 .coverpage img,  .bannersec img{
     width: 100%;
@@ -120,6 +123,7 @@ pre {
 
 .backcoverpage .black-bg{
     background: cmyk(90%, 72%, 72%, 100%);
+    padding: 30px 30px 0px;
 }
 .backcoverpage p span, .bottom-end-sec p{
     color: cmyk(0%, 0%, 0%, 0%);

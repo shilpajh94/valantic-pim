@@ -433,9 +433,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <tbody>
 
                                         <?php 
-                                            $maxColumns = $child['maxColumns'];
+                                            $maxColumns = $child['maxColumns'] + 1;
                                             foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
-                                                $colspan = ($maxColumns - count($rowArray)) + 1;
+                                                $colspan = ($maxColumns - count($rowArray));
+                                                $colspanStr = '';
+                                                if($colspan > 0)
+                                                {
+                                                    $colspan += 1;
+                                                    $colspanStr = "colspan='{$colspan}'";
+                                                }
                                                 $firstKey = array_key_first($rowArray);
 
                                                 ?>
@@ -447,21 +453,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                 // for ($i=0; $i < ; $i++) { 
                                                     # code...
                                                 // }
-                                                for ($i; $i < $maxColumns; $i++ ) {
+                                                foreach ($rowArray as $rkey => $rvalue) {
+                                                    # code...
+                                                // }
+                                                // for ($i; $i < $maxColumns; $i++ ) {
 
-                                                    if($firstKey == $i)
+                                                    if($firstKey == $rkey)
                                                     {
                                                         ?>
                                                         <th class="orange text-right">
-                                                            <?= $this->translate($rowArray[$i]); ?>
+                                                            <?= $this->translate($rvalue); ?>
                                                         </th>
                                                     <?php
                                                     }
                                                     else{
                                                         ?>
-                                                        <td colspan="<?= $colspan?>">
-                                                            <?= $rowArray[$i]; ?>
-                                                            
+                                                        <td <?= $colspanStr ?>>
+                                                            <?= ($rvalue) ? $rvalue: '-'; ?>
                                                         </td>
                                                         <?php
                                                     }

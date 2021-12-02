@@ -2407,9 +2407,42 @@ Cover Options:
         DINAbrasion: Performance2
     Product Page: Solar-Shield Series
 Common Belt Profile Attributes:
-    CleatHeightInch: Material~input
-    availableBeltWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~select
-    availablePatternWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~multiselect
+    inch:
+        CleatHeightInch: Material~CleatHeightInch
+        AvailableBeltWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~availableBeltWidthInch~AvailableBeltWidthInch
+        # AvailableBeltWidthMM: ProdDimensions~AvailableBeltPatternWidthBlock~availableBeltWidthInch~AvailableBeltWidthMM
+        AvailableProfilePatternWidthsInch: ProdDimensions~AvailableBeltPatternWidthBlock~availablePatternWidthInch~AvailableProfilePatternWidthsInch$AvailablePatternWidthText
+        AvailableProfilePatternWidthsMM: ProdDimensions~AvailableBeltPatternWidthBlock~availablePatternWidthInch~AvailableProfilePatternWidthsMM$AvailablePatternWidthText
+        AvailableBeltWidthRangeInch: ProdDimensions~AvailableBeltWidthRangeInch
+        AvailableBeltWidthRangeMM: ProdDimensions~AvailableBeltWidthRangeMM
+        AdditionalInformation: BeltData~AdditionalInformation
+    mm: 
+        CleatHeightMM: Material~CleatHeightMM
+        # AvailableBeltWidthInch: ProdDimensions~AvailableBeltPatternWidthBlock~availableBeltWidthInch~AvailableBeltWidthInch
+        AvailableBeltWidthMM: ProdDimensions~AvailableBeltPatternWidthBlock~availableBeltWidthInch~AvailableBeltWidthMM
+        AvailableProfilePatternWidthsInch: ProdDimensions~AvailableBeltPatternWidthBlock~availablePatternWidthInch~AvailableProfilePatternWidthsInch$AvailablePatternWidthText
+        AvailableProfilePatternWidthsMM: ProdDimensions~AvailableBeltPatternWidthBlock~availablePatternWidthInch~AvailableProfilePatternWidthsMM$AvailablePatternWidthText
+        AvailableBeltWidthRangeInch: ProdDimensions~AvailableBeltWidthRangeInch
+        AvailableBeltWidthRangeMM: ProdDimensions~AvailableBeltWidthRangeMM
+        AdditionalInformation: BeltData~AdditionalInformation
+    
+    ContiRoll Config:
+        removeField:
+            AvailableBeltWidthInch: AvailableBeltWidthInch
+            AvailableBeltWidthMM: AvailableBeltWidthMM
+        groupingAndOrdering: 
+            profileWidth: 
+                AvailableProfilePatternWidthsInch: AvailableProfilePatternWidthsInch
+                AvailableProfilePatternWidthsMM: AvailableProfilePatternWidthsMM
+            beltWidthRange: 
+                AvailableBeltWidthRangeInch: AvailableBeltWidthRangeInch
+                AvailableBeltWidthRangeMM: AvailableBeltWidthRangeMM
+            AdditionalInformation: AdditionalInformation
+        concatnateOperator: '&'
+
+
+    
+
     # BeltWidth: ProdDimensions
     # BeltWidthmm3: ProdDimensions
     # ProfileWidthMM: WidthLength

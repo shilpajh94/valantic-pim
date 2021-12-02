@@ -797,9 +797,6 @@ class DefaultController extends FrontendController
 
             $productDetails = DataObject\CSProducts::getById($productId);
 
-            // $objParent = $productDetails->getParent();
-
-            // $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
             $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
             $productData['Name'] = $productDetails->getName();
             $productData['LongText'] = $productDetails->getShortText();
@@ -807,13 +804,25 @@ class DefaultController extends FrontendController
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
             $productData['cover_compounds'] = $productDetails->getCoverCompounds();
 
-
-            if(isset($productDataImportConfig['Common Belt Profile Attributes']))
+            $ymlData = $this->configProviderService->getBrickMappingConfig();
+            
+            $unitField = '';
+            if(isset($ymlData['defualtUnit'][$region]))
             {
-                $CommonBeltProfileAttributes = $productDataImportConfig['Common Belt Profile Attributes'];
+                $unitField = $ymlData['defualtUnit'][$region];
             }
 
+            if(isset($productDataImportConfig['Common Belt Profile Attributes'][$unitField]))
+            {
+                $CommonBeltProfileAttributes = $productDataImportConfig['Common Belt Profile Attributes'][$unitField];
+            }
+            
+            $ContiRollConfig = $productDataImportConfig['Common Belt Profile Attributes']['ContiRoll Config'];
+
             $productChildrenData = $this->getAllRegionChildern($productDetails, $region);
+
+            $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
+            $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
 
             $childrenData = [];
 
@@ -828,89 +837,252 @@ class DefaultController extends FrontendController
                         $data['ApplicationImage'] = $child->getApplicationImage();
 
                         $bricks = $child->getProductAttributes();
-
-                        // $tableFieldData = [];
                         $rowsData = [];
-                        $array_count = 1;
                         if($bricks)
                         {  
                             foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
                                 $fieldNameConfigArray = explode('~',$fieldNameConfig);
                                 $brickName = $fieldNameConfigArray[0];
+                                // $fieldNameAttr = $fieldNameConfigArray[1];
                                 $getBrick = 'get' . $brickName;
                                 $getField = 'get' . $fieldName;
-                                // p_r($fieldName);
-                                // p_r($bricks->$getBrick());
 
                                 if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
                                 {
                                     if($bricks->$getBrick() && $bricks->$getBrick()->$getField())
                                     {   
-                                        $fieldName = $this->addPrefix($fieldName);
-                                        // $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
-                                        $colData[] = $fieldName;
+                                        $fieldNameString = $this->addPrefix($fieldName);
+                                        if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
+                                        {
+                                            $removeField = true;
+                                        }
+                                        $colData[] = $fieldNameString;
                                         $colData[] = $bricks->$getBrick()->$getField();
+                                        $rowsData[] = $colData;
+                                        unset($colData);
                                     }
                                 }
                                 else
                                 {
                                     $fieldBlockName = $fieldNameConfigArray[1];
+                                    $fieldBlockFieldName = $fieldNameConfigArray[2];
+                                    $masterFieldNameString = $fieldNameConfigArray[3];
+                                    
+                                    if($masterFieldNameString)
+                                    {
+                                        $masterFieldNameArray = explode('$', $masterFieldNameString);
+                                    }
+
+                                    
                                     $getfieldBlockName = 'get' . $fieldBlockName;
                                     if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
                                     {
                                         $fieldData = [];
                                         $fieldNameWithPrefix = $this->addPrefix($fieldName);
-                                        $colData[] = $fieldNameWithPrefix;
+                                        
                                         foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
                                         {
-                                            $fieldData[] = $obj[$fieldName]->getData();
-                                            $colDataMultiSelect = $obj[$fieldName]->getData();
+                                            $colData[] = $fieldNameWithPrefix;
+                                            $fieldData[] = $obj[$fieldBlockFieldName]->getData();
+                                            $colDataMultiSelect = $obj[$fieldBlockFieldName]->getData();
                                             if(is_array($colDataMultiSelect))
                                             {
-                                                foreach ($colDataMultiSelect as  $value) {
-                                                    $colData[] = $value;
+                                                $datum = [];
+                                                foreach ($colDataMultiSelect as  $id) {
+                                                    if(count($masterFieldNameArray) == 2)
+                                                    {
+                                                        $masterFieldName1 = $masterFieldNameArray[0];
+                                                        $masterFieldName2 = $masterFieldNameArray[1];
+                                                        $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName1];
+                                                        if(!trim($fvalue)){
+                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName2];
+                                                        }
+                                                    }
+                                                    else{
+                                                        $masterFieldName = $masterFieldNameArray[0];
+                                                        $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName];
+                                                    }
+                                                    
+                                                    $colData[] = $fvalue;
                                                 }
                                             }
                                             else{
-                                                $colData[] = $obj[$fieldName]->getData();
+                                                $id = $obj[$fieldBlockFieldName]->getData();
+                                                $masterFieldName = $masterFieldNameArray[0];
+                                                $fvalue = $availableBeltWidthMasterList[$id][$masterFieldName];
+                                                $colData[] = $fvalue;
                                             }
-                                            
+
+                                            $rowsData[] = $colData;
+                                            unset($colData);
                                         }
                                         
-                                        // $tableFieldData[$fieldName] = $fieldData;
-                                        
-                                        // $colData[] = $fieldData;
                                     }
                                 }
-                                
-                                if($colData)
-                                {
-                                    $colData = \array_unique($colData);
-                                    if($array_count < count($colData))
-                                    {
-                                        $array_count = count($colData);
-                                    }
-
-                                    $rowsData[] = $colData;
-                                }
-                                unset($colData);
                             }
                         }   
-                        $data['tableFieldData'] = $rowsData;
-                        // $data['ntableFieldData'] = $rowsData;
-                        $data['maxColumns'] = $array_count;
-                        // p_r($data);
-                        // die;
+                        
+                        $modifiedData = [];
+                        $remainingData = [];
+                        $maxColumn = 0;
+                        $maxRow = 0;
+
+                        foreach ($rowsData as $nvalue) 
+                        {
+                            if(count($nvalue) > 2)
+                            {
+                                $remainingData[] = $nvalue;
+                            }
+                            else{
+                                $modifiedData[$nvalue[0]][] = $nvalue[1];
+                            }
+                        }
+
+                        if($modifiedData)
+                        {
+                            foreach ($modifiedData as $mvalue) {
+                                if(count($mvalue) > $maxColumn)
+                                {
+                                    $maxColumn = count($mvalue);
+                                }
+                            }
+                            
+                        }
+
+                        // make single column if all columns have same value
+                        if($modifiedData)
+                        {
+                            foreach($modifiedData as $key => $value){
+                                $arrayCountBeforeUnique = count($value);
+                                $arrayCount = array_unique($value);
+                                if(($arrayCountBeforeUnique == $maxColumn) && count($arrayCount) == 1)
+                                {
+                                    $modifiedData[$key] = array($value[0]);
+                                }
+                                else{
+                                    $modifiedData[$key] = $value;
+                                }
+                            }
+                        }
+
+                        $remainingModifiedArray = [];
+
+                        $maxRow = 0;
+                        if($remainingData)
+                        {
+                            foreach($remainingData as $key => $array)
+                            {
+                                $keyToStore = $array[0];
+                                unset($array[0]);
+                                $array = array_values($array);
+                                $remainingModifiedArray[$keyToStore][] = $array;
+
+                                if(count($array) > $maxRow)
+                                {
+                                    $maxRow = count($array);
+                                }
+                            }
+                        }
+
+                        if($remainingModifiedArray)
+                        {
+                            foreach ($remainingModifiedArray as $key => $array) {
+                                $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
+                            }
+                        }
+
+                        if($unitField && !$removeField)
+                        {
+                            foreach ($modifiedData as $key => $value) {
+                                if (stripos($key, $unitField) === false) {
+                                    unset($modifiedData[$key]);
+                                }
+                            }
+                        }
+
+                        $tableArray = [];
+                        if($removeField)
+                        {
+                            // $removeFieldArray = $ContiRollConfig['removeField'];
+                            // foreach ($removeFieldArray as $key => $value) {
+                            //     $fieldToRemove = $this->addPrefix($key);
+                            //     unset($modifiedData[$fieldToRemove]);
+                            // }
+
+                            // $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
+                            // $tableArray = [];
+                            // foreach ($groupingAndOrderingArray as $key => $value) {
+                            //     $fieldKey = $this->addPrefix($key);
+
+                            //     if(is_array($value))
+                            //     {
+                            //         foreach ($value as $key => $newvalue) {
+                            //             $fieldKeyNew = $this->addPrefix($newvalue);
+                                        
+                            //             $newArray[] = $modifiedData[$fieldKeyNew];
+                            //         }
+                            //         $tableArray[$fieldKey] = $newArray;
+                            //     }
+                            //     else{
+                            //         $tableArray[$fieldKey] = $modifiedData[$fieldKey];
+                            //     }
+
+                            // }
+
+                        }
+
+                        // p_r($tableArray);
+                        
+                        // p_r($modifiedData);
+                        
+                        if($modifiedData)
+                        {
+                            foreach($modifiedData as $key1 => $secondArray)
+                            {
+                                $datum[] = $key1;
+                                
+                                if(is_array($secondArray))
+                                {
+                                    
+                                    foreach ($secondArray as $key2 => $thirdArray) {
+
+                                        if(is_array($thirdArray))
+                                        {
+                                            $localArray = [];
+                                            $localArray[] = $key1;
+                                            foreach ($thirdArray as $key3 => $value) {
+                                                $localArray[] = $value;
+                                            }
+
+                                            $tableArray[] = $localArray;
+
+                                        }
+                                        else{
+                                            $datum[] = $thirdArray;
+                                        }
+                                    }
+
+                                    if(count($datum) > 1)
+                                    {
+                                        $tableArray[] = $datum;
+                                    }
+                                    
+                                    unset($datum);
+                                }
+                                
+                            }
+                        }
+                        // p_r($tableArray);
+                        $data['tableFieldData'] = $tableArray;
+                        $data['maxColumns'] = $maxColumn;
                         
                         $childrenData[] = $data;
                     }
                 }
             }
-
+            // p_r($childrenData);
+            // die;
             $productData['childrenData'] = $childrenData;
-
-            // $regionsArr = $this->getCSRegionNameByIds($productDetails->getCSRegion());
-
             $ymlData = $this->configProviderService->getBrickMappingConfig();
             
             if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
@@ -985,6 +1157,54 @@ class DefaultController extends FrontendController
         return $key;
     }
 
+    public function getTransposeArray($array, $maxRow, $maxColumn): Array
+    {
+        for($i = 0; $i < $maxRow; $i++)
+        {
+            for($j = 0; $j < $maxColumn; $j++)
+            {
+                $newRows[$i][$j] = 0;
+                //Initially transpose matrix to be declare with 0;
+                $newRows[$i][$j] = $array[$j][$i];
+                //Converts the row of original matrix into column of transposed matrix
+            }
+        }
+        return $newRows;
+    }
+    
+
+    public function getAvailableBeltWidthMasterList(): Array {
+        $beltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
+        $beltWidthList = $beltWidthList->load();
+
+        $list = [];
+        if($beltWidthList)
+        {
+            foreach ($beltWidthList as $value) {
+                $list[$value->getId()]['AvailableBeltWidthMM'] = $value->getAvailableBeltWidthMM();
+                $list[$value->getId()]['AvailableBeltWidthInch'] = $value->getAvailableBeltWidthInch();
+            }
+        }
+        return $list;
+    }
+
+    public function getAvailablePatternWidthMasterList(): Array {
+        $patternWidthList = new DataObject\CSAvailablePatternWidths\Listing();
+        $patternWidthList = $patternWidthList->load();
+
+        $list = [];
+        if($patternWidthList)
+        {
+            foreach ($patternWidthList as $value) {
+                $list[$value->getId()]['AvailableProfilePatternWidthsMM'] = $value->getAvailableProfilePatternWidthsMM();
+                $list[$value->getId()]['AvailableProfilePatternWidthsInch'] = $value->getAvailableProfilePatternWidthsInch();
+                $list[$value->getId()]['AvailablePatternWidthText'] = $value->getAvailablePatternWidthText();
+            }
+        }
+
+        return $list;
+    }
+
     public function getCoverCompoundMasterList(): Array {
         $productsList = new DataObject\CSPerformanceCategories\Listing();
         $productsList = $productsList->load();
@@ -998,8 +1218,6 @@ class DefaultController extends FrontendController
         }
 
         return $performanceList;
-        // $query = "select oo_id, PerformanceCategory from object_query_CSPerformanceCategories";
-        // return $this->db->fetchPairs($query);
     }
 
     public function getS3ImageSrc($src)

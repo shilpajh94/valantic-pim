@@ -147,6 +147,7 @@ h3 {
 .environment-quality-sec .media p {
   font-size: 12px;
 }
+
 .features-benefit-sec .media {
   align-items: center;
 }
@@ -189,15 +190,24 @@ h3 {
         line-height: 1.4;
     } */
 
+.p-medium p{
+  line-height: 1.4;
+}
+
 .p-medium p,
 .environment-quality-sec .media .p-medium p {
   font-size: 14px;
-  line-height: normal;
-  /* line-height: 1.4; */
 }
+
+.wood-product-applications .p-medium p,
+.wood-product-applications  .environment-quality-sec .media .p-medium p{
+  line-height: 1.1;
+}
+
 
 .media p {
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .fortressxp-belts .seal-image img {
@@ -627,7 +637,7 @@ h3 {
 .process-table td,
 .table.process-table th {
   border-top: 1px solid #000;
-  font-size: 12px;
+  font-size: 10px;
 }
 .process-table tr:last-child td {
   border-bottom: 1px solid #000;
@@ -723,6 +733,7 @@ h3 {
 }
 .table-data.compounds-table {
   overflow: hidden;
+  max-width: 100%;
 }
 .compounds-table tr {
   height: 35px;
@@ -754,9 +765,14 @@ thead tr:first-child th {
 .compounds-table th.rotate > div {
   transform: translate(25px, 30px) rotate(-90deg);
   width: 30px;
+  padding-right:10px
 }
 .compounds-table th:first-child {
   vertical-align: bottom;
+}
+
+.belts-information .standard-compounds h3:nth-of-type(1){
+padding-top: 0px;
 }
 .standard-compounds h3 {
   margin: 0px;
@@ -812,6 +828,9 @@ thead tr:first-child th {
   width: 100%;
   height: 100%;
   position: relative;
+  max-width: 960px;
+  display: block;
+  margin: 0 auto;
 }
 .innercoverpage .black-bg {
   padding: 80px 40px 40px;
@@ -917,7 +936,7 @@ thead tr:first-child th {
   page: backcoverPage;
 }
 .backcoverpage .black-bg {
-  padding: 30px 30px 0px;
+  padding: 30px 30px 30px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1105,6 +1124,10 @@ thead tr:first-child th {
 
 .environment-quality-sec li {
   padding-bottom: 2px;
+}
+.conveyor-belt .environment-quality-sec li {
+  padding-bottom: 0px;
+  padding-left: 5px;
 }
 
 .feature-benefit-list ul,
