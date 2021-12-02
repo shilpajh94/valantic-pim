@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\BlockElement;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Logger;
@@ -79,24 +80,24 @@ class CSProductDataImportCommand extends AbstractCommand
             $i = 1;
             foreach ($data as $key => $productData) {
                 $i++;
-                $extraAttrString ='';
-                $productNameLog ='';
+                $extraAttrString = '';
+                $productNameLog = '';
                 $comment = '';
                 $hierarchyStatus = '';
                 $incorrectDataArray = [];
                 $colNameArray = [];
                 $productHierarchyArray = [];
-                $productHierarchyArray = explode('/',$productData['Product Hierarchy']);
+                $productHierarchyArray = explode('/', $productData['Product Hierarchy']);
                 $name = '';
-                foreach($productHierarchyArray as $eachHierarchyName){
-                    $name = $name. '/'.trim($eachHierarchyName);
+                foreach ($productHierarchyArray as $eachHierarchyName) {
+                    $name = $name . '/' . trim($eachHierarchyName);
                 }
                 $productHierarchy = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . $name;
-                if($productData['Product Flag'] == 0){
-                    $productHierarchy = $productHierarchy. '/'.$productData['Product Name'];
+                if ($productData['Product Flag'] == 0) {
+                    $productHierarchy = $productHierarchy . '/' . $productData['Product Name'];
                 }
                 $productHierarchyPathObj = DataObject\CSHierarchy::getByPath($productHierarchy);
-                if($productHierarchyPathObj){
+                if ($productHierarchyPathObj) {
                     $prodHierarchy = $productHierarchy;
                     $hierarchyStatus = 'Hierarchy Matched';
 
@@ -157,7 +158,7 @@ class CSProductDataImportCommand extends AbstractCommand
                         $hierarchyString = implode('/', $hierarchyArr);
                         if ($parentHierArr) {
                             $parentHierNewString = implode('/', $parentHierArr);
-                            
+
                             $parentProductPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $parentHierNewString;
                         }
 
@@ -177,9 +178,8 @@ class CSProductDataImportCommand extends AbstractCommand
 
                             if ($CSHierarchyRelatedBricks) {
                                 $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
-                                if(is_array($allObjectBricks) && !empty($allObjectBricks)){
+                                if (is_array($allObjectBricks) && !empty($allObjectBricks)) {
                                     $allObjectBricks = array_unique($allObjectBricks);
-
                                 }
                             }
                         }
@@ -230,6 +230,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                     if (isset($productDataImportConfig[$fieldCVSKey])) {
                                         $fieldConfig = $productDataImportConfig[$fieldCVSKey];
                                         $fieldName = ucfirst($fieldConfig['fieldName']);
+                                        $blockName = ucfirst($fieldConfig['blockName']);
                                         if ($fieldConfig['objectType'] == 'class') {
                                             if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
 
@@ -280,6 +281,34 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $method = 'set' . $fieldName;
                                                 $product->$method($fieldValue);
+                                            } else if ($fieldConfig['fieldType'] == 'Block') {
+                                                $fieldValue = trim($fieldValue);
+
+                                                if (strpos($fieldValue, "\n") !== false) {
+                                                    $fieldValueArr = explode("\n", $fieldValue);
+                                                } else {
+                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                }
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+
+                                                $fieldValueBlock = array();
+                                                if ($blockName == 'BenefitBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Benefit" => new BlockElement("Benefit", 'input', $val)
+                                                        ];
+                                                    }
+                                                } else if ($blockName == 'FeatureBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Feature" => new BlockElement("Feature", 'input', $val)
+                                                        ];
+                                                    }
+                                                }
+
+                                                $product->$method($fieldValueBlock);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
@@ -310,7 +339,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                             foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
                                                 $fieldValue = trim($fieldData['fieldValue']);
 
-                                                if(($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)){
+                                                if (($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
                                                     $colNameArray[] = $fieldKey;
                                                     $incorrectDataArray[] = $fieldValue;
                                                 }
@@ -342,7 +371,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 unset($bricksData[$brick]);
                                             }
                                         }
-                                        
+
                                         $method = 'set' . $brick;
                                         // $product->getProductAttributes()->$method($brickObject);
                                         // if ($natureOfProduct == 1) {
@@ -365,42 +394,40 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $parentId = $result->getId();
                                 $prd = DataObject\CSProducts::getById($parentId, true);
                                 $prd->save();
-                                echo "\n".'---------------------------';
-                                echo "\n" ."Product added successfully";
+                                echo "\n" . '---------------------------';
+                                echo "\n" . "Product added successfully";
                                 echo "\n Hierarchy created: " . $productPath;
                                 $comment = "Product added successfully";
                                 echo "\n Product asset folder creation started.";
-                                 \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
+                                \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
                                 echo "\n Product asset folder creation Done.";
                                 echo "\n";
-                                
                             } catch (\Throwable $th) {
-                               p_r($th->getMessage());
+                                p_r($th->getMessage());
                             }
-                            
                         } else {
                             $parentId = $CSProductObj->getId();
                         }
                     }
-                } else{ 
+                } else {
                     $prodHierarchy = $productHierarchy;
                     $hierarchyStatus = 'Hierarchy Mismatched';
                     $comment = 'Product Not Saved';
                     $productNameLog = $productData['Product Name'];
-                    if($productData['Product Hierarchy'] == null){
+                    if ($productData['Product Hierarchy'] == null) {
                         $productNameLog = 'Empty Row';
                     }
-                    echo "\n".'---------------------------';
-                    echo "\n".$comment;
-                    echo "\n".$hierarchyStatus;
-                    echo "\n". $prodHierarchy;
+                    echo "\n" . '---------------------------';
+                    echo "\n" . $comment;
+                    echo "\n" . $hierarchyStatus;
+                    echo "\n" . $prodHierarchy;
                 }
-                $incorrectData = implode(", ",$incorrectDataArray);
-                $colName = implode(", ",$colNameArray);
-                if($productNameLog ==null){
+                $incorrectData = implode(", ", $incorrectDataArray);
+                $colName = implode(", ", $colNameArray);
+                if ($productNameLog == null) {
                     $pieces = explode('/', $prodHierarchy);
                     $productNameLog = array_pop($pieces);
-                    if($productNameLog == ''){
+                    if ($productNameLog == '') {
                         $productNameLog = array_pop($pieces);
                     }
                 }
