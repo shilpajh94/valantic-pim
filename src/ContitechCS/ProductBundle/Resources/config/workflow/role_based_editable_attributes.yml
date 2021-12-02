@@ -19,7 +19,6 @@ All:
     - CSProductApplications
     - CSProductFeaturesAndBenefits
     - CSProductIndustries
-    - CoverCompounds
     - CSRelatedProducts
     - ParentCategory
 #    - LogoImage
@@ -281,7 +280,6 @@ ProductManagerCS:
     - CSProductApplications
     - CSProductFeaturesAndBenefits
     - CSProductIndustries
-    - CoverCompounds
     - CSRelatedProducts
     - ParentCategory
 MarComCS:
