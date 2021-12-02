@@ -449,17 +449,25 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                 <tr>
 
                                                 <?php
-                                                $i = 0;
-                                                // for ($i=0; $i < ; $i++) { 
-                                                    # code...
-                                                // }
                                                 foreach ($rowArray as $rkey => $rvalue) {
-                                                    # code...
-                                                // }
-                                                // for ($i; $i < $maxColumns; $i++ ) {
+                                                    
+                                                    $unit = "CS_Unit_in";
+                                                    $translatedUnit = '';
+
+                                                    if(($rowArray[0] == 'CS_profileWidth' || $rowArray[0] == 'CS_beltWidthRange') && $rkey == 2)
+                                                    {
+                                                        $unit = "CS_Unit_mm";
+                                                    }
 
                                                     if($firstKey == $rkey)
                                                     {
+                                                        if($rvalue == 'CS_CleatHeightMM')
+                                                        {
+                                                            $unit = "CS_Unit_mm";
+                                                        }
+                                                        
+                                                        
+
                                                         ?>
                                                         <th class="orange text-right">
                                                             <?= $this->translate($rvalue); ?>
@@ -467,9 +475,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                     <?php
                                                     }
                                                     else{
+                                                        if(!$colspan)
+                                                        {
+                                                            $translatedUnit = $this->translate($unit);
+                                                        }
+                                                        else{
+                                                            if(is_numeric($rvalue))
+                                                            {
+                                                                $translatedUnit = $this->translate($unit);
+                                                            }
+                                                        }
+                                                        
+                                                        
                                                         ?>
                                                         <td <?= $colspanStr ?>>
-                                                            <?= ($rvalue) ? $rvalue: '-'; ?>
+                                                            <?= ($rvalue) ? $rvalue.' '.$translatedUnit: '-'; ?>
                                                         </td>
                                                         <?php
                                                     }

@@ -1043,16 +1043,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <tr align="left" class="orange-bg">
                                 <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>">
                                     <?= $this->translate($key) ?>
-                                    <?php
-                                        if($key == 'CS_Metric')
-                                        {
-                                            echo " (".$this->translate('CS_Unit_mm').") ";
-                                        }
-                                        elseif($key == 'CS_Imperial')
-                                        {
-                                            echo "(".$this->translate('CS_Unit_in').").";
-                                        }
-                                    ?>
                                 </th>
                             </tr>
                             <?php 

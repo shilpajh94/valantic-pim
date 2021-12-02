@@ -184,8 +184,6 @@ class DefaultController extends FrontendController
                 $productData['ShortText'] = $productObj->getShortText();
                 $productData['LongText'] = $productObj->getLongText();
                 $productData['LogoImage'] = $productObj->getLogoImage();
-                $productData['Features'] = $productObj->getFeatures();
-                $productData['Benefits'] = $productObj->getBenefits();
 
                 if( $productObj->getCSProductApplications())
                 {
@@ -975,7 +973,14 @@ class DefaultController extends FrontendController
                                 $keyToStore = $array[0];
                                 unset($array[0]);
                                 $array = array_values($array);
-                                $remainingModifiedArray[$keyToStore][] = $array;
+
+                                if($removeField)
+                                {
+                                    $remainingModifiedArray[$keyToStore] = $array;
+                                }
+                                else{
+                                    $remainingModifiedArray[$keyToStore][] = $array;
+                                }
 
                                 if(count($array) > $maxRow)
                                 {
@@ -984,11 +989,17 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        if($remainingModifiedArray)
+                        if($remainingModifiedArray && !$removeField)
                         {
                             foreach ($remainingModifiedArray as $key => $array) {
                                 $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
                             }
+                        }
+
+                        if($removeField)
+                        {
+                            $maxColumn = 2;
+                            $modifiedData = array_merge($modifiedData, $remainingModifiedArray);
                         }
 
                         if($unitField && !$removeField)
@@ -1003,39 +1014,44 @@ class DefaultController extends FrontendController
                         $tableArray = [];
                         if($removeField)
                         {
-                            // $removeFieldArray = $ContiRollConfig['removeField'];
-                            // foreach ($removeFieldArray as $key => $value) {
-                            //     $fieldToRemove = $this->addPrefix($key);
-                            //     unset($modifiedData[$fieldToRemove]);
-                            // }
+                            $removeFieldArray = $ContiRollConfig['removeField'];
+                            foreach ($removeFieldArray as $rkey1 => $value) {
+                                $fieldToRemove = $this->addPrefix($rkey1);
+                                unset($modifiedData[$fieldToRemove]);
+                            }
 
-                            // $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
-                            // $tableArray = [];
-                            // foreach ($groupingAndOrderingArray as $key => $value) {
-                            //     $fieldKey = $this->addPrefix($key);
+                            $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
+                            $concatnateOperator = $ContiRollConfig['concatnateOperator'];
+                            foreach ($groupingAndOrderingArray as $okey1 => $ovalue) {
+                                $fieldKey = $this->addPrefix($okey1);
 
-                            //     if(is_array($value))
-                            //     {
-                            //         foreach ($value as $key => $newvalue) {
-                            //             $fieldKeyNew = $this->addPrefix($newvalue);
-                                        
-                            //             $newArray[] = $modifiedData[$fieldKeyNew];
-                            //         }
-                            //         $tableArray[$fieldKey] = $newArray;
-                            //     }
-                            //     else{
-                            //         $tableArray[$fieldKey] = $modifiedData[$fieldKey];
-                            //     }
-
-                            // }
+                                if(is_array($ovalue))
+                                {
+                                    foreach ($ovalue as $newvalue1) {
+                                        $fieldKeyNew = $this->addPrefix($newvalue1);
+                                        $internalArray = $modifiedData[$fieldKeyNew];
+                                        $arrayValue;
+                                        if(is_array($internalArray))
+                                        {
+                                            $arrayValue[] = implode($concatnateOperator, $internalArray);
+                                        }
+                                        else{
+                                            $arrayValue[] = $internalArray;
+                                        }
+                                    }
+                                    $arrayToPush = array_merge([$fieldKey], $arrayValue);
+                                    unset($arrayValue);
+                                }
+                                else{
+                                    $arrayToPush = array_merge([$fieldKey], $modifiedData[$fieldKey]);
+                                }
+                                array_push($tableArray, $arrayToPush);
+                                unset($arrayToPush);
+                            }
 
                         }
 
-                        // p_r($tableArray);
-                        
-                        // p_r($modifiedData);
-                        
-                        if($modifiedData)
+                        if($modifiedData && !$removeField)
                         {
                             foreach($modifiedData as $key1 => $secondArray)
                             {
@@ -1072,7 +1088,7 @@ class DefaultController extends FrontendController
                                 
                             }
                         }
-                        // p_r($tableArray);
+
                         $data['tableFieldData'] = $tableArray;
                         $data['maxColumns'] = $maxColumn;
                         
@@ -1080,8 +1096,7 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-            // p_r($childrenData);
-            // die;
+
             $productData['childrenData'] = $childrenData;
             $ymlData = $this->configProviderService->getBrickMappingConfig();
             
@@ -1321,7 +1336,6 @@ class DefaultController extends FrontendController
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
-            $productData['Benefits'] = $productObject->getBenefits();
 
             $objParent = $productObject->getParent();
 
@@ -1427,7 +1441,6 @@ class DefaultController extends FrontendController
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
-            $productData['Benefits'] = $productObject->getBenefits();
             
             $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
 
