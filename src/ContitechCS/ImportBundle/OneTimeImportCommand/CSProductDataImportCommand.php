@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\BlockElement;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Logger;
@@ -229,6 +230,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                     if (isset($productDataImportConfig[$fieldCVSKey])) {
                                         $fieldConfig = $productDataImportConfig[$fieldCVSKey];
                                         $fieldName = ucfirst($fieldConfig['fieldName']);
+                                        $blockName = ucfirst($fieldConfig['blockName']);
                                         if ($fieldConfig['objectType'] == 'class') {
                                             if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
 
@@ -279,6 +281,34 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $method = 'set' . $fieldName;
                                                 $product->$method($fieldValue);
+                                            } else if ($fieldConfig['fieldType'] == 'Block') {
+                                                $fieldValue = trim($fieldValue);
+
+                                                if (strpos($fieldValue, "\n") !== false) {
+                                                    $fieldValueArr = explode("\n", $fieldValue);
+                                                } else {
+                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                }
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+
+                                                $fieldValueBlock = array();
+                                                if ($blockName == 'BenefitBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Benefit" => new BlockElement("Benefit", 'input', $val)
+                                                        ];
+                                                    }
+                                                } else if ($blockName == 'FeatureBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Feature" => new BlockElement("Feature", 'input', $val)
+                                                        ];
+                                                    }
+                                                }
+
+                                                $product->$method($fieldValueBlock);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
