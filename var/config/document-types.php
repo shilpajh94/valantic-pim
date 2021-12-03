@@ -458,11 +458,7 @@ return [
     ],
     36 => [
         "id" => 36,
-<<<<<<< HEAD
-        "name" => "ContiInspect Systems",
-=======
         "name" => "Conti Inspect Systems",
->>>>>>> 4c88240893d45c7b9917634a93cedf967c345e74
         "group" => "Conveyor Solution",
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
@@ -471,11 +467,7 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1637829944,
-<<<<<<< HEAD
-        "modificationDate" => 1637830113
-=======
         "modificationDate" => 1638191389
->>>>>>> 4c88240893d45c7b9917634a93cedf967c345e74
     ],
     37 => [
         "id" => 37,
