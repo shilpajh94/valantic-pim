@@ -459,7 +459,7 @@ return [
     36 => [
         "id" => 36,
         "name" => "Conti Inspect Systems",
-        "group" => "Conveyor Solution",
+        "group" => "Conveyor Solution", 
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
         "action" => "templateContiInspectSystems",
