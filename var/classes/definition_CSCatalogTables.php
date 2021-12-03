@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-06T10:07:32+02:00
+* Generated at: 2021-11-25T06:33:38+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSCatalogTables',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633507649,
+   'modificationDate' => 1637818417,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -128,7 +128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
-             'invisible' => false,
+             'invisible' => true,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
@@ -155,7 +155,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',

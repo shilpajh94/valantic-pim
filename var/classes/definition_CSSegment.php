@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-06T19:18:56+05:30
+* Generated at: 2021-11-22T13:59:39+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSSegment',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633528136,
+   'modificationDate' => 1637585979,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

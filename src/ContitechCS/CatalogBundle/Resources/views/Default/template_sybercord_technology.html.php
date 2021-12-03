@@ -9,7 +9,7 @@
             "subtypes" => [
             "object" => ["object"]
             ],
-            "classes" => ["CSCatalogCategory"],
+            "classes" => ["CSCatalogTables"],
     ]);
 ?>
 <?php endif; ?>

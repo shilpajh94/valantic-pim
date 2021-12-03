@@ -99,3 +99,4 @@ define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Product
 define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
 define("CS_PPRODUCT_PATH", '/Contitech_ConveyorSolution/Products/');
 define("CS_SEGMENT_COUNTRIES_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/segment_based_country_list.yml");
+define("CS_PRODUCT_TABLE_COLUMN_LIMIT", 10);

@@ -1,34 +1,48 @@
 <?php 
 
 /** 
+* Generated at: 2021-11-30T13:33:36+01:00
+* Inheritance: no
+* Variants: no
+* Changed by: admin (2)
+* IP: 127.0.0.1
+
+
 Fields Summary: 
-- Price [numeric]
-- PriceUnit [input]
+- AvailableBeltWidthMM [numeric]
+- AvailableBeltWidthInch [numeric]
+- AvailableBeltWidthMMUnit [input]
+- AvailableBeltWidthInchUnit [input]
 */ 
 
 
-return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
-   'classDefinitions' => 
-  array (
-    0 => 
-    array (
-      'classname' => 'CSProducts',
-      'fieldname' => 'ProductAttributes',
-    ),
-  ),
-   'dao' => NULL,
-   'key' => 'ProdAttrSetM',
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'id' => 'CSAvailableBeltWidths',
+   'name' => 'CSAvailableBeltWidths',
+   'description' => '',
+   'creationDate' => 0,
+   'modificationDate' => 1638275616,
+   'userOwner' => 2,
+   'userModification' => 2,
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Set - M',
-   'group' => 'CONVEYOR-BELT-SOLUTION',
+   'listingParentClass' => '',
+   'useTraits' => '',
+   'listingUseTraits' => '',
+   'encryption' => false,
+   'encryptedTables' => 
+  array (
+  ),
+   'allowInherit' => false,
+   'allowVariants' => NULL,
+   'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'name' => NULL,
+     'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
@@ -45,11 +59,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
          'labelWidth' => 100,
-         'layout' => '',
+         'layout' => NULL,
          'border' => false,
          'name' => 'Layout',
          'type' => NULL,
-         'region' => '',
+         'region' => NULL,
          'title' => '',
          'width' => NULL,
          'height' => NULL,
@@ -63,7 +77,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 200,
+             'labelWidth' => 100,
              'layout' => 'hbox',
              'fieldLabel' => '',
              'name' => 'Field Container',
@@ -82,7 +96,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 60,
+                 'labelWidth' => 200,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -107,20 +121,51 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 2,
-                     'name' => 'Price',
-                     'title' => 'Price',
+                     'decimalPrecision' => NULL,
+                     'name' => 'AvailableBeltWidthMM',
+                     'title' => 'Available Belt Width (mm)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'AvailableBeltWidthInch',
+                     'title' => 'Available Belt Width (inch)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -163,14 +208,42 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'PriceUnit',
+                     'name' => 'AvailableBeltWidthMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'float:left; padding-left:10px;',
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'AvailableBeltWidthInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -193,4 +266,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'locked' => false,
      'icon' => NULL,
   )),
+   'icon' => '',
+   'previewUrl' => '',
+   'group' => 'Conveyor Solution',
+   'showAppLoggerTab' => false,
+   'linkGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
+   'propertyVisibility' => 
+  array (
+    'grid' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+    'search' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+  ),
+   'enableGridLocking' => false,
+   'dao' => NULL,
 ));

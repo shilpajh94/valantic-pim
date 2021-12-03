@@ -165,7 +165,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             <thead>
                                                 <tr>
                                                     <th class="orange" colspan="3">
-                                                    <?= $this->input("P_N_Belt_Construction"); ?>   
+                                                    <?= $this->input("P_N_Belt_Construction", ['placeholder'=>'Cleated Belt Compounds']); ?>   
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -405,7 +405,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 {
                                     if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
                                     {
-                                        $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
                                     }
                                     else{
                                         echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
@@ -433,18 +433,67 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <tbody>
 
                                         <?php 
-                                            foreach ($child['tableFieldData'] as $fieldName => $fieldValue) {
+                                            $maxColumns = $child['maxColumns'] + 1;
+                                            foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
+                                                $colspan = ($maxColumns - count($rowArray));
+                                                $colspanStr = '';
+                                                if($colspan > 0)
+                                                {
+                                                    $colspan += 1;
+                                                    $colspanStr = "colspan='{$colspan}'";
+                                                }
+                                                $firstKey = array_key_first($rowArray);
+
                                                 ?>
-                                                    <tr>
-                                                        <th class="orange text-right">
-                                                            <?= $this->translate($fieldName); ?>
-                                                        </th>
-                                                        <td colspan="6">
-                                                            <?= $fieldValue; ?>
-                                                            <?= $this->translate('CS_Unit_in') ?>
-                                                        </td>
-                                                    </tr>
+
+                                                <tr>
+
                                                 <?php
+                                                foreach ($rowArray as $rkey => $rvalue) {
+                                                    
+                                                    $unit = "CS_Unit_in";
+                                                    $translatedUnit = '';
+
+                                                    if(($rowArray[0] == 'CS_profileWidth' || $rowArray[0] == 'CS_beltWidthRange') && $rkey == 2)
+                                                    {
+                                                        $unit = "CS_Unit_mm";
+                                                    }
+
+                                                    if($firstKey == $rkey)
+                                                    {
+                                                        if($rvalue == 'CS_CleatHeightMM')
+                                                        {
+                                                            $unit = "CS_Unit_mm";
+                                                        }
+                                                        
+                                                        
+
+                                                        ?>
+                                                        <th class="orange text-right">
+                                                            <?= $this->translate($rvalue); ?>
+                                                        </th>
+                                                    <?php
+                                                    }
+                                                    else{
+                                                        if(!$colspan)
+                                                        {
+                                                            $translatedUnit = $this->translate($unit);
+                                                        }
+                                                        else{
+                                                            if(is_numeric($rvalue))
+                                                            {
+                                                                $translatedUnit = $this->translate($unit);
+                                                            }
+                                                        }
+                                                        
+                                                        
+                                                        ?>
+                                                        <td <?= $colspanStr ?>>
+                                                            <?= ($rvalue) ? $rvalue.' '.$translatedUnit: '-'; ?>
+                                                        </td>
+                                                        <?php
+                                                    }
+                                                }
                                             }
                                         ?>
                                     </tbody>

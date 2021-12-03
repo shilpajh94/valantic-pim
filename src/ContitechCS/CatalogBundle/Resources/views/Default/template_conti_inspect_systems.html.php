@@ -145,7 +145,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
-                                            <?= $this->input("CIS_Benefits")->setDataFromResource($data['Benefits']) ?>
+                                            <?= $this->input("CIS_Benefits")->setDataFromResource($data['Benefits'][0]) ?>
                                     <?php else: ?>
                                             <?= $this->input("CIS_Benefits"); ?>
                                     <?php endif; ?>

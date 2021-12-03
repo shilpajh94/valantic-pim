@@ -27,7 +27,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php
                         if($this->input("CPB_title")->isEmpty())
                             {
-                                echo $this->input("CPB_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
+                                echo $this->input("CPB_title",['placeholder' => 'Enter your title'])->setDataFromResource($parentProductData['HierarchyNameLevel2']);
                             }
                             else
                             {
@@ -216,20 +216,26 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 <div class="feature-benefit-list black-bold">
 
+                <?php
+                    if(isset($childProductData['Benefits']) && $childProductData['Benefits'])
+                    {
+                        ?>
+                            <div class="feature-benefit-list">
+                                <ul>
+                                    <?php 
+                                        foreach ($childProductData['Benefits'] as $key => $item) {
+                                            ?>
+                                    <li><?= $item ?></li>
+                                    <?php
+                                        }
+                                    ?>
+                                </ul>
+                            </div>
+                        <?php
+                    }
+                ?>
 
-
-                <div class="feature-benefit-list">
-
-                    <?php if($this->editmode): ?>
-                        <?php if($this->wysiwyg("CPBChild_Benefits")->isEmpty()): ?>
-                                <?= $this->wysiwyg("CPBChild_Benefits")->setDataFromResource($childProductData['Benefits']) ?>
-                        <?php else: ?>
-                                <?= $this->wysiwyg("CPBChild_Benefits"); ?>
-                        <?php endif; ?>
-                    <?php else: ?>
-                            <?= $this->wysiwyg("CPBChild_Benefits") ?>
-                    <?php endif; ?>
-                </div>
+                
                 
                 <?php
                     if($this->editmode)
@@ -254,83 +260,85 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
                 ?>
 
-                <div class="belts-information">
-                    <h3><?= $this->input("CPBContiPipe_MegaPipe",['placeholder'=>'Enter Heading']); ?></h3>
-                    <div class="table-data contipipe-table w-80">
-                        <table width="100%">
-                            <thead>
-                                <tr align="left" class="orange-bg">
-                                    <th colspan="10">&nbsp;</th>
-                                </tr>
-                                <tr class="grey-bg">
-                                    <th colspan="2">
-                                        <?= $this->translate('CS_Diameter') ?>
-                                    </th>
-                                    <th colspan="2">
-                                        <?= $this->translate('CS_Belt_Width') ?>
-                                    </th>
-                                    <th colspan="2">
-                                    <?= $this->translate('CS_Type') ?>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Unit_in') ?>.
-                                    </th>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Unit_mm') ?>
-                                    </th>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Unit_in') ?>.
-                                    </th>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Unit_mm') ?>
-                                    </th>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Fabric') ?>
-                                    </th>
-                                    <th width="16.5%">
-                                        <?= $this->translate('CS_Steel') ?>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <?php
 
-                                <?php
+                if(isset($childProductData['productSpecificData']) && $childProductData['productSpecificData'])
+                {
+                ?>
+                    <div class="belts-information">
+                        <h3><?= $this->input("CPBContiPipe_MegaPipe",['placeholder'=>'Enter Heading']); ?></h3>
+                        <div class="table-data contipipe-table w-80">
+                            <table width="100%">
+                                <thead>
+                                    <tr align="left" class="orange-bg">
+                                        <th colspan="10">&nbsp;</th>
+                                    </tr>
+                                    <tr class="grey-bg">
+                                        <th colspan="2">
+                                            <?= $this->translate('CS_Diameter') ?>
+                                        </th>
+                                        <th colspan="2">
+                                            <?= $this->translate('CS_Belt_Width') ?>
+                                        </th>
+                                        <th colspan="2">
+                                        <?= $this->translate('CS_Type') ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Unit_in') ?>.
+                                        </th>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Unit_mm') ?>
+                                        </th>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Unit_in') ?>.
+                                        </th>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Unit_mm') ?>
+                                        </th>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Fabric') ?>
+                                        </th>
+                                        <th width="16.5%">
+                                            <?= $this->translate('CS_Steel') ?>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                if(isset($data['productSpecificData']) && $data['productSpecificData'])
-                                {
-                                    foreach($data['productSpecificData'] as $arr)
-                                    {   
-                                        ?><tr align="center"><?php
-                                        foreach($arr as $val)
-                                        {
-                                            ?>
-                                                <td><?= $val; ?></td>
-                                            <?php
+                                    <?php
+
+                                        foreach($childProductData['productSpecificData'] as $arr)
+                                        {   
+                                            ?><tr align="center"><?php
+                                            foreach($arr as $val)
+                                            {
+                                                ?>
+                                                    <td><?= $val; ?></td>
+                                                <?php
+                                            }
+                                            ?></tr><?php
                                         }
-                                        ?></tr><?php
-                                    }
-                                }    
+                                    ?>
 
-                                ?>
+                                </tbody>
+                            </table>
+                        </div>
 
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p class="table-notes w-80">
-                    <?php if($this->editmode): ?>
-                        <?php if($this->input("CPBChild_Note")->isEmpty()): ?>
-                                <?= $this->input("CPBChild_Note",['placeholder'=>'notes']) ?>
+                        <p class="table-notes w-80">
+                        <?php if($this->editmode): ?>
+                            <?php if($this->input("CPBChild_Note")->isEmpty()): ?>
+                                    <?= $this->input("CPBChild_Note",['placeholder'=>'notes']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("CPBChild_Note"); ?>
+                            <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CPBChild_Note"); ?>
+                                <?= $this->input("CPBChild_Note") ?>
                         <?php endif; ?>
-                    <?php else: ?>
-                            <?= $this->input("CPBChild_Note") ?>
-                    <?php endif; ?>
-                    </p>
-                </div>
+                        </p>
+                    </div>
+                <?php } ?>
             </section>
 
         </main>

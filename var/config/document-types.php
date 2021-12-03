@@ -302,20 +302,20 @@ return [
     ],
     24 => [
         "id" => 24,
-        "name" => "CS_Container Page",
+        "name" => "Container Page",
         "group" => "Conveyor Solution",
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
         "action" => "container",
         "template" => "ContitechCSCatalogBundle:Default:container.html.php",
-        "type" => "printpage",
+        "type" => "printcontainer",
         "priority" => 0,
         "creationDate" => 1637827805,
-        "modificationDate" => 1637827919
+        "modificationDate" => 1637833895
     ],
     25 => [
         "id" => 25,
-        "name" => "CS_Table of Content",
+        "name" => "Table of Content",
         "group" => "Conveyor Solution",
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
@@ -324,7 +324,7 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1637827972,
-        "modificationDate" => 1637828275
+        "modificationDate" => 1637833863
     ],
     26 => [
         "id" => 26,
@@ -458,7 +458,11 @@ return [
     ],
     36 => [
         "id" => 36,
+<<<<<<< HEAD
         "name" => "ContiInspect Systems",
+=======
+        "name" => "Conti Inspect Systems",
+>>>>>>> 4c88240893d45c7b9917634a93cedf967c345e74
         "group" => "Conveyor Solution",
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
@@ -467,7 +471,11 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1637829944,
+<<<<<<< HEAD
         "modificationDate" => 1637830113
+=======
+        "modificationDate" => 1638191389
+>>>>>>> 4c88240893d45c7b9917634a93cedf967c345e74
     ],
     37 => [
         "id" => 37,
