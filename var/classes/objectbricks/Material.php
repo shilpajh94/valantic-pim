@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-24T18:18:03+01:00
-* IP: 127.0.0.1
+* Generated at: 2021-12-03T05:01:00-05:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -10,7 +10,6 @@ Fields Summary:
 - CleatHeightMM [numeric]
 - NumberofPlies [numeric]
 - Material [multiselect]
-- CarcassConstruction [select]
 - CarcassGaugeinMM_Unit [input]
 - CleatHeightMMUnit [input]
 - CarcassGaugeinInch [numeric]
@@ -218,16 +217,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
-                      0 => 
-                      array (
-                        'key' => 'Alumina',
-                        'value' => 7501910,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Cement',
-                        'value' => 7501911,
-                      ),
                     ),
                      'width' => 200,
                      'height' => 30,
@@ -253,52 +242,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'EPDM for additionally wax resistance',
-                        'value' => 'EPDM for additionally wax resistance',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'V for additionally oil, grease and welding resistance',
-                        'value' => 'V for additionally oil, grease and welding resistance',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'CE Standard black 57 Shore A rubber, KTL proof',
-                        'value' => 'CE Standard black 57 Shore A rubber, KTL proof',
-                      ),
-                    ),
-                     'width' => 200,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
-                     'name' => 'CarcassConstruction',
-                     'title' => 'Carcass Construction',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,

@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-01T06:50:34+01:00
-* IP: 127.0.0.1
+* Generated at: 2021-12-03T05:08:55-05:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -13,7 +13,6 @@ Fields Summary:
 - BeltWidth [numeric]
 - DiameterInch [numeric]
 - AvailableProfilePatternWidths [numeric]
-- FingerLengthMM [numeric]
 - MaximumBeltWidthMMUnit [input]
 - MinimumBeltWidthMMUnit [input]
 - AvailableBeltWidthRangeMMUnit [input]
@@ -21,7 +20,6 @@ Fields Summary:
 - BeltWidthUnit [input]
 - DiameterInchUnit [input]
 - AvailableProfilePatternWidthsUnit [input]
-- FingerLengthMMUnit [input]
 - MaximumBeltWidthInch [numeric]
 - MinimumBeltWidthInch [numeric]
 - AvailableBeltWidthRangeInch [input]
@@ -29,7 +27,6 @@ Fields Summary:
 - BeltWidthmm [numeric]
 - Diameter [numeric]
 - VolumeFlow [numeric]
-- FingerLengthInch [numeric]
 - MaximumBeltWidthInchUnit [input]
 - MinimumBeltWidthInchUnit [input]
 - AvailableBeltWidthRangeInchUnit [input]
@@ -37,7 +34,6 @@ Fields Summary:
 - BeltWidthmmUnit [input]
 - DiameterUnit [input]
 - VolumeFlowUnit [input]
-- FingerLengthInchUnit [input]
 - AvailableBeltPatternWidthBlock [block]
 -- availableBeltWidthInch [select]
 -- availablePatternWidthInch [multiselect]
@@ -349,37 +345,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'FingerLengthMM',
-                     'title' => 'FingerLength (mm)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
                 ),
                  'locked' => false,
               )),
@@ -594,34 +559,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'datatype' => 'data',
                      'relationType' => false,
                      'invisible' => true,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'FingerLengthMMUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
@@ -862,37 +799,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'FingerLengthInch',
-                     'title' => 'FingerLength (inch)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
                 ),
                  'locked' => false,
               )),
@@ -1111,34 +1017,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'FingerLengthInchUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
                 ),
                  'locked' => false,
               )),
@@ -1185,19 +1063,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 24,
-                    'value' => 7501897,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 30,
-                    'value' => 7501898,
-                  ),
-                ),
+                 'options' => NULL,
                  'width' => '',
                  'defaultValue' => '',
                  'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\AvailableBeltWidthOptionProvider',
@@ -1226,39 +1092,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'fieldtype' => 'multiselect',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 24,
-                    'value' => 7501901,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 18,
-                    'value' => 7501902,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 48,
-                    'value' => 7501903,
-                  ),
-                  3 => 
-                  array (
-                    'key' => 42,
-                    'value' => 7501904,
-                  ),
-                  4 => 
-                  array (
-                    'key' => 30,
-                    'value' => 7501905,
-                  ),
-                  5 => 
-                  array (
-                    'key' => 'continues',
-                    'value' => 7501927,
-                  ),
-                ),
+                 'options' => NULL,
                  'width' => '',
                  'height' => '',
                  'maxItems' => '',
