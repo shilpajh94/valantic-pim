@@ -1235,8 +1235,8 @@ class DefaultController extends FrontendController
             }
         }
         else{
-            // $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-            // $productChildrenData = array_merge($productChildrenData, $children);
+            $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+            $productChildrenData = array_merge($productChildrenData, $children);
         }
         
         return $productChildrenData;
