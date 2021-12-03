@@ -9,6 +9,8 @@
                 if($this->editmode)
                 {
                     echo $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']);
+                } else {
+                    echo $this->input("CS_ProductName");
                 }
             ?>
         <div class="header-sec">

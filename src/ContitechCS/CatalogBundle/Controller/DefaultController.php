@@ -127,6 +127,82 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/contitech_cs_catalog/template_dynamic_table_of_contents")
+     */
+    public function templateDynamicTableOfContentsAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+
+        $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+        
+        $this->view['footer_logo_src'] = $footer_logo_src;
+
+        $folderId =$this->document->getParent()->getId(); 
+        $listing = new \Pimcore\Model\Document\Listing(); 
+        $listing->setCondition("parentId = $folderId");
+        $listing->load();
+        $listing->setOrderKey("index");     
+        $listing->setOrder("asc");
+
+        $all_doc_arr = [];
+        $section_arr = [];
+        $templateArray = [
+            'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_inspect_systems.html.php',
+            'ContitechCSCatalogBundle:Default:template_steelcord_belt_construction.html.php',
+            'ContitechCSCatalogBundle:Default:template_continental_conveyor_services.html.php',
+            'ContitechCSCatalogBundle:Default:template_eco_series_pulley.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_pipe_belt.html.php',
+            'ContitechCSCatalogBundle:Default:template_mega_pipe_belt.html.php',
+            'ContitechCSCatalogBundle:Default:template_sybercord_technology.html.php',
+            'ContitechCSCatalogBundle:Default:template_cleated_belts.html.php',
+            'ContitechCSCatalogBundle:Default:template_conti_protect_systems.html.php',
+            'ContitechCSCatalogBundle:Default:template_product_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_contialert_product_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_conveyor_belt_group.html.php',
+            'ContitechCSCatalogBundle:Default:template_product_section_page.html.php',
+            'ContitechCSCatalogBundle:Default:template_textile_belt_construction.html.php',
+            'ContitechCSCatalogBundle:Default:template_contiClean.html.php',
+            'ContitechCSCatalogBundle:Default:template_cover_compounds.html.php',
+            'ContitechCSCatalogBundle:Default:template_quality_and_the_environment.html.php',
+            'ContitechCSCatalogBundle:Default:template_wood_product.html.php'
+        ];
+
+        foreach($listing as $doc) {
+            if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php') {
+                $obj = $doc->getElement('TOC_Section_Title');
+                $section_arr [] = $obj->getData();
+            }  
+            if (in_array($doc->getTemplate(), $templateArray)) {
+
+                $obj = $doc->getElement('CS_ProductName');
+                if ($obj) {
+                $all_doc_arr[] = $obj->getData();
+                } else {
+                    $obj = $doc->getElement('TOC_Section_Title');
+                    if($obj) {
+                    $all_doc_arr[] = $obj->getData();  
+                    }
+                }
+            }
+                    
+        }
+        $all_doc_arr = array_filter($all_doc_arr); 
+        $table_of_content_data = [];
+        $title = [];
+
+        foreach ($all_doc_arr as $doc_arr) {
+            if (in_array($doc_arr, $section_arr)) {
+                $title = $doc_arr;
+            }
+            if ($title && $doc_arr !=  $title) {
+                $table_of_content_data[$title][] = $doc_arr;
+                }
+            }
+        $this->view['data'] = $table_of_content_data;     
+    }
+
+    /**
      * @Route("/contitech_cs_catalog/template_product_page")
      */
     public function templateProductPageAction(Request $request)

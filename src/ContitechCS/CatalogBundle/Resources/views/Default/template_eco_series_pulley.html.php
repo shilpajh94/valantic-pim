@@ -21,7 +21,7 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
 
-            <h1 class="orange"><?= $this->input("Header_title",[
+            <h1 class="orange"><?= $this->input("CS_ProductName",[
             "placeholder" =>
             "Enter Your  Heading"]); ?></h1>
             <p class="p-medium"><?= $this->textarea("Content1",[
