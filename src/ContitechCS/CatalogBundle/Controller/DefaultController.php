@@ -131,7 +131,8 @@ class DefaultController extends FrontendController
      */
     public function templateProductPageAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
 
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -560,7 +561,8 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
 
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -777,7 +779,8 @@ class DefaultController extends FrontendController
      */
     public function templateCleatedBeltsAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
 
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1156,8 +1159,8 @@ class DefaultController extends FrontendController
             }
         }
         else{
-            $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-            $productChildrenData = array_merge($productChildrenData, $children);
+            // $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+            // $productChildrenData = array_merge($productChildrenData, $children);
         }
         
         return $productChildrenData;
@@ -1259,7 +1262,8 @@ class DefaultController extends FrontendController
     */
     public function templateContinentalConveyorServicesAction(Request $request)
     {   
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1319,7 +1323,8 @@ class DefaultController extends FrontendController
     */
     public function templateContiProtectSystemsAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
 
         $this->configProviderService = new ConfigProviderService();
@@ -1368,7 +1373,8 @@ class DefaultController extends FrontendController
     */
     public function templateContiInspectSystemsAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1457,7 +1463,8 @@ class DefaultController extends FrontendController
      */
     public function templateContiPipeBeltAction(Request $request)
     {
-        $region = $this->document->getProperty('region');
+        $regionProperty = $this->document->getProperty('region');
+        $region = $regionProperty->getRegionName();
         $this->configProviderService = new ConfigProviderService();
         
         $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
