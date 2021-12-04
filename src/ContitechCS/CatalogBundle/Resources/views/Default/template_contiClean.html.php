@@ -90,7 +90,7 @@
                                 else
                                     {
                                     $CSSImgSrcObj =  $this->image("ContiClean_ProductImage");
-                                        if($CSSImgSrcObj)
+                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
                     <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
@@ -178,7 +178,7 @@
                                 else
                                     {
                                     $CSSImgSrcObj =  $this->image("ContiClean_reportImage");
-                                        if($CSSImgSrcObj)
+                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
                     <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />

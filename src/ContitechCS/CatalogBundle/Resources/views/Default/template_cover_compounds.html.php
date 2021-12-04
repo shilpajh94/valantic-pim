@@ -396,11 +396,36 @@ $coverCompound = $data['coverCompoundData'];
                     <div class="media-body pr-4">
                             <table class="solar-shield-table">
                                     <?php 
+                                        $count = 0;
                                         foreach ($singleProductPage['Level4ObjChildData'] as $chKey => $chValue) {
+                                            $md5Key = md5($chValue['Name'].'_'.$count);
+                                            $count++;
                                         ?>
                                             <tr>
-                                                <td class="orange" width="25%"><?= $chValue['Name'] ?></td>
-                                                <td width="75%"><?= $chValue['LongText'] ?></td>
+                                                <td class="orange" width="25%">
+
+                                                    <?php if($this->editmode): ?>
+                                                            <?php if($this->input("CCHRPageTitle_{$md5Key}")->isEmpty()): ?>
+                                                                    <?= $this->input("CCHRPageTitle_{$md5Key}",['placeholder'=>'Solar-Shield Product'])->setDataFromResource($chValue['Name']) ?>
+                                                            <?php else: ?>
+                                                                    <?= $this->input("CCHRPageTitle_{$md5Key}"); ?>
+                                                            <?php endif; ?>
+                                                    <?php else: ?>
+                                                            <?= $this->input("CCHRPageTitle_{$md5Key}") ?>
+                                                    <?php endif; ?>
+
+                                                </td>
+                                                <td width="75%">
+                                                    <?php if($this->editmode): ?>
+                                                                <?php if($this->textarea("CCHRPageDesc_{$md5Key}")->isEmpty()): ?>
+                                                                        <?= $this->textarea("CCHRPageDesc_{$md5Key}",['placeholder'=>'Solar-Shield Product Description'])->setDataFromResource($chValue['LongText']) ?>
+                                                                <?php else: ?>
+                                                                        <?= $this->textarea("CCHRPageDesc_{$md5Key}"); ?>
+                                                                <?php endif; ?>
+                                                        <?php else: ?>
+                                                                <?= $this->textarea("CCHRPageDesc_{$md5Key}") ?>
+                                                        <?php endif; ?>
+                                                </td>
                                             </tr>
                                         <?php
                                         }
