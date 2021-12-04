@@ -1236,7 +1236,7 @@ class DefaultController extends FrontendController
             }
         }
         
-        return $productChildrenData;
+        return $filterArray;
     }
 
     public function addPrefix($key): String
