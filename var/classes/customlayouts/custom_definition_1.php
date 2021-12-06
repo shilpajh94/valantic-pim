@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-02T18:55:08+01:00
+* Generated at: 2021-12-06T06:59:20+01:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagerCS',
    'description' => '',
    'creationDate' => 1634894969,
-   'modificationDate' => 1638467708,
+   'modificationDate' => 1638770360,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'CSProducts',
@@ -1662,22 +1662,22 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           0 => 
                           array (
                             'key' => 'AMERICAS',
-                            'value' => 7067081,
+                            'value' => 10731547,
                           ),
                           1 => 
                           array (
                             'key' => 'APAC',
-                            'value' => 7067080,
+                            'value' => 10731546,
                           ),
                           2 => 
                           array (
                             'key' => 'EMEA',
-                            'value' => 7067079,
+                            'value' => 10731545,
                           ),
                           3 => 
                           array (
                             'key' => 'SERVICE',
-                            'value' => 7067082,
+                            'value' => 10731548,
                           ),
                         ),
                          'width' => 300,
@@ -1862,62 +1862,62 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Abrasion Compounds',
-                            'value' => 7071239,
+                            'value' => 10731460,
                           ),
                           1 => 
                           array (
                             'key' => 'ContiFlex Compounds',
-                            'value' => 7071241,
+                            'value' => 10731462,
                           ),
                           2 => 
                           array (
                             'key' => 'Cut & Gouge Compounds',
-                            'value' => 7071240,
+                            'value' => 10731461,
                           ),
                           3 => 
                           array (
                             'key' => 'Flame And Heat Compounds',
-                            'value' => 7071247,
+                            'value' => 10731468,
                           ),
                           4 => 
                           array (
                             'key' => 'Flame And Oil Resistant Compounds',
-                            'value' => 7071245,
+                            'value' => 10731466,
                           ),
                           5 => 
                           array (
                             'key' => 'Flame And Vegetable Oil Compounds',
-                            'value' => 7071244,
+                            'value' => 10731465,
                           ),
                           6 => 
                           array (
                             'key' => 'Flame Compounds',
-                            'value' => 7071242,
+                            'value' => 10731463,
                           ),
                           7 => 
                           array (
                             'key' => 'Flame Underground Compounds',
-                            'value' => 7071243,
+                            'value' => 10731464,
                           ),
                           8 => 
                           array (
                             'key' => 'Gold Oil Compounds',
-                            'value' => 7071246,
+                            'value' => 10731467,
                           ),
                           9 => 
                           array (
                             'key' => 'Solar-Shield Heat Compounds',
-                            'value' => 7071248,
+                            'value' => 10731469,
                           ),
                           10 => 
                           array (
                             'key' => 'Special Service Compounds',
-                            'value' => 7071249,
+                            'value' => 10731470,
                           ),
                           11 => 
                           array (
                             'key' => 'White Compounds',
-                            'value' => 7071250,
+                            'value' => 10731471,
                           ),
                         ),
                          'width' => 300,
@@ -1984,52 +1984,52 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Australia / South Pacific',
-                            'value' => 7070485,
+                            'value' => 10731542,
                           ),
                           1 => 
                           array (
                             'key' => 'China & Mongolia',
-                            'value' => 7070483,
+                            'value' => 10731540,
                           ),
                           2 => 
                           array (
                             'key' => 'Eastern Europe/Russia',
-                            'value' => 7070480,
+                            'value' => 10731537,
                           ),
                           3 => 
                           array (
                             'key' => 'India',
-                            'value' => 7070484,
+                            'value' => 10731541,
                           ),
                           4 => 
                           array (
                             'key' => 'Middle East/North Africa',
-                            'value' => 7070481,
+                            'value' => 10731538,
                           ),
                           5 => 
                           array (
                             'key' => 'North America',
-                            'value' => 7070477,
+                            'value' => 10731534,
                           ),
                           6 => 
                           array (
                             'key' => 'South America',
-                            'value' => 7070478,
+                            'value' => 10731535,
                           ),
                           7 => 
                           array (
                             'key' => 'South East Asia',
-                            'value' => 7070486,
+                            'value' => 10731543,
                           ),
                           8 => 
                           array (
                             'key' => 'Subsahara/South Africa',
-                            'value' => 7070482,
+                            'value' => 10731539,
                           ),
                           9 => 
                           array (
                             'key' => 'Western Europe',
-                            'value' => 7070479,
+                            'value' => 10731536,
                           ),
                         ),
                          'width' => 300,
@@ -2347,7 +2347,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'CSProducts',
+                         'classes' => 
+                        array (
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'CoverCompounds',
                          'title' => 'Cover Compounds',
@@ -2400,7 +2402,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'CSFeaturesAndBenefits',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSFeaturesAndBenefits',
+                          ),
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'CSProductFeaturesAndBenefits',
                          'title' => 'Features and Benefits',
@@ -2431,7 +2439,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'CSProducts',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSProducts',
+                          ),
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'CSRelatedProducts',
                          'title' => 'Related Products',
