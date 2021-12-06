@@ -1784,9 +1784,9 @@ Common Product Page:
                 VulcanizedAndFastenerRatinginPIW:
                     objectType: LoadSupport
                 ElevatorRatingPIW: 
-                    objectType: BeltData
+                    objectType: TensionElevatorBelt
                 MaximumBucketProjectionInch: 
-                    objectType: BeltData
+                    objectType: TensionElevatorBelt
                 CarcassGaugeinInch:
                     objectType: Material
                 CarcassWeightLBS:
@@ -1819,9 +1819,9 @@ Common Product Page:
                 VulcanizedAndFastenerRatinginNMM:
                     objectType: LoadSupport
                 ElevatorRatingNmm:
-                    objectType: BeltData
+                    objectType: TensionElevatorBelt
                 MaximumBucketProjectionMM: 
-                    objectType: BeltData
+                    objectType: TensionElevatorBelt
                 CarcassGaugeinMM:
                     objectType: Material
                 CarcassWeightKGM:
@@ -2029,7 +2029,7 @@ Common Product Page:
                 ElasticModulusinPIW:
                     objectType: BeltData
                 FingerLengthMM:
-                    objectType: ProdDimensions
+                    objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
@@ -2056,7 +2056,7 @@ Common Product Page:
                 ElasticModulusinKNMM:
                     objectType: BeltData
                 FingerLengthInch:
-                    objectType: ProdDimensions
+                    objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             CS_Trough_Angle_Label: true
