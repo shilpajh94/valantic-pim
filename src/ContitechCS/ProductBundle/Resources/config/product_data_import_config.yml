@@ -49,11 +49,11 @@ Belt Modulus:
 Elevator Rating:
     fieldName: ElevatorRatingPIW
     fieldType: Number
-    objectType: BeltData
+    objectType: TensionElevatorBelt
 Maximum Bucket Projection (in.):
     fieldName: MaximumBucketProjectionInch
     fieldType: Number
-    objectType: BeltData
+    objectType: TensionElevatorBelt
 minimum pulley diameter in mm (@tails and snubs):
     fieldName: MinimumPulleyDiameterinMMTailsAndSnubs
     fieldType: Number
@@ -157,7 +157,7 @@ Belt Modulus in PIW:
 Elevator Rating (N/mm):
     fieldName: ElevatorRatingNmm
     fieldType: Number
-    objectType: BeltData
+    objectType: TensionElevatorBelt
 nominal cable diameter in mm:
     fieldName: NominalCableDiameterinMM
     fieldType: Number
@@ -173,7 +173,7 @@ Cleat profile sizes:
 Maximum Bucket Projection (mm):
     fieldName: MaximumBucketProjectionMM
     fieldType: Number
-    objectType: BeltData
+    objectType: TensionElevatorBelt
 Minimum ultimate tension PIW:
     fieldName: MinimumUltimateTensionPIW
     fieldType: Number
@@ -202,6 +202,14 @@ step length in inch:
     fieldName: StepLengthinInch
     fieldType: Number
     objectType: SpliceData
+finger length in mm:
+    fieldName: FingerLengthMM
+    fieldType: Number
+    objectType: SpliceData
+finger length in inch:
+    fieldName: FingerLengthInch
+    fieldType: Number
+    objectType: SpliceData
 hinge:
     fieldName: Hinge
     fieldType: Input
@@ -224,6 +232,10 @@ Functionality:
     objectType: Functionality
 Product Options:
     fieldName: ProductOptions
+    fieldType: Input
+    objectType: OptionsStandards
+Cover Options:
+    fieldName: CoverOptions
     fieldType: Input
     objectType: OptionsStandards
 International Standards:
@@ -317,7 +329,7 @@ Cleat Height:
 carcass construction:
     fieldName: CarcassConstruction
     fieldType: Select
-    objectType: Material
+    objectType: BeltData
 Cleat Height in inch:
     fieldName: CleatHeightInch
     fieldType: Number
