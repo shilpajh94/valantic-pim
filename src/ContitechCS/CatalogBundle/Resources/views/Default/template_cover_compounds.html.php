@@ -449,6 +449,12 @@ $coverCompound = $data['coverCompoundData'];
 
                 </div>
 
+                <?php
+
+                $coverCompounds = $data['coverCompounds'];
+                if($coverCompounds)
+                { 
+                ?>
                 <div class="page-break"></div>
                 <div class="belts-information">
                     <h1><span class="orange">
@@ -487,7 +493,7 @@ $coverCompound = $data['coverCompoundData'];
                             </thead>
 
                             <?php
-                                $coverCompounds = $data['coverCompounds'];
+                                
                                 foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
                                     ?>
                                         <tr>
@@ -523,6 +529,9 @@ $coverCompound = $data['coverCompoundData'];
                         </table>
                     </div>
                 </div>
+                <?php
+                }
+                ?>
             </section>
         </main>    
     </div>

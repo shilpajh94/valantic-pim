@@ -590,9 +590,15 @@ Common Product Page:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -619,9 +625,15 @@ Common Product Page:
                 Hinge2:
                     objectType: SpliceData
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -654,16 +666,22 @@ Common Product Page:
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinInch640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
@@ -701,16 +719,22 @@ Common Product Page:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinMM640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
@@ -751,14 +775,20 @@ Common Product Page:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
+                    Name: Name
+                Name:
+                    objectType: class
                 VulcanizedAndFastenerRatinginPIW:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
@@ -768,16 +798,22 @@ Common Product Page:
                 TroughabilityMinimumBeltsWidthinInch45:
                     objectType: LoadSupport
             Metric:
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinMM20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
@@ -787,16 +823,22 @@ Common Product Page:
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
@@ -808,16 +850,22 @@ Common Product Page:
                 MinimumPulleyDiameterinInchTailsAndSnubs:
                     objectType: BeltData
             Metric: 
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
@@ -831,11 +879,17 @@ Common Product Page:
         Elevator Belt Data:
             ColumnKeys: true
             Imperial:
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -853,15 +907,21 @@ Common Product Page:
                 ContinuousIndustrialMaxBucketProjectionInch:
                     objectType: TensionElevatorBelt
             Metric: 
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 FabricType: 
                     objectType: Material
                 RecommendedFastenerPlate: 
@@ -879,8 +939,14 @@ Common Product Page:
             ColumnKeys: true
             Imperial:
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -908,8 +974,14 @@ Common Product Page:
                     objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -942,16 +1014,22 @@ Common Product Page:
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinInch640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
@@ -980,16 +1058,22 @@ Common Product Page:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinMM640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
@@ -1021,16 +1105,22 @@ Common Product Page:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinInch20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
@@ -1038,16 +1128,22 @@ Common Product Page:
                 TroughabilityMinimumBeltsWidthinInch45:
                     objectType: LoadSupport
             Metric:
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinMM20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
@@ -1057,16 +1153,22 @@ Common Product Page:
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
@@ -1078,16 +1180,22 @@ Common Product Page:
                 MinimumPulleyDiameterinInchTailsAndSnubs:
                     objectType: BeltData
             Metric: 
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
@@ -1103,8 +1211,14 @@ Common Product Page:
             ColumnKeys: true
             Imperial:
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1132,8 +1246,14 @@ Common Product Page:
                     objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1166,16 +1286,22 @@ Common Product Page:
             CS_Trough_Angle_Label: true
             CS_Material_Weight_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinInch640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
@@ -1204,16 +1330,22 @@ Common Product Page:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 LoadSupportMaximumBeltWidthinMM640KGM20:
                     objectType: LoadSupport
                     groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
@@ -1245,16 +1377,22 @@ Common Product Page:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinInch20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
@@ -1262,16 +1400,22 @@ Common Product Page:
                 TroughabilityMinimumBeltsWidthinInch45:
                     objectType: LoadSupport
             Metric:
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinMM20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
@@ -1281,16 +1425,22 @@ Common Product Page:
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
@@ -1302,16 +1452,22 @@ Common Product Page:
                 MinimumPulleyDiameterinInchTailsAndSnubs:
                     objectType: BeltData
             Metric: 
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
@@ -1774,9 +1930,15 @@ Common Product Page:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1807,9 +1969,15 @@ Common Product Page:
                 Hinge2:
                     objectType: SpliceData
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1846,16 +2014,22 @@ Common Product Page:
             CS_Idler_Angle_Label: true
             CS_Type_Of_Idler_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 TypeofIdlerInline20inch:
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlineinch
@@ -1884,16 +2058,22 @@ Common Product Page:
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerOffsetLCRollinch
             Metric: 
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 TypeofIdlerInline20mm:
                     objectType: TypeOfIdler
                     groupingTitle: TypeofIdlerInlinemm
@@ -1925,16 +2105,22 @@ Common Product Page:
             ColumnKeys: true
             CS_Idlers_Label: true
             Imperial:
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinInch20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
@@ -1942,16 +2128,22 @@ Common Product Page:
                 TroughabilityMinimumBeltsWidthinInch45:
                     objectType: LoadSupport
             Metric:
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
                 RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                Name:
+                    objectType: class
                 TroughabilityMinimumBeltsWidthinMM20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinMM35:
@@ -1961,16 +2153,22 @@ Common Product Page:
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                RemoveKeys: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # VulcanizedAndFastenerRatinginPIW:
+                #     objectType: LoadSupport
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinInchGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinInch60_80Tension:
@@ -1982,16 +2180,22 @@ Common Product Page:
                 MinimumPulleyDiameterinInchTailsAndSnubs:
                     objectType: BeltData
             Metric: 
-                RemoveKeys: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                # RemoveKeys: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
+                # NumberofPlies:
+                #     objectType: Material
+                # beltRatingNMM: 
+                #     objectType: BeltData
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
-                NumberofPlies:
-                    objectType: Material
-                beltRatingNMM: 
-                    objectType: BeltData
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
                 MinimumPulleyDiameterinMMGreaterThan80Tension:
                     objectType: BeltData
                 MinimumPulleyDiameterinMM60_80Tension:
@@ -2331,8 +2535,14 @@ Common Product Page:
             ColumnKeys: true
             Imperial:
                 KeysGroupLogic: 
-                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -2360,8 +2570,14 @@ Common Product Page:
                     objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
-                    beltRatingNMM: beltRatingNMM
-                    NumberofPlies: NumberofPlies
+                    Name: Name
+                RemoveKeys: 
+                    Name: Name
+                Name:
+                    objectType: class
+                # KeysGroupLogic: 
+                #     beltRatingNMM: beltRatingNMM
+                #     NumberofPlies: NumberofPlies
                 NumberofPlies:
                     objectType: Material
                 FabricType: 

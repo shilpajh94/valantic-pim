@@ -155,12 +155,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         </div>
                                     </td>
                                 </tr>
+                                <?php 
+                                $cover_compounds = array_chunk($data['cover_compounds'],3);
+                                if($cover_compounds)
+                                {
+                                ?>
                                 <tr>
                                     <td class="border-b  pt-4">
-                                        <?php
-                                        
-                                        $cover_compounds = array_chunk($data['cover_compounds'],3);
-                                        ?>
                                         <table width="50%" class="mx-auto">
                                             <thead>
                                                 <tr>
@@ -191,7 +192,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             </tbody>
                                         </table>
                                     </td>
-                                </tr>    
+                                </tr>   
+                                <?php 
+                                }
+                                ?> 
                             </tbody>        
                         </table>
                     </div>
