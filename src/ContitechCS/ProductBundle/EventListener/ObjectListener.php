@@ -176,8 +176,8 @@ class ObjectListener
         if ($type != 'folder') {
             $className = $object->getClassName();
 
-            if ($className == 'CSProducts' && php_sapi_name() != "cli") {
-                $argument = $event->getArguments();
+            if ($className == 'CSProducts' && php_sapi_name() != "cli" && !$object->hasChildren()) {
+                //$argument = $event->getArguments();
                 //if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                 $regionArray = $object->getCSRegion();
                 if (is_array($regionArray) && !empty($regionArray)) {
@@ -185,6 +185,7 @@ class ObjectListener
                     $masterRegionArray = $this->getAllRegions();
                     $firstRegionId = trim($regionArray[0]);
                     $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
+
                     $regionName = $this->removeSlash($regionName);
                     $folderCreationPath = $object->getPath();
 
