@@ -42,22 +42,22 @@ Elevator Rating Unit:
   fieldName: ElevatorRatingPIWUnit
   fieldType: Input
   fieldValue: PIW
-  objectType: BeltData
+  objectType: TensionElevatorBelt
 Elevator Rating Unit in Nmm:
   fieldName: ElevatorRatingNmmUnit
   fieldType: Input
   fieldValue: N/mm
-  objectType: BeltData
+  objectType: TensionElevatorBelt
 Maximum Bucket Projection (in.) Unit:
   fieldName: MaximumBucketProjectionInchUnit
   fieldType: Input
   fieldValue: inch
-  objectType: BeltData
+  objectType: TensionElevatorBelt
 Maximum Bucket Projection (mm) Unit:
   fieldName: MaximumBucketProjectionMMUnit
   fieldType: Input
   fieldValue: mm
-  objectType: BeltData
+  objectType: TensionElevatorBelt
 Belt rating Unit:
   fieldName: beltRatingNMMUnit
   fieldType: Input
@@ -230,6 +230,16 @@ Step Length Unit in mm:
   objectType: SpliceData
 Step Length Unit in inch:
   fieldName: StepLengthinInch_Unit
+  fieldType: Input
+  fieldValue: inch
+  objectType: SpliceData
+Finger Length Unit in mm:
+  fieldName: FingerLengthMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: SpliceData
+Finger Length Unit in inch:
+  fieldName: FingerLengthInchUnit
   fieldType: Input
   fieldValue: inch
   objectType: SpliceData
