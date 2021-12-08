@@ -99,13 +99,13 @@ class DefaultController extends FrontendController
                 $username = $list->getName();
                 if (!empty($list->getFirstname()) || !empty($list->getLastname())) {
                     $nameArray = [];
-                    if(!empty($list->getFirstname())) {
+                    if (!empty($list->getFirstname())) {
                         $nameArray[] = $list->getFirstname();
                     }
-                    if(!empty($list->getLastname())) {
+                    if (!empty($list->getLastname())) {
                         $nameArray[] = $list->getLastname();
                     }
-                    $username .= " (".implode(" ", $nameArray).")";
+                    $username .= " (" . implode(" ", $nameArray) . ")";
                 }
                 $fieldArrayTemp['name'] = $username;
                 $fieldArray[] = $fieldArrayTemp;
@@ -331,10 +331,12 @@ class DefaultController extends FrontendController
 
                         $product->save();
                         $parentId = $product->getId();
+                        $prd = DataObject\CSProducts::getById($parentId, true);
+                        $prd->save();
                         /** code added below to change workflow state on creation of product **/
 
                         /** code added above to change workflow state on creation of product **/
-                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
+                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;
