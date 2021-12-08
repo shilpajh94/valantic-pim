@@ -2501,6 +2501,10 @@ Common Product Page:
                     objectType: class
                 OperatingTensioninPIW:
                     objectType: BeltData
+                MinimumUltimateTensionPIW:
+                    objectType: BeltData
+                BeltModulusInPIW:
+                    objectType: BeltData
                 CoverGaugeExamplesImperialinInch:
                     objectType: BeltData
                 NominalCableDiameterinInch:
@@ -2519,6 +2523,10 @@ Common Product Page:
                 Name:
                     objectType: class
                 OperatingTensioninKNM:
+                    objectType: BeltData
+                BeltModulusKNM:
+                    objectType: BeltData
+                MinimumUltimateTensionKNM: 
                     objectType: BeltData
                 CoverGaugeExamplesMetricinMM:
                     objectType: BeltData
