@@ -176,8 +176,8 @@ class ObjectListener
         if ($type != 'folder') {
             $className = $object->getClassName();
 
-            if ($className == 'CSProducts' && php_sapi_name() != "cli") {
-                $argument = $event->getArguments();
+            if ($className == 'CSProducts' && php_sapi_name() != "cli" && !$object->hasChildren()) {
+                //$argument = $event->getArguments();
                 //if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                 $regionArray = $object->getCSRegion();
                 if (is_array($regionArray) && !empty($regionArray)) {
@@ -185,25 +185,19 @@ class ObjectListener
                     $masterRegionArray = $this->getAllRegions();
                     $firstRegionId = trim($regionArray[0]);
                     $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
-                    $parent = $object->getParent();
+
+                    $regionName = $this->removeSlash($regionName);
                     $folderCreationPath = $object->getPath();
-                    if (strpos($regionName, "/") !== false) {
-                        $regionName = str_replace("/", "-", $regionName);
-                    }
 
                     foreach ($masterRegionArray as $region) {
-                        if (strpos($region, "/") !== false) {
-                            $region = str_replace("/", "-", $region);
-                        }
+                        $region = $this->removeSlash($region);
                         if (strpos($folderCreationPath, $region) !== false) {
                             $folderCreationPath = str_replace("/" . $region, "", $folderCreationPath);
                         }
                     }
                     foreach ($masterRegionArray as $region) {
-                        if (strpos($region, "/") !== false) {
-                            $region = str_replace("/", "-", $region);
-                        }
-                        if ((strpos($folderCreationPath, $region) === false) && $region == $regionName) {
+                        $region = $this->removeSlash($region);
+                        if (strpos($folderCreationPath, $region) === false && $region == $regionName) {
                             $folderCreationPath = $folderCreationPath . "/" . $regionName;
                         }
                     }
@@ -225,6 +219,14 @@ class ObjectListener
             $fieldArray[] = $list->getRegionName();
         }
         return $fieldArray;
+    }
+
+    public function removeSlash($region)
+    {
+        if (strpos($region, "/") !== false) {
+            $region = str_replace("/", "-", $region);
+        }
+        return $region;
     }
 
     public function checkArchivedAssetMapping(DataObject\CSProducts $product)
