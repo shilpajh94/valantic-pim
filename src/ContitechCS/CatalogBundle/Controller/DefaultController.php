@@ -232,7 +232,10 @@ class DefaultController extends FrontendController
                 foreach ($selectedProduct as $key => $singleProduct) {
 
                     $productObject      = DataObject\CSProducts::getById($singleProduct);
-                    $productNameArr[]   = trim($productObject->getName());
+                    if($productObject)
+                    {
+                        $productNameArr[]   = trim($productObject->getName());
+                    }
 
                     if(!$productObj)
                     {
@@ -241,12 +244,12 @@ class DefaultController extends FrontendController
                 }
             }
 
-            $productNameTitle = implode(' and ', $productNameArr);
-            $productName =  trim($productObj->getName());
-            $productKeyName =  trim($productObj->getKey());
-
             if($productObj) ///isset variable is assigned a value or not null
             {
+                $productNameTitle = implode(' and ', $productNameArr);
+                $productName =  trim($productObj->getName());
+                $productKeyName =  trim($productObj->getKey());
+                
                 $parentParentObj = $productObj->getParent();
 
                 // $hierarchyId = $categoryObj->getSecondLevelCategory();
@@ -327,13 +330,17 @@ class DefaultController extends FrontendController
 
                 if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
                 {
+                    // p_r($selectedProduct);
                     if($selectedProduct){
                         foreach ($selectedProduct as $key => $singleProduct) {
                             $productObjSingle = DataObject\CSProducts::getById($singleProduct);
-                            $childrenData = $this->getAllRegionChildern($productObjSingle, $regionId);
+                            $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
+                            $childrenData = array_merge($childrenData,$childrenDataNew);
+                            // p_r($childrenData);
                         }
                     }
-
+                    // p_r($childrenData);
+                    // die;
                     $productTables = array();
             $childrenDataChunkArray = array_chunk($childrenData, CS_PRODUCT_TABLE_COLUMN_LIMIT);
 
@@ -1824,20 +1831,27 @@ class DefaultController extends FrontendController
         if($catalogTableObject)
         {
             $selectedProduct = $catalogTableObject->getProducts();
-            $singleProduct = $selectedProduct[0];
-            $productObject = DataObject\CSProducts::getById($singleProduct);
-            $productData['Name'] = $productObject->getName();
-            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-            $productData['ShortText'] = $productObject->getShortText();
-            $productData['ProductImage'] = $productObject->getProductImage();
-            $productData['ApplicationImage'] = $productObject->getApplicationImage();
-            $productData['reportImage'] = $productObject->getReportImage();
-            
-            $this->view['data'] = $productData;
-            
-            $productData['material'] = $this->getContiCleanMaterials($productObject);
+            if($selectedProduct)
+            {
 
-            $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+                $singleProduct = $selectedProduct[0];
+                $productObject = DataObject\CSProducts::getById($singleProduct);
+                if($productObject)
+                {
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productData['reportImage'] = $productObject->getReportImage();
+                    
+                    // $this->view['data'] = $productData;
+                    
+                    $productData['material'] = $this->getContiCleanMaterials($productObject);
+
+                    $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+                }
+            }
         }
 
         $this->view['data'] = $productData;
