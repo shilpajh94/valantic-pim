@@ -769,6 +769,9 @@ class DefaultController extends FrontendController
                                                 }
                                                 $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
                                             }
+                                            else{
+                                                $coverCompounds[$coverCompoundName][$level4Key][] = '';
+                                            }
                                         
                                         }
                                         $onlyOnce = true;
