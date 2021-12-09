@@ -1480,6 +1480,9 @@ Common Product Page:
                     objectType: BeltData      
     Wood Sawyer:
         Conveyor Belt Data: 
+            NamePrefix:
+                Wood Sawyer: WS
+                Wood Sawyer Plus: WS Plus    
             ColumnKeys: true
             Imperial:
                 KeysGroupLogic: 
@@ -1704,6 +1707,9 @@ Common Product Page:
                     objectType: BeltData
     Wood Sawyer Plus:
         Conveyor Belt Data: 
+            NamePrefix:
+                Wood Sawyer: WS
+                Wood Sawyer Plus: WS Plus
             ColumnKeys: true
             Imperial:
                 KeysGroupLogic: 

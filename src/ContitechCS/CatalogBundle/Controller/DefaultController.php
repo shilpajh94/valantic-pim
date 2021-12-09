@@ -338,6 +338,27 @@ class DefaultController extends FrontendController
                             $childrenData = array_merge($childrenData,$childrenDataNew);
                             // p_r($childrenData);
                         }
+
+                        if(count($selectedProduct)>1)
+                        {
+                            $filterArrayMultiple = [];
+                            foreach($childrenData as $chKey => $chChild)
+                            {
+                                $filterArrayMultiple[$chKey]['data'] = $chChild;
+                                $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                            }
+
+                            if($filterArrayMultiple)
+                            {
+                                array_multisort (array_column($filterArrayMultiple, 'SortOrder'), SORT_ASC, $filterArrayMultiple);
+                            }
+                            
+                            $childrenData = [];
+
+                            foreach ($filterArrayMultiple as $nChild) {
+                                $childrenData[] = $nChild['data'];
+                            }
+                        }
                     }
                     // p_r($childrenData);
                     // die;
@@ -366,14 +387,15 @@ class DefaultController extends FrontendController
                             $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
                             $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
                             $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
-
-
+                            $NamePrefix = $MetricImperialFields['NamePrefix'];
+                            
                             unset($MetricImperialFields['ColumnKeys']);
                             unset($MetricImperialFields['CS_Trough_Angle_Label']);
                             unset($MetricImperialFields['CS_Material_Weight_Label']);
                             unset($MetricImperialFields['CS_Idlers_Label']);
                             unset($MetricImperialFields['CS_Idler_Angle_Label']);
                             unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
+                            unset($MetricImperialFields['NamePrefix']);
 
                             if($MetricImperialFields){
 
@@ -461,6 +483,12 @@ class DefaultController extends FrontendController
                                     foreach ($childrenDataChunk as $childValue) {
                                         $percentageSymbol = '';
                                         $bricks = $childValue->getProductAttributes();
+                                        $productBrandPrefix = '';
+                                        if($NamePrefix)
+                                        {
+                                            $productBrand = $childValue->getProductBrand();
+                                            $productBrandPrefix = $NamePrefix[$productBrand];
+                                        }
                                         $data = [];
                                         
                                         foreach ($MIValues as $key => $value) {
@@ -471,7 +499,15 @@ class DefaultController extends FrontendController
 
                                             if($brickName == 'class')
                                             {
-                                                $data[$key] = $childValue->$getField();
+                                                // echo "$key - $productBrandPrefix \n";
+                                                // if($key == 'Name' && $productBrandPrefix)
+                                                // {   
+                                                // echo "HHHHHHH";
+                                                    $data[$key] = $productBrandPrefix." ".$childValue->$getField();
+                                                // }
+                                                // else{
+                                                    $data[$key] = $childValue->$getField();
+                                                // }
                                             }
                                             else
                                             {
@@ -499,7 +535,8 @@ class DefaultController extends FrontendController
 
                                             if($tableHeaderKeys)
                                             {
-                                                $theadSecondData[] = implode('/', $tableHeaderKeys);
+                                                $productBrandPrefix = $productBrandPrefix. " ". implode('/', $tableHeaderKeys);
+                                                $theadSecondData[] = $productBrandPrefix;
                                             }
                                         }
 
@@ -1229,7 +1266,7 @@ class DefaultController extends FrontendController
         $productChildrenData = array_merge($productChildrenData, $children);
 
         $filterArray = [];
-        foreach($productChildrenData as $child)
+        foreach($productChildrenData as $key => $child)
         {
             if($child->getPrintedCatalogFlag() === true)
             {
@@ -1237,16 +1274,29 @@ class DefaultController extends FrontendController
                 {
                     if(in_array($regionId, $child->getCSRegion()))
                     {
-                        $filterArray[] = $child;
+                        $filterArray[$key]['data'] = $child;
+                        $filterArray[$key]['SortOrder'] = $child->getSortOrder();
                     }
                 }
                 else{
-                    $filterArray[] = $child;
+                    $filterArray[$key]['data'] = $child;
+                    $filterArray[$key]['SortOrder'] = $child->getSortOrder();
                 }
             }
         }
+
+        if($filterArray)
+        {
+            array_multisort (array_column($filterArray, 'SortOrder'), SORT_ASC, $filterArray);
+        }
         
-        return $filterArray;
+        $filterArraySorted = [];
+
+        foreach ($filterArray as $key => $value) {
+            $filterArraySorted[] = $value['data'];
+        }
+        
+        return $filterArraySorted;
     }
 
     public function addPrefix($key): String
