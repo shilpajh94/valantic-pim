@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:29:33+01:00
+* Generated at: 2021-12-09T11:24:51+01:00
 * IP: 127.0.0.1
 
 
@@ -1435,7 +1435,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -1463,7 +1463,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',

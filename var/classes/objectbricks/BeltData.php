@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-03T05:06:53-05:00
-* IP: ::1
+* Generated at: 2021-12-09T11:06:55+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -1753,7 +1753,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left:10px;',
+                     'style' => 'margin-left:40px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
