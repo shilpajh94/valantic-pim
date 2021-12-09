@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-06T03:43:06-05:00
-* IP: ::1
+* Generated at: 2021-12-09T11:30:17+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -470,7 +470,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;',
+                     'style' => 'padding-left:10px;margin-top:6px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -666,7 +666,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -924,7 +924,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;',
+                     'style' => 'padding-left:10px;margin-top:6px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1064,7 +1064,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => NULL,
-                 'width' => '',
+                 'width' => 300,
                  'defaultValue' => '',
                  'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\AvailableBeltWidthOptionProvider',
                  'optionsProviderData' => '',
@@ -1093,7 +1093,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'fieldtype' => 'multiselect',
                  'options' => NULL,
-                 'width' => '',
+                 'width' => 300,
                  'height' => '',
                  'maxItems' => '',
                  'renderType' => 'tags',

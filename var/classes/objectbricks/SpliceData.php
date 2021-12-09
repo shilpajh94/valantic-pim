@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-03T05:08:40-05:00
-* IP: ::1
+* Generated at: 2021-12-09T11:43:41+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -159,13 +159,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'FingerLengthMM',
-                     'title' => 'FingerLength (mm)',
+                     'title' => 'Finger Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -200,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,
-                     'defaultValue' => 'mm',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -227,7 +227,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 40,
+                     'width' => 50,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -308,7 +308,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 200,
+                     'width' => 270,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -321,13 +321,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'FingerLengthInch',
-                     'title' => 'FingerLength (inch)',
+                     'title' => 'Finger Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'padding-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -389,7 +389,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 40,
+                     'width' => 50,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',

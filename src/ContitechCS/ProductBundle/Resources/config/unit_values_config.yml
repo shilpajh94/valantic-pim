@@ -448,6 +448,16 @@ Minimum Belt width Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdDimensions
+Available belt width range unit in mm:
+  fieldName: AvailableBeltWidthRangeMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdDimensions
+Available belt width range unit in inch:
+  fieldName: AvailableBeltWidthRangeInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdDimensions
 Diameter Unit:
   fieldName: DiameterUnit
   fieldType: Input
