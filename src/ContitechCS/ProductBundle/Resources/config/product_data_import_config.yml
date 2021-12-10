@@ -1087,6 +1087,10 @@ Product Claim/Slogan:
     fieldName: ProductClaimSlogan
     fieldType: Input
     objectType: class
+Product Name Prefix:
+    fieldName: ProductNamePrefix
+    fieldType: Input
+    objectType: class
 Region:
     fieldName: CSRegion
     fieldType: Multiselection

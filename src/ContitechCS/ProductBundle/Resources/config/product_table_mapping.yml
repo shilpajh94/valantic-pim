@@ -1485,6 +1485,10 @@ Common Product Page:
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1514,6 +1518,10 @@ Common Product Page:
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1552,6 +1560,9 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                #     ProductNamePrefix: ProductNamePrefix
+                # ProductNamePrefix:
+                #     objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1590,6 +1601,9 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                #     ProductNamePrefix: ProductNamePrefix
+                # ProductNamePrefix:
+                #     objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
@@ -1631,6 +1645,9 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1648,6 +1665,9 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
@@ -1664,9 +1684,12 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1685,9 +1708,12 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
@@ -1709,6 +1735,10 @@ Common Product Page:
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1738,6 +1768,10 @@ Common Product Page:
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 FabricType: 
@@ -1776,6 +1810,9 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                #     ProductNamePrefix: ProductNamePrefix
+                # ProductNamePrefix:
+                #     objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1814,6 +1851,9 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                #     ProductNamePrefix: ProductNamePrefix
+                # ProductNamePrefix:
+                #     objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
@@ -1855,6 +1895,9 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1872,6 +1915,9 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
@@ -1888,9 +1934,12 @@ Common Product Page:
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
                 KeysGroupLogic: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 VulcanizedAndFastenerRatinginPIW:
@@ -1909,9 +1958,12 @@ Common Product Page:
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                    ProductNamePrefix: ProductNamePrefix
                 KeysGroupLogic: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
+                ProductNamePrefix:
+                    objectType: class
                 NumberofPlies:
                     objectType: Material
                 beltRatingNMM: 
