@@ -439,7 +439,7 @@ $coverCompound = $data['coverCompoundData'];
 
                             <?php if($this->editmode): ?>
                                 <p class="table-notes">
-                                    <?= $this->textarea("CCHRPage_Comment",['placeholder' => 'Enter Note'); ?>
+                                    <?= $this->textarea("CCHRPage_Comment",['placeholder' => 'Enter Note']); ?>
                                 </p>
                             <?php else: ?>
                                 <?php if(!$this->textarea("CCHRPage_Comment")->isEmpty()): ?>
