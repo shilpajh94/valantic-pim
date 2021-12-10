@@ -43,23 +43,21 @@ class ProductEnrichmentListener
     }
     
     public function checkForMandatoryValidation($product, $transitionName) {
-        
-        
-        $validationApplicability = $this->validationService->checkValidationApplicability($product);
         $success = true;
         $msg = '';
-        if ($validationApplicability) {
-            try {
+        try {
+            $validationApplicability = $this->validationService->checkValidationApplicability($product);
+            if ($validationApplicability) {
                 $reqAttributesByUser = [];
                 if($transitionName != "publish_product") {
                     $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
                     $reqAttributesByUser = \ContitechCS\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
                 }
                 $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
-            } catch (\Exception $ex) {
-                $success = false;
-                $msg = $ex->getMessage();
             }
+        } catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
         }
         return ['success' => $success, 'msg' => $msg];
     }

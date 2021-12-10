@@ -92,10 +92,24 @@ class DefaultController extends FrontendController
 
         $fieldArray = array();
         foreach ($userList as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['name'] = $list->getName();
-            $fieldArray[] = $fieldArrayTemp;
+            if ($list instanceof \Pimcore\Model\User) {
+                $fieldArrayTemp = array();
+                $fieldArrayTemp['id'] = $list->getId();
+
+                $username = $list->getName();
+                if (!empty($list->getFirstname()) || !empty($list->getLastname())) {
+                    $nameArray = [];
+                    if(!empty($list->getFirstname())) {
+                        $nameArray[] = $list->getFirstname();
+                    }
+                    if(!empty($list->getLastname())) {
+                        $nameArray[] = $list->getLastname();
+                    }
+                    $username .= " (".implode(" ", $nameArray).")";
+                }
+                $fieldArrayTemp['name'] = $username;
+                $fieldArray[] = $fieldArrayTemp;
+            }
         }
         return $this->json(["userList" => $fieldArray]);
     }

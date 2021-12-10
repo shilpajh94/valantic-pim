@@ -3876,7 +3876,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' \nTHEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) \nEND as `Hierarchy Level`, \nFROM_UNIXTIME(`o_creationDate`) as`Creation Date`, \nwf.`place` as Status\nFROM object_CSProducts o1 JOIN element_workflow_state wf\nWHERE ( (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))) \nORDER BY (o1.`o_creationDate` ) DESC",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid`\nWHERE\n  (\n    (\n      o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY))\n    )\n  )\nORDER BY\n  (o1.`o_creationDate`) DESC",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -3891,7 +3891,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel302-1"
+                "id" => "extModel977-1"
             ],
             [
                 "name" => "Hierarchy Level",
@@ -3900,7 +3900,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel302-2"
+                "id" => "extModel977-2"
             ],
             [
                 "name" => "Creation Date",
@@ -3909,7 +3909,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel302-3"
+                "id" => "extModel977-3"
             ],
             [
                 "name" => "Status",
@@ -3918,7 +3918,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel302-4"
+                "id" => "extModel977-4"
             ],
             [
                 "name" => "Id",
@@ -3928,7 +3928,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel302-5"
+                "id" => "extModel977-5"
             ]
         ],
         "niceName" => "CS_New Products Last One Week",
@@ -3944,7 +3944,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1637055732,
+        "modificationDate" => 1638356420,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4563,15 +4563,60 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n   oo_id As 'Pimcore Id', \n    Name,\n    CorporateBrand As 'Corporate Brand',\n    ProductBrand As 'Product Brand',\n   IF(object_CSProducts.`isArchived` = 1, \"True\", \"False\") AS `Archived`",
-                "from" => "FROM object_CSProducts",
-                "where" => "WHERE isArchived = 1",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  o1.CorporateBrand As 'Corporate Brand',\n  o1.ProductBrand As 'Product Brand',\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \n  where wf.place = 'archived' ORDER BY\n  (o1.`o_creationDate`) DESC",
+                "from" => "",
+                "where" => "",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1569-2"
+            ],
+            [
+                "name" => "Corporate Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1569-3"
+            ],
+            [
+                "name" => "Product Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1569-4"
+            ],
+            [
+                "name" => "Creation Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1569-5"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1569-1"
+            ]
         ],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
@@ -4586,7 +4631,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635414958,
+        "modificationDate" => 1638362480,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4597,36 +4642,81 @@ return [
         ],
         "id" => "CS_ArchivedProducts"
     ],
-    "CS_ProductsUnderReview" => [
-        "name" => "CS_ProductsUnderReview",
+    "CS_WorkflowReport" => [
+        "name" => "CS_WorkflowReport",
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n   o1.oo_id As 'Pimcore Id',\n    o1.Name,\n    o1.CorporateBrand As 'Corporate Brand',\n    o1.ProductBrand As 'Product Brand',\n    w.place AS status",
-                "from" => "FROM object_CSProducts AS o1\nLEFT JOIN element_workflow_state AS w on o1.oo_id = w.cid AND w.workflow = \"product_enrichment\"",
-                "where" => "WHERE w.place = 'In_review'",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \nORDER BY\n  (o1.`o_creationDate`) DESC",
+                "from" => "",
+                "where" => "",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1039-1"
+            ],
+            [
+                "name" => "Hierarchy Level",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1039-2"
+            ],
+            [
+                "name" => "Creation Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1039-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1039-4"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1039-5"
+            ]
         ],
-        "niceName" => "CS_ProductsUnderReview",
+        "niceName" => "CS_Products Workflow",
         "group" => "ContiTech CS",
         "groupIconClass" => "",
         "iconClass" => "",
         "menuShortcut" => FALSE,
         "reportClass" => "",
-        "chartType" => NULL,
+        "chartType" => "",
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
         "yAxis" => [
 
         ],
-        "modificationDate" => 1636981726,
-        "creationDate" => 1632215600,
+        "modificationDate" => 1638356370,
+        "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
 
@@ -4634,7 +4724,7 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "CS_ProductsUnderReview"
+        "id" => "CS_WorkflowReport"
     ]
     
 ];

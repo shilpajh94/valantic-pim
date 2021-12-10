@@ -968,7 +968,13 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
                 var proxy = this.store.getProxy();
         
                 proxy.setExtraParam("type", "object");
-                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                
+                /** condition added to show result in case of blank string*/
+                if (formValues.query == null || formValues.query == "" || formValues.query == undefined) {
+                    proxy.setExtraParam("query", formValues.query );
+                } else {
+                    proxy.setExtraParam("query", "\""+formValues.query +"\"" );
+                }
                 proxy.setExtraParam("subtype", formValues.subtype);
                 proxy.setExtraParam("class", formValues.class);
         
@@ -997,7 +1003,12 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
         
                 var proxy = this.store.getProxy();
                 proxy.setExtraParam("type", "asset");
-                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                /** condition added to show result in case of blank string*/
+                if (formValues.query == null || formValues.query == "" || formValues.query == undefined) {
+                    proxy.setExtraParam("query", formValues.query );
+                } else {
+                    proxy.setExtraParam("query", "\""+formValues.query +"\"" );
+                }
                 proxy.setExtraParam("subtype", formValues.subtype);
         
                 if (this.parent.config && this.parent.config.context) {
