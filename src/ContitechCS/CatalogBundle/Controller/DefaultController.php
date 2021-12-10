@@ -340,7 +340,7 @@ class DefaultController extends FrontendController
 
                             if($filterArrayMultiple)
                             {
-                                $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, 'SortOrder', SORT_ASC);
+                                $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
                             }
                             
                             $childrenData = [];
@@ -1248,7 +1248,7 @@ class DefaultController extends FrontendController
 
         if($filterArray)
         {
-            $filterArrayData = $this->phparraysort($filterArray, 'SortOrder', SORT_ASC);
+            $filterArrayData = $this->phparraysort($filterArray, array('SortOrder'), SORT_ASC);
         }
         
         $filterArraySorted = [];
