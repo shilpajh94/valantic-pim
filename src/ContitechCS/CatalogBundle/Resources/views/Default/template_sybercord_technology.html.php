@@ -43,24 +43,24 @@
         <section class="fortressxp-belts">
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
-                <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
-                <?php else: ?>
-                <?= $this->input("CS_ProductName"); ?>
-                <?php endif; ?>
-                <?php else: ?>
-                <?= $this->input("CS_ProductName") ?>
+                    <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
+                    <?php else: ?>
+                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
+                    <?php endif; ?>
+                        <?php else: ?>
+                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?>
             </h1>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
-                <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
-                <?= $this->textarea("ST_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
-                <?php else: ?>
-                <?= $this->textarea("ST_ProductClaimSlogan"); ?>
-                <?php endif; ?>
-                <?php else: ?>
-                <?= $this->textarea("ST_ProductClaimSlogan") ?>
+                    <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
+                        <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
+                    <?php else: ?>
+                        <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
+                    <?php endif; ?>
+                        <?php else: ?>
+                    <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                 <?php endif; ?>
 
                 <?php
@@ -96,13 +96,13 @@
                     <div class="media-body pr-4">
                         <p>
                             <?php if($this->editmode): ?>
-                            <?php if($this->textarea("ST_ShortText")->isEmpty()): ?>
-                            <?= $this->textarea("ST_ShortText")->setDataFromResource($data['ShortText']) ?>
-                            <?php else: ?>
-                            <?= $this->textarea("ST_ShortText"); ?>
-                            <?php endif; ?>
-                            <?php else: ?>
-                            <?= $this->textarea("ST_ShortText") ?>
+                                <?php if($this->textarea("ST_ShortText")->isEmpty()): ?>
+                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
+                                <?php else: ?>
+                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']); ?>
+                                <?php endif; ?>
+                                <?php else: ?>
+                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']) ?>
                             <?php endif; ?>
                         </p>
 

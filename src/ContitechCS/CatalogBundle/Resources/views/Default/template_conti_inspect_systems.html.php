@@ -71,12 +71,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <h2>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CIS_Inspect_Systems")->isEmpty()): ?>
-                                    <?= $this->input("CIS_Inspect_Systems")->setDataFromResource($data['Name']) ?>
+                                    <?= $this->input("CIS_Inspect_Systems",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CIS_Inspect_Systems"); ?>
+                                    <?= $this->input("CIS_Inspect_Systems",['placeholder' => 'Enter Name']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CIS_Inspect_Systems") ?>
+                            <?= $this->input("CIS_Inspect_Systems",['placeholder' => 'Enter Name']) ?>
                     <?php endif; ?>
 
                     </h2>
@@ -145,12 +145,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
-                                            <?= $this->input("CIS_Benefits")->setDataFromResource($data['Benefits'][0]) ?>
+                                            <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits'])->setDataFromResource($data['Benefits'][0]) ?>
                                     <?php else: ?>
-                                            <?= $this->input("CIS_Benefits"); ?>
+                                            <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']); ?>
                                     <?php endif; ?>
                             <?php else: ?>
-                                    <?= $this->input("CIS_Benefits") ?>
+                                    <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']) ?>
                             <?php endif; ?>
                             
                             </p>

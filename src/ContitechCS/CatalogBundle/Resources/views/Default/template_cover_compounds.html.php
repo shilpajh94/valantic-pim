@@ -51,23 +51,23 @@ $coverCompound = $data['coverCompoundData'];
                     <strong>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                                        <?= $this->input("CS_ProductName")->setDataFromResource($coverCompound['Name']) ?>
+                                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($coverCompound['Name']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CS_ProductName"); ?>
+                                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CS_ProductName") ?>
+                                <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                         <?php endif; ?>
                     </strong>
                     <span class="sub-title">
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ProductClaimSlogan")->isEmpty()): ?>
-                                        <?= $this->input("CC_ProductClaimSlogan")->setDataFromResource($coverCompound['ProductClaimSlogan']) ?>
+                                        <?= $this->input("CC_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($coverCompound['ProductClaimSlogan']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CC_ProductClaimSlogan"); ?>
+                                        <?= $this->input("CC_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CC_ProductClaimSlogan") ?>
+                                <?= $this->input("CC_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                         <?php endif; ?>
                     
                     </span>
@@ -77,23 +77,23 @@ $coverCompound = $data['coverCompoundData'];
                     <p>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ShortText")->isEmpty()): ?>
-                                        <?= $this->input("CC_ShortText")->setDataFromResource($coverCompound['ShortText']) ?>
+                                        <?= $this->input("CC_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($coverCompound['ShortText']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CC_ShortText"); ?>
+                                        <?= $this->input("CC_ShortText",['placeholder' => 'Enter Short Text']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CC_ShortText") ?>
+                                <?= $this->input("CC_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     </p>
                     <p>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_LongText")->isEmpty()): ?>
-                                        <?= $this->input("CC_LongText")->setDataFromResource($coverCompound['LongText']) ?>
+                                        <?= $this->input("CC_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($coverCompound['LongText']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CC_LongText"); ?>
+                                        <?= $this->input("CC_LongText",['placeholder' => 'Enter Long Text']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CC_LongText") ?>
+                                <?= $this->input("CC_LongText",['placeholder' => 'Enter Long Text']) ?>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -235,23 +235,23 @@ $coverCompound = $data['coverCompoundData'];
                                 <h3>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name")->setDataFromResource($object['Name']) ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name'])->setDataFromResource($object['Name']) ?>
                                             <?php else: ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name"); ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']); ?>
                                             <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name") ?>
+                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']) ?>
                                     <?php endif; ?>
                                 </h3>
                                 <p>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText")->setDataFromResource($object['LongText']) ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($object['LongText']) ?>
                                             <?php else: ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText"); ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text']); ?>
                                             <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText") ?>
+                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text']) ?>
                                     <?php endif; ?>
                                 </p>
                                 <?php
@@ -272,12 +272,12 @@ $coverCompound = $data['coverCompoundData'];
                 
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CCHRPage_NamePerformanceCategory")->isEmpty()): ?>
-                                    <?= $this->input("CCHRPage_NamePerformanceCategory")->setDataFromResource($singleProductPage['NamePerformanceCategory']) ?>
+                                    <?= $this->input("CCHRPage_NamePerformanceCategory",['placeholder' => 'Enter Performance Category'])->setDataFromResource($singleProductPage['NamePerformanceCategory']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CCHRPage_NamePerformanceCategory"); ?>
+                                    <?= $this->input("CCHRPage_NamePerformanceCategory",['placeholder' => 'Enter Performance Category']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CCHRPage_NamePerformanceCategory") ?>
+                            <?= $this->input("CCHRPage_NamePerformanceCategory",['placeholder' => 'Enter Performance Category']) ?>
                     <?php endif; ?>
                 </h1>
                 <?php
@@ -305,12 +305,12 @@ $coverCompound = $data['coverCompoundData'];
                 <p>
                     <?php if($this->editmode): ?>
                             <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
-                                    <?= $this->textarea("CCHRPage_LongText")->setDataFromResource($singleProductPage['LongText']) ?>
+                                    <?= $this->textarea("CCHRPage_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($singleProductPage['LongText']) ?>
                             <?php else: ?>
-                                    <?= $this->textarea("CCHRPage_LongText"); ?>
+                                    <?= $this->textarea("CCHRPage_LongText",['placeholder' => 'Enter Long Text']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->textarea("CCHRPage_LongText") ?>
+                            <?= $this->textarea("CCHRPage_LongText",['placeholder' => 'Enter Long Text']) ?>
                     <?php endif; ?>
                     
                 </p>
@@ -349,9 +349,9 @@ $coverCompound = $data['coverCompoundData'];
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
+                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}",['placeholder' => 'Enter Features Name'])->setDataFromResource($feature['FeatureName']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}"); ?>
+                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}",['placeholder' => 'Enter Features Name']); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
                                                 <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}") ?>
@@ -360,9 +360,9 @@ $coverCompound = $data['coverCompoundData'];
                                     <p>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureDescription']) ?>
+                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}",['placeholder' => 'Enter Features Description'])->setDataFromResource($feature['FeatureDescription']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}"); ?>
+                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}",['placeholder' => 'Enter Features Description']); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
                                                 <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}") ?>
@@ -439,12 +439,12 @@ $coverCompound = $data['coverCompoundData'];
 
                             <?php if($this->editmode): ?>
                                 <p class="table-notes">
-                                    <?= $this->textarea("CCHRPage_Comment"); ?>
+                                    <?= $this->textarea("CCHRPage_Comment",['placeholder' => 'Enter Note']); ?>
                                 </p>
                             <?php else: ?>
                                 <?php if(!$this->textarea("CCHRPage_Comment")->isEmpty()): ?>
                                     <p class="table-notes">
-                                        <?= $this->textarea("CCHRPage_Comment") ?>
+                                        <?= $this->textarea("CCHRPage_Comment",['placeholder' => 'Enter Note']) ?>
                                     </p>
                                 <?php endif; ?>
                             <?php endif; ?>

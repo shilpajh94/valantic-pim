@@ -35,23 +35,23 @@
             <h1 class="orange">
                 <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                            <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                     <?php else: ?>
-                            <?= $this->input("CS_ProductName"); ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                     <?php endif; ?>
             <?php else: ?>
-                    <?= $this->input("CS_ProductName") ?>
+                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
             <?php endif; ?>
 
  <span class="sub-title">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
-                                <?= $this->input("ContiC_TitleTagSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                                <?= $this->input("ContiC_TitleTagSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                         <?php else: ?>
-                                <?= $this->input("ContiC_TitleTagSlogan"); ?>
+                                <?= $this->input("ContiC_TitleTagSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("ContiC_TitleTagSlogan") ?>
+                        <?= $this->input("ContiC_TitleTagSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                 <?php endif; ?>
             
             </span>
@@ -63,14 +63,14 @@
            <div class="p-medium pt-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
-                                    <?= $this->wysiwyg("ContiC_ShortText")->setDataFromResource($data['ShortText']) ?>
+                                    <?= $this->wysiwyg("ContiC_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                             <?php else: ?>
-                                    <?= $this->wysiwyg("ContiC_ShortText"); ?>
+                                    <?= $this->wysiwyg("ContiC_ShortText",['placeholder' => 'Enter Short Text']); ?>
                             <?php endif; ?>
                            
                     <?php else: ?>
                         <?php if(!$this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
-                                <?= $this->wysiwyg("ContiC_ShortText") ?>
+                                <?= $this->wysiwyg("ContiC_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     <?php endif; ?>
             </div>
