@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-07T19:48:32+01:00
+* Generated at: 2021-12-09T18:02:46+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -14,6 +14,7 @@ Fields Summary:
 -- CorporateBrand [input]
 -- ProductBrand [input]
 -- ProductClaimSlogan [input]
+-- ProductNamePrefix [input]
 -- NatureOfProduct [input]
 -- ProductDescription [textarea]
 -- ShortText [textarea]
@@ -53,6 +54,7 @@ Fields Summary:
 - isArchived [checkbox]
 - EcommerceFlag [booleanSelect]
 - PrintedCatalogFlag [booleanSelect]
+- SortOrder [numeric]
 - CSProductApplications [manyToManyObjectRelation]
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSProductIndustries [manyToManyObjectRelation]
@@ -72,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638902910,
+   'modificationDate' => 1639069363,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -273,6 +275,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'ProductNamePrefix',
+                     'title' => 'Product Name Prefix',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'NatureOfProduct',
                      'title' => 'Nature of product',
                      'tooltip' => '',
@@ -289,7 +319,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 800,
@@ -315,7 +345,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 800,
@@ -341,7 +371,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 800,
@@ -2452,6 +2482,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'SortOrder',
+                         'title' => 'Sort Order',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
