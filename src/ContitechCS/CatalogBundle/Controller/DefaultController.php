@@ -699,19 +699,22 @@ class DefaultController extends FrontendController
     public function templateCoverCompoundsAction(Request $request)
     {   
         try
-        {
+        {   
             $regionProperty = $this->document->getProperty('region');
+
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
             $regionId = $regionProperty->getId();
-            $this->configProviderService = new ConfigProviderService();
+            $configProviderService = new ConfigProviderService();
     
-            $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
+            $footer_logo_src = $configProviderService->getDefaultImage('CS_footer_logo');
     
             $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cover_compound_page')->getElement();
             $productData = [];
             if($catalogTableObject)
             {
-                $this->configProviderService = new ConfigProviderService();
-                $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+                $configProviderService->getCatalogProductTablesConfig();
     
                 $coverCompoundData = [];
                 if($catalogTableObject)
@@ -743,25 +746,26 @@ class DefaultController extends FrontendController
                     $coverCompoundMasterList = $this->getCoverCompoundMasterList();
                     
                     // level 3rd object
-                    $applicationData = [];
-                    $level4Data = [];
-                    $coverCompounds = [];
+                    $applicationData    = [];
+                    $level4Data         = [];
+                    $coverCompounds     = [];
                     $level3rdObjectData = [];
-                    $singleProductPage = [];
-                    $CS_Compounds = $this->addPrefix('Compounds');
-                    $coverCompoundsHeaderKeys = [];
+                    $singleProductPage  = [];
+                    $CS_Compounds       = $this->addPrefix('Compounds');
+                    $coverCompoundsHeaderKeys   = [];
                     $coverCompoundsHeaderKeys[] = $CS_Compounds;
-                    $onlyOnce = false;
+                    $onlyOnce                   = false;
                     
                     if($CSHierarchyObjChild)
                     {
-                        foreach ($CSHierarchyObjChild as $objectLevel3rd) {
+                        foreach ($CSHierarchyObjChild as $objectLevel3rd)
+                        {
                             $level3Data['Name'] = $objectLevel3rd->getName();
                             $level3Data['LongText'] = $objectLevel3rd->getLongText();
                             $level3rdObjectData[] = $level3Data;
     
-                            if($objectLevel3rd->getKey() === $productPage){
-    
+                            if($objectLevel3rd->getKey() === $productPage)
+                            {
                                 $performanceCategoryIds = $objectLevel3rd->getCSPerformanceCategory();
     
                                 $performanceCategoryName = [];
@@ -865,9 +869,11 @@ class DefaultController extends FrontendController
                     
                     if($level4Data)
                     {
-                        foreach ($level4Data as $lkey => $lvalue) {
+                        foreach ($level4Data as $lkey => $lvalue)
+                        {
                             $data[] = $lkey;
-                            foreach ($applicationData as $avalue) {
+                            foreach ($applicationData as $avalue)
+                            {
     
                                 if(in_array($avalue,$lvalue))
                                 {
@@ -891,20 +897,22 @@ class DefaultController extends FrontendController
                     $productData['singleProductPage'] = $singleProductPage;
                     
                 }
-                else{
+                else
+                {
                     echo "Category Not Select In Catalog Category Object";
                     die;
                 }
     
                 $productData['coverCompoundData'] = $coverCompoundData;
             }
-            $this->view['data'] = $productData;
-            $this->view['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
-            $this->view['footer_logo_src']  = $footer_logo_src;
+
+            $this->view['data']                 = $productData;
+            $this->view['HierarchyNameLevel2']  = $coverCompoundData['HierarchyNameLevel2'];
+            $this->view['footer_logo_src']      = $footer_logo_src;
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -921,10 +929,14 @@ class DefaultController extends FrontendController
     public function templateCleatedBeltsAction(Request $request)
     {   
         try
-        {
+        {   
             $regionProperty = $this->document->getProperty('region');
-            $regionId = $regionProperty->getId();
-            $region = $regionProperty->getRegionName();
+
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId   = $regionProperty->getId();
+            $region     = $regionProperty->getRegionName();
             $this->configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -992,7 +1004,7 @@ class DefaultController extends FrontendController
     
                                 if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
                                 {
-                                    if($bricks->$getBrick() && $bricks->$getBrick()->$getField())
+                                    if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField) &&  $bricks->$getBrick() && $bricks->$getBrick()->$getField())
                                     {   
                                         $fieldNameString = $this->addPrefix($fieldName);
                                         if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
@@ -1256,7 +1268,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -1329,7 +1341,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -1367,7 +1379,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
     
@@ -1375,13 +1387,14 @@ class DefaultController extends FrontendController
     {   
         try
         {
-            $beltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
-            $beltWidthList = $beltWidthList->load();
-    
-            $list = [];
+            $beltWidthList  = new DataObject\CSAvailableBeltWidths\Listing();
+            $beltWidthList  = $beltWidthList->load();
+            $list           = [];
+
             if($beltWidthList)
             {
-                foreach ($beltWidthList as $value) {
+                foreach ($beltWidthList as $value)
+                {
                     $list[$value->getId()]['AvailableBeltWidthMM'] = $value->getAvailableBeltWidthMM();
                     $list[$value->getId()]['AvailableBeltWidthInch'] = $value->getAvailableBeltWidthInch();
                 }
@@ -1390,7 +1403,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -1400,11 +1413,11 @@ class DefaultController extends FrontendController
         {
             $patternWidthList = new DataObject\CSAvailablePatternWidths\Listing();
             $patternWidthList = $patternWidthList->load();
-    
-            $list = [];
+            $list             = [];
+
             if($patternWidthList)
             {
-                foreach ($patternWidthList as $value)
+                foreach($patternWidthList as $value)
                 {
                     $list[$value->getId()]['AvailableProfilePatternWidthsMM'] = $value->getAvailableProfilePatternWidthsMM();
                     $list[$value->getId()]['AvailableProfilePatternWidthsInch'] = $value->getAvailableProfilePatternWidthsInch();
@@ -1416,7 +1429,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -1459,7 +1472,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -1472,9 +1485,8 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
-        
     }
 
     /**
@@ -1485,8 +1497,12 @@ class DefaultController extends FrontendController
         try
         {
             $regionProperty = $this->document->getProperty('region');
-            $regionId = $regionProperty->getId();
-            $this->configProviderService = new ConfigProviderService();
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId                       = $regionProperty->getId();
+            $this->configProviderService    = new ConfigProviderService();
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
@@ -1520,7 +1536,8 @@ class DefaultController extends FrontendController
     
                 if($childObject)
                 {
-                    foreach ($childObject as $childValue) {
+                    foreach ($childObject as $childValue)
+                    {
                         $data['Name'] = $childValue->getName();
                         $data['LongText'] = $childValue->getLongtext();
                         $data['ProductImage'] = $childValue->getProductImage();
@@ -1539,7 +1556,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -1551,6 +1568,10 @@ class DefaultController extends FrontendController
         try
         {
             $regionProperty = $this->document->getProperty('region');
+
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
             $regionId = $regionProperty->getId();
             $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
     
@@ -1594,7 +1615,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -1606,6 +1627,10 @@ class DefaultController extends FrontendController
         try
         {
             $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
             $regionId = $regionProperty->getId();
             $this->configProviderService = new ConfigProviderService();
             
@@ -1653,7 +1678,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
     
@@ -1696,7 +1721,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
     
@@ -1708,6 +1733,10 @@ class DefaultController extends FrontendController
         try
         {
             $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
             $regionId = $regionProperty->getId();
             $this->configProviderService = new ConfigProviderService();
             
@@ -1767,7 +1796,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
     
@@ -1843,7 +1872,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -1887,7 +1916,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
     
@@ -1929,9 +1958,8 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
-        }
-        
+            throw new Exception($e->getMessage());
+        }   
     }
     
     /**
@@ -1953,8 +1981,8 @@ class DefaultController extends FrontendController
             {
                 $selectedProduct = $catalogTableObject->getProducts();
     
-                if($selectedProduct){
-    
+                if($selectedProduct)
+                {
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
                     $parentProductObject = $productObject->getParent();
@@ -1969,7 +1997,8 @@ class DefaultController extends FrontendController
                     $FeaturesAndBenefits = [];
                     if($productObject->getCSProductFeaturesAndBenefits())
                     {
-                        foreach ($productObject->getCSProductFeaturesAndBenefits() as $value) {
+                        foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
+                        {
                             $FeaturesAndBenefits[] = $value->getFeatureName();
                         }
                     }
@@ -1985,7 +2014,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -2010,9 +2039,9 @@ class DefaultController extends FrontendController
             }
             return $feature;
         }
-        catch(\Exception $e)
-        {
-            throw new \Exception($e->getMessage());
+        catch(Exception $e)
+        {  
+            throw new Exception($e->getMessage());
         }
     }
     
@@ -2036,7 +2065,6 @@ class DefaultController extends FrontendController
                 $selectedProduct = $catalogTableObject->getProducts();
                 if($selectedProduct)
                 {
-    
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
                     if($productObject)
@@ -2062,7 +2090,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 
@@ -2086,9 +2114,9 @@ class DefaultController extends FrontendController
             }
             return $benefits;
         }
-        catch(\Exception $e)
-        {
-            throw new \Exception($e->getMessage());
+        catch(Exception $e)
+        {  
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -2112,17 +2140,23 @@ class DefaultController extends FrontendController
                 if($arr)
                 {
                     foreach($arr as $materialId)
-                    {
-                        $value = DataObject\CSMaterial::getById($materialId)->getMaterialName();
-                        $materials[] = $value; 
+                    {       
+                        $obj  = DataObject\CSMaterial::getById($materialId);
+                        
+                        if(method_exists($obj,"getMaterialName"))
+                        {
+                            $value = $obj->getMaterialName();
+                            $materials[] = $value; 
+                        }
                     }
                 }
             }
+
             return $materials;
         }
-        catch(\Exception $e)
-        {
-            throw new \Exception($e->getMessage());
+        catch(Exception $e)
+        {  
+            throw new Exception($e->getMessage());
         }
     }    
 
@@ -2138,7 +2172,7 @@ class DefaultController extends FrontendController
         }
         catch(Exception $e)
         {  
-            return new Response($e->getMessage());
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 }
