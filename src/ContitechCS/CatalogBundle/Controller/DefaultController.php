@@ -340,12 +340,12 @@ class DefaultController extends FrontendController
 
                             if($filterArrayMultiple)
                             {
-                                array_multisort (array_column($filterArrayMultiple, 'SortOrder'), SORT_ASC, $filterArrayMultiple);
+                                $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, 'SortOrder', SORT_ASC);
                             }
                             
                             $childrenData = [];
 
-                            foreach ($filterArrayMultiple as $nChild) {
+                            foreach ($filterArrayMultipleData as $nChild) {
                                 $childrenData[] = $nChild['data'];
                             }
                         }
@@ -1248,16 +1248,36 @@ class DefaultController extends FrontendController
 
         if($filterArray)
         {
-            array_multisort (array_column($filterArray, 'SortOrder'), SORT_ASC, $filterArray);
+            $filterArrayData = $this->phparraysort($filterArray, 'SortOrder', SORT_ASC);
         }
         
         $filterArraySorted = [];
 
-        foreach ($filterArray as $key => $value) {
+        foreach ($filterArrayData as $key => $value) {
             $filterArraySorted[] = $value['data'];
         }
         
         return $filterArraySorted;
+    }
+
+    function phparraysort($Array, $SortBy=array(), $Sort = SORT_REGULAR) {
+        if (is_array($Array) && !empty($Array) && !empty($SortBy)) {
+                $Map = array();
+                foreach ($Array as $Key => $Val) {
+                    $Sort_key = '';
+                    foreach ($SortBy as $Key_key) {
+                    $Sort_key .= $Val[$Key_key];
+                    }                
+                    $Map[$Key] = $Sort_key;
+                }
+                asort($Map, $Sort);
+                $Sorted = array();
+                foreach ($Map as $Key => $Val) {
+                    $Sorted[] = $Array[$Key];
+                }
+                return $Sorted;
+        }
+        return $Array;
     }
 
     public function addPrefix($key): String
