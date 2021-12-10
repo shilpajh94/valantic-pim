@@ -1381,8 +1381,11 @@ class DefaultController extends FrontendController
             
             $filterArraySorted = [];
             
-            foreach ($filterArrayData as $key => $value) {
-                $filterArraySorted[] = $value['data'];
+            if($filterArrayData)
+            {
+                foreach ($filterArrayData as $key => $value) {
+                    $filterArraySorted[] = $value['data'];
+                }
             }
             
             return $filterArraySorted;
@@ -2200,7 +2203,7 @@ class DefaultController extends FrontendController
         {
             $materials  = [];
             $objAttr    = $productObject->getProductAttributes();
-    
+            
             if(method_exists($objAttr,'getMaterial') && method_exists($objAttr->getMaterial(),'getMaterial'))
             {
                 $arr = $objAttr->getMaterial()->getMaterial();
