@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-03T05:10:56-05:00
-* IP: ::1
+* Generated at: 2021-12-09T11:23:37+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -151,7 +151,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -166,7 +166,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

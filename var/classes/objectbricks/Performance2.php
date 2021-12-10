@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-30T04:20:18-05:00
-* IP: ::1
+* Generated at: 2021-12-09T11:27:12+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -414,7 +414,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -781,8 +781,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
-                     'style' => 'padding-left:10px;',
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:5px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -810,7 +810,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:10px;',
+                     'style' => 'padding-left:10px;margin-top:5px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1228,7 +1228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
