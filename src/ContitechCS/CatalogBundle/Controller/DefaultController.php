@@ -749,7 +749,7 @@ class DefaultController extends FrontendController
             $productData = [];
             if($catalogTableObject)
             {
-                $configProviderService->getCatalogProductTablesConfig();
+                $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $coverCompoundData = [];
                 if($catalogTableObject)
