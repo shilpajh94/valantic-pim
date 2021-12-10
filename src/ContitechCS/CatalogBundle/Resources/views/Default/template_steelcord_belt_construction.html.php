@@ -45,36 +45,36 @@
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                            <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                            <?= $this->input("CS_ProductName"); ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                             <?php endif; ?>
                         <?php else: ?>
-                            <?= $this->input("CS_ProductName") ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?>
                 </h1>
 
                 <p class="p-medium">
                     <?php if($this->editmode): ?>
-                    <?php if($this->textarea("SCB_ProductClaimSlogan")->isEmpty()): ?>
-                    <?= $this->textarea("SCB_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
-                    <?php else: ?>
-                    <?= $this->textarea("SCB_ProductClaimSlogan"); ?>
-                    <?php endif; ?>
-                    <?php else: ?>
-                    <?= $this->textarea("SCB_ProductClaimSlogan") ?>
+                        <?php if($this->textarea("SCB_ProductClaimSlogan")->isEmpty()): ?>
+                            <?= $this->textarea("SCB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
+                        <?php else: ?>
+                            <?= $this->textarea("SCB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->textarea("SCB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                     <?php endif; ?>
                 </p>
 
                 <p>
                     <?php if($this->editmode): ?>
-                    <?php if($this->wysiwyg("SCB_ShortText")->isEmpty()): ?>
-                    <?= $this->wysiwyg("SCB_ShortText")->setDataFromResource($data['ShortText']) ?>
-                    <?php else: ?>
-                    <?= $this->wysiwyg("SCB_ShortText"); ?>
-                    <?php endif; ?>
-                    <?php else: ?>
-                    <?= $this->wysiwyg("SCB_ShortText") ?>
+                        <?php if($this->wysiwyg("SCB_ShortText")->isEmpty()): ?>
+                            <?= $this->wysiwyg("SCB_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
+                        <?php else: ?>
+                            <?= $this->wysiwyg("SCB_ShortText",['placeholder' => 'Enter Short Text']); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->wysiwyg("SCB_ShortText",['placeholder' => 'Enter Short Text']) ?>
                     <?php endif; ?>
                 </p>
 

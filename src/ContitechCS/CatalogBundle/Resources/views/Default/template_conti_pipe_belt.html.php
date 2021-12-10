@@ -50,23 +50,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                                    <?= $this->input("CS_ProductName")->setDataFromResource($parentProductData['Name']) ?>
+                                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($parentProductData['Name']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CS_ProductName"); ?>
+                                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CS_ProductName") ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?>
                 
                     <span class="sub-title">
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CPBParent_ProductClaimSlogan")->isEmpty()): ?>
-                                        <?= $this->input("CPBParent_ProductClaimSlogan")->setDataFromResource($parentProductData['ProductClaimSlogan']) ?>
+                                        <?= $this->input("CPBParent_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($parentProductData['ProductClaimSlogan']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CPBParent_ProductClaimSlogan"); ?>
+                                        <?= $this->input("CPBParent_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CPBParent_ProductClaimSlogan") ?>
+                                <?= $this->input("CPBParent_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                         <?php endif; ?>
                     
                     </span>
@@ -75,12 +75,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="feature-benefit-list">
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBParent_ShortText")->isEmpty()): ?>
-                                    <?= $this->wysiwyg("CPBParent_ShortText")->setDataFromResource($parentProductData['ShortText']) ?>
+                                    <?= $this->wysiwyg("CPBParent_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($parentProductData['ShortText']) ?>
                             <?php else: ?>
-                                    <?= $this->wysiwyg("CPBParent_ShortText"); ?>
+                                    <?= $this->wysiwyg("CPBParent_ShortText",['placeholder' => 'Enter Short Text']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->wysiwyg("CPBParent_ShortText") ?>
+                            <?= $this->wysiwyg("CPBParent_ShortText",['placeholder' => 'Enter Short Text']) ?>
                     <?php endif; ?>
                 </div>
 
@@ -193,12 +193,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <h3 class="orange mb-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CPBChild_ProductClaimSlogan")->isEmpty()): ?>
-                                    <?= $this->input("CPBChild_ProductClaimSlogan")->setDataFromResource($childProductData['ProductClaimSlogan']) ?>
+                                    <?= $this->input("CPBChild_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($childProductData['ProductClaimSlogan']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CPBChild_ProductClaimSlogan"); ?>
+                                    <?= $this->input("CPBChild_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CPBChild_ProductClaimSlogan") ?>
+                            <?= $this->input("CPBChild_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                     <?php endif; ?>
                 </h3>
                 

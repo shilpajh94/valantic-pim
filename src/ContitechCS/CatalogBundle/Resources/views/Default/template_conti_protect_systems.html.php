@@ -46,12 +46,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                                    <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                             <?php else: ?>
-                                    <?= $this->input("CS_ProductName"); ?>
+                                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CS_ProductName") ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?>        
                 
                 </h1>
@@ -62,12 +62,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CPS_ShortText")->isEmpty()): ?>
-                                            <?= $this->input("CPS_ShortText")->setDataFromResource($data['ShortText']) ?>
+                                            <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                                     <?php else: ?>
-                                            <?= $this->input("CPS_ShortText"); ?>
+                                            <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']); ?>
                                     <?php endif; ?>
                             <?php else: ?>
-                                    <?= $this->input("CPS_ShortText") ?>
+                                    <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']) ?>
                             <?php endif; ?>
 
                             </p>
@@ -135,12 +135,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CPS_Protect_Systems")->isEmpty()): ?>
-                                        <?= $this->input("CPS_Protect_Systems")->setDataFromResource($data['Name']) ?>
+                                        <?= $this->input("CPS_Protect_Systems",['placeholder' => 'Enter  Name'])->setDataFromResource($data['Name']) ?>
                                 <?php else: ?>
-                                        <?= $this->input("CPS_Protect_Systems"); ?>
+                                        <?= $this->input("CPS_Protect_Systems",['placeholder' => 'Enter  Name']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("CPS_Protect_Systems") ?>
+                                <?= $this->input("CPS_Protect_Systems",['placeholder' => 'Enter  Name']) ?>
                         <?php endif; ?>
 
                     </strong>

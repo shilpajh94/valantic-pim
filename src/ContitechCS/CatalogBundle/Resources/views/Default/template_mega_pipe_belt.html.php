@@ -47,24 +47,24 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                                <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                                <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CS_ProductName"); ?>
+                                <?= $this->input("CS_ProductName"),['placeholder' => 'Enter Product Name']; ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CS_ProductName") ?>
+                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?>
                 
                 <span class="sub-title">
 
                 <?php if($this->editmode): ?>
                         <?php if($this->input("MPB_ProductClaimSlogan")->isEmpty()): ?>
-                                <?= $this->input("MPB_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                                <?= $this->input("MPB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                         <?php else: ?>
-                                <?= $this->input("MPB_ProductClaimSlogan"); ?>
+                                <?= $this->input("MPB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("MPB_ProductClaimSlogan") ?>
+                        <?= $this->input("MPB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                 <?php endif; ?>
                         
                 </span>
@@ -73,12 +73,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="p-medium">
                         <?php if($this->editmode): ?>
                                 <?php if($this->wysiwyg("MPB_ShortText")->isEmpty()): ?>
-                                        <?= $this->wysiwyg("MPB_ShortText")->setDataFromResource($data['ShortText']) ?>
+                                        <?= $this->wysiwyg("MPB_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                                 <?php else: ?>
-                                        <?= $this->wysiwyg("MPB_ShortText"); ?>
+                                        <?= $this->wysiwyg("MPB_ShortText",['placeholder' => 'Enter Short Text']); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->wysiwyg("MPB_ShortText") ?>
+                                <?= $this->wysiwyg("MPB_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                 </div>
                 
