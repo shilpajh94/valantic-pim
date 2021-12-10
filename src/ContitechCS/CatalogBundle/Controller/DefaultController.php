@@ -1371,7 +1371,6 @@ class DefaultController extends FrontendController
         }
     }
     
-
     public function getAvailableBeltWidthMasterList(): Array 
     {   
         try
