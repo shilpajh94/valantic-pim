@@ -411,11 +411,31 @@ class DefaultController extends FrontendController
                     {
                         if($selectedProduct)
                         {
-                            foreach ($selectedProduct as $key => $singleProduct)
+                            foreach ($selectedProduct as $key => $singleProduct) {
+                                $productObjSingle = DataObject\CSProducts::getById($singleProduct);
+                                $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
+                                $childrenData = array_merge($childrenData,$childrenDataNew);
+                            }
+
+                            if(count($selectedProduct)>1)
                             {
-                                $productObjSingle   = DataObject\CSProducts::getById($singleProduct);
-                                $childrenDataNew    = $this->getAllRegionChildern($productObjSingle, $regionId);
-                                $childrenData       = array_merge($childrenData,$childrenDataNew);
+                                $filterArrayMultiple = [];
+                                foreach($childrenData as $chKey => $chChild)
+                                {
+                                    $filterArrayMultiple[$chKey]['data'] = $chChild;
+                                    $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                }
+
+                                if($filterArrayMultiple)
+                                {
+                                    $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
+                                }
+                                
+                                $childrenData = [];
+
+                                foreach ($filterArrayMultipleData as $nChild) {
+                                    $childrenData[] = $nChild['data'];
+                                }
                             }
                         }
 
@@ -453,13 +473,20 @@ class DefaultController extends FrontendController
                                             unset($RemoveKeys);
                                             unset($AdditionalHeaderKey);
                                             unset($AdditionalGroupKey);
+                                            unset($ProductNamePrefix);
+                                            unset($productBrand);
         
                                             if(isset($MIValues['KeysGroupLogic']))
                                             {
                                                 $KeysGroupLogic = $MIValues['KeysGroupLogic'];
                                                 unset($MIValues['KeysGroupLogic']);
                                             }
-        
+                                            
+                                            if(isset($MIValues['ProductNamePrefix']))
+                                            {
+                                                $ProductNamePrefix = true;
+                                            }
+                                            
                                             if(isset($MIValues['RemoveKeys']))
                                             {
                                                 $RemoveKeys = $MIValues['RemoveKeys'];
@@ -524,6 +551,12 @@ class DefaultController extends FrontendController
                                             {
                                                 $percentageSymbol = '';
                                                 $bricks = $childValue->getProductAttributes();
+
+                                                if($ProductNamePrefix)
+                                                {
+                                                    $productBrand = $childValue->getProductNamePrefix();
+                                                }
+
                                                 $data = [];
                                                 
                                                 foreach ($MIValues as $key => $value) {
@@ -561,7 +594,9 @@ class DefaultController extends FrontendController
         
                                                     if($tableHeaderKeys)
                                                     {
-                                                        $theadSecondData[] = implode('/', $tableHeaderKeys);
+                                                        $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
+                                                        $theadSecondData[] = $productBrandString;
+                                                        unset($productBrand);
                                                     }
                                                 }
         
@@ -1290,12 +1325,12 @@ class DefaultController extends FrontendController
     }
 
     public function getAllRegionChildern($productObject, $regionId): Array
-    {   
+    {
         try
         {
             $productChildrenData = [];
             $objectTypeFolderchildren = $productObject->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
-    
+            
             if($objectTypeFolderchildren)
             {
                 foreach ($objectTypeFolderchildren as $objectChildFolder) {
@@ -1303,12 +1338,12 @@ class DefaultController extends FrontendController
                     $productChildrenData = array_merge($productChildrenData, $children);
                 }
             }
-    
+            
             $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
             $productChildrenData = array_merge($productChildrenData, $children);
-    
+            
             $filterArray = [];
-            foreach($productChildrenData as $child)
+            foreach($productChildrenData as $key => $child)
             {
                 if($child->getPrintedCatalogFlag() === true)
                 {
@@ -1316,21 +1351,54 @@ class DefaultController extends FrontendController
                     {
                         if(in_array($regionId, $child->getCSRegion()))
                         {
-                            $filterArray[] = $child;
+                            $filterArray[$key]['data'] = $child;
+                            $filterArray[$key]['SortOrder'] = $child->getSortOrder();
                         }
                     }
                     else{
-                        $filterArray[] = $child;
+                        $filterArray[$key]['data'] = $child;
+                        $filterArray[$key]['SortOrder'] = $child->getSortOrder();
                     }
                 }
             }
             
-            return $filterArray;
+            if($filterArray)
+            {
+                $filterArrayData = $this->phparraysort($filterArray, array('SortOrder'), SORT_ASC);
+            }
+            
+            $filterArraySorted = [];
+            
+            foreach ($filterArrayData as $key => $value) {
+                $filterArraySorted[] = $value['data'];
+            }
+            
+            return $filterArraySorted;
         }
         catch(Exception $e)
         {  
             return new Response($e->getMessage());
         }
+    }
+
+    function phparraysort($Array, $SortBy=array(), $Sort = SORT_REGULAR) {
+        if (is_array($Array) && !empty($Array) && !empty($SortBy)) {
+                $Map = array();
+                foreach ($Array as $Key => $Val) {
+                    $Sort_key = '';
+                    foreach ($SortBy as $Key_key) {
+                    $Sort_key .= $Val[$Key_key];
+                    }                
+                    $Map[$Key] = $Sort_key;
+                }
+                asort($Map, $Sort);
+                $Sorted = array();
+                foreach ($Map as $Key => $Val) {
+                    $Sorted[] = $Array[$Key];
+                }
+                return $Sorted;
+        }
+        return $Array;
     }
 
     public function addPrefix($key): String
