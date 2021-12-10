@@ -35,16 +35,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
                 </div>
 
-                <div class="bottom-mid-sec"><?= $this->textarea("CBG_Content", [
-                    "placeholder" =>
-                    "Enter Your  Description"
-                ]);?></div>
-
+                <div class="bottom-mid-sec"><?= $this->textarea("CBG_Content", ["placeholder" => "Enter Your  Description"]);?></div>
+                    
                 <div class="bottom-end-sec">
-                    <p><?= $this->input("myHeadline", ["width" => 140 ,"placeholder" =>
-                "Enter Your  Content"]); ?></p>
+                    <p><?= $this->input("myHeadline", ["width" => 140 ,"placeholder" => "Enter Your  Content"]); ?></p>
                 </div>
-
             </div>
         </div>
     </div>

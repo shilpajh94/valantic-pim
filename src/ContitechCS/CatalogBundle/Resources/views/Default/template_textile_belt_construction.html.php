@@ -44,34 +44,34 @@
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                    <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                     <?php else: ?>
-                    <?= $this->input("CS_ProductName"); ?>
+                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                     <?php endif; ?>
                     <?php else: ?>
-                    <?= $this->input("CS_ProductName") ?>
+                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?></h1>
 
                 <p class="p-medium"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                     <?php else: ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan"); ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                     <?php endif; ?>
                     <?php else: ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan") ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                     <?php endif; ?> </p>
 
                 <div class="colum-2 p-0 mb-5">
                     <p>
                         <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("TBS_ShortText")->isEmpty()): ?>
-                        <?= $this->wysiwyg("TBS_ShortText")->setDataFromResource($data['ShortText']) ?>
+                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                         <?php else: ?>
-                        <?= $this->wysiwyg("TBS_ShortText"); ?>
+                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']); ?>
                         <?php endif; ?>
                         <?php else: ?>
-                        <?= $this->wysiwyg("TBS_ShortText") ?>
+                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     </p>
                 </div>

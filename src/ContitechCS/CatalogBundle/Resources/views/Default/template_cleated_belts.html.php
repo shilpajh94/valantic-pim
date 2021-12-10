@@ -45,23 +45,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h1 class="orange">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                                <?= $this->input("CS_ProductName")->setDataFromResource($data['Name']) ?>
+                                <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CS_ProductName"); ?>
+                                <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CS_ProductName") ?>
+                        <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?> 
             </h1>
             <p class="p-medium">
                 <?php if($this->editmode): ?>
                         <?php if($this->textarea("CB_LongText")->isEmpty()): ?>
-                                <?= $this->textarea("CB_LongText")->setDataFromResource($data['LongText']) ?>
+                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($data['LongText']) ?>
                         <?php else: ?>
-                                <?= $this->textarea("CB_LongText"); ?>
+                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->textarea("CB_LongText") ?>
+                        <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text']) ?>
                 <?php endif; ?>
             </p>
             
@@ -120,12 +120,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <p>
                                 <?php if($this->editmode): ?>
                                         <?php if($this->textarea("CBChild_Name_{$md5Key}")->isEmpty()): ?>
-                                                <?= $this->textarea("CBChild_Name_{$md5Key}")->setDataFromResource($child['Name']) ?>
+                                                <?= $this->textarea("CBChild_Name_{$md5Key}",['placeholder' => 'Enter Name'])->setDataFromResource($child['Name']) ?>
                                         <?php else: ?>
-                                                <?= $this->textarea("CBChild_Name_{$md5Key}"); ?>
+                                                <?= $this->textarea("CBChild_Name_{$md5Key}",['placeholder' => 'Enter Name']); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->textarea("CBChild_Name_{$md5Key}") ?>
+                                        <?= $this->textarea("CBChild_Name_{$md5Key}",['placeholder' => 'Enter Name']) ?>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -208,12 +208,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h2 class="orange">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameBeltRoll")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameBeltRoll")->setDataFromResource($data['Name']) ?>
+                                <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CB_ProductNameBeltRoll"); ?>
+                                <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CB_ProductNameBeltRoll") ?>
+                        <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']) ?>
                 <?php endif; ?> 
                 <span class="sub-title">
                 <?php if($this->editmode): ?>
@@ -259,12 +259,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameAngleIncline")->setDataFromResource($data['Name']) ?>
+                                <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CB_ProductNameAngleIncline"); ?>
+                                <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CB_ProductNameAngleIncline") ?>
+                        <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']) ?>
                 <?php endif; ?> 
                 <span class="sub-title">
             
@@ -287,10 +287,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 {
                     if($this->image("CB_AngleOfInclination")->isEmpty())
                     {
-                        echo $this->image("CB_AngleOfInclination")->setImage($data['AngleOfInclination']);
+                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination'])->setImage($data['AngleOfInclination']);
                     }
                     else{
-                        echo $this->image("CB_AngleOfInclination");
+                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination']);
                     }
                 }
                 else
@@ -312,12 +312,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h2 class="orange heading-info">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameProfileOptions")->setDataFromResource($data['Name']) ?>
+                                <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
-                                <?= $this->input("CB_ProductNameProfileOptions"); ?>
+                                <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CB_ProductNameProfileOptions") ?>
+                        <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']) ?>
                 <?php endif; ?> 
 
                 <span class="sub-title">
