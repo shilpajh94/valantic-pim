@@ -650,7 +650,7 @@ Temperature range:
     fieldName: TemperatureRange
     fieldType: Input
     objectType: DigitalSolution
-oad-support maximum belt width in mm (0-640 kg/m2 20):
+load-support maximum belt width in mm (0-640 kg/m2 20):
     fieldName: LoadSupportMaximumBeltWidthinMM640KGM20
     fieldType: Number
     objectType: LoadSupport
