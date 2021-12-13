@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-21T16:59:11+05:30
+* Generated at: 2021-11-29T02:03:14-05:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,7 +9,8 @@
 
 
 Fields Summary: 
-- ApplicationName [input]
+- localizedfields [localizedfields]
+-- ApplicationName [input]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSApplications',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634815751,
+   'modificationDate' => 1638169394,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -72,32 +73,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'ApplicationName',
-             'title' => 'Application Name',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'ApplicationName',
+                 'title' => 'Application Name',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => 200,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
-             'index' => false,
+             'index' => NULL,
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
         ),
          'locked' => false,

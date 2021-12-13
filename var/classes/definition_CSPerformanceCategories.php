@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-21T11:04:36+05:30
+* Generated at: 2021-11-29T02:14:21-05:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,7 +9,8 @@
 
 
 Fields Summary: 
-- PerformanceCategory [input]
+- localizedfields [localizedfields]
+-- PerformanceCategory [input]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSPerformanceCategories',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634794476,
+   'modificationDate' => 1638170060,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -72,32 +73,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'PerformanceCategory',
-             'title' => 'Performance Category',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'PerformanceCategory',
+                 'title' => 'Performance Category',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => 200,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
-             'index' => false,
+             'index' => NULL,
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
         ),
          'locked' => false,

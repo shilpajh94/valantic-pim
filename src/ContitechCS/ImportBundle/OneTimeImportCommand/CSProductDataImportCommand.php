@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\BlockElement;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Logger;
@@ -177,7 +178,9 @@ class CSProductDataImportCommand extends AbstractCommand
 
                             if ($CSHierarchyRelatedBricks) {
                                 $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
-                                $allObjectBricks = array_unique($allObjectBricks);
+                                if (is_array($allObjectBricks) && !empty($allObjectBricks)) {
+                                    $allObjectBricks = array_unique($allObjectBricks);
+                                }
                             }
                         }
                         // Creating folder for each region
@@ -227,6 +230,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                     if (isset($productDataImportConfig[$fieldCVSKey])) {
                                         $fieldConfig = $productDataImportConfig[$fieldCVSKey];
                                         $fieldName = ucfirst($fieldConfig['fieldName']);
+                                        $blockName = ucfirst($fieldConfig['blockName']);
                                         if ($fieldConfig['objectType'] == 'class') {
                                             if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
 
@@ -277,6 +281,34 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $method = 'set' . $fieldName;
                                                 $product->$method($fieldValue);
+                                            } else if ($fieldConfig['fieldType'] == 'Block') {
+                                                $fieldValue = trim($fieldValue);
+
+                                                if (strpos($fieldValue, "\n") !== false) {
+                                                    $fieldValueArr = explode("\n", $fieldValue);
+                                                } else {
+                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                }
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+
+                                                $fieldValueBlock = array();
+                                                if ($blockName == 'BenefitBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Benefit" => new BlockElement("Benefit", 'input', $val)
+                                                        ];
+                                                    }
+                                                } else if ($blockName == 'FeatureBlock') {
+                                                    $method = 'set' . $blockName;
+                                                    foreach ($fieldValue as $key => $val) {
+                                                        $fieldValueBlock[] = [
+                                                            "Feature" => new BlockElement("Feature", 'input', $val)
+                                                        ];
+                                                    }
+                                                }
+
+                                                $product->$method($fieldValueBlock);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
@@ -339,12 +371,12 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 unset($bricksData[$brick]);
                                             }
                                         }
-                                        // $brickObject->setFieldname('ProductAttributes');
-                                        //$method = 'set' . $brick;
-                                        //$product->getProductAttributes()->$method($brickObject);
-                                        if ($natureOfProduct == 1) {
-                                            unset($bricksData[$brick]);
-                                        }
+
+                                        $method = 'set' . $brick;
+                                        // $product->getProductAttributes()->$method($brickObject);
+                                        // if ($natureOfProduct == 1) {
+                                        //     unset($bricksData[$brick]);
+                                        // }
                                     }
                                     $extraAttrString = '';
                                     if ($natureOfProduct == 1) {
@@ -371,7 +403,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 echo "\n Product asset folder creation Done.";
                                 echo "\n";
                             } catch (\Throwable $th) {
-                                $th->getMessage();
+                                p_r($th->getMessage());
                             }
                         } else {
                             $parentId = $CSProductObj->getId();

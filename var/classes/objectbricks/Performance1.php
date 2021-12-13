@@ -1,52 +1,53 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-18T10:02:07+02:00
+* Generated at: 2021-12-09T11:24:51+01:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- ThicknessMM [numeric]
-- MaxTemperatureC [numeric]
-- MinTemperatureC [numeric]
-- AbrasionRotatingMM [numeric]
-- AbrasionNonRotatingMM [numeric]
-- TensileStrength [numeric]
-- PulleyDiameter [numeric]
-- ShoreHardness [numeric]
-- SizeOfProfile [numeric]
-- SpecificWeight [numeric]
-- OuterDiameter [numeric]
-- LightOzoneResistance [input]
-- ThicknessMMUnit [input]
-- MaxTemperatureCUnit [input]
-- MinTemperatureCUnit [input]
-- AbrasionRotatingUnitMM [input]
-- AbrasionNonRotatingUnitMM [input]
-- TensileStrengthUnit [input]
-- PulleyDiameterUnit [input]
-- ShoreHardnessUnit [input]
-- SizeOfProfileUnit [input]
-- SpecificWeightUnit [input]
-- OuterDiameterUnit [input]
-- ThicknessInch [numeric]
+- MaxAbrasionRotatingMM [numeric]
+- MaxAbrasionNonRotatingMM [numeric]
+- TypicalAbrasionRotatingMM [numeric]
+- TypicalAbrasionNonRotatingMM [numeric]
+- MinTensileMPa [numeric]
+- TypicalTensileMPa [numeric]
 - MaxTemperatureF [numeric]
 - MinTemperatureF [numeric]
-- AbrasionRotatingInch [numeric]
-- AbrasionNonRotatingInch [numeric]
-- TensileStrengthPIW [numeric]
-- InnerDiameter [numeric]
-- ElongationAtBreakPercent [numeric]
-- ProfileDepth [numeric]
-- TensileStrengthPSI [numeric]
-- RubberCompound [multiselect]
-- ThicknessInchUnit [input]
+- TypicalElongationPercent [numeric]
+- ConveyorCapacityAtMSMH [numeric]
+- MaxAbrasionRotatingMMUnit [input]
+- MaxAbrasionNonRotatingMMUnit [input]
+- TypicalAbrasionRotatingMMUnit [input]
+- TypicalAbrasionNonRotatingMMUnit [input]
+- MinTensileMPaUnit [input]
+- TypicalTensileMPaUnit [input]
 - MaxTemperatureFUnit [input]
 - MinTemperatureFUnit [input]
-- AbrasionRotatingInchUnit [input]
-- AbrasionNonRotatingInchUnit [input]
-- TensileStrengthUnitPIW [input]
-- InnerDiameterUnit [input]
+- MaxAbrasionRotatingInch [numeric]
+- MaxAbrasionNonRotatingInch [numeric]
+- TypicalAbrasionRotatingInch [numeric]
+- TypicalAbrasionNonRotatingInch [numeric]
+- MinTensilePSI [numeric]
+- TypicalTensilePSI [numeric]
+- MaxTemperatureC [numeric]
+- MinTemperatureC [numeric]
+- MinElongationPercent [numeric]
+- ConveyorCapacityAtCUFT [numeric]
+- MaxAbrasionRotatingInchUnit [input]
+- MaxAbrasionNonRotatingInchUnit [input]
+- TypicalAbrasionRotatingInchUnit [input]
+- TypicalAbrasionNonRotatingInchUnit [input]
+- MinTensilePSIUnit [input]
+- TypicalTensilePSIUnit [input]
+- MaxTemperatureCUnit [input]
+- MinTemperatureCUnit [input]
+- localizedfields [localizedfields]
+-- CutAndGougeResistance [input]
+-- OilResistance [input]
+-- ISO284StaticConductive [input]
+-- AbrasionResistance [input]
+-- FlameResistance [input]
 */ 
 
 
@@ -60,10 +61,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     ),
   ),
    'dao' => NULL,
-   'key' => 'ProdAttrSetV',
+   'key' => 'Performance1',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Set - V',
+   'title' => 'Performance-1',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -106,7 +107,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 100,
+             'labelWidth' => 200,
              'layout' => 'hbox',
              'fieldLabel' => '',
              'name' => 'Field Container',
@@ -125,7 +126,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 170,
+                 'labelWidth' => 200,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -156,14 +157,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'ThicknessMM',
-                     'title' => 'Thickness',
+                     'name' => 'MaxAbrasionRotatingMM',
+                     'title' => 'Max Abrasion Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -187,14 +188,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'MaxTemperatureC',
-                     'title' => 'Max Temperature',
+                     'name' => 'MaxAbrasionNonRotatingMM',
+                     'title' => 'Max Abrasion Non-Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -218,14 +219,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'MinTemperatureC',
-                     'title' => 'Min Temperature',
+                     'name' => 'TypicalAbrasionRotatingMM',
+                     'title' => 'Typical Abrasion Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -249,14 +250,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'AbrasionRotatingMM',
-                     'title' => 'Abrasion Rotating',
+                     'name' => 'TypicalAbrasionNonRotatingMM',
+                     'title' => 'Typical Abrasion Non-Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -280,14 +281,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'AbrasionNonRotatingMM',
-                     'title' => 'Abrasion Non Rotating',
+                     'name' => 'MinTensileMPa',
+                     'title' => 'Min. Tensile',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -311,14 +312,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'TensileStrength',
-                     'title' => 'Tensile strength',
+                     'name' => 'TypicalTensileMPa',
+                     'title' => 'Typical Tensile',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -342,14 +343,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'PulleyDiameter',
-                     'title' => 'Pulley diameter',
+                     'name' => 'MaxTemperatureF',
+                     'title' => 'Max Temperature',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -373,14 +374,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'ShoreHardness',
-                     'title' => 'Shore hardness',
+                     'name' => 'MinTemperatureF',
+                     'title' => 'Min Temperature',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -404,14 +405,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'SizeOfProfile',
-                     'title' => 'Size of profile',
+                     'name' => 'TypicalElongationPercent',
+                     'title' => 'Typical Elongation (%)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -435,73 +436,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'SpecificWeight',
-                     'title' => 'Specific weight',
+                     'name' => 'ConveyorCapacityAtMSMH',
+                     'title' => 'Conveyor Capacity at 1.5m/s  in m³/h',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'OuterDiameter',
-                     'title' => 'Outer diameter',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'LightOzoneResistance',
-                     'title' => 'Light/Ozone resistance',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -535,8 +477,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'mm',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -544,7 +486,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'ThicknessMMUnit',
+                     'name' => 'MaxAbrasionRotatingMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -563,8 +505,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => '°C',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -572,7 +514,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'MaxTemperatureCUnit',
+                     'name' => 'MaxAbrasionNonRotatingMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -591,8 +533,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => '°C',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -600,7 +542,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'MinTemperatureCUnit',
+                     'name' => 'TypicalAbrasionRotatingMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -619,8 +561,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'mm',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -628,7 +570,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'AbrasionRotatingUnitMM',
+                     'name' => 'TypicalAbrasionNonRotatingMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -647,8 +589,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'mm',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -656,7 +598,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'AbrasionNonRotatingUnitMM',
+                     'name' => 'MinTensileMPaUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -675,8 +617,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'kN/m',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -684,7 +626,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'TensileStrengthUnit',
+                     'name' => 'TypicalTensileMPaUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -703,7 +645,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
+                     'width' => 40,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -712,7 +654,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'PulleyDiameterUnit',
+                     'name' => 'MaxTemperatureFUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -731,35 +673,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'ShoreA',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'ShoreHardnessUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
+                     'width' => 40,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -768,63 +682,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'SizeOfProfileUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'g/cm³',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'SpecificWeightUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'mm',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'OuterDiameterUnit',
+                     'name' => 'MinTemperatureFUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -846,7 +704,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 170,
+                 'labelWidth' => 200,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -865,7 +723,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -877,8 +735,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'ThicknessInch',
-                     'title' => 'Thickness',
+                     'name' => 'MaxAbrasionRotatingInch',
+                     'title' => 'Max Abrasion Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -896,7 +754,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -908,8 +766,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'MaxTemperatureF',
-                     'title' => 'Max Temperature',
+                     'name' => 'MaxAbrasionNonRotatingInch',
+                     'title' => 'Max Abrasion Non-Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -927,7 +785,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -939,8 +797,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'MinTemperatureF',
-                     'title' => 'Min Temperature',
+                     'name' => 'TypicalAbrasionRotatingInch',
+                     'title' => 'Typical Abrasion Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -958,7 +816,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -970,8 +828,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'AbrasionRotatingInch',
-                     'title' => 'Abrasion Rotating',
+                     'name' => 'TypicalAbrasionNonRotatingInch',
+                     'title' => 'Typical Abrasion Non-Rotating',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -989,7 +847,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1001,8 +859,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'AbrasionNonRotatingInch',
-                     'title' => 'Abrasion Non Rotating',
+                     'name' => 'MinTensilePSI',
+                     'title' => 'Min. Tensile',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1020,7 +878,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1032,8 +890,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'TensileStrengthPIW',
-                     'title' => 'Tensile Strength',
+                     'name' => 'TypicalTensilePSI',
+                     'title' => 'Typical Tensile',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1051,7 +909,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1063,8 +921,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'InnerDiameter',
-                     'title' => 'Inner diameter',
+                     'name' => 'MaxTemperatureC',
+                     'title' => 'Max Temperature',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1082,7 +940,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1094,8 +952,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'ElongationAtBreakPercent',
-                     'title' => 'Elongation at break %',
+                     'name' => 'MinTemperatureC',
+                     'title' => 'Min Temperature',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1113,7 +971,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1125,8 +983,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'ProfileDepth',
-                     'title' => 'Profile depth',
+                     'name' => 'MinElongationPercent',
+                     'title' => 'Min. Elongation (%)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1144,7 +1002,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -1156,8 +1014,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'TensileStrengthPSI',
-                     'title' => 'Tensile Strength PSI',
+                     'name' => 'ConveyorCapacityAtCUFT',
+                     'title' => 'Conveyor Capacity at 3.28ft/s in cu.ft/min',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1171,42 +1029,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
-                  )),
-                  10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'SBR',
-                        'value' => 'SBR',
-                      ),
-                    ),
-                     'width' => 250,
-                     'height' => 30,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'RubberCompound',
-                     'title' => 'Rubber compound',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:80px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
                   )),
                 ),
                  'locked' => false,
@@ -1233,8 +1055,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'inch',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1242,7 +1064,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'ThicknessInchUnit',
+                     'name' => 'MaxAbrasionRotatingInchUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1261,8 +1083,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => '°F',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1270,7 +1092,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'MaxTemperatureFUnit',
+                     'name' => 'MaxAbrasionNonRotatingInchUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1289,8 +1111,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => '°F',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1298,7 +1120,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'MinTemperatureFUnit',
+                     'name' => 'TypicalAbrasionRotatingInchUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1317,8 +1139,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'inch',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1326,7 +1148,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'AbrasionRotatingInchUnit',
+                     'name' => 'TypicalAbrasionNonRotatingInchUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1345,8 +1167,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'inch',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1354,7 +1176,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'AbrasionNonRotatingInchUnit',
+                     'name' => 'MinTensilePSIUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1373,8 +1195,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'PIW',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1382,7 +1204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'TensileStrengthUnitPIW',
+                     'name' => 'TypicalTensilePSIUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1401,8 +1223,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => 'mm',
+                     'width' => 40,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1410,7 +1232,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'InnerDiameterUnit',
+                     'name' => 'MaxTemperatureCUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'MinTemperatureCUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1431,6 +1281,247 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               )),
             ),
              'locked' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 100,
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'CutAndGougeResistance',
+                         'title' => 'Cut And Gouge Resistance',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'OilResistance',
+                         'title' => 'Oil Resistance',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'ISO284StaticConductive',
+                         'title' => 'ISO 284 Static Conductive',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'AbrasionResistance',
+                         'title' => 'Abrasion Resistance',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:170px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'FlameResistance',
+                         'title' => 'Flame Resistance',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:170px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                  )),
+                ),
+                 'locked' => false,
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => 150,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => NULL,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
         ),
          'locked' => false,

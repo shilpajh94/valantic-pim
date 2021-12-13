@@ -1,9 +1,17 @@
 <?php 
 
 /** 
+* Generated at: 2021-11-23T10:30:35+01:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - Price [numeric]
+- SapCode [numeric]
+- Salesunit [multiselect]
 - PriceUnit [input]
+- localizedfields [localizedfields]
+-- OEMName [input]
 */ 
 
 
@@ -17,10 +25,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     ),
   ),
    'dao' => NULL,
-   'key' => 'ProdAttrSetM',
+   'key' => 'SalesOrga',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Set - M',
+   'title' => 'Sales Orga',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -45,11 +53,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
          'labelWidth' => 100,
-         'layout' => '',
+         'layout' => NULL,
          'border' => false,
          'name' => 'Layout',
          'type' => NULL,
-         'region' => '',
+         'region' => NULL,
          'title' => '',
          'width' => NULL,
          'height' => NULL,
@@ -63,7 +71,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 200,
+             'labelWidth' => 100,
              'layout' => 'hbox',
              'fieldLabel' => '',
              'name' => 'Field Container',
@@ -82,7 +90,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 60,
+                 'labelWidth' => 100,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -120,7 +128,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -128,6 +136,73 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'SapCode',
+                     'title' => 'SAP Code',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'PC',
+                        'value' => 'PC',
+                      ),
+                    ),
+                     'width' => 200,
+                     'height' => 30,
+                     'maxItems' => '',
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'Salesunit',
+                     'title' => 'Sales unit',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
                   )),
                 ),
                  'locked' => false,
@@ -184,6 +259,69 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               )),
             ),
              'locked' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'fieldtype' => 'localizedfields',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'OEMName',
+                 'title' => 'OEM Name',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'name' => 'localizedfields',
+             'region' => NULL,
+             'layout' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'maxTabs' => NULL,
+             'labelWidth' => 100,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => NULL,
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => NULL,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
           )),
         ),
          'locked' => false,

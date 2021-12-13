@@ -1,13 +1,17 @@
 <?php 
 
 /** 
+* Generated at: 2021-11-22T13:52:25+01:00
 * Inheritance: no
 * Variants: no
+* Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
-- FeatureName [input]
-- FeatureDescription [textarea]
+- localizedfields [localizedfields]
+-- FeatureName [input]
+-- FeatureDescription [textarea]
 - FeatureImage [image]
 */ 
 
@@ -17,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSFeaturesAndBenefits',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1629297135,
+   'modificationDate' => 1637585545,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -87,58 +91,93 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'FeatureName',
-                 'title' => 'Name',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'fieldtype' => 'localizedfields',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'FeatureName',
+                     'title' => 'Name',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'fieldtype' => 'textarea',
+                     'width' => 300,
+                     'height' => 100,
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
+                     'name' => 'FeatureDescription',
+                     'title' => 'Feature Description',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                ),
+                 'name' => 'localizedfields',
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxTabs' => NULL,
+                 'labelWidth' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => NULL,
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'tooltip' => NULL,
+                 'mandatory' => NULL,
+                 'noteditable' => NULL,
+                 'index' => NULL,
+                 'locked' => NULL,
+                 'style' => NULL,
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
                  'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'fieldtype' => 'textarea',
-                 'width' => 300,
-                 'height' => 100,
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'queryColumnType' => 'longtext',
-                 'columnType' => 'longtext',
-                 'phpdocType' => 'string',
-                 'name' => 'FeatureDescription',
-                 'title' => 'Feature Description',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
               )),
             ),
              'locked' => false,
