@@ -15,7 +15,21 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
-
+        
+    ContitechCS\CatalogBundle\Document\Areabrick\WoodProductAreaBrick:
+        arguments: ['@logger']
+        tags:
+            - { name: pimcore.area.brick, id: wood-product-areabrick } 
+               
+    ContitechCS\CatalogBundle\Document\Areabrick\TextileBeltApplicationsAreaBrick:
+        arguments: ['@logger']
+        tags:
+            - { name: pimcore.area.brick, id: textile-belt-applications-areabrick }
+    
+    ContitechCS\CatalogBundle\Document\Areabrick\ExampleOfAggregateAreaBrick:
+        arguments: ['@logger']
+        tags:
+            - { name: pimcore.area.brick, id: example-of-aggregate-areabrick }                
 # add more services, or override services that need manual wiring
 #    ContitechCS\CatalogBundle\ExampleClass:
 #        arguments:
