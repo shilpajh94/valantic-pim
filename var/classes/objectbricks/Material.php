@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-03T05:01:00-05:00
-* IP: ::1
+* Generated at: 2021-12-13T06:06:41+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -215,15 +215,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                    ),
+                     'options' => NULL,
                      'width' => 200,
                      'height' => 30,
                      'maxItems' => '',
                      'renderType' => 'tags',
-                     'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
-                     'optionsProviderData' => 'CSMaterial|MaterialName',
+                     'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSMaterialOptionProvider',
+                     'optionsProviderData' => '',
                      'queryColumnType' => 'text',
                      'columnType' => 'text',
                      'phpdocType' => 'array',
