@@ -2200,7 +2200,7 @@ class DefaultController extends FrontendController
     private function getContiCleanMaterials($productObject)
     {
         try
-        {
+        {   
             $materials  = [];
             $objAttr    = $productObject->getProductAttributes();
             
