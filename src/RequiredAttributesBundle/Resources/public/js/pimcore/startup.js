@@ -99,9 +99,9 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
                     xtype: "tbtext",
                     text: t(this.fieldConfig.title)
                 });
-                if (this.object.data.general.o_className == "Product") {
+                if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts") {
                     var toolbar = new Ext.Toolbar({
-                   items: items
+                //    items: items
                     });
                 } else {
                     var toolbar = new Ext.Toolbar({
@@ -150,7 +150,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
 
                 var childConfig = this.layoutDefinitions[type];
                 var closable = !this.fieldConfig.noteditable;
-                if (this.object.data.general.o_className == "Product") {
+                if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts") {
                     closable = false;
                 }
 
@@ -244,7 +244,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
                 if (this.data.length > 0) {
                     for (var i = 0; i < this.data.length; i++) {
                         if (this.data[i] != null) {
-                            if (this.object.data.general.o_className == "Product") {//class name Needs to be changed for different system
+                            if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts") {//class name Needs to be changed for different system
                                 this.preventDelete[this.data[i].type] = true;
                             } else {
                                 this.preventDelete[this.data[i].type] = this.data[i].inherited;
