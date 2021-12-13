@@ -45,40 +45,34 @@ class DefaultController extends FrontendController
         try
         {
             $id = $request->get('catId');
-
-            if(!$id)
-                Throw new Exception('catId is requierd');
-
             $categoryObj = DataObject\CSCatalogCategory::getById($id);
-
-            if(!$categoryObj)
-                Throw new Exception('Invalid Category Id');
-    
             $hierarchyId = ($categoryObj->getSecondLevelCategory());
             $res['data'] = [];
             if($hierarchyId)
             {
-                $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                
-                if($hierarchyObj)
-                {
-                    $hierarchyPath = $hierarchyObj->getPath();
-                    $hierarchyName = $hierarchyObj->getName();
-        
-                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-        
-                    $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-                
-                    $productsList = new DataObject\CSProducts\Listing();
-                    $productsList->addConditionParam("o_parentId = ?", [$HierarchyProductPath->getId()]);
-                    $productsList = $productsList->load();
-                }
-    
+                $productsList = new DataObject\CSProducts\Listing();
+                $productsList->setCondition("ParentCategory like ".$productsList->quote("%,".$hierarchyId.",%"));
+                $productsList->load();
+//                $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+//                
+//                $hierarchyPath = $hierarchyObj->getPath();
+//                $hierarchyName = $hierarchyObj->getName();
+//    
+//                echo $hierarchyFullName = $hierarchyPath.$hierarchyName; die;
+//                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+//    
+//                $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+//                if($HierarchyProductPath)
+//                {
+//                    $productsList = new DataObject\CSProducts\Listing();
+//                    $productsList->addConditionParam("o_parentId = ?", [$HierarchyProductPath->getId()]);
+//                    $productsList = $productsList->load();
+//                }
+
                 if($productsList)
                 {
-                    foreach ($productsList as $cat)
-                    {
+                    foreach ($productsList->getObjects() as $cat) {
                         $result[] = array('text' => trim($cat->getName()), 'id' => trim($cat->getId()));
                     }
                 }

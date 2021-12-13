@@ -1118,6 +1118,9 @@ padding-top: 0px;
   display: flex;
   flex-direction: column;
 }
+.template > script {
+    display:none;
+}
 .conticleanblack p strong {
   font-family: "ContinentalStagSansLCG-Book" !important;
 }
