@@ -127,8 +127,10 @@ pimcore:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: save_version
+                        
                 send_to_marcom:
                     from:
+                        - published
                         - in_rd_edit
                     to: in_marcom_edit
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
