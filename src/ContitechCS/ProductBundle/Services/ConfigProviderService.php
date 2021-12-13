@@ -55,6 +55,11 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH);
     }
 
+    public function getCatalogApiConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_API_CONFIG_FILE_PATH);
+    }
+
     public function getCatalogImageMappingConfig()
     {
         return $this->getConfigFromYmlFile(CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH);

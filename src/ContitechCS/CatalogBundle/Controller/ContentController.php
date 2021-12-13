@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * Description of ContentController
  *
@@ -27,5 +28,4 @@ class ContentController extends AbstractController {
 
         //return new Response('Hello world from web2_print');
     }
-    
 }

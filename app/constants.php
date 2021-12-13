@@ -26,6 +26,8 @@ define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Reso
 define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/CatalogBundle/Resources/config");
 define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/ProductBundle/Resources/config");
 
+define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/CatalogUIApiBundle/Resources/config");
+
 /**
  * to include the constants of the required attributes module
  * this is being used for calculating completeness,calculating some validations for export etc.
@@ -47,6 +49,10 @@ define('PLANT_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/
 
 // Global Category Configuraction File Path
 define('SALES_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+
+// cs api conflig bundle
+define('CS_API_CONFIG_FILE_PATH', CS_APIBUNDLE_CONFIG_DIRECTORY
+. "/api_config.yml");
 
 /* Errors Message */
 define('INVALID_COMMAND', 'Invalid command: %s command not found');
