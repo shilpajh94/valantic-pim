@@ -41,6 +41,11 @@ class DefaultController extends FrontendController
                 $language = $docObj->getProperty('language');
             }
             
+            if(!$docObj->getProperty('region'))
+            {
+                return $this->json(array("success" => false,"msg" => "Unable to find region"));
+            }
+
             if($docObj->getProperty('region')->getRegionName())
             {
                 $regionName = $docObj->getProperty('region')->getRegionName();
@@ -90,7 +95,7 @@ class DefaultController extends FrontendController
                 if($asset){
                     $asset->delete();
                 }
-                
+
                 $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath");
                 $parentFolder = $obj->getPath().$obj->getFileName();
                 
@@ -99,7 +104,7 @@ class DefaultController extends FrontendController
                 $newAsset->setData(file_get_contents($savedPdfFilePath));
                 $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
                 $newAsset->save();
-                
+
                 $this->savePdfIntoDb($newAsset,$docId,$language,$regionId,$productGroupId);
 
                 // public cover pages
