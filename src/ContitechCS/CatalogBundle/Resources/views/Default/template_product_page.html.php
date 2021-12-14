@@ -114,9 +114,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <ul>
                             <?php 
                                 foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item) {
-                                    ?>
-                                        <li><?= $item ?></li>
-                                    <?php
+                                    if($item)
+                                    {
+                                        ?>
+                                            <li><?= $item ?></li>
+                                        <?php
+                                    }
                                 }
                             ?>
                         </ul>
@@ -323,10 +326,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
                             <ul>
                                 <?php 
-                                    foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item) {
-                                        ?>
-                                            <li><?= $item ?></li>
-                                        <?php
+                                    foreach ($data['FeaturesAndBenefitsWithoutImages'] as $key => $item)
+                                    {
+                                        if($item)
+                                        {
+                                            ?>
+                                                <li><?= $item ?></li>
+                                            <?php
+                                        }
                                     }
                                 ?>
                             </ul>
