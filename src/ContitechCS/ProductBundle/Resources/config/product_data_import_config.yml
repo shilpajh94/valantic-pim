@@ -492,11 +492,11 @@ Typical Elongation (%):
     fieldName: TypicalElongationPercent
     fieldType: Number
     objectType: Performance1
-Min. Tensile (MPa):
+Min. Tensile (Mpa):
     fieldName: MinTensileMPa
     fieldType: Number
     objectType: Performance1
-Typical Tensile (MPa):
+Typical Tensile (Mpa):
     fieldName: TypicalTensileMPa
     fieldType: Number
     objectType: Performance1
