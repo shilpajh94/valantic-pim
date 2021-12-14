@@ -22,3 +22,11 @@ services:
 #            - "@service_id"
 #            - "plain_value"
 #            - "%parameter%"
+
+    catalog_templating_helper:
+        class: \CatalogBundle\Helper\CatalogTemplatingHelper
+        # the tag alias "myViewHelper" is later used in the view to access your service
+        tags:
+            - { name: templating.helper, alias: catalogTemplatingHelper }
+
+    CatalogBundle\Helper\CatalogTemplatingHelper:

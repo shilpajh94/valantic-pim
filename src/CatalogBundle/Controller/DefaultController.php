@@ -4,6 +4,7 @@ namespace CatalogBundle\Controller;
 
 use Pimcore\Model\Asset;
 use AppBundle\Helper\Common;
+use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use Pimcore\Controller\FrontendController;
@@ -23,9 +24,11 @@ class DefaultController extends AbstractController {
     private $columnsData = array();
     private $attributeImages = array();
     private $featuresList = array();
+    private $catalogTemplatingHelper;
 
-    public function __construct() {
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
         $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
     }
 
@@ -2205,7 +2208,8 @@ if(isset($data[$baseId])) {
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
         if($imgObj){
-            $s3src = $imgObj->getThumbnail('catalog_thumb');
+            // $s3src = $imgObj->getThumbnail('catalog_thumb');
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 

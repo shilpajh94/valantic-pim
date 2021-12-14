@@ -98,11 +98,13 @@ class CustomGridHelperService extends GridHelperService
         if (!$adminUser->isAdmin()) {
             $userIds = $adminUser->getRoles();
             $userIds[] = $adminUser->getId();
-            $conditionFilters[] = ' (
-                                                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(o_path,o_key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
-                                                    OR
-                                                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(o_path,o_key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
-                                                 )';
+            if($this->isWorkspaceQueryNeeded($folder,$className,$adminUser)){
+                $conditionFilters[] = ' (
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(o_path,o_key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                        OR
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(o_path,o_key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                     )';
+            }
         }
 
         $featureJoins = [];
@@ -209,5 +211,50 @@ class CustomGridHelperService extends GridHelperService
             }
         }
         return false;
+    }
+
+    private function isWorkspaceQueryNeeded(DataObject $requestedRootObject,string $requestedClass,Model\User $user) : bool
+    {
+        $returnValue = true;
+        $pathsForCustomizedWorkspaceQuery = ["/MaterialMaster","/MaterialMaster/PlantMaterialMaster","/MaterialMaster/SalesMaterialMaster"];
+        $classesForCustomizedWorkspaceQuery = ["PlantMaterialMaster","SalesMaterialMaster"];
+
+        $requestedPath = $requestedRootObject->getFullPath(); 
+        if(in_array($requestedPath,$pathsForCustomizedWorkspaceQuery) && in_array($requestedClass,$classesForCustomizedWorkspaceQuery) ){
+            $db = \Pimcore\Db::get();
+            $userIds = $user->getRoles();
+            $userIds[] = $user->getId();
+
+            if($this->isListAllowedOnPath($requestedPath,$userIds,$db)){
+                $returnValue = false;
+            }
+        }
+        return $returnValue;
+    }
+
+    /**
+     * check if current folder exist in user workspace for this user/role
+     * if it exist then check whether it has the permission to list and return accordingly
+     * 
+     * if current folder does not exist in user workspace then get this folder's parent and 
+     * repeat the above step
+     * 
+     */
+    private function isListAllowedOnPath(string $path,array $userIds,$db) : bool
+    {
+        if($path === "/"){
+            return false;
+        }
+        $query = 'SELECT list FROM users_workspaces_object WHERE cpath = \''. $path .'\' AND userId IN (' . implode(',', $userIds) . ')';
+        $result = $db->fetchCol($query);
+
+        if(count($result) == 0){
+            // there is no entry for this path for this user/role, need to check for immidiate parent
+            $parentPath = dirname($path);
+            return $this->isListAllowedOnPath($parentPath,$userIds,$db);
+        }else{
+            $sum = array_sum($result);
+            return $sum > 0 ? true : false;
+        }
     }
 }

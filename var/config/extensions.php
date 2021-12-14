@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     "bundle" => [
@@ -6,10 +6,11 @@ return [
         "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
         "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
-        "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
+        "S3CustomizationBundle\\S3CustomizationBundle" => FALSE,
         "CatalogBundle\\CatalogBundle" => TRUE,
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
         "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
-        "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE
+        "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
+        "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE
     ]
 ];

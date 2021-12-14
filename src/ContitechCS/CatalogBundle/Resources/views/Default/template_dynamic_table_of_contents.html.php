@@ -32,7 +32,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-of-contents">
                 <div class="colum-2">
                     <?php
-                        $parents = array_keys($data);       
+
+                        $parents = [];
+                        
+                        if($data)
+                        {
+                            $parents = array_keys($data);       
+                        }
                     ?>
 
                     <?php

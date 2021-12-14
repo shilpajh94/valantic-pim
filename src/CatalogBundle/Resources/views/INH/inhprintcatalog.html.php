@@ -129,7 +129,7 @@ if (!isset($this->parentContainer)) {
                                         if($imgSrcObj)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="600" height="200"/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" width="600" height="200"/>
                                         <?php } ?>
                                         </p>
                                         <?php

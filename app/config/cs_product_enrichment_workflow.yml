@@ -131,7 +131,7 @@ pimcore:
                     from:
                         - in_rd_edit
                     to: in_marcom_edit
-                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getRnDUser() == user.getId()) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
                     options:
                         label: 'Send for Enrichment To Marcom'
                         notes:
@@ -142,7 +142,7 @@ pimcore:
                     from:
                         - in_marcom_edit
                     to: in_publish
-                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS")) and (subject.getMarcomUser() == user.getId()) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS")) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
                     options:
                         label: 'Send to publish'
                         notes:

@@ -25,16 +25,19 @@ class MandatoryValidationService {
     
     public function checkValidationApplicability($product) {
         $productName = trim($product->getName());
-        $parent = $product->getParent();
         $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
         $applyValidation = false;
         if (isset($config[$productName]) && !empty($config[$productName])) {
             $this->productConfig = $config[$productName];
             $applyValidation = true;
         } else {
-            if ($parent != "/Contitech_ConveyorSolution/Products") {
+            $parent = $product->getParent();
+            while ($parent->getType()=='folder' && $parent->getFullPath() != "/Contitech_ConveyorSolution/Products") {
+                $parent = $parent->getParent();
+            }
+            if ($parent->getType() != 'folder' && $parent instanceof DataObject\CSProducts) {
                 $parentName = trim($parent->getName());
-                if (isset($config[$parentName]) && !empty($config[$parentName])) {
+                if (!empty($parentName) && isset($config[$parentName]) && !empty($config[$parentName])) {
                     $applyValidation = true;
                     $this->productConfig = $config[$parentName];
                 }
@@ -71,13 +74,16 @@ class MandatoryValidationService {
                 } else {
                     $getBrickMethod = "get$objectType";
                     $getBrickAttributeMethod = "get$fieldName";
-                    $v = $product->getProductAttributes()->$getBrickMethod()->$getBrickAttributeMethod();
-                    $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectType);
-                    $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
-                    $objectTitle = $brickClass->getTitle();
-                    if (empty($v)) {
-                        $arr[$fieldName] = "$brickfieldTitle in $objectTitle";
-                        $attributeNameArray[] = $fieldName;
+                    $brickObject = $product->getProductAttributes()->$getBrickMethod();
+                    if (!empty($brickObject)) {
+                        $v = $product->getProductAttributes()->$getBrickMethod()->$getBrickAttributeMethod();
+                        $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectType);
+                        $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
+                        $objectTitle = $brickClass->getTitle();
+                        if (empty($v)) {
+                            $arr[$fieldName] = "$brickfieldTitle in $objectTitle";
+                            $attributeNameArray[] = $fieldName;
+                        }
                     }
                 }
             }

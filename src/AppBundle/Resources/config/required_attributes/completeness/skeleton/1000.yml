@@ -1,4 +1,7 @@
-
+non_localized:
+    mainImage:
+        type: 'image'
+        label: 'Main Image'
 object_bricks:
     Skeleton:
         label: 'Skeleton Data'
