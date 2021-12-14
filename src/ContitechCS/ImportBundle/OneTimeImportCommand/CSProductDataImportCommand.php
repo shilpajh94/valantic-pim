@@ -330,8 +330,8 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                                 if ($allObjectBricks) {
+                                    $patternDataValue = '';
                                     foreach ($allObjectBricks as $brick) {
-
                                         if (isset($bricksData[$brick])) {
                                             $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                             $brickObject = new $class($product);
@@ -368,11 +368,11 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     $fieldValue = array_map('trim', $fieldValueArr);
 
                                                     $beltWidthBlockData = array();
-                                                    $patternDataValue = '';
+
                                                     if ($fieldData['blockName'] == 'PatternWidthBlock') {
                                                         $patternDataValue = $fieldValue;
-                                                        print_r($fieldValue);
-                                                        die;
+                                                        // print_r($fieldValue);
+                                                        // die;
                                                         // $idArray = array();
                                                         // foreach ($fieldValue as $key => $val) {
                                                         //     $valArray = explode(",", $val);
@@ -384,14 +384,18 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
 
                                                     if ($fieldData['blockName'] == 'BeltWidthBlock') {
-                                                        // print_r($fieldValue);
-                                                        // die;
+
                                                         foreach ($fieldValue as $key => $val) {
                                                             $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
                                                             if ($patternDataValue) {
-                                                                $idArray = array();
-                                                                foreach ($patternDataValue as $pKey => $pVal) {
+                                                                // print_r($patternDataValue);
+                                                                // die;
+                                                                foreach ($patternDataValue as $pVal) {
+
+                                                                    $idArray = array();
                                                                     $valArray = explode(",", $pVal);
+                                                                    // print_r($valArray);
+                                                                    // die;
                                                                     foreach ($valArray as $value) {
                                                                         $patternWidthObj = DataObject\CSAvailablePatternWidths::getByAvailableProfilePatternWidthsInch($value, 1);
                                                                         $idArray[] = $patternWidthObj->getId();
@@ -400,7 +404,12 @@ class CSProductDataImportCommand extends AbstractCommand
                                                                         "availableBeltWidthInch" => new BlockElement("availableBeltWidthInch", 'select', $beltWidthObj->getId()),
                                                                         "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
                                                                     ];
+                                                                    if ($beltWidthBlockData) {
+                                                                        $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
+                                                                    }
                                                                 }
+
+                                                                //die;
                                                             }
 
                                                             //}
@@ -423,8 +432,8 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         //             //}
                                                         //         }
                                                         //     }
+
                                                     }
-                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
                                                 } else {
                                                     $brickObject->$objectBrickFieldMethod($fieldValue);
                                                 }
