@@ -1,14 +1,15 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-09T11:30:17+01:00
-* IP: 127.0.0.1
+* Generated at: 2021-12-13T06:43:28-05:00
+* IP: ::1
 
 
 Fields Summary: 
 - MaximumBeltWidthMM [numeric]
 - MinimumBeltMMWidth [numeric]
 - AvailableBeltWidthRangeMM [input]
+- BeltWidthRangeMM [input]
 - WeightKG [numeric]
 - BeltWidth [numeric]
 - DiameterInch [numeric]
@@ -16,6 +17,7 @@ Fields Summary:
 - MaximumBeltWidthMMUnit [input]
 - MinimumBeltWidthMMUnit [input]
 - AvailableBeltWidthRangeMMUnit [input]
+- BeltWidthRangeMMUnit [input]
 - WeightKGUnit [input]
 - BeltWidthUnit [input]
 - DiameterInchUnit [input]
@@ -23,6 +25,7 @@ Fields Summary:
 - MaximumBeltWidthInch [numeric]
 - MinimumBeltWidthInch [numeric]
 - AvailableBeltWidthRangeInch [input]
+- BeltWidthRangeInch [input]
 - WeightLb [numeric]
 - BeltWidthmm [numeric]
 - Diameter [numeric]
@@ -30,6 +33,7 @@ Fields Summary:
 - MaximumBeltWidthInchUnit [input]
 - MinimumBeltWidthInchUnit [input]
 - AvailableBeltWidthRangeInchUnit [input]
+- BeltWidthRangeInchUnit [input]
 - WeightLbUnit [input]
 - BeltWidthmmUnit [input]
 - DiameterUnit [input]
@@ -222,6 +226,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'BeltWidthRangeMM',
+                     'title' => 'Belt width range',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -252,7 +284,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -283,7 +315,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -314,7 +346,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -463,6 +495,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'BeltWidthRangeMMUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:4px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'WeightKGUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -479,7 +539,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -507,7 +567,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -535,7 +595,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -676,6 +736,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'BeltWidthRangeInch',
+                     'title' => 'Belt width range',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:80px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -706,7 +794,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -737,7 +825,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -768,7 +856,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -917,6 +1005,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
+                     'name' => 'BeltWidthRangeInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;margin-top:4px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'WeightLbUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -933,7 +1049,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -961,7 +1077,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -989,7 +1105,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -1063,7 +1179,169 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
-                 'options' => NULL,
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 25.59,
+                    'value' => 10873682,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 31.5,
+                    'value' => 10873683,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 39.37,
+                    'value' => 10873684,
+                  ),
+                  3 => 
+                  array (
+                    'key' => 47.24,
+                    'value' => 10873685,
+                  ),
+                  4 => 
+                  array (
+                    'key' => 55.12,
+                    'value' => 10873686,
+                  ),
+                  5 => 
+                  array (
+                    'key' => 42,
+                    'value' => 10873687,
+                  ),
+                  6 => 
+                  array (
+                    'key' => 48,
+                    'value' => 10873688,
+                  ),
+                  7 => 
+                  array (
+                    'key' => 54,
+                    'value' => 10873689,
+                  ),
+                  8 => 
+                  array (
+                    'key' => 60,
+                    'value' => 10873690,
+                  ),
+                  9 => 
+                  array (
+                    'key' => 66,
+                    'value' => 10873691,
+                  ),
+                  10 => 
+                  array (
+                    'key' => 72,
+                    'value' => 10873692,
+                  ),
+                  11 => 
+                  array (
+                    'key' => 30,
+                    'value' => 10873693,
+                  ),
+                  12 => 
+                  array (
+                    'key' => 36,
+                    'value' => 10873694,
+                  ),
+                  13 => 
+                  array (
+                    'key' => 24,
+                    'value' => 10873695,
+                  ),
+                  14 => 
+                  array (
+                    'key' => 14,
+                    'value' => 10873696,
+                  ),
+                  15 => 
+                  array (
+                    'key' => 11.81,
+                    'value' => 10873697,
+                  ),
+                  16 => 
+                  array (
+                    'key' => 15.75,
+                    'value' => 10873698,
+                  ),
+                  17 => 
+                  array (
+                    'key' => 19.69,
+                    'value' => 10873699,
+                  ),
+                  18 => 
+                  array (
+                    'key' => 18,
+                    'value' => 10873700,
+                  ),
+                  19 => 
+                  array (
+                    'key' => 10,
+                    'value' => 10873701,
+                  ),
+                  20 => 
+                  array (
+                    'key' => 9.84,
+                    'value' => 10873702,
+                  ),
+                  21 => 
+                  array (
+                    'key' => 9.06,
+                    'value' => 10873703,
+                  ),
+                  22 => 
+                  array (
+                    'key' => 8,
+                    'value' => 10873704,
+                  ),
+                  23 => 
+                  array (
+                    'key' => 5.91,
+                    'value' => 10873705,
+                  ),
+                  24 => 
+                  array (
+                    'key' => 7.87,
+                    'value' => 10873706,
+                  ),
+                  25 => 
+                  array (
+                    'key' => 3,
+                    'value' => 10873707,
+                  ),
+                  26 => 
+                  array (
+                    'key' => 2,
+                    'value' => 10873708,
+                  ),
+                  27 => 
+                  array (
+                    'key' => NULL,
+                    'value' => 10873709,
+                  ),
+                  28 => 
+                  array (
+                    'key' => NULL,
+                    'value' => 10873710,
+                  ),
+                  29 => 
+                  array (
+                    'key' => NULL,
+                    'value' => 10873711,
+                  ),
+                  30 => 
+                  array (
+                    'key' => NULL,
+                    'value' => 10873712,
+                  ),
+                  31 => 
+                  array (
+                    'key' => NULL,
+                    'value' => 10873713,
+                  ),
+                ),
                  'width' => 300,
                  'defaultValue' => '',
                  'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\AvailableBeltWidthOptionProvider',
@@ -1092,7 +1370,149 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'fieldtype' => 'multiselect',
-                 'options' => NULL,
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 25.59,
+                    'value' => 10873715,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 31.5,
+                    'value' => 10873716,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 39.37,
+                    'value' => 10873717,
+                  ),
+                  3 => 
+                  array (
+                    'key' => 47.24,
+                    'value' => 10873718,
+                  ),
+                  4 => 
+                  array (
+                    'key' => 55.12,
+                    'value' => 10873719,
+                  ),
+                  5 => 
+                  array (
+                    'key' => 42,
+                    'value' => 10873720,
+                  ),
+                  6 => 
+                  array (
+                    'key' => 48,
+                    'value' => 10873721,
+                  ),
+                  7 => 
+                  array (
+                    'key' => 54,
+                    'value' => 10873722,
+                  ),
+                  8 => 
+                  array (
+                    'key' => 60,
+                    'value' => 10873723,
+                  ),
+                  9 => 
+                  array (
+                    'key' => 66,
+                    'value' => 10873724,
+                  ),
+                  10 => 
+                  array (
+                    'key' => 72,
+                    'value' => 10873725,
+                  ),
+                  11 => 
+                  array (
+                    'key' => 30,
+                    'value' => 10873726,
+                  ),
+                  12 => 
+                  array (
+                    'key' => 36,
+                    'value' => 10873727,
+                  ),
+                  13 => 
+                  array (
+                    'key' => 24,
+                    'value' => 10873728,
+                  ),
+                  14 => 
+                  array (
+                    'key' => 14,
+                    'value' => 10873729,
+                  ),
+                  15 => 
+                  array (
+                    'key' => 11.81,
+                    'value' => 10873730,
+                  ),
+                  16 => 
+                  array (
+                    'key' => 15.75,
+                    'value' => 10873731,
+                  ),
+                  17 => 
+                  array (
+                    'key' => 19.69,
+                    'value' => 10873732,
+                  ),
+                  18 => 
+                  array (
+                    'key' => 18,
+                    'value' => 10873733,
+                  ),
+                  19 => 
+                  array (
+                    'key' => 10,
+                    'value' => 10873734,
+                  ),
+                  20 => 
+                  array (
+                    'key' => 9.84,
+                    'value' => 10873735,
+                  ),
+                  21 => 
+                  array (
+                    'key' => 9.06,
+                    'value' => 10873736,
+                  ),
+                  22 => 
+                  array (
+                    'key' => 8,
+                    'value' => 10873737,
+                  ),
+                  23 => 
+                  array (
+                    'key' => 5.91,
+                    'value' => 10873738,
+                  ),
+                  24 => 
+                  array (
+                    'key' => 7.87,
+                    'value' => 10873739,
+                  ),
+                  25 => 
+                  array (
+                    'key' => 3,
+                    'value' => 10873740,
+                  ),
+                  26 => 
+                  array (
+                    'key' => 2,
+                    'value' => 10873741,
+                  ),
+                  27 => 
+                  array (
+                    'key' => 'Continuous',
+                    'value' => 10873742,
+                  ),
+                ),
                  'width' => 300,
                  'height' => '',
                  'maxItems' => '',

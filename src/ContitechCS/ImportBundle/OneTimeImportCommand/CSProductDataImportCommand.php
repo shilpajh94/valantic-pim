@@ -281,7 +281,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $method = 'set' . $fieldName;
                                                 $product->$method($fieldValue);
-                                            } else if ($fieldConfig['fieldType'] == 'Block') {
+                                            } else if ($fieldConfig['fieldType'] == 'Block' && $fieldConfig['objectType'] == 'class') {
                                                 $fieldValue = trim($fieldValue);
 
                                                 if (strpos($fieldValue, "\n") !== false) {
@@ -323,12 +323,12 @@ class CSProductDataImportCommand extends AbstractCommand
                                             }
                                         } else {
                                             $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                            $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
                                             $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
                                             $configAttributeArray[] = $fieldValue;
                                         }
                                     }
                                 }
-
                                 if ($allObjectBricks) {
                                     foreach ($allObjectBricks as $brick) {
 
@@ -350,7 +350,84 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     $fieldValueArr = explode('|', $fieldValue);
                                                     $fieldValue = array_map('trim', $fieldValueArr);
                                                 }
-                                                $brickObject->$objectBrickFieldMethod($fieldValue);
+
+                                                if ($fieldData['fieldType'] == 'Block' && $fieldConfig['objectType'] != "class") {
+                                                    $objectBrickFieldMethod = 'setAvailableBeltPatternWidthBlock';
+
+                                                    if (strpos($fieldValue, "in") !== false && $fieldValue != "Continuous") {
+                                                        $fieldValue = str_replace("in", "", $fieldValue);
+                                                    }
+                                                    if (strpos($fieldValue, ",-") !== false) {
+                                                        $fieldValue = str_replace(",-", "", $fieldValue);
+                                                    }
+                                                    if (strpos($fieldValue, "\n") !== false) {
+                                                        $fieldValueArr = explode("\n", $fieldValue);
+                                                    } else {
+                                                        $fieldValueArr = explode('|', $fieldValue);
+                                                    }
+                                                    $fieldValue = array_map('trim', $fieldValueArr);
+
+                                                    $beltWidthBlockData = array();
+                                                    $patternDataValue = '';
+                                                    if ($fieldData['blockName'] == 'PatternWidthBlock') {
+                                                        $patternDataValue = $fieldValue;
+                                                        print_r($fieldValue);
+                                                        die;
+                                                        // $idArray = array();
+                                                        // foreach ($fieldValue as $key => $val) {
+                                                        //     $valArray = explode(",", $val);
+                                                        //     foreach ($valArray as $value) {
+                                                        //         $patternWidthObj = DataObject\CSAvailablePatternWidths::getByAvailableProfilePatternWidthsInch($value, 1);
+                                                        //         $idArray[] = $patternWidthObj->getId();
+                                                        //     }
+                                                        // }
+                                                    }
+
+                                                    if ($fieldData['blockName'] == 'BeltWidthBlock') {
+                                                        // print_r($fieldValue);
+                                                        // die;
+                                                        foreach ($fieldValue as $key => $val) {
+                                                            $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
+                                                            if ($patternDataValue) {
+                                                                $idArray = array();
+                                                                foreach ($patternDataValue as $pKey => $pVal) {
+                                                                    $valArray = explode(",", $pVal);
+                                                                    foreach ($valArray as $value) {
+                                                                        $patternWidthObj = DataObject\CSAvailablePatternWidths::getByAvailableProfilePatternWidthsInch($value, 1);
+                                                                        $idArray[] = $patternWidthObj->getId();
+                                                                    }
+                                                                    $beltWidthBlockData[] = [
+                                                                        "availableBeltWidthInch" => new BlockElement("availableBeltWidthInch", 'select', $beltWidthObj->getId()),
+                                                                        "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
+                                                                    ];
+                                                                }
+                                                            }
+
+                                                            //}
+                                                        }
+                                                        // } else if ($fieldData['blockName'] == 'PatternWidthBlock') {
+
+                                                        //     foreach ($fieldValue as $key => $val) {
+                                                        //         $idArray = array();
+                                                        //         $valArray = explode(",", $val);
+                                                        //         foreach ($valArray as $value) {
+                                                        //             //$patternWidths = new \Pimcore\Model\DataObject\CSAvailablePatternWidths\Listing();
+                                                        //             $patternWidthObj = DataObject\CSAvailablePatternWidths::getByAvailableProfilePatternWidthsInch($value, 1);
+                                                        //             //$patternWidths->setCondition('AvailableProfilePatternWidthsInch = ?', $value);
+
+                                                        //             //foreach ($patternWidths as $patternWidth) {
+                                                        //             //$idArray[] = $patternWidth->getId();
+                                                        //             $beltWidthBlockData[] = [
+                                                        //                 "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'select', $patternWidthObj->getId())
+                                                        //             ];
+                                                        //             //}
+                                                        //         }
+                                                        //     }
+                                                    }
+                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
+                                                } else {
+                                                    $brickObject->$objectBrickFieldMethod($fieldValue);
+                                                }
                                             }
 
                                             foreach ($unitValueConfig as $unit => $unitValue) {

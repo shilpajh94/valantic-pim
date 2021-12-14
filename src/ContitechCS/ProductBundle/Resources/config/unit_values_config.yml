@@ -268,11 +268,11 @@ Available Belt Widths in mm:
     fieldType: Input
     fieldValue: mm
     objectType: WidthLength
-Available Belt Widths in inch:
-    fieldName: AvailableBeltWidthInchUnit
-    fieldType: Input
-    fieldValue: inch
-    objectType: WidthLength
+# Available Belt Widths in inch:
+#     fieldName: AvailableBeltWidthInchUnit
+#     fieldType: Input
+#     fieldValue: inch
+#     objectType: ProdDimensions
 Profile Width in mm:
     fieldName: ProfileWidthMMUnit
     fieldType: Input

@@ -266,14 +266,21 @@ Size:
     fieldName: Size
     fieldType: Input
     objectType: WidthLength
+Available Profile Pattern Widths:
+    fieldName: availablePatternWidthInch
+    blockName: PatternWidthBlock
+    fieldType: Block
+    objectType: ProdDimensions
 Available Belt Widths in in:
-    fieldName: AvailableBeltWidthInch
-    fieldType: Number
-    objectType: WidthLength
+    fieldName: availableBeltWidthInch
+    blockName: BeltWidthBlock
+    fieldType: Block
+    objectType: ProdDimensions
 Available Belt Widths in mm:
     fieldName: AvailableBeltWidthMM
-    fieldType: Number
-    objectType: WidthLength
+    blockName: BeltWidthBlock
+    fieldType: Block
+    objectType: ProdDimensions
 Cleat Width (Top/Bottom):
     fieldName: CleatWidthTopBottom
     fieldType: Number
@@ -608,10 +615,6 @@ Weight:
     objectType: ProdDimensions
 Weight (Lb):
     fieldName: WeightLb
-    fieldType: Number
-    objectType: ProdDimensions
-Available Profile Pattern Widths:
-    fieldName: AvailableProfilePatternWidths
     fieldType: Number
     objectType: ProdDimensions
 Belt Speed:
