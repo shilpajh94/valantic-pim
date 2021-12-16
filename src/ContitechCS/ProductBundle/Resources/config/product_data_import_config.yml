@@ -273,14 +273,26 @@ Available Profile Pattern Widths:
     objectType: ProdDimensions
 Available Belt Widths in in:
     fieldName: availableBeltWidthInch
-    blockName: BeltWidthBlock
+    blockName: AvailableBeltPatternWidthBlock
     fieldType: Block
-    objectType: ProdDimensions
-Available Belt Widths in mm:
-    fieldName: AvailableBeltWidthMM
-    blockName: BeltWidthBlock
+    objectType: Brick
+    className: ProdDimensions
+    createFlag: false
+Available Pattern Width in inch:
+    fieldName: availablePatternWidthInch
+    blockName: AvailableBeltPatternWidthBlock
     fieldType: Block
-    objectType: ProdDimensions
+    objectType: Brick
+    className: ProdDimensions
+    createFlag: false
+# Available Belt Widths in in:
+#     fieldName: AvailableBeltWidthInch
+#     fieldType: Number
+#     objectType: WidthLength
+# Available Belt Widths in mm:
+#     fieldName: AvailableBeltWidthMM
+#     fieldType: Number
+#     objectType: WidthLength
 Cleat Width (Top/Bottom):
     fieldName: CleatWidthTopBottom
     fieldType: Number
@@ -485,11 +497,11 @@ Typical Elongation (%):
     fieldName: TypicalElongationPercent
     fieldType: Number
     objectType: Performance1
-Min. Tensile (MPa):
+Min. Tensile (Mpa):
     fieldName: MinTensileMPa
     fieldType: Number
     objectType: Performance1
-Typical Tensile (MPa):
+Typical Tensile (Mpa):
     fieldName: TypicalTensileMPa
     fieldType: Number
     objectType: Performance1
@@ -788,75 +800,75 @@ vulcanized and fastener rating in PIW:
 Type of Idler  - Inline - 20:
     fieldName: TypeofIdlerInline20inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler  - Inline - 35:
     fieldName: TypeofIdlerInline35inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler  - Inline - 45:
     fieldName: TypeofIdlerInline45inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 20:
     fieldName: TypeofIdlerOffsetEqual20inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 35:
     fieldName: TypeofIdlerOffsetEqual35inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 45:
     fieldName: TypeofIdlerOffsetEqual45inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 20:
     fieldName: TypeofIdlerOffsetLCRoll20inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 35:
     fieldName: TypeofIdlerOffsetLCRoll35inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 45:
     fieldName: TypeofIdlerOffsetLCRoll45inch
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Inline - 20 in mm:
     fieldName: TypeofIdlerInline20mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Inline - 35 in mm:
     fieldName: TypeofIdlerInline35mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Inline - 45 in mm:
     fieldName: TypeofIdlerInline45mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 20 in mm:
     fieldName: TypeofIdlerOffsetEqual20mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 35 in mm:
     fieldName: TypeofIdlerOffsetEqual35mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset Equal - 45 in mm:
     fieldName: TypeofIdlerOffsetEqual45mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 20 in mm:
     fieldName: TypeofIdlerOffsetLCRoll20mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 35 in mm:
     fieldName: TypeofIdlerOffsetLCRoll35mm
     fieldType: Number
-    objectType: TypeofIdler
-Type of Idler - Offset LC Roll - 45 in mm:
+    objectType: TypeOfIdler
+Type of Idler - Offset LC Roll - 40 in mm:
     fieldName: TypeofIdlerOffsetLCRoll45mm
     fieldType: Number
-    objectType: TypeofIdler
+    objectType: TypeOfIdler
 Thickness mm:
     fieldName: ThicknessMM
     fieldType: Number
