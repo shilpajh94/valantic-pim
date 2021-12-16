@@ -89,7 +89,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="media">
                     <?php
                                
-                        if(method_exists($child['ProductImage'],'getThumbnail'))
+                        if(method_exists($child['ProductImage'],'getThumbnail') && $child['ProductImage']->getThumbnail('catalog_thumb'))
                         {   
                             ?>
                                 <img src="<?= $child['ProductImage']->getThumbnail('catalog_thumb'); ?>" alt="" width="150" class="features-images">

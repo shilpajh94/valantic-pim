@@ -95,11 +95,11 @@
                             }
                             else
                             {
-                                $CSSImgSrcObj =  $this->image("SCB_ProductImage");
-                                if($CSSImgSrcObj)
+                                $SCBImgSrcObj =  $this->image("SCB_ProductImage");
+                                if(method_exists($SCBImgSrcObj,'getThumbnail') && $SCBImgSrcObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
+                <img src="<?= $SCBImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
                 <?php
                                 }
                             }
@@ -121,11 +121,11 @@
                         }
                         else
                             {
-                            $CSSImgSrcObj =  $this->image("SCB_ApplicationImage");
-                                if($CSSImgSrcObj)
+                            $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
+                                if(method_exists($SCBAppImgSrcObj,'getThumbnail') && $SCBAppImgSrcObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
-                <img src=" <?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
+                <img src=" <?= $SCBAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
                 <?php
                                 }
                             }

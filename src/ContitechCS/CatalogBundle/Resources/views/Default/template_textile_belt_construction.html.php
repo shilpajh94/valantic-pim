@@ -91,11 +91,11 @@
                                 }
                                 else
                                 {
-                                    $CSSImgSrcObj =  $this->image("TBS_ProductImage");
-                                    if($CSSImgSrcObj)
+                                    $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
+                                    if(method_exists($TBSProdImgSrcObj,'getThumbnail') && $TBSProdImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
+                <img src="<?= $TBSProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
                 <?php
                                     }
                                 }
@@ -117,11 +117,11 @@
                                 }
                                 else
                                 {
-                                    $CSSImgSrcObj =  $this->image("TBS_ApplicationImage");
-                                    if($CSSImgSrcObj)
+                                    $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
+                                    if(method_exists($TBSAppImgSrcObj,'getThumbnail') && $TBSAppImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
+                <img src="<?= $TBSAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
                 <?php
                                     }
                                 }

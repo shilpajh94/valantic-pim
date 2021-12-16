@@ -119,7 +119,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $productImgSrcObj =  $this->image("CC_productImage");
-                        if($productImgSrcObj)
+                        if(method_exists($productImgSrcObj,'getThumbnail') && $productImgSrcObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <div class="full-image-sec">
@@ -294,7 +294,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
-                        if($CCHRPage_productImageObj)
+                        if(method_exists($CCHRPage_productImageObj,'getThumbnail') && $CCHRPage_productImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
@@ -336,7 +336,7 @@ $coverCompound = $data['coverCompoundData'];
                                     else
                                     {
                                         $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
-                                        if($CCHRPageFeatureImgSrcObj)
+                                        if(method_exists($CCHRPageFeatureImgSrcObj,'getThumbnail') && $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
                                         <img src="<?= $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
@@ -389,7 +389,7 @@ $coverCompound = $data['coverCompoundData'];
                         else
                         {
                             $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
-                            if($CCHRPage_tempratureImageObj)
+                            if(method_exists($CCHRPage_tempratureImageObj,'getThumbnail') && $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'))
                             {
                             ?>
                             <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images  ml-0"/>

@@ -288,7 +288,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     <?php endif; ?>
 
-                    <?php if($productImgSrcObj->getThumbnail('catalog_thumb')): ?>
+                    <?php if(method_exists($productImgSrcObj,'getThumbnail') && $productImgSrcObj->getThumbnail('catalog_thumb')): ?>
                         <div class="seal-image">
                             <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
                         </div>
@@ -419,7 +419,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         
                         <?php 
                         
-                        if($cbcImgSrcObj->getThumbnail('catalog_thumb') || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
+                        if((method_exists($cbcImgSrcObj,'getThumbnail') && $cbcImgSrcObj->getThumbnail('catalog_thumb')) || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
                             <div class="media">
                                 <?php
                                     
@@ -466,7 +466,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?>
                 <?php 
                     $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                    if($ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
+                    if(method_exists($ppBannerImgSrcObj,'getThumbnail') && $ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
                     {
                     ?>
                     <div class="full-image-sec">
@@ -501,7 +501,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                             
 
-                            if($ppssImgSrcObj->getThumbnail('catalog_thumb') || !($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())){
+                            if((method_exists($ppssImgSrcObj,'getThumbnail') && $ppssImgSrcObj->getThumbnail('catalog_thumb')) || !($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())){
                             ?>
                             <div class="media">
                                 <?php
@@ -589,7 +589,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                if($PPFIImgSrcObj)
+                                if(method_exists($PPFIImgSrcObj,'getThumbnail') && $PPFIImgSrcObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>

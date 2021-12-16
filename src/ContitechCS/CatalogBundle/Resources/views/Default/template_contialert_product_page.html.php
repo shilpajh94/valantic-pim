@@ -76,7 +76,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiAProductImageObj =  $this->image("ContiA_Product_Image");
-                            if($ContiAProductImageObj)
+                            if(method_exists($ContiAProductImageObj,'getThumbnail') && $ContiAProductImageObj->getThumbnail('catalog_thumb'))
                             {
                             ?>
                             <img src="<?= $ContiAProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" style="width:200px" />
@@ -151,7 +151,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $ppBannerImgSrcObj =  $this->image("ContiA_BannerImage");
-                        if($ppBannerImgSrcObj)
+                        if(method_exists($ppBannerImgSrcObj,'getThumbnail') && $ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <div class="full-image-sec">
@@ -234,7 +234,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature1Obj =  $this->image("ContiA_feature1");
-                            if($ContiA_feature1Obj)
+                            if(method_exists($ContiA_feature1Obj,'getThumbnail') && $ContiA_feature1Obj->getThumbnail('catalog_thumb'))
                             {
                             ?>
                                 <img src="<?= $ContiA_feature1Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
@@ -287,7 +287,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature2Obj =  $this->image("ContiA_feature2");
-                            if($ContiA_feature2Obj)
+                            if(method_exists($ContiA_feature2Obj,'getThumbnail') && $ContiA_feature2Obj->getThumbnail('catalog_thumb'))
                             {
                             ?>
                                 <img src="<?= $ContiA_feature2Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
