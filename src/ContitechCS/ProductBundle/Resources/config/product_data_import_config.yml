@@ -577,9 +577,13 @@ Volume Flow:
     fieldName: VolumeFlow
     fieldType: Number
     objectType: ProdDimensions
-Belt Width:
+Belt Width in in.:
     fieldName: BeltWidth
-    fieldType: Input
+    fieldType: Multiselection
+    objectType: ProdDimensions
+Belt width in mm:
+    fieldName: BeltWidthmm
+    fieldType: Multiselection
     objectType: ProdDimensions
 Minimum Belt width:
     fieldName: MinimumBeltMMWidth
@@ -604,10 +608,6 @@ Diameter:
 Diameter Inch:
     fieldName: DiameterInch
     fieldType: Number
-    objectType: ProdDimensions
-Belt Width mm:
-    fieldName: BeltWidthmm
-    fieldType: Input
     objectType: ProdDimensions
 Weight:
     fieldName: WeightKG
