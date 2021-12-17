@@ -409,8 +409,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                                             if($beltWidthObj){
                                                                 $beltWidthObjId = $beltWidthObj->getId();
                                                             }
+                                                            $pVal = '';
                                                             if ($patternDataValue) {
-                                                                if(!is_numeric($patternDataValue[0])){
+                                                                if(preg_match("/^[a-zA-Z ]+/",$patternDataValue[0])){
                                                                     $pVal = $patternDataValue[0];
                                                                 } else{
                                                                     $pVal = $patternDataValue[$i++];
