@@ -41,6 +41,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?>
             <h1 class="orange">
                 <span class="ccss-title">
                 <?php if($this->editmode): ?>
@@ -53,7 +56,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CCS_Name",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?>
                 </span>
+                
                 <span class="sub-title">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ProductClaimSlogan</label><br></br>
+                <?php endif;?>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CCS_ProductClaimSlogan")->isEmpty()): ?>
                             <?= $this->input("CCS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -69,6 +76,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </h1>
 
             <div class="p-medium">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ShortText</label>
+                <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
                         <?php if($this->textarea("CSS_ShortText")->isEmpty()): ?>
@@ -86,6 +96,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if($data['childrenData']) {
                     foreach ($data['childrenData'] as $key => $child) {
                     ?>
+                    <?php if($this->editmode):?>
+                    <label>Child Attribute Name = ProductImage</label>
+                    <?php endif;?>
                 <div class="media">
                     <?php
                                
@@ -106,6 +119,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
 
                     <div class="media-body">
+                    <?php if($this->editmode):?>
+                        <label>Child Attribute Name = Name</label><br></br>
+                    <?php endif;?>
                         <h2 class="orange">
                             <?php if($this->editmode): ?>
                             <?php if($this->input("CSS_Name_{$key}")->isEmpty()): ?>
@@ -117,6 +133,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?= $this->input("CSS_Name_{$key}",['placeholder' => 'Enter Child Name']) ?>
                             <?php endif; ?>
                         </h2>
+
+                        <?php if($this->editmode):?>
+                        <label>Child Attribute Name = LongText</label>
+                        <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>
                             <?php if($this->input("CSS_LongText_{$key}")->isEmpty()): ?>

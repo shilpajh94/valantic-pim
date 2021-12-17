@@ -47,6 +47,9 @@ $coverCompound = $data['coverCompoundData'];
     </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?>
                 <h1 class="orange">
                     <strong>
                         <?php if($this->editmode): ?>
@@ -60,6 +63,9 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </strong>
                     <span class="sub-title">
+                    <?php if($this->editmode):?>
+                        <label>Attribute Name = ProductClaimSlogan</label><br></br>
+                    <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ProductClaimSlogan")->isEmpty()): ?>
                                         <?= $this->input("CC_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($coverCompound['ProductClaimSlogan']) ?>
@@ -73,6 +79,9 @@ $coverCompound = $data['coverCompoundData'];
                     </span>
                 </h1>
 
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ShortText</label>
+                <?php endif;?>
                 <div class="colum-2 p-0">
                     <p>
                         <?php if($this->editmode): ?>
@@ -85,6 +94,10 @@ $coverCompound = $data['coverCompoundData'];
                                 <?= $this->input("CC_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     </p>
+
+                    <?php if($this->editmode):?>
+                        <label>Attribute Name = LongText</label><br></br>
+                    <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_LongText")->isEmpty()): ?>
@@ -97,7 +110,10 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </p>
                 </div>
-                    
+
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ProductImage</label>
+                <?php endif;?>   
                 <?php
                     if($this->editmode)
                     {
@@ -227,11 +243,14 @@ $coverCompound = $data['coverCompoundData'];
                     </h1>
 
                     <div class="colum-2 standard-compounds p-0">
-
+                          
                         <?php
                             
                             foreach ($level3rdObjectData as $key => $object) {
                                 ?>
+                                <?php if($this->editmode):?>
+                                    <label> Object Name = Name</label><br></br>
+                                <?php endif;?>
                                 <h3>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
@@ -243,6 +262,10 @@ $coverCompound = $data['coverCompoundData'];
                                             <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']) ?>
                                     <?php endif; ?>
                                 </h3>
+                                <br></br>
+                                <?php if($this->editmode):?>
+                                    <label> Object  = LongText</label>
+                                <?php endif;?>
                                 <p>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
@@ -268,6 +291,9 @@ $coverCompound = $data['coverCompoundData'];
                     $singleProductPage = $data['singleProductPage'];
                 ?>
                 <div class="page-break"></div>
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = PerformanceCategory </label>
+                <?php endif;?>
                 <h1 class="orange">
                 
                     <?php if($this->editmode): ?>
@@ -280,6 +306,10 @@ $coverCompound = $data['coverCompoundData'];
                             <?= $this->input("CCHRPage_NamePerformanceCategory",['placeholder' => 'Enter Performance Category']) ?>
                     <?php endif; ?>
                 </h1>
+
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = ProductImage </label>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {
@@ -302,6 +332,10 @@ $coverCompound = $data['coverCompoundData'];
                         }
                     }
                 ?>
+
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = LongText </label>
+                <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
                             <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
@@ -322,6 +356,9 @@ $coverCompound = $data['coverCompoundData'];
                             $md5FeatureNameKey = md5($feature['FeatureName']);
                         ?>
                             <div class="media">
+                            <?php if($this->editmode):?>
+                                <label> Attribute Name = FeatureImage </label>
+                            <?php endif;?>   
                                 <?php
                                     if($this->editmode)
                                     {
@@ -346,6 +383,9 @@ $coverCompound = $data['coverCompoundData'];
                                 ?>
                                 
                                 <div class="media-body">
+                                <?php if($this->editmode):?>
+                                    <label> Attribute Name = FeatureName </label>
+                                <?php endif;?>
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->isEmpty()): ?>
@@ -357,6 +397,10 @@ $coverCompound = $data['coverCompoundData'];
                                                 <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}") ?>
                                         <?php endif; ?>
                                     </h2>
+
+                                    <?php if($this->editmode):?>
+                                        <label> Attribute Name = FeatureDescription </label>
+                                    <?php endif;?>
                                     <p>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->isEmpty()): ?>
@@ -406,7 +450,9 @@ $coverCompound = $data['coverCompoundData'];
                                             $md5Key = md5($chValue['Name'].'_'.$count);
                                             $count++;
                                         ?>
+                                            
                                             <tr>
+                                            
                                                 <td class="orange" width="25%">
 
                                                     <?php if($this->editmode): ?>
