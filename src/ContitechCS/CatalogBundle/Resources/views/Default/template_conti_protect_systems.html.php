@@ -42,8 +42,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
        
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
-                <h1 class="orange">
-                
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = Name</label><br></br>
+                <?php endif;?>
+                <h1 class="orange">                
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CS_ProductName")->isEmpty()): ?>
                                     <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
@@ -58,6 +60,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="environment-quality-sec">
                     <div class="media pt-0 align-item-ends">
                         <div class="media-body">
+                        <?php if($this->editmode):?>
+                            <label>Attribute Name = ShortText</label>
+                        <?php endif;?>
                             <p>
 
                             <?php if($this->editmode): ?>
@@ -90,6 +95,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             <?php endif; ?>
                                             
                                             </h3>
+                                            <?php if($this->editmode):?>
+                                                <label>Attribute Name = Benefits</label>
+                                            <?php endif;?>
             
                                             <?php 
                                                 echo "<ul>";
@@ -105,6 +113,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             ?>
                         </div>
 
+                        <?php if($this->editmode):?>
+                            <label>Child Attribute Name = ProductImage</label>
+                        <?php endif;?>
                         <?php
                             if($this->editmode)
                             {
@@ -119,7 +130,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CPS_productImageObj =  $this->image("CPS_productImage");
-                                if($CPS_productImageObj->getThumbnail('catalog_thumb'))
+                                if(method_exists($CPS_productImageObj,'getThumbnail') && $CPS_productImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $CPS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0">
@@ -130,6 +141,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 </div>
                 <div class="feature-benefit-list w-80 mb-4">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = Name</label><br></br>
+                <?php endif;?>
                     <h2 class="orange f-22">
                     <strong>
 
@@ -166,6 +180,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
                 </div>
 
+                <?php if($this->editmode):?>
+                    <label>Child Attribute Name = ApplicationImage</label>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {
@@ -180,7 +197,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CPS_ApplicationImageObj =  $this->image("CPS_ApplicationImage");
-                        if($CPS_ApplicationImageObj->getThumbnail('catalog_thumb'))
+                        if(method_exists($CPS_ApplicationImageObj,'getThumbnail') && $CPS_ApplicationImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CPS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="" >

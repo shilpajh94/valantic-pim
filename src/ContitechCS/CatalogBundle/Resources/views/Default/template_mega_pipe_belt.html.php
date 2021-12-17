@@ -43,8 +43,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
         <main id="content" role="main">
             <section class="fortressxp-belts">
-                <h1 class="orange">
-                        
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = Name</label><br></br>
+                <?php endif;?>
+                <h1 class="orange">                       
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
                                 <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
@@ -55,8 +57,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?>
                 
+                
                 <span class="sub-title">
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("MPB_ProductClaimSlogan")->isEmpty()): ?>
                                 <?= $this->input("MPB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -71,6 +76,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 </h1>
                 <div class="p-medium">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ShortText</label><br></br>
+                <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->wysiwyg("MPB_ShortText")->isEmpty()): ?>
                                         <?= $this->wysiwyg("MPB_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
@@ -88,6 +96,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                                 ?>
 
+                                <?php if($this->editmode):?>
+                                      <label>Attribute Name = Features</label><br></br>
+                                <?php endif;?>
                                 <h3 class="orange">
                                         <?= $this->input("ST_advantage_heading",["placeholder" => "Technical Information"]); ?>
                                 </h3>
@@ -109,15 +120,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if(isset($data['CSProductFeaturesAndBenefits']) && $data['CSProductFeaturesAndBenefits'])
                         {
                            ?>
-
+                                <?php if($this->editmode):?>
+                                        <label>Enter Features and Benefits</label>
+                                <?php endif;?>
                                 <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
                                 <ul>
                                         <?php
                                                 foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion)
                                                 {
+                                                        if(trim($applictaion->getFeatureName()))
+                                                        {
                                                         ?>
                                                         <li><?= $applictaion->getFeatureName(); ?></li>
                                                         <?php
+                                                        }
                                                 } 
                                         ?>
                                 </ul>
@@ -131,6 +147,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                     <!-- old code -->
                         <!-- <h3 class="orange black-bold">
+                                
+                                
                                <?php if($this->editmode): ?>
                                         <?php if($this->input("MPB_FeaturesAndBenefitsLabel")->isEmpty()): ?>
                                                 <?= $this->input("MPB_FeaturesAndBenefitsLabel", ['placeholder'=>'Features and Benefits']) ?>
@@ -154,6 +172,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 </div>
                 
+                <?php if($this->editmode):?>
+                        <label>Attribute Name = ProductImage</label><br></br>
+                <?php endif;?>
                 <?php
                         if($this->editmode)
                         {
@@ -168,7 +189,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                                 $MPB_productImageObj =  $this->image("MPB_productImage");
-                                if($MPB_productImageObj->getThumbnail('catalog_thumb'))
+                                if(method_exists($MPB_productImageObj,'getThumbnail') && $MPB_productImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $MPB_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">

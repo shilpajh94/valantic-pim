@@ -41,6 +41,9 @@
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
+           <?php if($this->editmode):?>
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?> 
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -52,6 +55,10 @@
                     <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?>
             </h1>
+
+            <?php if($this->editmode):?>
+                <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+            <?php endif;?>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
                     <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
@@ -63,6 +70,9 @@
                     <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                 <?php endif; ?>
 
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = LogoImage</label><br></br>
+                <?php endif;?>
                 <?php
                 if($this->editmode)
                     {
@@ -76,11 +86,11 @@
                             }
                             else
                                 {
-                                $CSSImgSrcObj =  $this->image("ST_LogoImage");
-                                    if($CSSImgSrcObj)
+                                $STLogoImgSrcObj =  $this->image("ST_LogoImage");
+                                    if(method_exists($STLogoImgSrcObj,'getThumbnail') && $STLogoImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                <img src="<?= $STLogoImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
                     style="margin-right: 0px; margin-bottom: 0px;" width="180" />
                 <?php
                                     }
@@ -94,6 +104,9 @@
 
                 <div class="media">
                     <div class="media-body pr-4">
+                    <?php if($this->editmode):?>
+                        <label>Attribute Name = ShortText</label><br></br>
+                    <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>
                                 <?php if($this->textarea("ST_ShortText")->isEmpty()): ?>
@@ -107,6 +120,9 @@
                         </p>
 
 
+                        <?php if($this->editmode):?>
+                            <label>Attribute Name = ProductImage</label><br></br>
+                        <?php endif;?>
                         <?php
                         if($this->editmode)
                             {
@@ -119,17 +135,21 @@
                                     }
                                 }
                                 else{
-                                    $CSSImgSrcObj =  $this->image("ST_ProductImage");
-                                    if($CSSImgSrcObj)
+                                    $STProdImgSrcObj =  $this->image("ST_ProductImage");
+                                    if(method_exists($STProdImgSrcObj,'getThumbnail') && $STProdImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                             ?>
-                        <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                        <img src="<?= $STProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
                         <?php
                                         }
                                     }
                         ?>
                         </p>
                     </div>
+
+                    <?php if($this->editmode):?>
+                            <label>Attribute Name = ApplicationImage</label><br></br>
+                        <?php endif;?>
                     <?php
                     if($this->editmode)
                         {
@@ -143,11 +163,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ST_ApplicationImage");
-                                        if($CSSImgSrcObj)
+                                    $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
+                                        if(method_exists($STAppImgSrcObj,'getThumbnail') && $STAppImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
+                    <img src="<?= $STAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
                     <?php
                                         }
                                     }
@@ -162,8 +182,14 @@
                     ?>
                         <div class="feature-benefit-list">
                             <h3 class="black-bold black mb-3">
+                            <?php if($this->editmode):?>
+                                <label>Enter Your  Heading</label><br></br>
+                            <?php endif;?>
                                 <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
                             <ul>
+                            <?php if($this->editmode):?>
+                                <label>Attribute Name = Features</label><br></br>
+                            <?php endif;?>
                                 <?php 
                                     foreach ($data['Features'] as $key => $item) {
                                         ?>
@@ -184,11 +210,17 @@
                                 if(count($data['CSProductApplications']) > 0)
                                 {
                                     ?>
+                                        <?php if($this->editmode):?>
+                                            <label>Enter Your  Heading</label><br></br>
+                                        <?php endif;?>
                                         <h3 class="black-bold black mb-3">
                                             <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
                                         </h3>
 
                                         <ul>
+                                        <?php if($this->editmode):?>
+                                            <label>Attribute Name = Application</label><br></br>
+                                        <?php endif;?>
                                             <?php
                                                 foreach($data['CSProductApplications'] as $key => $applictaion)
                                                 {
@@ -210,10 +242,16 @@
 
                     <div class="col-6">
                         <div class="feature-benefit-list my-0">
+                                <?php if($this->editmode):?>
+                                    <label>Enter Your  Heading</label><br></br>
+                                <?php endif;?>
                                 <h3 class="black-bold black mb-3">
                                     <?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
                                 </h3>
                                 <ul>
+                                    <?php if($this->editmode):?>
+                                        <label>Enter Your Points</label><br></br>
+                                    <?php endif;?>
                                     <li>
                                         <?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
                                     </li>

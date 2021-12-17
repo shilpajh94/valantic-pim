@@ -373,16 +373,19 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
                         {
-                            if($value->getFeatureImage())
+                            if(trim($value->getFeatureName()))
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                $FeaturesAndBenefits[] = $feature;
-                            }
-                            else
-                            {
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                if($value->getFeatureImage())
+                                {
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    $FeaturesAndBenefits[] = $feature;
+                                }
+                                else
+                                {
+                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                }
                             }
                         }
                     }
@@ -758,23 +761,30 @@ class DefaultController extends FrontendController
                     $selectedCategoryId = $catalogTableObject->getSecondLevelCategory();
     
                     $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
+
+                    if($hierarchyObj)
+                    {
+                        $hierarchyPath = $hierarchyObj->getPath();
+                        $hierarchyName = $hierarchyObj->getKey();
+        
+                        $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                        $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
+        
+                        $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
+                        
+                        if($HierarchyProductPath)
+                        {
+                            $coverCompoundData['HierarchyNameLevel2'] = trim($HierarchyProductPath->getName());
+                            $coverCompoundData['Name'] = trim($HierarchyProductPath->getName());
+                            $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
+                            $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
+                            $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
+                            $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
+            
+                            $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $regionId);
+                        }
+                    }
     
-                    $hierarchyPath = $hierarchyObj->getPath();
-                    $hierarchyName = $hierarchyObj->getKey();
-    
-                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                    $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
-    
-                    $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-                    
-                    $coverCompoundData['HierarchyNameLevel2'] = trim($HierarchyProductPath->getName());
-                    $coverCompoundData['Name'] = trim($HierarchyProductPath->getName());
-                    $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
-                    $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
-                    $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
-                    $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
-    
-                    $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $regionId);
     
                     $coverOptionsAttributes = $productDataImportConfig['Cover Options']['Cover Compound Attributes'];
                     $productPage = $productDataImportConfig['Cover Options']['Product Page'];
@@ -792,7 +802,7 @@ class DefaultController extends FrontendController
                     $coverCompoundsHeaderKeys[] = $CS_Compounds;
                     $onlyOnce                   = false;
                     
-                    if($CSHierarchyObjChild)
+                    if(isset($CSHierarchyObjChild) && $CSHierarchyObjChild)
                     {
                         foreach ($CSHierarchyObjChild as $objectLevel3rd)
                         {
@@ -828,7 +838,7 @@ class DefaultController extends FrontendController
                                 $FeaturesAndBenefits = [];
     
                                 foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
-                                    if($value->getFeatureImage())
+                                    if($value->getFeatureImage() && trim($value->getFeatureName()))
                                     {
                                         $feature['FeatureName'] = $value->getFeatureName();
                                         $feature['FeatureDescription'] = $value->getFeatureDescription();
@@ -989,13 +999,16 @@ class DefaultController extends FrontendController
                 $productId = $selectedProduct[0];
     
                 $productDetails = DataObject\CSProducts::getById($productId);
-    
-                $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
-                $productData['Name'] = $productDetails->getName();
-                $productData['LongText'] = $productDetails->getShortText();
-                $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
-                $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
-                $productData['cover_compounds'] = $productDetails->getCoverCompounds();
+                
+                if($productDetails)
+                {
+                    $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
+                    $productData['Name'] = $productDetails->getName();
+                    $productData['LongText'] = $productDetails->getShortText();
+                    $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
+                    $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+                    $productData['cover_compounds'] = $productDetails->getCoverCompounds();
+                }
     
                 $ymlData = $this->configProviderService->getBrickMappingConfig();
                 
@@ -1589,34 +1602,39 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());
                 
-                $childrenData = [];
-    
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                if($childObject)
+                if($hierarchyObj)
                 {
-                    foreach ($childObject as $childValue)
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyName = $hierarchyObj->getKey();
+        
+                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                    if($productObject)
                     {
-                        $data['Name'] = $childValue->getName();
-                        $data['LongText'] = $childValue->getLongtext();
-                        $data['ProductImage'] = $childValue->getProductImage();
-    
-                        $childrenData[] = $data;
-                        unset($data);
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());
+                        
+                        $childrenData = [];
+            
+                        $childObject = $this->getAllRegionChildern($productObject, $regionId);
+                    
+                        foreach ($childObject as $childValue)
+                        {
+                            $data['Name'] = $childValue->getName();
+                            $data['LongText'] = $childValue->getLongtext();
+                            $data['ProductImage'] = $childValue->getProductImage();
+        
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
                     }
+
                 }
     
                 $productNameArr['childrenData'] = $childrenData;
@@ -1656,30 +1674,35 @@ class DefaultController extends FrontendController
             {
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
+                
                 $productObject = DataObject\CSProducts::getById($singleProduct);
-                $productData['Name'] = $productObject->getName();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                $productData['ApplicationImage'] = $productObject->getApplicationImage();
-    
-                $objParent = $productObject->getParent();
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $childrenData = [];
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                foreach ($childObject as $childValue) {
-                    $data['Name'] = $childValue->getName();
-                    $data['ShortText'] = $childValue->getShortText();
-    
-                    $childrenData[] = $data;
-                    unset($data);
+                
+                if($productObject)
+                {
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
+        
+                    $objParent = $productObject->getParent();
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+        
+                    $childrenData = [];
+                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
+        
+                    foreach ($childObject as $childValue) {
+                        $data['Name'] = $childValue->getName();
+                        $data['ShortText'] = $childValue->getShortText();
+        
+                        $childrenData[] = $data;
+                        unset($data);
+                    }
+        
+                    $productData['childrenData'] = $childrenData;
+        
+                    $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
                 }
-    
-                $productData['childrenData'] = $childrenData;
-    
-                $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
             }
     
             $this->view['data'] = $productData;
@@ -1716,33 +1739,39 @@ class DefaultController extends FrontendController
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
                 
-                $objParent = $productObject->getParent();
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $productData['Name'] = $productObject->getName();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                $productData['ReportImage'] = $productObject->getReportImage();
-                
-                $productData['ApplicationImage'] = $productObject->getApplicationImage();
-                $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
-    
-                $childrenData = [];
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                if($childObject)
+                if(method_exists($productObject,'getParent'))
                 {
-                    foreach ($childObject as $childValue) {
-                        $data['Name'] = $childValue->getName();
-                        $data['ShortText'] = $childValue->getShortText();
-    
-                        $childrenData[] = $data;
-                        unset($data);
-                    }
+                    $objParent = $productObject->getParent();
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
                 }
-    
-                $productData['childrenData'] = $childrenData;
+                
+                if($productObject)
+                {
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    $productData['ReportImage'] = $productObject->getReportImage();
+                    
+                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+        
+                    $childrenData = [];
+                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
+        
+                    if($childObject)
+                    {
+                        foreach ($childObject as $childValue) {
+                            $data['Name'] = $childValue->getName();
+                            $data['ShortText'] = $childValue->getShortText();
+        
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
+                    }
+        
+                    $productData['childrenData'] = $childrenData;
+                }
             }
     
             $this->view['data'] = $productData;
@@ -1772,19 +1801,23 @@ class DefaultController extends FrontendController
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
+
+                if($productObject)
+                {
+                    $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+        
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    
+                    $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
+        
+                    $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
+                }
     
-                $objParent = DataObject\CSProducts::getById($productObject->getParentId());
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $productData['Name'] = $productObject->getName();
-                $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                
-                $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
-    
-                $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
                 $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
             }
             
@@ -1820,25 +1853,37 @@ class DefaultController extends FrontendController
             if($catalogTableObject)
             {
                 $selectedProduct    = $catalogTableObject->getProducts();
-                $singleProduct      = $selectedProduct[0];
+                $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
     
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
-                $childProductData['Name'] = $singleProductObj->getName();
-                $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
-                $childProductData['ShortText'] = $singleProductObj->getShortText();
-                $childProductData['ProductImage'] = $singleProductObj->getProductImage();
-                $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
+
+                if($singleProductObj)
+                {
+                    $childProductData['Name'] = $singleProductObj->getName();
+                    $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
+                    $childProductData['ShortText'] = $singleProductObj->getShortText();
+                    $childProductData['ProductImage'] = $singleProductObj->getProductImage();
+                    $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
+                }
     
                 $FeaturesAndBenefits = [];
                 if($singleProductObj->getCSProductFeaturesAndBenefits())
                 {
                     foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
-                        $FeaturesAndBenefits[] = $value->getFeatureName();
+                        if(trim($value->getFeatureName()))
+                        {
+                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                        }
                     }
                 }
                 $childProductData['Benefits'] = $FeaturesAndBenefits;
-    
-                $productObject = $singleProductObj->getParent();
+                
+                $productObject = [];
+
+                if(method_exists($singleProductObj,'getParent'))
+                {
+                    $productObject = $singleProductObj->getParent();
+                }
     
                 if($productObject)
                 {
@@ -2009,21 +2054,27 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                if($hierarchyObj)
+                {
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyName = $hierarchyObj->getKey();
         
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['ProductImage'] = $productObject->getProductImage();
-                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());  
+                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                    if($productObject)
+                    {
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['ProductImage'] = $productObject->getProductImage();
+                        $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                        $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());  
+                    }
+                }
             }
             $this->view['data'] = $productNameArr;
             $this->view['footer_logo_src'] = $footer_logo_src;
@@ -2062,7 +2113,13 @@ class DefaultController extends FrontendController
                 {
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
-                    $parentProductObject = $productObject->getParent();
+
+                    $parentProductObject = [];
+
+                    if(method_exists($productObject,'getParent'))
+                    {
+                        $parentProductObject = $productObject->getParent();
+                    }
                 
                     $productNameArr['Name'] = trim($productObject->getName());
                     $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -2076,14 +2133,22 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
                         {
-                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                            if($value->getFeatureName())
+                            {
+                                $FeaturesAndBenefits[] = $value->getFeatureName();
+                            }
+                            
                         }
                     }
     
                     $productNameArr['Features'] = $FeaturesAndBenefits;
                     
                     $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                    $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
+
+                    if($parentProductObject)
+                    {
+                        $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
+                    }
                 }
             }
             $this->view['data'] = $productNameArr;
