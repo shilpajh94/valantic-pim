@@ -266,6 +266,11 @@ Size:
     fieldName: Size
     fieldType: Input
     objectType: WidthLength
+Available Profile Pattern Widths:
+    fieldName: availablePatternWidthInch
+    blockName: PatternWidthBlock
+    fieldType: Block
+    objectType: ProdDimensions
 Available Belt Widths in in:
     fieldName: availableBeltWidthInch
     blockName: AvailableBeltPatternWidthBlock
@@ -584,9 +589,13 @@ Volume Flow:
     fieldName: VolumeFlow
     fieldType: Number
     objectType: ProdDimensions
-Belt Width:
+Belt Width in in.:
     fieldName: BeltWidth
-    fieldType: Input
+    fieldType: Multiselection
+    objectType: ProdDimensions
+Belt width in mm:
+    fieldName: BeltWidthmm
+    fieldType: Multiselection
     objectType: ProdDimensions
 Minimum Belt width:
     fieldName: MinimumBeltMMWidth
@@ -612,20 +621,12 @@ Diameter Inch:
     fieldName: DiameterInch
     fieldType: Number
     objectType: ProdDimensions
-Belt Width mm:
-    fieldName: BeltWidthmm
-    fieldType: Input
-    objectType: ProdDimensions
 Weight:
     fieldName: WeightKG
     fieldType: Number
     objectType: ProdDimensions
 Weight (Lb):
     fieldName: WeightLb
-    fieldType: Number
-    objectType: ProdDimensions
-Available Profile Pattern Widths:
-    fieldName: AvailableProfilePatternWidths
     fieldType: Number
     objectType: ProdDimensions
 Belt Speed:

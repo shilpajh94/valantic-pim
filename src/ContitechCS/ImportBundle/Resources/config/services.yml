@@ -89,6 +89,24 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:industries-import",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSMaterialImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:material-import",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSAvailableBeltWidthImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:available-belt-width-import",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSAvailablePatternWidthImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:available-pattern-width-import",
+              }
     ContitechCS\ImportBundle\OneTimeImportCommand\CSPerformanceCategoriesImportCommand:
         tags:
             - {

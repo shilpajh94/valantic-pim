@@ -281,7 +281,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $method = 'set' . $fieldName;
                                                 $product->$method($fieldValue);
-                                            } else if ($fieldConfig['fieldType'] == 'Block') {
+                                            } else if ($fieldConfig['fieldType'] == 'Block' && $fieldConfig['objectType'] == 'class') {
                                                 $fieldValue = trim($fieldValue);
 
                                                 if (strpos($fieldValue, "\n") !== false) {
@@ -323,19 +323,18 @@ class CSProductDataImportCommand extends AbstractCommand
                                             }
                                         } else {
                                             $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                            $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
                                             $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
                                             $configAttributeArray[] = $fieldValue;
                                         }
                                     }
                                 }
-
                                 if ($allObjectBricks) {
+                                    $patternDataValue = '';
                                     foreach ($allObjectBricks as $brick) {
-
                                         if (isset($bricksData[$brick])) {
                                             $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                             $brickObject = new $class($product);
-
                                             foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
                                                 $fieldValue = trim($fieldData['fieldValue']);
 
@@ -345,12 +344,102 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
 
                                                 $objectBrickFieldMethod = 'set' . $fieldKey;
-
                                                 if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
-                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                    if (strpos($fieldValue, "\n") !== false) {
+                                                        $fieldValueArr = explode("\n", $fieldValue);
+                                                    }
+                                                    else{
+                                                        $fieldValueArr = explode('|', $fieldValue);
+                                                    }
                                                     $fieldValue = array_map('trim', $fieldValueArr);
+                                                    if($fieldKey == 'BeltWidthmm' || $fieldKey == 'BeltWidth'){
+                                                            $beltWidthArr = [];
+                                                            foreach ($fieldValue as $eachBeltWidth) {
+                                                                if (strpos($eachBeltWidth, "in") !== false && $eachBeltWidth != "Continuous") {
+                                                                    $eachBeltWidth = str_replace("in", "", $fieldValue);
+                                                                }
+                                                                if (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidthmm') {
+                                                                    $brickObject->setBeltWidthRangeMM($eachBeltWidth);
+                                                                }
+                                                                elseif(strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidth'){
+                                                                    $brickObject->setBeltWidthRangeInch($eachBeltWidth);
+                                                                }
+                                                                else{
+                                                                    $AvailableBeltWidthPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER.'/'. $eachBeltWidth;
+                                                                    $AvailableBeltWidthPathObj = DataObject\CSAvailableBeltWidths::getByPath($AvailableBeltWidthPath);
+                                                                    if ($AvailableBeltWidthPathObj) {
+                                                                        $AvailableBeltWidthPathObjId = $AvailableBeltWidthPathObj->getId();
+                                                                        $beltWidthArr[] = $AvailableBeltWidthPathObjId;
+                                                                    }
+                                                                }
+                                                            }
+                                                            $fieldValue = array_map('trim', $beltWidthArr);
+                                                    }
+                                                    
                                                 }
-                                                $brickObject->$objectBrickFieldMethod($fieldValue);
+                                                
+                                                if ($fieldData['fieldType'] == 'Block' && $fieldConfig['objectType'] != "class") {
+                                                    $objectBrickFieldMethod = 'setAvailableBeltPatternWidthBlock';
+
+                                                    if (strpos($fieldValue, "in") !== false && $fieldValue != "Continuous") {
+                                                        $fieldValue = str_replace("in", "", $fieldValue);
+                                                    }
+                                                    if (strpos($fieldValue, ",-") !== false) {
+                                                        $fieldValue = str_replace(",-", "", $fieldValue);
+                                                    }
+                                                    if (strpos($fieldValue, "\n") !== false) {
+                                                        $fieldValueArr = explode("\n", $fieldValue);
+                                                    } else {
+                                                        $fieldValueArr = explode('|', $fieldValue);
+                                                    }
+                                                    $fieldValue = array_map('trim', $fieldValueArr);
+
+                                                    $beltWidthBlockData = array();
+
+                                                    if ($fieldData['blockName'] == 'PatternWidthBlock') {
+                                                            $patternDataValue = $fieldValue;
+                                                    }
+                                                    if ($fieldData['blockName'] == 'BeltWidthBlock' && (!empty($fieldValue))) {
+                                                        $i = 0;
+                                                        foreach ($fieldValue as $key => $val) {
+                                                            if (strpos($val, "-") !== false && $fieldKey == 'AvailableBeltWidthInch') {
+                                                                $brickObject->setAvailableBeltWidthRangeInch($val);
+                                                            }
+                                                            $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
+                                                            if($beltWidthObj){
+                                                                $beltWidthObjId = $beltWidthObj->getId();
+                                                            }
+                                                            if ($patternDataValue) {
+                                                                if(!is_numeric($patternDataValue[0])){
+                                                                    $pVal = $patternDataValue[0];
+                                                                } else{
+                                                                    $pVal = $patternDataValue[$i++];
+                                                                }
+                                                                $idArray = array();
+                                                                $valArray = explode(",", $pVal);
+                                                                foreach ($valArray as $value) {
+                                                                    $AvailablePatternWidthPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEPATTERNWIDTH_FOLDER.'/'. trim($value);
+                                                                    $AvailablePatternWidthPathObj = DataObject\CSAvailablePatternWidths::getByPath($AvailablePatternWidthPath);
+                                                                    if ($AvailablePatternWidthPathObj) {
+                                                                        $idArray[] = $AvailablePatternWidthPathObj->getId();
+                                                                    }
+                                                                }
+                                                                $beltWidthBlockData[] = [
+                                                                    "availableBeltWidthInch" => new BlockElement("availableBeltWidthInch", 'select', $beltWidthObjId),
+                                                                    "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
+                                                                ];
+                                                                if ($beltWidthBlockData) {
+                                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
+                                                                }
+                                                            }   
+                                                        }
+                                                        $beltWidthBlockData = [];
+                                                        $beltWidthObjId = '';
+                                                        $idArray = [];    
+                                                    }
+                                                } else {
+                                                    $brickObject->$objectBrickFieldMethod($fieldValue);
+                                                }
                                             }
 
                                             foreach ($unitValueConfig as $unit => $unitValue) {
@@ -373,15 +462,10 @@ class CSProductDataImportCommand extends AbstractCommand
                                         }
 
                                         $method = 'set' . $brick;
-                                        // $product->getProductAttributes()->$method($brickObject);
-                                        // if ($natureOfProduct == 1) {
-                                        //     unset($bricksData[$brick]);
-                                        // }
                                     }
                                     $extraAttrString = '';
                                     if ($natureOfProduct == 1) {
                                         foreach ($bricksData as $extraBricks) {
-                                            // p_r($bricksData);
                                             foreach ($extraBricks as $b => $v) {
                                                 if (!empty($v['fieldValue'])) {
                                                     $extraAttrString = $b . ", " . $extraAttrString;
