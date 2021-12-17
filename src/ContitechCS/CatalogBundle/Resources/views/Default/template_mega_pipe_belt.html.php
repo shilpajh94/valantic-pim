@@ -105,10 +105,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <ul>
                                         <?php 
                                                 foreach ($data['Features'] as $key => $item)
-                                                {
-                                                        ?>
-                                                                <li><?= $item ?></li>
-                                                        <?php
+                                                {       
+                                                        if(trim($item))
+                                                        {
+                                                                ?>
+                                                                        <li><?= $item ?></li>
+                                                                <?php
+                                                        }
                                                 }
                                         ?>
                                 </ul>

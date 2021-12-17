@@ -2011,22 +2011,25 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyKeyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyKeyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+                
+                if($hierarchyObj)
+                {
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyKeyName = $hierarchyObj->getKey();
         
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['ProductImage'] = $productObject->getProductImage();
-                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());;           
+                    $hierarchyFullName = $hierarchyPath.$hierarchyKeyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+            
+                    $productNameArr['Name'] = trim($productObject->getName());
+                    $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productNameArr['ShortText'] = $productObject->getShortText();
+                    $productNameArr['ProductImage'] = $productObject->getProductImage();
+                    $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
+                    $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());           
+                }
             }
             $this->view['data'] = $productNameArr;
             $this->view['footer_logo_src'] = $footer_logo_src;
