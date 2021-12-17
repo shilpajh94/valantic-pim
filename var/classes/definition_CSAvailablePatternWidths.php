@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-01T06:45:59+01:00
+* Generated at: 2021-12-13T04:36:34-05:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSAvailablePatternWidths',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638337552,
+   'modificationDate' => 1639388194,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -60,7 +60,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
-         'labelWidth' => 100,
+         'labelWidth' => 200,
          'layout' => NULL,
          'border' => false,
          'name' => 'Layout',
@@ -79,7 +79,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 100,
+             'labelWidth' => 200,
              'layout' => 'hbox',
              'fieldLabel' => '',
              'name' => 'Field Container',
@@ -218,7 +218,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => '',
                      'height' => '',
                      'maxTabs' => NULL,
-                     'labelWidth' => NULL,
+                     'labelWidth' => 200,
                      'border' => false,
                      'provideSplitView' => false,
                      'tabPosition' => NULL,
@@ -226,12 +226,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'referencedFields' => 
                     array (
                     ),
-                     'tooltip' => NULL,
-                     'mandatory' => NULL,
-                     'noteditable' => NULL,
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
                      'index' => NULL,
-                     'locked' => NULL,
-                     'style' => NULL,
+                     'locked' => false,
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,

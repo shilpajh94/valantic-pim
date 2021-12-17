@@ -268,11 +268,11 @@ Available Belt Widths in mm:
     fieldType: Input
     fieldValue: mm
     objectType: WidthLength
-Available Belt Widths in inch:
-    fieldName: AvailableBeltWidthInchUnit
-    fieldType: Input
-    fieldValue: inch
-    objectType: WidthLength
+# Available Belt Widths in inch:
+#     fieldName: AvailableBeltWidthInchUnit
+#     fieldType: Input
+#     fieldValue: inch
+#     objectType: ProdDimensions
 Profile Width in mm:
     fieldName: ProfileWidthMMUnit
     fieldType: Input
@@ -445,6 +445,16 @@ Maximum Belt Width Unit in inch:
   objectType: ProdDimensions
 Minimum Belt width Unit in inch:
   fieldName: MinimumBeltWidthInchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdDimensions
+Belt width Range Unit in mm:
+  fieldName: BeltWidthRangeMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdDimensions
+Belt width Range Unit in inch:
+  fieldName: BeltWidthRangeInchUnit
   fieldType: Input
   fieldValue: inch
   objectType: ProdDimensions
