@@ -46,6 +46,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = Name</label><br></br>
+                <?php endif;?>
                 <h1 class="orange">
                     
                     <?php if($this->editmode): ?>
@@ -59,6 +62,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                 
                     <span class="sub-title">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                    <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CPBParent_ProductClaimSlogan")->isEmpty()): ?>
                                         <?= $this->input("CPBParent_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($parentProductData['ProductClaimSlogan']) ?>
@@ -73,6 +79,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h1>
                 
                 <div class="feature-benefit-list">
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ShortText</label><br></br>
+                <?php endif;?>
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBParent_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBParent_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($parentProductData['ShortText']) ?>
@@ -141,7 +150,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                     
                 </h3>
-
+                
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ProductImage</label><br></br>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {
@@ -165,6 +177,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
                 ?>
                 <div class="page-break"></div>
+                <?php if($this->editmode):?>
+                    <label>Child Attribute Name = Name</label><br></br>
+                <?php endif;?>
                 <h2>
                     <span class="orange">
                         <?php if($this->editmode): ?>
@@ -189,7 +204,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                 </span>
                 </h2>
-                <div class="feature-benefit-list">	
+                <div class="feature-benefit-list">
+                <?php if($this->editmode):?>
+                    <label>Child Attribute Name = ProductClaimSlogan</label><br></br>
+                <?php endif;?>	
                 <h3 class="orange mb-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CPBChild_ProductClaimSlogan")->isEmpty()): ?>
@@ -202,7 +220,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                 </h3>
                 
-                 
+                    <?php if($this->editmode):?>
+                        <label>Child Attribute Name = ShortText</label><br></br>
+                    <?php endif;?>
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBChild_ShortText")->isEmpty()): ?>
                                     <?= $this->wysiwyg("CPBChild_ShortText")->setDataFromResource($childProductData['ShortText']) ?>
@@ -236,7 +256,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
 
                 
-                
+                <?php if($this->editmode):?>
+                    <label>Child Attribute Name = ProductImage</label><br></br>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {

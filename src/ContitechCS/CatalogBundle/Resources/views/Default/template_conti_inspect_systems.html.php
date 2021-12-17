@@ -42,6 +42,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = ProductImage</label>
+                <?php endif;?>
                 <div class="page95">
                 <?php
                     if($this->editmode)
@@ -68,6 +71,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                 </div>
                 <div class="feature-benefit-list w-80">
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = Name</label>
+                <?php endif;?>
                     <h2>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CIS_Inspect_Systems")->isEmpty()): ?>
@@ -103,7 +109,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 <div class="environment-quality-sec">
                     <div class="media pt-0">
-
+                        <?php if($this->editmode):?>
+                            <label> Attribute Name = ReportImage</label>
+                        <?php endif;?>
                         <?php
                             if($this->editmode)
                             {
@@ -143,6 +151,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </h3>
                             <p>
 
+                            <?php if($this->editmode):?>
+                                <label> Attribute Name = Benefits</label>
+                            <?php endif;?>
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
                                             <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits'])->setDataFromResource($data['Benefits'][0]) ?>
@@ -157,7 +168,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     </div>
                 </div>
-
+                
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = ApplicationImage</label>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {

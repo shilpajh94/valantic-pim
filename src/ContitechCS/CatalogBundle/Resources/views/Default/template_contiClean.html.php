@@ -32,6 +32,9 @@
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?>
             <h1 class="orange">
                 <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -43,7 +46,10 @@
                     <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
             <?php endif; ?>
 
- <span class="sub-title">
+                <span class="sub-title">
+                <?php if($this->editmode):?>
+                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
                                 <?= $this->input("ContiC_TitleTagSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -59,7 +65,9 @@
             </h1>
 
            
-
+            <?php if($this->editmode):?>
+                <label>Attribute Name = ShortText</label><br></br>
+            <?php endif;?>
            <div class="p-medium pt-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
@@ -74,8 +82,11 @@
                         <?php endif; ?>
                     <?php endif; ?>
             </div>
-    
+            
             <div class="full-image-sec">
+            <?php if($this->editmode):?>
+                <label> Attribute Name = ProductImage</label><br></br>
+            <?php endif;?>
                 <?php
                     if($this->editmode)
                         {
@@ -101,6 +112,9 @@
             </div>
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = Benefits</label><br></br>
+                <?php endif;?>
                     <div class="row">
                         
                         <?php
@@ -133,6 +147,9 @@
                                 if($data['material'])
                                 {
                                     ?>
+                                    <?php if($this->editmode):?>
+                                        <label> Product Specific Data = Materials</label><br></br>
+                                    <?php endif;?>
                                         <h3 class="orange">
                                     <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
                                         </h3>
@@ -157,6 +174,9 @@
                                 "Enter Your  TableHead"
                             ]);?> </h3>
                         <ul>
+                        <?php if($this->editmode):?>
+                            <label> Enter Your Points</label>
+                        <?php endif;?>
                             <?php
                                 while($this->block("CCSM_Header_Points3")->loop()) { ?>
                             <li><span class="orange">›</span> <i><?= $this->input("ASTM_Label", ['placeholder'=>'ASTM D 1894-06 Coefficient of Friction']) ?> </i></li>
@@ -164,6 +184,9 @@
                                 } ?>
                         </ul>
                     </div>
+                    <?php if($this->editmode):?>
+                        <label> Attribute Name = reportImage</label>
+                    <?php endif;?>
                    <?php
                     if($this->editmode)
                         {
@@ -191,6 +214,9 @@
 
 
             <div class="pg-6">
+                <?php if($this->editmode):?>
+                    <label> Attribute Name = ApplicationImage</label>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                         {
