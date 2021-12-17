@@ -43,8 +43,8 @@
         <main id="content" role="main">
             <section class="fortressxp-belts">
             <?php if($this->editmode):?>
-                <label>Enter Product Name</label><br></br>
-            <?php endif;?>
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?> 
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -58,7 +58,7 @@
                 </h1>
                 
                 <?php if($this->editmode):?>
-                    <label>Enter Product Slogan</label><br></br>
+                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
                 <?php endif;?>
                 <p class="p-medium">
                     <?php if($this->editmode): ?>
@@ -73,8 +73,8 @@
                 </p>
                 
                 <?php if($this->editmode):?>
-                    <label>Enter Short Text</label><br></br>
-                <?php endif;?>
+                    <label>Attribute Name = ShortText</label><br></br>
+                <?php endif;?> 
                 <p>
                     <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("SCB_ShortText")->isEmpty()): ?>
@@ -93,6 +93,9 @@
                 <h3 class="orange fnt20 my-4">
                     <?= $this->input("SubHeading_title",["placeholder" => "Enter Your  SubHeading"]); ?></h3>
 
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ProductImage</label><br></br>
+                <?php endif;?> 
                 <?php
                     if($this->editmode)
                         {
@@ -123,6 +126,9 @@
                     <?= $this->input("SubHeading_title2",["placeholder" =>"Enter Your  SubHeading"]); ?>
                 </h3>
 
+                <?php if($this->editmode):?>
+                    <label>Attribute Name = ApplicationImage</label><br></br>
+                <?php endif;?>
                 <?php
             if($this->editmode)
                 {

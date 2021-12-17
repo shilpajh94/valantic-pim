@@ -59,7 +59,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ProductClaimSlogan</label><br></br>
+                   <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
                 <?php endif;?>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CCS_ProductClaimSlogan")->isEmpty()): ?>

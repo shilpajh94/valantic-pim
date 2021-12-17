@@ -56,7 +56,7 @@
                     <?php endif; ?></h1>
                 
                <?php if($this->editmode):?>
-                    <label>Attribute Name = ProductClaimSlogan</label><br></br>
+                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
                 <?php endif;?>
                 <p class="p-medium"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>

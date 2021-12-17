@@ -42,8 +42,8 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
            <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
-                <?php endif;?> 
+                <label>Attribute Name = Name</label><br></br>
+            <?php endif;?> 
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -57,7 +57,7 @@
             </h1>
 
             <?php if($this->editmode):?>
-                <label>Attribute Name = ProductClaimSlogan</label><br></br>
+                <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
             <?php endif;?>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
