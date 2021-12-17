@@ -57,7 +57,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CIS_productImageObj =  $this->image("CIS_productImage");
-                        if($CIS_productImageObj)
+                        if(method_exists($CIS_productImageObj,'getThumbnail') &&  $CIS_productImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CIS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
@@ -118,7 +118,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CIS_ReportImageObj =  $this->image("CIS_ReportImage");
-                                if($CIS_ReportImageObj)
+                                if(method_exists($CIS_ReportImageObj,'getThumbnail') &&  $CIS_ReportImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $CIS_ReportImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images ml-0">
@@ -172,7 +172,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
-                        if($CIS_ApplicationImageObj)
+                        if(method_exists($CIS_ApplicationImageObj,'getThumbnail') &&  $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="">

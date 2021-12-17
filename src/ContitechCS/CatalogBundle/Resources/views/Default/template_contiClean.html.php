@@ -89,11 +89,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_ProductImage");
-                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
+                                    $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
+                                        if(method_exists($CCProdImgSrcObj,'getThumbnail') && $CCProdImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
+                    <img src="<?= $CCProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
                     <?php
                                         }
                                     }
@@ -177,11 +177,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_reportImage");
-                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
+                                    $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
+                                        if(method_exists($CCReportImgSrcObj,'getThumbnail') && $CCReportImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />
+                    <img src="<?= $CCReportImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />
                     <?php
                                         }
                                     }
@@ -204,11 +204,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_ApplicationImage");
-                                        if($CSSImgSrcObj)
+                                    $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
+                                        if(method_exists($CCAppImgSrcObj,'getThumbnail') && $CCAppImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                    <img src="<?= $CCAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
                     <?php
                                         }
                                     }

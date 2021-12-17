@@ -76,11 +76,11 @@
                             }
                             else
                                 {
-                                $CSSImgSrcObj =  $this->image("ST_LogoImage");
-                                    if($CSSImgSrcObj)
+                                $STLogoImgSrcObj =  $this->image("ST_LogoImage");
+                                    if(method_exists($STLogoImgSrcObj,'getThumbnail') && $STLogoImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                <img src="<?= $STLogoImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
                     style="margin-right: 0px; margin-bottom: 0px;" width="180" />
                 <?php
                                     }
@@ -119,11 +119,11 @@
                                     }
                                 }
                                 else{
-                                    $CSSImgSrcObj =  $this->image("ST_ProductImage");
-                                    if($CSSImgSrcObj)
+                                    $STProdImgSrcObj =  $this->image("ST_ProductImage");
+                                    if(method_exists($STProdImgSrcObj,'getThumbnail') && $STProdImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                             ?>
-                        <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                        <img src="<?= $STProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
                         <?php
                                         }
                                     }
@@ -143,11 +143,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ST_ApplicationImage");
-                                        if($CSSImgSrcObj)
+                                    $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
+                                        if(method_exists($STAppImgSrcObj,'getThumbnail') && $STAppImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
+                    <img src="<?= $STAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
                     <?php
                                         }
                                     }

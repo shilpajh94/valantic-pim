@@ -115,9 +115,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         <?php
                                                 foreach($data['CSProductFeaturesAndBenefits'] as $key => $applictaion)
                                                 {
+                                                        if(trim($applictaion->getFeatureName()))
+                                                        {
                                                         ?>
                                                         <li><?= $applictaion->getFeatureName(); ?></li>
                                                         <?php
+                                                        }
                                                 } 
                                         ?>
                                 </ul>
@@ -168,7 +171,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                                 $MPB_productImageObj =  $this->image("MPB_productImage");
-                                if($MPB_productImageObj->getThumbnail('catalog_thumb'))
+                                if(method_exists($MPB_productImageObj,'getThumbnail') && $MPB_productImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $MPB_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">

@@ -373,16 +373,19 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
                         {
-                            if($value->getFeatureImage())
+                            if(trim($value->getFeatureName()))
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                $FeaturesAndBenefits[] = $feature;
-                            }
-                            else
-                            {
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                if($value->getFeatureImage())
+                                {
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    $FeaturesAndBenefits[] = $feature;
+                                }
+                                else
+                                {
+                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                }
                             }
                         }
                     }
@@ -828,7 +831,7 @@ class DefaultController extends FrontendController
                                 $FeaturesAndBenefits = [];
     
                                 foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
-                                    if($value->getFeatureImage())
+                                    if($value->getFeatureImage() && trim($value->getFeatureName()))
                                     {
                                         $feature['FeatureName'] = $value->getFeatureName();
                                         $feature['FeatureDescription'] = $value->getFeatureDescription();
@@ -1833,7 +1836,10 @@ class DefaultController extends FrontendController
                 if($singleProductObj->getCSProductFeaturesAndBenefits())
                 {
                     foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
-                        $FeaturesAndBenefits[] = $value->getFeatureName();
+                        if(trim($value->getFeatureName()))
+                        {
+                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                        }
                     }
                 }
                 $childProductData['Benefits'] = $FeaturesAndBenefits;
@@ -2076,7 +2082,11 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
                         {
-                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                            if($value->getFeatureName())
+                            {
+                                $FeaturesAndBenefits[] = $value->getFeatureName();
+                            }
+                            
                         }
                     }
     
