@@ -139,10 +139,17 @@ class DefaultController extends FrontendController
             $regionFolder = \Pimcore\File::getValidFilename($region);
 
             $parentPath = $parentPath."/".$regionFolder."/".$language;
+
+            $coverPageFolderName = $objConfig->getWebSiteSetting('CS_cover_page_folder_name');
+            
+            if(!$coverPageFolderName)
+            {
+                die(json_encode(array("success" => false,"msg" => "Please create cover page folder name website setting with CS_cover_page_folder_name")));
+            }
             
             foreach($objPrintContainer->getParent()->getChildren() as $obj)
             {   
-                if($obj->getType() == 'folder' && $obj->getKey() == 'coverPage')
+                if($obj->getType() == 'folder' && $obj->getKey() == $coverPageFolderName)
                 {
                     if($obj->getChildren())
                     {
