@@ -273,14 +273,26 @@ Available Profile Pattern Widths:
     objectType: ProdDimensions
 Available Belt Widths in in:
     fieldName: availableBeltWidthInch
-    blockName: BeltWidthBlock
+    blockName: AvailableBeltPatternWidthBlock
     fieldType: Block
-    objectType: ProdDimensions
-Available Belt Widths in mm:
-    fieldName: AvailableBeltWidthMM
-    blockName: BeltWidthBlock
+    objectType: Brick
+    className: ProdDimensions
+    createFlag: false
+Available Pattern Width in inch:
+    fieldName: availablePatternWidthInch
+    blockName: AvailableBeltPatternWidthBlock
     fieldType: Block
-    objectType: ProdDimensions
+    objectType: Brick
+    className: ProdDimensions
+    createFlag: false
+# Available Belt Widths in in:
+#     fieldName: AvailableBeltWidthInch
+#     fieldType: Number
+#     objectType: WidthLength
+# Available Belt Widths in mm:
+#     fieldName: AvailableBeltWidthMM
+#     fieldType: Number
+#     objectType: WidthLength
 Cleat Width (Top/Bottom):
     fieldName: CleatWidthTopBottom
     fieldType: Number
