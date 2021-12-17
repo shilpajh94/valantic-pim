@@ -1,4 +1,4 @@
 <?php
 
 // possible values: prod,stage,dev,qc
-define('CUSTOM_ENV', "prod");
+define('CUSTOM_ENV', "dev");
