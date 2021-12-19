@@ -130,39 +130,43 @@
                     <label>Attribute Name = ApplicationImage</label><br></br>
                 <?php endif;?>
                 <?php
-            if($this->editmode)
+                if($this->editmode)
                 {
                     if($this->image("SCB_ApplicationImage")->isEmpty())
+                    {
+                        echo $this->image("SCB_ApplicationImage")->setImage($data['ApplicationImage']);
+                    }        
+                    else
+                    {
+                        echo $this->image("SCB_ApplicationImage");
+                    }
+                }
+                else
+                {
+                    $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
+                        if(method_exists($SCBAppImgSrcObj,'getThumbnail') && $SCBAppImgSrcObj->getThumbnail('catalog_thumb'))
                         {
-                            echo $this->image("SCB_ApplicationImage")->setImage($data['ApplicationImage']);
-                        }        
-                        else{
-                            echo $this->image("SCB_ApplicationImage");
-                            }
-                        }
-                        else
-                            {
-                            $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
-                                if(method_exists($SCBAppImgSrcObj,'getThumbnail') && $SCBAppImgSrcObj->getThumbnail('catalog_thumb'))
-                                {
-                                ?>
-                <img src=" <?= $SCBAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
-                <?php
-                                }
-                            }
                         ?>
-                <div class="page-break"></div>
+                            <img src=" <?= $SCBAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
+                        <?php
+                        }
+                }
+                ?>
+
+                <?php
+                if(!$this->image("PPFB_title")->isEmpty())
+                {
+                    ?>
+                    <div class="page-break"></div>
+                    <?php
+                }  
+                ?>
 
                 <?php if($this->editmode):?>
                     <label>Enter Your Heading</label><br></br>
                 <?php endif;?>
                 <h2 class="orange mb-0"><?= $this->input("PPFB_title",["placeholder" =>"Enter Your  Heading"]); ?>
-
-                    <?php if($this->editmode):?>
-                        <label>Enter Your  SubHeading</label><br></br>
-                    <?php endif;?>
-                    <span
-                        class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Enter Your  SubHeading"]); ?>
+                    <span class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Enter Your  SubHeading"]); ?>
                     </span>
                 </h2>
 
