@@ -105,10 +105,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <ul>
                                         <?php 
                                                 foreach ($data['Features'] as $key => $item)
-                                                {
-                                                        ?>
-                                                                <li><?= $item ?></li>
-                                                        <?php
+                                                {       
+                                                        if(trim($item))
+                                                        {
+                                                                ?>
+                                                                        <li><?= $item ?></li>
+                                                                <?php
+                                                        }
                                                 }
                                         ?>
                                 </ul>
@@ -121,7 +124,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                            ?>
                                 <?php if($this->editmode):?>
-                                        <label>Enter Features and Benefits</label>
+                                      <label>Attribute Name = Features and Benefits</label><br></br>
                                 <?php endif;?>
                                 <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
                                 <ul>
