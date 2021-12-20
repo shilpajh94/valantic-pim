@@ -60,7 +60,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                        <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("MPB_ProductClaimSlogan")->isEmpty()): ?>
@@ -77,7 +77,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h1>
                 <div class="p-medium">
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ShortText</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->wysiwyg("MPB_ShortText")->isEmpty()): ?>
@@ -176,7 +176,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 
                 <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = ProductImage</div>
+                        <div class="attr-font">Attribute Name = Product Image</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)

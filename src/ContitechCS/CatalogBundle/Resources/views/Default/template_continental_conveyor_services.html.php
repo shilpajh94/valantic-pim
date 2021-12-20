@@ -59,7 +59,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                   <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                   <div class="attr-font">Attribute Name = PProduct Claim/Slogan</div>
                 <?php endif;?>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CCS_ProductClaimSlogan")->isEmpty()): ?>
@@ -77,7 +77,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             <div class="p-medium">
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ShortText</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
@@ -97,7 +97,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     foreach ($data['childrenData'] as $key => $child) {
                     ?>
                     <?php if($this->editmode):?>
-                    <div class="attr-font">Child Attribute Name = ProductImage</div>
+                    <div class="attr-font">Child Attribute Name = Product Image</div>
                     <?php endif;?>
                 <div class="media">
                     <?php
@@ -135,7 +135,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </h2>
 
                         <?php if($this->editmode):?>
-                        <div class="attr-font">Child Attribute Name = LongText</div>
+                        <div class="attr-font">Child Attribute Name = Long Text</div>
                         <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>

@@ -64,7 +64,7 @@ $coverCompound = $data['coverCompoundData'];
                     </strong>
                     <span class="sub-title">
                     <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                        <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                     <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ProductClaimSlogan")->isEmpty()): ?>
@@ -80,7 +80,7 @@ $coverCompound = $data['coverCompoundData'];
                 </h1>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ShortText</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?>
                 <div class="colum-2 p-0">
                     <p>
@@ -96,7 +96,7 @@ $coverCompound = $data['coverCompoundData'];
                     </p>
 
                     <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = LongText</div>
+                        <div class="attr-font">Attribute Name = Long Text</div>
                     <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
@@ -112,7 +112,7 @@ $coverCompound = $data['coverCompoundData'];
                 </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductImage</div>
+                    <div class="attr-font">Attribute Name = Product Image</div>
                 <?php endif;?>   
                 <?php
                     if($this->editmode)
@@ -292,7 +292,7 @@ $coverCompound = $data['coverCompoundData'];
                 ?>
                 <div class="page-break"></div>
                 <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = PerformanceCategory </div>
+                    <div class="attr-font"> Attribute Name = Performance Category </div>
                 <?php endif;?>
                 <h1 class="orange">
                 
@@ -308,7 +308,7 @@ $coverCompound = $data['coverCompoundData'];
                 </h1>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = ProductImage </div>
+                    <div class="attr-font"> Attribute Name = Product Image </div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)
@@ -334,7 +334,7 @@ $coverCompound = $data['coverCompoundData'];
                 ?>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = LongText </div>
+                    <div class="attr-font"> Attribute Name = Long Text </div>
                 <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
@@ -357,7 +357,7 @@ $coverCompound = $data['coverCompoundData'];
                         ?>
                             <div class="media">
                             <?php if($this->editmode):?>
-                                <div class="attr-font"> Attribute Name = FeatureImage </div>
+                                <div class="attr-font"> Attribute Name = Feature Image </div>
                             <?php endif;?>   
                                 <?php
                                     if($this->editmode)
@@ -384,7 +384,7 @@ $coverCompound = $data['coverCompoundData'];
                                 
                                 <div class="media-body">
                                 <?php if($this->editmode):?>
-                                    <div class="attr-font"> Attribute Name = FeatureName </div>
+                                    <div class="attr-font"> Attribute Name = Feature Name </div>
                                 <?php endif;?>
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
@@ -399,7 +399,7 @@ $coverCompound = $data['coverCompoundData'];
                                     </h2>
 
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font"> Attribute Name = FeatureDescription </div>
+                                        <div class="attr-font"> Attribute Name = Feature Description </div>
                                     <?php endif;?>
                                     <p>
                                         <?php if($this->editmode): ?>

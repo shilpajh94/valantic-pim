@@ -57,7 +57,7 @@
             </h1>
 
             <?php if($this->editmode):?>
-                <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
             <?php endif;?>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
@@ -71,7 +71,7 @@
                 <?php endif; ?>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = LogoImage</div>
+                    <div class="attr-font">Attribute Name = Logo Image</div>
                 <?php endif;?>
                 <?php
                 if($this->editmode)
@@ -105,7 +105,7 @@
                 <div class="media">
                     <div class="media-body pr-4">
                     <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = ShortText</div>
+                        <div class="attr-font">Attribute Name = Short Text</div>
                     <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>
@@ -121,7 +121,7 @@
 
 
                         <?php if($this->editmode):?>
-                            <div class="attr-font">Attribute Name = ProductImage</div>
+                            <div class="attr-font">Attribute Name = Product Image</div>
                         <?php endif;?>
                         <?php
                         if($this->editmode)
