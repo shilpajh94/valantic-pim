@@ -16,20 +16,20 @@ return [
         "name" => "CS_footer_logo",
         "language" => "",
         "type" => "asset",
-        "data" => 14870,
+        "data" => 6226,
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1636613066
+        "modificationDate" => 1639551175
     ],
     5 => [
         "id" => 5,
         "name" => "CS_default_image",
         "language" => "",
         "type" => "asset",
-        "data" => 14810,
+        "data" => 13965,
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1637071219
+        "modificationDate" => 1639554806
     ],
     6 => [
         "id" => 6,
@@ -66,9 +66,9 @@ return [
         "name" => "CS_modular_catalogs_folder_path",
         "language" => "",
         "type" => "text",
-        "data" => "/ConveyorBeltSolutions/ModularCatalogs/",
+        "data" => "/ModularCatalogs/",
         "siteId" => 0,
         "creationDate" => 0,
-        "modificationDate" => 1638337447
+        "modificationDate" => 1639660232
     ]
 ];

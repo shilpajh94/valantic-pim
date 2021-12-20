@@ -1924,6 +1924,8 @@ class DefaultController extends FrontendController
      */
     private function prepareContiPipeAndMegaPipeAttributes($productObject, $regionId)
     {   
+        $availableBeltWidthMaster = $this->getAvailableBeltWidthMasterList();
+
         try
         {
             $childObject = $this->getAllRegionChildern($productObject, $regionId);
@@ -1958,7 +1960,44 @@ class DefaultController extends FrontendController
                                 $data[] = ($obj_attr->$getBrick()->$getField()) ? '•' : '';
                             }
                             else{
-                                $data[] = $obj_attr->$getBrick()->$getField();
+                                $valuesData = $obj_attr->$getBrick()->$getField();
+
+                                if($valuesData && is_array($valuesData))
+                                {
+                                    if($fieldName == 'BeltWidth')
+                                    {
+                                        $BeltWidthInch = [];
+                                        $BeltWidthInchStr = '';
+                                        foreach($valuesData as $dData)
+                                        {
+                                            $BeltWidthInch[] = $availableBeltWidthMaster[$dData]['AvailableBeltWidthInch'];
+                                        }
+
+                                        if($BeltWidthInch)
+                                        {
+                                            $BeltWidthInchStr = implode(', ', $BeltWidthInch);
+                                        }
+                                        $data[] = $BeltWidthInchStr;
+                                    }
+                                    else{
+                                        $BeltWidthMM = [];
+                                        $BeltWidthMMStr = '';
+                                        foreach($valuesData as $dData)
+                                        {
+                                            $BeltWidthMM[] = $availableBeltWidthMaster[$dData]['AvailableBeltWidthMM'];
+                                        }
+
+                                        if($BeltWidthMM)
+                                        {
+                                            $BeltWidthMMStr = implode(', ', $BeltWidthMM);
+                                        }
+                                        $data[] = $BeltWidthMMStr;
+                                    }
+                                    
+                                }
+                                else{
+                                    $data[] = $valuesData;
+                                }
                             }
                         }
                     }

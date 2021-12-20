@@ -61,7 +61,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="media pt-0 align-item-ends">
                         <div class="media-body">
                         <?php if($this->editmode):?>
-                            <div class="attr-font">Attribute Name = ShortText</div>
+                            <div class="attr-font">Attribute Name = Short Text</div>
                         <?php endif;?>
                             <p>
 
@@ -114,7 +114,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
 
                         <?php if($this->editmode):?>
-                            <div class="attr-font">Child Attribute Name = ProductImage</div>
+                            <div class="attr-font">Child Attribute Name = Product Image</div>
                         <?php endif;?>
                         <?php
                             if($this->editmode)
@@ -181,7 +181,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Child Attribute Name = ApplicationImage</div>
+                    <div class="attr-font">Child Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)

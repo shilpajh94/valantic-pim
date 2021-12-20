@@ -481,5 +481,18 @@ return [
         "priority" => 0,
         "creationDate" => 1637830338,
         "modificationDate" => 1637830422
+    ],
+    39 => [
+        "id" => 39,
+        "name" => "Dynamic Table Of Content",
+        "group" => "Conveyor Solution",
+        "module" => "ContitechCSCatalogBundle",
+        "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateDynamicTableOfContents",
+        "template" => "ContitechCSCatalogBundle:Default:template_dynamic_table_of_contents.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1638538096,
+        "modificationDate" => 1638538175
     ]
 ];

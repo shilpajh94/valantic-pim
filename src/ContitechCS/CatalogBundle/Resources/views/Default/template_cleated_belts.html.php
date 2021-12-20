@@ -58,7 +58,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </h1>
             <p class="p-medium">
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = LongText</div>
+                    <div class="attr-font">Attribute Name = Long Text</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->textarea("CB_LongText")->isEmpty()): ?>
@@ -99,7 +99,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                         <div class="col-2">
                             <?php if($this->editmode):?>
-                                <div class="attr-font">Child Attribute Name = ProductImage</div>
+                                <div class="attr-font">Child Attribute Name = Product Image</div>
                             <?php endif;?>
                             <?php
                                 if($this->editmode)
@@ -233,7 +233,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </span>
                 </h2>
 
-                <div class="attr-font">Attribute Name = BeltRollDiameter</div>
+                <div class="attr-font">Attribute Name = Belt Roll Diameters</div>
                 <?php
                 if($this->image("CB_BeltRollDiameters")->isEmpty())
                 {
@@ -284,7 +284,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </span>
                 </h2>
 
-                <div class="attr-font">Attribute Name = AngleOfInclination</div>
+                <div class="attr-font">Attribute Name = Angles of Inclination</div>
                 <?php
                     if($this->image("CB_AngleOfInclination")->isEmpty())
                     {
@@ -311,7 +311,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h2>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = AngleOfInclination</div>
+                    <div class="attr-font">Attribute Name = Angles of Inclination</div>
                 <?php endif;?>
                     <img src="<?= $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
                 <?php
@@ -384,7 +384,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <tr class="grip-col">
                                     <td width="50%" class="pr-5">
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = LongText</div>
+                                        <div class="attr-font">Child Attribute Name = Long Text</div>
                                     <?php endif;?>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
@@ -399,7 +399,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <td>
                                     
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = ProductImage</div>
+                                        <div class="attr-font">Child Attribute Name = Product Image</div>
                                     <?php endif;?>
                                     <?php
                                         if($this->editmode)
@@ -429,7 +429,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <td>
                                     
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = ApplicationImage</div>
+                                        <div class="attr-font">Child Attribute Name = Application Image</div>
                                     <?php endif;?>
                                     <?php
                                         if($this->editmode)

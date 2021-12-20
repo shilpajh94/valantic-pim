@@ -58,7 +58,7 @@
                 </h1>
                 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                    <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                 <?php endif;?>
                 <p class="p-medium">
                     <?php if($this->editmode): ?>
@@ -73,7 +73,7 @@
                 </p>
                 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ShortText</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?> 
                 <p>
                     <?php if($this->editmode): ?>
@@ -94,7 +94,7 @@
                     <?= $this->input("SubHeading_title",["placeholder" => "Enter Your  SubHeading"]); ?></h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductImage</div>
+                    <div class="attr-font">Attribute Name = Product Image</div>
                 <?php endif;?> 
                 <?php
                     if($this->editmode)
@@ -127,7 +127,7 @@
                 </h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ApplicationImage</div>
+                    <div class="attr-font">Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
                 if($this->editmode)

@@ -56,7 +56,7 @@
                     <?php endif; ?></h1>
                 
                <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                    <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                 <?php endif;?>
                 <p class="p-medium"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
@@ -70,7 +70,7 @@
 
                 <div class="colum-2 p-0 mb-5">
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ShortText</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
@@ -91,7 +91,7 @@
                 <h2 class="orange mb-4"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h2>
                 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductImage</div>
+                    <div class="attr-font">Attribute Name = Product Image</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)
@@ -123,7 +123,7 @@
                 </h2>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ApplicationImage</div>
+                    <div class="attr-font">Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)
