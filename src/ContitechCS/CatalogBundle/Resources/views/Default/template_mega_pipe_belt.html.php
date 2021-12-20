@@ -44,7 +44,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <main id="content" role="main">
             <section class="fortressxp-belts">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
                 <h1 class="orange">                       
                 <?php if($this->editmode): ?>
@@ -60,7 +60,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("MPB_ProductClaimSlogan")->isEmpty()): ?>
@@ -77,7 +77,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h1>
                 <div class="p-medium">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ShortText</label><br></br>
+                    <div class="attr-font">Attribute Name = ShortText</div>
                 <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->wysiwyg("MPB_ShortText")->isEmpty()): ?>
@@ -97,7 +97,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 ?>
 
                                 <?php if($this->editmode):?>
-                                      <label>Attribute Name = Features</label><br></br>
+                                      <div class="attr-font">Attribute Name = Features</div>
                                 <?php endif;?>
                                 <h3 class="orange">
                                         <?= $this->input("ST_advantage_heading",["placeholder" => "Technical Information"]); ?>
@@ -124,7 +124,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                            ?>
                                 <?php if($this->editmode):?>
-                                      <label>Attribute Name = Features and Benefits</label><br></br>
+                                      <div class="attr-font">Attribute Name = Features and Benefits</div>
                                 <?php endif;?>
                                 <h3 class="orange black-bold mb-0 mt-4"><?= $this->input("Features_heading",["placeholder" => "Features and Benefits"]); ?></h3>
                                 <ul>
@@ -176,7 +176,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 
                 <?php if($this->editmode):?>
-                        <label>Attribute Name = ProductImage</label><br></br>
+                        <div class="attr-font">Attribute Name = ProductImage</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)

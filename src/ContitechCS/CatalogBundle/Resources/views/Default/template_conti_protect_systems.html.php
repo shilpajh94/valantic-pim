@@ -43,7 +43,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
                 <h1 class="orange">                
                     <?php if($this->editmode): ?>
@@ -61,7 +61,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="media pt-0 align-item-ends">
                         <div class="media-body">
                         <?php if($this->editmode):?>
-                            <label>Attribute Name = ShortText</label>
+                            <div class="attr-font">Attribute Name = ShortText</div>
                         <?php endif;?>
                             <p>
 
@@ -96,7 +96,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             
                                             </h3>
                                             <?php if($this->editmode):?>
-                                                <label>Attribute Name = Benefits</label>
+                                                <div class="attr-font">Attribute Name = Benefits</div>
                                             <?php endif;?>
             
                                             <?php 
@@ -114,7 +114,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
 
                         <?php if($this->editmode):?>
-                            <label>Child Attribute Name = ProductImage</label>
+                            <div class="attr-font">Child Attribute Name = ProductImage</div>
                         <?php endif;?>
                         <?php
                             if($this->editmode)
@@ -142,7 +142,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 <div class="feature-benefit-list w-80 mb-4">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
                     <h2 class="orange f-22">
                     <strong>
@@ -181,7 +181,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
 
                 <?php if($this->editmode):?>
-                    <label>Child Attribute Name = ApplicationImage</label>
+                    <div class="attr-font">Child Attribute Name = ApplicationImage</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)

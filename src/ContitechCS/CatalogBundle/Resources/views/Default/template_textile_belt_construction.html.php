@@ -42,7 +42,7 @@
         <main id="content" role="main">
             <section class="fortressxp-belts">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
@@ -56,7 +56,7 @@
                     <?php endif; ?></h1>
                 
                <?php if($this->editmode):?>
-                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                 <?php endif;?>
                 <p class="p-medium"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
@@ -70,7 +70,7 @@
 
                 <div class="colum-2 p-0 mb-5">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ShortText</label><br></br>
+                    <div class="attr-font">Attribute Name = ShortText</div>
                 <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
@@ -86,12 +86,12 @@
                 </div>
                 
                 <?php if($this->editmode):?>
-                    <label>Enter Your  Heading</label><br></br>
+                    <div class="attr-font">Enter Your  Heading</div>
                 <?php endif;?>
                 <h2 class="orange mb-4"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h2>
                 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ProductImage</label><br></br>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)
@@ -117,13 +117,13 @@
                             ?>
                 
                 <?php if($this->editmode):?>
-                    <label>Enter Your  Heading</label><br></br>
+                    <div class="attr-font">Enter Your  Heading</div>
                 <?php endif;?>
                 <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
                 </h2>
 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ApplicationImage</label><br></br>
+                    <div class="attr-font">Attribute Name = ApplicationImage</div>
                 <?php endif;?>
                 <?php
                         if($this->editmode)

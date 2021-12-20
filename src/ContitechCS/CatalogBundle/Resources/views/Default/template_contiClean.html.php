@@ -33,7 +33,7 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <?php if($this->editmode):?>
-                <label>Attribute Name = Name</label><br></br>
+                <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?>
             <h1 class="orange">
                 <?php if($this->editmode): ?>
@@ -48,7 +48,7 @@
 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                    <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
@@ -66,7 +66,7 @@
 
            
             <?php if($this->editmode):?>
-                <label>Attribute Name = ShortText</label><br></br>
+                <div class="attr-font">Attribute Name = ShortText</div>
             <?php endif;?>
            <div class="p-medium pt-0">
                     <?php if($this->editmode): ?>
@@ -85,7 +85,7 @@
             
             <div class="full-image-sec">
             <?php if($this->editmode):?>
-                <label> Attribute Name = ProductImage</label><br></br>
+                <div class="attr-font"> Attribute Name = ProductImage</div>
             <?php endif;?>
                 <?php
                     if($this->editmode)
@@ -113,7 +113,7 @@
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = Benefits</label><br></br>
+                    <div class="attr-font"> Attribute Name = Benefits</div>
                 <?php endif;?>
                     <div class="row">
                         
@@ -148,7 +148,7 @@
                                 {
                                     ?>
                                     <?php if($this->editmode):?>
-                                        <label> Product Specific Data = Materials</label><br></br>
+                                        <div class="attr-font"> Product Specific Data = Materials</div>
                                     <?php endif;?>
                                         <h3 class="orange">
                                     <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
@@ -175,7 +175,7 @@
                             ]);?> </h3>
                         <ul>
                         <?php if($this->editmode):?>
-                            <label> Enter Your Points</label>
+                            <div class="attr-font"> Enter Your Points</div>
                         <?php endif;?>
                             <?php
                                 while($this->block("CCSM_Header_Points3")->loop()) { ?>
@@ -185,7 +185,7 @@
                         </ul>
                     </div>
                     <?php if($this->editmode):?>
-                        <label> Attribute Name = reportImage</label>
+                        <div class="attr-font"> Attribute Name = reportImage</div>
                     <?php endif;?>
                    <?php
                     if($this->editmode)
@@ -215,7 +215,7 @@
 
             <div class="pg-6">
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = ApplicationImage</label>
+                    <div class="attr-font"> Attribute Name = ApplicationImage</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)

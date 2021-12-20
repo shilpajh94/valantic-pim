@@ -47,7 +47,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <main id="content" role="main">
             <section class="fortressxp-belts">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
                 <h1 class="orange">
                     
@@ -63,7 +63,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                     <span class="sub-title">
                     <?php if($this->editmode):?>
-                        <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                     <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CPBParent_ProductClaimSlogan")->isEmpty()): ?>
@@ -80,7 +80,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <div class="feature-benefit-list">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ShortText</label><br></br>
+                    <div class="attr-font">Attribute Name = ShortText</div>
                 <?php endif;?>
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBParent_ShortText")->isEmpty()): ?>
@@ -152,7 +152,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
                 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ProductImage</label><br></br>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)
@@ -178,7 +178,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
                 <div class="page-break"></div>
                 <?php if($this->editmode):?>
-                    <label>Child Attribute Name = Name</label><br></br>
+                    <div class="attr-font">Child Attribute Name = Name</div>
                 <?php endif;?>
                 <h2>
                     <span class="orange">
@@ -206,7 +206,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h2>
                 <div class="feature-benefit-list">
                 <?php if($this->editmode):?>
-                    <label>Child Attribute Name = ProductClaimSlogan</label><br></br>
+                    <div class="attr-font">Child Attribute Name = ProductClaimSlogan</div>
                 <?php endif;?>	
                 <h3 class="orange mb-0">
                     <?php if($this->editmode): ?>
@@ -221,7 +221,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h3>
                 
                     <?php if($this->editmode):?>
-                        <label>Child Attribute Name = ShortText</label><br></br>
+                        <div class="attr-font">Child Attribute Name = ShortText</div>
                     <?php endif;?>
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("CPBChild_ShortText")->isEmpty()): ?>
@@ -257,7 +257,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 
                 <?php if($this->editmode):?>
-                    <label>Child Attribute Name = ProductImage</label><br></br>
+                    <div class="attr-font">Child Attribute Name = ProductImage</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)

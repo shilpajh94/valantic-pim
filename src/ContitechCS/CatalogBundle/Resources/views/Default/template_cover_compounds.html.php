@@ -48,7 +48,7 @@ $coverCompound = $data['coverCompoundData'];
         <main id="content" role="main">
             <section class="fortressxp-belts">
             <?php if($this->editmode):?>
-                <label>Attribute Name = Name</label><br></br>
+                <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?>
                 <h1 class="orange">
                     <strong>
@@ -64,7 +64,7 @@ $coverCompound = $data['coverCompoundData'];
                     </strong>
                     <span class="sub-title">
                     <?php if($this->editmode):?>
-                        <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                     <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ProductClaimSlogan")->isEmpty()): ?>
@@ -80,7 +80,7 @@ $coverCompound = $data['coverCompoundData'];
                 </h1>
 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ShortText</label>
+                    <div class="attr-font">Attribute Name = ShortText</div>
                 <?php endif;?>
                 <div class="colum-2 p-0">
                     <p>
@@ -96,7 +96,7 @@ $coverCompound = $data['coverCompoundData'];
                     </p>
 
                     <?php if($this->editmode):?>
-                        <label>Attribute Name = LongText</label><br></br>
+                        <div class="attr-font">Attribute Name = LongText</div>
                     <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
@@ -112,7 +112,7 @@ $coverCompound = $data['coverCompoundData'];
                 </div>
 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ProductImage</label>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
                 <?php endif;?>   
                 <?php
                     if($this->editmode)
@@ -249,7 +249,7 @@ $coverCompound = $data['coverCompoundData'];
                             foreach ($level3rdObjectData as $key => $object) {
                                 ?>
                                 <?php if($this->editmode):?>
-                                    <label> Object Name = Name</label><br></br>
+                                    <div class="attr-font"> Object Name = Name</div>
                                 <?php endif;?>
                                 <h3>
                                     <?php if($this->editmode): ?>
@@ -262,9 +262,9 @@ $coverCompound = $data['coverCompoundData'];
                                             <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']) ?>
                                     <?php endif; ?>
                                 </h3>
-                                <br></br>
+                                
                                 <?php if($this->editmode):?>
-                                    <label> Object  = LongText</label>
+                                    <div class="attr-font"> Object  = LongText</div>
                                 <?php endif;?>
                                 <p>
                                     <?php if($this->editmode): ?>
@@ -292,7 +292,7 @@ $coverCompound = $data['coverCompoundData'];
                 ?>
                 <div class="page-break"></div>
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = PerformanceCategory </label>
+                    <div class="attr-font"> Attribute Name = PerformanceCategory </div>
                 <?php endif;?>
                 <h1 class="orange">
                 
@@ -308,7 +308,7 @@ $coverCompound = $data['coverCompoundData'];
                 </h1>
 
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = ProductImage </label>
+                    <div class="attr-font"> Attribute Name = ProductImage </div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)
@@ -334,7 +334,7 @@ $coverCompound = $data['coverCompoundData'];
                 ?>
 
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = LongText </label>
+                    <div class="attr-font"> Attribute Name = LongText </div>
                 <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
@@ -357,7 +357,7 @@ $coverCompound = $data['coverCompoundData'];
                         ?>
                             <div class="media">
                             <?php if($this->editmode):?>
-                                <label> Attribute Name = FeatureImage </label>
+                                <div class="attr-font"> Attribute Name = FeatureImage </div>
                             <?php endif;?>   
                                 <?php
                                     if($this->editmode)
@@ -384,7 +384,7 @@ $coverCompound = $data['coverCompoundData'];
                                 
                                 <div class="media-body">
                                 <?php if($this->editmode):?>
-                                    <label> Attribute Name = FeatureName </label>
+                                    <div class="attr-font"> Attribute Name = FeatureName </div>
                                 <?php endif;?>
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
@@ -399,7 +399,7 @@ $coverCompound = $data['coverCompoundData'];
                                     </h2>
 
                                     <?php if($this->editmode):?>
-                                        <label> Attribute Name = FeatureDescription </label>
+                                        <div class="attr-font"> Attribute Name = FeatureDescription </div>
                                     <?php endif;?>
                                     <p>
                                         <?php if($this->editmode): ?>

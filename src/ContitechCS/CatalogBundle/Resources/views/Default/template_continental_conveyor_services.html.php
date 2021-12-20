@@ -42,7 +42,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <?php if($this->editmode):?>
-                <label>Attribute Name = Name</label><br></br>
+                <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?>
             <h1 class="orange">
                 <span class="ccss-title">
@@ -59,7 +59,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                   <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                   <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
                 <?php endif;?>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CCS_ProductClaimSlogan")->isEmpty()): ?>
@@ -77,7 +77,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             <div class="p-medium">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = ShortText</label>
+                    <div class="attr-font">Attribute Name = ShortText</div>
                 <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
@@ -97,7 +97,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     foreach ($data['childrenData'] as $key => $child) {
                     ?>
                     <?php if($this->editmode):?>
-                    <label>Child Attribute Name = ProductImage</label>
+                    <div class="attr-font">Child Attribute Name = ProductImage</div>
                     <?php endif;?>
                 <div class="media">
                     <?php
@@ -120,7 +120,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                     <div class="media-body">
                     <?php if($this->editmode):?>
-                        <label>Child Attribute Name = Name</label><br></br>
+                        <div class="attr-font">Child Attribute Name = Name</div>
                     <?php endif;?>
                         <h2 class="orange">
                             <?php if($this->editmode): ?>
@@ -135,7 +135,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </h2>
 
                         <?php if($this->editmode):?>
-                        <label>Child Attribute Name = LongText</label>
+                        <div class="attr-font">Child Attribute Name = LongText</div>
                         <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>
