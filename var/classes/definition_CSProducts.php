@@ -1272,235 +1272,612 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           1 => 
                           array (
+<<<<<<< HEAD
                             'value' => 57,
                             'key' => 'a339063 (Marie-Josee Brisson)',
                           ),
                           2 => 
+=======
+                            'value' => 59,
+                            'key' => 'A074241 (Craig Boche)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 63,
+                            'key' => 'a207963 (Mark Merklein)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 94,
+                            'key' => 'a294838 (Karina Robinson)',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 57,
+                            'key' => 'a339063 (Marie-Josee Brisson)',
+                          ),
+                          5 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 36,
                             'key' => 'a352850 (Reji Joseph)',
                           ),
+<<<<<<< HEAD
                           3 => 
+=======
+                          6 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 55,
                             'key' => 'a389752 (Randy Kish)',
                           ),
+<<<<<<< HEAD
                           4 => 
+=======
+                          7 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+<<<<<<< HEAD
                           5 => 
+=======
+                          8 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 23,
                             'key' => 'Andy (Andy Speidel)',
                           ),
+<<<<<<< HEAD
                           6 => 
+=======
+                          9 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 16,
                             'key' => 'Ben (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           7 => 
+=======
+                          10 => 
+                          array (
+                            'value' => 71,
+                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 61,
+                            'key' => 'C012194 (Mackenzie Brown)',
+                          ),
+                          12 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 11,
                             'key' => 'cory (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           8 => 
+=======
+                          13 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 21,
                             'key' => 'Dave (Dave Smith)',
                           ),
+<<<<<<< HEAD
                           9 => 
+=======
+                          14 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 42,
                             'key' => 'dobol (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           10 => 
+=======
+                          15 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 33,
                             'key' => 'editor',
                           ),
+<<<<<<< HEAD
                           11 => 
+=======
+                          16 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
+<<<<<<< HEAD
                           12 => 
+=======
+                          17 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 28,
                             'key' => 'Jarek (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           13 => 
+=======
+                          18 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 20,
                             'key' => 'Jeff (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           14 => 
+=======
+                          19 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 25,
                             'key' => 'Jeremy (Jeremy Lidgett)',
                           ),
+<<<<<<< HEAD
                           15 => 
+=======
+                          20 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 14,
                             'key' => 'Joe (joe glandorf)',
                           ),
+<<<<<<< HEAD
                           16 => 
+=======
+                          21 => 
+                          array (
+                            'value' => 91,
+                            'key' => 'juenemannj (Jens Juenemann)',
+                          ),
+                          22 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 26,
                             'key' => 'Karina (Karina Robinson)',
                           ),
+<<<<<<< HEAD
                           17 => 
+=======
+                          23 => 
+                          array (
+                            'value' => 93,
+                            'key' => 'Krausss (Stefan Krauss)',
+                          ),
+                          24 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 17,
                             'key' => 'Laszlo (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           18 => 
+=======
+                          25 => 
+                          array (
+                            'value' => 89,
+                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 77,
+                            'key' => 'lohrbergj (Joerg Lohrberg)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 92,
+                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
+                          ),
+                          28 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 12,
                             'key' => 'macenzie',
                           ),
+<<<<<<< HEAD
                           19 => 
+=======
+                          29 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 8,
                             'key' => 'Mark (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           20 => 
+=======
+                          30 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 24,
                             'key' => 'MarkR (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           21 => 
+=======
+                          31 => 
+                          array (
+                            'value' => 81,
+                            'key' => 'menzelm (Marisa Menzel)',
+                          ),
+                          32 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 51,
                             'key' => 'ncem057 (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           22 => 
+=======
+                          33 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'neuenrothc (Christian Neuenroth)',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 97,
+                            'key' => 'newmanm1 (Michael Newman)',
+                          ),
+                          35 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 15,
                             'key' => 'Nicole (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           23 => 
+=======
+                          36 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 48,
                             'key' => 'nlndv68 (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           24 => 
+=======
+                          37 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 27,
                             'key' => 'Paul (Paul Whiffin)',
                           ),
+<<<<<<< HEAD
                           25 => 
+=======
+                          38 => 
+                          array (
+                            'value' => 79,
+                            'key' => 'posseltc (Christof Posselt)',
+                          ),
+                          39 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 35,
                             'key' => 'Pradeep',
                           ),
+<<<<<<< HEAD
                           26 => 
+=======
+                          40 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 34,
                             'key' => 'productmanager',
                           ),
+<<<<<<< HEAD
                           27 => 
+=======
+                          41 => 
+                          array (
+                            'value' => 62,
+                            'key' => 'rajputa (Amit Rajput)',
+                          ),
+                          42 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 29,
                             'key' => 'Randy (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           28 => 
+=======
+                          43 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 9,
                             'key' => 'Reji',
                           ),
+<<<<<<< HEAD
                           29 => 
+=======
+                          44 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 13,
                             'key' => 'Rohit',
                           ),
+<<<<<<< HEAD
                           30 => 
+=======
+                          45 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'rowshm (Mehdi Rowshannahad)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 67,
+                            'key' => 'schickedanzm (Malte Schickedanz)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 70,
+                            'key' => 'steinerd (Daniel Steiner)',
+                          ),
+                          48 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 18,
                             'key' => 'Steve (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           31 => 
+=======
+                          49 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'uia54546 (Tatjana Kempf)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'uia54883 (Janina Gruebel)',
+                          ),
+                          51 => 
+                          array (
+                            'value' => 88,
+                            'key' => 'uia56532 (Simone Wieland)',
+                          ),
+                          52 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'uia60821 (Vandana Singal)',
+                          ),
+                          53 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'uia60823 (Rony Felix)',
+                          ),
+                          54 => 
+                          array (
+                            'value' => 68,
+                            'key' => 'uia89654 (Kinsey Hastings)',
+                          ),
+                          55 => 
+                          array (
+                            'value' => 87,
+                            'key' => 'uia94201 (Annika Duerr)',
+                          ),
+                          56 => 
+                          array (
+                            'value' => 78,
+                            'key' => 'uib09594 (Lars Tiedje)',
+                          ),
+                          57 => 
+                          array (
+                            'value' => 64,
+                            'key' => 'uib68208 (Krishan Kumar)',
+                          ),
+                          58 => 
+                          array (
+                            'value' => 65,
+                            'key' => 'uib68209 (Siddharth Chaudhery)',
+                          ),
+                          59 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 58,
                             'key' => 'uib98517 (Toks Ajepe)',
                           ),
+<<<<<<< HEAD
                           32 => 
+=======
+                          60 => 
+                          array (
+                            'value' => 72,
+                            'key' => 'uic39540 (Cedric Schulz)',
+                          ),
+                          61 => 
+                          array (
+                            'value' => 69,
+                            'key' => 'uic52020 (Oktay Oezcan)',
+                          ),
+                          62 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 41,
                             'key' => 'uic58260 (Evan Wasen)',
                           ),
+<<<<<<< HEAD
                           33 => 
+=======
+                          63 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 30,
                             'key' => 'uic60917 (Krishnan Kumar)',
                           ),
+<<<<<<< HEAD
                           34 => 
+=======
+                          64 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 52,
                             'key' => 'uie20462 (Steven De Alwis)',
                           ),
+<<<<<<< HEAD
                           35 => 
+=======
+                          65 => 
+                          array (
+                            'value' => 90,
+                            'key' => 'uie32847 (Andrea Traeger)',
+                          ),
+                          66 => 
+                          array (
+                            'value' => 80,
+                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
+                          ),
+                          67 => 
+                          array (
+                            'value' => 76,
+                            'key' => 'UIE43370 (Noah Hartman)',
+                          ),
+                          68 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 40,
                             'key' => 'V000320 (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           36 => 
+=======
+                          69 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 37,
                             'key' => 'v000696 (Mark Dario)',
                           ),
+<<<<<<< HEAD
                           37 => 
+=======
+                          70 => 
+                          array (
+                            'value' => 60,
+                            'key' => 'v000886 (Flint Wilson)',
+                          ),
+                          71 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 43,
                             'key' => 'v001713 (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           38 => 
+=======
+                          72 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 39,
                             'key' => 'v002041 (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           39 => 
+=======
+                          73 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 45,
                             'key' => 'v002044 (Zach Christenson)',
                           ),
+<<<<<<< HEAD
                           40 => 
+=======
+                          74 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 46,
                             'key' => 'v002065 (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           41 => 
+=======
+                          75 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 44,
                             'key' => 'V104718 (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           42 => 
+=======
+                          76 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'v105777 (Wesley Coursen)',
+                          ),
+                          77 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 53,
                             'key' => 'v106287 (Joe Glandorf)',
                           ),
+<<<<<<< HEAD
                           43 => 
+=======
+                          78 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 56,
                             'key' => 'v106566 (Don Salandanan)',
                           ),
+<<<<<<< HEAD
                           44 => 
+=======
+                          79 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 49,
                             'key' => 'V111211 (James Dusek)',
                           ),
+<<<<<<< HEAD
                           45 => 
+=======
+                          80 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 50,
                             'key' => 'v111296 (Scott Retzlaff)',
                           ),
+<<<<<<< HEAD
                           46 => 
+=======
+                          81 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 54,
                             'key' => 'V112497 (Morgan Lackey)',
                           ),
+<<<<<<< HEAD
                           47 => 
+=======
+                          82 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
+                          ),
+                          83 => 
+                          array (
+                            'value' => 96,
+                            'key' => 'z021185 (Eric Dupont)',
+                          ),
+                          84 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'za02860 (Chad Peters)',
+                          ),
+                          85 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 19,
                             'key' => 'Zach (Zach Christenson)',
@@ -1544,235 +1921,612 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           1 => 
                           array (
+<<<<<<< HEAD
                             'value' => 57,
                             'key' => 'a339063 (Marie-Josee Brisson)',
                           ),
                           2 => 
+=======
+                            'value' => 59,
+                            'key' => 'A074241 (Craig Boche)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 63,
+                            'key' => 'a207963 (Mark Merklein)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 94,
+                            'key' => 'a294838 (Karina Robinson)',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 57,
+                            'key' => 'a339063 (Marie-Josee Brisson)',
+                          ),
+                          5 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 36,
                             'key' => 'a352850 (Reji Joseph)',
                           ),
+<<<<<<< HEAD
                           3 => 
+=======
+                          6 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 55,
                             'key' => 'a389752 (Randy Kish)',
                           ),
+<<<<<<< HEAD
                           4 => 
+=======
+                          7 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+<<<<<<< HEAD
                           5 => 
+=======
+                          8 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 23,
                             'key' => 'Andy (Andy Speidel)',
                           ),
+<<<<<<< HEAD
                           6 => 
+=======
+                          9 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 16,
                             'key' => 'Ben (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           7 => 
+=======
+                          10 => 
+                          array (
+                            'value' => 71,
+                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 61,
+                            'key' => 'C012194 (Mackenzie Brown)',
+                          ),
+                          12 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 11,
                             'key' => 'cory (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           8 => 
+=======
+                          13 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 21,
                             'key' => 'Dave (Dave Smith)',
                           ),
+<<<<<<< HEAD
                           9 => 
+=======
+                          14 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 42,
                             'key' => 'dobol (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           10 => 
+=======
+                          15 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 33,
                             'key' => 'editor',
                           ),
+<<<<<<< HEAD
                           11 => 
+=======
+                          16 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
+<<<<<<< HEAD
                           12 => 
+=======
+                          17 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 28,
                             'key' => 'Jarek (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           13 => 
+=======
+                          18 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 20,
                             'key' => 'Jeff (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           14 => 
+=======
+                          19 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 25,
                             'key' => 'Jeremy (Jeremy Lidgett)',
                           ),
+<<<<<<< HEAD
                           15 => 
+=======
+                          20 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 14,
                             'key' => 'Joe (joe glandorf)',
                           ),
+<<<<<<< HEAD
                           16 => 
+=======
+                          21 => 
+                          array (
+                            'value' => 91,
+                            'key' => 'juenemannj (Jens Juenemann)',
+                          ),
+                          22 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 26,
                             'key' => 'Karina (Karina Robinson)',
                           ),
+<<<<<<< HEAD
                           17 => 
+=======
+                          23 => 
+                          array (
+                            'value' => 93,
+                            'key' => 'Krausss (Stefan Krauss)',
+                          ),
+                          24 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 17,
                             'key' => 'Laszlo (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           18 => 
+=======
+                          25 => 
+                          array (
+                            'value' => 89,
+                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 77,
+                            'key' => 'lohrbergj (Joerg Lohrberg)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 92,
+                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
+                          ),
+                          28 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 12,
                             'key' => 'macenzie',
                           ),
+<<<<<<< HEAD
                           19 => 
+=======
+                          29 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 8,
                             'key' => 'Mark (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           20 => 
+=======
+                          30 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 24,
                             'key' => 'MarkR (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           21 => 
+=======
+                          31 => 
+                          array (
+                            'value' => 81,
+                            'key' => 'menzelm (Marisa Menzel)',
+                          ),
+                          32 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 51,
                             'key' => 'ncem057 (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           22 => 
+=======
+                          33 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'neuenrothc (Christian Neuenroth)',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 97,
+                            'key' => 'newmanm1 (Michael Newman)',
+                          ),
+                          35 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 15,
                             'key' => 'Nicole (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           23 => 
+=======
+                          36 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 48,
                             'key' => 'nlndv68 (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           24 => 
+=======
+                          37 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 27,
                             'key' => 'Paul (Paul Whiffin)',
                           ),
+<<<<<<< HEAD
                           25 => 
+=======
+                          38 => 
+                          array (
+                            'value' => 79,
+                            'key' => 'posseltc (Christof Posselt)',
+                          ),
+                          39 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 35,
                             'key' => 'Pradeep',
                           ),
+<<<<<<< HEAD
                           26 => 
+=======
+                          40 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 34,
                             'key' => 'productmanager',
                           ),
+<<<<<<< HEAD
                           27 => 
+=======
+                          41 => 
+                          array (
+                            'value' => 62,
+                            'key' => 'rajputa (Amit Rajput)',
+                          ),
+                          42 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 29,
                             'key' => 'Randy (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           28 => 
+=======
+                          43 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 9,
                             'key' => 'Reji',
                           ),
+<<<<<<< HEAD
                           29 => 
+=======
+                          44 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 13,
                             'key' => 'Rohit',
                           ),
+<<<<<<< HEAD
                           30 => 
+=======
+                          45 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'rowshm (Mehdi Rowshannahad)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 67,
+                            'key' => 'schickedanzm (Malte Schickedanz)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 70,
+                            'key' => 'steinerd (Daniel Steiner)',
+                          ),
+                          48 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 18,
                             'key' => 'Steve (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           31 => 
+=======
+                          49 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'uia54546 (Tatjana Kempf)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'uia54883 (Janina Gruebel)',
+                          ),
+                          51 => 
+                          array (
+                            'value' => 88,
+                            'key' => 'uia56532 (Simone Wieland)',
+                          ),
+                          52 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'uia60821 (Vandana Singal)',
+                          ),
+                          53 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'uia60823 (Rony Felix)',
+                          ),
+                          54 => 
+                          array (
+                            'value' => 68,
+                            'key' => 'uia89654 (Kinsey Hastings)',
+                          ),
+                          55 => 
+                          array (
+                            'value' => 87,
+                            'key' => 'uia94201 (Annika Duerr)',
+                          ),
+                          56 => 
+                          array (
+                            'value' => 78,
+                            'key' => 'uib09594 (Lars Tiedje)',
+                          ),
+                          57 => 
+                          array (
+                            'value' => 64,
+                            'key' => 'uib68208 (Krishan Kumar)',
+                          ),
+                          58 => 
+                          array (
+                            'value' => 65,
+                            'key' => 'uib68209 (Siddharth Chaudhery)',
+                          ),
+                          59 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 58,
                             'key' => 'uib98517 (Toks Ajepe)',
                           ),
+<<<<<<< HEAD
                           32 => 
+=======
+                          60 => 
+                          array (
+                            'value' => 72,
+                            'key' => 'uic39540 (Cedric Schulz)',
+                          ),
+                          61 => 
+                          array (
+                            'value' => 69,
+                            'key' => 'uic52020 (Oktay Oezcan)',
+                          ),
+                          62 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 41,
                             'key' => 'uic58260 (Evan Wasen)',
                           ),
+<<<<<<< HEAD
                           33 => 
+=======
+                          63 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 30,
                             'key' => 'uic60917 (Krishnan Kumar)',
                           ),
+<<<<<<< HEAD
                           34 => 
+=======
+                          64 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 52,
                             'key' => 'uie20462 (Steven De Alwis)',
                           ),
+<<<<<<< HEAD
                           35 => 
+=======
+                          65 => 
+                          array (
+                            'value' => 90,
+                            'key' => 'uie32847 (Andrea Traeger)',
+                          ),
+                          66 => 
+                          array (
+                            'value' => 80,
+                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
+                          ),
+                          67 => 
+                          array (
+                            'value' => 76,
+                            'key' => 'UIE43370 (Noah Hartman)',
+                          ),
+                          68 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 40,
                             'key' => 'V000320 (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           36 => 
+=======
+                          69 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 37,
                             'key' => 'v000696 (Mark Dario)',
                           ),
+<<<<<<< HEAD
                           37 => 
+=======
+                          70 => 
+                          array (
+                            'value' => 60,
+                            'key' => 'v000886 (Flint Wilson)',
+                          ),
+                          71 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 43,
                             'key' => 'v001713 (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           38 => 
+=======
+                          72 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 39,
                             'key' => 'v002041 (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           39 => 
+=======
+                          73 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 45,
                             'key' => 'v002044 (Zach Christenson)',
                           ),
+<<<<<<< HEAD
                           40 => 
+=======
+                          74 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 46,
                             'key' => 'v002065 (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           41 => 
+=======
+                          75 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 44,
                             'key' => 'V104718 (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           42 => 
+=======
+                          76 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'v105777 (Wesley Coursen)',
+                          ),
+                          77 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 53,
                             'key' => 'v106287 (Joe Glandorf)',
                           ),
+<<<<<<< HEAD
                           43 => 
+=======
+                          78 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 56,
                             'key' => 'v106566 (Don Salandanan)',
                           ),
+<<<<<<< HEAD
                           44 => 
+=======
+                          79 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 49,
                             'key' => 'V111211 (James Dusek)',
                           ),
+<<<<<<< HEAD
                           45 => 
+=======
+                          80 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 50,
                             'key' => 'v111296 (Scott Retzlaff)',
                           ),
+<<<<<<< HEAD
                           46 => 
+=======
+                          81 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 54,
                             'key' => 'V112497 (Morgan Lackey)',
                           ),
+<<<<<<< HEAD
                           47 => 
+=======
+                          82 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
+                          ),
+                          83 => 
+                          array (
+                            'value' => 96,
+                            'key' => 'z021185 (Eric Dupont)',
+                          ),
+                          84 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'za02860 (Chad Peters)',
+                          ),
+                          85 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 19,
                             'key' => 'Zach (Zach Christenson)',
@@ -1816,235 +2570,612 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           1 => 
                           array (
+<<<<<<< HEAD
                             'value' => 57,
                             'key' => 'a339063 (Marie-Josee Brisson)',
                           ),
                           2 => 
+=======
+                            'value' => 59,
+                            'key' => 'A074241 (Craig Boche)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 63,
+                            'key' => 'a207963 (Mark Merklein)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 94,
+                            'key' => 'a294838 (Karina Robinson)',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 57,
+                            'key' => 'a339063 (Marie-Josee Brisson)',
+                          ),
+                          5 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 36,
                             'key' => 'a352850 (Reji Joseph)',
                           ),
+<<<<<<< HEAD
                           3 => 
+=======
+                          6 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 55,
                             'key' => 'a389752 (Randy Kish)',
                           ),
+<<<<<<< HEAD
                           4 => 
+=======
+                          7 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+<<<<<<< HEAD
                           5 => 
+=======
+                          8 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 23,
                             'key' => 'Andy (Andy Speidel)',
                           ),
+<<<<<<< HEAD
                           6 => 
+=======
+                          9 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 16,
                             'key' => 'Ben (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           7 => 
+=======
+                          10 => 
+                          array (
+                            'value' => 71,
+                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 61,
+                            'key' => 'C012194 (Mackenzie Brown)',
+                          ),
+                          12 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 11,
                             'key' => 'cory (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           8 => 
+=======
+                          13 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 21,
                             'key' => 'Dave (Dave Smith)',
                           ),
+<<<<<<< HEAD
                           9 => 
+=======
+                          14 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 42,
                             'key' => 'dobol (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           10 => 
+=======
+                          15 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 33,
                             'key' => 'editor',
                           ),
+<<<<<<< HEAD
                           11 => 
+=======
+                          16 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
+<<<<<<< HEAD
                           12 => 
+=======
+                          17 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 28,
                             'key' => 'Jarek (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           13 => 
+=======
+                          18 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 20,
                             'key' => 'Jeff (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           14 => 
+=======
+                          19 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 25,
                             'key' => 'Jeremy (Jeremy Lidgett)',
                           ),
+<<<<<<< HEAD
                           15 => 
+=======
+                          20 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 14,
                             'key' => 'Joe (joe glandorf)',
                           ),
+<<<<<<< HEAD
                           16 => 
+=======
+                          21 => 
+                          array (
+                            'value' => 91,
+                            'key' => 'juenemannj (Jens Juenemann)',
+                          ),
+                          22 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 26,
                             'key' => 'Karina (Karina Robinson)',
                           ),
+<<<<<<< HEAD
                           17 => 
+=======
+                          23 => 
+                          array (
+                            'value' => 93,
+                            'key' => 'Krausss (Stefan Krauss)',
+                          ),
+                          24 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 17,
                             'key' => 'Laszlo (Laszlo Dobo)',
                           ),
+<<<<<<< HEAD
                           18 => 
+=======
+                          25 => 
+                          array (
+                            'value' => 89,
+                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 77,
+                            'key' => 'lohrbergj (Joerg Lohrberg)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 92,
+                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
+                          ),
+                          28 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 12,
                             'key' => 'macenzie',
                           ),
+<<<<<<< HEAD
                           19 => 
+=======
+                          29 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 8,
                             'key' => 'Mark (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           20 => 
+=======
+                          30 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 24,
                             'key' => 'MarkR (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           21 => 
+=======
+                          31 => 
+                          array (
+                            'value' => 81,
+                            'key' => 'menzelm (Marisa Menzel)',
+                          ),
+                          32 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 51,
                             'key' => 'ncem057 (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           22 => 
+=======
+                          33 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'neuenrothc (Christian Neuenroth)',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 97,
+                            'key' => 'newmanm1 (Michael Newman)',
+                          ),
+                          35 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 15,
                             'key' => 'Nicole (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           23 => 
+=======
+                          36 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 48,
                             'key' => 'nlndv68 (Jeff Epperson)',
                           ),
+<<<<<<< HEAD
                           24 => 
+=======
+                          37 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 27,
                             'key' => 'Paul (Paul Whiffin)',
                           ),
+<<<<<<< HEAD
                           25 => 
+=======
+                          38 => 
+                          array (
+                            'value' => 79,
+                            'key' => 'posseltc (Christof Posselt)',
+                          ),
+                          39 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 35,
                             'key' => 'Pradeep',
                           ),
+<<<<<<< HEAD
                           26 => 
+=======
+                          40 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 34,
                             'key' => 'productmanager',
                           ),
+<<<<<<< HEAD
                           27 => 
+=======
+                          41 => 
+                          array (
+                            'value' => 62,
+                            'key' => 'rajputa (Amit Rajput)',
+                          ),
+                          42 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 29,
                             'key' => 'Randy (Rohan Kumar)',
                           ),
+<<<<<<< HEAD
                           28 => 
+=======
+                          43 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 9,
                             'key' => 'Reji',
                           ),
+<<<<<<< HEAD
                           29 => 
+=======
+                          44 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 13,
                             'key' => 'Rohit',
                           ),
+<<<<<<< HEAD
                           30 => 
+=======
+                          45 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'rowshm (Mehdi Rowshannahad)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 67,
+                            'key' => 'schickedanzm (Malte Schickedanz)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 70,
+                            'key' => 'steinerd (Daniel Steiner)',
+                          ),
+                          48 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 18,
                             'key' => 'Steve (Steve Davison)',
                           ),
+<<<<<<< HEAD
                           31 => 
+=======
+                          49 => 
+                          array (
+                            'value' => 85,
+                            'key' => 'uia54546 (Tatjana Kempf)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 86,
+                            'key' => 'uia54883 (Janina Gruebel)',
+                          ),
+                          51 => 
+                          array (
+                            'value' => 88,
+                            'key' => 'uia56532 (Simone Wieland)',
+                          ),
+                          52 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'uia60821 (Vandana Singal)',
+                          ),
+                          53 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'uia60823 (Rony Felix)',
+                          ),
+                          54 => 
+                          array (
+                            'value' => 68,
+                            'key' => 'uia89654 (Kinsey Hastings)',
+                          ),
+                          55 => 
+                          array (
+                            'value' => 87,
+                            'key' => 'uia94201 (Annika Duerr)',
+                          ),
+                          56 => 
+                          array (
+                            'value' => 78,
+                            'key' => 'uib09594 (Lars Tiedje)',
+                          ),
+                          57 => 
+                          array (
+                            'value' => 64,
+                            'key' => 'uib68208 (Krishan Kumar)',
+                          ),
+                          58 => 
+                          array (
+                            'value' => 65,
+                            'key' => 'uib68209 (Siddharth Chaudhery)',
+                          ),
+                          59 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 58,
                             'key' => 'uib98517 (Toks Ajepe)',
                           ),
+<<<<<<< HEAD
                           32 => 
+=======
+                          60 => 
+                          array (
+                            'value' => 72,
+                            'key' => 'uic39540 (Cedric Schulz)',
+                          ),
+                          61 => 
+                          array (
+                            'value' => 69,
+                            'key' => 'uic52020 (Oktay Oezcan)',
+                          ),
+                          62 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 41,
                             'key' => 'uic58260 (Evan Wasen)',
                           ),
+<<<<<<< HEAD
                           33 => 
+=======
+                          63 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 30,
                             'key' => 'uic60917 (Krishnan Kumar)',
                           ),
+<<<<<<< HEAD
                           34 => 
+=======
+                          64 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 52,
                             'key' => 'uie20462 (Steven De Alwis)',
                           ),
+<<<<<<< HEAD
                           35 => 
+=======
+                          65 => 
+                          array (
+                            'value' => 90,
+                            'key' => 'uie32847 (Andrea Traeger)',
+                          ),
+                          66 => 
+                          array (
+                            'value' => 80,
+                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
+                          ),
+                          67 => 
+                          array (
+                            'value' => 76,
+                            'key' => 'UIE43370 (Noah Hartman)',
+                          ),
+                          68 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 40,
                             'key' => 'V000320 (Jarek Zakrzewski)',
                           ),
+<<<<<<< HEAD
                           36 => 
+=======
+                          69 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 37,
                             'key' => 'v000696 (Mark Dario)',
                           ),
+<<<<<<< HEAD
                           37 => 
+=======
+                          70 => 
+                          array (
+                            'value' => 60,
+                            'key' => 'v000886 (Flint Wilson)',
+                          ),
+                          71 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 43,
                             'key' => 'v001713 (Nicole Kostelnick)',
                           ),
+<<<<<<< HEAD
                           38 => 
+=======
+                          72 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 39,
                             'key' => 'v002041 (Cory Walter)',
                           ),
+<<<<<<< HEAD
                           39 => 
+=======
+                          73 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 45,
                             'key' => 'v002044 (Zach Christenson)',
                           ),
+<<<<<<< HEAD
                           40 => 
+=======
+                          74 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 46,
                             'key' => 'v002065 (Mark Rosetta)',
                           ),
+<<<<<<< HEAD
                           41 => 
+=======
+                          75 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 44,
                             'key' => 'V104718 (Ben Tracey)',
                           ),
+<<<<<<< HEAD
                           42 => 
+=======
+                          76 => 
+                          array (
+                            'value' => 84,
+                            'key' => 'v105777 (Wesley Coursen)',
+                          ),
+                          77 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 53,
                             'key' => 'v106287 (Joe Glandorf)',
                           ),
+<<<<<<< HEAD
                           43 => 
+=======
+                          78 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 56,
                             'key' => 'v106566 (Don Salandanan)',
                           ),
+<<<<<<< HEAD
                           44 => 
+=======
+                          79 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 49,
                             'key' => 'V111211 (James Dusek)',
                           ),
+<<<<<<< HEAD
                           45 => 
+=======
+                          80 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 50,
                             'key' => 'v111296 (Scott Retzlaff)',
                           ),
+<<<<<<< HEAD
                           46 => 
+=======
+                          81 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 54,
                             'key' => 'V112497 (Morgan Lackey)',
                           ),
+<<<<<<< HEAD
                           47 => 
+=======
+                          82 => 
+                          array (
+                            'value' => 83,
+                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
+                          ),
+                          83 => 
+                          array (
+                            'value' => 96,
+                            'key' => 'z021185 (Eric Dupont)',
+                          ),
+                          84 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'za02860 (Chad Peters)',
+                          ),
+                          85 => 
+>>>>>>> origin/CBS_Catalog_Localization
                           array (
                             'value' => 19,
                             'key' => 'Zach (Zach Christenson)',
@@ -2083,22 +3214,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'AMERICAS',
+<<<<<<< HEAD
                             'value' => 7502339,
+=======
+                            'value' => 10869319,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           1 => 
                           array (
                             'key' => 'APAC',
+<<<<<<< HEAD
                             'value' => 7502338,
+=======
+                            'value' => 10869318,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           2 => 
                           array (
                             'key' => 'EMEA',
+<<<<<<< HEAD
                             'value' => 7502337,
+=======
+                            'value' => 10869317,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           3 => 
                           array (
                             'key' => 'SERVICE',
+<<<<<<< HEAD
                             'value' => 7502340,
+=======
+                            'value' => 10869320,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                         ),
                          'width' => 300,
@@ -2134,52 +3281,92 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Australia / South Pacific',
+<<<<<<< HEAD
                             'value' => 7502334,
+=======
+                            'value' => 10869314,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           1 => 
                           array (
                             'key' => 'China & Mongolia',
+<<<<<<< HEAD
                             'value' => 7502332,
+=======
+                            'value' => 10869312,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           2 => 
                           array (
                             'key' => 'Eastern Europe/Russia',
+<<<<<<< HEAD
                             'value' => 7502329,
+=======
+                            'value' => 10869309,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           3 => 
                           array (
                             'key' => 'India',
+<<<<<<< HEAD
                             'value' => 7502333,
+=======
+                            'value' => 10869313,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           4 => 
                           array (
                             'key' => 'Middle East/North Africa',
+<<<<<<< HEAD
                             'value' => 7502330,
+=======
+                            'value' => 10869310,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           5 => 
                           array (
                             'key' => 'North America',
+<<<<<<< HEAD
                             'value' => 7502326,
+=======
+                            'value' => 10869306,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           6 => 
                           array (
                             'key' => 'South America',
+<<<<<<< HEAD
                             'value' => 7502327,
+=======
+                            'value' => 10869307,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           7 => 
                           array (
                             'key' => 'South East Asia',
+<<<<<<< HEAD
                             'value' => 7502335,
+=======
+                            'value' => 10869315,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           8 => 
                           array (
                             'key' => 'Subsahara/South Africa',
+<<<<<<< HEAD
                             'value' => 7502331,
+=======
+                            'value' => 10869311,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                           9 => 
                           array (
                             'key' => 'Western Europe',
+<<<<<<< HEAD
                             'value' => 7502328,
+=======
+                            'value' => 10869308,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                         ),
                          'width' => 300,
@@ -2267,6 +3454,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+<<<<<<< HEAD
                             'key' => 'Abrasion Compounds',
                             'value' => 7502252,
                           ),
@@ -2324,14 +3512,73 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'key' => 'White Compounds',
                             'value' => 7502263,
+=======
+                            'key' => NULL,
+                            'value' => 10869232,
+                          ),
+                          1 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869233,
+                          ),
+                          2 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869234,
+                          ),
+                          3 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869235,
+                          ),
+                          4 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869236,
+                          ),
+                          5 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869237,
+                          ),
+                          6 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869238,
+                          ),
+                          7 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869239,
+                          ),
+                          8 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869240,
+                          ),
+                          9 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869241,
+                          ),
+                          10 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869242,
+                          ),
+                          11 => 
+                          array (
+                            'key' => NULL,
+                            'value' => 10869243,
+>>>>>>> origin/CBS_Catalog_Localization
                           ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSCoverCompoundsOptionProvider',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSPerformanceCategories|PerformanceCategory',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',

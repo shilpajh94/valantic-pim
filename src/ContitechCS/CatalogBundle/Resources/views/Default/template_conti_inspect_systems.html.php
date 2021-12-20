@@ -43,7 +43,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = ProductImage</label>
+                    <div class="attr-font"> Attribute Name = ProductImage</div>
                 <?php endif;?>
                 <div class="page95">
                 <?php
@@ -72,7 +72,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 <div class="feature-benefit-list w-80">
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = Name</label>
+                    <div class="attr-font"> Attribute Name = Name</div>
                 <?php endif;?>
                     <h2>
                     <?php if($this->editmode): ?>
@@ -110,7 +110,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="environment-quality-sec">
                     <div class="media pt-0">
                         <?php if($this->editmode):?>
-                            <label> Attribute Name = ReportImage</label>
+                            <div class="attr-font"> Attribute Name = ReportImage</div>
                         <?php endif;?>
                         <?php
                             if($this->editmode)
@@ -152,7 +152,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <p>
 
                             <?php if($this->editmode):?>
-                                <label> Attribute Name = Benefits</label>
+                                <div class="attr-font"> Attribute Name = Benefits</div>
                             <?php endif;?>
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
@@ -170,7 +170,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 
                 <?php if($this->editmode):?>
-                    <label> Attribute Name = ApplicationImage</label>
+                    <div class="attr-font"> Attribute Name = ApplicationImage</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)
