@@ -57,7 +57,18 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
             productsOptionStore.load();
         }
     },
+    postOpenDocument: function(doc,type){
 
+        let docPath             = doc.data.path;
+        let docType             = doc.data.type;
+        let template             = doc.data.template;
+
+        if(template ==  'ContitechCSCatalogBundle:Default:template_dynamic_table_of_contents.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.lpe.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+    },
     listProductTable: function (object, category) {
 
         // Code for populating products

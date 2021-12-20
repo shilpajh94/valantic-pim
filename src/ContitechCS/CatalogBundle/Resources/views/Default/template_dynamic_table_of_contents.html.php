@@ -4,6 +4,7 @@
         $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     }
 ?>
+
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">

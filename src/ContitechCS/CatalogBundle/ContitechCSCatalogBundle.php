@@ -10,7 +10,7 @@ class ContitechCSCatalogBundle extends AbstractPimcoreBundle
     {
         return [
             '/bundles/contitechcscatalog/js/pimcore/startup.js',
-            // '/bundles/contitechcscatalog/js/pimcore/headerSelection.js',
+            '/bundles/contitechcscatalog/js/pimcore/resetTableOfContent.js'
         ];
     }
 }

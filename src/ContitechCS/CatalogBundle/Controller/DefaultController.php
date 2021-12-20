@@ -2319,4 +2319,25 @@ class DefaultController extends FrontendController
             echo "<h3>".$e->getMessage()."</h3>";
         }
     }
+
+    /**
+     * Reset Table of content page's data
+     * @Route("/reset-table-of-content")
+     * @return json
+     */
+    public function resetTableOfContentPageData(Request $request)
+    {
+        try
+        {
+            $docId  = $request->get('docId');
+            $sql    = "DELETE FROM documents_elements where documentId = '$docId'";
+            $resp   = $this->db->query($sql);
+
+            return $this->json(array("success" => true,"msg" => 'Content Reset Successfully.'));
+        }
+        catch(Exception $e)
+        {  
+            return $this->json(array("success" => false,"msg" => $e->getMessage()));
+        }
+    }
 }
