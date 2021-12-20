@@ -42,7 +42,7 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
            <?php if($this->editmode):?>
-                <label>Attribute Name = Name</label><br></br>
+                <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?> 
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
@@ -57,7 +57,7 @@
             </h1>
 
             <?php if($this->editmode):?>
-                <div class="attr-font"><label>Attribute Name = ProductClaimSlogan</label><br></br></div>
+                <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
             <?php endif;?>
             <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
@@ -71,7 +71,7 @@
                 <?php endif; ?>
 
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = LogoImage</label><br></br>
+                    <div class="attr-font">Attribute Name = LogoImage</div>
                 <?php endif;?>
                 <?php
                 if($this->editmode)
@@ -105,7 +105,7 @@
                 <div class="media">
                     <div class="media-body pr-4">
                     <?php if($this->editmode):?>
-                        <label>Attribute Name = ShortText</label><br></br>
+                        <div class="attr-font">Attribute Name = ShortText</div>
                     <?php endif;?>
                         <p>
                             <?php if($this->editmode): ?>
@@ -121,7 +121,7 @@
 
 
                         <?php if($this->editmode):?>
-                            <label>Attribute Name = ProductImage</label><br></br>
+                            <div class="attr-font">Attribute Name = ProductImage</div>
                         <?php endif;?>
                         <?php
                         if($this->editmode)
@@ -148,7 +148,7 @@
                     </div>
 
                     <?php if($this->editmode):?>
-                            <label>Attribute Name = ApplicationImage</label><br></br>
+                            <div class="attr-font">Attribute Name = ApplicationImage</div>
                         <?php endif;?>
                     <?php
                     if($this->editmode)
@@ -183,12 +183,12 @@
                         <div class="feature-benefit-list">
                             <h3 class="black-bold black mb-3">
                             <?php if($this->editmode):?>
-                                <label>Enter Your  Heading</label><br></br>
+                                <div class="attr-font">Enter Your  Heading</div>
                             <?php endif;?>
                                 <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
                             <ul>
                             <?php if($this->editmode):?>
-                                <label>Attribute Name = Features</label><br></br>
+                                <div class="attr-font">Attribute Name = Features</div>
                             <?php endif;?>
                                 <?php 
                                     foreach ($data['Features'] as $key => $item) {
@@ -211,7 +211,7 @@
                                 {
                                     ?>
                                         <?php if($this->editmode):?>
-                                            <label>Enter Your  Heading</label><br></br>
+                                            <div class="attr-font">Enter Your  Heading</div>
                                         <?php endif;?>
                                         <h3 class="black-bold black mb-3">
                                             <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
@@ -219,7 +219,7 @@
 
                                         <ul>
                                         <?php if($this->editmode):?>
-                                            <label>Attribute Name = Application</label><br></br>
+                                            <div class="attr-font">Attribute Name = Application</div>
                                         <?php endif;?>
                                             <?php
                                                 foreach($data['CSProductApplications'] as $key => $applictaion)
@@ -243,14 +243,14 @@
                     <div class="col-6">
                         <div class="feature-benefit-list my-0">
                                 <?php if($this->editmode):?>
-                                    <label>Enter Your  Heading</label><br></br>
+                                    <div class="attr-font">Enter Your  Heading</div>
                                 <?php endif;?>
                                 <h3 class="black-bold black mb-3">
                                     <?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
                                 </h3>
                                 <ul>
                                     <?php if($this->editmode):?>
-                                        <label>Enter Your Points</label><br></br>
+                                        <div class="attr-font">Enter Your Points</div>
                                     <?php endif;?>
                                     <li>
                                         <?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
