@@ -50,7 +50,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <?php if($this->editmode): ?>
             <section class="fortressxp-belts">
                 <?php if($this->editmode):?>
-                    <label>Attribute Name = Name</label><br></br>
+                    <label>Attribute Name = Name</label>
                 <?php endif;?>
                 <h1 class="orange">
 
