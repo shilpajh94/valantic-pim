@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-09T18:02:46+01:00
+* Generated at: 2021-12-17T06:58:44-05:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -57,9 +57,9 @@ Fields Summary:
 - SortOrder [numeric]
 - CSProductApplications [manyToManyObjectRelation]
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
-- CSProductIndustries [manyToManyObjectRelation]
 - CoverCompounds [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
+- CSProductIndustries [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
 - ProductAttributes [objectbricks]
 - systemAnimation [video]
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1639069363,
+   'modificationDate' => 1639742324,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2330,8 +2330,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSCoverCompoundsOptionProvider',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSPerformanceCategories|PerformanceCategory',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',
@@ -2641,7 +2641,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'queryColumnType' => 'text',
                          'phpdocType' => 'array',
                          'relationType' => true,
-                         'visibleFields' => 'IndustryName',
+                         'visibleFields' => 'Name,Level',
                          'allowToCreateNewObject' => false,
                          'optimizedAdminLoading' => false,
                          'visibleFieldDefinitions' => 
@@ -2651,43 +2651,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'CSIndustries',
+                            'classes' => 'CSProducts',
                           ),
-                        ),
-                         'pathFormatterClass' => '',
-                         'name' => 'CSProductIndustries',
-                         'title' => 'Industries',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                         'fieldtype' => 'manyToManyObjectRelation',
-                         'width' => 495,
-                         'height' => '',
-                         'maxItems' => '',
-                         'queryColumnType' => 'text',
-                         'phpdocType' => 'array',
-                         'relationType' => true,
-                         'visibleFields' => 
-                        array (
-                        ),
-                         'allowToCreateNewObject' => false,
-                         'optimizedAdminLoading' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'CoverCompounds',
@@ -2764,6 +2729,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'IndustryName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSIndustries',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSProductIndustries',
+                         'title' => 'Industries',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,

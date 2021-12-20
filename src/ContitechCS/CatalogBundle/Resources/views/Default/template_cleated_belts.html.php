@@ -42,6 +42,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = Name</div>
+            <?php endif;?>
             <h1 class="orange">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -54,6 +57,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?> 
             </h1>
             <p class="p-medium">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = LongText</div>
+                <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->textarea("CB_LongText")->isEmpty()): ?>
                                 <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($data['LongText']) ?>
@@ -92,7 +98,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
 
                         <div class="col-2">
-
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Child Attribute Name = ProductImage</div>
+                            <?php endif;?>
                             <?php
                                 if($this->editmode)
                                 {
@@ -117,6 +125,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 }
                             ?>
                             
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Child Attribute Name = Name</div>
+                            <?php endif;?>
                             <p>
                                 <?php if($this->editmode): ?>
                                         <?php if($this->textarea("CBChild_Name_{$md5Key}")->isEmpty()): ?>
@@ -203,88 +214,78 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 }
             ?>
 
-            <div class="page-break"></div>
-
-            <h2 class="orange">
-                <?php if($this->editmode): ?>
+            <?php if($this->editmode):?>
+                <div class="page-break"></div>
+                <div class="attr-font">Attribute Name = Name</div>
+                
+                <h2 class="orange">
                         <?php if($this->input("CB_ProductNameBeltRoll")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
                                 <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']); ?>
                         <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']) ?>
-                <?php endif; ?> 
-                <span class="sub-title">
-                <?php if($this->editmode): ?>
+                    <span class="sub-title">
                         <?php if($this->input("CB_ProductNameBeltRollDiameters")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRollDiameters", ['placeholder'=>'Belt Roll Diameters']) ?>
                         <?php else: ?>
                                 <?= $this->input("CB_ProductNameBeltRollDiameters"); ?>
                         <?php endif; ?>
-                <?php else: ?>
+                    </span>
+                </h2>
+
+                <div class="attr-font">Attribute Name = BeltRollDiameter</div>
+                <?php
+                if($this->image("CB_BeltRollDiameters")->isEmpty())
+                {
+                    echo $this->image("CB_BeltRollDiameters")->setImage($data['BeltRollDiameters']);
+                }
+                else{
+                    echo $this->image("CB_BeltRollDiameters");
+                }
+                ?>
+            <?php else:?>
+                <?php 
+
+                $CB_BeltRollDiametersObj =  $this->image("CB_BeltRollDiameters");
+                if(method_exists($CB_BeltRollDiametersObj,'getThumbnail') && $CB_BeltRollDiametersObj->getThumbnail('catalog_thumb'))
+                {
+                ?>
+                <div class="page-break"></div>
+                <h2 class="orange">
+                    <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']) ?>
+                    <span class="sub-title">
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
-                <?php endif; ?> 
-                </span>
-            </h2>
-           
-
-            <?php
-                if($this->editmode)
-                {
-                    if($this->image("CB_BeltRollDiameters")->isEmpty())
-                    {
-                        echo $this->image("CB_BeltRollDiameters")->setImage($data['BeltRollDiameters']);
-                    }
-                    else{
-                        echo $this->image("CB_BeltRollDiameters");
-                    }
+                    </span>
+                </h2>
+                <img src="<?= $CB_BeltRollDiametersObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                <?php
                 }
-                else
-                {
-                    $CB_BeltRollDiametersObj =  $this->image("CB_BeltRollDiameters");
-                    if(method_exists($CB_BeltRollDiametersObj,'getThumbnail') && $CB_BeltRollDiametersObj->getThumbnail('catalog_thumb'))
-                    {
-                        ?>
-                        <img src="<?= $CB_BeltRollDiametersObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
-                        <?php
-                    }
-                }
-            ?>
-            
-            <div class="page-break"></div>
+                ?>
+            <?php endif;?>
 
-
-            <h2 class="orange">
-            
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
-                        <?php else: ?>
-                                <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']) ?>
-                <?php endif; ?> 
-                <span class="sub-title">
-            
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
-                            <?= $this->input("CB_ProductNameAngleOfInclination", ['placeholder'=>'Angles of Inclination']) ?>
+            <?php if($this->editmode):?>
+                <div class="page-break"></div>
+                <div class="attr-font">Attribute Name = Name</div>
+                
+                <h2 class="orange">
+                    <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
+                            <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                     <?php else: ?>
-                            <?= $this->input("CB_ProductNameAngleOfInclination"); ?>
+                            <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']); ?>
                     <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("CB_ProductNameAngleOfInclination") ?>
-            <?php endif; ?>
 
-            </span>
-            </h2>
-            
-            
-            <?php
-                if($this->editmode)
-                {
+                    <span class="sub-title">
+                
+                        <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameAngleOfInclination", ['placeholder'=>'Angles of Inclination']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameAngleOfInclination"); ?>
+                        <?php endif; ?>
+                    </span>
+                </h2>
+
+                <div class="attr-font">Attribute Name = AngleOfInclination</div>
+                <?php
                     if($this->image("CB_AngleOfInclination")->isEmpty())
                     {
                         echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination'])->setImage($data['AngleOfInclination']);
@@ -292,227 +293,252 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else{
                         echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination']);
                     }
-                }
-                else
-                {
-                    $CB_AngleOfInclinationObj =  $this->image("CB_AngleOfInclination");
-                    if(method_exists($CB_AngleOfInclinationObj,'getThumbnail') && $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'))
-                    {
-                    ?>
-                    <img src="<?= $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
-                    <?php
-                    }
-                }
-            ?>
-
-            <div class="page-break"></div>
-
-
-    <div class="cleated-belts">
-            <h2 class="orange heading-info">
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
-                                <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
-                        <?php else: ?>
-                                <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']) ?>
-                <?php endif; ?> 
-
-                <span class="sub-title">
-            
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
-                            <?= $this->input("CB_ProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
-                    <?php else: ?>
-                            <?= $this->input("CB_ProductNameProfileOptionsLabel"); ?>
-                    <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
-            <?php endif; ?>
-        
-            </span>
-
-            </h2>
-            
-
-            <?php if($data['childrenData']): ?>
-            <div class="table construction-tab">
-                <?php 
-                    foreach ($data['childrenData'] as $key => $child) { 
-
-                        $md5Key = md5($child['Name']);
-                    
                 ?>
+
+            <?php else:?>
+                <?php 
+                $CB_AngleOfInclinationObj =  $this->image("CB_AngleOfInclination");
+                if(method_exists($CB_AngleOfInclinationObj,'getThumbnail') && $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'))
+                {
+                ?>
+                <div class="page-break"></div>
+                
+                <h2 class="orange">
+                    <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']) ?>
+                    <span class="sub-title">
+                        <?= $this->input("CB_ProductNameAngleOfInclination") ?>
+                    </span>
+                </h2>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = AngleOfInclination</div>
+                <?php endif;?>
+                    <img src="<?= $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                <?php
+                }
+                ?>
+            <?php endif;?>
+            
+            <?php if($data['childrenData']): ?>
+                <div class="page-break"></div>
+
+                <div class="cleated-belts">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = Name</div>
+                    <?php endif;?>
+                    <h2 class="orange heading-info">
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
+                                        <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name']) ?>
+                        <?php endif; ?> 
+
+                        <span class="sub-title">
                     
-                <table width="100%" class="mt-4">
-                    <thead class="mb-4">
-                        <th colspan="3" class="text-left">
-                            <h2 class="mb-0">
                             <?php if($this->editmode): ?>
-                                    <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
-                                            <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                    <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
+                                            <?= $this->input("CB_ProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
                                     <?php else: ?>
-                                            <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                            <?= $this->input("CB_ProductNameProfileOptionsLabel"); ?>
                                     <?php endif; ?>
                             <?php else: ?>
-                                    <?= $this->input("CB_Profile_{$md5Key}") ?>
+                                    <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
                             <?php endif; ?>
-                            </h2>
-                        </th>
-                    </thead>
-                    <tbody>
-                        <tr class="grip-col">
-                            <td width="50%" class="pr-5">
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
-                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
+                        
+                        </span>
+
+                    </h2>
+
+                    <div class="table construction-tab">
+                        <?php 
+                            foreach ($data['childrenData'] as $key => $child) { 
+
+                                $md5Key = md5($child['Name']);
+                            
+                        ?>
+                            
+                        <table width="100%" class="mt-4">
+                            <thead class="mb-4">
+                                <th colspan="3" class="text-left">
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font">Child Attribute Name = Name</div>
+                                <?php endif;?> 
+                                    <h2 class="mb-0">
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
+                                                    <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("CB_Profile_{$md5Key}") ?>
+                                    <?php endif; ?>
+                                    </h2>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr class="grip-col">
+                                    <td width="50%" class="pr-5">
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = LongText</div>
+                                    <?php endif;?>
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
+                                                <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
+                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
                                         <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                            
-                            <?php
-                                if($this->editmode)
-                                {
-                                    if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
-                                    {
-                                        echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
-                                    }
-                                    else{
-                                        echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
-                                    }
-                                }
-                                else
-                                {
-                                    $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
-
-                                    if(method_exists($CB_ProfileOptionImage1Obj,'getThumbnail') &&  $CB_ProfileOptionImage1Obj->getThumbnail('catalog_thumb'))
-                                    {
-                                    ?>
-                                        <img src="<?= $CB_ProfileOptionImage1Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                    </td>
+                                    <td>
+                                    
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = ProductImage</div>
+                                    <?php endif;?>
                                     <?php
-                                    }
-                                }
-                            ?>
-                            </td>
-                            
-                            <td>
-                            
-                            <?php
-                                if($this->editmode)
-                                {
-                                    if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
-                                    {
-                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
-                                    }
-                                    else{
-                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
-                                    }
-                                }
-                                else
-                                {
-                                    $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
-                                    if(method_exists($CB_ProfileOptionImage2Obj,'getThumbnail') && $CB_ProfileOptionImage2Obj->getThumbnail('catalog_thumb'))
-                                    {
+                                        if($this->editmode)
+                                        {
+                                            if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
+                                            {
+                                                echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
+                                            }
+                                            else{
+                                                echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
+
+                                            if(method_exists($CB_ProfileOptionImage1Obj,'getThumbnail') &&  $CB_ProfileOptionImage1Obj->getThumbnail('catalog_thumb'))
+                                            {
+                                            ?>
+                                                <img src="<?= $CB_ProfileOptionImage1Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                            <?php
+                                            }
+                                        }
                                     ?>
-                                    <img src="<?= $CB_ProfileOptionImage2Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                    </td>
+                                    
+                                    <td>
+                                    
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = ApplicationImage</div>
+                                    <?php endif;?>
                                     <?php
-                                    }
-                                }
-                            ?>
-                            </td>
+                                        if($this->editmode)
+                                        {
+                                            if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
+                                            {
+                                                echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                            }
+                                            else{
+                                                echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                            if(method_exists($CB_ProfileOptionImage2Obj,'getThumbnail') && $CB_ProfileOptionImage2Obj->getThumbnail('catalog_thumb'))
+                                            {
+                                            ?>
+                                            <img src="<?= $CB_ProfileOptionImage2Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                            <?php
+                                            }
+                                        }
+                                    ?>
+                                    </td>
 
-                        </tr>
+                                </tr>
 
-                        <?php if($child['tableFieldData']): ?>
-                        <tr>
-                            <td class="border-b" colspan="3">
-                                <table class="w-80">
-                                    <tbody>
+                                <?php if($child['tableFieldData']): ?>
+                                <tr>
+                                    <td class="border-b" colspan="3">
+                                        <table class="w-80">
+                                            <tbody>
 
-                                        <?php 
-                                            $maxColumns = $child['maxColumns'] + 1;
-                                            foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
-                                                $colspan = ($maxColumns - count($rowArray));
-                                                $colspanStr = '';
-                                                if($colspan > 0)
-                                                {
-                                                    $colspan += 1;
-                                                    $colspanStr = "colspan='{$colspan}'";
-                                                }
-                                                $firstKey = array_key_first($rowArray);
-
-                                                ?>
-
-                                                <tr>
-
-                                                <?php
-                                                foreach ($rowArray as $rkey => $rvalue) {
-                                                    
-                                                    $unit = "CS_Unit_in";
-                                                    $translatedUnit = '';
-
-                                                    if(($rowArray[0] == 'CS_profileWidth' || $rowArray[0] == 'CS_beltWidthRange') && $rkey == 2)
-                                                    {
-                                                        $unit = "CS_Unit_mm";
-                                                    }
-
-                                                    if($firstKey == $rkey)
-                                                    {
-                                                        if($rvalue == 'CS_CleatHeightMM')
+                                                <?php 
+                                                    $maxColumns = $child['maxColumns'] + 1;
+                                                    foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
+                                                        $colspan = ($maxColumns - count($rowArray));
+                                                        $colspanStr = '';
+                                                        if($colspan > 0)
                                                         {
-                                                            $unit = "CS_Unit_mm";
+                                                            $colspan += 1;
+                                                            $colspanStr = "colspan='{$colspan}'";
                                                         }
-                                                        
-                                                        
+                                                        $firstKey = array_key_first($rowArray);
 
                                                         ?>
-                                                        <th class="orange text-right">
-                                                            <?= $this->translate($rvalue); ?>
-                                                        </th>
-                                                    <?php
-                                                    }
-                                                    else{
-                                                        if(!$colspan)
-                                                        {
-                                                            $translatedUnit = $this->translate($unit);
-                                                        }
-                                                        else{
-                                                            if(is_numeric($rvalue))
+
+                                                        <tr>
+
+                                                        <?php
+                                                        foreach ($rowArray as $rkey => $rvalue) {
+                                                            
+                                                            $unit = "CS_Unit_in";
+                                                            $translatedUnit = '';
+
+                                                            if(($rowArray[0] == 'CS_profileWidth' || $rowArray[0] == 'CS_beltWidthRange') && $rkey == 2)
                                                             {
-                                                                $translatedUnit = $this->translate($unit);
+                                                                $unit = "CS_Unit_mm";
+                                                            }
+
+                                                            if($firstKey == $rkey)
+                                                            {
+                                                                if($rvalue == 'CS_CleatHeightMM')
+                                                                {
+                                                                    $unit = "CS_Unit_mm";
+                                                                }
+                                                                
+                                                                
+
+                                                                ?>
+                                                                <th class="orange text-right">
+                                                                    <?= $this->translate($rvalue); ?>
+                                                                </th>
+                                                            <?php
+                                                            }
+                                                            else{
+                                                                if(!$colspan)
+                                                                {
+                                                                    $translatedUnit = $this->translate($unit);
+                                                                }
+                                                                else{
+                                                                    if(is_numeric($rvalue))
+                                                                    {
+                                                                        $translatedUnit = $this->translate($unit);
+                                                                    }
+                                                                }
+                                                                
+                                                                
+                                                                ?>
+                                                                <td <?= $colspanStr ?>>
+                                                                    <?= ($rvalue) ? $rvalue.' '.$translatedUnit: '-'; ?>
+                                                                </td>
+                                                                <?php
                                                             }
                                                         }
-                                                        
-                                                        
-                                                        ?>
-                                                        <td <?= $colspanStr ?>>
-                                                            <?= ($rvalue) ? $rvalue.' '.$translatedUnit: '-'; ?>
-                                                        </td>
-                                                        <?php
                                                     }
-                                                }
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-                <?php } ?>
-            </div>
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <?php } ?>
+                    </div>
+                </div>
             <?php endif; ?>
-
-    </div>
-    </section>
+        </section>
     </main>
    
 </div>

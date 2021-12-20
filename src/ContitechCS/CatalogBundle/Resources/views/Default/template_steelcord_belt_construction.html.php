@@ -42,6 +42,9 @@
         </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = Name</div>
+            <?php endif;?> 
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -53,7 +56,10 @@
                             <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?>
                 </h1>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                <?php endif;?>
                 <p class="p-medium">
                     <?php if($this->editmode): ?>
                         <?php if($this->textarea("SCB_ProductClaimSlogan")->isEmpty()): ?>
@@ -65,7 +71,10 @@
                             <?= $this->textarea("SCB_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                     <?php endif; ?>
                 </p>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ShortText</div>
+                <?php endif;?> 
                 <p>
                     <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("SCB_ShortText")->isEmpty()): ?>
@@ -78,10 +87,15 @@
                     <?php endif; ?>
                 </p>
 
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  SubHeading</div>
+                <?php endif;?>
                 <h3 class="orange fnt20 my-4">
                     <?= $this->input("SubHeading_title",["placeholder" => "Enter Your  SubHeading"]); ?></h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
+                <?php endif;?> 
                 <?php
                     if($this->editmode)
                         {
@@ -95,78 +109,132 @@
                             }
                             else
                             {
-                                $CSSImgSrcObj =  $this->image("SCB_ProductImage");
-                                if($CSSImgSrcObj)
+                                $SCBImgSrcObj =  $this->image("SCB_ProductImage");
+                                if(method_exists($SCBImgSrcObj,'getThumbnail') && $SCBImgSrcObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
+                <img src="<?= $SCBImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
                 <?php
                                 }
                             }
                         ?>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  SubHeading</div>
+                <?php endif;?>
                 <h3 class="orange fnt20 mb-0">
                     <?= $this->input("SubHeading_title2",["placeholder" =>"Enter Your  SubHeading"]); ?>
                 </h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ApplicationImage</div>
+                <?php endif;?>
                 <?php
-            if($this->editmode)
+                if($this->editmode)
                 {
                     if($this->image("SCB_ApplicationImage")->isEmpty())
+                    {
+                        echo $this->image("SCB_ApplicationImage")->setImage($data['ApplicationImage']);
+                    }        
+                    else
+                    {
+                        echo $this->image("SCB_ApplicationImage");
+                    }
+                }
+                else
+                {
+                    $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
+                        if(method_exists($SCBAppImgSrcObj,'getThumbnail') && $SCBAppImgSrcObj->getThumbnail('catalog_thumb'))
                         {
-                            echo $this->image("SCB_ApplicationImage")->setImage($data['ApplicationImage']);
-                        }        
-                        else{
-                            echo $this->image("SCB_ApplicationImage");
-                            }
-                        }
-                        else
-                            {
-                            $CSSImgSrcObj =  $this->image("SCB_ApplicationImage");
-                                if($CSSImgSrcObj)
-                                {
-                                ?>
-                <img src=" <?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
-                <?php
-                                }
-                            }
                         ?>
-                <div class="page-break"></div>
-                <h2 class="orange mb-0"><?= $this->input("PPFB_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                            <img src=" <?= $SCBAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
+                        <?php
+                        }
+                }
+                ?>
 
-                    <span
-                        class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Enter Your  SubHeading"]); ?>
+                <?php
+                if(!$this->image("PPFB_title")->isEmpty())
+                {
+                    ?>
+                    <div class="page-break"></div>
+                    <?php
+                }  
+                ?>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your Heading</div>
+                <?php endif;?>
+                <h2 class="orange mb-0"><?= $this->input("PPFB_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                    <span class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Enter Your  SubHeading"]); ?>
                     </span>
                 </h2>
 
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  SubHeading</div>
+                <?php endif;?>
                 <p class="p-medium">
                     <?= $this->input("PPFB_Content",["placeholder" =>"Enter Your  SubHeading"]); ?>
                 </p>
 
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  SubHeading</div>
+                <?php endif;?>
                 <h3 class="my-4"><?= $this->input("PPFB_Slogan",["placeholder" =>"Enter Your  Slogan"]); ?></h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>   
                 <h3 class="orange mb-0"><?= $this->input("ZGSC_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Description</div>
+                <?php endif;?>
                 <p> <?= $this->wysiwyg("ZGSC_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
 
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h3 class="orange mb-0"><?= $this->input("ZGSC2_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Description</div>
+                <?php endif;?>
                 <p><?= $this->wysiwyg("ZGSC2_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h3 class="orange mb-0"><?= $this->input("ORBC_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Description</div>
+                <?php endif;?>
                 <p><?= $this->wysiwyg("ORBC_Content",["placeholder" =>"Enter Your  Description"]); ?> </p>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h3 class="my-4"><?= $this->input("BHE_title",["placeholder" => "Enter Your  Heading"]);?></h3>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h3 class="orange"><?= $this->input("PPSB_title",["placeholder" =>"Enter Your  Heading"]);?></h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Description</div>
+                <?php endif;?>
                 <p> <?= $this->wysiwyg("PPSB_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h3 class="orange"><?= $this->input("FSSMO_title",["placeholder" =>"Enter Your  Heading"]);?></h3>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Description</div>
+                <?php endif;?>
                 <p> <?= $this->wysiwyg("FSSMO_Content",["placeholder" =>"Enter Your  Description"]); ?> </p>
             </section>
         </main>

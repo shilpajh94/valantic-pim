@@ -323,8 +323,8 @@ ContiRoll U Profile:
         fieldName: MaximumBeltWidthMM
         objectType: ProdDimensions
     Available Belt Widths in in:
-        fieldName: AvailableBeltWidthInch
-        objectType: WidthLength
+        fieldName: availableBeltWidthInch
+        objectType: ProdDimensions
 ContiRoll U:
     Industries:
         fieldName: CSProductIndustries
@@ -354,8 +354,8 @@ ContiRoll U:
         fieldName: MaximumBeltWidthMM
         objectType: ProdDimensions
     Available Belt Widths in in:
-        fieldName: AvailableBeltWidthInch
-        objectType: WidthLength
+        fieldName: availableBeltWidthInch
+        objectType: ProdDimensions
 ContiRoll T:
     Industries:
         fieldName: CSProductIndustries
@@ -385,8 +385,8 @@ ContiRoll T:
         fieldName: MaximumBeltWidthMM
         objectType: ProdDimensions
     Available Belt Widths in in:
-        fieldName: AvailableBeltWidthInch
-        objectType: WidthLength
+        fieldName: availableBeltWidthInch
+        objectType: ProdDimensions
 Flexowell - Corrugated Sidewall Belts :
     Applications:
         fieldName: CSProductApplications

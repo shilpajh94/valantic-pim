@@ -313,19 +313,6 @@ return [
         "creationDate" => 1637827805,
         "modificationDate" => 1637833895
     ],
-    25 => [
-        "id" => 25,
-        "name" => "Table of Content",
-        "group" => "Conveyor Solution",
-        "module" => "ContitechCSCatalogBundle",
-        "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
-        "action" => "templateTableOfContents",
-        "template" => "ContitechCSCatalogBundle:Default:template_table_of_contents.html.php",
-        "type" => "printpage",
-        "priority" => 0,
-        "creationDate" => 1637827972,
-        "modificationDate" => 1637833863
-    ],
     26 => [
         "id" => 26,
         "name" => "Common Section Page",
@@ -459,7 +446,7 @@ return [
     36 => [
         "id" => 36,
         "name" => "Conti Inspect Systems",
-        "group" => "Conveyor Solution", 
+        "group" => "Conveyor Solution",
         "module" => "ContitechCSCatalogBundle",
         "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
         "action" => "templateContiInspectSystems",
@@ -494,5 +481,18 @@ return [
         "priority" => 0,
         "creationDate" => 1637830338,
         "modificationDate" => 1637830422
+    ],
+    39 => [
+        "id" => 39,
+        "name" => "Dynamic Table Of Content",
+        "group" => "Conveyor Solution",
+        "module" => "ContitechCSCatalogBundle",
+        "controller" => "@ContitechCS\\CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateDynamicTableOfContents",
+        "template" => "ContitechCSCatalogBundle:Default:template_dynamic_table_of_contents.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1638538096,
+        "modificationDate" => 1638538175
     ]
 ];

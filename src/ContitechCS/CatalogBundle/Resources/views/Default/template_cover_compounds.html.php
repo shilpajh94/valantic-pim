@@ -47,6 +47,9 @@ $coverCompound = $data['coverCompoundData'];
     </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = Name</div>
+            <?php endif;?>
                 <h1 class="orange">
                     <strong>
                         <?php if($this->editmode): ?>
@@ -60,6 +63,9 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </strong>
                     <span class="sub-title">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                    <?php endif;?>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_ProductClaimSlogan")->isEmpty()): ?>
                                         <?= $this->input("CC_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($coverCompound['ProductClaimSlogan']) ?>
@@ -73,6 +79,9 @@ $coverCompound = $data['coverCompoundData'];
                     </span>
                 </h1>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ShortText</div>
+                <?php endif;?>
                 <div class="colum-2 p-0">
                     <p>
                         <?php if($this->editmode): ?>
@@ -85,6 +94,10 @@ $coverCompound = $data['coverCompoundData'];
                                 <?= $this->input("CC_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     </p>
+
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = LongText</div>
+                    <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CC_LongText")->isEmpty()): ?>
@@ -97,7 +110,10 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </p>
                 </div>
-                    
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
+                <?php endif;?>   
                 <?php
                     if($this->editmode)
                     {
@@ -119,7 +135,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $productImgSrcObj =  $this->image("CC_productImage");
-                        if($productImgSrcObj)
+                        if(method_exists($productImgSrcObj,'getThumbnail') && $productImgSrcObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <div class="full-image-sec">
@@ -227,11 +243,14 @@ $coverCompound = $data['coverCompoundData'];
                     </h1>
 
                     <div class="colum-2 standard-compounds p-0">
-
+                          
                         <?php
                             
                             foreach ($level3rdObjectData as $key => $object) {
                                 ?>
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font"> Object Name = Name</div>
+                                <?php endif;?>
                                 <h3>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
@@ -243,6 +262,10 @@ $coverCompound = $data['coverCompoundData'];
                                             <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']) ?>
                                     <?php endif; ?>
                                 </h3>
+                                
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font"> Object  = LongText</div>
+                                <?php endif;?>
                                 <p>
                                     <?php if($this->editmode): ?>
                                             <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
@@ -268,6 +291,9 @@ $coverCompound = $data['coverCompoundData'];
                     $singleProductPage = $data['singleProductPage'];
                 ?>
                 <div class="page-break"></div>
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = PerformanceCategory </div>
+                <?php endif;?>
                 <h1 class="orange">
                 
                     <?php if($this->editmode): ?>
@@ -280,6 +306,10 @@ $coverCompound = $data['coverCompoundData'];
                             <?= $this->input("CCHRPage_NamePerformanceCategory",['placeholder' => 'Enter Performance Category']) ?>
                     <?php endif; ?>
                 </h1>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = ProductImage </div>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {
@@ -294,7 +324,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
-                        if($CCHRPage_productImageObj)
+                        if(method_exists($CCHRPage_productImageObj,'getThumbnail') && $CCHRPage_productImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
@@ -302,6 +332,10 @@ $coverCompound = $data['coverCompoundData'];
                         }
                     }
                 ?>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = LongText </div>
+                <?php endif;?>
                 <p>
                     <?php if($this->editmode): ?>
                             <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
@@ -322,6 +356,9 @@ $coverCompound = $data['coverCompoundData'];
                             $md5FeatureNameKey = md5($feature['FeatureName']);
                         ?>
                             <div class="media">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font"> Attribute Name = FeatureImage </div>
+                            <?php endif;?>   
                                 <?php
                                     if($this->editmode)
                                     {
@@ -336,7 +373,7 @@ $coverCompound = $data['coverCompoundData'];
                                     else
                                     {
                                         $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
-                                        if($CCHRPageFeatureImgSrcObj)
+                                        if(method_exists($CCHRPageFeatureImgSrcObj,'getThumbnail') && $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
                                         <img src="<?= $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
@@ -346,6 +383,9 @@ $coverCompound = $data['coverCompoundData'];
                                 ?>
                                 
                                 <div class="media-body">
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font"> Attribute Name = FeatureName </div>
+                                <?php endif;?>
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->isEmpty()): ?>
@@ -357,6 +397,10 @@ $coverCompound = $data['coverCompoundData'];
                                                 <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}") ?>
                                         <?php endif; ?>
                                     </h2>
+
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font"> Attribute Name = FeatureDescription </div>
+                                    <?php endif;?>
                                     <p>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->isEmpty()): ?>
@@ -389,7 +433,7 @@ $coverCompound = $data['coverCompoundData'];
                         else
                         {
                             $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
-                            if($CCHRPage_tempratureImageObj)
+                            if(method_exists($CCHRPage_tempratureImageObj,'getThumbnail') && $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'))
                             {
                             ?>
                             <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images  ml-0"/>
@@ -406,7 +450,9 @@ $coverCompound = $data['coverCompoundData'];
                                             $md5Key = md5($chValue['Name'].'_'.$count);
                                             $count++;
                                         ?>
+                                            
                                             <tr>
+                                            
                                                 <td class="orange" width="25%">
 
                                                     <?php if($this->editmode): ?>

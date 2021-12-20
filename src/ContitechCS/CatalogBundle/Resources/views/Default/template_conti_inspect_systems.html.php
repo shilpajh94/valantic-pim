@@ -42,6 +42,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = ProductImage</div>
+                <?php endif;?>
                 <div class="page95">
                 <?php
                     if($this->editmode)
@@ -57,7 +60,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CIS_productImageObj =  $this->image("CIS_productImage");
-                        if($CIS_productImageObj)
+                        if(method_exists($CIS_productImageObj,'getThumbnail') &&  $CIS_productImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CIS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
@@ -68,6 +71,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                 </div>
                 <div class="feature-benefit-list w-80">
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = Name</div>
+                <?php endif;?>
                     <h2>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CIS_Inspect_Systems")->isEmpty()): ?>
@@ -103,7 +109,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 <div class="environment-quality-sec">
                     <div class="media pt-0">
-
+                        <?php if($this->editmode):?>
+                            <div class="attr-font"> Attribute Name = ReportImage</div>
+                        <?php endif;?>
                         <?php
                             if($this->editmode)
                             {
@@ -118,7 +126,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CIS_ReportImageObj =  $this->image("CIS_ReportImage");
-                                if($CIS_ReportImageObj)
+                                if(method_exists($CIS_ReportImageObj,'getThumbnail') &&  $CIS_ReportImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $CIS_ReportImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images ml-0">
@@ -143,6 +151,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </h3>
                             <p>
 
+                            <?php if($this->editmode):?>
+                                <div class="attr-font"> Attribute Name = Benefits</div>
+                            <?php endif;?>
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
                                             <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits'])->setDataFromResource($data['Benefits'][0]) ?>
@@ -157,7 +168,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     </div>
                 </div>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = ApplicationImage</div>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                     {
@@ -172,7 +186,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
-                        if($CIS_ApplicationImageObj)
+                        if(method_exists($CIS_ApplicationImageObj,'getThumbnail') &&  $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="">

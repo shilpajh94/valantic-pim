@@ -17,7 +17,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         else
         {
             $imgSrcObj =  $this->image("TOC_Section_Image");
-            if($imgSrcObj)
+            if(method_exists($imgSrcObj,'getThumbnail') && $imgSrcObj->getThumbnail('catalog_thumb'))
             {
             ?>
             <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>

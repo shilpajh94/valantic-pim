@@ -373,16 +373,19 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
                         {
-                            if($value->getFeatureImage())
+                            if(trim($value->getFeatureName()))
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                $FeaturesAndBenefits[] = $feature;
-                            }
-                            else
-                            {
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                if($value->getFeatureImage())
+                                {
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    $FeaturesAndBenefits[] = $feature;
+                                }
+                                else
+                                {
+                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                }
                             }
                         }
                     }
@@ -758,23 +761,30 @@ class DefaultController extends FrontendController
                     $selectedCategoryId = $catalogTableObject->getSecondLevelCategory();
     
                     $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
+
+                    if($hierarchyObj)
+                    {
+                        $hierarchyPath = $hierarchyObj->getPath();
+                        $hierarchyName = $hierarchyObj->getKey();
+        
+                        $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                        $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
+        
+                        $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
+                        
+                        if($HierarchyProductPath)
+                        {
+                            $coverCompoundData['HierarchyNameLevel2'] = trim($HierarchyProductPath->getName());
+                            $coverCompoundData['Name'] = trim($HierarchyProductPath->getName());
+                            $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
+                            $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
+                            $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
+                            $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
+            
+                            $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $regionId);
+                        }
+                    }
     
-                    $hierarchyPath = $hierarchyObj->getPath();
-                    $hierarchyName = $hierarchyObj->getKey();
-    
-                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                    $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
-    
-                    $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-                    
-                    $coverCompoundData['HierarchyNameLevel2'] = trim($HierarchyProductPath->getName());
-                    $coverCompoundData['Name'] = trim($HierarchyProductPath->getName());
-                    $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
-                    $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
-                    $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
-                    $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
-    
-                    $CSHierarchyObjChild = $this->getAllRegionChildern($HierarchyProductPath, $regionId);
     
                     $coverOptionsAttributes = $productDataImportConfig['Cover Options']['Cover Compound Attributes'];
                     $productPage = $productDataImportConfig['Cover Options']['Product Page'];
@@ -792,7 +802,7 @@ class DefaultController extends FrontendController
                     $coverCompoundsHeaderKeys[] = $CS_Compounds;
                     $onlyOnce                   = false;
                     
-                    if($CSHierarchyObjChild)
+                    if(isset($CSHierarchyObjChild) && $CSHierarchyObjChild)
                     {
                         foreach ($CSHierarchyObjChild as $objectLevel3rd)
                         {
@@ -828,7 +838,7 @@ class DefaultController extends FrontendController
                                 $FeaturesAndBenefits = [];
     
                                 foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
-                                    if($value->getFeatureImage())
+                                    if($value->getFeatureImage() && trim($value->getFeatureName()))
                                     {
                                         $feature['FeatureName'] = $value->getFeatureName();
                                         $feature['FeatureDescription'] = $value->getFeatureDescription();
@@ -989,312 +999,314 @@ class DefaultController extends FrontendController
                 $productId = $selectedProduct[0];
     
                 $productDetails = DataObject\CSProducts::getById($productId);
-    
-                $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
-                $productData['Name'] = $productDetails->getName();
-                $productData['LongText'] = $productDetails->getShortText();
-                $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
-                $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
-                $productData['cover_compounds'] = $productDetails->getCoverCompounds();
-    
-                $ymlData = $this->configProviderService->getBrickMappingConfig();
+
                 
-                $unitField = '';
-                if(isset($ymlData['defualtUnit'][$region]))
+                if($productDetails)
                 {
-                    $unitField = $ymlData['defualtUnit'][$region];
-                }
+                    $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
+                    $productData['Name'] = $productDetails->getName();
+                    $productData['LongText'] = $productDetails->getShortText();
+                    $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
+                    $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+                    $productData['cover_compounds'] = $productDetails->getCoverCompounds();
     
-                if(isset($productDataImportConfig['Common Belt Profile Attributes'][$unitField]))
-                {
-                    $CommonBeltProfileAttributes = $productDataImportConfig['Common Belt Profile Attributes'][$unitField];
-                }
-                
-                $ContiRollConfig = $productDataImportConfig['Common Belt Profile Attributes']['ContiRoll Config'];
-    
-                $productChildrenData = $this->getAllRegionChildern($productDetails, $regionId);
-    
-                $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
-                $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
-    
-                $childrenData = [];
-    
-                if($productChildrenData)
-                {
-                    foreach ($productChildrenData as $child) {
-                        $data['Name'] = $child->getName();
-                        $data['LongText'] = $child->getShortText();
-                        $data['ProductImage'] = $child->getProductImage();
-                        $data['ApplicationImage'] = $child->getApplicationImage();
-    
-                        $bricks = $child->getProductAttributes();
-                        $rowsData = [];
-                        if($bricks)
-                        {  
-                            foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
-                                $fieldNameConfigArray = explode('~',$fieldNameConfig);
-                                $brickName = $fieldNameConfigArray[0];
-                                // $fieldNameAttr = $fieldNameConfigArray[1];
-                                $getBrick = 'get' . $brickName;
-                                $getField = 'get' . $fieldName;
-    
-                                if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
-                                {
-                                    if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField) &&  $bricks->$getBrick() && $bricks->$getBrick()->$getField())
-                                    {   
-                                        $fieldNameString = $this->addPrefix($fieldName);
-                                        if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
-                                        {
-                                            $removeField = true;
-                                        }
-                                        $colData[] = $fieldNameString;
-                                        $colData[] = $bricks->$getBrick()->$getField();
-                                        $rowsData[] = $colData;
-                                        unset($colData);
-                                    }
-                                }
-                                else
-                                {
-                                    $fieldBlockName = $fieldNameConfigArray[1];
-                                    $fieldBlockFieldName = $fieldNameConfigArray[2];
-                                    $masterFieldNameString = $fieldNameConfigArray[3];
-                                    
-                                    if($masterFieldNameString)
+                    $ymlData = $this->configProviderService->getBrickMappingConfig();
+                    
+                    $unitField = '';
+                    if(isset($ymlData['defualtUnit'][$region]))
+                    {
+                        $unitField = $ymlData['defualtUnit'][$region];
+                    }
+        
+                    if(isset($productDataImportConfig['Common Belt Profile Attributes'][$unitField]))
+                    {
+                        $CommonBeltProfileAttributes = $productDataImportConfig['Common Belt Profile Attributes'][$unitField];
+                    }
+                    
+                    $ContiRollConfig = $productDataImportConfig['Common Belt Profile Attributes']['ContiRoll Config'];
+        
+                    $productChildrenData = $this->getAllRegionChildern($productDetails, $regionId);
+        
+                    $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
+                    $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
+        
+                    $childrenData = [];
+                    if($productChildrenData)
+                    {
+                        foreach ($productChildrenData as $child) {
+                            $removeField = false;
+                            $data['Name'] = $child->getName();
+                            $data['LongText'] = $child->getShortText();
+                            $data['ProductImage'] = $child->getProductImage();
+                            $data['ApplicationImage'] = $child->getApplicationImage();
+        
+                            $bricks = $child->getProductAttributes();
+                            $rowsData = [];
+                            if($bricks)
+                            {  
+                                foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
+                                    $fieldNameConfigArray = explode('~',$fieldNameConfig);
+                                    $brickName = $fieldNameConfigArray[0];
+                                    $getBrick = 'get' . $brickName;
+                                    $getField = 'get' . $fieldName;
+        
+                                    if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
                                     {
-                                        $masterFieldNameArray = explode('$', $masterFieldNameString);
-                                    }
-    
-                                    
-                                    $getfieldBlockName = 'get' . $fieldBlockName;
-                                    if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
-                                    {
-                                        $fieldData = [];
-                                        $fieldNameWithPrefix = $this->addPrefix($fieldName);
-                                        
-                                        foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
-                                        {
-                                            $colData[] = $fieldNameWithPrefix;
-                                            $fieldData[] = $obj[$fieldBlockFieldName]->getData();
-                                            $colDataMultiSelect = $obj[$fieldBlockFieldName]->getData();
-                                            if(is_array($colDataMultiSelect))
+                                        if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField) &&  $bricks->$getBrick() && $bricks->$getBrick()->$getField())
+                                        {   
+                                            $fieldNameString = $this->addPrefix($fieldName);
+                                            if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
                                             {
-                                                $datum = [];
-                                                foreach ($colDataMultiSelect as  $id) {
-                                                    if(count($masterFieldNameArray) == 2)
-                                                    {
-                                                        $masterFieldName1 = $masterFieldNameArray[0];
-                                                        $masterFieldName2 = $masterFieldNameArray[1];
-                                                        $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName1];
-                                                        if(!trim($fvalue)){
-                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName2];
-                                                        }
-                                                    }
-                                                    else{
-                                                        $masterFieldName = $masterFieldNameArray[0];
-                                                        $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName];
-                                                    }
-                                                    
-                                                    $colData[] = $fvalue;
-                                                }
+                                                $removeField = true;
                                             }
-                                            else{
-                                                $id = $obj[$fieldBlockFieldName]->getData();
-                                                $masterFieldName = $masterFieldNameArray[0];
-                                                $fvalue = $availableBeltWidthMasterList[$id][$masterFieldName];
-                                                $colData[] = $fvalue;
-                                            }
-    
+                                            $colData[] = $fieldNameString;
+                                            $colData[] = $bricks->$getBrick()->$getField();
                                             $rowsData[] = $colData;
                                             unset($colData);
                                         }
-                                        
                                     }
-                                }
-                            }
-                        }   
-                        
-                        $modifiedData = [];
-                        $remainingData = [];
-                        $maxColumn = 0;
-                        $maxRow = 0;
-    
-                        foreach ($rowsData as $nvalue) 
-                        {
-                            if(count($nvalue) > 2)
-                            {
-                                $remainingData[] = $nvalue;
-                            }
-                            else{
-                                $modifiedData[$nvalue[0]][] = $nvalue[1];
-                            }
-                        }
-    
-                        if($modifiedData)
-                        {
-                            foreach ($modifiedData as $mvalue) {
-                                if(count($mvalue) > $maxColumn)
-                                {
-                                    $maxColumn = count($mvalue);
-                                }
-                            }
-                            
-                        }
-    
-                        // make single column if all columns have same value
-                        if($modifiedData)
-                        {
-                            foreach($modifiedData as $key => $value){
-                                $arrayCountBeforeUnique = count($value);
-                                $arrayCount = array_unique($value);
-                                if(($arrayCountBeforeUnique == $maxColumn) && count($arrayCount) == 1)
-                                {
-                                    $modifiedData[$key] = array($value[0]);
-                                }
-                                else{
-                                    $modifiedData[$key] = $value;
-                                }
-                            }
-                        }
-    
-                        $remainingModifiedArray = [];
-    
-                        $maxRow = 0;
-                        if($remainingData)
-                        {
-                            foreach($remainingData as $key => $array)
-                            {
-                                $keyToStore = $array[0];
-                                unset($array[0]);
-                                $array = array_values($array);
-    
-                                if($removeField)
-                                {
-                                    $remainingModifiedArray[$keyToStore] = $array;
-                                }
-                                else{
-                                    $remainingModifiedArray[$keyToStore][] = $array;
-                                }
-    
-                                if(count($array) > $maxRow)
-                                {
-                                    $maxRow = count($array);
-                                }
-                            }
-                        }
-    
-                        if($remainingModifiedArray && !$removeField)
-                        {
-                            foreach ($remainingModifiedArray as $key => $array) {
-                                $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
-                            }
-                        }
-    
-                        if($removeField)
-                        {
-                            $maxColumn = 2;
-                            $modifiedData = array_merge($modifiedData, $remainingModifiedArray);
-                        }
-    
-                        if($unitField && !$removeField)
-                        {
-                            foreach ($modifiedData as $key => $value) {
-                                if (stripos($key, $unitField) === false) {
-                                    unset($modifiedData[$key]);
-                                }
-                            }
-                        }
-    
-                        $tableArray = [];
-                        if($removeField)
-                        {
-                            $removeFieldArray = $ContiRollConfig['removeField'];
-                            foreach ($removeFieldArray as $rkey1 => $value) {
-                                $fieldToRemove = $this->addPrefix($rkey1);
-                                unset($modifiedData[$fieldToRemove]);
-                            }
-    
-                            $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
-                            $concatnateOperator = $ContiRollConfig['concatnateOperator'];
-                            foreach ($groupingAndOrderingArray as $okey1 => $ovalue) {
-                                $fieldKey = $this->addPrefix($okey1);
-    
-                                if(is_array($ovalue))
-                                {
-                                    foreach ($ovalue as $newvalue1) {
-                                        $fieldKeyNew = $this->addPrefix($newvalue1);
-                                        $internalArray = $modifiedData[$fieldKeyNew];
-                                        $arrayValue;
-                                        if(is_array($internalArray))
-                                        {
-                                            $arrayValue[] = implode($concatnateOperator, $internalArray);
-                                        }
-                                        else{
-                                            $arrayValue[] = $internalArray;
-                                        }
-                                    }
-                                    $arrayToPush = array_merge([$fieldKey], $arrayValue);
-                                    unset($arrayValue);
-                                }
-                                else{
-                                    $arrayToPush = array_merge([$fieldKey], $modifiedData[$fieldKey]);
-                                }
-                                array_push($tableArray, $arrayToPush);
-                                unset($arrayToPush);
-                            }
-    
-                        }
-    
-                        if($modifiedData && !$removeField)
-                        {
-                            foreach($modifiedData as $key1 => $secondArray)
-                            {
-                                $datum[] = $key1;
-                                
-                                if(is_array($secondArray))
-                                {
-                                    
-                                    foreach ($secondArray as $key2 => $thirdArray) {
-    
-                                        if(is_array($thirdArray))
-                                        {
-                                            $localArray = [];
-                                            $localArray[] = $key1;
-                                            foreach ($thirdArray as $key3 => $value) {
-                                                $localArray[] = $value;
-                                            }
-    
-                                            $tableArray[] = $localArray;
-    
-                                        }
-                                        else{
-                                            $datum[] = $thirdArray;
-                                        }
-                                    }
-    
-                                    if(count($datum) > 1)
+                                    else
                                     {
-                                        $tableArray[] = $datum;
+                                        $fieldBlockName = $fieldNameConfigArray[1];
+                                        $fieldBlockFieldName = $fieldNameConfigArray[2];
+                                        $masterFieldNameString = $fieldNameConfigArray[3];
+                                        
+                                        if($masterFieldNameString)
+                                        {
+                                            $masterFieldNameArray = explode('$', $masterFieldNameString);
+                                        }
+        
+                                        
+                                        $getfieldBlockName = 'get' . $fieldBlockName;
+                                        if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
+                                        {
+                                            $fieldData = [];
+                                            $fieldNameWithPrefix = $this->addPrefix($fieldName);
+                                            
+                                            foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
+                                            {
+                                                $colData[] = $fieldNameWithPrefix;
+                                                $fieldData[] = $obj[$fieldBlockFieldName]->getData();
+                                                $colDataMultiSelect = $obj[$fieldBlockFieldName]->getData();
+                                                if(is_array($colDataMultiSelect))
+                                                {
+                                                    $datum = [];
+                                                    foreach ($colDataMultiSelect as  $id) {
+                                                        if(count($masterFieldNameArray) == 2)
+                                                        {
+                                                            $masterFieldName1 = $masterFieldNameArray[0];
+                                                            $masterFieldName2 = $masterFieldNameArray[1];
+                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName1];
+                                                            if(!trim($fvalue)){
+                                                                $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName2];
+                                                            }
+                                                        }
+                                                        else{
+                                                            $masterFieldName = $masterFieldNameArray[0];
+                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName];
+                                                        }
+                                                        
+                                                        $colData[] = $fvalue;
+                                                    }
+                                                }
+                                                else{
+                                                    $id = $obj[$fieldBlockFieldName]->getData();
+                                                    $masterFieldName = $masterFieldNameArray[0];
+                                                    $fvalue = $availableBeltWidthMasterList[$id][$masterFieldName];
+                                                    $colData[] = $fvalue;
+                                                }
+        
+                                                $rowsData[] = $colData;
+                                                unset($colData);
+                                            }
+                                            
+                                        }
                                     }
-                                    
-                                    unset($datum);
+                                }
+                            }   
+                            
+                            $modifiedData = [];
+                            $remainingData = [];
+                            $maxColumn = 0;
+                            $maxRow = 0;
+        
+                            foreach ($rowsData as $nvalue) 
+                            {
+                                if(count($nvalue) > 2)
+                                {
+                                    $remainingData[] = $nvalue;
+                                }
+                                else{
+                                    $modifiedData[$nvalue[0]][] = $nvalue[1];
+                                }
+                            }
+        
+                            if($modifiedData)
+                            {
+                                foreach ($modifiedData as $mvalue) {
+                                    if(count($mvalue) > $maxColumn)
+                                    {
+                                        $maxColumn = count($mvalue);
+                                    }
                                 }
                                 
                             }
+        
+                            // make single column if all columns have same value
+                            if($modifiedData)
+                            {
+                                foreach($modifiedData as $key => $value){
+                                    $arrayCountBeforeUnique = count($value);
+                                    $arrayCount = array_unique($value);
+                                    if(($arrayCountBeforeUnique == $maxColumn) && count($arrayCount) == 1)
+                                    {
+                                        $modifiedData[$key] = array($value[0]);
+                                    }
+                                    else{
+                                        $modifiedData[$key] = $value;
+                                    }
+                                }
+                            }
+        
+                            $remainingModifiedArray = [];
+        
+                            $maxRow = 0;
+                            if($remainingData)
+                            {
+                                foreach($remainingData as $key => $array)
+                                {
+                                    $keyToStore = $array[0];
+                                    unset($array[0]);
+                                    $array = array_values($array);
+        
+                                    if($removeField)
+                                    {
+                                        $remainingModifiedArray[$keyToStore] = $array;
+                                    }
+                                    else{
+                                        $remainingModifiedArray[$keyToStore][] = $array;
+                                    }
+        
+                                    if(count($array) > $maxRow)
+                                    {
+                                        $maxRow = count($array);
+                                    }
+                                }
+                            }
+        
+                            if($remainingModifiedArray && !$removeField)
+                            {
+                                foreach ($remainingModifiedArray as $key => $array) {
+                                    $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
+                                }
+                            }
+        
+                            if($removeField)
+                            {
+                                $maxColumn = 2;
+                                $modifiedData = array_merge($modifiedData, $remainingModifiedArray);
+                            }
+        
+                            if($unitField && !$removeField)
+                            {
+                                foreach ($modifiedData as $key => $value) {
+                                    if (stripos($key, $unitField) === false) {
+                                        unset($modifiedData[$key]);
+                                    }
+                                }
+                            }
+        
+                            $tableArray = [];
+                            if($removeField)
+                            {
+                                $removeFieldArray = $ContiRollConfig['removeField'];
+                                foreach ($removeFieldArray as $rkey1 => $value) {
+                                    $fieldToRemove = $this->addPrefix($rkey1);
+                                    unset($modifiedData[$fieldToRemove]);
+                                }
+        
+                                $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
+                                $concatnateOperator = $ContiRollConfig['concatnateOperator'];
+                                foreach ($groupingAndOrderingArray as $okey1 => $ovalue) {
+                                    $fieldKey = $this->addPrefix($okey1);
+        
+                                    if(is_array($ovalue))
+                                    {
+                                        foreach ($ovalue as $newvalue1) {
+                                            $fieldKeyNew = $this->addPrefix($newvalue1);
+                                            $internalArray = $modifiedData[$fieldKeyNew];
+                                            $arrayValue;
+                                            if(is_array($internalArray))
+                                            {
+                                                $arrayValue[] = implode($concatnateOperator, $internalArray);
+                                            }
+                                            else{
+                                                $arrayValue[] = $internalArray;
+                                            }
+                                        }
+                                        $arrayToPush = array_merge([$fieldKey], $arrayValue);
+                                        unset($arrayValue);
+                                    }
+                                    else{
+                                        $arrayToPush = array_merge([$fieldKey], $modifiedData[$fieldKey]);
+                                    }
+                                    array_push($tableArray, $arrayToPush);
+                                    unset($arrayToPush);
+                                }
+        
+                            }
+        
+                            if($modifiedData && !$removeField)
+                            {
+                                foreach($modifiedData as $key1 => $secondArray)
+                                {
+                                    $datum[] = $key1;
+                                    
+                                    if(is_array($secondArray))
+                                    {
+                                        
+                                        foreach ($secondArray as $key2 => $thirdArray) {
+        
+                                            if(is_array($thirdArray))
+                                            {
+                                                $localArray = [];
+                                                $localArray[] = $key1;
+                                                foreach ($thirdArray as $key3 => $value) {
+                                                    $localArray[] = $value;
+                                                }
+        
+                                                $tableArray[] = $localArray;
+        
+                                            }
+                                            else{
+                                                $datum[] = $thirdArray;
+                                            }
+                                        }
+        
+                                        if(count($datum) > 1)
+                                        {
+                                            $tableArray[] = $datum;
+                                        }
+                                        
+                                        unset($datum);
+                                    }
+                                    
+                                }
+                            }
+        
+                            $data['tableFieldData'] = $tableArray;
+                            $data['maxColumns'] = $maxColumn;
+                            
+                            $childrenData[] = $data;
                         }
-    
-                        $data['tableFieldData'] = $tableArray;
-                        $data['maxColumns'] = $maxColumn;
-                        
-                        $childrenData[] = $data;
                     }
-                }
-    
-                $productData['childrenData'] = $childrenData;
-                $ymlData = $this->configProviderService->getBrickMappingConfig();
-                
-                if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
-                {
-                    $displayTablesFlag = true;
+                    $productData['childrenData'] = $childrenData;
+                    $ymlData = $this->configProviderService->getBrickMappingConfig();
+                    
+                    if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
+                    {
+                        $displayTablesFlag = true;
+                    }
                 }
             }
     
@@ -1589,34 +1601,39 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());
                 
-                $childrenData = [];
-    
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                if($childObject)
+                if($hierarchyObj)
                 {
-                    foreach ($childObject as $childValue)
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyName = $hierarchyObj->getKey();
+        
+                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                    if($productObject)
                     {
-                        $data['Name'] = $childValue->getName();
-                        $data['LongText'] = $childValue->getLongtext();
-                        $data['ProductImage'] = $childValue->getProductImage();
-    
-                        $childrenData[] = $data;
-                        unset($data);
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());
+                        
+                        $childrenData = [];
+            
+                        $childObject = $this->getAllRegionChildern($productObject, $regionId);
+                    
+                        foreach ($childObject as $childValue)
+                        {
+                            $data['Name'] = $childValue->getName();
+                            $data['LongText'] = $childValue->getLongtext();
+                            $data['ProductImage'] = $childValue->getProductImage();
+        
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
                     }
+
                 }
     
                 $productNameArr['childrenData'] = $childrenData;
@@ -1656,30 +1673,35 @@ class DefaultController extends FrontendController
             {
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
+                
                 $productObject = DataObject\CSProducts::getById($singleProduct);
-                $productData['Name'] = $productObject->getName();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                $productData['ApplicationImage'] = $productObject->getApplicationImage();
-    
-                $objParent = $productObject->getParent();
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $childrenData = [];
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                foreach ($childObject as $childValue) {
-                    $data['Name'] = $childValue->getName();
-                    $data['ShortText'] = $childValue->getShortText();
-    
-                    $childrenData[] = $data;
-                    unset($data);
+                
+                if($productObject)
+                {
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
+        
+                    $objParent = $productObject->getParent();
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+        
+                    $childrenData = [];
+                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
+        
+                    foreach ($childObject as $childValue) {
+                        $data['Name'] = $childValue->getName();
+                        $data['ShortText'] = $childValue->getShortText();
+        
+                        $childrenData[] = $data;
+                        unset($data);
+                    }
+        
+                    $productData['childrenData'] = $childrenData;
+        
+                    $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
                 }
-    
-                $productData['childrenData'] = $childrenData;
-    
-                $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
             }
     
             $this->view['data'] = $productData;
@@ -1716,33 +1738,39 @@ class DefaultController extends FrontendController
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
                 
-                $objParent = $productObject->getParent();
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $productData['Name'] = $productObject->getName();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                $productData['ReportImage'] = $productObject->getReportImage();
-                
-                $productData['ApplicationImage'] = $productObject->getApplicationImage();
-                $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
-    
-                $childrenData = [];
-                $childObject = $this->getAllRegionChildern($productObject, $regionId);
-    
-                if($childObject)
+                if(method_exists($productObject,'getParent'))
                 {
-                    foreach ($childObject as $childValue) {
-                        $data['Name'] = $childValue->getName();
-                        $data['ShortText'] = $childValue->getShortText();
-    
-                        $childrenData[] = $data;
-                        unset($data);
-                    }
+                    $objParent = $productObject->getParent();
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
                 }
-    
-                $productData['childrenData'] = $childrenData;
+                
+                if($productObject)
+                {
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    $productData['ReportImage'] = $productObject->getReportImage();
+                    
+                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+        
+                    $childrenData = [];
+                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
+        
+                    if($childObject)
+                    {
+                        foreach ($childObject as $childValue) {
+                            $data['Name'] = $childValue->getName();
+                            $data['ShortText'] = $childValue->getShortText();
+        
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
+                    }
+        
+                    $productData['childrenData'] = $childrenData;
+                }
             }
     
             $this->view['data'] = $productData;
@@ -1772,19 +1800,23 @@ class DefaultController extends FrontendController
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
+
+                if($productObject)
+                {
+                    $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+        
+                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+        
+                    $productData['Name'] = $productObject->getName();
+                    $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ProductImage'] = $productObject->getProductImage();
+                    
+                    $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
+        
+                    $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
+                }
     
-                $objParent = DataObject\CSProducts::getById($productObject->getParentId());
-    
-                $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-    
-                $productData['Name'] = $productObject->getName();
-                $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productData['ShortText'] = $productObject->getShortText();
-                $productData['ProductImage'] = $productObject->getProductImage();
-                
-                $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
-    
-                $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
                 $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
             }
             
@@ -1820,25 +1852,37 @@ class DefaultController extends FrontendController
             if($catalogTableObject)
             {
                 $selectedProduct    = $catalogTableObject->getProducts();
-                $singleProduct      = $selectedProduct[0];
+                $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
     
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
-                $childProductData['Name'] = $singleProductObj->getName();
-                $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
-                $childProductData['ShortText'] = $singleProductObj->getShortText();
-                $childProductData['ProductImage'] = $singleProductObj->getProductImage();
-                $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
+
+                if($singleProductObj)
+                {
+                    $childProductData['Name'] = $singleProductObj->getName();
+                    $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
+                    $childProductData['ShortText'] = $singleProductObj->getShortText();
+                    $childProductData['ProductImage'] = $singleProductObj->getProductImage();
+                    $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
+                }
     
                 $FeaturesAndBenefits = [];
                 if($singleProductObj->getCSProductFeaturesAndBenefits())
                 {
                     foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
-                        $FeaturesAndBenefits[] = $value->getFeatureName();
+                        if(trim($value->getFeatureName()))
+                        {
+                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                        }
                     }
                 }
                 $childProductData['Benefits'] = $FeaturesAndBenefits;
-    
-                $productObject = $singleProductObj->getParent();
+                
+                $productObject = [];
+
+                if(method_exists($singleProductObj,'getParent'))
+                {
+                    $productObject = $singleProductObj->getParent();
+                }
     
                 if($productObject)
                 {
@@ -1880,6 +1924,8 @@ class DefaultController extends FrontendController
      */
     private function prepareContiPipeAndMegaPipeAttributes($productObject, $regionId)
     {   
+        $availableBeltWidthMaster = $this->getAvailableBeltWidthMasterList();
+
         try
         {
             $childObject = $this->getAllRegionChildern($productObject, $regionId);
@@ -1914,7 +1960,44 @@ class DefaultController extends FrontendController
                                 $data[] = ($obj_attr->$getBrick()->$getField()) ? '•' : '';
                             }
                             else{
-                                $data[] = $obj_attr->$getBrick()->$getField();
+                                $valuesData = $obj_attr->$getBrick()->$getField();
+
+                                if($valuesData && is_array($valuesData))
+                                {
+                                    if($fieldName == 'BeltWidth')
+                                    {
+                                        $BeltWidthInch = [];
+                                        $BeltWidthInchStr = '';
+                                        foreach($valuesData as $dData)
+                                        {
+                                            $BeltWidthInch[] = $availableBeltWidthMaster[$dData]['AvailableBeltWidthInch'];
+                                        }
+
+                                        if($BeltWidthInch)
+                                        {
+                                            $BeltWidthInchStr = implode(', ', $BeltWidthInch);
+                                        }
+                                        $data[] = $BeltWidthInchStr;
+                                    }
+                                    else{
+                                        $BeltWidthMM = [];
+                                        $BeltWidthMMStr = '';
+                                        foreach($valuesData as $dData)
+                                        {
+                                            $BeltWidthMM[] = $availableBeltWidthMaster[$dData]['AvailableBeltWidthMM'];
+                                        }
+
+                                        if($BeltWidthMM)
+                                        {
+                                            $BeltWidthMMStr = implode(', ', $BeltWidthMM);
+                                        }
+                                        $data[] = $BeltWidthMMStr;
+                                    }
+                                    
+                                }
+                                else{
+                                    $data[] = $valuesData;
+                                }
                             }
                         }
                     }
@@ -1966,22 +2049,25 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyKeyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyKeyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+                
+                if($hierarchyObj)
+                {
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyKeyName = $hierarchyObj->getKey();
         
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['ProductImage'] = $productObject->getProductImage();
-                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());;           
+                    $hierarchyFullName = $hierarchyPath.$hierarchyKeyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+            
+                    $productNameArr['Name'] = trim($productObject->getName());
+                    $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productNameArr['ShortText'] = $productObject->getShortText();
+                    $productNameArr['ProductImage'] = $productObject->getProductImage();
+                    $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
+                    $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());           
+                }
             }
             $this->view['data'] = $productNameArr;
             $this->view['footer_logo_src'] = $footer_logo_src;
@@ -2009,21 +2095,27 @@ class DefaultController extends FrontendController
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-    
-                $hierarchyPath = $hierarchyObj->getPath();
-                $hierarchyName = $hierarchyObj->getKey();
-    
-                $hierarchyFullName = $hierarchyPath.$hierarchyName;
-                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-    
-                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                if($hierarchyObj)
+                {
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyName = $hierarchyObj->getKey();
         
-                $productNameArr['Name'] = trim($productObject->getName());
-                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                $productNameArr['ShortText'] = $productObject->getShortText();
-                $productNameArr['ProductImage'] = $productObject->getProductImage();
-                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());  
+                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+        
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                    if($productObject)
+                    {
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['ProductImage'] = $productObject->getProductImage();
+                        $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                        $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());  
+                    }
+                }
             }
             $this->view['data'] = $productNameArr;
             $this->view['footer_logo_src'] = $footer_logo_src;
@@ -2062,7 +2154,13 @@ class DefaultController extends FrontendController
                 {
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
-                    $parentProductObject = $productObject->getParent();
+
+                    $parentProductObject = [];
+
+                    if(method_exists($productObject,'getParent'))
+                    {
+                        $parentProductObject = $productObject->getParent();
+                    }
                 
                     $productNameArr['Name'] = trim($productObject->getName());
                     $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -2076,14 +2174,22 @@ class DefaultController extends FrontendController
                     {
                         foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
                         {
-                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                            if($value->getFeatureName())
+                            {
+                                $FeaturesAndBenefits[] = $value->getFeatureName();
+                            }
+                            
                         }
                     }
     
                     $productNameArr['Features'] = $FeaturesAndBenefits;
                     
                     $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                    $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
+
+                    if($parentProductObject)
+                    {
+                        $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
+                    }
                 }
             }
             $this->view['data'] = $productNameArr;

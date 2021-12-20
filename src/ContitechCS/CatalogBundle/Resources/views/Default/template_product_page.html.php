@@ -21,6 +21,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <div class="header-sec">
             <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
                 <span class="second-title">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">
+                            Parent Attribute Name = Name
+                        </div>
+                    <?php endif;?>
                     <?php
                         if($this->input("PP_title")->isEmpty())
                             {
@@ -45,7 +50,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <main id="content" role="main">
         <?php if($this->editmode): ?>
             <section class="fortressxp-belts">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h1 class="orange">
+
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
                                 <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['ProductName']) ?>
                         <?php else: ?>
@@ -53,6 +62,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php endif; ?>
 
                         <span class="sub-title">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">
+                                    <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+                                </div>
+                            <?php endif;?>
                             <?php if($this->input("PP_TitleTagSlogan")->isEmpty()): ?>
                                     <?= $this->input("PP_TitleTagSlogan",['placeholder' => 'Enter Title Tag Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                             <?php else: ?>
@@ -62,6 +76,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </h1>
                 <div class="media pt-0">
                     <div class="media-body">
+                        <?php if($this->editmode):?>
+                            <div class="attr-font">Attribute Name = Short Text</div>
+                        <?php endif;?>
                         <p>
                             <?php if($this->input("PP_ShortText")->isEmpty()): ?>
                                     <?= $this->input("PP_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
@@ -72,6 +89,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
 
                     <div class="seal-image">
+                        <?php if($this->editmode):?>
+                            <div class="attr-font">Attribute Name = Logo Image</div>
+                        <?php endif;?>
                         <?php
                         if($this->image("PP_Product_Image")->isEmpty())
                         {
@@ -85,6 +105,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
 
                 <div class="p-medium">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = Long Text</div>
+                    <?php endif;?>
                     <p>
                     <?php if($this->input("PP_LongText")->isEmpty()): ?>
                             <?= $this->input("PP_LongText",["placeholder" => "Enter Long Text"])->setDataFromResource($data['LongText']) ?>
@@ -96,6 +119,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 <?php if($data['FeaturesAndBenefitsWithoutImages']){ ?>
                     <div class="feature-benefit-list">
+                        <?php if($this->editmode):?>
+                            <div class="attr-font">Attribute Name = Name</div>
+                        <?php endif;?>
                         <h3>
                             <span class="orange">
                             <strong>
@@ -222,6 +248,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
 
                 <div class="featuring-sec">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = Name</div>
+                    <?php endif;?>
                     <h2><span class="orange">
                             <?php if($this->input("PPSS_ProductName")->isEmpty()): ?>
                                     <?= $this->input("PPSS_ProductName",['placeholder'=>'Enter Product Name'])->setDataFromResource($data['ProductName']) ?>
@@ -549,87 +578,106 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </section>
         <?php endif; ?>
         
-        <?php if($data['FeaturesAndBenefits']){ ?>
-        <section class="features-benefit-sec">
-            <h1 class="heading-info">
-                <span class="orange">
-
-                    <?php if($this->editmode): ?>
-                            <?php if($this->input("PP_FeatureText")->isEmpty()): ?>
-                                    <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text'])->setDataFromResource($data['ProductName']) ?>
-                            <?php else: ?>
-                                    <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text']); ?>
-                            <?php endif; ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text']) ?>
-                    <?php endif; ?>
-                    
-                </span>
-                <span class="light-black">
-                        <?= $this->input("PP_FeaturesBeneFit", ['placeholder'=>'Features and Benefits']) ?>
-                </span>            
-            </h1>
-
-            <?php if($data['FeaturesAndBenefits']) { 
-                foreach ($data['FeaturesAndBenefits'] as $fkey => $feature) {
-                    $md5FeatureNameKey = md5($feature['FeatureName']);
-                ?>
-                    <div class="media">
-                        <?php
-                            if($this->editmode)
-                            {
-                                if($this->image("PPFI_{$md5FeatureNameKey}")->isEmpty())
-                                {
-                                    echo $this->image("PPFI_{$md5FeatureNameKey}")->setImage($feature['FeatureImage']);
-                                }
-                                else{
-                                    echo $this->image("PPFI_{$md5FeatureNameKey}");
-                                }
-                            }
-                            else
-                            {
-                                $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                if($PPFIImgSrcObj)
-                                {
-                                ?>
-                                <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
-                                <?php
-                                }
-                            }
-                        ?>
+        <?php
+        if($data['FeaturesAndBenefits'])
+        { 
+            ?>
+            <section class="features-benefit-sec">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
+                <h1 class="heading-info">
+                    <span class="orange">
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("PP_FeatureText")->isEmpty()): ?> 
+                                        <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text'])->setDataFromResource($data['ProductName']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text']); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_FeatureText",['placeholder'=>'Enter Feature Text']) ?>
+                        <?php endif; ?>
                         
-                        <div class="media-body">
-                            <h2 class="orange">
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->input("PPFN_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                <?= $this->input("PPFN_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("PPFN_{$md5FeatureNameKey}"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPFN_{$md5FeatureNameKey}") ?>
-                                <?php endif; ?>
-                            </h2>
-                            <p>
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->input("PPFD_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name'])->setDataFromResource($feature['FeatureDescription']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name']); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name']) ?>
-                                <?php endif; ?>
-                            </p>
+                    </span>
+                    <span class="light-black">
+                            <?= $this->input("PP_FeaturesBeneFit", ['placeholder'=>'Features and Benefits']) ?>
+                    </span>            
+                </h1>
+
+                <?php if($data['FeaturesAndBenefits']) { 
+                    foreach ($data['FeaturesAndBenefits'] as $fkey => $feature) {
+                        $md5FeatureNameKey = md5($feature['FeatureName']);
+                    ?>  
+                        <div class="media">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Attribute Name = Feature Image</div>
+                            <?php endif;?>
+                            <?php
+                                if($this->editmode)
+                                {
+                                    if($this->image("PPFI_{$md5FeatureNameKey}")->isEmpty())
+                                    {
+                                        echo $this->image("PPFI_{$md5FeatureNameKey}")->setImage($feature['FeatureImage']);
+                                    }
+                                    else{
+                                        echo $this->image("PPFI_{$md5FeatureNameKey}");
+                                    }
+                                }
+                                else
+                                {
+                                    $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
+                                    if($PPFIImgSrcObj)
+                                    {
+                                    ?>
+                                    <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                            
+                            <div class="media-body">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Attribute Name = Features And Benefits Name</div>
+                            <?php endif;?>
+                                <h2 class="orange">
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->input("PPFN_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                    <?= $this->input("PPFN_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("PPFN_{$md5FeatureNameKey}"); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("PPFN_{$md5FeatureNameKey}") ?>
+                                    <?php endif; ?>
+                                </h2>
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font">Attribute Name = Feature Description </div>
+                                <?php endif;?>
+                                <p>
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->input("PPFD_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                    <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name'])->setDataFromResource($feature['FeatureDescription']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name']); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("PPFD_{$md5FeatureNameKey}",['placeholder'=>'Enter Name']) ?>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-            <?php 
-                }
-            } ?>
-        </section>
-        <?php } ?>
+                <?php 
+                    }
+                } ?>
+            </section>
+            <?php
+        }
+        ?>
         <?php if($data['productTables']): ?>
         <section class="belts-information">
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = Name </div>
+            <?php endif;?>
             <h1 class="heading-info">
             <span class="orange">
             <?php if($this->editmode): ?>
@@ -655,6 +703,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 foreach ($conveyorBeltDataArray as $chunkKey => $conveyorBeltData) {
                 ?>
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("PP_Conveyor_Belt_Data_{$chunkKey}")->isEmpty()): ?>
@@ -775,6 +826,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 
                 foreach ($LoadSupportMaximumBeltWidthDataArr as $chunkKey => $LoadSupportMaximumBeltWidthData) {
                     ?>
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("PP_Load_Support_Maximum_Belt_{$chunkKey}")->isEmpty()): ?>
@@ -899,7 +953,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 $TroughabilityMinimumBeltWidthArray = $data['productTables']['Troughability Minimum Belt Width'];
                                 
                 foreach ($TroughabilityMinimumBeltWidthArray as $chunkKey => $TroughabilityMinimumBeltWidth) {
-                ?>
+                ?>  
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = Name</div>
+                    <?php endif;?>
                     <h3>
                         <strong>
                         <?php if($this->editmode): ?>
@@ -1035,6 +1092,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($MinimumPulleyDiametersArray as $chunkKey => $MinimumPulleyDiameters) {
                 ?>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                 <strong>
                 <?php if($this->editmode): ?>
@@ -1141,7 +1201,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($ElevatorBeltDataArray as $chunkKey => $ElevatorBeltData) {
                 
                 ?>
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                 <strong>
                 <?php if($this->editmode): ?>
@@ -1246,6 +1308,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($MaximumBucketProjectionArray as $chunkKey => $MaximumBucketProjection) {
                 
                 ?>
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                 <strong>
                 <?php if($this->editmode): ?>
@@ -1351,7 +1416,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($StandardSpecificationsArray as $chunkKey => $StandardSpecifications) {
                 
                 ?>
-
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h3>
                 <strong>
                 <?php if($this->editmode): ?>

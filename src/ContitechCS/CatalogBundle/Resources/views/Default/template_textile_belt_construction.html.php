@@ -41,43 +41,58 @@
         </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = Name</div>
+                <?php endif;?>
                 <h1 class="orange">
                     <?php if($this->editmode): ?>
-                    <?php if($this->input("CS_ProductName")->isEmpty()): ?>
-                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
-                    <?php else: ?>
-                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
-                    <?php endif; ?>
-                    <?php else: ?>
-                    <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
+                        <?php if($this->input("CS_ProductName")->isEmpty()): ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                     <?php endif; ?></h1>
-
+                
+               <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                <?php endif;?>
                 <p class="p-medium"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
+                        <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                     <?php else: ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
+                        <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                     <?php endif; ?>
                     <?php else: ?>
-                    <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
+                        <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
                     <?php endif; ?> </p>
 
                 <div class="colum-2 p-0 mb-5">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ShortText</div>
+                <?php endif;?>
                     <p>
                         <?php if($this->editmode): ?>
-                        <?php if($this->wysiwyg("TBS_ShortText")->isEmpty()): ?>
-                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
-                        <?php else: ?>
-                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']); ?>
-                        <?php endif; ?>
-                        <?php else: ?>
-                        <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']) ?>
+                            <?php if($this->wysiwyg("TBS_ShortText")->isEmpty()): ?>
+                                <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
+                            <?php else: ?>
+                                <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']); ?>
+                            <?php endif; ?>
+                            <?php else: ?>
+                                <?= $this->wysiwyg("TBS_ShortText",['placeholder' => 'Enter Short Text']) ?>
                         <?php endif; ?>
                     </p>
                 </div>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h2 class="orange mb-4"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h2>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductImage</div>
+                <?php endif;?>
                 <?php
                         if($this->editmode)
                             {
@@ -91,19 +106,25 @@
                                 }
                                 else
                                 {
-                                    $CSSImgSrcObj =  $this->image("TBS_ProductImage");
-                                    if($CSSImgSrcObj)
+                                    $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
+                                    if(method_exists($TBSProdImgSrcObj,'getThumbnail') && $TBSProdImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
+                <img src="<?= $TBSProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
                 <?php
                                     }
                                 }
                             ?>
-
+                
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Your  Heading</div>
+                <?php endif;?>
                 <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
                 </h2>
 
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ApplicationImage</div>
+                <?php endif;?>
                 <?php
                         if($this->editmode)
                             {
@@ -117,11 +138,11 @@
                                 }
                                 else
                                 {
-                                    $CSSImgSrcObj =  $this->image("TBS_ApplicationImage");
-                                    if($CSSImgSrcObj)
+                                    $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
+                                    if(method_exists($TBSAppImgSrcObj,'getThumbnail') && $TBSAppImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
+                <img src="<?= $TBSAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
                 <?php
                                     }
                                 }

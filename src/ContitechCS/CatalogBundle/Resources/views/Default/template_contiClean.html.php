@@ -32,6 +32,9 @@
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = Name</div>
+            <?php endif;?>
             <h1 class="orange">
                 <?php if($this->editmode): ?>
                     <?php if($this->input("CS_ProductName")->isEmpty()): ?>
@@ -43,7 +46,10 @@
                     <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
             <?php endif; ?>
 
- <span class="sub-title">
+                <span class="sub-title">
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
                                 <?= $this->input("ContiC_TitleTagSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -59,7 +65,9 @@
             </h1>
 
            
-
+            <?php if($this->editmode):?>
+                <div class="attr-font">Attribute Name = ShortText</div>
+            <?php endif;?>
            <div class="p-medium pt-0">
                     <?php if($this->editmode): ?>
                             <?php if($this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
@@ -74,8 +82,11 @@
                         <?php endif; ?>
                     <?php endif; ?>
             </div>
-    
+            
             <div class="full-image-sec">
+            <?php if($this->editmode):?>
+                <div class="attr-font"> Attribute Name = ProductImage</div>
+            <?php endif;?>
                 <?php
                     if($this->editmode)
                         {
@@ -89,11 +100,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_ProductImage");
-                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
+                                    $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
+                                        if(method_exists($CCProdImgSrcObj,'getThumbnail') && $CCProdImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
+                    <img src="<?= $CCProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
                     <?php
                                         }
                                     }
@@ -101,6 +112,9 @@
             </div>
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = Benefits</div>
+                <?php endif;?>
                     <div class="row">
                         
                         <?php
@@ -133,6 +147,9 @@
                                 if($data['material'])
                                 {
                                     ?>
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font"> Product Specific Data = Materials</div>
+                                    <?php endif;?>
                                         <h3 class="orange">
                                     <?= $this->input("Materials_Label", ['placeholder'=>'Materials']) ?>
                                         </h3>
@@ -157,6 +174,9 @@
                                 "Enter Your  TableHead"
                             ]);?> </h3>
                         <ul>
+                        <?php if($this->editmode):?>
+                            <div class="attr-font"> Enter Your Points</div>
+                        <?php endif;?>
                             <?php
                                 while($this->block("CCSM_Header_Points3")->loop()) { ?>
                             <li><span class="orange">›</span> <i><?= $this->input("ASTM_Label", ['placeholder'=>'ASTM D 1894-06 Coefficient of Friction']) ?> </i></li>
@@ -164,6 +184,9 @@
                                 } ?>
                         </ul>
                     </div>
+                    <?php if($this->editmode):?>
+                        <div class="attr-font"> Attribute Name = reportImage</div>
+                    <?php endif;?>
                    <?php
                     if($this->editmode)
                         {
@@ -177,11 +200,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_reportImage");
-                                        if($CSSImgSrcObj->getThumbnail('catalog_thumb'))
+                                    $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
+                                        if(method_exists($CCReportImgSrcObj,'getThumbnail') && $CCReportImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />
+                    <img src="<?= $CCReportImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />
                     <?php
                                         }
                                     }
@@ -191,6 +214,9 @@
 
 
             <div class="pg-6">
+                <?php if($this->editmode):?>
+                    <div class="attr-font"> Attribute Name = ApplicationImage</div>
+                <?php endif;?>
                 <?php
                     if($this->editmode)
                         {
@@ -204,11 +230,11 @@
                                 }
                                 else
                                     {
-                                    $CSSImgSrcObj =  $this->image("ContiClean_ApplicationImage");
-                                        if($CSSImgSrcObj)
+                                    $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
+                                        if(method_exists($CCAppImgSrcObj,'getThumbnail') && $CCAppImgSrcObj->getThumbnail('catalog_thumb'))
                                         {
                                         ?>
-                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                    <img src="<?= $CCAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
                     <?php
                                         }
                                     }

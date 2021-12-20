@@ -266,28 +266,21 @@ Size:
     fieldName: Size
     fieldType: Input
     objectType: WidthLength
+Available Profile Pattern Widths:
+    fieldName: availablePatternWidthInch
+    blockName: PatternWidthBlock
+    fieldType: Block
+    objectType: ProdDimensions
 Available Belt Widths in in:
     fieldName: availableBeltWidthInch
-    blockName: AvailableBeltPatternWidthBlock
+    blockName: BeltWidthBlock
     fieldType: Block
-    objectType: Brick
-    className: ProdDimensions
-    createFlag: false
-Available Pattern Width in inch:
-    fieldName: availablePatternWidthInch
-    blockName: AvailableBeltPatternWidthBlock
+    objectType: ProdDimensions
+Available Belt Widths in mm:
+    fieldName: AvailableBeltWidthMM
+    blockName: BeltWidthBlock
     fieldType: Block
-    objectType: Brick
-    className: ProdDimensions
-    createFlag: false
-# Available Belt Widths in in:
-#     fieldName: AvailableBeltWidthInch
-#     fieldType: Number
-#     objectType: WidthLength
-# Available Belt Widths in mm:
-#     fieldName: AvailableBeltWidthMM
-#     fieldType: Number
-#     objectType: WidthLength
+    objectType: ProdDimensions
 Cleat Width (Top/Bottom):
     fieldName: CleatWidthTopBottom
     fieldType: Number
@@ -492,11 +485,11 @@ Typical Elongation (%):
     fieldName: TypicalElongationPercent
     fieldType: Number
     objectType: Performance1
-Min. Tensile (MPa):
+Min. Tensile (Mpa):
     fieldName: MinTensileMPa
     fieldType: Number
     objectType: Performance1
-Typical Tensile (MPa):
+Typical Tensile (Mpa):
     fieldName: TypicalTensileMPa
     fieldType: Number
     objectType: Performance1
@@ -584,9 +577,13 @@ Volume Flow:
     fieldName: VolumeFlow
     fieldType: Number
     objectType: ProdDimensions
-Belt Width:
+Belt Width in in.:
     fieldName: BeltWidth
-    fieldType: Input
+    fieldType: Multiselection
+    objectType: ProdDimensions
+Belt width in mm:
+    fieldName: BeltWidthmm
+    fieldType: Multiselection
     objectType: ProdDimensions
 Minimum Belt width:
     fieldName: MinimumBeltMMWidth
@@ -612,20 +609,12 @@ Diameter Inch:
     fieldName: DiameterInch
     fieldType: Number
     objectType: ProdDimensions
-Belt Width mm:
-    fieldName: BeltWidthmm
-    fieldType: Input
-    objectType: ProdDimensions
 Weight:
     fieldName: WeightKG
     fieldType: Number
     objectType: ProdDimensions
 Weight (Lb):
     fieldName: WeightLb
-    fieldType: Number
-    objectType: ProdDimensions
-Available Profile Pattern Widths:
-    fieldName: AvailableProfilePatternWidths
     fieldType: Number
     objectType: ProdDimensions
 Belt Speed:
