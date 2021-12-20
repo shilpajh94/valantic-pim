@@ -21,6 +21,7 @@ class Constants {
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Segment', 'class' => 'CSSegment', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data', 'class' => '', 'parentType' => 'both', 'allowFolder' => false],
         ['path' =>'/Contitech_ConveyorSolution/Products', 'class' => 'CSProducts', 'parentType' => 'folder', 'allowFolder' => false],
-        ['path' =>'/Contitech_ConveyorSolution/Catalog Objects', 'class' => 'CSCatalogObjects', 'parentType' => 'both', 'allowFolder' => true]
+        ['path' =>'/Contitech_ConveyorSolution/Catalog Objects', 'class' => 'CSCatalogCategory', 'parentType' => 'folder', 'allowFolder' => true],
+        ['path' =>'/Contitech_ConveyorSolution/Catalog Objects', 'class' => 'CSCatalogTables', 'parentType' => 'object', 'allowFolder' => true]
     ];
 }

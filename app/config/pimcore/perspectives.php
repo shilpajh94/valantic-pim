@@ -213,14 +213,14 @@ return [
                 'sort' => 5,
                 'id' => 'cs_dataobject_products_data',
             ],
-//            [
-//                'type' => 'customview',
-//                'position' => 'left',
-//                'expanded' => false,
-//                'hidden' => false,
-//                'sort' => 6,
-//                'id' => 'cs_dataobject_catalogs_data',
-//            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 6,
+                'id' => 'cs_dataobject_catalogs_data',
+            ],
             [
                 'type' => 'customview',
                 'position' => 'left',
