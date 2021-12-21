@@ -60,7 +60,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/get-product", methods={"GET"}, requirements={
+     * @Route("/api/get-product-groups", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
@@ -129,7 +129,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/get-region", methods={"GET"}, requirements={
+     * @Route("/api/get-regions", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
