@@ -48,7 +48,7 @@
 
                 <span class="sub-title">
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = ProductClaimSlogan</div>
+                    <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
@@ -66,7 +66,7 @@
 
            
             <?php if($this->editmode):?>
-                <div class="attr-font">Attribute Name = ShortText</div>
+                <div class="attr-font">Attribute Name = Short Text</div>
             <?php endif;?>
            <div class="p-medium pt-0">
                     <?php if($this->editmode): ?>
@@ -85,7 +85,7 @@
             
             <div class="full-image-sec">
             <?php if($this->editmode):?>
-                <div class="attr-font"> Attribute Name = ProductImage</div>
+                <div class="attr-font"> Attribute Name = Product Image</div>
             <?php endif;?>
                 <?php
                     if($this->editmode)
@@ -185,7 +185,7 @@
                         </ul>
                     </div>
                     <?php if($this->editmode):?>
-                        <div class="attr-font"> Attribute Name = reportImage</div>
+                        <div class="attr-font"> Attribute Name = Report Image</div>
                     <?php endif;?>
                    <?php
                     if($this->editmode)
@@ -215,7 +215,7 @@
 
             <div class="pg-6">
                 <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = ApplicationImage</div>
+                    <div class="attr-font"> Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
                     if($this->editmode)
