@@ -53,7 +53,7 @@ pimcore:
                           condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
                           
                 in_publish:
-                    label: Send to PO for Review
+                    label: Sent to PO for Review
                     color: #377ea9
                     permissions:
                         -
@@ -130,7 +130,7 @@ pimcore:
                         
                 send_to_marcom:
                     from:
-                        - published
+                        #- published
                         - in_rd_edit
                     to: in_marcom_edit
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS") or has_role("ROLE_EDITORCS")) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
