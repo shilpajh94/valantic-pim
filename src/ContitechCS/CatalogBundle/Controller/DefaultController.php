@@ -318,15 +318,18 @@ class DefaultController extends FrontendController
                     $productNameTitle   =   implode(' and ', $productNameArr);
                     $productName        =   trim($productObj->getName());
                     $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $productObj->getParent();
+                    $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
     
                     /* $hierarchyId = $categoryObj->getSecondLevelCategory();
                     if($hierarchyId)
                     {
                         $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
                     } */
-    
-                    $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                    } else {
+                        $productData['HierarchyNameLevel2'] = null;
+                    }
                     $productData['ProductName'] = $productNameTitle;
                     $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
                     $productData['ShortText'] = $productObj->getShortText();
@@ -2377,6 +2380,19 @@ class DefaultController extends FrontendController
         catch(Exception $e)
         {  
             return $this->json(array("success" => false,"msg" => $e->getMessage()));
+        }
+    }
+    
+    
+    public function getProductParentObject($product) {
+        $parent = $product->getParent();
+        while ($parent->getType()=='folder' && $parent->getFullPath() != "/Contitech_ConveyorSolution/Products") {
+            $parent = $parent->getParent();
+        }
+        if ($parent->getType() != 'folder' && $parent instanceof DataObject\CSProducts) {
+            return $parent;
+        } else {
+            return null;
         }
     }
 }

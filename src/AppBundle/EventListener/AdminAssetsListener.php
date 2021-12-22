@@ -50,7 +50,7 @@ class AdminAssetsListener implements EventSubscriberInterface
         $list = $event->getArgument('list');
         $context = $event->getArgument('context');
         if (!empty($context['context'])) {
-            $contextJson = json_decode($context['context']);
+            $contextJson = (array)json_decode($context['context']);
             if (!empty($contextJson) && !empty($contextJson['scope']) && $contextJson['scope'] == 'objectEditor') {
                 $user = \Pimcore\Tool\Admin::getCurrentUser();
                 if (!$user->isAdmin()) {
