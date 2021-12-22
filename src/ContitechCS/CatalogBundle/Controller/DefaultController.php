@@ -1700,11 +1700,14 @@ class DefaultController extends FrontendController
                     $childObject = $this->getAllRegionChildern($productObject, $regionId);
         
                     foreach ($childObject as $childValue) {
-                        $data['Name'] = $childValue->getName();
-                        $data['ShortText'] = $childValue->getShortText();
-        
-                        $childrenData[] = $data;
-                        unset($data);
+                        if(trim($childValue->getName()))
+                        {
+                            $data['Name'] = $childValue->getName();
+                            $data['ShortText'] = $childValue->getShortText();
+            
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
                     }
         
                     $productData['childrenData'] = $childrenData;
@@ -1778,11 +1781,14 @@ class DefaultController extends FrontendController
                     if($childObject)
                     {
                         foreach ($childObject as $childValue) {
-                            $data['Name'] = $childValue->getName();
-                            $data['ShortText'] = $childValue->getShortText();
-        
-                            $childrenData[] = $data;
-                            unset($data);
+                            if(trim($childValue->getName()))
+                            {
+                                $data['Name'] = $childValue->getName();
+                                $data['ShortText'] = $childValue->getShortText();
+            
+                                $childrenData[] = $data;
+                                unset($data);
+                            }
                         }
                     }
         
