@@ -1686,19 +1686,28 @@ class DefaultController extends FrontendController
                     $productData['ProductImage'] = $productObject->getProductImage();
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
         
-                    $objParent = $productObject->getParent();
+                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+    
+                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                    } else {
+                        $productData['HierarchyNameLevel2'] = null;
+                    }
         
-                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+                    // $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
         
                     $childrenData = [];
                     $childObject = $this->getAllRegionChildern($productObject, $regionId);
         
                     foreach ($childObject as $childValue) {
-                        $data['Name'] = $childValue->getName();
-                        $data['ShortText'] = $childValue->getShortText();
-        
-                        $childrenData[] = $data;
-                        unset($data);
+                        if(trim($childValue->getName()))
+                        {
+                            $data['Name'] = $childValue->getName();
+                            $data['ShortText'] = $childValue->getShortText();
+            
+                            $childrenData[] = $data;
+                            unset($data);
+                        }
                     }
         
                     $productData['childrenData'] = $childrenData;
@@ -1740,13 +1749,21 @@ class DefaultController extends FrontendController
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
-                
-                if(method_exists($productObject,'getParent'))
-                {
-                    $objParent = $productObject->getParent();
-        
-                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+
+                $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+    
+                if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                    $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                } else {
+                    $productData['HierarchyNameLevel2'] = null;
                 }
+                
+                // if(method_exists($productObject,'getParent'))
+                // {
+                //     $objParent = $productObject->getParent();
+        
+                //     $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+                // }
                 
                 if($productObject)
                 {
@@ -1764,11 +1781,14 @@ class DefaultController extends FrontendController
                     if($childObject)
                     {
                         foreach ($childObject as $childValue) {
-                            $data['Name'] = $childValue->getName();
-                            $data['ShortText'] = $childValue->getShortText();
-        
-                            $childrenData[] = $data;
-                            unset($data);
+                            if(trim($childValue->getName()))
+                            {
+                                $data['Name'] = $childValue->getName();
+                                $data['ShortText'] = $childValue->getShortText();
+            
+                                $childrenData[] = $data;
+                                unset($data);
+                            }
                         }
                     }
         
@@ -1880,12 +1900,14 @@ class DefaultController extends FrontendController
                 }
                 $childProductData['Benefits'] = $FeaturesAndBenefits;
                 
-                $productObject = [];
+                // $productObject = [];
 
-                if(method_exists($singleProductObj,'getParent'))
-                {
-                    $productObject = $singleProductObj->getParent();
-                }
+                // if(method_exists($singleProductObj,'getParent'))
+                // {
+                //     $productObject = $singleProductObj->getParent();
+                // }
+
+                $productObject    =   $this->getProductParentObject($singleProductObj); //$productObj->getParent();
     
                 if($productObject)
                 {
@@ -2158,11 +2180,19 @@ class DefaultController extends FrontendController
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
 
-                    $parentProductObject = [];
+                    // $parentProductObject = [];
 
-                    if(method_exists($productObject,'getParent'))
-                    {
-                        $parentProductObject = $productObject->getParent();
+                    // if(method_exists($productObject,'getParent'))
+                    // {
+                    //     $parentProductObject = $productObject->getParent();
+                    // }
+
+                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+    
+                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                        $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
+                    } else {
+                        $productNameArr['HierarchyNameLevel2'] = null;
                     }
                 
                     $productNameArr['Name'] = trim($productObject->getName());
@@ -2188,11 +2218,6 @@ class DefaultController extends FrontendController
                     $productNameArr['Features'] = $FeaturesAndBenefits;
                     
                     $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-
-                    if($parentProductObject)
-                    {
-                        $productNameArr['HierarchyNameLevel2'] = trim($parentProductObject->getName());
-                    }
                 }
             }
             $this->view['data'] = $productNameArr;
