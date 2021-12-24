@@ -626,12 +626,18 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 else
                                 {
                                     $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                    if($PPFIImgSrcObj)
+                                    ?>
+                                    <div class="media-img media-image">
+                                    <?php
+                                    if($PPFIImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
                                     <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
                                     <?php
                                     }
+                                    ?>
+                                    </div>
+                                    <?php
                                 }
                             ?>
                             

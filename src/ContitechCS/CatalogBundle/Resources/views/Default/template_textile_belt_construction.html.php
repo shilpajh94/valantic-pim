@@ -58,7 +58,7 @@
                <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                 <?php endif;?>
-                <p class="p-medium"><?php if($this->editmode): ?>
+                <p class="p-medium-big"><?php if($this->editmode): ?>
                     <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
                         <?= $this->textarea("TBS_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
                     <?php else: ?>

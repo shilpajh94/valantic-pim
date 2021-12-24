@@ -287,7 +287,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 if(isset($childProductData['productSpecificData']) && $childProductData['productSpecificData'])
                 {
                 ?>
-                    <div class="belts-information">
+                    <div class="belts-information black">
                         <h3><?= $this->input("CPBContiPipe_MegaPipe",['placeholder'=>'Enter Heading']); ?></h3>
                         <div class="table-data contipipe-table w-80">
                             <table width="100%">
