@@ -372,33 +372,36 @@ class DefaultController extends FrontendController
     
                     $FeaturesAndBenefits = [];
                     $FeaturesAndBenefitsWithoutImages = [];
+                    $ImageFoundInFeatures = false;
                     if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
                     {
                         foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
                         {
                             if(trim($value->getFeatureName()))
                             {
+                                $feature['FeatureName'] = $value->getFeatureName();
+                                $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                $feature['FeatureImage'] = $value->getFeatureImage();
+                                
                                 if($value->getFeatureImage())
                                 {
-                                    $feature['FeatureName'] = $value->getFeatureName();
-                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                    $feature['FeatureImage'] = $value->getFeatureImage();
-                                    $FeaturesAndBenefits[] = $feature;
+                                    $ImageFoundInFeatures = true;
                                 }
-                                else
-                                {
-                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
-                                }
+
+                                $FeaturesAndBenefits[] = $feature;
+
+                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
                             }
                         }
                     }
     
-                    if(!$FeaturesAndBenefits)
+                    if($ImageFoundInFeatures)
                     {
+                        $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                    }
+                    else{
                         $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
                     }
-    
-                    $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
     
                     $MoreThanOneProduct = 0;
                     $childrenData = [];
