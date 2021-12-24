@@ -1236,3 +1236,20 @@ h1 .sub-title{
 top: -10px;
 left: 0;
 }
+.environment-quality-sec .media {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  flex-wrap:nowrap;
+}
+.environment-quality-sec .media-body{ width: 60%} 
+.belts-information.black h3{color: #000 !important;}
+
+
+
+.textile-table .pimcore_tag_input{ width: auto !important;  min-width: 50px;}
+
+.media-image {
+    width: 170px;
+}
