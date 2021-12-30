@@ -4725,6 +4725,183 @@ return [
 
         ],
         "id" => "CS_WorkflowReport"
+    ],
+    "DataCompletenessEmptyAttributes" => [
+        "name" => "DataCompletenessEmptyAttributes",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nen.CompletenessPercentage \"COMPLETED (%)\",\nen.EmptyFields 'Empty Fields',\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
+                "where" => "(o1.`o_published` = 1) AND (en.`CompletenessPercentage` != '') AND (en.`EmptyFields` != '')",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Key",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 300,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-1"
+            ],
+            [
+                "name" => "Article Number",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-2"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 250,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-3"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 130,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-4"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-5"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel410-14"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-6"
+            ],
+            [
+                "name" => "SIOP Level 1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-7"
+            ],
+            [
+                "name" => "SIOP Level 2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-8"
+            ],
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-9"
+            ],
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-10"
+            ],
+            [
+                "name" => "SIOP Level 5",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-11"
+            ],
+            [
+                "name" => "SIOP Level 6",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel410-12"
+            ],
+            [
+                "name" => "o_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "Object ID",
+                "filter" => "string",
+                "columnAction" => "openObject",
+                "id" => "extModel410-13"
+            ]
+        ],
+        "niceName" => "Data Completeness - EmptyAttributes",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1640852708,
+        "creationDate" => 1606822831,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "DataCompletenessEmptyAttributes"
     ]
-    
 ];
