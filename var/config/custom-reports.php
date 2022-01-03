@@ -3876,7 +3876,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid`\nWHERE\n  (\n    (\n      o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY))\n    )\n  )\nORDER BY\n  (o1.`o_creationDate`) DESC",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_localized_CSProducts_en o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid`\nWHERE\n  (\n    (\n      o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY))\n    )\n  )\nORDER BY\n  (o1.`o_creationDate`) DESC",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -3884,52 +3884,7 @@ return [
             ]
         ],
         "columnConfiguration" => [
-            [
-                "name" => "Name",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel977-1"
-            ],
-            [
-                "name" => "Hierarchy Level",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel977-2"
-            ],
-            [
-                "name" => "Creation Date",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel977-3"
-            ],
-            [
-                "name" => "Status",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel977-4"
-            ],
-            [
-                "name" => "Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "columnAction" => "openObject",
-                "id" => "extModel977-5"
-            ]
+
         ],
         "niceName" => "CS_New Products Last One Week",
         "group" => "ContiTech CS",
@@ -3944,7 +3899,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1638356420,
+        "modificationDate" => 1641192269,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3975,7 +3930,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel988-1"
+                "id" => "extModel902-1"
             ],
             [
                 "name" => "Hierarchy Level",
@@ -3984,7 +3939,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel988-4"
+                "id" => "extModel902-2"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3993,7 +3948,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel988-5"
+                "id" => "extModel902-3"
             ],
             [
                 "name" => "Empty Fields",
@@ -4002,7 +3957,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel988-3"
+                "id" => "extModel902-4"
             ],
             [
                 "name" => "Modification Date",
@@ -4011,7 +3966,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel988-2"
+                "id" => "extModel902-5"
             ],
             [
                 "name" => "Id",
@@ -4021,7 +3976,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel988-6"
+                "id" => "extModel902-6"
             ]
         ],
         "niceName" => "CS_Data Completeness",
@@ -4037,7 +3992,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1632130013,
+        "modificationDate" => 1641192249,
         "creationDate" => 1632124921,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4053,9 +4008,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\noo_id As `Pimcore Id`,\nName,\nCorporateBrand As `Corporate Brand`,\nProductBrand As `Product Brand`,\n IF(object_CSProducts.`LogoImage` IS NOT NULL, \"True\", \"False\") AS `Logo Image`,\n IF(object_CSProducts.`fieldPhoto` IS NOT NULL, \"True\", \"False\") AS `Field Photo`,\n IF(object_CSProducts.`productImage` IS NOT NULL, \"True\", \"False\") AS `Product Image`,\n IF(object_CSProducts.`softwareImage` IS NOT NULL, \"True\", \"False\") AS `Software Image`,\n IF(object_CSProducts.`applicationImage` IS NOT NULL, \"True\", \"False\") AS `Application Image`,\n IF(object_CSProducts.`reportImage` IS NOT NULL, \"True\", \"False\") AS `Report Image`,\n IF(object_CSProducts.`functionalityImage` IS NOT NULL, \"True\", \"False\") AS `Functionality Image`,\n IF(object_CSProducts.`damageImage` IS NOT NULL, \"True\", \"False\") AS `Damage Image`,\n IF(object_CSProducts.`deviationAngleForVerticalCurves` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Vertical Curves`,\n IF(object_CSProducts.`deviatioAngleForHorizontal` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Horizontal`,\n IF(object_CSProducts.`sidewallSizes` IS NOT NULL, \"True\", \"False\") AS `Sidewall Sizes`,\n IF(object_CSProducts.`sidewallQualities` IS NOT NULL, \"True\", \"False\") AS `Sidewall Qualities`,\n IF(object_CSProducts.`anglesofInclination` IS NOT NULL, \"True\", \"False\") AS `Angles of Inclination`,\n IF(object_CSProducts.`increasingInclinationAngle` IS NOT NULL, \"True\", \"False\") AS `Increasing Inclination Angle`,\n IF(object_CSProducts.`imageCrossSectionOfProducts` IS NOT NULL, \"True\", \"False\") AS `Image Cross Section Of Products`,\n IF(object_CSProducts.`beltRollDiameters` IS NOT NULL, \"True\", \"False\") AS `Belt Roll Diameters`,\n IF(object_CSProducts.`overviewImageofSystem` IS NOT NULL, \"True\", \"False\") AS `Overview Image of System`,\n IF(object_CSProducts.`imageGallery__images` IS NOT NULL, \"True\", \"False\") AS `Image Gallery`,\n IF(object_CSProducts.`systemAnimation` IS NOT NULL, \"True\", \"False\") AS `System Animation`,\n IF(object_CSProducts.`systemVideo` IS NOT NULL, \"True\", \"False\") AS `System Video`,\n IF(object_CSProducts.`productAnimation` IS NOT NULL, \"True\", \"False\") AS `Product Animation`,\n IF(object_CSProducts.`documents` IS NOT NULL, \"True\", \"False\") AS `Documents`",
-                "from" => "FROM object_CSProducts",
-                "where" => " WHERE \n LogoImage is null OR\n fieldPhoto is null OR\n productImage is null OR\n softwareImage is null OR\n applicationImage is null OR\n reportImage is null OR\n functionalityImage is null OR\n damageImage is null OR\n deviationAngleForVerticalCurves is null OR\n deviatioAngleForHorizontal is null OR\n sidewallSizes is null OR\n sidewallQualities is null OR\n anglesofInclination is null OR\n increasingInclinationAngle is null OR\n imageCrossSectionOfProducts is null OR\n beltRollDiameters is null OR\n overviewImageofSystem is null OR\n imageGallery__images is null OR\n systemAnimation is null OR\n systemVideo is null OR\n productAnimation is null OR\n documents is null",
+                "sql" => "SELECT\noo_id As `Pimcore Id`,\nName,\nCorporateBrand As `Corporate Brand`,\nProductBrand As `Product Brand`,\n IF(object_localized_CSProducts_en.`LogoImage` IS NOT NULL, \"True\", \"False\") AS `Logo Image`,\n IF(object_localized_CSProducts_en.`fieldPhoto` IS NOT NULL, \"True\", \"False\") AS `Field Photo`,\n IF(object_localized_CSProducts_en.`productImage` IS NOT NULL, \"True\", \"False\") AS `Product Image`,\n IF(object_localized_CSProducts_en.`softwareImage` IS NOT NULL, \"True\", \"False\") AS `Software Image`,\n IF(object_localized_CSProducts_en.`applicationImage` IS NOT NULL, \"True\", \"False\") AS `Application Image`,\n IF(object_localized_CSProducts_en.`reportImage` IS NOT NULL, \"True\", \"False\") AS `Report Image`,\n IF(object_localized_CSProducts_en.`functionalityImage` IS NOT NULL, \"True\", \"False\") AS `Functionality Image`,\n IF(object_localized_CSProducts_en.`damageImage` IS NOT NULL, \"True\", \"False\") AS `Damage Image`,\n IF(object_localized_CSProducts_en.`deviationAngleForVerticalCurves` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Vertical Curves`,\n IF(object_localized_CSProducts_en.`deviatioAngleForHorizontal` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Horizontal`,\n IF(object_localized_CSProducts_en.`sidewallSizes` IS NOT NULL, \"True\", \"False\") AS `Sidewall Sizes`,\n IF(object_localized_CSProducts_en.`sidewallQualities` IS NOT NULL, \"True\", \"False\") AS `Sidewall Qualities`,\n IF(object_localized_CSProducts_en.`anglesofInclination` IS NOT NULL, \"True\", \"False\") AS `Angles of Inclination`,\n IF(object_localized_CSProducts_en.`increasingInclinationAngle` IS NOT NULL, \"True\", \"False\") AS `Increasing Inclination Angle`,\n IF(object_localized_CSProducts_en.`imageCrossSectionOfProducts` IS NOT NULL, \"True\", \"False\") AS `Image Cross Section Of Products`,\n IF(object_localized_CSProducts_en.`beltRollDiameters` IS NOT NULL, \"True\", \"False\") AS `Belt Roll Diameters`,\n IF(object_localized_CSProducts_en.`overviewImageofSystem` IS NOT NULL, \"True\", \"False\") AS `Overview Image of System`,\n IF(object_localized_CSProducts_en.`imageGallery__images` IS NOT NULL, \"True\", \"False\") AS `Image Gallery`,\n IF(object_localized_CSProducts_en.`systemAnimation` IS NOT NULL, \"True\", \"False\") AS `System Animation`,\n IF(object_localized_CSProducts_en.`systemVideo` IS NOT NULL, \"True\", \"False\") AS `System Video`,\n IF(object_localized_CSProducts_en.`productAnimation` IS NOT NULL, \"True\", \"False\") AS `Product Animation`,\n IF(object_localized_CSProducts_en.`documents` IS NOT NULL, \"True\", \"False\") AS `Documents`",
+                "from" => "FROM object_localized_CSProducts_en",
+                "where" => "WHERE \n LogoImage is null OR\n fieldPhoto is null OR\n productImage is null OR\n softwareImage is null OR\n applicationImage is null OR\n reportImage is null OR\n functionalityImage is null OR\n damageImage is null OR\n deviationAngleForVerticalCurves is null OR\n deviatioAngleForHorizontal is null OR\n sidewallSizes is null OR\n sidewallQualities is null OR\n anglesofInclination is null OR\n increasingInclinationAngle is null OR\n imageCrossSectionOfProducts is null OR\n beltRollDiameters is null OR\n overviewImageofSystem is null OR\n imageGallery__images is null OR\n systemAnimation is null OR\n systemVideo is null OR\n productAnimation is null OR\n documents is null",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -4068,7 +4023,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-1"
+                "id" => "extModel902-1"
             ],
             [
                 "name" => "Corporate Brand",
@@ -4077,7 +4032,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-3"
+                "id" => "extModel902-2"
             ],
             [
                 "name" => "Product Brand",
@@ -4086,7 +4041,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-4"
+                "id" => "extModel902-3"
             ],
             [
                 "name" => "Logo Image",
@@ -4095,7 +4050,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-5"
+                "id" => "extModel902-4"
             ],
             [
                 "name" => "Field Photo",
@@ -4104,7 +4059,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-6"
+                "id" => "extModel902-5"
             ],
             [
                 "name" => "Product Image",
@@ -4113,7 +4068,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-7"
+                "id" => "extModel902-6"
             ],
             [
                 "name" => "Software Image",
@@ -4122,7 +4077,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-8"
+                "id" => "extModel902-7"
             ],
             [
                 "name" => "Application Image",
@@ -4131,7 +4086,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-9"
+                "id" => "extModel902-8"
             ],
             [
                 "name" => "Report Image",
@@ -4140,7 +4095,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-10"
+                "id" => "extModel902-9"
             ],
             [
                 "name" => "Functionality Image",
@@ -4149,7 +4104,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-11"
+                "id" => "extModel902-10"
             ],
             [
                 "name" => "Damage Image",
@@ -4158,7 +4113,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-12"
+                "id" => "extModel902-11"
             ],
             [
                 "name" => "Deviation Angle For Vertical Curves",
@@ -4167,7 +4122,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-13"
+                "id" => "extModel902-12"
             ],
             [
                 "name" => "Deviation Angle For Horizontal",
@@ -4176,7 +4131,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-14"
+                "id" => "extModel902-13"
             ],
             [
                 "name" => "Sidewall Sizes",
@@ -4185,7 +4140,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-15"
+                "id" => "extModel902-14"
             ],
             [
                 "name" => "Sidewall Qualities",
@@ -4194,7 +4149,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-16"
+                "id" => "extModel902-15"
             ],
             [
                 "name" => "Angles of Inclination",
@@ -4203,7 +4158,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-17"
+                "id" => "extModel902-16"
             ],
             [
                 "name" => "Image Cross Section Of Products",
@@ -4212,7 +4167,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-19"
+                "id" => "extModel902-17"
             ],
             [
                 "name" => "Increasing Inclination Angle",
@@ -4221,7 +4176,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-18"
+                "id" => "extModel902-18"
             ],
             [
                 "name" => "Belt Roll Diameters",
@@ -4230,7 +4185,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-20"
+                "id" => "extModel902-19"
             ],
             [
                 "name" => "Overview Image of System",
@@ -4239,7 +4194,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-21"
+                "id" => "extModel902-20"
             ],
             [
                 "name" => "Image Gallery",
@@ -4248,7 +4203,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-22"
+                "id" => "extModel902-21"
             ],
             [
                 "name" => "System Animation",
@@ -4257,7 +4212,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-23"
+                "id" => "extModel902-22"
             ],
             [
                 "name" => "System Video",
@@ -4266,7 +4221,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-24"
+                "id" => "extModel902-23"
             ],
             [
                 "name" => "Product Animation",
@@ -4275,7 +4230,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-25"
+                "id" => "extModel902-24"
             ],
             [
                 "name" => "Documents",
@@ -4284,7 +4239,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2142-26"
+                "id" => "extModel902-25"
             ],
             [
                 "name" => "Pimcore Id",
@@ -4294,7 +4249,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel2142-2"
+                "id" => "extModel902-26"
             ]
         ],
         "niceName" => "CS_MissingAssetsOnProducts",
@@ -4310,7 +4265,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1636980707,
+        "modificationDate" => 1641192223,
         "creationDate" => 1632215120,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4326,9 +4281,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n\tobject_localized_CSProducts_en.oo_id As 'Pimcore Id',\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand As 'Corporate Brand',\n\tobject_localized_CSProducts_en.productBrand As 'Product Brand',\n\tobject_localized_CSProducts_en.ProductDescription AS 'Product Description in English',\n\tobject_localized_CSProducts_en.ShortText AS 'Short Text in English',\n    object_localized_CSProducts_en.LongText AS 'Long Text in English',\n    object_localized_CSProducts_de.ProductDescription AS 'Product Description in German',\n\tobject_localized_CSProducts_de.ShortText AS 'Short Text in German',\n    object_localized_CSProducts_de.LongText AS 'Long Text in German',   \n    object_localized_CSProducts_fr.ProductDescription AS 'Product Description in French',\n\tobject_localized_CSProducts_fr.ShortText AS 'Short Text in French',\n    object_localized_CSProducts_fr.LongText AS 'Long Text in French',\n    object_localized_CSProducts_pt_BR.ProductDescription AS 'Product Description in Portuguese (Brazil)',\n\tobject_localized_CSProducts_pt_BR.ShortText AS 'Short Text in Portuguese (Brazil)',\n    object_localized_CSProducts_pt_BR.LongText AS 'Long Text in Portuguese (Brazil)',\n    object_localized_CSProducts_zh.ProductDescription AS 'Product Description in Chinese',\n\tobject_localized_CSProducts_zh.ShortText AS 'Short Text in Chinese',\n    object_localized_CSProducts_zh.LongText AS 'Long Text in Chinese',\n    object_localized_CSProducts_es_ES.ProductDescription AS 'Product Description in Spanish',\n\tobject_localized_CSProducts_es_ES.ShortText AS 'Short Text in Spanish',\n    object_localized_CSProducts_es_ES.LongText AS 'Long Text in Spanish'",
-                "from" => "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_fr ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr.oo_id\nINNER JOIN object_localized_CSProducts_pt_BR ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt_BR.oo_id\nINNER JOIN object_localized_CSProducts_zh ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh.oo_id\nINNER JOIN object_localized_CSProducts_es_ES ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_es_ES.oo_id",
-                "where" => "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_fr.ProductDescription is null OR\n\tobject_localized_CSProducts_fr.ShortText is null OR\n    object_localized_CSProducts_fr.LongText is null OR\n    object_localized_CSProducts_pt_BR.ProductDescription is null OR\n\tobject_localized_CSProducts_pt_BR.ShortText is null OR\n    object_localized_CSProducts_pt_BR.LongText is null OR\n    object_localized_CSProducts_zh.ProductDescription is null OR\n\tobject_localized_CSProducts_zh.ShortText is null OR\n    object_localized_CSProducts_zh.LongText is null OR\n    object_localized_CSProducts_es_ES.ProductDescription is null OR\n\tobject_localized_CSProducts_es_ES.ShortText is null OR\n    object_localized_CSProducts_es_ES.LongText is null",
+                "sql" => "SELECT \n\tobject_localized_CSProducts_en.oo_id As 'Pimcore Id',\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand As 'Corporate Brand',\n\tobject_localized_CSProducts_en.productBrand As 'Product Brand',\n\tobject_localized_CSProducts_en.ProductDescription AS 'Product Description in English',\n\tobject_localized_CSProducts_en.ShortText AS 'Short Text in English',\n    object_localized_CSProducts_en.LongText AS 'Long Text in English',\n    object_localized_CSProducts_de.ProductDescription AS 'Product Description in German',\n\tobject_localized_CSProducts_de.ShortText AS 'Short Text in German',\n    object_localized_CSProducts_de.LongText AS 'Long Text in German',   \n    object_localized_CSProducts_fr.ProductDescription AS 'Product Description in French',\n\tobject_localized_CSProducts_fr.ShortText AS 'Short Text in French',\n    object_localized_CSProducts_fr.LongText AS 'Long Text in French',\n    object_localized_CSProducts_pt.ProductDescription AS 'Product Description in Portuguese (Brazil)',\n\tobject_localized_CSProducts_pt.ShortText AS 'Short Text in Portuguese (Brazil)',\n    object_localized_CSProducts_pt.LongText AS 'Long Text in Portuguese (Brazil)',\n    object_localized_CSProducts_zh.ProductDescription AS 'Product Description in Chinese',\n\tobject_localized_CSProducts_zh.ShortText AS 'Short Text in Chinese',\n    object_localized_CSProducts_zh.LongText AS 'Long Text in Chinese',\n    object_localized_CSProducts_es.ProductDescription AS 'Product Description in Spanish',\n\tobject_localized_CSProducts_es.ShortText AS 'Short Text in Spanish',\n    object_localized_CSProducts_es.LongText AS 'Long Text in Spanish'",
+                "from" => "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_fr ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr.oo_id\nINNER JOIN object_localized_CSProducts_pt ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt.oo_id\nINNER JOIN object_localized_CSProducts_zh ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh.oo_id\nINNER JOIN object_localized_CSProducts_es ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_es.oo_id",
+                "where" => "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_fr.ProductDescription is null OR\n\tobject_localized_CSProducts_fr.ShortText is null OR\n    object_localized_CSProducts_fr.LongText is null OR\n    object_localized_CSProducts_pt.ProductDescription is null OR\n\tobject_localized_CSProducts_pt.ShortText is null OR\n    object_localized_CSProducts_pt.LongText is null OR\n    object_localized_CSProducts_zh.ProductDescription is null OR\n\tobject_localized_CSProducts_zh.ShortText is null OR\n    object_localized_CSProducts_zh.LongText is null OR\n    object_localized_CSProducts_es.ProductDescription is null OR\n\tobject_localized_CSProducts_es.ShortText is null OR\n    object_localized_CSProducts_es.LongText is null",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -4341,7 +4296,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-1"
+                "id" => "extModel902-1"
             ],
             [
                 "name" => "Corporate Brand",
@@ -4350,7 +4305,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-3"
+                "id" => "extModel902-2"
             ],
             [
                 "name" => "Product Brand",
@@ -4359,7 +4314,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-4"
+                "id" => "extModel902-3"
             ],
             [
                 "name" => "Product Description in English",
@@ -4368,7 +4323,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-5"
+                "id" => "extModel902-4"
             ],
             [
                 "name" => "Short Text in English",
@@ -4377,7 +4332,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-6"
+                "id" => "extModel902-5"
             ],
             [
                 "name" => "Long Text in English",
@@ -4386,7 +4341,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-7"
+                "id" => "extModel902-6"
             ],
             [
                 "name" => "Product Description in German",
@@ -4395,7 +4350,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-8"
+                "id" => "extModel902-7"
             ],
             [
                 "name" => "Short Text in German",
@@ -4404,7 +4359,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-9"
+                "id" => "extModel902-8"
             ],
             [
                 "name" => "Long Text in German",
@@ -4413,7 +4368,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-10"
+                "id" => "extModel902-9"
             ],
             [
                 "name" => "Product Description in French",
@@ -4422,7 +4377,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-11"
+                "id" => "extModel902-10"
             ],
             [
                 "name" => "Short Text in French",
@@ -4431,7 +4386,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-12"
+                "id" => "extModel902-11"
             ],
             [
                 "name" => "Long Text in French",
@@ -4440,7 +4395,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-13"
+                "id" => "extModel902-12"
             ],
             [
                 "name" => "Product Description in Portuguese (Brazil)",
@@ -4449,7 +4404,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-14"
+                "id" => "extModel902-13"
             ],
             [
                 "name" => "Short Text in Portuguese (Brazil)",
@@ -4458,7 +4413,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-15"
+                "id" => "extModel902-14"
             ],
             [
                 "name" => "Long Text in Portuguese (Brazil)",
@@ -4467,7 +4422,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-16"
+                "id" => "extModel902-15"
             ],
             [
                 "name" => "Product Description in Chinese",
@@ -4476,7 +4431,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-17"
+                "id" => "extModel902-16"
             ],
             [
                 "name" => "Short Text in Chinese",
@@ -4485,7 +4440,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-18"
+                "id" => "extModel902-17"
             ],
             [
                 "name" => "Long Text in Chinese",
@@ -4494,7 +4449,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-19"
+                "id" => "extModel902-18"
             ],
             [
                 "name" => "Product Description in Spanish",
@@ -4503,7 +4458,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-20"
+                "id" => "extModel902-19"
             ],
             [
                 "name" => "Short Text in Spanish",
@@ -4512,7 +4467,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-21"
+                "id" => "extModel902-20"
             ],
             [
                 "name" => "Long Text in Spanish",
@@ -4521,7 +4476,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1420-22"
+                "id" => "extModel902-21"
             ],
             [
                 "name" => "Pimcore Id",
@@ -4531,7 +4486,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel1420-2"
+                "id" => "extModel902-22"
             ]
         ],
         "niceName" => "CS_TranslationsMissingProduct",
@@ -4547,7 +4502,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1636980864,
+        "modificationDate" => 1641192180,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4563,7 +4518,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  o1.CorporateBrand As 'Corporate Brand',\n  o1.ProductBrand As 'Product Brand',\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \n  where wf.place = 'archived' ORDER BY\n  (o1.`o_creationDate`) DESC",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  o1.CorporateBrand As 'Corporate Brand',\n  o1.ProductBrand As 'Product Brand',\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`\nFROM\n  object_localized_CSProducts_en o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \n  where wf.place = 'archived' ORDER BY\n  (o1.`o_creationDate`) DESC",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -4571,52 +4526,7 @@ return [
             ]
         ],
         "columnConfiguration" => [
-            [
-                "name" => "Name",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1569-2"
-            ],
-            [
-                "name" => "Corporate Brand",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1569-3"
-            ],
-            [
-                "name" => "Product Brand",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1569-4"
-            ],
-            [
-                "name" => "Creation Date",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel1569-5"
-            ],
-            [
-                "name" => "Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "columnAction" => "openObject",
-                "id" => "extModel1569-1"
-            ]
+
         ],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
@@ -4631,7 +4541,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1638362480,
+        "modificationDate" => 1641192129,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4647,7 +4557,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_CSProducts o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \nORDER BY\n  (o1.`o_creationDate`) DESC",
+                "sql" => "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE(\n    o1.`o_path`,\n    '/Contitech_ConveyorSolution/Products/',\n    ''\n  ) END as `Hierarchy Level`,\n  FROM_UNIXTIME(o1.`o_creationDate`) as `Creation Date`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nEND as `Status`\nFROM\n  object_localized_CSProducts_en o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \nORDER BY\n  (o1.`o_creationDate`) DESC",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -4662,7 +4572,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1039-1"
+                "id" => "extModel1765-1"
             ],
             [
                 "name" => "Hierarchy Level",
@@ -4671,7 +4581,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1039-2"
+                "id" => "extModel1765-2"
             ],
             [
                 "name" => "Creation Date",
@@ -4680,7 +4590,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1039-3"
+                "id" => "extModel1765-3"
             ],
             [
                 "name" => "Status",
@@ -4689,7 +4599,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1039-4"
+                "id" => "extModel1765-4"
             ],
             [
                 "name" => "Id",
@@ -4699,7 +4609,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel1039-5"
+                "id" => "extModel1765-5"
             ]
         ],
         "niceName" => "CS_Products Workflow",
@@ -4715,7 +4625,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1638356370,
+        "modificationDate" => 1641192091,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -4726,5 +4636,4 @@ return [
         ],
         "id" => "CS_WorkflowReport"
     ]
-    
 ];
