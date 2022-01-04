@@ -13,7 +13,7 @@ use ContitechCS\ImportBundle\Services\ImportConstants;
 use Pimcore\Db;
 use \Exception;
 
-class DefaultController extends FrontendController
+class DefaultController extends AbstractController
 {
     private $configProviderService;
     private $db;
