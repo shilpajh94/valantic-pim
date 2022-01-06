@@ -25,14 +25,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $imgSrcObj =  $this->image("CBG_Image");
-                            
-                            if(method_exists($imgSrcObj,'getThumbnail') && $imgSrcObj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
-                    <?php
+                            if (!empty($imgSrcObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt=""  >
+                                <?php
+                            }
                         }
-                    }
                     ?>
                 </div>
 

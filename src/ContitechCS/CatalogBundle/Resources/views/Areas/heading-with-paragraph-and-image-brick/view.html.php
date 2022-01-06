@@ -87,6 +87,9 @@
             ]);
         endif;
     ?>
+    <div class="p-medium">
+        <?= $this->wysiwyg("quality_description_above",["placeholder" =>"Enter Your  Description"]); ?>
+    </div>
     <?php
         $heading_type = 'h2';
         $heading_color = '#000000';

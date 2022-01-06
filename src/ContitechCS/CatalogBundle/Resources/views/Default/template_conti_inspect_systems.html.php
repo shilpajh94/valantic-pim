@@ -46,29 +46,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="attr-font"> Attribute Name = Product Image</div>
                 <?php endif;?>
                 <div class="page95">
-                <?php
-                    if($this->editmode)
-                    {
-                        if($this->image("CIS_productImage")->isEmpty())
-                        {
-                            echo $this->image("CIS_productImage")->setImage($data['ProductImage']);
+                    <?php
+                        if($this->editmode) {
+                            if($this->image("CIS_productImage")->isEmpty()) {
+                                echo $this->image("CIS_productImage")->setImage($data['ProductImage']);
+                            } else{
+                                echo $this->image("CIS_productImage");
+                            }
+                        } else {
+                            $CIS_productImageObj =  $this->image("CIS_productImage");
+                            if (!empty($CIS_productImageObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_productImageObj, $this->imageWidth); ?>" alt="" class="w-100">
+                            <?php
+                            }
                         }
-                        else{
-                            echo $this->image("CIS_productImage");
-                        }
-                    }
-                    else
-                    {
-                        $CIS_productImageObj =  $this->image("CIS_productImage");
-                        if(method_exists($CIS_productImageObj,'getThumbnail') &&  $CIS_productImageObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                        <img src="<?= $CIS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
-                        <?php
-                        }
-                    }
-                ?>
-                    
+                    ?>
                 </div>
                 <div class="feature-benefit-list w-80">
                 <?php if($this->editmode):?>
@@ -126,10 +118,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CIS_ReportImageObj =  $this->image("CIS_ReportImage");
-                                if(method_exists($CIS_ReportImageObj,'getThumbnail') &&  $CIS_ReportImageObj->getThumbnail('catalog_thumb'))
-                                {
-                                ?>
-                                <img src="<?= $CIS_ReportImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images ml-0">
+                                if (!empty($CIS_ReportImageObj)) { ?>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj, $this->imageWidth); ?>" alt="" class="features-images ml-0">
                                 <?php
                                 }
                             }
@@ -186,10 +176,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
-                        if(method_exists($CIS_ApplicationImageObj,'getThumbnail') &&  $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                        <img src="<?= $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="">
+                        if (!empty($CIS_ApplicationImageObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="">
                         <?php
                         }
                     }

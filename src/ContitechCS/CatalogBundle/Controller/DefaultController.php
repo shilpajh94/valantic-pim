@@ -2,6 +2,7 @@
 
 namespace ContitechCS\CatalogBundle\Controller;
 
+use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,12 @@ use \Exception;
 class DefaultController extends AbstractController
 {
     private $configProviderService;
+    private $catalogTemplatingHelper;
     private $db;
 
-    public function __construct() {
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
         $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
     }
 
     /**

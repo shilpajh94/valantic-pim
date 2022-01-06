@@ -100,25 +100,22 @@
                     if($this->editmode)
                         {
                             if($this->image("SCB_ProductImage")->isEmpty())
-                                {
-                                    echo $this->image("SCB_ProductImage")->setImage($data['ProductImage']);
-                                }
-                                else{
-                                    echo $this->image("SCB_ProductImage");
-                                }
-                            }
-                            else
                             {
-                                $SCBImgSrcObj =  $this->image("SCB_ProductImage");
-                                if(method_exists($SCBImgSrcObj,'getThumbnail') && $SCBImgSrcObj->getThumbnail('catalog_thumb'))
-                                {
-                                ?>
-                <img src="<?= $SCBImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
-                <?php
-                                }
+                                echo $this->image("SCB_ProductImage")->setImage($data['ProductImage']);
                             }
-                        ?>
-
+                            else{
+                                echo $this->image("SCB_ProductImage");
+                            }
+                        }
+                        else
+                        {
+                            $SCBImgSrcObj =  $this->image("SCB_ProductImage");
+                            if (!empty($SCBImgSrcObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100 mb-5" />
+                            <?php
+                            }
+                        }
+                    ?>
                 <?php if($this->editmode):?>
                     <div class="attr-font">Enter Your  SubHeading</div>
                 <?php endif;?>
@@ -144,12 +141,10 @@
                 else
                 {
                     $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
-                        if(method_exists($SCBAppImgSrcObj,'getThumbnail') && $SCBAppImgSrcObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                            <img src=" <?= $SCBAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="mb-4" />
-                        <?php
-                        }
+                    if (!empty($SCBAppImgSrcObj)) { ?>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBAppImgSrcObj, $this->imageWidth); ?>" alt="" class="mb-4" />
+                    <?php
+                    }
                 }
                 ?>
 

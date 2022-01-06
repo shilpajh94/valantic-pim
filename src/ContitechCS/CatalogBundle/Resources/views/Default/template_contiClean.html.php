@@ -87,28 +87,19 @@
             <?php if($this->editmode):?>
                 <div class="attr-font"> Attribute Name = Product Image</div>
             <?php endif;?>
-                <?php
-                    if($this->editmode)
-                        {
-                            if($this->image("ContiClean_ProductImage")->isEmpty())
-                                {
-                                    echo $this->image("ContiClean_ProductImage")->setImage($data['ProductImage']);
-                                }        
-                                else{
-                                    echo $this->image("ContiClean_ProductImage");
-                                    }
-                                }
-                                else
-                                    {
-                                    $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
-                                        if(method_exists($CCProdImgSrcObj,'getThumbnail') && $CCProdImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                        ?>
-                    <img src="<?= $CCProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
-                    <?php
-                                        }
-                                    }
-                                ?>
+                <?php if($this->editmode) {
+                    if($this->image("ContiClean_ProductImage")->isEmpty()) {
+                        echo $this->image("ContiClean_ProductImage")->setImage($data['ProductImage']);
+                    } else {
+                        echo $this->image("ContiClean_ProductImage");
+                    }
+                } else {
+                    $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
+                    if (!empty($CCProdImgSrcObj)) { ?>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  />
+                        <?php
+                    }
+                } ?>
             </div>
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
@@ -188,27 +179,19 @@
                         <div class="attr-font"> Attribute Name = Report Image</div>
                     <?php endif;?>
                    <?php
-                    if($this->editmode)
-                        {
-                            if($this->image("ContiClean_reportImage")->isEmpty())
-                                {
-                                    echo $this->image("ContiClean_reportImage")->setImage($data['reportImage']);
-                                }        
-                                else{
-                                    echo $this->image("ContiClean_reportImage");
-                                    }
-                                }
-                                else
-                                    {
-                                    $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
-                                        if(method_exists($CCReportImgSrcObj,'getThumbnail') && $CCReportImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                        ?>
-                    <img src="<?= $CCReportImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="chartimage" />
-                    <?php
-                                        }
-                                    }
-                                ?>
+                    if($this->editmode) {
+                        if ($this->image("ContiClean_reportImage")->isEmpty()) {
+                            echo $this->image("ContiClean_reportImage")->setImage($data['reportImage']);
+                        } else{
+                            echo $this->image("ContiClean_reportImage");
+                        }
+                    } else {
+                        $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
+                        if (!empty($CCReportImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" />
+                            <?php
+                        }
+                    } ?>
                 </div>
             </div>
 
@@ -218,27 +201,20 @@
                     <div class="attr-font"> Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
-                    if($this->editmode)
-                        {
-                            if($this->image("ContiClean_ApplicationImage")->isEmpty())
-                                {
-                                    echo $this->image("ContiClean_ApplicationImage")->setImage($data['ApplicationImage']);
-                                }        
-                                else{
-                                    echo $this->image("ContiClean_ApplicationImage");
-                                    }
-                                }
-                                else
-                                    {
-                                    $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
-                                        if(method_exists($CCAppImgSrcObj,'getThumbnail') && $CCAppImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                        ?>
-                    <img src="<?= $CCAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                    <?php
-                                        }
-                                    }
-                                ?>
+                    if($this->editmode) {
+                        if ($this->image("ContiClean_ApplicationImage")->isEmpty()) {
+                            echo $this->image("ContiClean_ApplicationImage")->setImage($data['ApplicationImage']);
+                        } else{
+                            echo $this->image("ContiClean_ApplicationImage");
+                        }
+                    } else {
+                        $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
+                        if (!empty($CCAppImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
+                            <?php
+                        }
+                    }
+                ?>
             </div>
 
 
