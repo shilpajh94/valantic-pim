@@ -144,7 +144,7 @@ class ProductApiService implements ConstantsInterface
       {
         if($objAsset)
         {
-          return PIMCORE_TRANSFORMED_ASSET_URL.''.$objAsset->getRealFullPath();
+            return \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($objAsset);
         }
       }
       catch (Exception $e) 
