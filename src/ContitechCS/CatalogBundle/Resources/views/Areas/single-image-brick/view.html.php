@@ -10,7 +10,7 @@
         {
             ?>
             <div class="full-image-sec">
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  />
+                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt=""  />
             </div>
             <?php
         }

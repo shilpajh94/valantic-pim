@@ -46,7 +46,7 @@
         if($imgSrcObj)
         {
             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
             <?php
         }
     }
