@@ -46,7 +46,6 @@ class DeleteOlderSapFileCommand extends Command
 
             $this->logMessage('Connection Created', LogLevel::INFO());
        
-        
             $this->logMessage('Checking User Authentication', LogLevel::INFO());
 
             try{
@@ -59,7 +58,6 @@ class DeleteOlderSapFileCommand extends Command
             }
 
             $this->logMessage('User Authentication Done', LogLevel::INFO());
-
             
             $this->logMessage('Checking Files in '. BW_SAP_IMPORT_SFTP_PATH. 'folder', LogLevel::INFO());
 
@@ -73,8 +71,7 @@ class DeleteOlderSapFileCommand extends Command
             }
 
             $this->logMessage(count($fileNamesInDir) . ' Files found in '. BW_SAP_IMPORT_SFTP_PATH. 'folder', LogLevel::INFO());
-
-          
+         
         // Process Directory Files
         if($fileNamesInDir)
         {
