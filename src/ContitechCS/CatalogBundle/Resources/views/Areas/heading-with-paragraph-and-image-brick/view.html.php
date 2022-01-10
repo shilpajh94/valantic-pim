@@ -34,11 +34,10 @@
                     else
                     {
                         $imgSrcObj =  $this->image("Environment_Image");
-                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        if(!empty($imgSrcObj))
                         {
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
-                            style="max-height:350px" />
+                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
                             <?php
                         }
                     }
@@ -50,11 +49,10 @@
                     else
                     {
                         $imgSrcObj =  $this->image("Image");
-                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        if(!empty($imgSrcObj))
                         {   
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
-                            style="max-height:350px" />
+                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
                             <?php
                         }
                     }
@@ -133,11 +131,10 @@
                         $imgSrcObj1 =  $this->image("Environment_Image");
 
                         
-                        if($imgSrcObj1->getThumbnail('catalog_thumb'))
+                        if(!empty($imgSrcObj1))
                         {
                             ?>
-                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
-                            style="max-height:350px" />
+                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj1, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
                             <?php
                         }
                     }
@@ -150,11 +147,10 @@
                     {
                         $imgSrcObj =  $this->image("Image");
 
-                        if($imgSrcObj->getThumbnail('catalog_thumb'))
+                        if(!empty($imgSrcObj))
                         {   
                             ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
-                            style="max-height:350px" />
+                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
                             <?php
                         }
                     }

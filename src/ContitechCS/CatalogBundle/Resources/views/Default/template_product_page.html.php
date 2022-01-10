@@ -214,10 +214,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h3>
                     
                     <div class="media">
-                        <div class="media-img">
-                            <?php echo $this->image("PP_ConveyorBeltsComponents_Image"); ?>
-                        </div>
-
+                        <?php if ($this->editmode) { ?>
+                            <div class="media-img">
+                                <?php
+                                    echo $this->image("PP_ConveyorBeltsComponents_Image");
+                                ?>
+                            </div>
+                        <?php } else { 
+                            $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
+                            if (!empty($componentImage)) { ?>
+                                <div class="media-img">
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt=""/>
+                                </div>
+                            <?php }
+                        } ?>
+                        
                         <div class="media-body">
                             <ul class="components">
                                 <?php while($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
@@ -241,12 +252,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </table>
                 </div>
                 
+                <?php if ($this->editmode) { ?>
                 <div class="full-image-sec">
                     <?php
                         echo $this->image("PP_BannerImage");
                     ?>
                 </div>
-
+                <?php } else { 
+                    $bannerImage =  $this->image("PP_BannerImage");
+                    if (!empty($bannerImage)) { ?>
+                        <div class="full-image-sec">
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt=""/>
+                        </div>
+                    <?php }
+                } ?>
                 <div class="featuring-sec">
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>

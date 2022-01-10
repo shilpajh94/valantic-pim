@@ -26,7 +26,7 @@
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts wood-product-applications">
-            <?= $this->areablock('myAreablock'); ?>
+            <?= $this->areablock('myAreablock', ["globalParams" => ['imageWidth' => $this->imageWidth]]); ?>
         </section>       
     </main>
 </div>
