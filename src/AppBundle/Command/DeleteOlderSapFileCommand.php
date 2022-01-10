@@ -78,44 +78,50 @@ class DeleteOlderSapFileCommand extends Command
         // Process Directory Files
         if($fileNamesInDir)
         {
-            foreach ($fileNamesInDir as $fileName) {
-
-                $this->logMessage("Starting to process file - $fileName", LogLevel::INFO());
-                $fileInfoArr = explode('.',$fileName);
-                $fileInfo = $fileInfoArr[0];
-                $fileNameArr = explode('_',$fileInfo);
-                $modify_date = array_pop($fileNameArr);
-                $modify_date = trim($modify_date);
-
-                if(is_numeric($modify_date) && (strlen($modify_date) == 8))
-                {
-                    $month =  substr($modify_date, 0, 2);
-                    $date =  substr($modify_date, 2, 2);
-                    $year =  substr($modify_date, 4, 4);
-
-                    $modify_date = "{$year}-{$month}-{$date}";
-                    $modify_date = new \DateTime($modify_date);
-
-                    $this->logMessage("Validating if the file is older than ".BW_SAP_DELETED_FILE_OLDER_THAN_DAYS." days", LogLevel::INFO());
-                    
-                    if ($fileValidationDate > $modify_date) 
-                    {
-                        try{
-                            $filepath = BW_SAP_IMPORT_SFTP_PATH."/".$fileName;
-                            $SFTPConObj->deleteRemoteFile($filepath); 
-                        } catch(\Throwable $e) {
-                            $message = $e->getMessage();
-                            $message = "Files could not be deleted"." ".$message;
-                            $this->logMessage($message, LogLevel::CRITICAL());
-                        }                        
-                    }
-                }
-            }
+           $this->deletedSapFile($fileNamesInDir, $fileValidationDate, $SFTPConObj); 
         }
         else{
             $this->logMessage("Empty Folder - ".BW_SAP_IMPORT_SFTP_PATH, LogLevel::NOTICE());
         }              
     }
+
+    public function  deletedSapFile($fileNamesInDir, $fileValidationDate, $SFTPConObj ) 
+    {
+        foreach ($fileNamesInDir as $fileName) {
+
+            $this->logMessage("Starting to process file - $fileName", LogLevel::INFO());
+            $fileInfoArr = explode('.',$fileName);
+            $fileInfo = $fileInfoArr[0];
+            $fileNameArr = explode('_',$fileInfo);
+            $modify_date = array_pop($fileNameArr);
+            $modify_date = trim($modify_date);
+
+            if(is_numeric($modify_date) && (strlen($modify_date) == 8))
+            {
+                $month =  substr($modify_date, 0, 2);
+                $date =  substr($modify_date, 2, 2);
+                $year =  substr($modify_date, 4, 4);
+
+                $modify_date = "{$year}-{$month}-{$date}";
+                $modify_date = new \DateTime($modify_date);
+
+                $this->logMessage("Validating if the file is older than ".BW_SAP_DELETED_FILE_OLDER_THAN_DAYS." days", LogLevel::INFO());
+                
+                if ($fileValidationDate > $modify_date) 
+                {
+                    try{
+                        $filepath = BW_SAP_IMPORT_SFTP_PATH."/".$fileName;
+                        $SFTPConObj->deleteRemoteFile($filepath); 
+                    } catch(\Throwable $e) {
+                        $message = $e->getMessage();
+                        $message = "Files could not be deleted"." ".$message;
+                        $this->logMessage($message, LogLevel::CRITICAL());
+                    }                        
+                }
+            }
+        }
+
+    } 
 
     public function logMessage(String $msg, LogLevel $logLevel)
     {
