@@ -40,8 +40,8 @@ class DeleteOlderSapFileCommand extends Command
                 $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
             } catch(\Throwable $e) {
                 $message = $e->getMessage();
-            $this->logMessage($message, LogLevel::CRITICAL());
-            return;
+                $this->logMessage($message, LogLevel::CRITICAL());
+                return;
             }
 
             $this->logMessage('Connection Created', LogLevel::INFO());
@@ -53,8 +53,8 @@ class DeleteOlderSapFileCommand extends Command
             } catch(\Throwable $e) {
                 $message = $e->getMessage();
                 $message = "Login was not successful with" . BW_SAP_IMPORT_SFTP_USERNAME ." ".$message;
-            $this->logMessage($message, LogLevel::CRITICAL());
-            return;
+                $this->logMessage($message, LogLevel::CRITICAL());
+                return;
             }
 
             $this->logMessage('User Authentication Done', LogLevel::INFO());
@@ -62,12 +62,12 @@ class DeleteOlderSapFileCommand extends Command
             $this->logMessage('Checking Files in '. BW_SAP_IMPORT_SFTP_PATH. 'folder', LogLevel::INFO());
 
             try{
-            $fileNamesInDir = $SFTPConObj->getFilesList(BW_SAP_IMPORT_SFTP_PATH);
+                $fileNamesInDir = $SFTPConObj->getFilesList(BW_SAP_IMPORT_SFTP_PATH);
             } catch(\Throwable $e) {
-            $message = $e->getMessage();
-            $message = "Exception while trying to fetch list of files"." ".$message;
-            $this->logMessage($message, LogLevel::CRITICAL());
-            return;
+                $message = $e->getMessage();
+                $message = "Exception while trying to fetch list of files"." ".$message;
+                $this->logMessage($message, LogLevel::CRITICAL());
+                return;
             }
 
             $this->logMessage(count($fileNamesInDir) . ' Files found in '. BW_SAP_IMPORT_SFTP_PATH. 'folder', LogLevel::INFO());
