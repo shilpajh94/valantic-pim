@@ -1338,6 +1338,8 @@ class DefaultController extends AbstractController
     {
         try
         {
+            
+            $productObject->setGetInheritedValues(true);
             $productChildrenData = [];
             $objectTypeFolderchildren = $productObject->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
             
@@ -1351,10 +1353,10 @@ class DefaultController extends AbstractController
             
             $children = $productObject->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
             $productChildrenData = array_merge($productChildrenData, $children);
-            
             $filterArray = [];
             foreach($productChildrenData as $key => $child)
             {
+                
                 if($child->getPrintedCatalogFlag() === true)
                 {
                     if($child->getCSRegion())
@@ -1371,7 +1373,6 @@ class DefaultController extends AbstractController
                     }
                 }
             }
-            
             if($filterArray)
             {
                 $filterArrayData = $this->phparraysort($filterArray, array('SortOrder'), SORT_ASC);
