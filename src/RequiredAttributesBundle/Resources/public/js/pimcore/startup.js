@@ -39,7 +39,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
 
         // calling of overriden function for xliff filter
-        new pimcore.plugin.RequiredAttributesBundle.override_one().filterOnExportProducts();
+        new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
 
 
         /**
