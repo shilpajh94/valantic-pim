@@ -38,6 +38,10 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
 
         new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
 
+        // calling of overriden function for xliff filter
+        new pimcore.plugin.RequiredAttributesBundle.override_one().filterOnExportProducts();
+
+
         /**
          * screen was moving up and down when setTitle was running to set dirty mark on the tab
          */
