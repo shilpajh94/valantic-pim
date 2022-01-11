@@ -15,7 +15,7 @@ class Rest
             {
                 $httpcode = 400;
             }
-            return new Response(json_encode(['status' => $status,'code' => $httpcode,'data' => $data, 'msg' => $msg]), $httpcode);
+            return new Response(json_encode(['status' => $status,'code' => $httpcode,'data' => $data, 'msg' => $msg]), $httpcode, ['content-type' => 'application/json']);
         }
         catch(\Exception $e)
         {  

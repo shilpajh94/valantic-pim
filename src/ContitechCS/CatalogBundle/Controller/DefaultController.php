@@ -2,6 +2,7 @@
 
 namespace ContitechCS\CatalogBundle\Controller;
 
+use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +14,15 @@ use ContitechCS\ImportBundle\Services\ImportConstants;
 use Pimcore\Db;
 use \Exception;
 
-class DefaultController extends FrontendController
+class DefaultController extends AbstractController
 {
     private $configProviderService;
+    private $catalogTemplatingHelper;
     private $db;
 
-    public function __construct() {
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
         $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
     }
 
     /**
@@ -188,9 +191,6 @@ class DefaultController extends FrontendController
             $listing->load();
             $listing->setOrderKey("index");     
             $listing->setOrder("asc");
-    
-            $all_doc_arr = [];
-            $section_arr = [];
             $templateArray = [
                 'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php',
                 'ContitechCSCatalogBundle:Default:template_conti_inspect_systems.html.php',
@@ -210,54 +210,33 @@ class DefaultController extends FrontendController
                 'ContitechCSCatalogBundle:Default:template_contiClean.html.php',
                 'ContitechCSCatalogBundle:Default:template_cover_compounds.html.php',
                 'ContitechCSCatalogBundle:Default:template_quality_and_the_environment.html.php',
-                'ContitechCSCatalogBundle:Default:template_wood_product.html.php'
+                'ContitechCSCatalogBundle:Default:template_wood_product.html.php',
+                'ContitechCSCatalogBundle:Content:pdf.html.php'
             ];
-    
+            $sectionPageTitle = '';
+            $all_doc_arr = [];
             foreach($listing as $doc)
             {
                 if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php')
                 {
                     $obj = $doc->getElement('TOC_Section_Title');
-                    $section_arr [] = $obj->getData();
-                } 
-
-                if(in_array($doc->getTemplate(), $templateArray))
-                {
-                    $obj = $doc->getElement('CS_ProductName');
-
-                    if($obj)
-                    {
-                        $all_doc_arr[] = $obj->getData();
+                    if (!empty($obj)) {
+                        $sectionPageTitle = $obj->getData();
                     }
-                    else
-                    {
-                        $obj = $doc->getElement('TOC_Section_Title');
-                        if($obj)
-                        {
-                            $all_doc_arr[] = $obj->getData();  
+                    continue;
+                } 
+                if (!empty($sectionPageTitle)) {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('CS_ProductName');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $all_doc_arr[$sectionPageTitle][] = $obj->getData();
+                        } else {
+                            $all_doc_arr[$sectionPageTitle][] = $doc->getKey();
                         }
                     }
-                }     
-            }
-
-            $all_doc_arr            = array_filter($all_doc_arr); 
-            $table_of_content_data  = [];
-            $title                  = [];
-    
-            foreach ($all_doc_arr as $doc_arr)
-            {
-                if(in_array($doc_arr, $section_arr))
-                {
-                    $title = $doc_arr;
-                }
-
-                if($title && $doc_arr !=  $title)
-                {
-                    $table_of_content_data[$title][] = $doc_arr;
                 }
             }
-            
-            $this->view['data'] = $table_of_content_data;     
+            $this->view['data'] = $all_doc_arr;//$table_of_content_data;     
         }
         catch(Exception $e)
         {  

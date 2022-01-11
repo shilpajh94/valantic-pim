@@ -76,25 +76,19 @@
                 <?php
                 if($this->editmode)
                     {
-                        if($this->image("ST_LogoImage")->isEmpty())
-                            {
-                                echo $this->image("ST_LogoImage")->setImage($data['LogoImage']);
-                            }        
-                            else{
-                                echo $this->image("ST_LogoImage");
-                                }
-                            }
-                            else
-                                {
-                                $STLogoImgSrcObj =  $this->image("ST_LogoImage");
-                                    if(method_exists($STLogoImgSrcObj,'getThumbnail') && $STLogoImgSrcObj->getThumbnail('catalog_thumb'))
-                                    {
-                                    ?>
-                <img src="<?= $STLogoImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
-                    style="margin-right: 0px; margin-bottom: 0px;" width="180" />
-                <?php
-                                    }
-                                }
+                        if($this->image("ST_LogoImage")->isEmpty()) {
+                            echo $this->image("ST_LogoImage")->setImage($data['LogoImage']);
+                        } else {
+                            echo $this->image("ST_LogoImage");
+                        }
+                    } else
+                        {
+                        $STLogoImgSrcObj =  $this->image("ST_LogoImage");
+                        if (!empty($STLogoImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin-right: 0px; margin-bottom: 0px;" width="180" />
+                        <?php
+                        }
+                    }
                 ?>
             </h2>
 
@@ -124,25 +118,19 @@
                             <div class="attr-font">Attribute Name = Product Image</div>
                         <?php endif;?>
                         <?php
-                        if($this->editmode)
-                            {
-                            if($this->image("ST_ProductImage")->isEmpty())
-                                {
-                                    echo $this->image("ST_ProductImage")->setImage($data['ProductImage']);
-                                }
-                                else{
-                                    echo $this->image("ST_ProductImage");
-                                    }
-                                }
-                                else{
-                                    $STProdImgSrcObj =  $this->image("ST_ProductImage");
-                                    if(method_exists($STProdImgSrcObj,'getThumbnail') && $STProdImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                            ?>
-                        <img src="<?= $STProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                        <?php
-                                        }
-                                    }
+                        if($this->editmode) {
+                            if($this->image("ST_ProductImage")->isEmpty()) {
+                                echo $this->image("ST_ProductImage")->setImage($data['ProductImage']);
+                            } else {
+                               echo $this->image("ST_ProductImage");
+                            }
+                        } else {
+                            $STProdImgSrcObj =  $this->image("ST_ProductImage");
+                            if (!empty($STProdImgSrcObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
+                            <?php
+                            }
+                        }
                         ?>
                         </p>
                     </div>
@@ -151,30 +139,22 @@
                             <div class="attr-font">Attribute Name = ApplicationImage</div>
                         <?php endif;?>
                     <?php
-                    if($this->editmode)
-                        {
-                            if($this->image("ST_ApplicationImage")->isEmpty())
-                                {
-                                    echo $this->image("ST_ApplicationImage")->setImage($data['ApplicationImage']);
-                                }        
-                                else{
-                                    echo $this->image("ST_ApplicationImage");
-                                    }
-                                }
-                                else
-                                    {
-                                    $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
-                                        if(method_exists($STAppImgSrcObj,'getThumbnail') && $STAppImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                        ?>
-                    <img src="<?= $STAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
-                    <?php
-                                        }
-                                    }
-                                ?>
+                    if($this->editmode) {
+                        if ($this->image("ST_ApplicationImage")->isEmpty()) {
+                            echo $this->image("ST_ApplicationImage")->setImage($data['ApplicationImage']);
+                        } else {
+                            echo $this->image("ST_ApplicationImage");
+                        }
+                    } else {
+                        $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
+                        if (!empty($STAppImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="max-width:180px"  />
+                        <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
-
             
             <?php
                 if(isset($data['Features']) && $data['Features'])

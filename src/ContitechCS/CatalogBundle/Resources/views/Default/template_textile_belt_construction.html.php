@@ -94,28 +94,19 @@
                     <div class="attr-font">Attribute Name = Product Image</div>
                 <?php endif;?>
                 <?php
-                        if($this->editmode)
-                            {
-                                if($this->image("TBS_ProductImage")->isEmpty())
-                                    {
-                                        echo $this->image("TBS_ProductImage")->setImage($data['ProductImage']);
-                                    }
-                                    else{
-                                        echo $this->image("TBS_ProductImage");
-                                    }
-                                }
-                                else
-                                {
-                                    $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
-                                    if(method_exists($TBSProdImgSrcObj,'getThumbnail') && $TBSProdImgSrcObj->getThumbnail('catalog_thumb'))
-                                    {
-                                    ?>
-                <img src="<?= $TBSProdImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
-                <?php
-                                    }
-                                }
-                            ?>
-                
+                    if ($this->editmode) {
+                        if ($this->image("TBS_ProductImage")->isEmpty()) {
+                            echo $this->image("TBS_ProductImage")->setImage($data['ProductImage']);
+                        } else {
+                            echo $this->image("TBS_ProductImage");
+                        }
+                    } else {
+                        $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
+                        if (!empty($TBSProdImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSProdImgSrcObj, $this->imageWidth); ?>"  class="mb-4" alt="" />
+                        <?php
+                        }
+                    } ?>
                 <?php if($this->editmode):?>
                     <div class="attr-font">Enter Your  Heading</div>
                 <?php endif;?>
@@ -126,27 +117,20 @@
                     <div class="attr-font">Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
-                        if($this->editmode)
-                            {
-                                if($this->image("TBS_ApplicationImage")->isEmpty())
-                                    {
-                                        echo $this->image("TBS_ApplicationImage")->setImage($data['ApplicationImage']);
-                                    }
-                                    else{
-                                        echo $this->image("TBS_ApplicationImage");
-                                    }
-                                }
-                                else
-                                {
-                                    $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
-                                    if(method_exists($TBSAppImgSrcObj,'getThumbnail') && $TBSAppImgSrcObj->getThumbnail('catalog_thumb'))
-                                    {
-                                    ?>
-                <img src="<?= $TBSAppImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
-                <?php
-                                    }
-                                }
-                            ?>       
+                    if ($this->editmode) {
+                        if ($this->image("TBS_ApplicationImage")->isEmpty()) {
+                            echo $this->image("TBS_ApplicationImage")->setImage($data['ApplicationImage']);
+                        } else {
+                            echo $this->image("TBS_ApplicationImage");
+                        }
+                    } else {
+                        $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
+                        if (!empty($TBSAppImgSrcObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" />
+                        <?php
+                        }
+                    }
+                ?>       
             </section>
         </main>
 </div>

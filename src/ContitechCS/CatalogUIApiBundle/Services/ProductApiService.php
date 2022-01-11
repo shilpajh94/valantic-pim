@@ -113,10 +113,14 @@ class ProductApiService implements ConstantsInterface
 
                         if(method_exists($objDoc,'getElement'))
                         {
-                          $editables[] = ['title' => $objDoc->getElement($config_val)->getData()];
+                            if (!empty($objDoc->getElement($config_val)) && !empty($objDoc->getElement($config_val)->getData())) {
+                                $editables[] = ['title' => $objDoc->getElement($config_val)->getData()];
+                            }
                         }
                       }  
-                      $arr['tableOfContentPageInfo'][] = $editables;
+                      if (!empty($editables) && count($editables)>0) {
+                        $arr['tableOfContentPageInfo'][] = $editables;
+                      }
                     }
                   }
                 }
@@ -140,7 +144,7 @@ class ProductApiService implements ConstantsInterface
       {
         if($objAsset)
         {
-          return PIMCORE_TRANSFORMED_ASSET_URL.''.$objAsset->getRealFullPath();
+            return \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($objAsset);
         }
       }
       catch (Exception $e) 

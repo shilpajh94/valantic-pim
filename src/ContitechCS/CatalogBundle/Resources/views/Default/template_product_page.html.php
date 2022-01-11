@@ -214,10 +214,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h3>
                     
                     <div class="media">
-                        <div class="media-img">
-                            <?php echo $this->image("PP_ConveyorBeltsComponents_Image"); ?>
-                        </div>
-
+                        <?php if ($this->editmode) { ?>
+                            <div class="media-img">
+                                <?php
+                                    echo $this->image("PP_ConveyorBeltsComponents_Image");
+                                ?>
+                            </div>
+                        <?php } else { 
+                            $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
+                            if (!empty($componentImage)) { ?>
+                                <div class="media-img">
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt=""/>
+                                </div>
+                            <?php }
+                        } ?>
+                        
                         <div class="media-body">
                             <ul class="components">
                                 <?php while($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
@@ -241,12 +252,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </table>
                 </div>
                 
+                <?php if ($this->editmode) { ?>
                 <div class="full-image-sec">
                     <?php
                         echo $this->image("PP_BannerImage");
                     ?>
                 </div>
-
+                <?php } else { 
+                    $bannerImage =  $this->image("PP_BannerImage");
+                    if (!empty($bannerImage)) { ?>
+                        <div class="full-image-sec">
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt=""/>
+                        </div>
+                    <?php }
+                } ?>
                 <div class="featuring-sec">
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>
@@ -306,7 +325,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 <?php $productImgSrcObj =  $this->image("PP_Product_Image"); ?>
                 
-                <?php if(!$this->input("PP_ShortText")->isEmpty() || $productImgSrcObj->getThumbnail('catalog_thumb')): ?>
+                <?php if(!$this->input("PP_ShortText")->isEmpty() || !empty($productImgSrcObj)): ?>
                 <div class="media pt-0">
                     
                     <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
@@ -316,10 +335,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <?php if($productImgSrcObj->getThumbnail('catalog_thumb')): ?>
+                    <?php if(!empty($productImgSrcObj)): ?>
                         <div class="seal-image">
-                            <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt=""/>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -448,15 +466,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         
                         <?php 
                         
-                        if($cbcImgSrcObj->getThumbnail('catalog_thumb') || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
+                        if(!empty($cbcImgSrcObj) || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()){ ?>
                             <div class="media">
                                 <?php
                                     
-                                    if($cbcImgSrcObj->getThumbnail('catalog_thumb'))
+                                    if(!empty($cbcImgSrcObj))
                                     {
                                     ?>
                                     <div class="media-img">
-                                    <img src="<?= $cbcImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($cbcImgSrcObj, $this->imageWidth); ?>" alt=""/>
                                     </div>
                                     <?php
                                     }
@@ -495,11 +513,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?>
                 <?php 
                     $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                    if($ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
+                    if(!empty($ppBannerImgSrcObj))
                     {
                     ?>
                     <div class="full-image-sec">
-                        <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ppBannerImgSrcObj, $this->imageWidth); ?>" alt=""/>
                     </div>
                     <?php
                     }
@@ -626,18 +644,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 else
                                 {
                                     $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                    ?>
-                                    <div class="media-img media-image">
-                                    <?php
-                                    if($PPFIImgSrcObj->getThumbnail('catalog_thumb'))
-                                    {
-                                    ?>
-                                    <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                    if (!empty($PPFIImgSrcObj)) { ?>
+                                        <div class="media-img media-image">
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($PPFIImgSrcObj, $this->imageWidth); ?>" class="features-images" alt=""/>
+                                        </div>
                                     <?php
                                     }
-                                    ?>
-                                    </div>
-                                    <?php
                                 }
                             ?>
                             
