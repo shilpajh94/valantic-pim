@@ -76,10 +76,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiAProductImageObj =  $this->image("ContiA_Product_Image");
-                            if(method_exists($ContiAProductImageObj,'getThumbnail') && $ContiAProductImageObj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                            <img src="<?= $ContiAProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" style="width:200px" />
+                            if (!empty($ContiAProductImageObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiAProductImageObj, $this->imageWidth); ?>" alt="" style="width:200px" >
                             <?php
                             }
                         }
@@ -151,12 +149,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $ppBannerImgSrcObj =  $this->image("ContiA_BannerImage");
-                        if(method_exists($ppBannerImgSrcObj,'getThumbnail') && $ppBannerImgSrcObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                        <div class="full-image-sec">
-                            <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                        </div>
+                        if (!empty($ppBannerImgSrcObj)) { ?>
+                            <div class="full-image-sec">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ppBannerImgSrcObj, $this->imageWidth); ?>" alt="" >
+                            </div>
                         <?php
                         }
                     }
@@ -234,10 +230,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature1Obj =  $this->image("ContiA_feature1");
-                            if(method_exists($ContiA_feature1Obj,'getThumbnail') && $ContiA_feature1Obj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                                <img src="<?= $ContiA_feature1Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
+                            if (!empty($ContiA_feature1Obj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
                             <?php
                             }
                         }
@@ -287,10 +281,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature2Obj =  $this->image("ContiA_feature2");
-                            if(method_exists($ContiA_feature2Obj,'getThumbnail') && $ContiA_feature2Obj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                                <img src="<?= $ContiA_feature2Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
+                            if (!empty($ContiA_feature2Obj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
                             <?php
                             }
                         }

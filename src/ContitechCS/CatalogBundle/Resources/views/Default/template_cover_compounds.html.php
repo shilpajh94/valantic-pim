@@ -135,13 +135,11 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $productImgSrcObj =  $this->image("CC_productImage");
-                        if(method_exists($productImgSrcObj,'getThumbnail') && $productImgSrcObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                        <div class="full-image-sec">
-                        <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                        </div>
-                        <?php
+                        if (!empty($productImgSrcObj)) { ?>
+                            <div class="full-image-sec">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>"  alt="">
+                            </div>
+                            <?php
                         }
                     }
                 ?>
@@ -324,11 +322,9 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
-                        if(method_exists($CCHRPage_productImageObj,'getThumbnail') && $CCHRPage_productImageObj->getThumbnail('catalog_thumb'))
-                        {
-                        ?>
-                        <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-4" />
-                        <?php
+                        if (!empty($CCHRPage_productImageObj)) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_productImageObj, $this->imageWidth); ?>" class="w-100 mb-4"  alt="">
+                            <?php
                         }
                     }
                 ?>
@@ -373,11 +369,9 @@ $coverCompound = $data['coverCompoundData'];
                                     else
                                     {
                                         $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
-                                        if(method_exists($CCHRPageFeatureImgSrcObj,'getThumbnail') && $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'))
-                                        {
-                                        ?>
-                                        <img src="<?= $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
-                                        <?php
+                                        if (!empty($CCHRPageFeatureImgSrcObj)) { ?>
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPageFeatureImgSrcObj, $this->imageWidth); ?>" class="features-images"  alt="">
+                                            <?php
                                         }
                                     }
                                 ?>
@@ -433,11 +427,9 @@ $coverCompound = $data['coverCompoundData'];
                         else
                         {
                             $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
-                            if(method_exists($CCHRPage_tempratureImageObj,'getThumbnail') && $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'))
-                            {
-                            ?>
-                            <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images  ml-0"/>
-                            <?php
+                            if (!empty($CCHRPage_tempratureImageObj)) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_tempratureImageObj, $this->imageWidth); ?>" class="features-images  ml-0"  alt="">
+                                <?php
                             }
                         }
                     ?>
