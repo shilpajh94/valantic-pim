@@ -28,25 +28,33 @@ class CSProductDataImportCommand extends AbstractCommand
     {
         $this->setName('cs:one-time-import:product-data-import')
             ->setDescription('Product data import script')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('language', InputArgument::REQUIRED, 'Enter Language');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $languageArray = array('en', 'de', 'pt', 'es', 'fr', 'zh');
         $filePath = $input->getArgument('filePath');
+        $language = strtolower($input->getArgument('language'));
+
+        if (!in_array($language, $languageArray)) {
+            echo "\n Invalid Argument: Use use atleast one language code, among 'en', 'de', 'pt', 'es', 'fr', 'zh' to import the data in that particular language. \n ";
+            die;
+        }
 
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $language);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $language)
     {
 
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
@@ -185,6 +193,7 @@ class CSProductDataImportCommand extends AbstractCommand
                         }
                         // Creating folder for each region
                         if (!empty($region)) {
+                            $region = trim($region);
                             if (strpos($productName, "/") !== false) {
                                 $productName = str_replace("/", "-", $productName);
                             }
@@ -196,94 +205,200 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $productPath = $productPath . $region . "/" . $productName;
                             }
                         }
-
+                        $product = '';
                         $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+
                         $productNameLog = $hierarchy;
-                        if (!$CSProductObj) {
-                            $productNameLog = $hierarchy;
-                            try {
-                                $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
+                        //if (!$CSProductObj) {
+                        $productNameLog = $hierarchy;
+                        try {
+                            if ($CSProductObj) {
+                                $product = $CSProductObj;
+                                $parentId = $product->getParentId();
+                            } else {
                                 $product = new DataObject\CSProducts();
+                                $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
                                 $product->setKey($hierarchyKey);
-
-                                if (isset($removeSlashInProductName[$hierarchy])) {
-                                    $product->setName($removeSlashInProductName[$hierarchy]);
-                                } else {
-                                    $product->setName($hierarchy);
-                                }
-                                if ($hierarchyPathObj) {
-                                    $product->setParentCategory([$parentHierarchyObj]);
-                                } else {
-                                    $product->setParentCategory([$parentObjForLeaf]);
-                                }
-
                                 $product->setParentId($parentId);
-                                $product->setOmitMandatoryCheck(true);
-                                $product->setPublished(true);
-                                //$product->save();
-                                $bricksData = [];
-                                $natureOfProduct = 0;
+                            }
 
-                                foreach ($productData as $fieldCVSKey => $fieldValue) {
-                                    $fieldCVSKey = trim($fieldCVSKey);
+                            if (isset($removeSlashInProductName[$hierarchy])) {
+                                $product->setName($removeSlashInProductName[$hierarchy], $language);
+                            } else {
+                                $product->setName($hierarchy, $language);
+                            }
+                            if ($hierarchyPathObj) {
+                                $product->setParentCategory([$parentHierarchyObj]);
+                            } else {
+                                $product->setParentCategory([$parentObjForLeaf]);
+                            }
 
-                                    if (isset($productDataImportConfig[$fieldCVSKey])) {
-                                        $fieldConfig = $productDataImportConfig[$fieldCVSKey];
-                                        $fieldName = ucfirst($fieldConfig['fieldName']);
-                                        $blockName = ucfirst($fieldConfig['blockName']);
-                                        if ($fieldConfig['objectType'] == 'class') {
-                                            if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
 
-                                                $masterValueArray = explode("|", trim(ucwords($fieldValue)));
+                            $product->setOmitMandatoryCheck(true);
+                            $product->setPublished(true);
+                            //$product->save();
+                            $bricksData = [];
+                            $natureOfProduct = 0;
 
-                                                $masterValueArray = array_map('trim', $masterValueArray);
+                            foreach ($productData as $fieldCVSKey => $fieldValue) {
+                                $fieldCVSKey = trim($fieldCVSKey);
 
-                                                $masterObjects = array();
+                                if (isset($productDataImportConfig[$fieldCVSKey])) {
+                                    $fieldConfig = $productDataImportConfig[$fieldCVSKey];
+                                    $fieldName = ucfirst($fieldConfig['fieldName']);
+                                    $blockName = ucfirst($fieldConfig['blockName']);
+                                    if ($fieldConfig['objectType'] == 'class') {
+                                        if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
 
-                                                foreach ($masterValueArray as $val) {
-                                                    $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'], $fieldConfig['createFlag']);
+                                            $masterValueArray = explode("|", trim(ucwords($fieldValue)));
+
+                                            $masterValueArray = array_map('trim', $masterValueArray);
+
+                                            $masterObjects = array();
+
+                                            foreach ($masterValueArray as $val) {
+                                                $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'], $fieldConfig['createFlag']);
+                                            }
+
+                                            $method = 'set' . $fieldName;
+                                            $product->$method($masterObjects, $language);
+                                        } else if ($fieldConfig['fieldType'] == 'Multiselection') {
+                                            $fieldValue = trim($fieldValue);
+                                            $fieldValueArr = explode('|', $fieldValue);
+
+                                            if ($fieldName == 'CSRegion') {
+                                                $regionValueArr = [];
+                                                foreach ($fieldValueArr as $eachRegion) {
+                                                    $regionValue = trim($eachRegion);
+                                                    if (strpos($regionValue, "/") !== false) {
+                                                        $regionValue = str_replace("/", "-", $regionValue);
+                                                    }
+                                                    $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
+                                                    $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
+                                                    if ($regionPathObj) {
+                                                        $regionPathObjId = $regionPathObj->getId();
+                                                        $regionValueArr[] = $regionPathObjId;
+                                                    }
                                                 }
+                                                $fieldValue = array_map('trim', $regionValueArr);
+                                            } else if ($fieldName == 'CSSegment') {
+                                                $segmentValueArr = [];
+                                                foreach ($fieldValueArr as $eachSegment) {
+                                                    $segmentValue = trim($eachSegment);
+                                                    $segment = new \Pimcore\Model\DataObject\CSSegment\Listing();
+                                                    $segment->setCondition('SegmentName = ?', $segmentValue);
+                                                    foreach ($segment as $seg) {
+                                                        $segmentValueArr[] = $seg->getId();
+                                                    }
+                                                }
+                                                $fieldValue = array_map('trim', $segmentValueArr);
+                                            } else {
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+                                            }
+                                            $method = 'set' . $fieldName;
+                                            $product->$method($fieldValue, $language);
+                                        } else if ($fieldConfig['fieldType'] == 'Block' && $fieldConfig['objectType'] == 'class') {
+                                            $fieldValue = trim($fieldValue);
 
-                                                $method = 'set' . $fieldName;
-                                                $product->$method($masterObjects);
-                                            } else if ($fieldConfig['fieldType'] == 'Multiselection') {
-                                                $fieldValue = trim($fieldValue);
+                                            if (strpos($fieldValue, "\n") !== false) {
+                                                $fieldValueArr = explode("\n", $fieldValue);
+                                            } else {
                                                 $fieldValueArr = explode('|', $fieldValue);
+                                            }
+                                            $fieldValue = array_map('trim', $fieldValueArr);
 
-                                                if ($fieldName == 'CSRegion') {
-                                                    $regionValueArr = [];
-                                                    foreach ($fieldValueArr as $eachRegion) {
-                                                        $regionValue = trim($eachRegion);
-                                                        if (strpos($regionValue, "/") !== false) {
-                                                            $regionValue = str_replace("/", "-", $regionValue);
-                                                        }
-                                                        $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
-                                                        $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
-                                                        if ($regionPathObj) {
-                                                            $regionPathObjId = $regionPathObj->getId();
-                                                            $regionValueArr[] = $regionPathObjId;
-                                                        }
-                                                    }
-                                                    $fieldValue = array_map('trim', $regionValueArr);
-                                                } else if ($fieldName == 'CSSegment') {
-                                                    $segmentValueArr = [];
-                                                    foreach ($fieldValueArr as $eachSegment) {
-                                                        $segmentValue = trim($eachSegment);
-                                                        $segment = new \Pimcore\Model\DataObject\CSSegment\Listing();
-                                                        $segment->setCondition('SegmentName = ?', $segmentValue);
-                                                        foreach ($segment as $seg) {
-                                                            $segmentValueArr[] = $seg->getId();
-                                                        }
-                                                    }
-                                                    $fieldValue = array_map('trim', $segmentValueArr);
-                                                } else {
-                                                    $fieldValue = array_map('trim', $fieldValueArr);
+                                            $fieldValueBlock = array();
+                                            if ($blockName == 'BenefitBlock') {
+                                                $method = 'set' . $blockName;
+                                                foreach ($fieldValue as $key => $val) {
+                                                    $fieldValueBlock[] = [
+                                                        "Benefit" => new BlockElement("Benefit", 'input', $val)
+                                                    ];
                                                 }
-                                                $method = 'set' . $fieldName;
-                                                $product->$method($fieldValue);
-                                            } else if ($fieldConfig['fieldType'] == 'Block' && $fieldConfig['objectType'] == 'class') {
-                                                $fieldValue = trim($fieldValue);
+                                            } else if ($blockName == 'FeatureBlock') {
+                                                $method = 'set' . $blockName;
+                                                foreach ($fieldValue as $key => $val) {
+                                                    $fieldValueBlock[] = [
+                                                        "Feature" => new BlockElement("Feature", 'input', $val)
+                                                    ];
+                                                }
+                                            }
 
+                                            $product->$method($fieldValueBlock, $language);
+                                        } else {
+                                            if ($fieldName == 'NatureOfProduct') {
+                                                if ($fieldValue) {
+                                                    $fieldValue = 'Final Product';
+                                                    $natureOfProduct = 1;
+                                                } else {
+                                                    $fieldValue = 'Product Group';
+                                                }
+                                            }
+                                            $method = 'set' . $fieldName;
+                                            $product->$method($fieldValue, $language);
+                                        }
+                                    } else {
+                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                        $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
+                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
+                                        $configAttributeArray[] = $fieldValue;
+                                    }
+                                }
+                            }
+                            if ($allObjectBricks) {
+                                $patternDataValue = '';
+                                foreach ($allObjectBricks as $brick) {
+                                    if (isset($bricksData[$brick])) {
+                                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                                        $brickObject = new $class($product);
+                                        foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
+                                            $fieldValue = trim($fieldData['fieldValue']);
+
+                                            if (($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
+                                                $colNameArray[] = $fieldKey;
+                                                $incorrectDataArray[] = $fieldValue;
+                                            }
+
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+                                            if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
+                                                if (strpos($fieldValue, "\n") !== false) {
+                                                    $fieldValueArr = explode("\n", $fieldValue);
+                                                } else {
+                                                    $fieldValueArr = explode('|', $fieldValue);
+                                                }
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+                                                if ($fieldKey == 'BeltWidthmm' || $fieldKey == 'BeltWidth') {
+                                                    $beltWidthArr = [];
+                                                    foreach ($fieldValue as $eachBeltWidth) {
+                                                        if (strpos($eachBeltWidth, "in") !== false && $eachBeltWidth != "Continuous") {
+                                                            $eachBeltWidth = str_replace("in", "", $fieldValue);
+                                                        }
+                                                        if (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidthmm') {
+                                                            $brickObject->setBeltWidthRangeMM($eachBeltWidth, $language);
+                                                        } elseif (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidth') {
+                                                            $brickObject->setBeltWidthRangeInch($eachBeltWidth, $language);
+                                                        } else {
+                                                            $AvailableBeltWidthPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER . '/' . $eachBeltWidth;
+                                                            $AvailableBeltWidthPathObj = DataObject\CSAvailableBeltWidths::getByPath($AvailableBeltWidthPath);
+                                                            if ($AvailableBeltWidthPathObj) {
+                                                                $AvailableBeltWidthPathObjId = $AvailableBeltWidthPathObj->getId();
+                                                                $beltWidthArr[] = $AvailableBeltWidthPathObjId;
+                                                            }
+                                                        }
+                                                    }
+                                                    $fieldValue = array_map('trim', $beltWidthArr);
+                                                }
+                                            }
+
+                                            if ($fieldData['fieldType'] == 'Block' && $fieldConfig['objectType'] != "class") {
+                                                $objectBrickFieldMethod = 'setAvailableBeltPatternWidthBlock';
+
+                                                if (strpos($fieldValue, "in") !== false && $fieldValue != "Continuous") {
+                                                    $fieldValue = str_replace("in", "", $fieldValue);
+                                                }
+                                                if (strpos($fieldValue, ",-") !== false) {
+                                                    $fieldValue = str_replace(",-", "", $fieldValue);
+                                                }
                                                 if (strpos($fieldValue, "\n") !== false) {
                                                     $fieldValueArr = explode("\n", $fieldValue);
                                                 } else {
@@ -291,204 +406,106 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
                                                 $fieldValue = array_map('trim', $fieldValueArr);
 
-                                                $fieldValueBlock = array();
-                                                if ($blockName == 'BenefitBlock') {
-                                                    $method = 'set' . $blockName;
+                                                $beltWidthBlockData = array();
+
+                                                if ($fieldData['blockName'] == 'PatternWidthBlock') {
+                                                    $patternDataValue = $fieldValue;
+                                                }
+                                                if ($fieldData['blockName'] == 'BeltWidthBlock' && (!empty($fieldValue))) {
+                                                    $i = 0;
                                                     foreach ($fieldValue as $key => $val) {
-                                                        $fieldValueBlock[] = [
-                                                            "Benefit" => new BlockElement("Benefit", 'input', $val)
-                                                        ];
-                                                    }
-                                                } else if ($blockName == 'FeatureBlock') {
-                                                    $method = 'set' . $blockName;
-                                                    foreach ($fieldValue as $key => $val) {
-                                                        $fieldValueBlock[] = [
-                                                            "Feature" => new BlockElement("Feature", 'input', $val)
-                                                        ];
-                                                    }
-                                                }
-
-                                                $product->$method($fieldValueBlock);
-                                            } else {
-                                                if ($fieldName == 'NatureOfProduct') {
-                                                    if ($fieldValue) {
-                                                        $fieldValue = 'Final Product';
-                                                        $natureOfProduct = 1;
-                                                    } else {
-                                                        $fieldValue = 'Product Group';
-                                                    }
-                                                }
-                                                $method = 'set' . $fieldName;
-                                                $product->$method($fieldValue);
-                                            }
-                                        } else {
-                                            $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
-                                            $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
-                                            $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
-                                            $configAttributeArray[] = $fieldValue;
-                                        }
-                                    }
-                                }
-                                if ($allObjectBricks) {
-                                    $patternDataValue = '';
-                                    foreach ($allObjectBricks as $brick) {
-                                        if (isset($bricksData[$brick])) {
-                                            $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                                            $brickObject = new $class($product);
-                                            foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
-                                                $fieldValue = trim($fieldData['fieldValue']);
-
-                                                if (($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
-                                                    $colNameArray[] = $fieldKey;
-                                                    $incorrectDataArray[] = $fieldValue;
-                                                }
-
-                                                $objectBrickFieldMethod = 'set' . $fieldKey;
-                                                if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
-                                                    if (strpos($fieldValue, "\n") !== false) {
-                                                        $fieldValueArr = explode("\n", $fieldValue);
-                                                    } else {
-                                                        $fieldValueArr = explode('|', $fieldValue);
-                                                    }
-                                                    $fieldValue = array_map('trim', $fieldValueArr);
-                                                    if ($fieldKey == 'BeltWidthmm' || $fieldKey == 'BeltWidth') {
-                                                        $beltWidthArr = [];
-                                                        foreach ($fieldValue as $eachBeltWidth) {
-                                                            if (strpos($eachBeltWidth, "in") !== false && $eachBeltWidth != "Continuous") {
-                                                                $eachBeltWidth = str_replace("in", "", $fieldValue);
-                                                            }
-                                                            if (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidthmm') {
-                                                                $brickObject->setBeltWidthRangeMM($eachBeltWidth);
-                                                            } elseif (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidth') {
-                                                                $brickObject->setBeltWidthRangeInch($eachBeltWidth);
+                                                        if (strpos($val, "-") !== false && $fieldKey == 'AvailableBeltWidthInch') {
+                                                            $brickObject->setAvailableBeltWidthRangeInch($val, $language);
+                                                        }
+                                                        $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
+                                                        if ($beltWidthObj) {
+                                                            $beltWidthObjId = $beltWidthObj->getId();
+                                                        }
+                                                        $pVal = '';
+                                                        if ($patternDataValue) {
+                                                            if (preg_match("/^[a-zA-Z ]+/", $patternDataValue[0])) {
+                                                                $pVal = $patternDataValue[0];
                                                             } else {
-                                                                $AvailableBeltWidthPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER . '/' . $eachBeltWidth;
-                                                                $AvailableBeltWidthPathObj = DataObject\CSAvailableBeltWidths::getByPath($AvailableBeltWidthPath);
-                                                                if ($AvailableBeltWidthPathObj) {
-                                                                    $AvailableBeltWidthPathObjId = $AvailableBeltWidthPathObj->getId();
-                                                                    $beltWidthArr[] = $AvailableBeltWidthPathObjId;
+                                                                $pVal = $patternDataValue[$i++];
+                                                            }
+                                                            $idArray = array();
+                                                            $valArray = explode(",", $pVal);
+                                                            foreach ($valArray as $value) {
+                                                                $AvailablePatternWidthPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEPATTERNWIDTH_FOLDER . '/' . trim($value);
+                                                                $AvailablePatternWidthPathObj = DataObject\CSAvailablePatternWidths::getByPath($AvailablePatternWidthPath);
+                                                                if ($AvailablePatternWidthPathObj) {
+                                                                    $idArray[] = $AvailablePatternWidthPathObj->getId();
                                                                 }
+                                                            }
+                                                            $beltWidthBlockData[] = [
+                                                                "availableBeltWidthInch" => new BlockElement("availableBeltWidthInch", 'select', $beltWidthObjId),
+                                                                "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
+                                                            ];
+                                                            if ($beltWidthBlockData) {
+                                                                $brickObject->$objectBrickFieldMethod($beltWidthBlockData, $language);
                                                             }
                                                         }
-                                                        $fieldValue = array_map('trim', $beltWidthArr);
                                                     }
+                                                    $beltWidthBlockData = [];
+                                                    $beltWidthObjId = '';
+                                                    $idArray = [];
                                                 }
-
-                                                if ($fieldData['fieldType'] == 'Block' && $fieldConfig['objectType'] != "class") {
-                                                    $objectBrickFieldMethod = 'setAvailableBeltPatternWidthBlock';
-
-                                                    if (strpos($fieldValue, "in") !== false && $fieldValue != "Continuous") {
-                                                        $fieldValue = str_replace("in", "", $fieldValue);
-                                                    }
-                                                    if (strpos($fieldValue, ",-") !== false) {
-                                                        $fieldValue = str_replace(",-", "", $fieldValue);
-                                                    }
-                                                    if (strpos($fieldValue, "\n") !== false) {
-                                                        $fieldValueArr = explode("\n", $fieldValue);
-                                                    } else {
-                                                        $fieldValueArr = explode('|', $fieldValue);
-                                                    }
-                                                    $fieldValue = array_map('trim', $fieldValueArr);
-
-                                                    $beltWidthBlockData = array();
-
-                                                    if ($fieldData['blockName'] == 'PatternWidthBlock') {
-                                                        $patternDataValue = $fieldValue;
-                                                    }
-                                                    if ($fieldData['blockName'] == 'BeltWidthBlock' && (!empty($fieldValue))) {
-                                                        $i = 0;
-                                                        foreach ($fieldValue as $key => $val) {
-                                                            if (strpos($val, "-") !== false && $fieldKey == 'AvailableBeltWidthInch') {
-                                                                $brickObject->setAvailableBeltWidthRangeInch($val);
-                                                            }
-                                                            $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
-                                                            if ($beltWidthObj) {
-                                                                $beltWidthObjId = $beltWidthObj->getId();
-                                                            }
-                                                            $pVal = '';
-                                                            if ($patternDataValue) {
-                                                                if (preg_match("/^[a-zA-Z ]+/", $patternDataValue[0])) {
-                                                                    $pVal = $patternDataValue[0];
-                                                                } else {
-                                                                    $pVal = $patternDataValue[$i++];
-                                                                }
-                                                                $idArray = array();
-                                                                $valArray = explode(",", $pVal);
-                                                                foreach ($valArray as $value) {
-                                                                    $AvailablePatternWidthPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEPATTERNWIDTH_FOLDER . '/' . trim($value);
-                                                                    $AvailablePatternWidthPathObj = DataObject\CSAvailablePatternWidths::getByPath($AvailablePatternWidthPath);
-                                                                    if ($AvailablePatternWidthPathObj) {
-                                                                        $idArray[] = $AvailablePatternWidthPathObj->getId();
-                                                                    }
-                                                                }
-                                                                $beltWidthBlockData[] = [
-                                                                    "availableBeltWidthInch" => new BlockElement("availableBeltWidthInch", 'select', $beltWidthObjId),
-                                                                    "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
-                                                                ];
-                                                                if ($beltWidthBlockData) {
-                                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
-                                                                }
-                                                            }
-                                                        }
-                                                        $beltWidthBlockData = [];
-                                                        $beltWidthObjId = '';
-                                                        $idArray = [];
-                                                    }
-                                                } else {
-                                                    $brickObject->$objectBrickFieldMethod($fieldValue);
-                                                }
-                                            }
-
-                                            foreach ($unitValueConfig as $unit => $unitValue) {
-
-                                                $fieldKey = ucfirst($unitValue['fieldName']);
-                                                $objectBrickFieldMethod = 'set' . $fieldKey;
-
-                                                if ($unitValue['objectType'] == $brick) {
-                                                    $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
-                                                } else {
-                                                    continue;
-                                                }
-                                            }
-                                            $brickObject->setFieldname('ProductAttributes');
-                                            $method = 'set' . $brick;
-                                            $product->getProductAttributes()->$method($brickObject);
-                                            if ($natureOfProduct == 1) {
-                                                unset($bricksData[$brick]);
+                                            } else {
+                                                $brickObject->$objectBrickFieldMethod($fieldValue, $language);
                                             }
                                         }
 
+                                        foreach ($unitValueConfig as $unit => $unitValue) {
+
+                                            $fieldKey = ucfirst($unitValue['fieldName']);
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                            if ($unitValue['objectType'] == $brick) {
+                                                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                            } else {
+                                                continue;
+                                            }
+                                        }
+                                        $brickObject->setFieldname('ProductAttributes');
                                         $method = 'set' . $brick;
+                                        $product->getProductAttributes()->$method($brickObject, $language);
+                                        if ($natureOfProduct == 1) {
+                                            unset($bricksData[$brick]);
+                                        }
                                     }
-                                    $extraAttrString = '';
-                                    if ($natureOfProduct == 1) {
-                                        foreach ($bricksData as $extraBricks) {
-                                            foreach ($extraBricks as $b => $v) {
-                                                if (!empty($v['fieldValue'])) {
-                                                    $extraAttrString = $b . ", " . $extraAttrString;
-                                                }
+
+                                    $method = 'set' . $brick;
+                                }
+                                $extraAttrString = '';
+                                if ($natureOfProduct == 1) {
+                                    foreach ($bricksData as $extraBricks) {
+                                        foreach ($extraBricks as $b => $v) {
+                                            if (!empty($v['fieldValue'])) {
+                                                $extraAttrString = $b . ", " . $extraAttrString;
                                             }
                                         }
                                     }
                                 }
-                                $result = $product->save();
-                                $parentId = $result->getId();
-                                $prd = DataObject\CSProducts::getById($parentId, true);
-                                $prd->save();
-                                echo "\n" . '---------------------------';
-                                echo "\n" . "Product added successfully";
-                                echo "\n Hierarchy created: " . $productPath;
-                                $comment = "Product added successfully";
-                                echo "\n Product asset folder creation started.";
-                                \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
-                                echo "\n Product asset folder creation Done.";
-                                echo "\n";
-                            } catch (\Throwable $th) {
-                                p_r($th->getMessage());
                             }
-                        } else {
-                            $parentId = $CSProductObj->getId();
+                            $result = $product->save();
+                            $parentId = $result->getId();
+                            $prd = DataObject\CSProducts::getById($parentId, true);
+                            $prd->save();
+                            echo "\n" . '---------------------------';
+                            echo "\n" . "Product added successfully";
+                            echo "\n Hierarchy created: " . $productPath;
+                            $comment = "Product added successfully";
+                            echo "\n Product asset folder creation started.";
+                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
+                            echo "\n Product asset folder creation Done.";
+                            echo "\n";
+                        } catch (\Throwable $th) {
+                            p_r($th->getMessage());
+                            //p_r($th->getTraceAsString());
                         }
+                        // } else {
+                        //     $parentId = $CSProductObj->getId();
+                        // }
                     }
                 } else {
                     $prodHierarchy = $productHierarchy;
