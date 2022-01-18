@@ -32,10 +32,10 @@ class NutTypeDataImportCommand extends AbstractCommand
             $element = DataObject\Product::getById($id['o_id']);
             $crimpNutValue = $element->getFert()->getHydFittingsFert()->getCrimpNutYN();
             $thrustWireNutValue = $element->getFert()->getHydFittingsFert()->getThrustWireNut();
-            if($crimpNutValue){
+            if($crimpNutValue == 1){
                 $element->getFert()->getHydFittingsFert()->setNutType("Crimp Nut");
             }
-            if($thrustWireNutValue){
+            if($thrustWireNutValue == 1){
                 $element->getFert()->getHydFittingsFert()->setThrustWireNut("Thrust Nut");
 
             }
