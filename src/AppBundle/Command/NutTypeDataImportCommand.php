@@ -24,8 +24,8 @@ class NutTypeDataImportCommand extends AbstractCommand
     {
         $this->db = Db::get();
 
-        $sql = "SELECT o_id FROM object_brick_store_HydFittingsFert_1
-                WHERE CrimpNutYN IS NOT NULL or ThrustWireNut IS NOT NULL";
+        $sql = "SELECT o_id FROM object_brick_store_HydFittingsFert_1 
+                WHERE '1' IN (ThrustWireNut, CrimpNutYN)";
          $results = $this->db->fetchAll($sql);
 
          foreach($results as $id){
