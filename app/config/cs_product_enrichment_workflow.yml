@@ -3,6 +3,7 @@ pimcore:
         product_enrichment:
             label: "Product Workflow"
             type: "state_machine"
+            initial_markings:     ["open"]
             supports:
               - 'Pimcore\Model\DataObject\CSProducts'
             places:
@@ -17,8 +18,8 @@ pimcore:
                           delete: false
                           unpublish: false
                           condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
-                in_process:
-                    label: In Process
+                in_po_edit:
+                    label: In PO Edit
                     color: #377ea9
                     permissions:
                         -
@@ -106,10 +107,10 @@ pimcore:
                 send_to_process:
                     from:
                         - open
-                    to: in_process
+                    to: in_po_edit
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
                     options:
-                        label: 'Send to process'
+                        label: 'Send to PO for Edit'
                         notes:
                             commentEnabled: true
                             commentRequired: false
@@ -118,7 +119,7 @@ pimcore:
                     from:
                         - paused
                         - published
-                        - in_process
+                        - in_po_edit
                     to: in_rd_edit
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getRnDUser() != null and subject.getRnDUser() != ''))
                     options:
@@ -127,25 +128,26 @@ pimcore:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: save_version
-                send_to_marcom_after_publish:
-                    from:
-                        - published
-                    to: in_marcom_edit
-                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
-                    options:
-                        label: 'Send for Enrichment To Marcom'
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
-                        changePublishedState: save_version        
                 send_to_marcom:
                     from:
-                        #- published
+                        - published
                         - in_rd_edit
                     to: in_marcom_edit
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getMarcomUser() != null and subject.getMarcomUser() != ''))
                     options:
                         label: 'Send for Enrichment To Marcom'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                send_to_edit_for_enrichment:
+                    from:
+                        - published
+                        - in_marcom_edit
+                    to: in_rd_edit
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS")) and (subject.getRnDUser() != null and subject.getRnDUser() != ''))
+                    options:
+                        label: 'Send To R&D Edit'
                         notes:
                             commentEnabled: true
                             commentRequired: true
@@ -198,6 +200,7 @@ pimcore:
 
                 publish_product:
                     from:
+                        - published
                         - in_publish
                     to: published
                     guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()))
@@ -207,7 +210,57 @@ pimcore:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: force_published
-
+                        
+                # after publishing transitions
+#                send_to_edit_after_publish:
+#                    from:
+##                        - paused
+#                        - published
+#                        - in_po_edit
+#                    to: in_rd_edit
+#                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getRnDUser() != null and subject.getRnDUser() != ''))
+#                    options:
+#                        label: 'Send to R&D Edit'
+#                        notes:
+#                            commentEnabled: true
+#                            commentRequired: false
+#                        changePublishedState: save_version
+                send_to_marcom_after_publish:
+                    from:
+                        - published
+                    to: in_marcom_edit
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS")) and (subject.getProductOwner() == user.getId()) and (subject.getMarcomUser() != null and subject.getMarcomUser() != '') and (subject.getPublished() == true || subject.getPublished() == 1))
+                    options:
+                        label: 'Send for Enrichment To Marcom'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version       
+                send_to_po_for_review:
+                    from:
+                        - published
+                    to: in_publish
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS") or has_role("ROLE_MARCOMCS")) and (subject.getProductOwner() != null and subject.getProductOwner() != '') and (subject.getPublished() == true || subject.getPublished() == 1))
+                    options:
+                        label: 'Send to PO for Review'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                send_to_po_for_review_from_rd_edit:
+                    from:
+                        - in_rd_edit
+                    to: in_publish
+                    guard: ((has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_EDITORCS")) and (subject.getProductOwner() != null and subject.getProductOwner() != ''))
+                    options:
+                        label: 'Send to PO for Review'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: save_version
+                        
+                # after publishing transitions       
+                        
                 pause_product:
                     from:
                         - published

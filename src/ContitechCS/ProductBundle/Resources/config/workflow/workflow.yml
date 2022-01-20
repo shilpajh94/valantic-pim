@@ -22,6 +22,17 @@ parameters:
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
+        send_to_edit_for_enrichment:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment to RND'
+            notificationTo: 
+                users:
+                    - RnDUser
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
         send_to_marcom_after_publish:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
             notificationTo: 
@@ -42,6 +53,32 @@ parameters:
 #                roles:
     
         send_to_publish:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
+            notificationTo: 
+                users:
+                    - ProductOwner
+#                    - UserOwner   
+                    # user owner is product creator means Product Manager
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        send_to_po_for_review:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
+            notificationTo: 
+                users:
+                    - ProductOwner
+#                    - UserOwner   
+                    # user owner is product creator means Product Manager
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        send_to_po_for_review_from_rd_edit:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
             notificationTo: 
                 users:
@@ -135,13 +172,13 @@ parameters:
                 isPaused: false
             condition:
                 
-        send_to_marcom:
-            condition:
-                methods: [checkForMandatoryValidation]
-                
-        send_to_publish:
-            condition:
-                methods: [checkForMandatoryValidation] 
+#        send_to_marcom:
+#            condition:
+#                methods: [checkForMandatoryValidation]
+#                
+#        send_to_publish:
+#            condition:
+#                methods: [checkForMandatoryValidation] 
                 
         publish_product:
             action: 
