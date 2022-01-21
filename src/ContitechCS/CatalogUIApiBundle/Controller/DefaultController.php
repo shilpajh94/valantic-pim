@@ -79,7 +79,7 @@ class DefaultController extends FrontendController
             }
 
             $pdfTmpSaveDirectory    = PIMCORE_SYSTEM_TEMP_DIRECTORY;
-            $savedPdfFileName       = $productGroupId . ".pdf";
+            $savedPdfFileName       = $productGroupId. "-" . $docId . ".pdf";
             $tempFileName           = "web2print-document-" . $docId . ".pdf";
             $savedPdfFilePath       = $pdfTmpSaveDirectory . "/" . $tempFileName;
 
