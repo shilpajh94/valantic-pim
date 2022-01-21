@@ -291,8 +291,10 @@ class DefaultController extends AbstractController
                         }
                     }
                 }
-    
-                if($productObj)
+                if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
+                    $productObj->setGetInheritedValues(true);
+                }
+                if($productObj && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
                 {
                     $productNameTitle   =   implode(' and ', $productNameArr);
                     $productName        =   trim($productObj->getName());
@@ -984,9 +986,10 @@ class DefaultController extends AbstractController
                 $productId = $selectedProduct[0];
     
                 $productDetails = DataObject\CSProducts::getById($productId);
-
-                
-                if($productDetails)
+                if (!empty($productDetails) && $productDetails instanceof DataObject\CSProducts) {
+                    $productDetails->setGetInheritedValues(true);
+                }
+                if(!empty($productDetails) && (empty($productDetails->getCSRegion()) || in_array($regionId, $productDetails->getCSRegion())))
                 {
                     $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
                     $productData['Name'] = $productDetails->getName();
@@ -1338,6 +1341,8 @@ class DefaultController extends AbstractController
     {
         try
         {
+            
+            $productObject->setGetInheritedValues(true);
             $productChildrenData = [];
             $objectTypeFolderchildren = $productObject->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
             
@@ -1596,8 +1601,10 @@ class DefaultController extends AbstractController
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
         
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-
-                    if($productObject)
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    if (!empty($productObject) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                     {
                         $productNameArr['Name'] = trim($productObject->getName());
                         $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -1617,11 +1624,11 @@ class DefaultController extends AbstractController
                             $childrenData[] = $data;
                             unset($data);
                         }
+                        $productNameArr['childrenData'] = $childrenData;
                     }
 
                 }
-    
-                $productNameArr['childrenData'] = $childrenData;
+                
             }
     
             $this->view['data'] = $productNameArr;
@@ -1660,8 +1667,11 @@ class DefaultController extends AbstractController
                 $singleProduct = $selectedProduct[0];
                 
                 $productObject = DataObject\CSProducts::getById($singleProduct);
+                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                    $productObject->setGetInheritedValues(true);
+                }
                 
-                if($productObject)
+                if(!empty($productObject) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $productData['Name'] = $productObject->getName();
                     $productData['ShortText'] = $productObject->getShortText();
@@ -1731,24 +1741,20 @@ class DefaultController extends AbstractController
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
-
-                $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
-    
-                if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                    $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                } else {
-                    $productData['HierarchyNameLevel2'] = null;
+                
+                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                    $productObject->setGetInheritedValues(true);
                 }
                 
-                // if(method_exists($productObject,'getParent'))
-                // {
-                //     $objParent = $productObject->getParent();
-        
-                //     $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-                // }
-                
-                if($productObject)
+                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
+                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+    
+                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                    } else {
+                        $productData['HierarchyNameLevel2'] = null;
+                    }
                     $productData['Name'] = $productObject->getName();
                     $productData['ShortText'] = $productObject->getShortText();
                     $productData['ProductImage'] = $productObject->getProductImage();
@@ -1794,6 +1800,13 @@ class DefaultController extends AbstractController
     {   
         try
         {
+            $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                throw new Exception('Unable to find region');
+
+            $regionId = $regionProperty->getId();
+            
             $this->configProviderService = new ConfigProviderService();
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -1805,8 +1818,10 @@ class DefaultController extends AbstractController
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
-
-                if($productObject)
+                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                    $productObject->setGetInheritedValues(true);
+                }
+                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $objParent = DataObject\CSProducts::getById($productObject->getParentId());
         
@@ -1820,9 +1835,10 @@ class DefaultController extends AbstractController
                     $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
         
                     $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
+                    $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
                 }
     
-                $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                
             }
             
             $this->view['data'] = $productData;
@@ -1860,27 +1876,32 @@ class DefaultController extends AbstractController
                 $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
     
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
-
-                if($singleProductObj)
+                if (!empty($singleProductObj) && $singleProductObj instanceof DataObject\CSProducts) {
+                    $singleProductObj->setGetInheritedValues(true);
+                }
+                
+                if($singleProductObj && (empty($singleProductObj->getCSRegion()) || in_array($regionId, $singleProductObj->getCSRegion())))
                 {
                     $childProductData['Name'] = $singleProductObj->getName();
                     $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
                     $childProductData['ShortText'] = $singleProductObj->getShortText();
                     $childProductData['ProductImage'] = $singleProductObj->getProductImage();
                     $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
-                }
-    
-                $FeaturesAndBenefits = [];
-                if($singleProductObj->getCSProductFeaturesAndBenefits())
-                {
-                    foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
-                        if(trim($value->getFeatureName()))
-                        {
-                            $FeaturesAndBenefits[] = $value->getFeatureName();
+                    $FeaturesAndBenefits = [];
+                    if($singleProductObj->getCSProductFeaturesAndBenefits())
+                    {
+                        foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
+                            if(trim($value->getFeatureName()))
+                            {
+                                $FeaturesAndBenefits[] = $value->getFeatureName();
+                            }
                         }
                     }
+                    $childProductData['Benefits'] = $FeaturesAndBenefits;
+                    $productData['childProductData'] = $childProductData;
                 }
-                $childProductData['Benefits'] = $FeaturesAndBenefits;
+    
+                
                 
                 // $productObject = [];
 
@@ -1888,10 +1909,12 @@ class DefaultController extends AbstractController
                 // {
                 //     $productObject = $singleProductObj->getParent();
                 // }
-
+                
                 $productObject    =   $this->getProductParentObject($singleProductObj); //$productObj->getParent();
-    
-                if($productObject)
+                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                    $productObject->setGetInheritedValues(true);
+                }
+                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                 {
                     $parentProductData['Name'] = $productObject->getName();
                     $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -1907,13 +1930,10 @@ class DefaultController extends AbstractController
                     }
                     $parentProductData['Applications'] = $applications;
                     $parentProductData['HierarchyNameLevel2'] = $productObject->getName();;
-                    
+                    $productData['parentProductData'] = $parentProductData;
                 }
             }
-    
-            $productData['parentProductData'] = $parentProductData;
-            $productData['childProductData'] = $childProductData;
-    
+            
             $this->view['data'] = $productData;
             $this->view['footer_logo_src'] = $footer_logo_src;
         }
@@ -2043,6 +2063,13 @@ class DefaultController extends AbstractController
     {   
         try
         {
+            $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId = $regionProperty->getId();
+            
             $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_textile_belt_services_page')->getElement();
     
             $this->configProviderService = new ConfigProviderService();
@@ -2066,14 +2093,18 @@ class DefaultController extends AbstractController
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
         
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-            
-                    $productNameArr['Name'] = trim($productObject->getName());
-                    $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                    $productNameArr['ShortText'] = $productObject->getShortText();
-                    $productNameArr['ProductImage'] = $productObject->getProductImage();
-                    $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                    $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                    $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());           
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['ProductImage'] = $productObject->getProductImage();
+                        $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                        $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
+                        $productNameArr['HierarchyNameLevel2'] = trim($productObject->getName());           
+                    }
                 }
             }
             $this->view['data'] = $productNameArr;
@@ -2089,6 +2120,13 @@ class DefaultController extends AbstractController
     {   
         try
         {
+            $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId = $regionProperty->getId();
+            
             $this->configProviderService = new ConfigProviderService();
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -2112,8 +2150,10 @@ class DefaultController extends AbstractController
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
         
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-
-                    if($productObject)
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                     {
                         $productNameArr['Name'] = trim($productObject->getName());
                         $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -2140,6 +2180,13 @@ class DefaultController extends AbstractController
     {   
         try
         {
+            $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId = $regionProperty->getId();
+            
             $this->configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
@@ -2168,38 +2215,42 @@ class DefaultController extends AbstractController
                     // {
                     //     $parentProductObject = $productObject->getParent();
                     // }
-
-                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
-    
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productNameArr['HierarchyNameLevel2'] = null;
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
                     }
-                
-                    $productNameArr['Name'] = trim($productObject->getName());
-                    $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                    $productNameArr['ShortText'] = $productObject->getShortText();
-                    $productNameArr['LogoImage'] = $productObject->getLogoImage();     
-                    $productNameArr['ProductImage'] = $productObject->getProductImage();
-                    $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                    
-                    $FeaturesAndBenefits = [];
-                    if($productObject->getCSProductFeaturesAndBenefits())
-                    {
-                        foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
-                        {
-                            if($value->getFeatureName())
-                            {
-                                $FeaturesAndBenefits[] = $value->getFeatureName();
-                            }
-                            
+                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
+                        $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+                        $parentParentObj->setGetInheritedValues(true);
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productNameArr['HierarchyNameLevel2'] = null;
                         }
+
+                        $productNameArr['Name'] = trim($productObject->getName());
+                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productNameArr['ShortText'] = $productObject->getShortText();
+                        $productNameArr['LogoImage'] = $productObject->getLogoImage();     
+                        $productNameArr['ProductImage'] = $productObject->getProductImage();
+                        $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+
+                        $FeaturesAndBenefits = [];
+                        if($productObject->getCSProductFeaturesAndBenefits())
+                        {
+                            foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
+                            {
+                                if($value->getFeatureName())
+                                {
+                                    $FeaturesAndBenefits[] = $value->getFeatureName();
+                                }
+
+                            }
+                        }
+
+                        $productNameArr['Features'] = $FeaturesAndBenefits;
+
+                        $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
                     }
-    
-                    $productNameArr['Features'] = $FeaturesAndBenefits;
-                    
-                    $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
                 }
             }
             $this->view['data'] = $productNameArr;
@@ -2246,6 +2297,13 @@ class DefaultController extends AbstractController
     {   
         try
         {
+            $regionProperty = $this->document->getProperty('region');
+            
+            if(!$regionProperty)
+                Throw new Exception('Unable to find region');
+
+            $regionId = $regionProperty->getId();
+            
             $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_clean')->getElement();
     
             $this->configProviderService = new ConfigProviderService();
@@ -2260,7 +2318,10 @@ class DefaultController extends AbstractController
                 {
                     $singleProduct = $selectedProduct[0];
                     $productObject = DataObject\CSProducts::getById($singleProduct);
-                    if($productObject)
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                     {
                         $productData['Name'] = $productObject->getName();
                         $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
