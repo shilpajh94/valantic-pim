@@ -4731,7 +4731,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nen.CompletenessPercentage \"COMPLETED (%)\",\nen.EmptyFields 'Empty Fields',\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
+                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nen.CompletenessPercentage \"COMPLETED (%)\",\nREPLACE( REPLACE(en.EmptyFields,'\\n\\t', ' '),'\\n', ' '  ) 'Empty Fields',\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
                 "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
                 "where" => "(o1.`o_published` = 1) AND (en.`CompletenessPercentage` != '') AND (en.`EmptyFields` != '')",
                 "groupby" => "",
@@ -4747,7 +4747,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-1"
+                "id" => "extModel1785-1"
             ],
             [
                 "name" => "Article Number",
@@ -4757,7 +4757,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-2"
+                "id" => "extModel1785-2"
             ],
             [
                 "name" => "SAP Description",
@@ -4767,7 +4767,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-3"
+                "id" => "extModel1785-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -4777,7 +4777,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-4"
+                "id" => "extModel1785-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -4787,7 +4787,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-5"
+                "id" => "extModel1785-5"
             ],
             [
                 "name" => "Empty Fields",
@@ -4796,7 +4796,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel413-6"
+                "id" => "extModel1785-14"
             ],
             [
                 "name" => "Product Type",
@@ -4806,7 +4806,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-7"
+                "id" => "extModel1785-6"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -4816,7 +4816,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-8"
+                "id" => "extModel1785-7"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -4826,7 +4826,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-9"
+                "id" => "extModel1785-8"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -4836,7 +4836,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-10"
+                "id" => "extModel1785-9"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -4846,7 +4846,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-11"
+                "id" => "extModel1785-10"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -4856,7 +4856,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-12"
+                "id" => "extModel1785-11"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -4866,7 +4866,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel413-13"
+                "id" => "extModel1785-12"
             ],
             [
                 "name" => "o_id",
@@ -4877,7 +4877,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel413-14"
+                "id" => "extModel1785-13"
             ]
         ],
         "niceName" => "Data Completeness - Empty Attributes",
@@ -4893,7 +4893,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1641360180,
+        "modificationDate" => 1642750178,
         "creationDate" => 1606822831,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
