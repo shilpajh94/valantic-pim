@@ -79,7 +79,7 @@ class DefaultController extends FrontendController
             }
 
             $pdfTmpSaveDirectory    = PIMCORE_SYSTEM_TEMP_DIRECTORY;
-            $savedPdfFileName       = $productGroupId . ".pdf";
+            $savedPdfFileName       = $productGroupId. "-" . $docId . ".pdf";
             $tempFileName           = "web2print-document-" . $docId . ".pdf";
             $savedPdfFilePath       = $pdfTmpSaveDirectory . "/" . $tempFileName;
 
@@ -91,24 +91,23 @@ class DefaultController extends FrontendController
                 
                 //check if pdf already there
                 $asset =\Pimcore\Model\Asset::getByPath("/".$parentPath.'/'.$savedPdfFileName);
-                
-                if($asset){
-                    $asset->delete();
-                }
-
                 $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath");
                 $parentFolder = $obj->getPath().$obj->getFileName();
+                if (empty($asset)) {
+                    $asset = new \Pimcore\Model\Asset();
+                    $asset->setFilename($savedPdfFileName);
+                    $asset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
+                    //$asset->delete();
+                }
+         
+                $asset->setData(file_get_contents($savedPdfFilePath));
                 
-                $newAsset = new \Pimcore\Model\Asset();
-                $newAsset->setFilename($savedPdfFileName);
-                $newAsset->setData(file_get_contents($savedPdfFilePath));
-                $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
-                $newAsset->save();
+                $asset->save();
 
-                $this->savePdfIntoDb($newAsset,$docId,$language,$regionId,$productGroupId);
+                $this->savePdfIntoDb($asset, $docId, $language, $regionId, $productGroupId);
 
                 // public cover pages
-                $this->publishCoverPagePdf($docObj,$language,$regionName);
+                $this->publishCoverPagePdf($docObj, $language, $regionName);
                 
                 return $this->json(array("success" => true,"msg" => "Pdf Published Successfully"));
             }
@@ -164,20 +163,18 @@ class DefaultController extends FrontendController
                                 //check if pdf already there
                                 $asset =\Pimcore\Model\Asset::getByPath("/".$parentPath.'/'.$savedPdfFileName);
 
-
-                                // delete if already exists
-                                if($asset){
-                                    $asset->delete();
-                                }
-                                
                                 $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath");
                                 $parentFolder = $obj->getPath().$obj->getFileName();
-                
-                                $newAsset = new \Pimcore\Model\Asset();
-                                $newAsset->setFilename($savedPdfFileName);
-                                $newAsset->setData(file_get_contents($savedPdfFilePath));
-                                $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
-                                $newAsset->save();
+                                // delete if already exists
+                                if (empty($asset)){
+                                    $asset = new \Pimcore\Model\Asset();
+                                    $asset->setFilename($savedPdfFileName);
+                                    $asset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
+//                                    $asset->delete();
+                                }
+                                
+                                $asset->setData(file_get_contents($savedPdfFilePath));
+                                $asset->save();
                             }
                             else
                             {

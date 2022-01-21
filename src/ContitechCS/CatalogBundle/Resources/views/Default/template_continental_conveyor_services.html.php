@@ -101,19 +101,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php endif;?>
                 <div class="media">
                     <?php
-                               
-                        if(method_exists($child['ProductImage'],'getThumbnail') && $child['ProductImage']->getThumbnail('catalog_thumb'))
-                        {   
-                            ?>
-                                <img src="<?= $child['ProductImage']->getThumbnail('catalog_thumb'); ?>" alt="" width="150" class="features-images">
-                            <?Php
+                        if (!empty($child['ProductImage'])) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($child['ProductImage'], $this->imageWidth); ?>" width="150"  alt="" class="features-images"  >
+                            <?php
                         }
                         else
-                        {   
-                            ?>
+                        { ?>
                                 <img src="<?= $default_image; ?>" alt="" width="150" class="features-images">
                             <?Php
-                            
                         }
                                 
                     ?>

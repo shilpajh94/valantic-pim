@@ -90,7 +90,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/product-group-catalogs", methods={"POST"}, requirements={
+     * @Route("/api/product-group-catalogs", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
