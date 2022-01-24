@@ -7,6 +7,8 @@ use Throwable;
 use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Logger\AppLogger as Logger;
 use AppBundle\Lib\SFTPConnection;
+use ImportBundle\Model\Import\FailedRecords;
+
 
 class Lookup
 {
@@ -30,12 +32,15 @@ class Lookup
     public $sysFilePath;
     private $common;
     private $monitoringItem;
+    protected $objFailedRecords;
+    protected $scriptStartTime;
 
     public function __construct()
     {
         $this->datetime = date('Ymdhis');
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->objFailedRecords = new FailedRecords; 
     }
 
     /**
@@ -52,6 +57,8 @@ class Lookup
             $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
 
             $cmd = array_shift($commands); // Getting the command name  
+
+            $this->scriptStartTime = time();
 
             $filePathInfo = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
 
@@ -166,6 +173,7 @@ class Lookup
                     'name'              =>  $this->name
                 );
                 $feederObj->config($params);
+                $this->objFailedRecords->managedFailedRecords($cmd, $this->scriptStartTime);
             } else {
                 throw new Exception(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
             }
