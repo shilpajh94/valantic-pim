@@ -35,8 +35,8 @@ class NutTypeDataImportCommand extends AbstractCommand
             if($crimpNutValue == 1){
                 $element->getFert()->getHydFittingsFert()->setNutType("Crimp Nut");
             }
-            if($thrustWireNutValue == 1){
-                $element->getFert()->getHydFittingsFert()->setThrustWireNut("Thrust Nut");
+            elseif($thrustWireNutValue == 1){
+                $element->getFert()->getHydFittingsFert()->setNutType("Thrust Nut");
 
             }
             $element->save();
