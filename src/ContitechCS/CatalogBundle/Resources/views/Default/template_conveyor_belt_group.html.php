@@ -1,18 +1,32 @@
 <?php
 if (!isset($this->parentContainer)) {
-$this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
+    $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
 <div class="wrapper">
     <div class="backcoverpage">
         <div class="black-bg">
             <div class="top-sec">
-
-                <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",["placeholder" =>"Enter Your  Heading"]); ?>     
-                </h1>
-
-                <?= $this->wysiwyg("CBG_About",["placeholder" =>"Enter Your  Description" ]);?>
-    
+                <div class="first-sec col-4">
+                    <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",["placeholder" =>"Enter Heading"]); ?></h1>
+                    <?= $this->wysiwyg("CBG_About",["placeholder" =>"Enter Description" ]);?>
+                    <?php if($this->editmode) { ?>
+                        <div class="img-placeholder">
+                            <?= $this->image("CBG_logo_image"); ?>
+                        </div>
+                    <?php } else { 
+                        $logoImgSrcObj =  $this->image("CBG_logo_image");
+                        if (!empty($logoImgSrcObj)) { ?>
+                            <span class="img-placeholder">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($logoImgSrcObj, $this->imageWidth); ?>" alt=""  >
+                            </span>
+                        <?php }
+                    } ?>
+                </div>
+                <div class="last-sec col-4">
+                    <h1 class="orange"><?= $this->input("back_cover_second_title",["placeholder" =>"Enter Heading"]); ?></h1>
+                    <?= $this->wysiwyg("CBG_Description", ["placeholder" =>"Enter Description" ]);?>
+                </div>
             </div>
             <div class="bottom-sect">
                 <div class="backcover-logo">
@@ -42,3 +56,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .top-sec{ display: flex; }
+</style>
