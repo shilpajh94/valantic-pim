@@ -2,8 +2,8 @@
 if (!isset($this->parentContainer)) {
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 } ?>
-<div class="wrapper ">
-    <div class="cover-image " id="" >
+<div class="wrapper coverPage1">
+    <div class="cover-image " id="cover-up" >
         <?php 
         if ($this->editmode) {
             echo $this->select("image_type", [
@@ -79,9 +79,9 @@ if (!isset($this->parentContainer)) {
             } ?>
         </div>
         <div class="bottom-section">
-            <h1 class="orange"><?= $this->input("cover_page_bottom_part_heading1",["placeholder" =>"Enter First Heading"]); ?></h1>
+            <h1 class="orange lh"><?= $this->input("cover_page_bottom_part_heading1",["placeholder" =>"Enter First Heading"]); ?></h1>
             <h1 class="orange"><?= $this->input("cover_page_bottom_part_heading2",["placeholder" =>"Enter Second Heading"]); ?></h1>
-            <h2 class="orange"><?= $this->input("cover_page_bottom_part_sub_heading",["placeholder" =>"Enter Sub Heading"]); ?></h2>
+            <h2 class=""><?= $this->input("cover_page_bottom_part_sub_heading",["placeholder" =>"Enter Sub Heading"]); ?></h2>
             <?php if ($this->editmode) { ?>
                 <div class="orange bottom-align" ><?= $this->input("cover_page_bottom_line",["placeholder" =>"Enter Details"]); ?></div>
             <?php } else { ?>
@@ -99,11 +99,11 @@ if (!isset($this->parentContainer)) {
     page: title80;
     width: 100%;
     height: 100%;
-/*    break-after: avoid;
-    break-before: avoid;*/
+    break-after: avoid;
+    break-before: avoid;
 }
 
-/*.coverPage1 .footer2 {
+.coverPage1 .footer2 {
     display: none;
     text-align: left;
     position: running(footer2);
@@ -114,7 +114,7 @@ if (!isset($this->parentContainer)) {
     display: none;
     text-align: left;
     position: running(footer3);
-}*/
+}
 
 @page title80 {
     margin-left: 5px;

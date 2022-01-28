@@ -7,7 +7,7 @@ if (!isset($this->parentContainer)) {
     <div class="backcoverpage">
         <div class="black-bg">
             <div class="top-sec">
-                <div class="first-sec col-4">
+                <div class="first-sec col-3">
                     <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",["placeholder" =>"Enter Heading"]); ?></h1>
                     <?= $this->wysiwyg("CBG_About",["placeholder" =>"Enter Description" ]);?>
                     <?php if($this->editmode) { ?>
@@ -23,7 +23,7 @@ if (!isset($this->parentContainer)) {
                         <?php }
                     } ?>
                 </div>
-                <div class="last-sec col-4">
+                <div class="last-sec col-3 ml-5">
                     <h1 class="orange"><?= $this->input("back_cover_second_title",["placeholder" =>"Enter Heading"]); ?></h1>
                     <?= $this->wysiwyg("CBG_Description", ["placeholder" =>"Enter Description" ]);?>
                 </div>

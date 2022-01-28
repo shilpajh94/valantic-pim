@@ -1289,7 +1289,8 @@ left: 0;
 }
 
 .set1{
-  height: 50%;
+  max-height: 340px;
+overflow: hidden;
 }
 
 .set2{
@@ -1297,7 +1298,8 @@ left: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-height: 600px;
+  max-height: 380px;
+overflow: hidden;
 }
 
 .set2-2{
@@ -1315,12 +1317,13 @@ left: 0;
 .bottom-section{
   background: #000;
   height: 20%;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 30px 5% ;
   color: #fff;
   position: relative;
-}
 
+}
+.lh{ line-height:0; margin-top:40px; margin-bottom:30px;}
 .bottom-align{
   /*position: absolute;
   bottom: 0;
@@ -1329,7 +1332,14 @@ left: 0;
   margin-top: 30px;
 
 }
+#cover-up{
+ position: absolute;
+top:0px;
 
+width:100%;
+left:0;
+
+}
 .cover-image h1{
   font-size: 60px;
   font-family: 'ContinentalStagSansLCG-Medium';
