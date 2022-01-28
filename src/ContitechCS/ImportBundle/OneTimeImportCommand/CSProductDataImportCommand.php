@@ -28,27 +28,35 @@ class CSProductDataImportCommand extends AbstractCommand
     {
         $this->setName('cs:one-time-import:product-data-import')
             ->setDescription('Product data import script')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('language', InputArgument::REQUIRED, 'Enter Language');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $languageArray = array('en', 'de', 'pt', 'es', 'fr', 'zh');
         $filePath = $input->getArgument('filePath');
+        $language = strtolower($input->getArgument('language'));
+
+        if (!in_array($language, $languageArray)) {
+            echo "\n Invalid Argument: Use use atleast one language code, among 'en', 'de', 'pt', 'es', 'fr', 'zh' to import the data in that particular language. \n ";
+            die;
+        }
 
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $language);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $language)
     {
-
+        $this->db = \Pimcore\Db::get();
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
@@ -130,7 +138,7 @@ class CSProductDataImportCommand extends AbstractCommand
                     }
 
                     $productName = trim($productData['Product Name']);
-                    $productCol = $productData['Product'];
+                    $productCol = trim($productData['Product']);
 
                     if ($productData['Product'] != null) {
                         $productNameCombined = $productName . '/' . $productCol;
@@ -139,11 +147,16 @@ class CSProductDataImportCommand extends AbstractCommand
                     }
 
                     $productHier[] = $productName;
+                    $pName = '';
+                    if ($productName != "") {
+                        $pName = "/" . $productName;
+                    }
+                    $completeHierarchy = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . trim($productData['Product Hierarchy']) . $pName;
 
                     unset($productData['Product Hierarchy']);
                     unset($productData['Product Name']);
                     // // $productData = array_slice($productData, 2);
-                    $parentHierarchyObj = $parentObjForLeaf = '';
+                    $parentHierarchyObj = $parentObjForLeaf = $pathWithoutRegion = '';
                     foreach ($productHier as $key => $hierarchy) {
                         $incorrectDataArray = [];
                         $colNameArray = [];
@@ -163,7 +176,7 @@ class CSProductDataImportCommand extends AbstractCommand
                         }
 
                         $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
-
+                        $pathWithoutRegion = $productPath;
                         $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                         $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
@@ -185,6 +198,7 @@ class CSProductDataImportCommand extends AbstractCommand
                         }
                         // Creating folder for each region
                         if (!empty($region)) {
+                            $region = trim($region);
                             if (strpos($productName, "/") !== false) {
                                 $productName = str_replace("/", "-", $productName);
                             }
@@ -195,21 +209,48 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
                                 $productPath = $productPath . $region . "/" . $productName;
                             }
-                        }
 
+                            if (strpos($completeHierarchy, $productName) !== false) {
+                                $completeHierarchy = str_replace($region . "/", "", $completeHierarchy);
+                                $completeHierarchy = str_replace($productName, $region . "/" . $productName, $completeHierarchy);
+                            }
+                        }
+                        $product = '';
                         $CSProductObj = DataObject\CSProducts::getByPath($productPath);
                         $productNameLog = $hierarchy;
-                        if (!$CSProductObj) {
+
+                        if ($completeHierarchy == $productPath) {
                             $productNameLog = $hierarchy;
+
                             try {
-                                $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
-                                $product = new DataObject\CSProducts();
-                                $product->setKey($hierarchyKey);
+                                if ($CSProductObj) {
+                                    $product = $CSProductObj;
+                                    $parentId = $product->getParentId();
+                                } else {
+                                    if (strpos($pathWithoutRegion, $productName) !== false) {
+                                        $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
+                                    }
+
+                                    $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                    LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                    $result = $this->db->fetchCol($query);
+                                    $count = count($result);
+                                    if ($count > 0) {
+                                        echo "\n Changing Region Folder";
+                                        $product = DataObject\CSProducts::getById($result[0], true);
+                                        $product->setParentId($parentId);
+                                    } else {
+                                        $product = new DataObject\CSProducts();
+                                        $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
+                                        $product->setKey($hierarchyKey);
+                                        $product->setParentId($parentId);
+                                    }
+                                }
 
                                 if (isset($removeSlashInProductName[$hierarchy])) {
-                                    $product->setName($removeSlashInProductName[$hierarchy]);
+                                    $product->setName($removeSlashInProductName[$hierarchy], $language);
                                 } else {
-                                    $product->setName($hierarchy);
+                                    $product->setName($hierarchy, $language);
                                 }
                                 if ($hierarchyPathObj) {
                                     $product->setParentCategory([$parentHierarchyObj]);
@@ -217,10 +258,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                     $product->setParentCategory([$parentObjForLeaf]);
                                 }
 
-                                $product->setParentId($parentId);
+
                                 $product->setOmitMandatoryCheck(true);
                                 $product->setPublished(true);
-                                //$product->save();
                                 $bricksData = [];
                                 $natureOfProduct = 0;
 
@@ -245,7 +285,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
 
                                                 $method = 'set' . $fieldName;
-                                                $product->$method($masterObjects);
+                                                $product->$method($masterObjects, $language);
                                             } else if ($fieldConfig['fieldType'] == 'Multiselection') {
                                                 $fieldValue = trim($fieldValue);
                                                 $fieldValueArr = explode('|', $fieldValue);
@@ -280,7 +320,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     $fieldValue = array_map('trim', $fieldValueArr);
                                                 }
                                                 $method = 'set' . $fieldName;
-                                                $product->$method($fieldValue);
+                                                $product->$method($fieldValue, $language);
                                             } else if ($fieldConfig['fieldType'] == 'Block' && $fieldConfig['objectType'] == 'class') {
                                                 $fieldValue = trim($fieldValue);
 
@@ -308,7 +348,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
                                                 }
 
-                                                $product->$method($fieldValueBlock);
+                                                $product->$method($fieldValueBlock, $language);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
@@ -319,7 +359,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
                                                 }
                                                 $method = 'set' . $fieldName;
-                                                $product->$method($fieldValue);
+                                                $product->$method($fieldValue, $language);
                                             }
                                         } else {
                                             $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
@@ -358,9 +398,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                                                 $eachBeltWidth = str_replace("in", "", $fieldValue);
                                                             }
                                                             if (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidthmm') {
-                                                                $brickObject->setBeltWidthRangeMM($eachBeltWidth);
+                                                                $brickObject->setBeltWidthRangeMM($eachBeltWidth, $language);
                                                             } elseif (strpos($eachBeltWidth, "-") !== false && $fieldKey == 'BeltWidth') {
-                                                                $brickObject->setBeltWidthRangeInch($eachBeltWidth);
+                                                                $brickObject->setBeltWidthRangeInch($eachBeltWidth, $language);
                                                             } else {
                                                                 $AvailableBeltWidthPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER . '/' . $eachBeltWidth;
                                                                 $AvailableBeltWidthPathObj = DataObject\CSAvailableBeltWidths::getByPath($AvailableBeltWidthPath);
@@ -399,7 +439,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         $i = 0;
                                                         foreach ($fieldValue as $key => $val) {
                                                             if (strpos($val, "-") !== false && $fieldKey == 'AvailableBeltWidthInch') {
-                                                                $brickObject->setAvailableBeltWidthRangeInch($val);
+                                                                $brickObject->setAvailableBeltWidthRangeInch($val, $language);
                                                             }
                                                             $beltWidthObj = DataObject\CSAvailableBeltWidths::getByAvailableBeltWidthInch($val, 1);
                                                             if ($beltWidthObj) {
@@ -426,7 +466,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                                     "availablePatternWidthInch" => new BlockElement("availablePatternWidthInch", 'multiselect', $idArray)
                                                                 ];
                                                                 if ($beltWidthBlockData) {
-                                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData);
+                                                                    $brickObject->$objectBrickFieldMethod($beltWidthBlockData, $language);
                                                                 }
                                                             }
                                                         }
@@ -435,7 +475,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         $idArray = [];
                                                     }
                                                 } else {
-                                                    $brickObject->$objectBrickFieldMethod($fieldValue);
+                                                    $brickObject->$objectBrickFieldMethod($fieldValue, $language);
                                                 }
                                             }
 
@@ -452,7 +492,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                             }
                                             $brickObject->setFieldname('ProductAttributes');
                                             $method = 'set' . $brick;
-                                            $product->getProductAttributes()->$method($brickObject);
+                                            $product->getProductAttributes()->$method($brickObject, $language);
                                             if ($natureOfProduct == 1) {
                                                 unset($bricksData[$brick]);
                                             }
@@ -485,6 +525,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 echo "\n";
                             } catch (\Throwable $th) {
                                 p_r($th->getMessage());
+                                //p_r($th->getTraceAsString());
                             }
                         } else {
                             $parentId = $CSProductObj->getId();
