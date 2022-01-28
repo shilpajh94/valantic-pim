@@ -56,7 +56,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
     private function import($filePath, $language)
     {
-
+        $this->db = \Pimcore\Db::get();
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
@@ -176,7 +176,7 @@ class CSProductDataImportCommand extends AbstractCommand
                         }
 
                         $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
-                        //$pathWithoutRegion = $productPath;
+                        $pathWithoutRegion = $productPath;
                         $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                         $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
@@ -216,27 +216,35 @@ class CSProductDataImportCommand extends AbstractCommand
                             }
                         }
                         $product = '';
-
                         $CSProductObj = DataObject\CSProducts::getByPath($productPath);
-
                         $productNameLog = $hierarchy;
-                        // echo "\n\n\n";
-                        // echo "Complet Hieara ==== " . $completeHierarchy;
-                        // echo "\n\n";
-                        // echo "Without Region ==== " . $productPath;
-                        // echo "\n ============================";
 
                         if ($completeHierarchy == $productPath) {
                             $productNameLog = $hierarchy;
+
                             try {
                                 if ($CSProductObj) {
                                     $product = $CSProductObj;
                                     $parentId = $product->getParentId();
                                 } else {
-                                    $product = new DataObject\CSProducts();
-                                    $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
-                                    $product->setKey($hierarchyKey);
-                                    $product->setParentId($parentId);
+                                    if (strpos($pathWithoutRegion, $productName) !== false) {
+                                        $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
+                                    }
+
+                                    $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                    LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                    $result = $this->db->fetchCol($query);
+                                    $count = count($result);
+                                    if ($count > 0) {
+                                        echo "\n Changing Region Folder";
+                                        $product = DataObject\CSProducts::getById($result[0], true);
+                                        $product->setParentId($parentId);
+                                    } else {
+                                        $product = new DataObject\CSProducts();
+                                        $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
+                                        $product->setKey($hierarchyKey);
+                                        $product->setParentId($parentId);
+                                    }
                                 }
 
                                 if (isset($removeSlashInProductName[$hierarchy])) {
@@ -253,7 +261,6 @@ class CSProductDataImportCommand extends AbstractCommand
 
                                 $product->setOmitMandatoryCheck(true);
                                 $product->setPublished(true);
-                                //$product->save();
                                 $bricksData = [];
                                 $natureOfProduct = 0;
 
