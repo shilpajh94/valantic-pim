@@ -34,12 +34,13 @@ class CSProductDataImportCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $languageArray = array('en', 'de', 'pt', 'es', 'fr', 'zh');
+        $this->configProviderService = new ConfigProviderService();
+        $languageArray = $this->configProviderService->getLanguageConfig();
         $filePath = $input->getArgument('filePath');
         $language = strtolower($input->getArgument('language'));
 
         if (!in_array($language, $languageArray)) {
-            echo "\n Invalid Argument: Use use atleast one language code, among 'en', 'de', 'pt', 'es', 'fr', 'zh' to import the data in that particular language. \n ";
+            echo "\n Invalid Argument: Use atleast one language code, among 'en', 'de', 'pt', 'es', 'fr', 'zh' to import the data in that particular language. \n ";
             die;
         }
 
@@ -73,7 +74,6 @@ class CSProductDataImportCommand extends AbstractCommand
         try {
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
-
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
             $results = $this->getCSVData($filePath);
 
