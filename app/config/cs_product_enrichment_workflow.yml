@@ -104,6 +104,15 @@ pimcore:
                           condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
                           
             transitions:
+                direct_publish:
+                    from:
+                        - open
+                    to: published
+                    guard: (user.getId() == '0')
+                    options:
+                        label: 'Publish'
+                        changePublishedState: force_published
+
                 send_to_process:
                     from:
                         - open
