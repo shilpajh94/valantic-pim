@@ -1253,3 +1253,100 @@ left: 0;
 .media-image {
     width: 170px;
 }
+
+/** css added below for new cover and footer page **/
+
+.cover-image{
+
+}
+.relative{ position: relative; }
+.top-section{
+  position: relative;
+  padding-top: 30px;
+  height: 80%;
+  overflow: hidden;
+
+}
+
+.top-section .logo{
+  position: absolute;
+  top: -30px;
+  left: 5%;
+  max-width: 300px;
+  z-index: 1000 !important;
+}
+
+.img-wrapper img{
+  max-width: 100%;
+  height: auto;
+      display: block;
+}
+
+.top-section .img-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.set1{
+  max-height: 340px;
+overflow: hidden;
+}
+
+.set2{
+  margin: 5px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 380px;
+overflow: hidden;
+}
+
+.set2-2{
+  margin: 0 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+
+.set2-2-1{
+  margin-bottom: 5px;
+}
+
+.bottom-section{
+  background: #000;
+  height: 20%;
+  margin-top: 5px;
+  padding: 30px 5% ;
+  color: #fff;
+  position: relative;
+
+}
+.lh{ line-height:0; margin-top:40px; margin-bottom:30px;}
+.bottom-align{
+  /*position: absolute;
+  bottom: 0;
+*/  font-size: 20px;
+
+  margin-top: 30px;
+
+}
+#cover-up{
+ position: absolute;
+top:0px;
+
+width:100%;
+left:0;
+
+}
+.cover-image h1{
+  font-size: 60px;
+  font-family: 'ContinentalStagSansLCG-Medium';
+}
+
+.cover-image h2{
+  font-size: 50px;
+  font-family: 'ContinentalStagSansLCG-Book';
+}
+/** css added above for new cover and footer page **/
