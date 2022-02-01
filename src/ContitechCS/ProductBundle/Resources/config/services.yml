@@ -50,6 +50,9 @@ services:
             
     Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\DataObjectController:
             class: ContitechCS\ProductBundle\Controller\DataObjectController
+            
+    Pimcore\Bundle\AdminBundle\Controller\Admin\UserController:
+            class: ContitechCS\ProductBundle\Controller\UserController
         
     ContitechCS\ProductBundle\Services\AppService:
         public: true
