@@ -38,9 +38,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: setBricks }
 
-    ContitechCS\ProductBundle\EventListener\ProductListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: checkPublishStatus }
+#    ContitechCS\ProductBundle\EventListener\ProductListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: checkPublishStatus }
     
     ContitechCS\ProductBundle\EventListener\AssetListener:
         tags:

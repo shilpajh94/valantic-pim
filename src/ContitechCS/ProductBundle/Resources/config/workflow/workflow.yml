@@ -194,13 +194,15 @@ parameters:
                 isPaused: true
                 published: false
             condition:
-                
+                methods:
+                    - checkIfChildPublished
+                    
         archive_product:
             action: 
                 isArchived: true
                 published: false
             condition:
-                methods: [checkIfChildsArchive]
+                methods: [checkIfChildPublished]
         
                 
         archive_asset:
