@@ -16,6 +16,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\BlockElement;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
+use Pimcore\Model\User;
 use Pimcore\Logger;
 
 
@@ -349,6 +350,18 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
 
                                                 $product->$method($fieldValueBlock, $language);
+                                            } else if ($fieldConfig['fieldType'] == 'User') {
+                                                //if ($fieldName == 'MarcomUser') {
+                                                $userList = new User\Listing();
+                                                $userList->setCondition('name = ?', $fieldValue);
+                                                if ($userList) {
+                                                    foreach ($userList as $user) {
+                                                        $fieldValue = $user->getId();
+                                                    }
+                                                }
+                                                //}
+                                                $method = 'set' . $fieldName;
+                                                $product->$method($fieldValue, $language);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
