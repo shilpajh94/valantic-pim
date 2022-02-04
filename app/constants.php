@@ -52,7 +52,7 @@ define('SALES_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/
 
 // cs api conflig bundle
 define('CS_API_CONFIG_FILE_PATH', CS_APIBUNDLE_CONFIG_DIRECTORY
-. "/api_config.yml");
+    . "/api_config.yml");
 
 /* Errors Message */
 define('INVALID_COMMAND', 'Invalid command: %s command not found');
@@ -86,15 +86,16 @@ define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
 define('GRID_SQL_EDITOR_ALLOWED_ROLES', ['ApplicationAdmin']);
 
 // CS Constants
-define("CS_BRICK_MAPPING_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");
-define("CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/product_data_import_config.yml");
-define("CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/unit_values_config.yml");
-define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/unit_conversion/attribute_groups.yml");
-define("CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/product_table_mapping.yml");
-define("CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/catalog_images_mapping.yml");
+define("CS_BRICK_MAPPING_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yml");
+define("CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_data_import_config.yml");
+define("CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_values_config.yml");
+define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_conversion/attribute_groups.yml");
+define("CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_table_mapping.yml");
+define("CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/catalog_images_mapping.yml");
 define("CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_attribute_validation.yml");
 define("CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yml");
-define("CS_WORKFLOW_CONFIG",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+define("CS_WORKFLOW_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/workflow.yml");
+define("CS_LANGUAGE_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/language.yml");
 define("CS_SEGMENT_COUNTRIES_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/segment_based_country_list.yml");
 define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/Material Handling/');
 define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
@@ -107,12 +108,12 @@ define("CS_PRODUCT_TABLE_COLUMN_LIMIT", 10);
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
 
 //  Retrieving new product import data for particular interval of $time
-define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS','7');
+define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS', '7');
 
 //Email Template for sending report for new Products
-define('NEW_PRODUCT_EMAIL_DOCUMENT','/Email/NewProductReportEmail');
+define('NEW_PRODUCT_EMAIL_DOCUMENT', '/Email/NewProductReportEmail');
 
-define ('CATALOG_IMAGE_THUBNAILS', array(
+define('CATALOG_IMAGE_THUBNAILS', array(
     'Original' => 'catalog_thumb',
     '2500' => 'catalog_thumb_w2500',
     '2000' => 'catalog_thumb_w2000',
@@ -121,10 +122,8 @@ define ('CATALOG_IMAGE_THUBNAILS', array(
     '500' => 'catalog_thumb_w500',
 ));
 
-define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY","pdf_generation_request_source_document_id");
+define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY", "pdf_generation_request_source_document_id");
 
-define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API",2);
+define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API", 2);
 
 define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
-
-
