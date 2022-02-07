@@ -131,6 +131,7 @@ parameters:
                 users:
                     - UserOwner
                     - MarcomUser
+                    - RnDUser
                 roles:
 #            notificationCC: 
 #                users: 
@@ -144,6 +145,7 @@ parameters:
                     - ProductOwner
                     - UserOwner
                     - MarcomUser
+                    - RnDUser
                 roles:
                     
 #            notificationCC: 
@@ -160,6 +162,7 @@ parameters:
                     - ProductOwner
                     - UserOwner
                     - MarcomUser
+                    - RnDUser
                 roles:
                     
             action: 
