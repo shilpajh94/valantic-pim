@@ -3,6 +3,10 @@ MarCom:
     fieldType: User
     objectType: class
 Product Manager:
+    fieldName: RnDUser
+    fieldType: User
+    objectType: class
+RandD:
     fieldName: ProductOwner
     fieldType: User
     objectType: class
