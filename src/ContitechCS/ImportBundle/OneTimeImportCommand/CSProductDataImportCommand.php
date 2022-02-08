@@ -16,6 +16,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\BlockElement;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
+use Pimcore\Model\User;
 use Pimcore\Logger;
 
 
@@ -76,7 +77,6 @@ class CSProductDataImportCommand extends AbstractCommand
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
             $results = $this->getCSVData($filePath);
-
             $data = $results['data'];
 
             // Get all region list from Region Masters
@@ -149,6 +149,7 @@ class CSProductDataImportCommand extends AbstractCommand
                     $productHier[] = $productName;
                     $pName = '';
                     if ($productName != "") {
+                        $productName = str_replace("/", "-", $productName);
                         $pName = "/" . $productName;
                     }
                     $completeHierarchy = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . trim($productData['Product Hierarchy']) . $pName;
@@ -209,7 +210,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
                                 $productPath = $productPath . $region . "/" . $productName;
                             }
-
                             if (strpos($completeHierarchy, $productName) !== false) {
                                 $completeHierarchy = str_replace($region . "/", "", $completeHierarchy);
                                 $completeHierarchy = str_replace($productName, $region . "/" . $productName, $completeHierarchy);
@@ -218,19 +218,19 @@ class CSProductDataImportCommand extends AbstractCommand
                         $product = '';
                         $CSProductObj = DataObject\CSProducts::getByPath($productPath);
                         $productNameLog = $hierarchy;
-
                         if ($completeHierarchy == $productPath) {
                             $productNameLog = $hierarchy;
 
                             try {
+
                                 if ($CSProductObj) {
+
                                     $product = $CSProductObj;
                                     $parentId = $product->getParentId();
                                 } else {
                                     if (strpos($pathWithoutRegion, $productName) !== false) {
                                         $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
                                     }
-
                                     $query = "SELECT o_id from objects where concat(o_path,o_key) 
                                     LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
                                     $result = $this->db->fetchCol($query);
@@ -349,6 +349,18 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
 
                                                 $product->$method($fieldValueBlock, $language);
+                                            } else if ($fieldConfig['fieldType'] == 'User') {
+                                                //if ($fieldName == 'MarcomUser') {
+                                                $userList = new User\Listing();
+                                                $userList->setCondition('name = ?', $fieldValue);
+                                                if ($userList) {
+                                                    foreach ($userList as $user) {
+                                                        $fieldValue = $user->getId();
+                                                    }
+                                                }
+                                                //}
+                                                $method = 'set' . $fieldName;
+                                                $product->$method($fieldValue, $language);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
@@ -620,6 +632,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
         if ($createFlag) {
             $mandatoryFields = trim($mandatoryFields);
+            // p_r($searchString);
             $validKey = DataObject\Service::getValidKey($searchString, "object");
             $constant = ImportConstants::getDynamicConstant($className);
 
