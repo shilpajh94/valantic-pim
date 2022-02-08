@@ -127,3 +127,6 @@ define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY", "pdf_generation_request_
 define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API", 2);
 
 define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
+
+//SAP Files older than these many days will be deleted from SFTP server
+define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
