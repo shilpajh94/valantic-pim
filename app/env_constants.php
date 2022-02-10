@@ -92,7 +92,7 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_EXPORT_SFTP_PASSWORD", "R@H!T@4321");
     define("B2B_EXPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva");
 
-    define("BW_SAP_IMPORT_SFTP_HOST", "upload.pimcoreclients.com");
+    define("BW_SAP_IMPORT_SFTP_HOST", "upload.pimcoreclient.com");
     define("BW_SAP_IMPORT_SFTP_PORT", 22);
     define("BW_SAP_IMPORT_SFTP_USERNAME", "rohit.sriwastva");
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "R@H!T@4321");
