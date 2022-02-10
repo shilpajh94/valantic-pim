@@ -102,6 +102,18 @@ if (!isset($this->parentContainer)) {
     break-after: avoid;
     break-before: avoid;
 }
+#cover-up{
+max-width:970px;
+right:0;
+margin:auto;
+}
+
+@media print{
+#cover-up{ max-width:100%;}
+}
+.cover-image{
+padding:0 15px 15px 15px;
+}
 
 .coverPage1 .footer2 {
     display: none;
@@ -117,10 +129,10 @@ if (!isset($this->parentContainer)) {
 }
 
 @page title80 {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: -15px;
+    margin-bottom: 0;
     padding: 0px;
     content: counter(0);
 
