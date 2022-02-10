@@ -937,11 +937,16 @@ padding-top: 0px;
 }
 .backcoverpage .black-bg {
   padding: 30px 30px 30px;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
 }
-
+@media print{
+.backcoverpage .black-bg {
+ 
+height:100%;
+}
+}
 .backcoverpage h1 {
   font-size: 12px;
   margin-bottom: 0.75rem;
@@ -1259,18 +1264,19 @@ left: 0;
 .cover-image{
 
 }
+
 .relative{ position: relative; }
 .top-section{
   position: relative;
   padding-top: 30px;
-  height: 80%;
-  overflow: hidden;
+  
 
+   background: #fff;
 }
 
 .top-section .logo{
   position: absolute;
-  top: -30px;
+  top: -15px;
   left: 5%;
   max-width: 300px;
   z-index: 1000 !important;
@@ -1281,6 +1287,12 @@ left: 0;
   height: auto;
       display: block;
 }
+.img-placeholder  {
+max-width:140px;
+}
+.img-placeholder img {
+max-width:140px !important;
+}
 
 .top-section .img-wrapper{
   display: flex;
@@ -1289,16 +1301,16 @@ left: 0;
 }
 
 .set1{
-  max-height: 340px;
+  max-height: 310px;
 overflow: hidden;
 }
 
 .set2{
-  margin: 5px 0 0 0;
+  margin: 5px 0 5px 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  max-height: 380px;
+  height:380px;
 overflow: hidden;
 }
 
@@ -1314,13 +1326,28 @@ overflow: hidden;
   margin-bottom: 5px;
 }
 
+.set1 img{ width:970px; height: 310px; object-fit: cover; display:block; }
+.set2-1 img{ width:970px; height: 380px; object-fit: cover; display:block; }
+.set2-2-1 img{ width:310px; height: 190px; object-fit: cover;  display:block;}
+.set2-2-2 img{ width:310px; height: 190px; object-fit: cover; display:block; }
+.set2-3 img{ width:310px; height: 380px; object-fit: cover;  display:block;}
+
 .bottom-section{
   background: #000;
-  height: 20%;
-  margin-top: 5px;
+ 
+  
   padding: 30px 5% ;
   color: #fff;
   position: relative;
+
+}
+
+@media print{
+  /*#cover-up{
+    height:100%;
+     background: #000;
+  }*/
+.bottom-section{ height:390px;}
 
 }
 .lh{ line-height:0; margin-top:40px; margin-bottom:30px;}
