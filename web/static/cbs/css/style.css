@@ -1304,6 +1304,10 @@ max-width:140px !important;
   max-height: 310px;
 overflow: hidden;
 }
+.set1-collage {
+    max-height: 690px;
+    overflow: hidden;
+}
 
 .set2{
   margin: 5px 0 5px 0;
@@ -1325,7 +1329,7 @@ overflow: hidden;
 .set2-2-1{
   margin-bottom: 5px;
 }
-
+.set1-collage img{ width:970px; height: 690px; object-fit: cover; display:block; }
 .set1 img{ width:970px; height: 310px; object-fit: cover; display:block; }
 .set2-1 img{ width:970px; height: 380px; object-fit: cover; display:block; }
 .set2-2-1 img{ width:310px; height: 190px; object-fit: cover;  display:block;}

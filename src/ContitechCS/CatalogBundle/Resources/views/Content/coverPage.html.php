@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($this->parentContainer)) {
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 } ?>
@@ -6,7 +7,7 @@ if (!isset($this->parentContainer)) {
     <div class="cover-image " id="cover-up" >
         <?php 
         if ($this->editmode) {
-            echo $this->select("image_type", [
+            echo "Select image type: ".$this->select("image_type", [
                 "store" => [
                     ['single-image', 'Single Collage Image'],
                     ['multi-images', 'Multiple Image (Fixed Design)']
@@ -21,7 +22,7 @@ if (!isset($this->parentContainer)) {
                     if ($this->editmode) { ?>
                         <div class="" style="max-width: 300px; position: relative;"><?= "Drop logo image here" ?><?= $this->image("cover_page_logo_image"); ?></div>
                         <div class="img-wrapper">
-                            <div class="set1"><?= $this->image("cover_page_collage_image"); ?></div>
+                            <div class="set1-collage"><?= $this->image("cover_page_collage_image"); ?></div>
                         </div>
                     <?php } else { 
                         $logoSrcObj =  $this->image("cover_page_logo_image"); 
@@ -31,7 +32,7 @@ if (!isset($this->parentContainer)) {
                         <?php }
                         if (!empty($collageSrcObj)) { ?>
                             <div class="img-wrapper">
-                                <div class="set1"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSrcObj, $this->imageWidth); ?>"/></div>
+                                <div class="set1-collage"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSrcObj, $this->imageWidth); ?>"/></div>
                             </div>
                         <?php } 
                     }
