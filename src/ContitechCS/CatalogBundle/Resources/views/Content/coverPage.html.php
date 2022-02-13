@@ -3,7 +3,7 @@
 if (!isset($this->parentContainer)) {
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 } ?>
-<div class="wrapper coverPage1">
+<div class="wrapper imgcoverPage1 coverPageWrapper">
     <div class="cover-image " id="cover-up" >
         <?php 
         if ($this->editmode) {
@@ -96,44 +96,35 @@ if (!isset($this->parentContainer)) {
 <style>
 
 
-.coverPage1 {
-    page: title80;
+.imgcoverPage1 {
+    page: title81;
     width: 100%;
     height: 100%;
-    break-after: avoid;
-    break-before: avoid;
-}
-#cover-up{
-max-width:970px;
-right:0;
-margin:auto;
+   
 }
 
-@media print{
-#cover-up{ max-width:100%;}
-}
-.cover-image{
-padding:0 15px 15px 15px;
-}
 
-.coverPage1 .footer2 {
+
+
+
+.imgcoverPage1 .footer2 {
     display: none;
     text-align: left;
     position: running(footer2);
 
 }
 
-.coverPage1 .footer3 {
+.imgcoverPage1 .footer3 {
     display: none;
     text-align: left;
     position: running(footer3);
 }
 
-@page title80 {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: -15px;
-    margin-bottom: 0;
+@page title81 {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0px;
     content: counter(0);
 
@@ -156,7 +147,7 @@ padding:0 15px 15px 15px;
     }
 }
 
-/*@page title80:left {
+/* @page title80:left {
     @bottom-center {
         content: element(footer2);
         z-index: 1;
@@ -168,5 +159,6 @@ padding:0 15px 15px 15px;
         content: element(footer3);
         z-index: 1;
     }
-}*/
+} */
 </style>
+
