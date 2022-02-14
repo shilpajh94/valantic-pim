@@ -63,9 +63,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                 if ($startRow > 0)
                 {
                     $setIdArr  = explode(',',end($data));
-
                     $deletedIdArr     = array_diff(explode(',',$data[3]),$setIdArr);
-
                     $deletedIdStr   = implode('|',$deletedIdArr);
 
                     $columns = ['coverColor','coverMaterial','tubeMaterial'];
@@ -74,8 +72,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                     {
                         $where = 'WHERE CONCAT(",", `'.$columnName.'`, ",") REGEXP ",('.$deletedIdStr.'),"';
                         $sql = "SELECT * FROM object_brick_store_HoseBase_1 $where";
-                        $record = $this->db->fetchAll($sql);
-                        
+                        $record = $this->db->fetchAll($sql);                       
                         foreach ($record as $product)
                         {
                             $productId = $product['o_id'];
@@ -89,7 +86,6 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                             }
                         } 
                     }
-
                     if($data[0] == 'ProductClass~reinforcement')
                     {
                         $where  = 'WHERE CONCAT(",", `reinforcement`, ",") REGEXP ",('.$deletedIdStr.'),"';
