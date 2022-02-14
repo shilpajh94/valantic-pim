@@ -1,12 +1,13 @@
 <?php
+
 if (!isset($this->parentContainer)) {
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 } ?>
-<div class="wrapper coverPage1">
+<div class="wrapper imgcoverPage1 coverPageWrapper">
     <div class="cover-image " id="cover-up" >
         <?php 
         if ($this->editmode) {
-            echo $this->select("image_type", [
+            echo "Select image type: ".$this->select("image_type", [
                 "store" => [
                     ['single-image', 'Single Collage Image'],
                     ['multi-images', 'Multiple Image (Fixed Design)']
@@ -21,7 +22,7 @@ if (!isset($this->parentContainer)) {
                     if ($this->editmode) { ?>
                         <div class="" style="max-width: 300px; position: relative;"><?= "Drop logo image here" ?><?= $this->image("cover_page_logo_image"); ?></div>
                         <div class="img-wrapper">
-                            <div class="set1"><?= $this->image("cover_page_collage_image"); ?></div>
+                            <div class="set1-collage"><?= $this->image("cover_page_collage_image"); ?></div>
                         </div>
                     <?php } else { 
                         $logoSrcObj =  $this->image("cover_page_logo_image"); 
@@ -31,7 +32,7 @@ if (!isset($this->parentContainer)) {
                         <?php }
                         if (!empty($collageSrcObj)) { ?>
                             <div class="img-wrapper">
-                                <div class="set1"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSrcObj, $this->imageWidth); ?>"/></div>
+                                <div class="set1-collage"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSrcObj, $this->imageWidth); ?>"/></div>
                             </div>
                         <?php } 
                     }
@@ -95,32 +96,35 @@ if (!isset($this->parentContainer)) {
 <style>
 
 
-.coverPage1 {
-    page: title80;
+.imgcoverPage1 {
+    page: title81;
     width: 100%;
     height: 100%;
-    break-after: avoid;
-    break-before: avoid;
+   
 }
 
-.coverPage1 .footer2 {
+
+
+
+
+.imgcoverPage1 .footer2 {
     display: none;
     text-align: left;
     position: running(footer2);
 
 }
 
-.coverPage1 .footer3 {
+.imgcoverPage1 .footer3 {
     display: none;
     text-align: left;
     position: running(footer3);
 }
 
-@page title80 {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+@page title81 {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0px;
     content: counter(0);
 
@@ -143,7 +147,7 @@ if (!isset($this->parentContainer)) {
     }
 }
 
-/*@page title80:left {
+/* @page title80:left {
     @bottom-center {
         content: element(footer2);
         z-index: 1;
@@ -155,5 +159,6 @@ if (!isset($this->parentContainer)) {
         content: element(footer3);
         z-index: 1;
     }
-}*/
+} */
 </style>
+

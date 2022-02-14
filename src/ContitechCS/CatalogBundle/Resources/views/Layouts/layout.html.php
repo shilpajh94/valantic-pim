@@ -16,13 +16,15 @@
     <?php if($this->editmode){ ?>
         <link rel="stylesheet" href="/static/cbs/css/editmode.css" />
     <?php } ?>
-    <style type="text/css">
         <?php if($this->imageQuality && $this->imageQuality !== 'Original'  ) { ?>
+    <style type="text/css">
+        
             img {
                 -ro-image-recompression: jpeg(<?= $this->imageQuality ?>)
             }
-        <?php } ?>
+        
     </style>
+    <?php } ?>
 </head>
 <body>
 

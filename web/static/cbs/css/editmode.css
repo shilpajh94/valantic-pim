@@ -21,7 +21,10 @@
 } */
 
 
-  
+  .col-3{
+  max-width: 32% !important;
+  flex: 0 0 33%;
+  }
 #header {
     position: relative;
     padding: 0px;
@@ -102,6 +105,7 @@
 
        .backcoverpage .black-bg{
            padding:30px;
+height: auto !important;
        }
 
        .conticlean-tab .materials-list{
@@ -155,3 +159,5 @@
                   h2.d-flex{
                       flex-wrap: inherit !important;
                   }
+
+.lh{ line-height: 1 !important}

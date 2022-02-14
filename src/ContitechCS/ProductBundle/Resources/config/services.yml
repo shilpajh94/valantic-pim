@@ -27,6 +27,10 @@ services:
     # app.config_provider_service:
     #     class: ContitechCS\ProductBundle\Services\ConfigProviderService
     #     public: true
+    
+    ContitechCS\ProductBundle\Command\:
+        resource: "../../Command/*"
+        tags: ["console.command"]
 
     ContitechCS\ProductBundle\EventListener\ObjectListener:
         tags:
