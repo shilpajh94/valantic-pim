@@ -121,16 +121,7 @@ class MandatoryValidationService {
         }
     }
     
-    public function checkForChildPublishValidation($product) {
-        $childProducts = $product->getChildren();
-        if($childProducts){
-            foreach($childProducts as $childProduct){
-                if(!empty($childProduct->isPublished())){
-                    throw new \Pimcore\Model\Element\ValidationException("Product with published children cannot be unpublished");
-                }
-            }
-        }
-    }
+    
 
 
     /**

@@ -27,19 +27,24 @@ services:
     # app.config_provider_service:
     #     class: ContitechCS\ProductBundle\Services\ConfigProviderService
     #     public: true
+    
+    ContitechCS\ProductBundle\Command\:
+        resource: "../../Command/*"
+        tags: ["console.command"]
 
     ContitechCS\ProductBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: moveProductToRegion }
+            - { name: kernel.event_listener, event: pimcore.admin.search.list.beforeListLoad, method: beforeSearchListLoad }
 
     ContitechCS\ProductBundle\EventListener\HierarchyListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: setBricks }
 
-    ContitechCS\ProductBundle\EventListener\ProductListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: checkPublishStatus }
+#    ContitechCS\ProductBundle\EventListener\ProductListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: checkPublishStatus }
     
     ContitechCS\ProductBundle\EventListener\AssetListener:
         tags:
@@ -50,6 +55,9 @@ services:
             
     Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\DataObjectController:
             class: ContitechCS\ProductBundle\Controller\DataObjectController
+            
+    Pimcore\Bundle\AdminBundle\Controller\Admin\UserController:
+            class: ContitechCS\ProductBundle\Controller\UserController
         
     ContitechCS\ProductBundle\Services\AppService:
         public: true
