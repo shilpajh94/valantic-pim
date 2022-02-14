@@ -60,13 +60,14 @@ class DataFixingOfMultiselectDropDownCommand extends Command
        $startRow = 0;
         if (($handle = fopen($fileName, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {   
-
                 if ($startRow > 0)
                 {
-                    $deletedIdArr   = explode(',',end($data));
-                    $setIdArr       = array_diff(explode(',',$data[3]),$deletedIdArr);
+                    $setIdArr  = explode(',',end($data));
+
+                    $deletedIdArr     = array_diff(explode(',',$data[3]),$setIdArr);
+
                     $deletedIdStr   = implode('|',$deletedIdArr);
-                   
+
                     $columns = ['coverColor','coverMaterial','tubeMaterial'];
                     
                     foreach($columns as $columnName)
@@ -118,7 +119,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                             $obj->save();
                         }
                     }
-                }
+                } 
                $startRow++;
             }
             fclose($handle);
