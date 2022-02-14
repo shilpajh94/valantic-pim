@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-01-12T16:20:16+01:00
-* IP: 127.0.0.1
+* Generated at: 2022-02-14T12:54:07+01:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -1402,8 +1402,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'key' => 'Thrust Nut',
-                                    'value' => 'Thrust Nut',
+                                    'key' => 'Crimp Nut',
+                                    'value' => 'Crimp Nut',
                                   ),
                                   1 => 
                                   array (
@@ -1412,8 +1412,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                   ),
                                   2 => 
                                   array (
-                                    'key' => 'Crimp Nut',
-                                    'value' => 'Crimp Nut',
+                                    'key' => 'Thrust Nut',
+                                    'value' => 'Thrust Nut',
                                   ),
                                 ),
                                  'width' => 200,
@@ -1431,7 +1431,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => false,
+                                 'locked' => NULL,
                                  'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
