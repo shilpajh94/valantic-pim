@@ -294,7 +294,7 @@ class DefaultController extends AbstractController
                 if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
                     $productObj->setGetInheritedValues(true);
                 }
-                if($productObj && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
+                if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
                 {
                     $productNameTitle   =   implode(' and ', $productNameArr);
                     $productName        =   trim($productObj->getName());
@@ -989,7 +989,7 @@ class DefaultController extends AbstractController
                 if (!empty($productDetails) && $productDetails instanceof DataObject\CSProducts) {
                     $productDetails->setGetInheritedValues(true);
                 }
-                if(!empty($productDetails) && (empty($productDetails->getCSRegion()) || in_array($regionId, $productDetails->getCSRegion())))
+                if(!empty($productDetails) && ($productDetails->isPublished()) && (empty($productDetails->getCSRegion()) || in_array($regionId, $productDetails->getCSRegion())))
                 {
                     $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
                     $productData['Name'] = $productDetails->getName();
@@ -1604,7 +1604,7 @@ class DefaultController extends AbstractController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if (!empty($productObject) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                    if (!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                     {
                         $productNameArr['Name'] = trim($productObject->getName());
                         $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -1671,7 +1671,7 @@ class DefaultController extends AbstractController
                     $productObject->setGetInheritedValues(true);
                 }
                 
-                if(!empty($productObject) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if(!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $productData['Name'] = $productObject->getName();
                     $productData['ShortText'] = $productObject->getShortText();
@@ -1746,7 +1746,7 @@ class DefaultController extends AbstractController
                     $productObject->setGetInheritedValues(true);
                 }
                 
-                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
     
@@ -1821,7 +1821,7 @@ class DefaultController extends AbstractController
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
-                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $objParent = DataObject\CSProducts::getById($productObject->getParentId());
         
@@ -1880,7 +1880,7 @@ class DefaultController extends AbstractController
                     $singleProductObj->setGetInheritedValues(true);
                 }
                 
-                if($singleProductObj && (empty($singleProductObj->getCSRegion()) || in_array($regionId, $singleProductObj->getCSRegion())))
+                if($singleProductObj && ($singleProductObj->isPublished()) && (empty($singleProductObj->getCSRegion()) || in_array($regionId, $singleProductObj->getCSRegion())))
                 {
                     $childProductData['Name'] = $singleProductObj->getName();
                     $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
@@ -1914,7 +1914,7 @@ class DefaultController extends AbstractController
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
-                if($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                if($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                 {
                     $parentProductData['Name'] = $productObject->getName();
                     $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -2096,7 +2096,7 @@ class DefaultController extends AbstractController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
+                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
                         $productNameArr['Name'] = trim($productObject->getName());
                         $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                         $productNameArr['ShortText'] = $productObject->getShortText();
@@ -2153,7 +2153,7 @@ class DefaultController extends AbstractController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                     {
                         $productNameArr['Name'] = trim($productObject->getName());
                         $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
@@ -2218,7 +2218,7 @@ class DefaultController extends AbstractController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
+                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
                         $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
                         $parentParentObj->setGetInheritedValues(true);
                         if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
@@ -2321,7 +2321,7 @@ class DefaultController extends AbstractController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
                     {
                         $productData['Name'] = $productObject->getName();
                         $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();

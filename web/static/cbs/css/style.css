@@ -937,11 +937,16 @@ padding-top: 0px;
 }
 .backcoverpage .black-bg {
   padding: 30px 30px 30px;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
 }
-
+@media print{
+.backcoverpage .black-bg {
+ 
+height:100%;
+}
+}
 .backcoverpage h1 {
   font-size: 12px;
   margin-bottom: 0.75rem;
@@ -1253,3 +1258,129 @@ left: 0;
 .media-image {
     width: 170px;
 }
+
+/** css added below for new cover and footer page **/
+
+.cover-image{
+
+}
+
+.relative{ position: relative; }
+.top-section{
+  position: relative;
+
+
+   background: #fff;
+}
+.top-section [class*='set'] img{object-fit: cover; display:block;}
+.top-section .logo{
+  position: absolute;
+  top: -20px;
+  left: 5%;
+  max-width: 300px;
+  z-index: 1000 !important;
+}
+
+.img-wrapper img{
+  max-width: 100%;
+  height: auto;
+      display: block;
+width:100%;
+}
+.img-placeholder  {
+max-width:140px;
+}
+.img-placeholder img {
+max-width:140px !important;
+}
+
+.top-section .img-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.set1{
+ /* max-height: 310px;*/
+overflow: hidden;
+}
+.set1-collage {
+   /* max-height: 680px;
+    overflow: hidden;*/
+margin-bottom:10px;
+}
+
+.set2{
+  margin: 10px 0 10px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+/*  height:380px; */
+overflow: hidden;
+}
+
+.set2-2{
+  margin: 0 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+
+.set2-2-1{
+  margin-bottom: 10px;
+}
+
+.set1-collage  img{width:100%; height: 730px;} 
+.set1 img{ width:100%; height: 300px; }
+.set2-1 img{height: 430px;}
+.set2-2-1 img{  height: 210px; }
+.set2-2-2 img{ height: 210px; }
+.set2-3 img{height: 430px;}
+
+
+
+.bottom-section{
+  background: #000;
+ break-before:avoid;
+  
+  padding: 30px 5% ;
+  color: #fff;
+  position: relative;
+
+}
+
+@media print{
+ 
+
+.cover-image { background:#000; height:100%; display:flex; flex-direction:column;  }
+.top-section{background: #fff; margin:0 0}
+.bottom-section{margin:0 -0;}
+}
+.lh{ line-height:0; margin-top:40px; margin-bottom:30px;}
+.bottom-align{
+  /*position: absolute;
+  bottom: 0;
+*/  font-size: 20px;
+
+  margin-top: 30px;
+
+}
+#cover-up{
+
+
+width:100%;
+left:0;
+
+}
+.cover-image h1{
+  font-size: 40px;
+  font-family: 'ContinentalStagSansLCG-Medium';
+}
+
+.cover-image h2{
+  font-size: 30px;
+  font-family: 'ContinentalStagSansLCG-Book';
+}
+/** css added above for new cover and footer page **/
+
