@@ -21,7 +21,7 @@ class ProductFailureMailCommand   extends AbstractCommand {
         $year = date('Y');
         $monthName = date('F');
 
-        $folderId = Asset::getByPath("/Failed Records/$year/$monthName")->getId();
+        $folderId = Asset::getByPath("/IFS PTG Private Folder/Import Failure Logs/$year/$monthName")->getId();
         $list = new \Pimcore\Model\Asset\Listing();
         $list->setCondition("parentId = $folderId");
         $list->setOrder("DESC"); 
@@ -44,27 +44,20 @@ class ProductFailureMailCommand   extends AbstractCommand {
                 if ($currentDate == $fileDate) {
                 $todaysFile[] = $fileName;
                 $todaysFileId[] = $fileChilds->getId();
-                }
-                
+                }               
                 if ($yesterdayDate == $fileDate) {
                 $yesterDaysFile[] = $fileName;
                 $yesterdaysFileId[] = $fileChilds->getId();
-
-
                 }
             }
-        }
-     
+        } 
         if ($todaysFile ) {
             $sendMail = new FailedRecords;
-         //   $file_arr = ['16311'];
             $sendMail->sendNotificationsEmail($todaysFileId);
         } else if ($yesterDaysFile) {
             $sendMail = new FailedRecords;
             $sendMail->sendNotificationsEmail($yesterdaysFileId);
-
-        }
-        
+        }     
     }
 
     private function getDateFromFileName($fileName)
@@ -73,7 +66,8 @@ class ProductFailureMailCommand   extends AbstractCommand {
         $finalDate  = '';
         if(is_array($arr) && $arr)
         {
-            $end  = end($arr);
+            $end  = $arr[2];
+
             $date = explode(".",$end);
             if(is_array($date) && $date)
             {   
@@ -83,7 +77,7 @@ class ProductFailureMailCommand   extends AbstractCommand {
                 $year = substr($datestr,4,4);
                 $finalDate = "$year-$month-$date";
             }
-        }       
+        }
         return $finalDate;
     }
 

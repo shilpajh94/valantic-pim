@@ -13,6 +13,7 @@ use Pimcore\Mail;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\Element;
 
 /**
  * Description of failed Imported Records
@@ -88,6 +89,7 @@ class FailedRecords {
     {
       $sql = "SELECT * FROM material_import_log WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
       $record = $this->db->fetchAll($sql);
+
         if($record) {
           $columns = array_keys(current($record));
           $fileName = "PIM_Material_".date('mdY')."_Logs".'.csv';
@@ -155,24 +157,29 @@ class FailedRecords {
     {
       $subFolder = date('Y')."/".date('F');
       $parentPath = FAILURE_RECORDS_FOLDER."/".$subFolder;
-      $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("/$parentPath");
+     
+    //  try {
+      $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("$parentPath");
+     /*  } catch (\Exception $ex) {
+      p_r($ex);
+      } */
+
       $parentFolder = $obj->getPath().$obj->getFileName();
         
         $newAsset = new \Pimcore\Model\Asset();
-        $newAsset->setFilename($fileName);
+        $newFilename = Element\Service::getSaveCopyName('asset', $fileName,\Pimcore\Model\Asset::getByPath("$parentFolder"));
+       // p_r($newFilename);die('1234');
+
+        $newAsset->setFilename($newFilename);
         $newAsset->setData(file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
-       // p_r(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName);
-       // p_r(file_exists(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
-       // p_r(filesize(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
 
         $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
-        $newAsset->save();
+        $newAsset->save(); die('123');
       }
 
       public function sendNotificationsEmail($fileId) 
       {     
         $email_Id = $this->usersForEmail ();
-        
         try {
           $document = Document\Email::getByPath(FAILURE_RECORDS_EMAIL_TEMPLATE);
           $li = '';
@@ -184,22 +191,20 @@ class FailedRecords {
             }
             $templateParam['file_url'] = $li;
 
-          $mail = new \Pimcore\Mail();
-          $mail->addto($email_Id);
-          $mail->setSubject("Product Fail Records");
-          $mail->setDocument($document);
-          $mail->setParams($templateParam);
-          
-          $mailSent = $mail->send();
-            if ($mailSent) {
-              return TRUE;
-            } else {
-              return FALSE;
-            }
-          } catch (\Exception $ex) {
-           // p_r($ex);
-             return FALSE;
-          }
+            $mail = new \Pimcore\Mail();
+            $mail->addto($email_Id);
+            $mail->setSubject("Product Fail Records");
+            $mail->setDocument($document);
+            $mail->setParams($templateParam);
+            
+            $mailSent = $mail->send();
+              if ($mailSent) {
+                return TRUE;
+              } else {
+                return FALSE;
+              }
+            } catch (\Exception $ex) {
+        }
       }
 
     private function getFaliureFilesDeeplink($asset) 
