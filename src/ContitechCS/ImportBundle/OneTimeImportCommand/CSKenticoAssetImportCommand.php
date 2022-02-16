@@ -66,19 +66,49 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                     $level3 = trim($dataValue['Level3']);
                     $level4 = trim($dataValue['Level4']);
                     $level5 = trim($dataValue['Level5']);
+                    $level6 = trim($dataValue['Level6']);
+                    $level7 = trim($dataValue['Level7']);
 
-                    if ($level1 && $level2 && $level3 && $level4 && $level5) {
-                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4][] = $level5;
-                    } else if ($level1 && $level2 && $level3 && $level5) {
-                        $assetsData[$level1 . "/" . $level2 . "/" . $level3][] = $level5;
-                    } else if ($level1 && $level2 && $level5) {
-                        $assetsData[$level1 . "/" . $level2][] = $level5;
-                    } else if ($level1 && $level5) {
-                        $assetsData[$level1][] = $level5;
+                    if (strpos($dataValue['Level1'], "/") !== false) {
+                        $level1 = str_replace("/", "-", $dataValue['Level1']);
+                        $level1 = trim($level1);
+                    }
+                    if (strpos($dataValue['Level2'], "/") !== false) {
+                        $level2 = str_replace("/", "-", $dataValue['Level2']);
+                        $level2 = trim($level2);
+                    }
+                    if (strpos($dataValue['Level3'], "/") !== false) {
+                        $level3 = str_replace("/", "-", $dataValue['Level3']);
+                        $level3 = trim($level3);
+                    }
+                    if (strpos($dataValue['Level4'], "/") !== false) {
+                        $level4 = str_replace("/", "-", $dataValue['Level4']);
+                        $level4 = trim($level4);
+                    }
+                    if (strpos($dataValue['Level5'], "/") !== false) {
+                        $level5 = str_replace("/", "-", $dataValue['Level5']);
+                        $level5 = trim($level5);
+                    }
+                    if (strpos($dataValue['Level6'], "/") !== false) {
+                        $level6 = str_replace("/", "-", $dataValue['Level6']);
+                        $level6 = trim($level6);
+                    }
+
+                    if($level1 && $level2 && $level3 && $level4 && $level5 && $level6 && $level7){
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4 . "/" . $level5 . "/" . $level6][] = $level7;
+                    } else if ($level1 && $level2 && $level3 && $level4 && $level5 && $level7){
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4 . "/" . $level5][] = $level7;
+                    } else if ($level1 && $level2 && $level3 && $level4 && $level7) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4][] = $level7;
+                    } else if ($level1 && $level2 && $level3 && $level7) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3][] = $level7;
+                    } else if ($level1 && $level2 && $level7) {
+                        $assetsData[$level1 . "/" . $level2][] = $level7;
+                    } else if ($level1 && $level7) {
+                        $assetsData[$level1][] = $level7;
                     }
                 }
             }
-
             unset($result);
             unset($data);
 

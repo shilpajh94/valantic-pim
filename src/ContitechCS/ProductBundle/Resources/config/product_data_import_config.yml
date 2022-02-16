@@ -3,11 +3,11 @@ MarCom:
     fieldType: User
     objectType: class
 Product Manager:
-    fieldName: RnDUser
+    fieldName: ProductOwner
     fieldType: User
     objectType: class
 RandD:
-    fieldName: ProductOwner
+    fieldName: RnDUser
     fieldType: User
     objectType: class
 industrial service tension capacity in PIW (for Elevator Belt only):
