@@ -1006,7 +1006,7 @@ Features and Benefits (combination of text and pic):
     fieldNameToSearch: FeatureName
     objectType: class
     mandatoryFields: "FeatureName|FeatureDescription"
-    createFlag: true
+    createFlag: false
 Industries:
     fieldName: CSProductIndustries
     fieldType: manyToManyObjectRelation
