@@ -102,7 +102,11 @@ class CSProductDataImportCommand extends AbstractCommand
                 }
                 $productHierarchy = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . $name;
                 if ($productData['Product Flag'] == 0) {
-                    $productHierarchy = $productHierarchy . '/' . trim($productData['Product Name']);
+                    $pName = $productData['Product Name'];
+                    if (strpos($productData['Product Name'], "/") !== false) {
+                        $pName = str_replace("/", "-", $productData['Product Name']);
+                    }
+                    $productHierarchy = $productHierarchy . '/' . trim($pName);
                 }
                 $productHierarchyPathObj = DataObject\CSHierarchy::getByPath($productHierarchy);
                 if ($productHierarchyPathObj) {
