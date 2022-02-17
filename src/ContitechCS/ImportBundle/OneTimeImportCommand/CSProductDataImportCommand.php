@@ -547,9 +547,8 @@ class CSProductDataImportCommand extends AbstractCommand
                                 //p_r($th->getTraceAsString());
                             }
                         } else {
-                            if($CSProductObj){
-                                $parentId = $CSProductObj->getId();
-                            }
+                           
+                            $parentId = $CSProductObj->getId();
                         }
                     }
                 } else {
