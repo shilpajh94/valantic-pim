@@ -232,8 +232,11 @@ class CSProductDataImportCommand extends AbstractCommand
                                     $product = $CSProductObj;
                                     $parentId = $product->getParentId();
                                 } else {
-                                    if (strpos($pathWithoutRegion, $productName) !== false) {
-                                        $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
+                                    if($productName){
+                                        if (strpos($pathWithoutRegion, $productName) !== false) {
+                                            $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
+                                        }
+    
                                     }
                                     $query = "SELECT o_id from objects where concat(o_path,o_key) 
                                     LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
@@ -544,6 +547,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 //p_r($th->getTraceAsString());
                             }
                         } else {
+                           
                             $parentId = $CSProductObj->getId();
                         }
                     }
