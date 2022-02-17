@@ -30,13 +30,12 @@ class ProductEnrichmentListener
     }
 
 
-    public function checkIfChildsArchive($product, $transitionName) {
+    public function checkIfChildPublished($product, $transitionName) {
         $list = new DataObject\CSProducts\Listing();
         $list->setIgnoreLocalizedFields(true);
-        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`isArchived` is NULL OR `isArchived` = false) ');
-        
+        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`o_published` = 1) ');
         if (count($list)>0) {
-            return ['success' => false, 'msg' => 'Not able to archive as all childs are not archived.'];
+            return ['success' => false, 'msg' => 'Not able to archive/pause as all childs are not archived/paused.'];
         } else {
             return ['success' => true];
         }
@@ -73,6 +72,7 @@ class ProductEnrichmentListener
         }
         return ['success' => $success, 'msg' => $msg];
     }
+    
     
     public function csWorkflowActions(TransitionEvent $event) {
         $transition = $event->getTransition();
