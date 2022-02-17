@@ -60,21 +60,19 @@ class DataFixingOfMultiselectDropDownCommand extends Command
        $startRow = 0;
         if (($handle = fopen($fileName, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {   
-
                 if ($startRow > 0)
                 {
-                    $deletedIdArr   = explode(',',end($data));
-                    $setIdArr       = array_diff(explode(',',$data[3]),$deletedIdArr);
+                    $setIdArr  = explode(',',end($data));
+                    $deletedIdArr     = array_diff(explode(',',$data[3]),$setIdArr);
                     $deletedIdStr   = implode('|',$deletedIdArr);
-                   
+
                     $columns = ['coverColor','coverMaterial','tubeMaterial'];
                     
                     foreach($columns as $columnName)
                     {
                         $where = 'WHERE CONCAT(",", `'.$columnName.'`, ",") REGEXP ",('.$deletedIdStr.'),"';
                         $sql = "SELECT * FROM object_brick_store_HoseBase_1 $where";
-                        $record = $this->db->fetchAll($sql);
-                        
+                        $record = $this->db->fetchAll($sql);                       
                         foreach ($record as $product)
                         {
                             $productId = $product['o_id'];
@@ -88,7 +86,6 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                             }
                         } 
                     }
-
                     if($data[0] == 'ProductClass~reinforcement')
                     {
                         $where  = 'WHERE CONCAT(",", `reinforcement`, ",") REGEXP ",('.$deletedIdStr.'),"';
@@ -118,7 +115,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                             $obj->save();
                         }
                     }
-                }
+                } 
                $startRow++;
             }
             fclose($handle);
