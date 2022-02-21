@@ -23,3 +23,15 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
     PimDataPostBundle\Services\TokenAuthService:
+    
+    # this service will be common throughout the project
+    pimDataPostBundle.SFTable1_helper:
+        class: PimDataPostBundle\Helper\SFTable1
+        public: true
+
+    PimDataPostBundle\Command\B2CProductCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "b2c:product",
+              }

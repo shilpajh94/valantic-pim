@@ -28,6 +28,8 @@ define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/Contite
 
 define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/CatalogUIApiBundle/Resources/config");
 
+define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PimDataPostBundle/Resources/config");
+
 /**
  * to include the constants of the required attributes module
  * this is being used for calculating completeness,calculating some validations for export etc.
@@ -82,6 +84,10 @@ define('INH_PRODUCT_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/industri
 define('PRICE_LIST_TABLE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yml");
 define('INH_FITTING_COVER_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/INH_fitting_cover_config.yml");
 define('OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/option_provider_cache_config.yml");
+define('B2B_ATTRIBUTES_FILE_PATH', PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY . "/b2b_config.yml");
+define('B2C_ATTRIBUTES_FILE_PATH', PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY . "/b2c_config.yml");
+
+
 define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
 define('GRID_SQL_EDITOR_ALLOWED_ROLES', ['ApplicationAdmin']);
 
