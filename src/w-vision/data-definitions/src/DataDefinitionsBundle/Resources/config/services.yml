@@ -265,6 +265,10 @@ services:
         tags:
             - { name: data_definitions.interpreter, type: external_image, form-type: Wvision\Bundle\DataDefinitionsBundle\Form\Type\NoConfigurationType }
 
+    Wvision\Bundle\DataDefinitionsBundle\Interpreter\GenericInterpreter:
+        tags:
+            - { name: data_definitions.interpreter, type: generic, form-type: Wvision\Bundle\DataDefinitionsBundle\Form\Type\Interpreter\GenericType }
+
     ### PROVIDER
     Wvision\Bundle\DataDefinitionsBundle\Provider\CsvProvider:
         tags:

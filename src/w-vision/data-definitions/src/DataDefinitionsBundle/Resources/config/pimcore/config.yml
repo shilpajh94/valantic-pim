@@ -73,5 +73,6 @@ data_definitions:
             import_rules_condition_expression: '/bundles/datadefinitions/pimcore/js/import_rule/conditions/expression.js'
             import_rules_action_expression: '/bundles/datadefinitions/pimcore/js/import_rule/actions/expression.js'
             import_rules_action_object: '/bundles/datadefinitions/pimcore/js/import_rule/actions/object.js'
+            interpreter_generic: '/bundles/datadefinitions/pimcore/js/interpreters/generic.js'
         css:
             data_definition: '/bundles/datadefinitions/pimcore/css/datadefinition.css'
