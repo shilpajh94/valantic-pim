@@ -202,7 +202,7 @@ class FieldSelection
     {
         $toColumn = new ToColumn();
 
-        $toColumn->setLabel($field->getName());
+        $toColumn->setLabel($field->getTitle());
         $toColumn->setFieldtype($field->getFieldtype());
         $toColumn->setIdentifier($field->getName());
         $toColumn->setGroup('fields');
