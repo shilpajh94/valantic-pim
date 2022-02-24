@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-12-07T11:15:03+05:30
-* IP: 127.0.0.1
+* Generated at: 2022-02-14T12:54:07+01:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -20,6 +20,7 @@ Fields Summary:
 - DualGripStyle [booleanSelect]
 - SAEStandard [input]
 - SkiveType [input]
+- NutType [select]
 - ReleasedToProductionDate [date]
 - Comments [textarea]
 - FittingEndFamilyType [select]
@@ -302,480 +303,500 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       3 => 
                       array (
+                        'key' => 'AC2',
+                        'value' => 5355085,
+                      ),
+                      4 => 
+                      array (
                         'key' => 'AV',
                         'value' => 1829939,
                       ),
-                      4 => 
+                      5 => 
+                      array (
+                        'key' => 'B1-DELETE',
+                        'value' => 5354403,
+                      ),
+                      6 => 
                       array (
                         'key' => 'B2',
                         'value' => 1829854,
                       ),
-                      5 => 
+                      7 => 
                       array (
                         'key' => 'B2SC',
                         'value' => 1830638,
                       ),
-                      6 => 
+                      8 => 
                       array (
                         'key' => 'BP',
                         'value' => 1829870,
                       ),
-                      7 => 
+                      9 => 
                       array (
                         'key' => 'BT',
                         'value' => 1829867,
                       ),
-                      8 => 
+                      10 => 
                       array (
                         'key' => 'CB',
                         'value' => 1829941,
                       ),
-                      9 => 
+                      11 => 
                       array (
                         'key' => 'CLIP',
                         'value' => 1829942,
                       ),
-                      10 => 
+                      12 => 
+                      array (
+                        'key' => 'CLIP2',
+                        'value' => 3833676,
+                      ),
+                      13 => 
                       array (
                         'key' => 'CLIPHLDR',
                         'value' => 1830382,
                       ),
-                      11 => 
+                      14 => 
                       array (
                         'key' => 'COT',
                         'value' => 1829928,
                       ),
-                      12 => 
+                      15 => 
                       array (
                         'key' => 'CT',
                         'value' => 1829871,
                       ),
-                      13 => 
+                      16 => 
                       array (
                         'key' => 'DG',
                         'value' => 1829859,
                       ),
-                      14 => 
+                      17 => 
                       array (
                         'key' => 'DGF1',
                         'value' => 1829891,
                       ),
-                      15 => 
+                      18 => 
                       array (
                         'key' => 'DGF2',
                         'value' => 1829892,
                       ),
-                      16 => 
+                      19 => 
                       array (
                         'key' => 'DH',
                         'value' => 1829872,
                       ),
-                      17 => 
+                      20 => 
                       array (
                         'key' => 'DL',
                         'value' => 1829873,
                       ),
-                      18 => 
+                      21 => 
                       array (
                         'key' => 'FG',
                         'value' => 1829861,
                       ),
-                      19 => 
+                      22 => 
                       array (
                         'key' => 'FG2',
                         'value' => 1829893,
                       ),
-                      20 => 
+                      23 => 
                       array (
                         'key' => 'FG5',
                         'value' => 1829894,
                       ),
-                      21 => 
+                      24 => 
                       array (
                         'key' => 'FH',
                         'value' => 1830119,
                       ),
-                      22 => 
+                      25 => 
                       array (
                         'key' => 'FL',
                         'value' => 1829874,
                       ),
-                      23 => 
+                      26 => 
                       array (
                         'key' => 'FSL',
                         'value' => 1830388,
                       ),
-                      24 => 
+                      27 => 
                       array (
                         'key' => 'FT',
                         'value' => 1830304,
                       ),
-                      25 => 
+                      28 => 
                       array (
                         'key' => 'FTN',
                         'value' => 1829929,
                       ),
-                      26 => 
+                      29 => 
                       array (
                         'key' => 'FTS',
                         'value' => 1829930,
                       ),
-                      27 => 
+                      30 => 
                       array (
                         'key' => 'FTSM',
                         'value' => 1829931,
                       ),
-                      28 => 
+                      31 => 
                       array (
                         'key' => 'GC',
                         'value' => 1829895,
                       ),
-                      29 => 
+                      32 => 
                       array (
                         'key' => 'GG',
                         'value' => 1829863,
                       ),
-                      30 => 
+                      33 => 
                       array (
                         'key' => 'HM',
                         'value' => 1829875,
                       ),
-                      31 => 
+                      34 => 
                       array (
                         'key' => 'ILOT',
                         'value' => 1829932,
                       ),
-                      32 => 
+                      35 => 
                       array (
                         'key' => 'JC',
                         'value' => 1829876,
                       ),
-                      33 => 
+                      36 => 
                       array (
                         'key' => 'JS',
                         'value' => 1829877,
                       ),
-                      34 => 
+                      37 => 
                       array (
                         'key' => 'KM',
                         'value' => 1829878,
                       ),
-                      35 => 
+                      38 => 
                       array (
                         'key' => 'MC',
                         'value' => 1829879,
                       ),
-                      36 => 
+                      39 => 
                       array (
                         'key' => 'MH',
                         'value' => 1829943,
                       ),
-                      37 => 
+                      40 => 
                       array (
                         'key' => 'ML',
                         'value' => 1829880,
                       ),
-                      38 => 
+                      41 => 
                       array (
                         'key' => 'MLL',
                         'value' => 1829944,
                       ),
-                      39 => 
+                      42 => 
                       array (
                         'key' => 'MP',
                         'value' => 1829881,
                       ),
-                      40 => 
+                      43 => 
                       array (
                         'key' => 'MS',
                         'value' => 1829882,
                       ),
-                      41 => 
+                      44 => 
+                      array (
+                        'key' => 'NEEDS NOMENCLATURE ADDED',
+                        'value' => 5356953,
+                      ),
+                      45 => 
                       array (
                         'key' => 'NP',
                         'value' => 1829883,
                       ),
-                      42 => 
+                      46 => 
                       array (
                         'key' => 'NS',
                         'value' => 1829884,
                       ),
-                      43 => 
+                      47 => 
                       array (
                         'key' => 'OB',
                         'value' => 1829885,
                       ),
-                      44 => 
+                      48 => 
                       array (
                         'key' => 'OF',
                         'value' => 1829886,
                       ),
-                      45 => 
+                      49 => 
                       array (
                         'key' => 'OI',
                         'value' => 1829933,
                       ),
-                      46 => 
+                      50 => 
                       array (
                         'key' => 'OIM',
                         'value' => 1829936,
                       ),
-                      47 => 
+                      51 => 
                       array (
                         'key' => 'OSWCH',
                         'value' => 1830419,
                       ),
-                      48 => 
+                      52 => 
                       array (
                         'key' => 'OT',
                         'value' => 1829934,
                       ),
-                      49 => 
+                      53 => 
                       array (
                         'key' => 'OTC',
                         'value' => 1829935,
                       ),
-                      50 => 
+                      54 => 
                       array (
                         'key' => 'PB',
                         'value' => 1829887,
                       ),
-                      51 => 
+                      55 => 
                       array (
                         'key' => 'PLIERS',
                         'value' => 1830438,
                       ),
-                      52 => 
+                      56 => 
                       array (
                         'key' => 'PPT',
                         'value' => 1829888,
                       ),
-                      53 => 
+                      57 => 
                       array (
                         'key' => 'R2',
                         'value' => 1829896,
                       ),
-                      54 => 
+                      58 => 
                       array (
                         'key' => 'RA',
                         'value' => 1829897,
                       ),
-                      55 => 
+                      59 => 
                       array (
                         'key' => 'S4',
                         'value' => 1829898,
                       ),
-                      56 => 
+                      60 => 
                       array (
                         'key' => 'S6',
                         'value' => 1829857,
                       ),
-                      57 => 
+                      61 => 
                       array (
                         'key' => 'SE',
                         'value' => 1829858,
                       ),
-                      58 => 
+                      62 => 
                       array (
                         'key' => 'SF',
                         'value' => 1829864,
                       ),
-                      59 => 
+                      63 => 
                       array (
                         'key' => 'SG',
                         'value' => 1829855,
                       ),
-                      60 => 
+                      64 => 
                       array (
                         'key' => 'SH',
                         'value' => 1829899,
                       ),
-                      61 => 
+                      65 => 
                       array (
                         'key' => 'SI',
                         'value' => 1829889,
                       ),
-                      62 => 
+                      66 => 
                       array (
                         'key' => 'SRT',
                         'value' => 1829900,
                       ),
-                      63 => 
+                      67 => 
                       array (
                         'key' => 'ST',
                         'value' => 1829890,
                       ),
-                      64 => 
+                      68 => 
                       array (
                         'key' => 'SWCN',
                         'value' => 1829937,
                       ),
-                      65 => 
+                      69 => 
                       array (
                         'key' => 'T7',
                         'value' => 1829866,
                       ),
-                      66 => 
+                      70 => 
                       array (
                         'key' => 'T8',
                         'value' => 1829856,
                       ),
-                      67 => 
+                      71 => 
                       array (
                         'key' => 'UC',
                         'value' => 1829860,
                       ),
-                      68 => 
+                      72 => 
                       array (
                         'key' => 'UCF1',
                         'value' => 1829901,
                       ),
-                      69 => 
+                      73 => 
                       array (
                         'key' => 'UCF10',
                         'value' => 1829902,
                       ),
-                      70 => 
+                      74 => 
                       array (
                         'key' => 'UCF11',
                         'value' => 1829903,
                       ),
-                      71 => 
+                      75 => 
                       array (
                         'key' => 'UCF2',
                         'value' => 1829904,
                       ),
-                      72 => 
+                      76 => 
                       array (
                         'key' => 'UCF3',
                         'value' => 1829905,
                       ),
-                      73 => 
+                      77 => 
                       array (
                         'key' => 'UCF4',
                         'value' => 1829906,
                       ),
-                      74 => 
+                      78 => 
                       array (
                         'key' => 'UCF5',
                         'value' => 1829907,
                       ),
-                      75 => 
+                      79 => 
                       array (
                         'key' => 'UCF6',
                         'value' => 1829908,
                       ),
-                      76 => 
+                      80 => 
                       array (
                         'key' => 'UCF7',
                         'value' => 1829909,
                       ),
-                      77 => 
+                      81 => 
                       array (
                         'key' => 'UCF8',
                         'value' => 1831134,
                       ),
-                      78 => 
+                      82 => 
                       array (
                         'key' => 'UCF9',
                         'value' => 1829910,
                       ),
-                      79 => 
+                      83 => 
                       array (
                         'key' => 'UCFB2',
                         'value' => 1829911,
                       ),
-                      80 => 
+                      84 => 
                       array (
                         'key' => 'UCFSG',
                         'value' => 1829912,
                       ),
-                      81 => 
+                      85 => 
                       array (
                         'key' => 'UCH',
                         'value' => 1829913,
                       ),
-                      82 => 
+                      86 => 
                       array (
                         'key' => 'UCSC',
                         'value' => 1829914,
                       ),
-                      83 => 
+                      87 => 
                       array (
                         'key' => 'UCSG',
                         'value' => 1829915,
                       ),
-                      84 => 
+                      88 => 
                       array (
                         'key' => 'UT',
                         'value' => 1829862,
                       ),
-                      85 => 
+                      89 => 
                       array (
                         'key' => 'VA',
                         'value' => 1829938,
                       ),
-                      86 => 
+                      90 => 
                       array (
                         'key' => 'VCORE',
                         'value' => 1829940,
                       ),
-                      87 => 
+                      91 => 
                       array (
                         'key' => 'XB2',
                         'value' => 1829916,
                       ),
-                      88 => 
+                      92 => 
                       array (
                         'key' => 'XDG',
                         'value' => 1829917,
                       ),
-                      89 => 
+                      93 => 
                       array (
                         'key' => 'XDG3',
                         'value' => 1829918,
                       ),
-                      90 => 
+                      94 => 
                       array (
                         'key' => 'XDGF1',
                         'value' => 1829919,
                       ),
-                      91 => 
+                      95 => 
                       array (
                         'key' => 'XDGF2',
                         'value' => 1829920,
                       ),
-                      92 => 
+                      96 => 
                       array (
                         'key' => 'XDGF3',
                         'value' => 1829921,
                       ),
-                      93 => 
+                      97 => 
                       array (
                         'key' => 'XS6',
                         'value' => 1829922,
                       ),
-                      94 => 
+                      98 => 
                       array (
                         'key' => 'XS6C',
                         'value' => 1829923,
                       ),
-                      95 => 
+                      99 => 
                       array (
                         'key' => 'XSC',
                         'value' => 1829924,
                       ),
-                      96 => 
+                      100 => 
                       array (
                         'key' => 'XSG',
                         'value' => 1829925,
                       ),
-                      97 => 
+                      101 => 
                       array (
                         'key' => 'XUC',
                         'value' => 1829926,
                       ),
-                      98 => 
+                      102 => 
                       array (
                         'key' => 'XUCF',
                         'value' => 1829927,
@@ -1365,6 +1386,52 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              10 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Crimp Nut',
+                                    'value' => 'Crimp Nut',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Tube Nut',
+                                    'value' => 'Tube Nut',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Thrust Nut',
+                                    'value' => 'Thrust Nut',
+                                  ),
+                                ),
+                                 'width' => 200,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
+                                 'name' => 'NutType',
+                                 'title' => 'Nut Type',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => NULL,
                                  'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
