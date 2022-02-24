@@ -27,26 +27,123 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             fieldLabel: t('data_definitions_csv_enclosure'),
             anchor: '100%',
             value: this.data['enclosure'] ? this.data.enclosure : '"'
-        }, {
-            xtype: 'textarea',
+        },
+        {
+            xtype: 'filefield',
             fieldLabel: t('data_definitions_csv_example'),
             name: 'csvExample',
-            grow: true,
             anchor: '100%',
-            minHeight: 300,
             value: this.data['csvExample'] ? this.data.csvExample : ''
-        }, {
+        },
+        {
             xtype: 'container',
-            html: '<strong>' + t('data_definitions_csv_headers_description') + '</strong>',
-            padding: '0 0 0 200px'
-        }, {
-            xtype: 'textarea',
-            fieldLabel: t('data_definitions_csv_headers'),
-            name: 'csvHeaders',
-            grow: true,
-            anchor: '100%',
-            minHeight: 300,
-            value: this.data['csvHeaders'] ? this.data.csvHeaders : ''
-        }];
+            html: '<strong>' + t('data_definitions_csv_headers_note') + '</strong>',
+            padding: '0 0 5 205px'
+        },
+        this.getFileUploadForm()
+            // {
+            //     xtype: 'container',
+            //     html: '<strong>' + t('data_definitions_csv_headers_description') + '</strong>',
+            //     padding: '0 0 0 200px'
+            // }, {
+            //     xtype: 'textarea',
+            //     fieldLabel: t('data_definitions_csv_headers'),
+            //     name: 'csvHeaders',
+            //     grow: true,
+            //     anchor: '100%',
+            //     minHeight: 300,
+            //     value: this.data['csvHeaders'] ? this.data.csvHeaders : ''
+            // }
+        ];
+    },
+
+    /**
+     * return file upload field
+     *
+     * @returns {*}
+     */
+    getFileUploadForm: function () {
+
+        let fileAlreadyImported = this.headerMappingFileAssetId ? true : false;
+
+        let outerScope = this;
+
+        this.openAssetButton = Ext.create('Ext.Button', {
+            // text: 'Open uploaded document',
+            iconCls: 'pimcore_icon_open',
+            hidden: !fileAlreadyImported,
+            tooltip: t('data_open_saved_mapping_file'),
+            style: {
+                marginLeft: '20px'
+            },
+            handler: function () {
+                outerScope.openUploadedAsset();
+
+            }
+        });
+
+        this.fileUploadField = new Ext.create('Ext.form.field.File', {
+            name: 'file',
+            fieldLabel: t('data_file_csv_label') + ' <span style="color:red;">*</span>',
+            labelWidth: 200,
+            width: 900,
+            regex: /^.*\.(csv|CSV|Csv)$/,
+            regexText: t('data_csv_allowed_only'),
+            msgTarget: 'under',
+            buttonText: t('data_upload_file_csv'),
+            labelStyle: "color: black !important",
+            listeners: {
+                change: function (fileField, value) {
+                    var rowValue = fileField.getRawValue();
+                    rowValue = rowValue.replace(/C:\\fakepath\\/g, '');
+
+                    var form = this.up('form').getForm();
+                    if (form.isValid()) {
+                        form.submit({
+                            url: '/admin/data_definitions/import_definitions/test-data',
+                            waitMsg: t('data_uploading_file'),
+                            params: {
+                                csrfToken: pimcore.settings['csrfToken']
+                            },
+                            success: function (fp, response) {
+                                response = response.response;
+                                response = Ext.decode(response.responseText);
+
+                                if (response.fileType == 'Csv') {
+                                    outerScope.addImportConfigFieldSet('Csv');
+
+                                } else if (response.fileType == 'Excel') {
+                                    outerScope.addImportConfigFieldSet('Excel', response.sheetNames);
+                                }
+                                fileField.setRawValue(rowValue);
+                                outerScope.openAssetButton.setHidden(true);
+                                // to send it in the save request
+                                outerScope.newlyUploadedFileName = response.fileName;
+                            },
+                            failure: function (form, response) {
+                                response = response.response;
+                                response = Ext.decode(response.responseText);
+                                // fileField.setRawValue(rowValue);
+                                Ext.MessageBox.alert(t('data_failure'), response.msg);
+                            }
+                        });
+                    } else {
+                        fileField.setRawValue(rowValue.replace(/C:\\fakepath\\/g, ''));
+                    }
+                },
+            }
+        });
+
+        this.fileUploadForm = Ext.create('Ext.form.Panel', {
+            layout: 'hbox',
+            items: [this.fileUploadField, this.openAssetButton],
+
+        });
+
+        return this.fileUploadForm;
+    },
+
+    openUploadedAsset: function () {
+        pimcore.helpers.openElement(this.headerMappingFileAssetId, 'asset');
     }
 });

@@ -53,6 +53,7 @@ pimcore.plugin.data_definitions = Class.create(pimcore.plugin.admin, {
     },
 
     openImportDefinitions: function () {
+        // yahan Import definitions pe click karne pe aata hai
         try {
             pimcore.globalmanager.get('data_definitions_import_definition_panel').activate();
         } catch (e) {

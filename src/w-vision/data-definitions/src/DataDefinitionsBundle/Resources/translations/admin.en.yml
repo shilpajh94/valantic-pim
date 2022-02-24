@@ -4,6 +4,14 @@ data_definitions_provider: 'Provider'
 data_definitions_provider_settings: 'Provider Settings'
 data_definitions_loader: 'Loader'
 data_definitions_csv_example: 'CSV Example'
+data_open_saved_mapping_file: 'Open saved file'
+data_csv_allowed_only: 'Only csv files are supported'
+data_upload_file_csv: 'Browse...'
+data_uploading_file: 'Uploading file ... '
+data_definitions_csv_headers_note: 'Note: First row of the file will be considered as header'
+data_file_csv_label: "Upload file (csv)"
+data_failure: "Failure"
+data_file_not_valid: "Uploaded file not valid."
 data_definitions_csv_enclosure: 'Enclosure'
 data_definitions_csv_delimiter: 'Delimiter'
 data_definitions_excel_headers: 'Excel headers'

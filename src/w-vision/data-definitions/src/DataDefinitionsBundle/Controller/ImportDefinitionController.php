@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Data Definitions.
  *
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\Service\FieldSelection;
+use Wvision\Bundle\DataDefinitionsBundle\Service\BasicConfigService;
 
 class ImportDefinitionController extends ResourceController
 {
@@ -55,6 +57,31 @@ class ImportDefinitionController extends ResourceController
             ]
         ]);
     }
+
+
+    /**
+     * @Route("/read_uploaded_file")
+     *
+     * @param Request $request
+     * @param BasicConfigService $basicConfigService
+     * @return JsonResponse
+     */
+    public function readUploadedFile(Request $request, BasicConfigService $basicConfigService)
+    {
+
+        try {
+            $result = $basicConfigService->validateUploadedFile($_FILES['file']);
+        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
+            //DHubLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:" . $exception->getMessage(), DHubLogger::INFO);
+            return $this->json(['success' => false, 'msg' => $this->trans('data_file_not_valid')]);
+        } catch (\Exception $exception) {
+            //DHubLogger::log("Error reading uploaded file BasicConfigController readUploadedFile:" . $exception->getMessage(), DHubLogger::INFO);
+            return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
+        }
+
+        return $this->json(["success" => true, "fileType" => $result['fileType'], 'sheetNames' => $result['sheetNames'], 'fileName' => $result['fileName']]);
+    }
+
 
     /**
      * @param Request $request
@@ -198,8 +225,10 @@ class ImportDefinitionController extends ResourceController
 
                 $response = new Response();
                 $response->headers->set('Content-Type', 'application/json');
-                $response->headers->set('Content-Disposition',
-                    sprintf('attachment; filename="import-definition-%s.json"', $name));
+                $response->headers->set(
+                    'Content-Disposition',
+                    sprintf('attachment; filename="import-definition-%s.json"', $name)
+                );
                 $response->headers->set('Pragma', 'no-cache');
                 $response->headers->set('Expires', '0');
                 $response->headers->set('Content-Transfer-Encoding', 'binary');
@@ -342,4 +371,3 @@ class ImportDefinitionController extends ResourceController
         return $this->getParameter('data_definitions.import_rule.actions');
     }
 }
-
