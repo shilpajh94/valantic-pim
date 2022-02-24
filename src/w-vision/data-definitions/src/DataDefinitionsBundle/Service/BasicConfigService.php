@@ -48,7 +48,7 @@ class BasicConfigService
             $fileType = Constants::FILE_TYPE_CSV;
         }
         if ($fileType) {
-            $validTypes = [Constants::FILE_TYPE_XLS, Constants::FILE_TYPE_XLSX, Constants::FILE_TYPE_CSV];
+            $validTypes = [Constants::FILE_TYPE_CSV];
             $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $this->bundleService->getConfig('tmp_template_upload_pimcore_dir');
 
             // adding rand, to handle that is multiples users upload the file with same name before a save is hit
@@ -64,15 +64,15 @@ class BasicConfigService
             }
 
             if (!in_array($inputFileType, $validTypes)) {
-                throw new \Exception('dHub_file_not_valid');
+                throw new \Exception('data_file_not_valid');
             }
 
-            if ($inputFileType == Constants::FILE_TYPE_XLS || $inputFileType == Constants::FILE_TYPE_XLSX) {
-                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-                $spreadsheet = $reader->load($tmpUploadPath);
-                $sheetNames = $spreadsheet->getSheetNames();
-            }
-            return ["fileType" => $fileType, 'sheetNames' => $sheetNames, 'fileName' => $fileName];
+            // if ($inputFileType == Constants::FILE_TYPE_XLS || $inputFileType == Constants::FILE_TYPE_XLSX) {
+            //     $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+            //     $spreadsheet = $reader->load($tmpUploadPath);
+            //     $sheetNames = $spreadsheet->getSheetNames();
+            // }
+            // return ["fileType" => $fileType, 'sheetNames' => $sheetNames, 'fileName' => $fileName];
         } else {
             DHubLogger::log("Uploaded file extension (" . $info['extension'] . ") type not valid.", DHubLogger::INFO);
             throw new \Exception('dHub_file_not_valid');
