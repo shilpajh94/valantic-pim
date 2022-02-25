@@ -21,6 +21,7 @@ use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Service;
 use Pimcore\Model\Document;
+use Pimcore\Model\Asset;
 use Pimcore\Model\Factory;
 use Pimcore\Model\Version;
 use Pimcore\Placeholder;
@@ -246,9 +247,14 @@ final class Importer implements ImporterInterface
      */
     private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions)
     {
+       $failure_reason = [];
+       foreach ($exceptions as $obj)
+       {
+        $failure_reason[] = $obj->getMessage();
+       }
         if ($document instanceof Document) {
             $params = [
-                'exceptions' => $exceptions,
+                'exceptions' => $failure_reason,  
                 'objectIds' => $objectIds,
                 'className' => $definition->getClass(),
                 'countObjects' => \count($objectIds),
@@ -256,17 +262,67 @@ final class Importer implements ImporterInterface
                 'name' => $definition->getName(),
                 'provider' => $definition->getProvider(),
             ];
+            $rows = [];
+            if($params['exceptions'])
+            {
+                foreach($params['exceptions'] as $msg)
+                {
+                    $rows[] = [$msg,$params['className'],'Failed'];
+                }
+            }
+            else
+            {
+                $rows[] = ['',$params['className'],'Success'];
+            }
+
+            $path = $this->mailAttachements($rows);
 
             if ($document instanceof Document\Email) {
                 $mail = new Mail();
+              //  $mail->addto('tehreempervez959@gmail.com'); //???
                 $mail->setDocument($document);
+                $mail->setSubject("Import Log");
                 $mail->setParams($params);
-
+                $attachment = $this->createAttachmentAssetsObject($path);
+                $mail->createAttachment($attachment->getData(), $attachment->getMimetype(), $attachment->getFilename());
                 $mail->send();
             } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
                 $document->send($params);
             }
         }
+    }
+
+    public function mailAttachements($rows)
+    {   
+
+        $data[]  = ['Failed Reason','Class Name','Status Code'];
+
+        $data = array_merge($data,$rows);
+
+        $fileName = "ImportModule_Succes_And_Failure_Records".date('mdy').'.csv';
+        $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName;
+        $fileResource = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
+        
+        foreach($data as $arr)
+        {
+            fputcsv($fileResource, $arr, ',');
+        }
+        return $filePath;
+    }
+
+    /**
+     * Create file asstes object which is used in email to get file properties.
+     */
+    protected function createAttachmentAssetsObject($filePath) {
+        $fileName = basename($filePath);
+        // Create an assets object only not save to get properties of file.
+        $html = @file_get_contents($filePath);
+        // Remove file after reading data.
+        @unlink($filePath);
+        $newAsset = new Asset();
+        $newAsset->setFilename($fileName);
+        $newAsset->setData($html);
+        return $newAsset;
     }
 
     /**
