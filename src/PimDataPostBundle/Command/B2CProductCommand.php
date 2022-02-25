@@ -2,7 +2,7 @@
 
 /**
  * File Path: Your File path on system
- * Command: cs:one-time-import:region <filePath>
+ * Command: b2c:product <filePath>
  * Des: Region data import script.
  */
 
@@ -20,6 +20,8 @@ use Pimcore\Db;
 class B2CProductCommand extends AbstractCommand
 {
     private $commonHelper;
+    private $masterTable;
+    private $tempTable;
     private $db;
 
     protected function configure()
@@ -30,54 +32,45 @@ class B2CProductCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        echo "\n Script started!!!";
         $this->db = Db::get();
+
         $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-        $this->B2CProductAttribute = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CAtrributeConfig();
-        $B2CProductAttributes = $this->commonHelper->getParameter($this->B2CProductAttribute, 'Product');
-
-        $this->B2BProductAttribute = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BAtrributeConfig();
-        $B2BProductAttributes = $this->commonHelper->getParameter($this->B2BProductAttribute, 'Product');
-
-        $this->createB2CProductTempMasterTable($B2CProductAttributes);
-        $this->createB2BProductTempMasterTable($B2BProductAttributes);
         
+        // create B2C Temp and Master Table
+        $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
+        $B2CProductAttributes = $this->commonHelper->getParameter($B2CProductAttributesConfig, 'Product');
+        $this->masterTable = $this->commonHelper->getParameter($B2CProductAttributesConfig, 'Master Table');
+        $this->tempTable = $this->commonHelper->getParameter($B2CProductAttributesConfig, 'Temp Table');
+        $this->createTempMasterTable($B2CProductAttributes);
+
+        // create B2B Temp and Master Table
+        $B2BProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
+        $B2BProductAttributes = $this->commonHelper->getParameter($B2BProductAttributesConfig, 'Product');
+        $this->masterTable = $this->commonHelper->getParameter($B2BProductAttributesConfig, 'Master Table');
+        $this->tempTable = $this->commonHelper->getParameter($B2BProductAttributesConfig, 'Temp Table');
+        $this->createTempMasterTable($B2BProductAttributes);
+        
+        $B2CB2BAttributeArray[]= $B2CProductAttributes;
+        $B2CB2BAttributeArray[]= $B2BProductAttributes;
+
         try {
 
-            // Get all today's modified product
-            // $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
-            $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = '2022-02-08';";
-            $resultSet = $this->db->fetchCol($query);
+            // get all today's modified product
+            $resultSet = $this->getTodaysModifiedRecords();
 
-            $productIds = implode(",",$resultSet);
+            // loop b2b and b2c array
 
-            $selectArray = []; 
-            $selectString = "";           
-            $secondJoinOnArray = [];
-            $joinOnArray = [];
-            $joinOnString = "";
+            foreach ($B2CB2BAttributeArray as $attribute) {
 
-            foreach ($B2BProductAttributes as $attrKey => $value) {
-                $selectArray[] = $value['tableName'].".".$value['fieldName'];
-                
-                if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
-                {
-                    $joinOnArray[] = $value['joinOn'];
-                }
+                // prepare sql query and fetch the data from the object table
+                $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
 
-                if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
-                {
-                    $secondJoinOnArray[] = $value['addOnJoin'];
-                }
+                // insert data in the temp tables
+                $this->insertDataInTemp($resultSetProductsDetail);
+
             }
-
-            $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
-
-            $selectString = implode(', ', $selectArray);
-            $joinOnString = implode(' ', $joinOnArray);
-
-            $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
-            $resultSetProductsDetail = $this->db->fetchAll($query);
-
+            
             // p_r($resultSetProductsDetail);
             // die;
 
@@ -85,52 +78,93 @@ class B2CProductCommand extends AbstractCommand
             // $query = "SELECT * FROM object_1 WHERE `o_id` IN (".$productIds.")";
             // $resultSetProductsDetail = $this->db->fetchAll($query);
 
-            $dataInsert = array();
-            foreach ($resultSetProductsDetail as $productArray) {
-                $basicData = [];
-                $relationalData = []; 
-                $basicHash = '';
-                $relationalHash = '';
-                // foreach ($B2CAttributes['Product']['attr'] as $attrKey => $value) {
-                //     $basicData[$attrKey] = $productArray[$attrKey];
-                // }
+            // $dataInsert = array();
+            // foreach ($resultSetProductsDetail as $productArray) {
+            //     $basicData = [];
+            //     $relationalData = []; 
+            //     $basicHash = '';
+            //     $relationalHash = '';
+            //     // foreach ($B2CAttributes['Product']['attr'] as $attrKey => $value) {
+            //     //     $basicData[$attrKey] = $productArray[$attrKey];
+            //     // }
 
-                // foreach ($B2CAttributes['Product']['relationalAttr'] as $attrKey => $value) {
-                //     $relationalData[$attrKey] = $productArray[$attrKey];
-                // }
+            //     // foreach ($B2CAttributes['Product']['relationalAttr'] as $attrKey => $value) {
+            //     //     $relationalData[$attrKey] = $productArray[$attrKey];
+            //     // }
 
-                // if($basicData || $relationalData)
-                // {
-                //     $basicHash = md5(json_encode($basicData, true));
-                //     // $relationalHash = md5(json_encode($relationalData, true));
+            //     // if($basicData || $relationalData)
+            //     // {
+            //     //     $basicHash = md5(json_encode($basicData, true));
+            //     //     // $relationalHash = md5(json_encode($relationalData, true));
 
-                //     $data = array_merge($basicData,$relationalData);
-                //     $data['basicHash'] = $basicHash;
-                //     $data['relationalHash'] = $relationalHash;
+            //     //     $data = array_merge($basicData,$relationalData);
+            //     //     $data['basicHash'] = $basicHash;
+            //     //     $data['relationalHash'] = $relationalHash;
 
-                //     $dataInsert[] = $productArray;
-                // }
+            //     //     $dataInsert[] = $productArray;
+            //     // }
 
-                $dataInsert[] = $productArray;
-            }
+            //     $dataInsert[] = $productArray;
+            // }
 
-            if($dataInsert)
-            {
-                $this->insertDataInTemp($dataInsert);
-            }
+            // if($dataInsert)
+            // {
+            //     $this->insertDataInTemp($dataInsert);
+            // }
 
-            echo " \n Insert Finished";
             
-            die;
+            
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
-        echo "Here";
+        echo "\n Script finished!!!";
         die;
-        
     }
 
-    public function createB2CProductTempMasterTable($arrData)
+    public function getTodaysModifiedRecords()
+    {
+        echo "\n Fetching modified record !!!";
+        // $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
+        $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = '2022-02-08';";
+        return $this->db->fetchCol($query);
+    }
+
+    public function prepareQueryAndFetchDbData($attribute, $resultSet)
+    {
+        echo "\n Preparing SQL query !!!";
+        $productIds = implode(",",$resultSet);
+        $selectArray = []; 
+        $selectString = "";           
+        $secondJoinOnArray = [];
+        $joinOnArray = [];
+        $joinOnString = "";
+
+        foreach ($attribute as $value) {
+            $selectArray[] = $value['tableName'].".".$value['fieldName'];
+            
+            if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
+            {
+                $joinOnArray[] = $value['joinOn'];
+            }
+
+            if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
+            {
+                $secondJoinOnArray[] = $value['addOnJoin'];
+            }
+        }
+
+        $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
+
+        $selectString = implode(', ', $selectArray);
+        $joinOnString = implode(' ', $joinOnArray);
+
+        echo "\n Fetch data !!!";
+
+        $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
+        return $this->db->fetchAll($query);
+    }
+
+    public function createTempMasterTable($arrData)
     {
         $fieldsArray = [];
         $fieldsString = '';
@@ -143,33 +177,24 @@ class B2CProductCommand extends AbstractCommand
         }
 
         $fieldsString = implode(', ', $fieldsArray);
-        // Create B2C Product's temp and master table
-        $sql = "CREATE TABLE IF NOT EXISTS b2c_product_temp (
+
+        echo "\n create temp table !!!";
+
+        // Create B2C/B2C temp table
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->tempTable} (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             {$fieldsString}
             )";
-        $success = $this->db->query($sql);
-    }
+        $this->db->query($sql);
 
-    public function createB2BProductTempMasterTable($arrData)
-    {
-        $fieldsArray = [];
-        $fieldsString = '';
-        foreach ($arrData as $key => $value) {
-            if(isset($value['tableAttr']) && $value['tableAttr'])
-            {
-                $attrType = $value['attrType'];
-                $fieldsArray[] = "{$key} {$attrType}";
-            }
-        }
+        echo "\n create master table !!!";
 
-        $fieldsString = implode(', ', $fieldsArray);
-        // Create B2C Product's temp and master table
-        $sql = "CREATE TABLE IF NOT EXISTS b2b_product_temp (
+        // Create B2C/B2C temp table
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->masterTable} (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             {$fieldsString}
             )";
-        $success = $this->db->query($sql);
+        $this->db->query($sql);
     }
 
     public function insertDataInTemp($arrData)
@@ -188,7 +213,7 @@ class B2CProductCommand extends AbstractCommand
         $updateArrayString = implode(',',$updateArray);
 
         $rowCount = 1;
-        $sql      = "INSERT INTO `b2b_product_temp` ({$insertArrayString}) VALUES";
+        $sql      = "INSERT INTO `{$this->tempTable}` ({$insertArrayString}) VALUES";
         $values   = '';
         // $update = " ON DUPLICATE KEY UPDATE {$updateArrayString} ";
         foreach ($arrData as $data) {

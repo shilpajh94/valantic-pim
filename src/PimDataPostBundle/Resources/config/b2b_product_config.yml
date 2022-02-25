@@ -1,4 +1,6 @@
 parameters:
+  Master Table: b2b_product_master
+  Temp Table: b2b_product_temp
   Product:
     o_id:
       fieldName: o_id

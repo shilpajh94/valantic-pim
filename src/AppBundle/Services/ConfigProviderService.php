@@ -108,12 +108,12 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(INH_FITTING_COVER_PAGE_FILE_PATH);
     }
 
-    public function getB2BAtrributeConfig() {
-        return $this->getConfigFromYmlFile(B2B_ATTRIBUTES_FILE_PATH);
+    public function getB2BProductAtrributeConfig() {
+        return $this->getConfigFromYmlFile(B2B_PRODUCT_ATTRIBUTES_FILE_PATH);
     }
 
-    public function getB2CAtrributeConfig() {
-        return $this->getConfigFromYmlFile(B2C_ATTRIBUTES_FILE_PATH);
+    public function getB2CProductAtrributeConfig() {
+        return $this->getConfigFromYmlFile(B2C_PRODUCT_ATTRIBUTES_FILE_PATH);
     }
     /**
      * get yml config for the given file
