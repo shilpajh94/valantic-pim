@@ -20,12 +20,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ContentController extends AbstractController {
     
-    /**
-     * @Route("/print_page")
-     */
     public function pdfAction(Request $request) {
 
 
         //return new Response('Hello world from web2_print');
+    }
+    
+    public function coverPageAction(Request $request) {
+
+    }
+    
+    public function backCoverAction(Request $request) {
+
     }
 }
