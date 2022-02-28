@@ -59,6 +59,10 @@ class FieldSelection
                     $localizedFields = $field->getFieldDefinitions();
 
                     foreach ($localizedFields as $localizedField) {
+                        if(!$this->isAllowFieldForMapping($localizedField))
+                        {
+                            continue;
+                        }
                         $localizedField = $this->getFieldConfiguration($localizedField);
 
                         $localizedField->setGroup('localizedfield.'.strtolower($language));
@@ -85,6 +89,10 @@ class FieldSelection
                                 $fields = $brickDefinition->getFieldDefinitions();
 
                                 foreach ($fields as $brickField) {
+                                    if(!$this->isAllowFieldForMapping($brickField))
+                                    {
+                                        continue;
+                                    }
                                     $resultField = $this->getFieldConfiguration($brickField);
 
                                     $resultField->setGroup('objectbrick.'.$key);
@@ -116,6 +124,10 @@ class FieldSelection
                     $fieldDefinition = $definition->getFieldDefinitions();
 
                     foreach ($fieldDefinition as $fieldcollectionField) {
+                        if(!$this->isAllowFieldForMapping($fieldcollectionField))
+                        {
+                            continue;
+                        }
                         $resultField = $this->getFieldConfiguration($fieldcollectionField);
 
                         $resultField->setGroup('fieldcollection.'.$type);
@@ -187,6 +199,10 @@ class FieldSelection
                     }
                 }
             } else {
+                if(!$this->isAllowFieldForMapping($field))
+                {
+                    continue;
+                }
                 $result[] = $this->getFieldConfiguration($field);
             }
         }
@@ -208,6 +224,12 @@ class FieldSelection
         $toColumn->setGroup('fields');
 
         return $toColumn;
+    }
+
+    protected function isAllowFieldForMapping(DataObject\ClassDefinition\Data $field): bool
+    {
+        return true;
+        // return !$field->getNoteditable();
     }
 }
 
