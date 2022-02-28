@@ -50,14 +50,14 @@ class RelationSetter implements SetterInterface
         }
 
         // Add all values that does not already exist. 
-        foreach ($value as $newElement) {
-            $newKey = (string)$newElement;
-            if (!in_array($newKey, $existingKeys)) {
-                $existingElements[] = $newElement;
-            }
-        }
+        // foreach ($value as $newElement) {
+        //     $newKey = (string)$newElement;
+        //     if (!in_array($newKey, $existingKeys)) {
+        //         $existingElements[] = $newElement;
+        //     }
+        // }
 
-        $object->$setter($existingElements);
+        $object->$setter($value);
     }
 }
 
