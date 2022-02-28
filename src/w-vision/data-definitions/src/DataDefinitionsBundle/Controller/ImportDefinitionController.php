@@ -24,7 +24,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\Service\FieldSelection;
-use Wvision\Bundle\DataDefinitionsBundle\Service\BasicConfigService;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
+
 
 class ImportDefinitionController extends ResourceController
 {
@@ -60,22 +62,18 @@ class ImportDefinitionController extends ResourceController
 
 
     /**
-     * @Route("/read_uploaded_file")
-     *
      * @param Request $request
-     * @param BasicConfigService $basicConfigService
      * @return JsonResponse
      */
-    public function readUploadedFile(Request $request, BasicConfigService $basicConfigService)
+    public function readUploadedFileAction(Request $request)
     {
-
         try {
-            $result = $basicConfigService->validateUploadedFile($_FILES['file']);
+            $result = commonHelper::validateUploadedFile($_FILES['csvExample']);
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
-            //DHubLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:" . $exception->getMessage(), DHubLogger::INFO);
+            DataImportLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $this->trans('data_file_not_valid')]);
         } catch (\Exception $exception) {
-            //DHubLogger::log("Error reading uploaded file BasicConfigController readUploadedFile:" . $exception->getMessage(), DHubLogger::INFO);
+            DataImportLogger::log("Error reading uploaded file BasicConfigController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 

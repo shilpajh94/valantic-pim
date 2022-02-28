@@ -28,19 +28,28 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             anchor: '100%',
             value: this.data['enclosure'] ? this.data.enclosure : '"'
         },
-        {
-            xtype: 'filefield',
-            fieldLabel: t('data_definitions_csv_example'),
-            name: 'csvExample',
-            anchor: '100%',
-            value: this.data['csvExample'] ? this.data.csvExample : ''
-        },
+        // {
+        //     xtype: 'filefield',
+        //     fieldLabel: t('data_definitions_csv_example'),
+        //     name: 'csvExample',
+        //     anchor: '100%',
+        //     value: this.data['csvExample'] ? this.data.csvExample : ''
+        // },
         {
             xtype: 'container',
             html: '<strong>' + t('data_definitions_csv_headers_note') + '</strong>',
             padding: '0 0 5 205px'
         },
-        this.getFileUploadForm()
+        this.getFileUploadForm(),
+        this.getFooterInfoMsg(),
+        {
+
+        }
+            // {
+            //     xtype: 'container',
+            //     html: t('data_definitions_csv_footer_note'),
+            //     padding: '0 0 5 205px'
+            // },
             // {
             //     xtype: 'container',
             //     html: '<strong>' + t('data_definitions_csv_headers_description') + '</strong>',
@@ -83,10 +92,10 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
         });
 
         this.fileUploadField = new Ext.create('Ext.form.field.File', {
-            name: 'file',
+            name: 'csvExample',
             fieldLabel: t('data_file_csv_label') + ' <span style="color:red;">*</span>',
             labelWidth: 200,
-            width: 900,
+            width: 750,
             regex: /^.*\.(csv|CSV|Csv)$/,
             regexText: t('data_csv_allowed_only'),
             msgTarget: 'under',
@@ -100,7 +109,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
                     var form = this.up('form').getForm();
                     if (form.isValid()) {
                         form.submit({
-                            url: '/admin/data_definitions/import_definitions/test-data',
+                            url: '/admin/data_definitions/import_definitions/read-uploaded-file',
                             waitMsg: t('data_uploading_file'),
                             params: {
                                 csrfToken: pimcore.settings['csrfToken']
@@ -141,6 +150,26 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
         });
 
         return this.fileUploadForm;
+    },
+
+    getFooterInfoMsg: function () {
+        let importName = this.parentItemPanel.data.name;
+        let infoImage = "/bundles/pimcoreadmin/img/flat-color-icons/info.svg";
+        let infoMsg = "<img src='" + infoImage + "' style='vertical-align: middle' > " + "<span><i>" + t('data_definitions_csv_footer_note_1') + "'" + importName + "'" + t('data_definitions_csv_footer_note_2') + "</i></span>";
+
+        let infoPanel = new Ext.create('Ext.panel.Panel', {
+            style: {
+                paddingLeft: '200px',
+                marginTop: '5px',
+            },
+            html: infoMsg,
+        });
+
+        this.footerInfoMsg = Ext.create('Ext.form.Panel', {
+            layout: 'hbox',
+            items: [infoPanel],
+        });
+        return this.footerInfoMsg;
     },
 
     openUploadedAsset: function () {

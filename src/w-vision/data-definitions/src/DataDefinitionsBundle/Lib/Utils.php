@@ -7,7 +7,7 @@ use Pimcore\Model\Asset\Image;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Pimcore\Tool;
-use DistributionHubBundle\Lib\DHubLogger;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
 class Utils
 {
@@ -23,10 +23,9 @@ class Utils
 
         try {
             $yaml = new Parser();
-            $value = $yaml->parseFile($filePath);
-            return $value;
+            return $yaml->parseFile($filePath);
         } catch (ParseException $e) {
-            DHubLogger::log("Unable to parse the YAML string: %s" . $e->getMessage(), DHubLogger::ERROR);
+            DataImportLogger::log("Unable to parse the YAML string: %s" . $e->getMessage(), DataImportLogger::ERROR);
             throw new ParseException("Unable to parse the YAML string: %s " . $e->getMessage());
         }
     }

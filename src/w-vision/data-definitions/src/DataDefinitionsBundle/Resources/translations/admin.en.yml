@@ -9,6 +9,8 @@ data_csv_allowed_only: 'Only csv files are supported'
 data_upload_file_csv: 'Browse...'
 data_uploading_file: 'Uploading file ... '
 data_definitions_csv_headers_note: 'Note: First row of the file will be considered as header'
+data_definitions_csv_footer_note_1: 'Import definition name '
+data_definitions_csv_footer_note_2: ' will be appended to the uploaded file name.'
 data_file_csv_label: "Upload file (csv)"
 data_failure: "Failure"
 data_file_not_valid: "Uploaded file not valid."

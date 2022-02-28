@@ -15,6 +15,10 @@ data_definitions_admin_import_definitions:
             path: test-data
             action: testData
             methods: [GET]
+          upload:
+            path: read-uploaded-file
+            action: readUploadedFile
+            methods: [GET,POST]
           import:
             path: import
             action: import

@@ -42,54 +42,55 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                             }
                         ]
                     },
-                    {
-                        text: t('data_definitions_import_definition'),
-                        iconCls: 'pimcore_icon_import',
-                        handler: this.upload.bind(this)
-                    },
-                    {
-                        text: t('data_definitions_export_definition'),
-                        iconCls: 'pimcore_icon_export',
-                        handler: function () {
-                            var id = this.data.id;
-                            pimcore.helpers.download(this.url.export + '?id=' + id);
-                        }.bind(this)
-                    },
-                    {
-                        text: t('data_definitions_duplicate_definition'),
-                        iconCls: 'pimcore_icon_copy',
-                        handler: function () {
-                            var id = me.data.id;
+                    // {
+                    //     text: t('data_definitions_import_definition'),
+                    //     iconCls: 'pimcore_icon_import',
+                    //     handler: this.upload.bind(this)
+                    // },
+                    // {
+                    //     text: t('data_definitions_export_definition'),
+                    //     iconCls: 'pimcore_icon_export',
+                    //     handler: function () {
+                    //         var id = this.data.id;
+                    //         pimcore.helpers.download(this.url.export + '?id=' + id);
+                    //     }.bind(this)
+                    // },
+                    // {
+                    //     text: t('data_definitions_duplicate_definition'),
+                    //     iconCls: 'pimcore_icon_copy',
+                    //     handler: function () {
+                    //         var id = me.data.id;
 
-                            Ext.MessageBox.prompt(t('add'), t('coreshop_enter_the_name'), function (button, value) {
-                                Ext.Ajax.request({
-                                    url: me.url.duplicate,
-                                    jsonData: {
-                                        id: id,
-                                        name: value
-                                    },
-                                    method: 'post',
-                                    success: function (response) {
-                                        var data = Ext.decode(response.responseText);
+                    //         Ext.MessageBox.prompt(t('add'), t('coreshop_enter_the_name'), function (button, value) {
+                    //             Ext.Ajax.request({
+                    //                 url: me.url.duplicate,
+                    //                 jsonData: {
+                    //                     id: id,
+                    //                     name: value
+                    //                 },
+                    //                 method: 'post',
+                    //                 success: function (response) {
+                    //                     var data = Ext.decode(response.responseText);
 
-                                        me.parentPanel.grid.getStore().reload();
-                                        me.parentPanel.refresh();
+                    //                     me.parentPanel.grid.getStore().reload();
+                    //                     me.parentPanel.refresh();
 
-                                        if (!data || !data.success) {
-                                            Ext.Msg.alert(t('add_target'), t('problem_creating_new_target'));
-                                        } else {
-                                            me.parentPanel.openItem(data.data);
-                                        }
-                                    }.bind(this)
-                                });
-                            }, null, null, '');
-                        }.bind(this)
-                    },
+                    //                     if (!data || !data.success) {
+                    //                         Ext.Msg.alert(t('add_target'), t('problem_creating_new_target'));
+                    //                     } else {
+                    //                         me.parentPanel.openItem(data.data);
+                    //                     }
+                    //                 }.bind(this)
+                    //             });
+                    //         }, null, null, '');
+                    //     }.bind(this)
+                    // },
                     {
                         text: t('save'),
                         iconCls: 'pimcore_icon_apply',
                         handler: this.save.bind(this)
-                    }],
+                    }
+                ],
                 items: this.getItems()
             });
 

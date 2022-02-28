@@ -33,11 +33,11 @@ pimcore.plugin.datadefinitions.provider.abstractprovider = Class.create({
                 },
                 border: false,
                 items: this.getItems(),
-                buttons: [{
-                    text: t('test'),
-                    iconCls: 'pimcore_icon_apply',
-                    handler: this.test.bind(this)
-                }],
+                // buttons: [{
+                //     text: t('test'),
+                //     iconCls: 'pimcore_icon_apply',
+                //     handler: this.test.bind(this)
+                // }],
             });
         }
 

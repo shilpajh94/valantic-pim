@@ -6,12 +6,9 @@ namespace Wvision\Bundle\DataDefinitionsBundle\Service;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
-use Wvision\Bundle\DataDefinitionsBundle\Lib\DHubLogger;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
-/**
- * Class BasicConfigService
- * @package Wvision\Bundle\DataDefinitionsBundle\Service
- */
+
 class BasicConfigService
 {
     /**
@@ -38,7 +35,7 @@ class BasicConfigService
     public function validateUploadedFile($requestBinaryFile)
     {
         $fileType = null;
-        $sheetNames = array();
+        //$sheetNames = array();
 
         // file extension checks
         $info = pathinfo($requestBinaryFile['name']);
@@ -74,7 +71,7 @@ class BasicConfigService
             // }
             // return ["fileType" => $fileType, 'sheetNames' => $sheetNames, 'fileName' => $fileName];
         } else {
-            DHubLogger::log("Uploaded file extension (" . $info['extension'] . ") type not valid.", DHubLogger::INFO);
+            DataImportLogger::log("Uploaded file extension (" . $info['extension'] . ") type not valid.", DataImportLogger::INFO);
             throw new \Exception('dHub_file_not_valid');
         }
     }
