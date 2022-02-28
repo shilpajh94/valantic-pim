@@ -440,7 +440,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             plugins: [cellEditingPlugin],
                             features: [{
                                 ftype: 'grouping',
-
+                                startCollapsed: true,
                                 groupHeaderTpl: '{name}'
                             }],
                             columns: {
