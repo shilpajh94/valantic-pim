@@ -494,5 +494,18 @@ return [
         "priority" => 0,
         "creationDate" => 1638538096,
         "modificationDate" => 1638538175
+    ],
+    40 => [
+        "id" => 40,
+        "name" => "CS Cover Page with images",
+        "group" => "Conveyor Solution",
+        "module" => "ContitechCSCatalogBundle",
+        "controller" => "@ContitechCS\\CatalogBundle\\Controller\\ContentController",
+        "action" => "coverPage",
+        "template" => "ContitechCSCatalogBundle:Content:coverPage.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1643013655,
+        "modificationDate" => 1643013980
     ]
 ];
