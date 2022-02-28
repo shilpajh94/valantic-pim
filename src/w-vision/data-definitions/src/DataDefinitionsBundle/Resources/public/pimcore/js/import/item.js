@@ -435,6 +435,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             xtype: 'grid',
                             region: 'center',
                             store: gridStore,
+                            bufferedRenderer: false,
+                            runInViewport: false,
                             plugins: [cellEditingPlugin],
                             features: [{
                                 ftype: 'grouping',
