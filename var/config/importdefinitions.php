@@ -19,23 +19,14 @@ return [
         "provider" => "csv",
         "class" => "Product",
         "configuration" => [
-            "csvExample" => "Sap Number,searchKeywords",
+            "csvExample" => NULL,
             "delimiter" => ",",
             "enclosure" => "\"",
             "csvHeaders" => NULL
         ],
         "creationDate" => 1644574051,
-        "modificationDate" => 1645539424,
+        "modificationDate" => 1646029227,
         "mapping" => [
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => NULL,
-                "setterConfig" => NULL,
-                "fromColumn" => "searchKeywords",
-                "toColumn" => "searchKeywords",
-                "interpreter" => NULL,
-                "interpreterConfig" => NULL
-            ],
             [
                 "primaryIdentifier" => TRUE,
                 "setter" => NULL,
