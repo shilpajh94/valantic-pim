@@ -11,7 +11,8 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle
         return [
             '/bundles/requiredattributes/js/pimcore/startup.js',
             '/bundles/requiredattributes/js/pimcore/overrides.js',
-            '/bundles/requiredattributes/js/pimcore/pdf_preview_override.js'
+            '/bundles/requiredattributes/js/pimcore/pdf_preview_override.js',
+            '/bundles/requiredattributes/js/pimcore/search_override.js'
         ];
     }
 
