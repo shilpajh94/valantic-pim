@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-30T14:08:25+01:00
+* Generated at: 2022-02-28T13:24:15+01:00
 * IP: 127.0.0.1
 
 
@@ -238,7 +238,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => true,
+                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
@@ -549,7 +549,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => true,
+                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
