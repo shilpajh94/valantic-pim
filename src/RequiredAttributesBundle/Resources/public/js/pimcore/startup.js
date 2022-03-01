@@ -66,6 +66,8 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
         new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
         new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
+
+        new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
     },
     postOpenObject: function (object, type) {
 
