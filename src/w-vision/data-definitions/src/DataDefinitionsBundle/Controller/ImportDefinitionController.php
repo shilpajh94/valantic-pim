@@ -30,6 +30,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
 
 class ImportDefinitionController extends ResourceController
 {
+
     /**
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -67,17 +68,35 @@ class ImportDefinitionController extends ResourceController
      */
     public function readUploadedFileAction(Request $request)
     {
+        $commonHelperObject = new commonHelper();
         try {
-            $result = commonHelper::validateUploadedFile($_FILES['csvExample']);
+            $result = $commonHelperObject->validateUploadedFile($_FILES['csvExample']);
+            if ($result) {
+                $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $commonHelperObject->getConfig('tmp_template_upload_pimcore_dir');
+
+                $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
+                try {
+                    $asset = $commonHelperObject->addFileInAsset($uploadedFilePath, $request->get('definitionName'));
+                } catch (\Exception $exception) {
+                    DataImportLogger::log("Error creating asset for uploaded file in ImportDefinitionController save:" . $exception->getMessage(), DataImportLogger::CRITICAL);
+                    $msg = $this->trans("dHub_error_saving_channel");
+                    return $this->json(['success' => false, 'msg' => $msg]);
+                }
+                // $newAssetFileName = $asset->getFilename();
+                // $newAsseetId = $asset->getId();
+                //if ($asset) {
+                // $channel->setHeaderMappingFileAssetId($asset->getId());
+                //}
+            }
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
-            DataImportLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
+            DataImportLogger::log("Error reading uploaded file in ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $this->trans('data_file_not_valid')]);
         } catch (\Exception $exception) {
-            DataImportLogger::log("Error reading uploaded file BasicConfigController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
+            DataImportLogger::log("Error reading uploaded file ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 
-        return $this->json(["success" => true, "fileType" => $result['fileType'], 'sheetNames' => $result['sheetNames'], 'fileName' => $result['fileName']]);
+        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName']]);
     }
 
 

@@ -41,10 +41,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             padding: '0 0 5 205px'
         },
         this.getFileUploadForm(),
-        this.getFooterInfoMsg(),
-        {
-
-        }
+        this.getFooterInfoMsg()
             // {
             //     xtype: 'container',
             //     html: t('data_definitions_csv_footer_note'),
@@ -72,7 +69,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
      * @returns {*}
      */
     getFileUploadForm: function () {
-
+        let definitionName = this.parentItemPanel.data.name;
         let fileAlreadyImported = this.headerMappingFileAssetId ? true : false;
 
         let outerScope = this;
@@ -108,21 +105,21 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
 
                     var form = this.up('form').getForm();
                     if (form.isValid()) {
+
                         form.submit({
                             url: '/admin/data_definitions/import_definitions/read-uploaded-file',
                             waitMsg: t('data_uploading_file'),
                             params: {
-                                csrfToken: pimcore.settings['csrfToken']
+                                csrfToken: pimcore.settings['csrfToken'],
+                                definitionName: definitionName
                             },
                             success: function (fp, response) {
                                 response = response.response;
                                 response = Ext.decode(response.responseText);
-
+                                console.log(response);
                                 if (response.fileType == 'Csv') {
                                     outerScope.addImportConfigFieldSet('Csv');
 
-                                } else if (response.fileType == 'Excel') {
-                                    outerScope.addImportConfigFieldSet('Excel', response.sheetNames);
                                 }
                                 fileField.setRawValue(rowValue);
                                 outerScope.openAssetButton.setHidden(true);

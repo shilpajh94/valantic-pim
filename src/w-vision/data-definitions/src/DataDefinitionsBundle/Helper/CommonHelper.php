@@ -12,6 +12,8 @@ use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Utils;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Pimcore\Cache;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Element;
 
 /**
  * Description of CommonHelper
@@ -28,7 +30,7 @@ class CommonHelper
      * @return array
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public static function validateUploadedFile($requestBinaryFile)
+    public function validateUploadedFile($requestBinaryFile)
     {
         $fileType = null;
 
@@ -43,8 +45,7 @@ class CommonHelper
             $validTypes = [Constants::FILE_TYPE_CSV];
             $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . self::getConfig('tmp_template_upload_pimcore_dir');
 
-            // adding rand, to handle that is multiples users upload the file with same name before a save is hit
-            $fileName = rand(0, 1000) . '-' . basename($requestBinaryFile['name']);
+            $fileName = basename($requestBinaryFile['name']);
             $tmpUploadPath = $tmpUploadPathfolder . $fileName;
 
             move_uploaded_file($requestBinaryFile['tmp_name'], $tmpUploadPath);
@@ -58,10 +59,100 @@ class CommonHelper
             if (!in_array($inputFileType, $validTypes)) {
                 throw new \Exception('data_file_not_valid');
             }
+            return ["fileType" => $fileType, 'fileName' => $fileName];
         } else {
             DataImportLogger::log("Uploaded file extension (" . $info['extension'] . ") type not valid.", DataImportLogger::INFO);
             throw new \Exception('dHub_file_not_valid');
         }
+    }
+
+
+    /**
+     * add the given file to assets
+     *
+     * @param $file
+     * @param string $definitionName
+     * @return Asset|null
+     * @throws \Exception
+     */
+    public function addFileInAsset($file, string $definitionName): ?Asset
+    {
+        $asset = null;
+        $fileName = basename($file);
+
+        $hyphenPos = strpos($fileName, '-');
+        // remove the custom random value added in file name
+        if ($hyphenPos !== false) {
+            $fileName = substr($fileName, ($hyphenPos + 1));
+        }
+        $pathinfo = pathinfo($fileName);
+        $parentAsset = self::getDefaultAssetFolderForUploadedFiles();
+
+        // add timestamp to the filename while uploading in assets
+        $fileName = $definitionName . '-' . $pathinfo['filename'] . '.' . $pathinfo['extension'];
+        $fileName = Element\Service::getValidKey($fileName, 'asset');
+        if (empty($fileName)) {
+            throw new \Exception('The filename of the asset is empty');
+        }
+
+        $assetPath = $parentAsset . '/' . $fileName;
+        $asset = Asset::getByPath($assetPath);
+
+        if (!$asset) {
+            $asset = new Asset();
+            $asset->setParent($parentAsset);
+            $asset->setFilename($fileName);
+        }
+
+        $asset->setData(file_get_contents($file));
+        $asset->save();
+
+        return $asset;
+    }
+
+    /**
+     * get asset folder for exported files
+     *
+     * @return Asset
+     * @throws \Exception
+     */
+    public function getDefaultAssetFolderForUploadedFiles(): Asset
+    {
+        $folderPath = $this->getDefaultAssetFolderPathForImportedFiles();
+        return $this->getAssetFolderForPath($folderPath);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultAssetFolderPathForImportedFiles(): string
+    {
+        return '/' . self::getConfig('asset_folder_product_data_import_module') . '/' . self::getConfig('folder_for_uploaded_template_in_asset_folder');
+    }
+
+    /**
+     * recursive function to create assets for path
+     *
+     * @param $path
+     * @return null|Asset
+     * @throws \Exception
+     */
+    public function getAssetFolderForPath($path): Asset
+    {
+        $asset = Asset::getByPath($path);
+
+        if (!$asset) {
+            $assetParentPath = dirname($path);
+            $assetName = basename($path);
+
+            $assetParent = $this->getAssetFolderForPath($assetParentPath);
+            $asset = new Asset();
+            $asset->setParent($assetParent);
+            $asset->setFilename($assetName);
+            $asset->setType('folder');
+            $asset->save();
+        }
+        return $asset;
     }
 
     /**

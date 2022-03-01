@@ -15,8 +15,8 @@ class Constants
     const FILE_TYPE_XLSX = 'Xlsx';
     const FILE_TYPE_XLS = 'Xls';
     const FILE_TYPE_JSON = 'Json';
-    const CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/config.yml';
-    const PACKAGE_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/pimcore/package/plugin_config.yml';
+    const CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/config.yml';
+    //const PACKAGE_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/pimcore/package/plugin_config.yml';
     const SCHEDULE_STATUS_CREATED = 'CREATED';
 
     /**
@@ -27,7 +27,7 @@ class Constants
     const SCHEDULE_STATUS_FAILED = 'FAILED';
     const SCHEDULE_STATUS_KILLED = 'KILLED';
     const SCHEDULE_STATUS_EXPIRED = 'EXPIRED';
-    const MAIL_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/mail_config.yml';
+    //const MAIL_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/mail_config.yml';
     const EXPORT_ONLY_ASSETS = "dHub_assets";
     const EXPORT_ONLY_DATA = "dHub_data_file";
     const EXPORT_DATA_ASSETS_BOTH = "dHub_both";
