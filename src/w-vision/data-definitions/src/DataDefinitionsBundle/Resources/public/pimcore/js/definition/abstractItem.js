@@ -101,7 +101,8 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         return [
             this.getSettings(),
             this.getProviderSettings(),
-            this.getMappingSettings()
+            this.getMappingSettings(),
+            this.getImportDownloads()
         ];
     },
 
@@ -123,6 +124,189 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         return this.providerSettings;
     },
 
+    
+
+    getImportDownloads: function () {
+        if (!this.ImportDownloads) {
+            this.ImportDownloads = new Ext.grid.Panel({
+            frame: false,
+            autoScroll: true,
+            store: this.store,
+            columns: this.getGridColumns(),
+            iconCls: 'dHub_schedule',
+            trackMouseOver: true,
+            columnLines: true,
+            stripeRows: true,
+            tbar: this.getGridToolbar(),
+            viewConfig: {
+                forceFit: true
+            },
+            title: t("Import Downloads")
+        });
+        }
+        return this.ImportDownloads;
+    },
+
+    
+
+    /* refreshGrid: function () {
+        this.store.reload();
+    }, */
+
+    getGridToolbar: function () {
+
+        var toolbar = Ext.create('Ext.Toolbar', {
+            cls: 'pimcore_main_toolbar',
+            items: [
+                {
+                    xtype: "button",
+                    text: t('add'),
+                    iconCls: "pimcore_icon_add",
+                    handler: this.openWizard.bind(this),
+
+                },
+                {
+                    xtype: "button",
+                    text: t('refresh'),
+                    iconCls: "pimcore_icon_refresh",
+                    //handler: this.refreshGrid.bind(this),
+                }
+            ]
+        });
+
+        return toolbar;
+    },
+
+    openWizard: function () {
+        this.wizardWindow = this.getWizardFormForValues();
+        this.wizardWindow.show();
+    },
+
+    getWizardFormForValues: function () {
+
+        this.wizardForm = new Ext.form.FormPanel({
+            bodyStyle: "padding:10px;",
+            defaults: {
+                labelWidth: 150
+            },
+            items: [
+                {
+                    fieldLabel: t("dHub_name") + ' <span style="color:red;">*</span>',
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name: 'name',
+                    maxLength: 100,
+                    maxLengthText: t('dHub_max_allowed_length_100'),
+                    allowBlank: false,
+                    blankText: t('dHub_field_is_required'),
+                    msgTarget: 'under'
+                },
+            ]
+        });
+
+        let wizardWindow = new Ext.Window({
+            title: t('dHub_create_schedule'),
+            width: 600,
+            modal: true,
+            items: [this.wizardForm],
+            buttons: [{
+                    text: t("Import Start"),
+                    iconCls: "pimcore_icon_accept",
+                    //handler: this.saveWizard.bind(this)
+                }]
+        });
+        return wizardWindow;
+    },
+
+    
+    getGridColumns: function () {
+ 
+        var typesColumns = [
+            {
+                text: t("dHub_id"),
+                sortable: true,
+                hidden: true,
+                dataIndex: 'id'
+            },
+            {
+                text: t("dHub_name"),
+                width: 140,
+                sortable: true,
+                dataIndex: 'name'
+            },
+            {
+                text: t("dHub_download_file_name"),
+                width: 150,
+                sortable: true,
+                dataIndex: 'download_file_name'
+            },
+            {
+                text: t("dHub_export_date"),
+                width: 130,
+                sortable: true,
+                dataIndex: "export_date"
+            },
+            {
+                text: t("dHub_export_status"),
+                width: 100,
+                sortable: true,
+                dataIndex: 'export_status'
+
+            },
+            {
+                text: t("dHub_creation_date"),
+                width: 130,
+                sortable: true,
+                dataIndex: "creation_date"
+
+            },
+            {
+                text: t("dHub_process_start_time"),
+                width: 130,
+                sortable: true,
+                dataIndex: "process_start_time"
+
+            },
+            {
+                text: t("dHub_process_end_time"),
+                width: 130,
+                sortable: true,
+                dataIndex: "process_end_time"
+
+            },
+            {
+                text: t('dHub_file_download_column_header'),
+                xtype: 'actioncolumn',
+                dataIndex: 'exportFilePimcoreAssetId',
+                width: 120,
+                renderer: function (value, metadata, record, rowIndex, colIndex, store, view) {
+                    if (record.get('exportFilePimcoreAssetId') == null) {
+                        this.items[0].icon = "";
+                        metadata.style = 'cursor: pointer;';
+                    } else {
+                        this.items[0].icon = "/bundles/pimcoreadmin/img/icon/download-medium.png";
+                        this.items[0].disabled = false;
+                    }
+                    return '';
+                },
+                items: [{
+                        icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
+                        handler: function (grid, rowIndex, param, button, ) {
+                            let exportFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportFilePimcoreAssetId;
+                            
+                            if (exportFilePimcoreAssetId) {
+                                pimcore.helpers.download("/admin/asset/download?id=" + exportFilePimcoreAssetId);
+                            }
+                        }.bind(this)
+                    }]
+            },
+            
+            
+        ];
+
+        return typesColumns;
+    },
+ 
     upload: function (callback) {
         pimcore.helpers.uploadDialog(this.url.upload + '?id=' + this.data.id, 'Filedata', function () {
             this.panel.destroy();
