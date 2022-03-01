@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-02-28T13:24:15+01:00
+* Generated at: 2022-03-01T08:28:33+01:00
 * IP: 127.0.0.1
 
 
@@ -403,7 +403,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => true,
+                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
@@ -580,7 +580,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
-                     'defaultValue' => 'feet',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -608,7 +608,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
-                     'defaultValue' => 'inch',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -683,7 +683,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => true,
+                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
