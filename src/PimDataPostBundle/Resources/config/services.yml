@@ -23,3 +23,7 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
     PimDataPostBundle\Services\TokenAuthService:
+    
+    PimDataPostBundle\Command\SampleTestCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
