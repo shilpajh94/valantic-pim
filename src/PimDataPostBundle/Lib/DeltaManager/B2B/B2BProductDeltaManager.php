@@ -3,7 +3,6 @@ namespace PimDataPostBundle\Lib\DeltaManager\B2B;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Lib\DeltaManager\DeltaManagerHelper;
-use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
 use PimDataPostBundle\Lib\DeltaManager\B2B\Dao\B2BProductDeltaManagerDao;
 
 class B2BProductDeltaManager extends AbstractB2BDeltaManager

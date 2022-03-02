@@ -1,13 +1,10 @@
 <?php
 namespace PimDataPostBundle\Lib\DeltaManager\B2B\Dao;
 
-class B2BProductDeltaManagerDao
+use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
+
+class B2BProductDeltaManagerDao extends DeltaManagerDao
 {
-    private $db;
-    
-    public function __construct()
-    {
-        $this->db = \Pimcore\Db::get();
-    }
+
 }
 
