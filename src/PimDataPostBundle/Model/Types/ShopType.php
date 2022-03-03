@@ -1,12 +1,12 @@
 <?php
 
-namespace PimDataPostBundle\Model;
+namespace PimDataPostBundle\Model\Types;
 
 class ShopType
 {
-    const B2B = "B2B";
+    private const B2B = "B2B";
 
-    const B2C = "B2C";
+    private const B2C = "B2C";
 
     private $shopType;
 

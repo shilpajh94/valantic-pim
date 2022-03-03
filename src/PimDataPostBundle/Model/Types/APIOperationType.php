@@ -1,14 +1,14 @@
 <?php
 
-namespace PimDataPostBundle\Model;
+namespace PimDataPostBundle\Model\Types;
 
 class APIOperationType
 {
-    const CREATE = "CREATE";
+    private const CREATE = "CREATE";
 
-    const UPDATE = "UPDATE";
+    private const UPDATE = "UPDATE";
 
-    const DELETE = "DELETE";
+    private const DELETE = "DELETE";
 
     private $operationType;
 

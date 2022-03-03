@@ -3,7 +3,6 @@
 namespace PimDataPostBundle\Lib\RequestBodyGenerator\B2B;
 
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
-use PimDataPostBundle\Model\APIOperationType;
 
 class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
 {
@@ -17,7 +16,7 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
     }
 
-    public function generateRequestBody(array $tempTableData, APIOperationType $operationType): array
+    public function generateRequestBody(array $tempTableData): array
     {
         
     }
