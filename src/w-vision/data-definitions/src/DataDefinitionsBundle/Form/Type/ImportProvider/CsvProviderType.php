@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Data Definitions.
  *
@@ -26,8 +27,7 @@ final class CsvProviderType extends AbstractType
             ->add('csvExample', TextType::class)
             ->add('delimiter', TextType::class)
             ->add('enclosure', TextType::class)
-            ->add('csvHeaders', TextType::class);
+            ->add('csvHeaders', TextType::class)
+            ->add('csvFile', TextType::class);
     }
 }
-
-

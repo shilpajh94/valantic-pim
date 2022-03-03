@@ -89,7 +89,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
         });
 
         this.fileUploadField = new Ext.create('Ext.form.field.File', {
-            name: 'csvExample',
+            name: 'csvFile',
             fieldLabel: t('data_file_csv_label') + ' <span style="color:red;">*</span>',
             labelWidth: 200,
             width: 750,
@@ -101,6 +101,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             listeners: {
                 change: function (fileField, value) {
                     var rowValue = fileField.getRawValue();
+                    console.log(rowValue);
                     rowValue = rowValue.replace(/C:\\fakepath\\/g, '');
 
                     var form = this.up('form').getForm();
@@ -117,10 +118,10 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
                                 response = response.response;
                                 response = Ext.decode(response.responseText);
                                 console.log(response);
-                                if (response.fileType == 'Csv') {
-                                    outerScope.addImportConfigFieldSet('Csv');
+                                // if (response.fileType == 'Csv') {
+                                //     outerScope.addImportConfigFieldSet('Csv');
 
-                                }
+                                // }
                                 fileField.setRawValue(rowValue);
                                 outerScope.openAssetButton.setHidden(true);
                                 // to send it in the save request

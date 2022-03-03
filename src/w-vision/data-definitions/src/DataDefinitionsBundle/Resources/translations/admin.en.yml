@@ -13,6 +13,7 @@ data_definitions_csv_footer_note_1: 'Import definition name '
 data_definitions_csv_footer_note_2: ' will be appended to the uploaded file name.'
 data_file_csv_label: "Upload file (csv)"
 data_failure: "Failure"
+data_error_saving: "An unexpected error occurred while saving."
 data_file_not_valid: "Uploaded file not valid."
 data_definitions_csv_enclosure: 'Enclosure'
 data_definitions_csv_delimiter: 'Delimiter'

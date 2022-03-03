@@ -23,6 +23,7 @@ use Pimcore\Model\Element;
 class CommonHelper
 {
 
+    public $assetId;
     /**
      * validate the uploaded file
      *
@@ -111,6 +112,24 @@ class CommonHelper
     }
 
     /**
+     * set asset id for uploaded file
+     *
+     */
+    // public function setAssetId($assetId)
+    // {
+    //     $this->assetId = $assetId;
+    // }
+
+    /**
+     * get asset id for uploaded file
+     *
+     */
+    // public function getAssetId()
+    // {
+    //     return isset($this->assetId) ? $this->assetId : "22222";
+    // }
+
+    /**
      * get asset folder for exported files
      *
      * @return Asset
@@ -197,5 +216,43 @@ class CommonHelper
         }
         $returnConfig = $config;
         return $returnConfig;
+    }
+
+
+    public function getCSVData($fileName)
+    {
+        try {
+
+            $csvFilePath = $fileName;
+            $firstRowData = array();
+            if (empty($csvFilePath)) {
+                return $firstRowData;
+            }
+
+            $csvFilePath = str_replace("%20", " ", $csvFilePath);
+
+            $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
+            $count = 0;
+
+            if (($handle = fopen($csvFilePath, 'r')) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                    if ($count == 0) {
+                        foreach ($rowData as $key => $value) {
+                            unset($rowData[$key]);
+                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                        }
+                        $firstRowData = $rowData;
+                    }
+                }
+                fclose($handle);
+            }
+            return array(
+                'header'    =>  $firstRowData
+            );
+        } catch (\Exception $e) {
+            return array(
+                'error' => $e->getMessage()
+            );
+        }
     }
 }
