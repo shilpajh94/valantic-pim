@@ -13,6 +13,6 @@ return [
         "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
         "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
-        "DistributionHubBundle\\DistributionHubBundle" => TRUE
+        "DistributionHubBundle\\DistributionHubBundle" => FALSE
     ]
 ];
