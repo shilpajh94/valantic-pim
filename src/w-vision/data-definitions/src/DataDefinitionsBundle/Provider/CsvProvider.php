@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Data Definitions.
  *
@@ -21,6 +22,8 @@ use Wvision\Bundle\DataDefinitionsBundle\Model\ExportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\ProcessManager\ArtifactGenerationProviderInterface;
 use Wvision\Bundle\DataDefinitionsBundle\ProcessManager\ArtifactProviderTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
+use Pimcore\Model\Asset;
 
 class CsvProvider extends AbstractFileProvider implements ImportProviderInterface, ExportProviderInterface, ArtifactGenerationProviderInterface
 {
@@ -42,12 +45,34 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
     /**
      * {@inheritdoc}
      */
-    public function getColumns($configuration)
+    public function getColumns($configuration, $definitionName = '')
     {
+        $commonHelperObject = new commonHelper();
         $csvHeaders = $configuration['csvHeaders'];
         $csvExample = $configuration['csvExample'];
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
+        $csvFile = $definitionName . "-" . $configuration['csvFile'];
+        $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
+        $asset = Asset::getByPath($path);
+
+        if ($asset) {
+            $fullPath = $asset->getFileSystemPath();
+
+            $fp = fopen($fullPath, 'r');
+            $header = fgetcsv($fp, 4096, $delimiter, '"');
+            //$headerRow = explode(',', $header[0]);
+            foreach ($header as $column) {
+                if (!is_null($column) && $column != "") {
+                    $columns[] = $column;
+                }
+            }
+            fclose($fp);
+
+            if (!empty($columns)) {
+                $csvExample = implode(",", array_map("trim", array_filter($columns)));
+            }
+        }
 
         $returnHeaders = [];
         $rows = str_getcsv($csvHeaders ?: $csvExample, "\n"); //parse the rows
@@ -174,5 +199,3 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         return $stream;
     }
 }
-
-

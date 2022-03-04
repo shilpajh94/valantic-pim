@@ -70,7 +70,7 @@ class ImportDefinitionController extends ResourceController
     {
         $commonHelperObject = new commonHelper();
         try {
-            $result = $commonHelperObject->validateUploadedFile($_FILES['csvExample']);
+            $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile']);
             if ($result) {
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $commonHelperObject->getConfig('tmp_template_upload_pimcore_dir');
 
@@ -79,14 +79,12 @@ class ImportDefinitionController extends ResourceController
                     $asset = $commonHelperObject->addFileInAsset($uploadedFilePath, $request->get('definitionName'));
                 } catch (\Exception $exception) {
                     DataImportLogger::log("Error creating asset for uploaded file in ImportDefinitionController save:" . $exception->getMessage(), DataImportLogger::CRITICAL);
-                    $msg = $this->trans("dHub_error_saving_channel");
+                    $msg = $this->trans("data_error_saving");
                     return $this->json(['success' => false, 'msg' => $msg]);
                 }
-                // $newAssetFileName = $asset->getFilename();
-                // $newAsseetId = $asset->getId();
-                //if ($asset) {
-                // $channel->setHeaderMappingFileAssetId($asset->getId());
-                //}
+                // if ($asset) {
+                //     $commonHelperObject->setAssetId($asset->getId());
+                // }
             }
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
             DataImportLogger::log("Error reading uploaded file in ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
@@ -138,7 +136,7 @@ class ImportDefinitionController extends ResourceController
             $customFromColumn->setLabel('Custom');
 
             try {
-                $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration());
+                $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
                 $fromColumns[] = $customFromColumn;
             } catch (\Exception $e) {
                 $fromColumns = [];
