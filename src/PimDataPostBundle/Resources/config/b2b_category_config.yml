@@ -1,0 +1,27 @@
+parameters:
+  Master Table: b2b_category_master
+  Temp Table: b2b_category_temp
+  Attributes:
+    o_id:
+      fieldName: o_id
+      tableName: object_2
+      tableAttr: true
+      attrType: INT(11) NOT NULL
+    PrintedCatalogDescription:
+      fieldName: PrintedCatalogDescription
+      tableName: object_2
+      sendToSF: Name
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
+    CatalogId:
+      fieldName: CatalogId
+      tableName: object_2
+      sendToSF: CatalogId
+      tableAttr: false
+      attrType: VARCHAR(32) NULL
+    CatalogId:
+      fieldName: CatalogId
+      tableName: object_2
+      sendToSF: CatalogId
+      tableAttr: false
+      attrType: VARCHAR(32) NULL

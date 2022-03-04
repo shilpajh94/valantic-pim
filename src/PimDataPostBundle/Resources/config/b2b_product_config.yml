@@ -38,12 +38,14 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(190) NULL
-    # epixFlag:
-    #   fieldName: epixFlag
-    #   tableName: object_1
-    #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(190) NULL
+    epixFlag:
+      fieldName: epixFlag 
+      conditionalFieldName: (SELECT IF (count(object_10.oo_id)>0, 1, 0) FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) = object_1.o_id and (object_10.epixFlag = '001' and object_10.o_published = 1)) AS epixFlag 
+      tableName: object_10 
+      # joinOn: LEFT JOIN object_10 ON object_1.o_id = TRIM(BOTH ',' FROM  object_10.Material) and (object_10.epixFlag = '001' and object_10.o_published = 1) 
+      sendToSF: true
+      tableAttr: true
+      attrType: tinyint(1) NULL
     ProductType:
       fieldName: ProductType
       tableName: object_1
@@ -1447,4 +1449,24 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(190) NULL
+    o_published:
+      fieldName: o_published
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: tinyint(1) NULL
+    basicHash:
+      fieldName: basicHash
+      tableName: 
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
+    relationalHash:
+      fieldName: relationalHash
+      tableName: 
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
       

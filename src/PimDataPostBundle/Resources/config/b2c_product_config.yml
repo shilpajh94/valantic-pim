@@ -111,6 +111,13 @@ parameters:
       tableAttr: true
       attrType: INT(11) NULL
       relationalAttr: true
+    Document:
+      fieldName: Document
+      tableName: object_1
+      sendToSF: true
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
+      relationalAttr: true
     # c_hosePDF1:
     #   fieldName: c_hosePDF1
     #   sendToSF: true
@@ -349,4 +356,18 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(64) NULL
+    basicHash:
+      fieldName: basicHash
+      tableName: 
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
+    relationalHash:
+      fieldName: relationalHash
+      tableName: 
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
     
