@@ -1,0 +1,20 @@
+config:
+    IFSPTG_US:
+        Class:
+          [
+            "Product"              
+          ]
+        PrimaryKey:
+          [
+            "articleNumber"
+          ]
+    CBS:
+        Class:
+          [
+            "CSProducts"
+          ]
+        PrimaryKey:
+          [
+            "SapCode",
+            "Path"
+          ] 

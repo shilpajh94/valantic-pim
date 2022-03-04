@@ -31,6 +31,10 @@ data_definitions_admin_import_definitions:
             path: duplicate
             action: duplicate
             methods: [POST]
+          listClass:
+            path: listClass
+            action: listClass
+            methods: [GET,POST]
 
 data_definitions_admin_export_definitions:
     type: coreshop.resources

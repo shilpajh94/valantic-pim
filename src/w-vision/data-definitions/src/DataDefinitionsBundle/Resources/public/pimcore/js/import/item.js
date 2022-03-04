@@ -36,6 +36,17 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
         });
         classesStore.load();
 
+
+        this.classRoleStore = new Ext.data.JsonStore({
+                autoDestroy: true,
+                autoLoad: true,
+                 proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listClass',
+            	},
+                fields: ['text']
+            });
+
         this.configForm = new Ext.form.Panel({
             bodyStyle: 'padding:10px;',
             title: t('settings'),
@@ -78,14 +89,17 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     store: pimcore.globalmanager.get('data_definitions_loaders'),
                     value: this.data.loader,
                     width: 500,
+                    //hidden: true,
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('class'),
+                    fieldLabel: t('classTehreem'),
                     name: 'class',
                     displayField: 'text',
                     valueField: 'text',
-                    store: classesStore,
+                   // store: classesStore,
+                    store: this.classRoleStore,
+
                     width: 500,
                     value: this.data.class
                 },

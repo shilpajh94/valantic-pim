@@ -1,0 +1,12 @@
+config:
+    IFSPTG_US:
+        Roles:
+            [
+                "ProductManager"
+            ]
+        
+    CBS:       
+        Roles:
+            [
+                "ProductManagerCS"
+            ]
