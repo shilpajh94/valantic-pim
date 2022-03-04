@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-02-14T12:54:07+01:00
-* IP: ::1
+* Generated at: 2022-03-04T13:23:29+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -16,7 +16,6 @@ Fields Summary:
 - SocketWrenchSizeInFract [input]
 - SocketWrenchSizeInDec [input]
 - FittingWeight [input]
-- CrimpNutYN [booleanSelect]
 - DualGripStyle [booleanSelect]
 - SAEStandard [input]
 - SkiveType [input]
@@ -127,7 +126,6 @@ Fields Summary:
 - ThrustWireComponentNumber [input]
 - ThrustWireMaterial [select]
 - ThrustWireRevisionNumber [input]
-- ThrustWireNut [booleanSelect]
 - ORingBOMSAPNumber [input]
 - ORingComponentSAPNumber [input]
 - ORingMaterial [select]
@@ -1281,49 +1279,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'queryColumnType' => 'tinyint(1) null',
                                  'columnType' => 'tinyint(1) null',
                                  'phpdocType' => 'boolean',
-                                 'name' => 'CrimpNutYN',
-                                 'title' => 'Crimp Nut Y/N',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              7 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                                 'fieldtype' => 'booleanSelect',
-                                 'yesLabel' => 'Y',
-                                 'noLabel' => 'N',
-                                 'emptyLabel' => '',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => '',
-                                    'value' => 0,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Y',
-                                    'value' => 1,
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'N',
-                                    'value' => -1,
-                                  ),
-                                ),
-                                 'width' => 200,
-                                 'queryColumnType' => 'tinyint(1) null',
-                                 'columnType' => 'tinyint(1) null',
-                                 'phpdocType' => 'boolean',
                                  'name' => 'DualGripStyle',
                                  'title' => 'Dual-Grip Style (Y/N)',
                                  'tooltip' => '',
@@ -1339,7 +1294,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              8 => 
+                              7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 200,
@@ -1367,7 +1322,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              9 => 
+                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 200,
@@ -1395,7 +1350,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              10 => 
+                              9 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
@@ -1431,7 +1386,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
@@ -7672,49 +7627,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Y',
-                     'noLabel' => 'N',
-                     'emptyLabel' => '',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => '',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Y',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'N',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 200,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'ThrustWireNut',
-                     'title' => 'Thrust Wire Nut (Y/N)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
                   )),
                 ),
                  'locked' => false,
