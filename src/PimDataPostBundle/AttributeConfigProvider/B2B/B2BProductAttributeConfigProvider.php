@@ -4,7 +4,7 @@ namespace PimDataPostBundle\AttributeConfigProvider\B2B;
 
 use PimDataPostBundle\Model\Types\ClassType;
 
-abstract class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvider
+class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvider
 {
     private $classType = ClassType::PRODUCT();
 
@@ -23,6 +23,16 @@ abstract class B2BProductAttributeConfigProvider extends AbstractB2BAttributeCon
     public function getCompleteConfig(): array
     {
         return $this->b2bAttributeConfigProviderHelper->getCompleteConfig($this->getShopType(),$this->getClassType());
+    }
+
+    public function getLocalizedAttributeConfig(): array
+    {
+
+    }
+
+    public function getSalesForceRelationalAttributeConfig(): array
+    {
+        
     }
 
 }

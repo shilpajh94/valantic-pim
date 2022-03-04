@@ -3,11 +3,11 @@
 
 namespace PimDataPostBundle\AttributeConfigProvider\B2B;
 
-use PimDataPostBundle\AttributeConfigProvider\AbstractAttributeConfigProvider;
+use PimDataPostBundle\AttributeConfigProvider\IAttributeConfigProvider;
 use PimDataPostBundle\Model\Types\ShopType;
 use PimDataPostBundle\Model\Types\PimFieldType;
 
-abstract class AbstractB2BAttributeConfigProvider extends AbstractAttributeConfigProvider
+abstract class AbstractB2BAttributeConfigProvider implements IAttributeConfigProvider
 {
     private $shopType = ShopType::B2B();
 
@@ -17,11 +17,6 @@ abstract class AbstractB2BAttributeConfigProvider extends AbstractAttributeConfi
     }
 
     public abstract function getLocalizedAttributeConfig(): array;
-
-    /**
-     * needed while fetching the data from 
-     */
-    public abstract function getAttributeConfigByPimFieldType(PimFieldType $pimFieldType): array;
 
     public abstract function getSalesForceRelationalAttributeConfig(): array;
 
