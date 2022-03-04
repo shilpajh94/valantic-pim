@@ -1,8 +1,13 @@
 <?php 
 
 /** 
+<<<<<<< HEAD
 * Generated at: 2022-02-14T12:54:07+01:00
 * IP: ::1
+=======
+* Generated at: 2022-03-04T13:08:45+01:00
+* IP: 127.0.0.1
+>>>>>>> IFSPTG-US_CTTSUP01-21-Delete_Crimp_Thrust_NutTypeAttributes
 
 
 Fields Summary: 
