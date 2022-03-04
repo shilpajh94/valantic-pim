@@ -3,6 +3,7 @@ namespace PimDataPostBundle\Lib\DeltaManager\B2B;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Lib\DeltaManager\DeltaManagerHelper;
+use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
 use PimDataPostBundle\Lib\DeltaManager\B2B\Dao\B2BProductDeltaManagerDao;
 
 class B2BProductDeltaManager extends AbstractB2BDeltaManager
@@ -16,12 +17,12 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
         $this->helper = new DeltaManagerHelper($tempMasterTablesMeta);
-        $this->b2bProductDeltaManagerDao = new B2BProductDeltaManagerDao();
+        $this->b2bProductDeltaManagerDao = new B2BProductDeltaManagerDao($tempMasterTablesMeta);
     }
     
     public function getRecordsToCreate(): array
     {
-        $this->helper->getRecordsPresentInTempNotInMaster();
+        return $this->helper->getRecordsPresentInTempNotInMaster();
         
     }
     
@@ -33,7 +34,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
         // return X + Y
     }
     
-    private function getHashChangedRecords(): array
+    public function getHashChangedRecords(): array
     {
         return $this->helper->getHashChangedRecords();
     }
