@@ -65,7 +65,7 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
-                                    ->scalarNode('permission')->defaultValue('data_definitions_import')->cannotBeOverwritten()
+                                    ->scalarNode('permission')->defaultValue('data_import')->cannotBeOverwritten()
                                 ->end()
                                 ->arrayNode('classes')
                                     ->addDefaultsIfNotSet()

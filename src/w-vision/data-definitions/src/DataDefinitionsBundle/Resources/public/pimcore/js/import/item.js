@@ -26,7 +26,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
     providers: [],
 
     getSettings: function () {
-        var classesStore = new Ext.data.JsonStore({
+        /* var classesStore = new Ext.data.JsonStore({
             autoDestroy: true,
             proxy: {
                 type: 'ajax',
@@ -34,18 +34,25 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             },
             fields: ['text']
         });
-        classesStore.load();
-
-
-        this.classRoleStore = new Ext.data.JsonStore({
-                autoDestroy: true,
-                autoLoad: true,
-                 proxy: {
+        classesStore.load(); */    
+        
+        let classesStore = new Ext.data.JsonStore({
+            proxy: {
                 type: 'ajax',
                 url: '/admin/data_definitions/import_definitions/listClass',
-            	},
-                fields: ['text']
-            });
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            },
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+        classesStore.load();
 
         this.configForm = new Ext.form.Panel({
             bodyStyle: 'padding:10px;',
@@ -56,6 +63,12 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 labelWidth: 200
             },
             border: false,
+            /*  add listeners to call the reload provider settings and comlumn mapping after render */
+            listeners: {
+                afterrender: function () {
+                    this.reloadProviderSettings('csv');
+                }.bind(this)
+            },
             items: [
                 {
                     xtype: 'textfield',
@@ -71,14 +84,15 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     displayField: 'provider',
                     valueField: 'provider',
                     store: pimcore.globalmanager.get('data_definitions_providers'),
-                    value: this.data.provider,
+                    value: 'csv',
                     width: 500,
                     listeners: {
                         change: function (combo, value) {
                             this.reloadProviderSettings(value);
                             this.reloadColumnMapping();
                         }.bind(this)
-                    }
+                    },
+                    readOnly : true
                 },
                 {
                     xtype: 'combo',
@@ -92,16 +106,35 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     //hidden: true,
                 },
                 {
-                    xtype: 'combo',
-                    fieldLabel: t('classTehreem'),
+                   /*  xtype: 'combo',
+                    fieldLabel: t('class'),
                     name: 'class',
+                    //displayField: 'text',
                     displayField: 'text',
-                    valueField: 'text',
-                   // store: classesStore,
-                    store: this.classRoleStore,
+
+                    valueField: 'id',
+                    store: classesStore,
 
                     width: 500,
-                    value: this.data.class
+                   value: this.data.class
+                 */
+
+                    xtype: 'combo',
+                    fieldLabel: t('class'),
+                    name: 'class',
+                    store: classesStore,
+                    queryMode: 'local',
+                    editable: true,
+                    allowBlank: false,
+                    blankText: 'Field is required',
+                    forceSelection: true,
+                    msgTarget: 'under',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
+                    width: 500,
+                    labelWidth: 200,
+                    value: this.class,
                 },
                 {
                     xtype: 'textfield',
@@ -135,14 +168,16 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                 }.bind(el)
                             });
                         }
-                    }
+                    },
+                    hidden: true
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: t('key'),
                     name: 'key',
                     width: 500,
-                    value: this.data.key
+                    value: this.data.key,
+                    hidden: true
                 },
                 {
                     xtype: 'combo',
@@ -157,7 +192,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         change: function (combo, value) {
                             this.data.cleaner = value;
                         }.bind(this)
-                    }
+                    },
+                    hidden: true
                 },
                 {
                     xtype: 'combo',
@@ -172,7 +208,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         change: function (combo, value) {
                             this.data.filter = value;
                         }.bind(this)
-                    }
+                    },
+                    hidden: true
                 },
                 {
                     xtype: 'combo',
@@ -187,55 +224,64 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         change: function (combo, value) {
                             this.data.runner = value;
                         }.bind(this)
-                    }
+                    },
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_relocate_existing_objects'),
                     xtype: 'checkbox',
                     name: 'relocateExistingObjects',
-                    checked: this.data.relocateExistingObjects
+                    checked: this.data.relocateExistingObjects,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_rename_existing_objects'),
                     xtype: 'checkbox',
                     name: 'renameExistingObjects',
-                    checked: this.data.renameExistingObjects
+                    checked: this.data.renameExistingObjects,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_skip_existing_objects'),
                     xtype: 'checkbox',
                     name: 'skipExistingObjects',
-                    checked: this.data.skipExistingObjects
+                    checked: this.data.skipExistingObjects,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_skip_new_objects'),
                     xtype: 'checkbox',
                     name: 'skipNewObjects',
-                    checked: this.data.skipNewObjects
+                    checked: this.data.skipNewObjects,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_create_version'),
                     xtype: 'checkbox',
                     name: 'createVersion',
-                    checked: this.data.createVersion
+                    checked: this.data.createVersion,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_stop_on_exception'),
                     xtype: 'checkbox',
                     name: 'stopOnException',
-                    checked: this.data.stopOnException
+                    checked: this.data.stopOnException,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_omit_mandatory_check'),
                     xtype: 'checkbox',
                     name: 'omitMandatoryCheck',
-                    checked: this.data.omitMandatoryCheck
+                    checked: this.data.omitMandatoryCheck,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_force_load_object'),
                     xtype: 'checkbox',
                     name: 'forceLoadObject',
-                    checked: this.data.forceLoadObject
+                    checked: this.data.forceLoadObject,
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_failure_document'),
@@ -275,7 +321,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                 }.bind(el)
                             });
                         }
-                    }
+                    },
+                    hidden: true
                 },
                 {
                     fieldLabel: t('data_definitions_success_document'),
@@ -315,7 +362,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                 }.bind(el)
                             });
                         }
-                    }
+                    },
+                    hidden: true
                 }
             ]
         });
@@ -416,6 +464,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         var toColumnStore = new Ext.data.Store({
                             data: config.toColumns
                         });
+                       // console.log(config.toColumns);
 
                         var gridStore = new Ext.data.Store({
                             grouper: {
@@ -449,12 +498,10 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             xtype: 'grid',
                             region: 'center',
                             store: gridStore,
-                            bufferedRenderer: false,
-                            runInViewport: false,
                             plugins: [cellEditingPlugin],
                             features: [{
                                 ftype: 'grouping',
-                                startCollapsed: true,
+
                                 groupHeaderTpl: '{name}'
                             }],
                             columns: {
@@ -523,14 +570,15 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                             }
                                         }
                                     },
-                                    {
+                                    /* commented below code because it is needed to hide the primary key column config */
+                                    /*{
                                         xtype: 'checkcolumn',
                                         text: t('data_definitions_primaryIdentifier'),
                                         dataIndex: 'primaryIdentifier',
                                         editor: {
                                             xtype: 'checkbox'
                                         }
-                                    },
+                                    },*/
                                     {
                                         xtype: 'gridcolumn',
                                         dataIndex: 'fromColumn',

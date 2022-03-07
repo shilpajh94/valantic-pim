@@ -117,9 +117,10 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             });
         }
 
-        if (this.data.provider) {
+        /*  below code lines are commented to avoid overlapping of provider settings. Because that setting panel is already created */
+        /*if (this.data.provider) {
             this.reloadProviderSettings(this.data.provider);
-        }
+        }*/
 
         return this.providerSettings;
     },

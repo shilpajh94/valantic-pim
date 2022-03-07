@@ -8,5 +8,5 @@ config:
     CBS:       
         Roles:
             [
-                "ProductManagerCS"
+                "ProductManagerCS"    
             ]
