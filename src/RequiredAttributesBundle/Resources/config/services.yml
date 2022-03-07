@@ -36,3 +36,6 @@ services:
 
     RequiredAttributesBundle\Services\CustomizationService:
         public: true
+
+    Pimcore\Bundle\AdminBundle\Controller\Reports\CustomReportController:
+        class: RequiredAttributesBundle\Controller\CustomizationCustomReportController
