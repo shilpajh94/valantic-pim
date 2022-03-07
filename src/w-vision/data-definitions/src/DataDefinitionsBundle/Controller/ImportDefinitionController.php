@@ -137,7 +137,6 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
-       // p_r( $definition);die;
 
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
             $customFromColumn = new FromColumn();
@@ -150,7 +149,6 @@ class ImportDefinitionController extends ResourceController
             } catch (\Exception $e) {
                 $fromColumns = [];
             }
-          //  p_r($definition->getClass());die;
 
             $classDefinition = DataObject\ClassDefinition::getByName($definition->getClass());
 
@@ -399,33 +397,30 @@ class ImportDefinitionController extends ResourceController
     /**
      * @param Request $request
      */
-    public function listClassAction (Request $request) 
+    public function listClassAction(Request $request)
     {
         $requiredClass  = $this->importDefClass();
         $classesList    =  DataObject\ClassDefinition::getByName($requiredClass);
-        if(!empty($classesList)) 
-        {
+        if (!empty($classesList)) {
 
             $fieldArray = array();
             $fieldArrayTemp = array();
             $fieldArrayTemp['id'] = $classesList->getId();
             $fieldArrayTemp['name'] = $classesList->getName();
             $fieldArray[] = $fieldArrayTemp;
-            
         } else {
             $classesList = new DataObject\ClassDefinition\Listing();
             $classesList->setOrderKey('name');
             $classesList->setOrder('asc');
             $classes = $classesList->load();
-            
+
             $fieldArray = array();
             $fieldArrayTemp = array();
-            foreach ($classes as $class) 
-                {
-                    $fieldArrayTemp['name'] = $class->getName();
-                    $fieldArray[] = $fieldArrayTemp;
-                }
-        } 
+            foreach ($classes as $class) {
+                $fieldArrayTemp['name'] = $class->getName();
+                $fieldArray[] = $fieldArrayTemp;
+            }
+        }
         return $this->json(["data" => $fieldArray]);
     }
 
@@ -434,89 +429,83 @@ class ImportDefinitionController extends ResourceController
         $role_array = [];
         $roles = $this->getRoleFromConfg();
         foreach ($roles as $role_id) {
-            $role_array[] =$role_id[0];
+            $role_array[] = $role_id[0];
         }
         $user = Admin::getCurrentUser();
-        if (!$user->isAdmin()){
+        if (!$user->isAdmin()) {
             $userRole = $this->getAdminUser()->getRoles();
-            if($userRole )
-                {
-                    foreach ($userRole  as $role_id)
-                    {
-                        $role = Role::getById($role_id);
-                        if($role)
-                        {
-                            $user_roles[] = ['name' => $role->getName()];
-                        }
-                    }
-                    $current_user_roles = [];
-                    foreach ($user_roles as $role) {
-                        $current_user_roles[] = $role['name'];
+            if ($userRole) {
+                foreach ($userRole  as $role_id) {
+                    $role = Role::getById($role_id);
+                    if ($role) {
+                        $user_roles[] = ['name' => $role->getName()];
                     }
                 }
-                $common_roles = array_intersect($current_user_roles,$role_array);
-            
-                $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
-                $resultBU       = [];
-                if(isset($rolesConfig['config']))
-                {
-                    foreach($rolesConfig['config'] as $roleClass=>$arrRoles)
-                    {
-                        $resultBU[$arrRoles['Roles'][0]] = $roleClass;
-                    }
+                $current_user_roles = [];
+                foreach ($user_roles as $role) {
+                    $current_user_roles[] = $role['name'];
                 }
+            }
+            $common_roles = array_intersect($current_user_roles, $role_array);
 
-                $buConfig   = $this->getBusinessUnitClassFromConfig();
-                $resultClass= [];
-                if(isset($buConfig['config']))
-                {
-                    foreach($buConfig['config'] as $buClass=>$arrClass)
-                    {
-                        $resultClass[$buClass] = $arrClass['Class'][0];
-                    }
+            $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
+            $resultBU       = [];
+            if (isset($rolesConfig['config'])) {
+                foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
+                    $resultBU[$arrRoles['Roles'][0]] = $roleClass;
                 }
+            }
 
-                foreach ($common_roles as $currentRole) 
-                {
-                    if (array_key_exists($currentRole, $resultBU)) 
-                    {
-                        $currentBU = $resultBU[$currentRole];
-                        if (array_key_exists($currentBU, $resultClass)) 
-                        {
-                            $importClass= $resultClass[$currentBU];
-                        }
+            $buConfig   = $this->getBusinessUnitClassFromConfig();
+            $resultClass = [];
+            if (isset($buConfig['config'])) {
+                foreach ($buConfig['config'] as $buClass => $arrClass) {
+                    $resultClass[$buClass] = $arrClass['Class'][0];
+                }
+            }
+
+            foreach ($common_roles as $currentRole) {
+                if (array_key_exists($currentRole, $resultBU)) {
+                    $currentBU = $resultBU[$currentRole];
+                    if (array_key_exists($currentBU, $resultClass)) {
+                        $importClass = $resultClass[$currentBU];
                     }
                 }
-            
+            }
+
             return $importClass;
         }
     }
-    public function  getBusinessUnitClassFromConfig(){
+    public function  getBusinessUnitClassFromConfig()
+    {
         $businessUnitClass = array();
         $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_class.yml";
         $businessUnitClass = Utils::getYmlConfig($yamlFilePath);
         return $businessUnitClass;
     }
-    public function getBusinessUnitRolesFromConfig(){
-        $businessUnitRoles =array();
+    public function getBusinessUnitRolesFromConfig()
+    {
+        $businessUnitRoles = array();
         $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_role.yml";
         $businessUnitRoles = Utils::getYmlConfig($yamlFilePath);
         return $businessUnitRoles;
-    } 
-    public function getRoleFromConfg(){
+    }
+    public function getRoleFromConfg()
+    {
         $roles = [];
         $getAllRoles = $this->getBusinessUnitRolesFromConfig();
-        $rolesIFPTG = array("IFSPTG_US"=>$getAllRoles['config']['IFSPTG_US']['Roles']);
-        $rolesCBS = array("CBS"=>$getAllRoles['config']['CBS']['Roles']);
-        $roles =  array_merge($rolesCBS,$rolesIFPTG);
+        $rolesIFPTG = array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
+        $rolesCBS = array("CBS" => $getAllRoles['config']['CBS']['Roles']);
+        $roles =  array_merge($rolesCBS, $rolesIFPTG);
         return $roles;
     }
-    public function getClassesAccordingToRoles(){
+    public function getClassesAccordingToRoles()
+    {
         $userRole = $this->getUser()->getRoles(); // current user k role
         $roles = $this->getRoleFromConfg(); //roles for both classes
         $getClass = $this->getBusinessUnitClassFromConfig();
-        foreach ($roles as $key=>$val){
-            if($key == 'CBS') {
+        foreach ($roles as $key => $val) {
+            if ($key == 'CBS') {
                 $class = $getClass['config']['CBS']['Class'];
             } else {
                 $class = $getClass['config']['IFSPTG_US']['Class'];
@@ -525,4 +514,3 @@ class ImportDefinitionController extends ResourceController
         }
     }
 }
-
