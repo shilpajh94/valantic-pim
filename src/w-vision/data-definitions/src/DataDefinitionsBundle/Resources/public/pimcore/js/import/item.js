@@ -26,13 +26,31 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
     providers: [],
 
     getSettings: function () {
-        var classesStore = new Ext.data.JsonStore({
+        /* var classesStore = new Ext.data.JsonStore({
             autoDestroy: true,
             proxy: {
                 type: 'ajax',
                 url: '/admin/class/get-tree'
             },
             fields: ['text']
+        });
+        classesStore.load(); */    
+        
+        let classesStore = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listClass',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            },
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
         });
         classesStore.load();
 
@@ -85,16 +103,38 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     store: pimcore.globalmanager.get('data_definitions_loaders'),
                     value: this.data.loader,
                     width: 500,
+                    //hidden: true,
                 },
                 {
+                   /*  xtype: 'combo',
+                    fieldLabel: t('class'),
+                    name: 'class',
+                    //displayField: 'text',
+                    displayField: 'text',
+
+                    valueField: 'id',
+                    store: classesStore,
+
+                    width: 500,
+                   value: this.data.class
+                 */
+
                     xtype: 'combo',
                     fieldLabel: t('class'),
                     name: 'class',
-                    displayField: 'text',
-                    valueField: 'text',
                     store: classesStore,
+                    queryMode: 'local',
+                    editable: true,
+                    allowBlank: false,
+                    blankText: 'Field is required',
+                    forceSelection: true,
+                    msgTarget: 'under',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
                     width: 500,
-                    value: this.data.class
+                    labelWidth: 200,
+                    value: this.class,
                 },
                 {
                     xtype: 'textfield',
@@ -424,6 +464,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         var toColumnStore = new Ext.data.Store({
                             data: config.toColumns
                         });
+                       // console.log(config.toColumns);
 
                         var gridStore = new Ext.data.Store({
                             grouper: {
