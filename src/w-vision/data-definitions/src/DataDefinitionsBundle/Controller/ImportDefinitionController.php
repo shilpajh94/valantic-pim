@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\Service\FieldSelection;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
@@ -384,5 +385,46 @@ class ImportDefinitionController extends ResourceController
     protected function getImportRuleActions(): array
     {
         return $this->getParameter('data_definitions.import_rule.actions');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function addAction(Request $request)
+    {
+        $this->isGrantedOr403();
+
+        $name = $request->get('name');
+
+        $loadConfigarray = include PIMCORE_PROJECT_ROOT.'/var/config/importdefinitions.php';
+        foreach ($loadConfigarray as $perconfig ){
+            $existname[] = strtolower($perconfig['name']);
+        }
+        $alreadyTakenName =  in_array(strtolower($name), $existname);
+
+        if (strlen($name) <= 0 || $alreadyTakenName == true) {
+            return $this->viewHandler->handle(['success' => false]);
+        } else {
+            $resource = $this->factory->createNew();
+
+            if ($resource instanceof ResourceInterface) {
+                $resource->setValue('name', $name);
+            }
+
+            foreach ($request->request->all() as $key => $value) {
+                $resource->setValue($key, $value);
+            }
+
+            $this->eventDispatcher->dispatchPreEvent('create', $this->metadata, $resource, $request);
+
+            $this->manager->persist($resource);
+            $this->manager->flush();
+
+            $this->eventDispatcher->dispatchPostEvent('create', $this->metadata, $resource, $request);
+
+            return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
+        }
     }
 }
