@@ -48,7 +48,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_SEGMENT_COUNTRIES_CONFIG);
     }
-
+    public function getLanguageConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_LANGUAGE_CONFIG);
+    }
 
     public function getCatalogProductTablesConfig()
     {
@@ -64,7 +67,7 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH);
     }
-    
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
@@ -98,27 +101,21 @@ class ConfigProviderService
      * @return string
      */
     public function getWebSiteSetting($key = false)
-    {   
-        try
-        {   
-            if(!$key)
-            {
+    {
+        try {
+            if (!$key) {
                 throw new Exception("Website setting key is required");
             }
 
             $val    = false;
             $obj    =  \Pimcore\Model\WebsiteSetting::getByName($key, null, 'en');
 
-            if($obj)
-            {
+            if ($obj) {
                 $val = $obj->getData();
             }
 
-           return $val;
-
-        }
-        catch(Exception $e)
-        {   
+            return $val;
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -129,24 +126,20 @@ class ConfigProviderService
      * @return string
      */
     public function getDefaultImage($setting_key = 'CS_default_image')
-    { 
-        try{
+    {
+        try {
 
             $obj = $this->getWebSiteSetting($setting_key);
 
             $thumbnail = '';
 
-            if(method_exists($obj,'getThumbnail'))
-            {
+            if (method_exists($obj, 'getThumbnail')) {
                 $thumbnail = $obj->getThumbnail('catalog_thumb');
             }
-            
+
             return $thumbnail;
-        }
-        catch(Exception $e)
-        { 
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 }
-
