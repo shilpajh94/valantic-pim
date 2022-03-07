@@ -22,6 +22,23 @@ class APIOperationType
         return $this->operationType;
     }
 
+    public static function getByString(string $operationType): ?self
+    {
+        $returnValue = null;
+
+        switch($operationType){
+            case self::CREATE : $returnValue = self::CREATE();
+                            break;
+            case self::UPDATE : $returnValue = self::UPDATE();
+                            break;
+            case self::DELETE : $returnValue = self::DELETE();
+                            break;
+            default: $returnValue = null;
+        }
+
+        return $returnValue;
+    }
+
     public static function CREATE(): self
     {
         return new self(self::CREATE);
