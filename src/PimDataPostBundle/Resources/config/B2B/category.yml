@@ -1,7 +1,7 @@
 parameters:
   Master Table: b2b_category_master
   Temp Table: b2b_category_temp
-  Attributes:
+  Attribute:
     o_id:
       fieldName: o_id
       tableName: object_2

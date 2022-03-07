@@ -24,14 +24,9 @@ services:
 #            - "%parameter%"
     PimDataPostBundle\Services\TokenAuthService:
     
-    # this service will be common throughout the project
-    pimDataPostBundle.SFTable1_helper:
-        class: PimDataPostBundle\Helper\SFTable1
-        public: true
-
-    PimDataPostBundle\Command\B2CProductCommand:
+    PimDataPostBundle\Command\B2BSalesforceCommand:
         tags:
-            - {
-                  name: "console.command",
-                  command: "b2c:product",
-              }
+            - { name: "console.command", command: "conti:datapost:b2b-salesforce" }
+    PimDataPostBundle\Command\SampleTestCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:sample-test-command' }

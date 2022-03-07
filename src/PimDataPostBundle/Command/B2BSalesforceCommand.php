@@ -13,18 +13,17 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
-use ContitechCS\ImportBundle\Services\ImportConstants;
-
 use Pimcore\Db;
+use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 
-class B2CProductCommand extends AbstractCommand
+class B2BSalesforceCommand extends AbstractCommand
 {
     private $commonHelper;
     private $db;
 
     protected function configure()
     {
-        $this->setName('b2c:product')
+        $this->setName('conti:datapost:b2b-salesforce')
             ->setDescription('B2C Product Data Store to Temp Table');
     }
 
@@ -34,55 +33,49 @@ class B2CProductCommand extends AbstractCommand
         $this->db = Db::get();
 
         $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
+        $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
         
         // create B2C Temp and Master Table
-        $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
-        $this->createTempMasterTable($B2CProductAttributesConfig);
+        // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
+        // $this->createTempMasterTable($B2CProductAttributesConfig);
 
         // create B2B Temp and Master Table
-        $B2BProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
-        $this->createTempMasterTable($B2BProductAttributesConfig);
+        // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
+        $this->createTempMasterTable($B2BProductAttributeConfig);
         
         // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
-        $B2CB2BAttributeArray[]= $B2BProductAttributesConfig;
+        $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
 
         try {
 
             // get product records using sales master updated records
             $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
-            // p_r($salesMaterialProductIDs);
-            // die;
 
             // get all today's modified product
             $materialProductIDs = $this->getTodaysProductModifiedRecords();
-            // p_r($resultSet);
-            // p_r($materialProductIDs);
 
             if($salesMaterialProductIDs || $materialProductIDs)
             {
                 $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
             }
             
-            // p_r($resultSet);
-            // die;
-
             if($resultSet)
             {
                 // loop b2b and b2c array
 
                 foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
 
-                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Product');
+                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
                     $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
 
                     // prepare sql query and fetch the data from the object table
                     $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
-                    // p_r($resultSetProductsDetail);
-                    // die;
+
                     //create hashes for the records
                     $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
 
-                    // p_r($resultSetProductsDetailWithHashData);
                     // insert data in the temp tables
                     $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
 
@@ -239,7 +232,7 @@ class B2CProductCommand extends AbstractCommand
 
     public function createTempMasterTable($AttributesConfig)
     {
-        $arrData = $this->commonHelper->getParameter($AttributesConfig, 'Product');
+        $arrData = $this->commonHelper->getParameter($AttributesConfig, 'Attribute');
         $tempTable = $this->commonHelper->getParameter($AttributesConfig, 'Temp Table');
         $masterTable = $this->commonHelper->getParameter($AttributesConfig, 'Master Table');
         $fieldsArray = [];
