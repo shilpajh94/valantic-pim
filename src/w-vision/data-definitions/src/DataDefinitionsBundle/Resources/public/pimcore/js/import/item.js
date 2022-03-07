@@ -72,14 +72,15 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             items: [
                 {
                     xtype: 'textfield',
-                    fieldLabel: t('name'),
+                    fieldLabel: t('name') + ' <span style="color:red;">*</span>',
                     name: 'name',
                     width: 500,
-                    value: this.data.name
+                    value: this.data.name,
+                    allowBlank: false
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_provider'),
+                    fieldLabel: t('data_definitions_provider') + ' <span style="color:red;">*</span>',
                     name: 'provider',
                     displayField: 'provider',
                     valueField: 'provider',
@@ -92,17 +93,19 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             this.reloadColumnMapping();
                         }.bind(this)
                     },
-                    readOnly : true
+                    readOnly : true,
+                    allowBlank: false
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_loader'),
+                    fieldLabel: t('data_definitions_loader') + ' <span style="color:red;">*</span>',
                     name: 'loader',
                     displayField: 'loader',
                     valueField: 'loader',
                     store: pimcore.globalmanager.get('data_definitions_loaders'),
                     value: this.data.loader,
                     width: 500,
+                    allowBlank: false
                     //hidden: true,
                 },
                 {
@@ -120,7 +123,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                  */
 
                     xtype: 'combo',
-                    fieldLabel: t('class'),
+                    fieldLabel: t('class') + ' <span style="color:red;">*</span>',
                     name: 'class',
                     store: classesStore,
                     queryMode: 'local',
@@ -130,11 +133,11 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     forceSelection: true,
                     msgTarget: 'under',
                     displayField: 'name',
-                    valueField: 'name',
-                    
+                    valueField: 'name',                    
                     width: 500,
                     labelWidth: 200,
                     value: this.class,
+                    allowBlank: false
                 },
                 {
                     xtype: 'textfield',

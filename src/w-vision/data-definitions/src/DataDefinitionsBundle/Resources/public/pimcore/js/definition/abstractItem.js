@@ -363,5 +363,65 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             }
         });
         automap.grid.getView().refresh();
-    }
+    },
+    save: function (callback) {
+        var me = this,
+            data;
+
+        if (this.isValid()) {
+            var saveData = this.getSaveData();
+
+            saveData['id'] = this.data.id;
+            saveData = this.convertDotNotationToObject(saveData);
+
+            if (saveData.hasOwnProperty('stores')) {
+                var stores = [];
+
+                saveData.stores.forEach(function (store) {
+                    stores.push(store + "");
+                });
+
+                saveData.stores = stores;
+            }
+
+            Ext.Ajax.request({
+                url: this.url.save,
+                method: 'post',
+                jsonData: saveData,
+                success: function (response) {
+                    try {
+                        if (this.parentPanel.store) {
+                            this.parentPanel.store.load();
+                        }
+
+                        this.parentPanel.refresh();
+
+                        var res = Ext.decode(response.responseText);
+
+                        this.postSave(res);
+
+                        if (Ext.isFunction(callback)) {
+                            callback(res);
+                        }
+
+                        if (res.success) {
+                            pimcore.helpers.showNotification(t('success'), t('coreshop_save_success'), 'success');
+
+                            this.data = res.data;
+
+                            this.panel.setTitle(this.getTitleText());
+                        } else {
+                            pimcore.helpers.showNotification(t('error'), t('coreshop_save_error'),
+                                'error', res.message);
+                        }
+                    } catch (e) {
+                        pimcore.helpers.showNotification(t('error'), t('coreshop_save_error'), 'error');
+                    }
+                }.bind(this)
+            });
+        }
+    },
+    isValid: function () {
+        return false;
+    },    
 });
