@@ -196,6 +196,40 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
         this.panels = [];
     },
 
+    // function to override the function coreshop resource import panel
+    addItemComplete: function (button, value, object) {
+        var jsonData = {
+            name: value
+        };
+
+        if (Ext.isFunction(this.prepareAdd)) {
+            jsonData = this.prepareAdd(jsonData);
+        }
+
+        if (button === 'ok') {
+            Ext.Ajax.request({
+                url: this.url.add,
+                jsonData: jsonData,
+                method: 'post',
+                success: function (response) {
+                    var data = Ext.decode(response.responseText);
+
+                    this.grid.getStore().reload();
+
+                    this.refresh();
+
+                    if (!data || !data.success) {
+                        Ext.Msg.alert(t('data_definition_warning'), t('data_definition_config_exists'));
+                    } else {
+                        this.openItem(data.data);
+                    }
+                }.bind(this)
+            });
+        } else {
+            //Ext.Msg.alert(t('No config file created'), t('User cancelled the process'));
+        }
+    },
+
     getItemClass: function () {
         return pimcore.plugin.datadefinitions.import.item;
     }
