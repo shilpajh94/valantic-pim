@@ -158,23 +158,19 @@ class FailedRecords {
       $subFolder = date('Y')."/".date('F');
       $parentPath = FAILURE_RECORDS_FOLDER."/".$subFolder;
      
-    //  try {
+    
       $obj   = \Pimcore\Model\Asset\Service::createFolderByPath("$parentPath");
-     /*  } catch (\Exception $ex) {
-      p_r($ex);
-      } */
-
+     
       $parentFolder = $obj->getPath().$obj->getFileName();
         
         $newAsset = new \Pimcore\Model\Asset();
         $newFilename = Element\Service::getSaveCopyName('asset', $fileName,\Pimcore\Model\Asset::getByPath("$parentFolder"));
-       // p_r($newFilename);die('1234');
 
         $newAsset->setFilename($newFilename);
         $newAsset->setData(file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
 
         $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
-        $newAsset->save(); die('123');
+        $newAsset->save(); 
       }
 
       public function sendNotificationsEmail($fileId) 
@@ -227,7 +223,7 @@ class FailedRecords {
         }
 
       $role_id = implode(',',$role_id);
-      $list = new \Pimcore\Model\User\Listing(); //alag se function 
+      $list = new \Pimcore\Model\User\Listing(); 
       $list->setCondition("roles IN ($role_id)");
       $list->load();
       $userList = $list->getUsers();
