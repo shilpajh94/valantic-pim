@@ -11,9 +11,7 @@ class AttributeConfigProviderHelper
     public function getCompleteConfig(ShopType $shopType, ClassType $classType): array
     {
         $filePath = $this->getConfigFileName($shopType, $classType);
-        
-        $configProvider = new ConfigProviderService();
-        return $configProvider->getConfigFromYmlFile($filePath);
+        return \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile($filePath);
     }
 
     private function getConfigFileName($shopType, $classType): string
