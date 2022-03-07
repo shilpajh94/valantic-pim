@@ -9,7 +9,12 @@ use PimDataPostBundle\Model\Types\PimFieldType;
 
 abstract class AbstractB2BAttributeConfigProvider implements IAttributeConfigProvider
 {
-    private $shopType = ShopType::B2B();
+    private $shopType;
+
+    public function __construct()
+    {
+        $this->shopType = ShopType::B2B();
+    }
 
     public function getShopType(): ShopType
     {

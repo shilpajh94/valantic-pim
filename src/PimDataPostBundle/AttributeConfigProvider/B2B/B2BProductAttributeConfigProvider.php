@@ -6,13 +6,15 @@ use PimDataPostBundle\Model\Types\ClassType;
 
 class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvider
 {
-    private $classType = ClassType::PRODUCT();
+    private $classType;
 
     private $b2bAttributeConfigProviderHelper;
 
     public function __construct()
     {
         $this->b2bAttributeConfigProviderHelper = new B2BAttributeConfigProviderHelper();
+        $this->classType = ClassType::PRODUCT();
+        parent::__construct();
     }
 
     public function getClassType(): ClassType

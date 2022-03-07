@@ -15,7 +15,7 @@ class ClassType
 
     private function __construct(string $classType)
     {
-        $this->shopType = $classType;
+        $this->classType = $classType;
     }
 
     public function __toString()
