@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use Pimcore\Db;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
+use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 
 class B2BSalesforceCommand extends AbstractCommand
 {
@@ -33,57 +34,69 @@ class B2BSalesforceCommand extends AbstractCommand
         $this->db = Db::get();
 
         $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
-        $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
         
-        // create B2C Temp and Master Table
-        // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
-        // $this->createTempMasterTable($B2CProductAttributesConfig);
-
-        // create B2B Temp and Master Table
-        // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
-        $this->createTempMasterTable($B2BProductAttributeConfig);
-        
-        // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
-        $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
-
         try {
 
-            // get product records using sales master updated records
-            $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
+            // // B2B Product Processing
 
-            // get all today's modified product
-            $materialProductIDs = $this->getTodaysProductModifiedRecords();
-
-            if($salesMaterialProductIDs || $materialProductIDs)
-            {
-                $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
-            }
+            // $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
+            // $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
             
-            if($resultSet)
-            {
-                // loop b2b and b2c array
+            // // create B2C Temp and Master Table
+            // // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
+            // // $this->createTempMasterTable($B2CProductAttributesConfig);
 
-                foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+            // // create B2B Temp and Master Table
+            // // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
+            // $this->createTempMasterTable($B2BProductAttributeConfig);
+            
+            // // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
+            // $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
 
-                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
-                    $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+        
 
-                    // prepare sql query and fetch the data from the object table
-                    $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+            // // get product records using sales master updated records
+            // $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
 
-                    //create hashes for the records
-                    $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+            // // get all today's modified product
+            // $materialProductIDs = $this->getTodaysProductModifiedRecords();
 
-                    // insert data in the temp tables
-                    $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+            // if($salesMaterialProductIDs || $materialProductIDs)
+            // {
+            //     $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            // }
+            
+            // if($resultSet)
+            // {
+            //     // loop b2b and b2c array
 
-                }
-            }
-            else{
-                echo "\n Modified records not found today.";
-            }
+            //     foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+
+            //         $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
+            //         $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+
+            //         // prepare sql query and fetch the data from the object table
+            //         $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+
+            //         //create hashes for the records
+            //         $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+
+            //         // insert data in the temp tables
+            //         $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+
+            //     }
+            // }
+            // else{
+            //     echo "\n Modified records not found today.";
+            // }
+
+
+            // B2B Category Processing
+
+            $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
+            $B2BCategoryAttributeConfig = $B2BCategoryAttributeConfigProvider->getCompleteConfig();
+            $this->createTempMasterTable($B2BCategoryAttributeConfig);
+
             
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -220,8 +233,7 @@ class B2BSalesforceCommand extends AbstractCommand
         return $this->db->fetchAll($query);
     }
 
-    public function truncateTempTable($AttributesConfig){
-        $tempTable = $this->commonHelper->getParameter($AttributesConfig, 'Temp Table');
+    public function truncateTempTable($tempTable){
 
         // truncating temp table
         echo "\n Truncating table - {$tempTable}";
@@ -235,6 +247,8 @@ class B2BSalesforceCommand extends AbstractCommand
         $arrData = $this->commonHelper->getParameter($AttributesConfig, 'Attribute');
         $tempTable = $this->commonHelper->getParameter($AttributesConfig, 'Temp Table');
         $masterTable = $this->commonHelper->getParameter($AttributesConfig, 'Master Table');
+
+        $this->truncateTempTable($tempTable);
         $fieldsArray = [];
         $fieldsString = '';
         foreach ($arrData as $key => $value) {

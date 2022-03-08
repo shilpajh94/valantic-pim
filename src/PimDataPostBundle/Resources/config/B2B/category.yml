@@ -19,9 +19,54 @@ parameters:
       sendToSF: CatalogId
       tableAttr: false
       attrType: VARCHAR(32) NULL
-    CatalogId:
-      fieldName: CatalogId
+    ParentCategoryId:
+      fieldName: ParentCategoryId
       tableName: object_2
-      sendToSF: CatalogId
-      tableAttr: false
+      sendToSF: ParentCategoryId
+      tableAttr: true
+      attrType: INT(11) NULL
+    longDescription:
+      fieldName: longDescription
+      tableName: object_2
+      sendToSF: Description
+      tableAttr: true
+      attrType: VARCHAR(255) NULL
+    SortOrder:
+      fieldName: SortOrder
+      tableName: object_2
+      sendToSF: SortOrder
+      tableAttr: true
+      attrType: VARCHAR(255) NULL
+    ShowInMenu:
+      fieldName: ShowInMenu
+      tableName: object_2
+      sendToSF: IsNavigational
+      tableAttr: true
+      attrType: VARCHAR(255) NULL
+    CategoryImage:
+      fieldName: CategoryImage
+      tableName: object_2
+      sendToSF: B2B_Category_Image__c
+      tableAttr: true
+      attrType: int(11) NULL
+      relationalAttr: true
+    externalId:
+      fieldName: externalId
+      tableName: object_2
+      sendToSF: B2B_External_Id__c
+      tableAttr: true
       attrType: VARCHAR(32) NULL
+    basicHash:
+      fieldName: basicHash
+      tableName: 
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
+    relationalHash:
+      fieldName: relationalHash
+      tableName: 
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
+      hashField: true
+
+
