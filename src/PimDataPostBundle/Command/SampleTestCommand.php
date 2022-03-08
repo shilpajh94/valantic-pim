@@ -14,4 +14,3 @@ class SampleTestCommand extends AbstractCommand
        echo "executed\n";
     }
 }
-
