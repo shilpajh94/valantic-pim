@@ -2,7 +2,10 @@
 
 namespace PimDataPostBundle\Lib;
 
-use PimDataPostBundle\Model\AuthToken;
+use PimDataPostBundle\Model\Auth\AuthToken;
+use PimDataPostBundle\Model\Types\ClassType;
+use PimDataPostBundle\Model\Types\ShopType;
+use PimDataPostBundle\Services\UtilService;
 
 class Util
 {
@@ -16,5 +19,11 @@ class Util
     public static function getService(string $service)
     {
         return \Pimcore::getKernel()->getContainer()->get($service);
+    }
+
+    public static function getSymfonyParameter(string $param)
+    {
+        $utilService = self::getService(UtilService::class);
+        return $utilService->getParameter($param);
     }
 }

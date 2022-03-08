@@ -23,7 +23,11 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
     PimDataPostBundle\Services\TokenAuthService:
+        public: true
     
     PimDataPostBundle\Command\SampleTestCommand:
         tags:
             - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
+
+    PimDataPostBundle\Services\UtilService:
+        public: true
