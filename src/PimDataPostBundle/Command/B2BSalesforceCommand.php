@@ -37,58 +37,58 @@ class B2BSalesforceCommand extends AbstractCommand
         
         try {
 
-            // // B2B Product Processing
+            // B2B Product Processing
 
-            // $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
-            // $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
+            $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
+            $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
             
-            // // create B2C Temp and Master Table
-            // // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
-            // // $this->createTempMasterTable($B2CProductAttributesConfig);
+            // create B2C Temp and Master Table
+            // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
+            // $this->createTempMasterTable($B2CProductAttributesConfig);
 
-            // // create B2B Temp and Master Table
-            // // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
-            // $this->createTempMasterTable($B2BProductAttributeConfig);
+            // create B2B Temp and Master Table
+            // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
+            $this->createTempMasterTable($B2BProductAttributeConfig);
             
-            // // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
-            // $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
+            // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
+            $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
 
         
 
-            // // get product records using sales master updated records
-            // $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
+            // get product records using sales master updated records
+            $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
 
-            // // get all today's modified product
-            // $materialProductIDs = $this->getTodaysProductModifiedRecords();
+            // get all today's modified product
+            $materialProductIDs = $this->getTodaysProductModifiedRecords();
 
-            // if($salesMaterialProductIDs || $materialProductIDs)
-            // {
-            //     $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
-            // }
+            if($salesMaterialProductIDs || $materialProductIDs)
+            {
+                $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            }
             
-            // if($resultSet)
-            // {
-            //     // loop b2b and b2c array
+            if($resultSet)
+            {
+                // loop b2b and b2c array
 
-            //     foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+                foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
 
-            //         $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
-            //         $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
+                    $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
 
-            //         // prepare sql query and fetch the data from the object table
-            //         $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+                    // prepare sql query and fetch the data from the object table
+                    $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
 
-            //         //create hashes for the records
-            //         $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+                    //create hashes for the records
+                    $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
 
-            //         // insert data in the temp tables
-            //         $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+                    // insert data in the temp tables
+                    $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
 
-            //     }
-            // }
-            // else{
-            //     echo "\n Modified records not found today.";
-            // }
+                }
+            }
+            else{
+                echo "\n Modified records not found today.";
+            }
 
 
             // B2B Category Processing
