@@ -86,7 +86,7 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
             method: 'GET',
             success: function (result) {
                 var config = Ext.decode(result.responseText);
-                // yahan provider, loader, interpreter ki values aati hai dropdown ke liye
+                // Here weget provider, loader, interpreter  values in dropdown 
                 this.providers = [];
                 this.loaders = [];
                 this.filters = [];
