@@ -34,8 +34,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             },
             fields: ['text']
         });
-        classesStore.load(); */    
-        
+        classesStore.load(); */
+
         let classesStore = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -93,7 +93,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             this.reloadColumnMapping();
                         }.bind(this)
                     },
-                    readOnly : true,
+                    readOnly: true,
                     allowBlank: false
                 },
                 {
@@ -109,18 +109,18 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     //hidden: true,
                 },
                 {
-                   /*  xtype: 'combo',
-                    fieldLabel: t('class'),
-                    name: 'class',
-                    //displayField: 'text',
-                    displayField: 'text',
-
-                    valueField: 'id',
-                    store: classesStore,
-
-                    width: 500,
-                   value: this.data.class
-                 */
+                    /*  xtype: 'combo',
+                     fieldLabel: t('class'),
+                     name: 'class',
+                     //displayField: 'text',
+                     displayField: 'text',
+ 
+                     valueField: 'id',
+                     store: classesStore,
+ 
+                     width: 500,
+                    value: this.data.class
+                  */
 
                     xtype: 'combo',
                     fieldLabel: t('class') + ' <span style="color:red;">*</span>',
@@ -133,7 +133,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     forceSelection: true,
                     msgTarget: 'under',
                     displayField: 'name',
-                    valueField: 'name',                    
+                    valueField: 'name',
                     width: 500,
                     labelWidth: 200,
                     value: this.class,
@@ -467,7 +467,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         var toColumnStore = new Ext.data.Store({
                             data: config.toColumns
                         });
-                       // console.log(config.toColumns);
+                        // console.log(config.toColumns);
 
                         var gridStore = new Ext.data.Store({
                             grouper: {
@@ -565,8 +565,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                                         var toColumn = toColumnStore.findRecord('identifier', gridRecord.get('toColumn'), 0, false, false, true);
 
                                                         if (fromColumn && toColumn) {
-                                                            var dialog = new pimcore.plugin.datadefinitions.import.configDialog();
-                                                            dialog.getConfigDialog(fromColumn, toColumn, gridRecord, config);
+                                                            // var dialog = new pimcore.plugin.datadefinitions.import.configDialog();
+                                                            // dialog.getConfigDialog(fromColumn, toColumn, gridRecord, config);
                                                         }
                                                     }
                                                 }
@@ -599,16 +599,16 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
 
                                                 Ext.defer(function () {
                                                     if (Ext.get(id)) {
-                                                        new Ext.button.Button({
-                                                            renderTo: id,
-                                                            iconCls: 'pimcore_icon_edit',
-                                                            flex: 1,
-                                                            cls: 'data_definitions_edit_button',
-                                                            handler: function () {
-                                                                var dialog = new pimcore.plugin.datadefinitions.import.configDialog();
-                                                                dialog.getConfigDialog(fromColumn, toColumn, record, config);
-                                                            }
-                                                        });
+                                                        // new Ext.button.Button({
+                                                        //     renderTo: id,
+                                                        //     iconCls: 'pimcore_icon_edit',
+                                                        //     flex: 1,
+                                                        //     cls: 'data_definitions_edit_button',
+                                                        //     handler: function () {
+                                                        //         var dialog = new pimcore.plugin.datadefinitions.import.configDialog();
+                                                        //         dialog.getConfigDialog(fromColumn, toColumn, record, config);
+                                                        //     }
+                                                        // });
                                                     }
                                                 }, 200);
 
