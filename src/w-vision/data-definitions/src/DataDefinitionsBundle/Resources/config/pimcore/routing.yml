@@ -35,6 +35,10 @@ data_definitions_admin_import_definitions:
             path: listClass
             action: listClass
             methods: [GET,POST]
+          listPrimaryKey:
+            path: listPrimaryKey
+            action: listPrimaryKey
+            methods: [GET,POST]
 
 data_definitions_admin_export_definitions:
     type: coreshop.resources

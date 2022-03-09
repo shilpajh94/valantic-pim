@@ -25,6 +25,36 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
 
     providers: [],
 
+    /*  getPrimaryKey: function (className) {
+     let primaryKeyStore = new Ext.data.JsonStore({
+        proxy: {
+            type: 'ajax',
+            url: '/admin/data_definitions/import_definitions/listPrimaryKey',
+            method: 'POST',
+            extraParams: {
+                //className: this.value,
+                className: className,
+
+            },
+            reader: {
+                type: 'json',
+                rootProperty: 'data'
+            }
+        },
+        fields: ["name"],
+
+        sorters: [{
+            property: 'name',
+            direction: 'ASC'
+        }]
+    });
+        // window.className='tehreem';
+        primaryKeyStore.load();
+},   */
+
+
+
+
     getSettings: function () {
         /* var classesStore = new Ext.data.JsonStore({
             autoDestroy: true,
@@ -40,6 +70,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             proxy: {
                 type: 'ajax',
                 url: '/admin/data_definitions/import_definitions/listClass',
+
                 reader: {
                     type: 'json',
                     rootProperty: 'data'
@@ -53,6 +84,30 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             }]
         });
         classesStore.load();
+
+
+        let PrimaryKeyStore = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listPrimaryKey',
+                method: 'POST',
+                extraParams: {
+                    //classes: JSON.stringify(class),
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            },
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+        PrimaryKeyStore.load();
+        // var PrimaryKeyStore = [];
 
         this.configForm = new Ext.form.Panel({
             bodyStyle: 'padding:10px;',
@@ -137,7 +192,37 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     width: 500,
                     labelWidth: 200,
                     value: this.class,
-                    allowBlank: false
+                    listeners: {
+                        change: function (data) {
+                            //alert(this.value);
+                            //console.log(data);
+                            // this.getPrimaryKey(this.value);
+
+
+                            Ext.getCmp('PrimaryKey').setReadOnly(false);
+
+
+                        }
+                    },
+                },
+                {
+                    xtype: 'combo',
+                    fieldLabel: t('Primary Key'),
+                    name: 'PrimaryKey',
+                    id: 'PrimaryKey',
+                    store: PrimaryKeyStore,
+                    queryMode: 'local',
+                    editable: true,
+                    allowBlank: false,
+                    blankText: 'Field is required',
+                    forceSelection: true,
+                    msgTarget: 'under',
+                    displayField: 'name',
+                    valueField: 'name',
+                    width: 500,
+                    labelWidth: 200,
+                    value: this.PrimaryKey,
+                    readOnly: true
                 },
                 {
                     xtype: 'textfield',

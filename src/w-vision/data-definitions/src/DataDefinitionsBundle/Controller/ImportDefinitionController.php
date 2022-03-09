@@ -31,6 +31,8 @@ use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
 use AppBundle\Tool\Utils;
 use Pimcore\Model\User\Role;
 use Pimcore\Tool\Admin;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
+
 
 
 class ImportDefinitionController extends ResourceController
@@ -406,14 +408,23 @@ class ImportDefinitionController extends ResourceController
             $fieldArrayTemp['name'] = $classesList->getName();
             $fieldArray[] = $fieldArrayTemp;
         } else {
-            $classesList = new DataObject\ClassDefinition\Listing();
-            $classesList->setOrderKey('name');
-            $classesList->setOrder('asc');
-            $classes = $classesList->load();
+            $adminClass = $this->getBusinessUnitClassFromConfig();
+            $adminClasses = $adminClass['config'];
+            $adminClassesList = new DataObject\ClassDefinition\Listing();
+
+            foreach ($adminClasses as $classForAdmin) {
+                $conditionArray[] =  'name = ' . $adminClassesList->quote($classForAdmin['Class'][0]);
+            }
+
+            $adminClassesList->setCondition(implode(" OR ", $conditionArray));
+            $adminClassesList->setOrderKey('name');
+            $adminClassesList->setOrder('asc');
+
+            $classes = $adminClassesList->load();
 
             $fieldArray = array();
-            $fieldArrayTemp = array();
             foreach ($classes as $class) {
+                $fieldArrayTemp = array();
                 $fieldArrayTemp['name'] = $class->getName();
                 $fieldArray[] = $fieldArrayTemp;
             }
@@ -421,29 +432,21 @@ class ImportDefinitionController extends ResourceController
         return $this->json(["data" => $fieldArray]);
     }
 
+    /**
+     * @param Request $request
+     */
+    public function listPrimaryKeyAction(Request $request)
+    {
+        p_r($request);
+        die;
+        return;
+    }
+
     public function importDefClass()
     {
-        $role_array = [];
-        $roles = $this->getRoleFromConfg();
-        foreach ($roles as $role_id) {
-            $role_array[] = $role_id[0];
-        }
         $user = Admin::getCurrentUser();
         if (!$user->isAdmin()) {
-            $userRole = $this->getAdminUser()->getRoles();
-            if ($userRole) {
-                foreach ($userRole  as $role_id) {
-                    $role = Role::getById($role_id);
-                    if ($role) {
-                        $user_roles[] = ['name' => $role->getName()];
-                    }
-                }
-                $current_user_roles = [];
-                foreach ($user_roles as $role) {
-                    $current_user_roles[] = $role['name'];
-                }
-            }
-            $common_roles = array_intersect($current_user_roles, $role_array);
+            $common_role = $this->getCommonRoles();
 
             $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
             $resultBU       = [];
@@ -452,7 +455,6 @@ class ImportDefinitionController extends ResourceController
                     $resultBU[$arrRoles['Roles'][0]] = $roleClass;
                 }
             }
-
             $buConfig   = $this->getBusinessUnitClassFromConfig();
             $resultClass = [];
             if (isset($buConfig['config'])) {
@@ -460,8 +462,7 @@ class ImportDefinitionController extends ResourceController
                     $resultClass[$buClass] = $arrClass['Class'][0];
                 }
             }
-
-            foreach ($common_roles as $currentRole) {
+            foreach ($common_role as $currentRole) {
                 if (array_key_exists($currentRole, $resultBU)) {
                     $currentBU = $resultBU[$currentRole];
                     if (array_key_exists($currentBU, $resultClass)) {
@@ -469,37 +470,59 @@ class ImportDefinitionController extends ResourceController
                     }
                 }
             }
-
-            return $importClass;
         }
+        return $importClass;
     }
+
+    /* public function getPrimaryKeyFromBu() 
+    {
+        $importPrimaryKey = [];
+        $user = Admin::getCurrentUser();
+        if (!$user->isAdmin()) 
+        {
+            $common_role = $this->getCommonRoles();
+
+            $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
+            $resultBU       = [];
+            if (isset($rolesConfig['config'])) {
+                foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
+                    $resultBU[$arrRoles['Roles'][0]] = $roleClass;
+                }
+            }
+            $buConfig   = $this->getBusinessUnitClassFromConfig();
+            $arrPrimaryKey = [];
+            if (isset($buConfig['config'])) {
+                foreach ($buConfig['config'] as $buClass => $arrClass) {
+                    $resultClass[$buClass] = $arrClass['Class'][0];
+                }
+            }
+            p_r($resultClass);
+           
+        }
+       // return $importPrimaryKey;
+
+    } */
+
     public function  getBusinessUnitClassFromConfig()
     {
-        $businessUnitClass = array();
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_class.yml";
-        $businessUnitClass = Utils::getYmlConfig($yamlFilePath);
-        return $businessUnitClass;
+        $yamlFilePath = Constants::DATA_DEFINITION_BU_CLASS;
+        return Utils::getYmlConfig($yamlFilePath);
     }
     public function getBusinessUnitRolesFromConfig()
     {
-        $businessUnitRoles = array();
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_role.yml";
-        $businessUnitRoles = Utils::getYmlConfig($yamlFilePath);
-        return $businessUnitRoles;
+        $yamlFilePath = Constants::DATA_DEFINITION_BU_ROLES;
+        return Utils::getYmlConfig($yamlFilePath);
     }
     public function getRoleFromConfg()
     {
-        $roles = [];
         $getAllRoles = $this->getBusinessUnitRolesFromConfig();
         $rolesIFPTG = array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
         $rolesCBS = array("CBS" => $getAllRoles['config']['CBS']['Roles']);
-        $roles =  array_merge($rolesCBS, $rolesIFPTG);
-        return $roles;
+        return array_merge($rolesCBS, $rolesIFPTG);
     }
     public function getClassesAccordingToRoles()
     {
-        $userRole = $this->getUser()->getRoles(); // current user k role
-        $roles = $this->getRoleFromConfg(); //roles for both classes
+        $roles = $this->getRoleFromConfg();
         $getClass = $this->getBusinessUnitClassFromConfig();
         foreach ($roles as $key => $val) {
             if ($key == 'CBS') {
@@ -549,5 +572,33 @@ class ImportDefinitionController extends ResourceController
 
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
         }
+    }
+
+
+    public function getCommonRoles()
+    {
+        $role_array = [];
+        $roles = $this->getRoleFromConfg();
+        foreach ($roles as $role_id) {
+            $role_array[] = $role_id[0];
+        }
+        $user = Admin::getCurrentUser();
+        if (!$user->isAdmin()) {
+            $userRole = $this->getAdminUser()->getRoles();
+            if ($userRole) {
+                foreach ($userRole  as $role_id) {
+                    $role = Role::getById($role_id);
+                    if ($role) {
+                        $user_roles[] = ['name' => $role->getName()];
+                    }
+                }
+                $current_user_roles = [];
+                foreach ($user_roles as $role) {
+                    $current_user_roles[] = $role['name'];
+                }
+            }
+            $common_roles = array_intersect($current_user_roles, $role_array);
+        }
+        return $common_roles;
     }
 }
