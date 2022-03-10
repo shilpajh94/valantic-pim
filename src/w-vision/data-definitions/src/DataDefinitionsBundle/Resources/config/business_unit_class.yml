@@ -2,19 +2,19 @@ config:
     IFSPTG_US:
         Class:
           [
-            "Product"              
+              "Product",              
           ]
         PrimaryKey:
           [
-            "articleNumber"
+              "articleNumber"
           ]
     CBS:
         Class:
           [
-            "CSProducts"
+              "CSProducts"
           ]
         PrimaryKey:
           [
-            "SapCode",
-            "Path"
-          ] 
+              "SapCode",
+              "Path"
+          ]

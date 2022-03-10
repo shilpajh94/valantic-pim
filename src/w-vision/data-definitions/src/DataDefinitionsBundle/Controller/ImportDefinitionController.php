@@ -442,8 +442,28 @@ class ImportDefinitionController extends ResourceController
      */
     public function listPrimaryKeyAction(Request $request)
     {
-        p_r($request);die;
-            return;
+        $className = $request->get('className');
+
+        $buConfig   = $this->getBusinessUnitClassFromConfig();
+      
+        $arrPrimaryKey = [];
+        if (isset($buConfig['config'])) 
+        {
+            foreach ($buConfig['config'] as  $arrClass) 
+            {
+                $configClassName = $arrClass['Class'][0];
+                $arrPrimaryKey[$configClassName] = $arrClass['PrimaryKey'];
+            }
+        }
+
+        $data= array_key_exists($className, $arrPrimaryKey) ? $arrPrimaryKey[$className] : [];
+        foreach ($data as $primaryKeyData) {
+                $fieldArrayTemp = array();
+                $fieldArrayTemp['name'] = $primaryKeyData;
+                $fieldArray[] = $fieldArrayTemp;
+
+            }
+        return $this->json(["data" => $fieldArray]);
 
     }
 
@@ -465,6 +485,7 @@ class ImportDefinitionController extends ResourceController
         if (isset($buConfig['config'])) {
             foreach ($buConfig['config'] as $buClass => $arrClass) {
                 $resultClass[$buClass] = $arrClass['Class'][0];
+                
             }
         }
         foreach ($common_role as $currentRole) {
@@ -478,35 +499,6 @@ class ImportDefinitionController extends ResourceController
     }
         return $importClass;
     }
-
-    /* public function getPrimaryKeyFromBu() 
-    {
-        $importPrimaryKey = [];
-        $user = Admin::getCurrentUser();
-        if (!$user->isAdmin()) 
-        {
-            $common_role = $this->getCommonRoles();
-
-            $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
-            $resultBU       = [];
-            if (isset($rolesConfig['config'])) {
-                foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
-                    $resultBU[$arrRoles['Roles'][0]] = $roleClass;
-                }
-            }
-            $buConfig   = $this->getBusinessUnitClassFromConfig();
-            $arrPrimaryKey = [];
-            if (isset($buConfig['config'])) {
-                foreach ($buConfig['config'] as $buClass => $arrClass) {
-                    $resultClass[$buClass] = $arrClass['Class'][0];
-                }
-            }
-            p_r($resultClass);
-           
-        }
-       // return $importPrimaryKey;
-
-    } */
 
     public function  getBusinessUnitClassFromConfig()
     {
