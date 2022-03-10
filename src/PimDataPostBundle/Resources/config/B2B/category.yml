@@ -2,35 +2,54 @@ parameters:
   Master Table: b2b_category_master
   Temp Table: b2b_category_temp
   Attribute:
-    o_id:
-      fieldName: o_id
+    oo_id:
+      fieldName: oo_id
       tableName: object_2
       tableAttr: true
       attrType: INT(11) NOT NULL
-    PrintedCatalogDescription:
-      fieldName: PrintedCatalogDescription
-      tableName: object_2
-      sendToSF: Name
+    # PrintedCatalogDescription:
+    #   fieldName: PrintedCatalogDescription
+    #   tableName: object_2
+    #   sendToSF: Name
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
+    PrintedCatalogDescription_de:
+      fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_de
+      tableName: object_localized_2_de
+      joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
+      sendToSF: PrintedCatalogDescription
       tableAttr: true
-      attrType: VARCHAR(190) NULL
-    CatalogId:
-      fieldName: CatalogId
+      attrType: VARCHAR(2500) NULL
+    PrintedCatalogDescription_en:
+      fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_en
+      tableName: object_localized_2_en
+      joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
+      sendToSF: PrintedCatalogDescription
+      tableAttr: true
+      attrType: VARCHAR(2500) NULL
+    # CatalogId:
+    #   fieldName: CatalogId
+    #   tableName: object_2
+    #   sendToSF: CatalogId
+    #   tableAttr: false
+    #   attrType: VARCHAR(32) NULL
+    Level:
+      fieldName: Level
       tableName: object_2
-      sendToSF: CatalogId
-      tableAttr: false
-      attrType: VARCHAR(32) NULL
-    ParentCategoryId:
-      fieldName: ParentCategoryId
+      tableAttr: true
+      attrType: VARCHAR(2) NULL
+    o_parentId:
+      fieldName: o_parentId
       tableName: object_2
       sendToSF: ParentCategoryId
       tableAttr: true
       attrType: INT(11) NULL
-    longDescription:
-      fieldName: longDescription
-      tableName: object_2
-      sendToSF: Description
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
+    # longDescription:
+    #   fieldName: longDescription
+    #   tableName: object_2
+    #   sendToSF: Description
+    #   tableAttr: true
+    #   attrType: VARCHAR(255) NULL
     SortOrder:
       fieldName: SortOrder
       tableName: object_2
@@ -42,20 +61,20 @@ parameters:
       tableName: object_2
       sendToSF: IsNavigational
       tableAttr: true
-      attrType: VARCHAR(255) NULL
-    CategoryImage:
-      fieldName: CategoryImage
+      attrType: TINYINT(1) NULL
+    image:
+      fieldName: image
       tableName: object_2
       sendToSF: B2B_Category_Image__c
       tableAttr: true
       attrType: int(11) NULL
       relationalAttr: true
-    externalId:
-      fieldName: externalId
-      tableName: object_2
-      sendToSF: B2B_External_Id__c
-      tableAttr: true
-      attrType: VARCHAR(32) NULL
+    # externalId:
+    #   fieldName: externalId
+    #   tableName: object_2
+    #   sendToSF: B2B_External_Id__c
+    #   tableAttr: true
+    #   attrType: VARCHAR(32) NULL
     basicHash:
       fieldName: basicHash
       tableName: 

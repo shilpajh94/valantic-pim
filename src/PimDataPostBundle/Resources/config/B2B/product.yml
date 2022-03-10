@@ -1455,6 +1455,42 @@ parameters:
       sendToSF: false
       tableAttr: true
       attrType: tinyint(1) NULL
+    SIOPLevel1:
+      fieldName: SIOPLevel1
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
+    SIOPLevel2:
+      fieldName: SIOPLevel2
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
+    SIOPLevel3:
+      fieldName: SIOPLevel3
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
+    SIOPLevel4:
+      fieldName: SIOPLevel4
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
+    SIOPLevel5:
+      fieldName: SIOPLevel5
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
+    SIOPLevel6:
+      fieldName: SIOPLevel6
+      tableName: object_1
+      sendToSF: false
+      tableAttr: true
+      attrType: VARCHAR(11) NULL
     basicHash:
       fieldName: basicHash
       tableName: 

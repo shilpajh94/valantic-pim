@@ -37,65 +37,124 @@ class B2BSalesforceCommand extends AbstractCommand
         
         try {
 
-            // B2B Product Processing
+            // // B2B Product Processing
 
-            $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
-            $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
+            // $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
+            // $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
             
-            // create B2C Temp and Master Table
-            // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
-            // $this->createTempMasterTable($B2CProductAttributesConfig);
+            // // create B2C Temp and Master Table
+            // // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
+            // // $this->createTempMasterTable($B2CProductAttributesConfig);
 
-            // create B2B Temp and Master Table
-            // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
-            $this->createTempMasterTable($B2BProductAttributeConfig);
+            // // create B2B Temp and Master Table
+            // // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
+            // $this->createTempMasterTable($B2BProductAttributeConfig);
             
-            // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
-            $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
+            // // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
+            // $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
 
         
 
-            // get product records using sales master updated records
-            $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
+            // // get product records using sales master updated records
+            // $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
 
-            // get all today's modified product
-            $materialProductIDs = $this->getTodaysProductModifiedRecords();
+            // // get all today's modified product
+            // $materialProductIDs = $this->getTodaysProductModifiedRecords();
 
-            if($salesMaterialProductIDs || $materialProductIDs)
-            {
-                $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
-            }
+            // if($salesMaterialProductIDs || $materialProductIDs)
+            // {
+            //     $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            // }
             
-            if($resultSet)
-            {
-                // loop b2b and b2c array
+            // if($resultSet)
+            // {
+            //     // loop b2b and b2c array
 
-                foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+            //     foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
 
-                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
-                    $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+            //         $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
+            //         $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
 
-                    // prepare sql query and fetch the data from the object table
-                    $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+            //         // prepare sql query and fetch the data from the object table
+            //         $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
 
-                    //create hashes for the records
-                    $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+            //         //create hashes for the records
+            //         $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
 
-                    // insert data in the temp tables
-                    $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+            //         // insert data in the temp tables
+            //         $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
 
-                }
-            }
-            else{
-                echo "\n Modified records not found today.";
-            }
+            //     }
+            // }
+            // else{
+            //     echo "\n Modified records not found today.";
+            // }
 
 
             // B2B Category Processing
 
+            // Part 1
+
             $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
             $B2BCategoryAttributeConfig = $B2BCategoryAttributeConfigProvider->getCompleteConfig();
-            $this->createTempMasterTable($B2BCategoryAttributeConfig);
+            $B2CB2BAttributeArray[]= $B2BCategoryAttributeConfig;
+            // $this->createTempMasterTable($B2BCategoryAttributeConfig);
+
+            // $this->updatePIMCategories();    
+            
+            // Part 2
+            // $allRelationCategories = $this->getAlltheCategoriesFromRelation();
+
+            // if($allRelationCategories)
+            // {
+            //     $categoriesForTemp = [];
+            //     foreach ($allRelationCategories as $categoryId) {
+            //         $categoryData = $this->checkCategoryInCategoryMaster($categoryId);
+            //         if($categoryData)
+            //         {
+            //             if(!$categoryData[$categoryId])
+            //             {
+            //                 $this->updateShowInMenuFlagInPIM($categoryId,$available);
+            //             }   
+            //         }
+            //         else{
+            //             $this->updateShowInMenuFlagInPIM($categoryId,$available);
+            //             $categoriesForTemp[] = $categoryId;
+            //         }
+
+            //     }
+
+            //     if($categoriesForTemp)
+            //     {
+            //         $this->addCategoriesInTemp($categoriesForTemp,$B2CB2BAttributeArray);
+            //     }
+                
+            // }
+
+            // Part 3
+
+            $resultSet = $this->getTodaysCategoryModifiedRecords();
+
+            p_r($resultSet);
+
+            if($resultSet)
+            {
+                $this->addCategoriesInTemp($resultSet, $B2CB2BAttributeArray);
+            }
+
+
+            // p_r($allRelationCategories);
+            
+            // die;
+
+            // $B2CB2BAttributeArray[]= $B2BCategoryAttributeConfig;
+
+            // $resultSet = [30114,30121,30143,30087,31231];
+
+            // if($resultSet)
+            // {
+            //     $this->addCategoriesInTemp($categoriesForTemp,$B2BCategoryAttributeConfig);
+            // }
 
             
         } catch (\Exception $ex) {
@@ -117,6 +176,85 @@ class B2BSalesforceCommand extends AbstractCommand
     //     }
     //     return $array;
     // }
+    
+    public function addCategoriesInTemp($resultSet, $B2CB2BAttributeArray)
+    {
+        if($resultSet)
+        {
+            p_r($B2CB2BAttributeArray);
+            // loop b2b and b2c array
+
+            foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+                echo '1';
+                $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
+                p_r($attribute);
+                $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+
+                // prepare sql query and fetch the data from the object table
+                $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+                p_r($resultSetProductsDetail);
+                //create hashes for the records
+                $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+                p_r($resultSetProductsDetailWithHashData);
+                // insert data in the temp tables
+                $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+
+            }
+        }
+        else{
+            echo "\n Modified records not found today.";
+        }
+    }
+
+    public function updateShowInMenuFlagInPIM($catId, $showInMenu)
+    {
+        $showInMenu = ($showInMenu) ? 1 : 0;
+
+        $hierarchyObj = DataObject\ProductCategory::getById($catId);
+        if($hierarchyObj->getShowInMenu() != $showInMenu)
+        {
+            $hierarchyObj->setShowInMenu($showInMenu);
+            $hierarchyObj->save();  
+        }
+        unset($hierarchyObj);
+    }
+    public function getAlltheCategoriesFromRelation()
+    {
+        echo "\n Fetch all categories from relational table.";
+        $query = "SELECT DISTINCT TRIM(BOTH ',' FROM new_data) AS category_id  FROM b2b_relational_object where attr_name = 'SIOPLevel4'";
+        return $this->db->fetchCol($query);
+    }
+
+    public function updatePIMCategories()
+    {
+        $masterTableCategories = $this->iterateMasterTableCategories();
+
+        if($masterTableCategories)
+        {
+            foreach ($masterTableCategories as $mtcCategoryKey => $mtcCategoryLevelValue) {
+                
+                $isActiveProduct = $this->checkActiveProductInMaster($mtcCategoryKey, $mtcCategoryLevelValue);
+
+                $showInMenu = ($isActiveProduct) ? 1 : 0;
+
+                $hierarchyObj = DataObject\ProductCategory::getById($mtcCategoryKey);
+                if($hierarchyObj->getShowInMenu() != $showInMenu)
+                {
+                    $hierarchyObj->setShowInMenu($showInMenu);
+                    $hierarchyObj->save();  
+                }
+                unset($hierarchyObj);
+                
+            }
+        }
+    }
+
+    public function checkCategoryInCategoryMaster($categoryId)
+    {
+        // $addOnWhereString = " AND TRIM(BOTH ',' FROM  SIOPLevel{$mtcCategoryLevelValue}) = '{$mtcCategoryKey}' ";
+        echo $query = "SELECT oo_id, SortOrder FROM b2b_category_temp where oo_id = {$categoryId}";
+        return $this->db->fetchPairs($query);
+    }
 
     public function getRelationalFields($attribute): Array
     {
@@ -170,6 +308,21 @@ class B2BSalesforceCommand extends AbstractCommand
         return $dataInsert;
     }
 
+    public function iterateMasterTableCategories()
+    {
+        echo "\n Fetching category record.";
+        $query = "SELECT `oo_id`, `Level` FROM b2b_category_temp";
+        return $this->db->fetchPairs($query);
+    }
+
+    public function getTodaysCategoryModifiedRecords()
+    {
+        echo "\n Fetching category modified record.";
+        $query = "SELECT `oo_id` FROM object_2 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
+        // $query = "SELECT `oo_id` FROM object_2 WHERE  DATE(from_unixtime(`o_modificationDate`)) = '2022-03-02';";
+        return $this->db->fetchCol($query);
+    }
+
     public function getTodaysProductModifiedRecords()
     {
         echo "\n Fetching product modified record.";
@@ -195,7 +348,7 @@ class B2BSalesforceCommand extends AbstractCommand
         $secondJoinOnArray = [];
         $joinOnArray = [];
         $joinOnString = "";
-
+        p_r($attribute);
         foreach ($attribute as $value) {
             if($value['hashField'])
             {
@@ -229,7 +382,8 @@ class B2BSalesforceCommand extends AbstractCommand
 
         echo "\n Fetch data.";
 
-        $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
+        $query = "SELECT {$selectString} FROM object_2 {$joinOnString} WHERE object_2.oo_id IN (".$productIds.")";
+        // $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
         return $this->db->fetchAll($query);
     }
 
@@ -237,7 +391,7 @@ class B2BSalesforceCommand extends AbstractCommand
 
         // truncating temp table
         echo "\n Truncating table - {$tempTable}";
-        $sql = "TRUNCATE TABLE {$tempTable}";
+        $sql = "DROP TABLE {$tempTable}";
         $this->db->query($sql);
 
     }
@@ -248,7 +402,7 @@ class B2BSalesforceCommand extends AbstractCommand
         $tempTable = $this->commonHelper->getParameter($AttributesConfig, 'Temp Table');
         $masterTable = $this->commonHelper->getParameter($AttributesConfig, 'Master Table');
 
-        $this->truncateTempTable($tempTable);
+        // $this->truncateTempTable($tempTable);
         $fieldsArray = [];
         $fieldsString = '';
         foreach ($arrData as $key => $value) {
