@@ -7,7 +7,7 @@ class TempMasterTablesMeta
     
     private $masterTableName;
     
-    private $nonRelationalhashColumnName;
+    private $hashColumnName;
 
     private $relationalhashColumnName;
     
@@ -30,7 +30,7 @@ class TempMasterTablesMeta
     
     public function getNonRelationalhashColumnName()
     {
-        return $this->nonRelationalhashColumnName;
+        return $this->hashColumnName;
     }
     
     public function getRelationalhashColumnName()
