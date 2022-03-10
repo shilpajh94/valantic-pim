@@ -20,7 +20,6 @@ class DeltaManagerDao
     public function removeHashNotChangedRecordsFromTempTable()
     {
            
-        $sql = "DELETE FROM ".$this->tempMasterTablesMeta->getTempTableName()." WHERE EXISTS (SELECT o_id FROM ".$this->tempMasterTablesMeta->getMasterTableName()." WHERE ".$this->tempMasterTablesMeta->getTempTableName().".o_id = ".$this->tempMasterTablesMeta->getMasterTableName().".o_id AND ".$this->tempMasterTablesMeta->getTempTableName().".".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." = ".$this->tempMasterTablesMeta->getMasterTableName().".".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." AND ".$this->tempMasterTablesMeta->getTempTableName().".".$this->rel_hash." = ".$this->tempMasterTablesMeta->getMasterTableName().".".$this->rel_hash.")";
         $sql="DELETE t1
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
