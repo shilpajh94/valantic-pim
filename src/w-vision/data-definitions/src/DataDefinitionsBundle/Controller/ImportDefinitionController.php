@@ -28,16 +28,16 @@ use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
 use CoreShop\Component\Resource\Model\ResourceInterface;
 use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+use Pimcore\Model\Search\Backend\Data;
+use Symfony\Component\Routing\Annotation\Route;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
 use AppBundle\Tool\Utils;
 use Pimcore\Model\User\Role;
 use Pimcore\Tool\Admin;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 
-
-
 class ImportDefinitionController extends ResourceController
 {
-
     /**
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -52,7 +52,6 @@ class ImportDefinitionController extends ResourceController
         $runners = $this->getConfigRunners();
         $importRuleConditions = $this->getImportRuleConditions();
         $importRuleActions = $this->getImportRuleActions();
-
         return $this->viewHandler->handle([
             'providers' => array_keys($providers),
             'loaders' => array_keys($loaders),
@@ -67,8 +66,6 @@ class ImportDefinitionController extends ResourceController
             ]
         ]);
     }
-
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -80,7 +77,6 @@ class ImportDefinitionController extends ResourceController
             $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile']);
             if ($result) {
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $commonHelperObject->getConfig('tmp_template_upload_pimcore_dir');
-
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
                 try {
                     $asset = $commonHelperObject->addFileInAsset($uploadedFilePath, $request->get('definitionName'));
@@ -100,11 +96,8 @@ class ImportDefinitionController extends ResourceController
             DataImportLogger::log("Error reading uploaded file ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
-
         return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName']]);
     }
-
-
     /**
      * @param Request $request
      * @return mixed
@@ -113,7 +106,6 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
-
         if ($definition instanceof ImportDefinitionInterface) {
             try {
                 if ($this->get('data_definitions.registry.provider')->get($definition->getProvider())->testData($definition->getConfiguration())) {
@@ -123,10 +115,8 @@ class ImportDefinitionController extends ResourceController
                 return $this->viewHandler->handle(['success' => false, 'message' => $ex->getMessage()]);
             }
         }
-
         return $this->viewHandler->handle(['success' => false]);
     }
-
     /**
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
@@ -136,32 +126,26 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
-
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
             $customFromColumn = new FromColumn();
             $customFromColumn->setIdentifier('custom');
             $customFromColumn->setLabel('Custom');
-
             try {
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
                 $fromColumns[] = $customFromColumn;
             } catch (\Exception $e) {
                 $fromColumns = [];
             }
-
             $classDefinition = DataObject\ClassDefinition::getByName($definition->getClass());
-
             if (!$classDefinition) {
                 throw new NotFoundHttpException();
             }
-
             $toColumns = $this->get(FieldSelection::class)->getClassDefinition($classDefinition);
             $mappings = $definition->getMapping();
             $mappingDefinition = [];
             $fromColumnsResult = [];
             $bricks = [];
             $collections = [];
-
             foreach ($classDefinition->getFieldDefinitions() as $field) {
                 if ($field instanceof DataObject\ClassDefinition\Data\Objectbricks) {
                     $bricks[$field->getName()] = $field->getAllowedTypes();
@@ -169,23 +153,17 @@ class ImportDefinitionController extends ResourceController
                     $collections[$field->getName()] = $field->getAllowedTypes();
                 }
             }
-
             foreach ($fromColumns as $fromColumn) {
                 $fromColumn = get_object_vars($fromColumn);
-
                 $fromColumn['id'] = $fromColumn['identifier'];
-
                 $fromColumnsResult[] = $fromColumn;
             }
-
             foreach ($toColumns as $classToColumn) {
                 $found = false;
-
                 if (\is_array($mappings)) {
                     foreach ($mappings as $mapping) {
                         if ($mapping->getToColumn() === $classToColumn->getIdentifier()) {
                             $found = true;
-
                             $mappingDefinition[] = [
                                 'fromColumn' => $mapping->getFromColumn(),
                                 'toColumn' => $mapping->getToColumn(),
@@ -195,12 +173,10 @@ class ImportDefinitionController extends ResourceController
                                 'interpreter' => $mapping->getInterpreter(),
                                 'interpreterConfig' => $mapping->getInterpreterConfig(),
                             ];
-
                             break;
                         }
                     }
                 }
-
                 if (!$found) {
                     $mappingDefinition[] = [
                         'identifier' => null,
@@ -215,7 +191,6 @@ class ImportDefinitionController extends ResourceController
                     ];
                 }
             }
-
             return $this->viewHandler->handle([
                 'success' => true,
                 'mapping' => $mappingDefinition,
@@ -225,10 +200,8 @@ class ImportDefinitionController extends ResourceController
                 'fieldcollections' => $collections,
             ]);
         }
-
         return $this->viewHandler->handle(['success' => false]);
     }
-
     /**
      * @param Request $request
      * @return Response
@@ -236,15 +209,11 @@ class ImportDefinitionController extends ResourceController
     public function exportAction(Request $request): Response
     {
         $id = (int)$request->get('id');
-
         if ($id) {
             $definition = $this->repository->find($id);
-
             if ($definition instanceof ImportDefinitionInterface) {
-
                 $name = $definition->getName();
                 unset($definition->id, $definition->creationDate, $definition->modificationDate);
-
                 $response = new Response();
                 $response->headers->set('Content-Type', 'application/json');
                 $response->headers->set(
@@ -254,16 +223,12 @@ class ImportDefinitionController extends ResourceController
                 $response->headers->set('Pragma', 'no-cache');
                 $response->headers->set('Expires', '0');
                 $response->headers->set('Content-Transfer-Encoding', 'binary');
-
                 $response->setContent(json_encode($definition));
-
                 return $response;
             }
         }
-
         throw new NotFoundHttpException();
     }
-
     /**
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
@@ -272,31 +237,23 @@ class ImportDefinitionController extends ResourceController
     {
         $id = (int)$request->get('id');
         $definition = $this->repository->find($id);
-
         if ($id && $definition instanceof ImportDefinitionInterface && $request->files->has('Filedata')) {
             $uploadedFile = $request->files->get('Filedata');
-
             if ($uploadedFile instanceof UploadedFile) {
                 $jsonContent = file_get_contents($uploadedFile->getPathname());
                 $data = $this->decodeJson($jsonContent, false);
-
                 $form = $this->resourceFormFactory->create($this->metadata, $definition);
                 $handledForm = $form->submit($data);
-
                 if ($handledForm->isValid()) {
                     $definition = $form->getData();
-
                     $this->manager->persist($definition);
                     $this->manager->flush();
-
                     return $this->viewHandler->handle(['success' => true]);
                 }
             }
         }
-
         return $this->viewHandler->handle(['success' => false]);
     }
-
     /**
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
@@ -306,21 +263,16 @@ class ImportDefinitionController extends ResourceController
         $id = (int)$request->get('id');
         $definition = $this->repository->find($id);
         $name = (string)$request->get('name');
-
         if ($definition instanceof ImportDefinitionInterface && $name) {
             $newDefinition = clone $definition;
             $newDefinition->setId(null);
             $newDefinition->setName($name);
-
             $this->manager->persist($newDefinition);
             $this->manager->flush();
-
             return $this->viewHandler->handle(['success' => true, 'data' => $newDefinition]);
         }
-
         return $this->viewHandler->handle(['success' => false]);
     }
-
     /**
      * @return array
      */
@@ -328,7 +280,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.import_providers');
     }
-
     /**
      * @return array
      */
@@ -336,7 +287,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.loaders');
     }
-
     /**
      * @return array
      */
@@ -344,7 +294,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.interpreters');
     }
-
     /**
      * @return array
      */
@@ -352,7 +301,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.cleaners');
     }
-
     /**
      * @return array
      */
@@ -360,7 +308,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.setters');
     }
-
     /**
      * @return array
      */
@@ -368,7 +315,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.filters');
     }
-
     /**
      * @return array
      */
@@ -376,7 +322,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.runners');
     }
-
     /**
      * @return array
      */
@@ -384,7 +329,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.import_rule.conditions');
     }
-
     /**
      * @return array
      */
@@ -392,7 +336,6 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.import_rule.actions');
     }
-
     /**
      * @param Request $request
      */
@@ -401,7 +344,6 @@ class ImportDefinitionController extends ResourceController
         $requiredClass  = $this->importDefClass();
         $classesList    =  DataObject\ClassDefinition::getByName($requiredClass);
         if (!empty($classesList)) {
-
             $fieldArray = array();
             $fieldArrayTemp = array();
             $fieldArrayTemp['id'] = $classesList->getId();
@@ -411,17 +353,13 @@ class ImportDefinitionController extends ResourceController
             $adminClass = $this->getBusinessUnitClassFromConfig();
             $adminClasses = $adminClass['config'];
             $adminClassesList = new DataObject\ClassDefinition\Listing();
-
             foreach ($adminClasses as $classForAdmin) {
                 $conditionArray[] =  'name = ' . $adminClassesList->quote($classForAdmin['Class'][0]);
             }
-
             $adminClassesList->setCondition(implode(" OR ", $conditionArray));
             $adminClassesList->setOrderKey('name');
             $adminClassesList->setOrder('asc');
-
             $classes = $adminClassesList->load();
-
             $fieldArray = array();
             foreach ($classes as $class) {
                 $fieldArrayTemp = array();
@@ -431,16 +369,13 @@ class ImportDefinitionController extends ResourceController
         }
         return $this->json(["data" => $fieldArray]);
     }
-
     /**
      * @param Request $request
      */
     public function listPrimaryKeyAction(Request $request)
     {
         $className = $request->get('className');
-
         $buConfig   = $this->getBusinessUnitClassFromConfig();
-
         $arrPrimaryKey = [];
         if (isset($buConfig['config'])) {
             foreach ($buConfig['config'] as  $arrClass) {
@@ -448,7 +383,6 @@ class ImportDefinitionController extends ResourceController
                 $arrPrimaryKey[$configClassName] = $arrClass['PrimaryKey'];
             }
         }
-
         $data = array_key_exists($className, $arrPrimaryKey) ? $arrPrimaryKey[$className] : [];
         foreach ($data as $primaryKeyData) {
             $fieldArrayTemp = array();
@@ -457,13 +391,11 @@ class ImportDefinitionController extends ResourceController
         }
         return $this->json(["data" => $fieldArray]);
     }
-
     public function importDefClass()
     {
         $user = Admin::getCurrentUser();
         if (!$user->isAdmin()) {
             $common_role = $this->getCommonRoles();
-
             $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
             $resultBU       = [];
             if (isset($rolesConfig['config'])) {
@@ -471,12 +403,12 @@ class ImportDefinitionController extends ResourceController
                     $resultBU[$arrRoles['Roles'][0]] = $roleClass;
                 }
             }
-        }
-        $buConfig   = $this->getBusinessUnitClassFromConfig();
-        $resultClass = [];
-        if (isset($buConfig['config'])) {
-            foreach ($buConfig['config'] as $buClass => $arrClass) {
-                $resultClass[$buClass] = $arrClass['Class'][0];
+            $buConfig   = $this->getBusinessUnitClassFromConfig();
+            $resultClass = [];
+            if (isset($buConfig['config'])) {
+                foreach ($buConfig['config'] as $buClass => $arrClass) {
+                    $resultClass[$buClass] = $arrClass['Class'][0];
+                }
             }
             foreach ($common_role as $currentRole) {
                 if (array_key_exists($currentRole, $resultBU)) {
@@ -489,7 +421,6 @@ class ImportDefinitionController extends ResourceController
         }
         return $importClass;
     }
-
     public function  getBusinessUnitClassFromConfig()
     {
         $yamlFilePath = Constants::DATA_DEFINITION_BU_CLASS;
@@ -519,6 +450,32 @@ class ImportDefinitionController extends ResourceController
             }
             return $class;
         }
+    }
+    public function getCommonRoles()
+    {
+        $role_array = [];
+        $roles = $this->getRoleFromConfg();
+        foreach ($roles as $role_id) {
+            $role_array[] = $role_id[0];
+        }
+        $user = Admin::getCurrentUser();
+        if (!$user->isAdmin()) {
+            $userRole = $this->getAdminUser()->getRoles();
+            if ($userRole) {
+                foreach ($userRole  as $role_id) {
+                    $role = Role::getById($role_id);
+                    if ($role) {
+                        $user_roles[] = ['name' => $role->getName()];
+                    }
+                }
+                $current_user_roles = [];
+                foreach ($user_roles as $role) {
+                    $current_user_roles[] = $role['name'];
+                }
+            }
+            $common_roles = array_intersect($current_user_roles, $role_array);
+        }
+        return $common_roles;
     }
 
     /*
@@ -559,33 +516,5 @@ class ImportDefinitionController extends ResourceController
 
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
         }
-    }
-
-
-    public function getCommonRoles()
-    {
-        $role_array = [];
-        $roles = $this->getRoleFromConfg();
-        foreach ($roles as $role_id) {
-            $role_array[] = $role_id[0];
-        }
-        $user = Admin::getCurrentUser();
-        if (!$user->isAdmin()) {
-            $userRole = $this->getAdminUser()->getRoles();
-            if ($userRole) {
-                foreach ($userRole  as $role_id) {
-                    $role = Role::getById($role_id);
-                    if ($role) {
-                        $user_roles[] = ['name' => $role->getName()];
-                    }
-                }
-                $current_user_roles = [];
-                foreach ($user_roles as $role) {
-                    $current_user_roles[] = $role['name'];
-                }
-            }
-            $common_roles = array_intersect($current_user_roles, $role_array);
-        }
-        return $common_roles;
     }
 }
