@@ -25,32 +25,31 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
 
     providers: [],
 
-    /*  getPrimaryKey: function (className) {
-     let primaryKeyStore = new Ext.data.JsonStore({
-        proxy: {
-            type: 'ajax',
-            url: '/admin/data_definitions/import_definitions/listPrimaryKey',
-            method: 'POST',
-            extraParams: {
-                //className: this.value,
-                className: className,
+    getPrimaryKey: function (className) {
+        let primaryKeyStore = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listPrimaryKey',
+                method: 'POST',
+                extraParams: {
+                    className: className,
 
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
             },
-            reader: {
-                type: 'json',
-                rootProperty: 'data'
-            }
-        },
-        fields: ["name"],
+            fields: ["name"],
 
-        sorters: [{
-            property: 'name',
-            direction: 'ASC'
-        }]
-    });
-        // window.className='tehreem';
-        primaryKeyStore.load();
-},   */
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+
+        return primaryKeyStore.load();
+    },
 
 
 
@@ -83,7 +82,6 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 direction: 'ASC'
             }]
         });
-        classesStore.load();
 
 
         let PrimaryKeyStore = new Ext.data.JsonStore({
@@ -108,6 +106,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
         });
         PrimaryKeyStore.load();
         // var PrimaryKeyStore = [];
+        classesStore.load();
+
 
         this.configForm = new Ext.form.Panel({
             bodyStyle: 'padding:10px;',
@@ -194,23 +194,15 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     value: this.class,
                     listeners: {
                         change: function (data) {
-                            //alert(this.value);
-                            //console.log(data);
-                            // this.getPrimaryKey(this.value);
-
-
-                            Ext.getCmp('PrimaryKey').setReadOnly(false);
-
-
-                        }
+                            this.configForm.getForm().findField('PrimaryKey').setStore(this.getPrimaryKey(data.value));
+                            this.configForm.getForm().findField('PrimaryKey').setReadOnly(false);
+                        }.bind(this)
                     },
                 },
                 {
                     xtype: 'combo',
                     fieldLabel: t('Primary Key'),
                     name: 'PrimaryKey',
-                    id: 'PrimaryKey',
-                    store: PrimaryKeyStore,
                     queryMode: 'local',
                     editable: true,
                     allowBlank: false,
@@ -221,8 +213,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
-                    value: this.PrimaryKey,
-                    readOnly: true
+                    readOnly: true,
                 },
                 {
                     xtype: 'textfield',
