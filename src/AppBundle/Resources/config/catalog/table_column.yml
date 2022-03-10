@@ -1099,6 +1099,21 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            coverCharacteristic:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            staticWireType:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire Type
+                fieldType: Select
+                parent:
+                    name: HoseBase
             staticWire:
                 fieldLevel: objectBrick
                 fieldLabel: Static Wire
