@@ -452,7 +452,7 @@ class ImportDefinitionController extends ResourceController
             $isProductClass = true;
             foreach($importLevels as $importType) {
                 $importTypeArray = array();
-                $importTypeArray['importLevel'] = $importType;
+                $importTypeArray['name'] = $importType;
                 $importLevelData[] = $importTypeArray;
             }
         }

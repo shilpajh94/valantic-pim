@@ -25,7 +25,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
 
     providers: [],
 
-     getPrimaryKey: function (className) {
+     getPrimaryKey: function (className,key) {
      let primaryKeyStore = new Ext.data.JsonStore({
         proxy: {
             type: 'ajax',
@@ -37,7 +37,9 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             },
             reader: {
                 type: 'json',
-                rootProperty: 'data.primaryKeyData'
+              //  rootProperty: 'data.primaryKeyData'
+                rootProperty: 'data.'+key
+
             }
         },
         fields: ["name"],
@@ -162,9 +164,13 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     value: this.class,
                     listeners: {
                         change: function (data) {
-                            this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value));
+                            this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value,'primaryKeyData'));
                             this.configForm.getForm().findField('primaryKey').setReadOnly(false);
-                            this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value));
+                            this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value,'importLevelData'));
+                            this.configForm.getForm().findField('importLevel').setReadOnly(false);
+                           // this.configForm.getForm().findField('importLevel').sethidden(false);
+
+
                         }.bind(this)
                     },
                 },
@@ -182,7 +188,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
-                    //readOnly:true,
+                    readOnly:true,
+                   // hidden: true
                 },
                 {
                     xtype: 'combo',
