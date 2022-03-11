@@ -211,9 +211,9 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             modal: true,
             items: [this.wizardForm],
             buttons: [{
-                    text: t("Import Start"),
+                    text: t("Start Import"),
                     iconCls: "pimcore_icon_accept",
-                    //handler: this.saveWizard.bind(this)
+                    handler: this.saveWizard.bind(this)
                 }]
         });
         return wizardWindow;
@@ -224,64 +224,58 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
  
         var typesColumns = [
             {
-                text: t("dHub_id"),
+                text: t("data_definition_import_id"),
                 sortable: true,
                 hidden: true,
                 dataIndex: 'id'
             },
             {
-                text: t("dHub_name"),
+                text: t("data_definition_import_name"),
                 width: 140,
                 sortable: true,
                 dataIndex: 'name'
             },
             {
-                text: t("dHub_download_file_name"),
+                text: t("data_definition_log_file"),
                 width: 150,
                 sortable: true,
-                dataIndex: 'download_file_name'
+                dataIndex: 'log_file_name'
             },
             {
-                text: t("dHub_export_date"),
-                width: 130,
-                sortable: true,
-                dataIndex: "export_date"
-            },
-            {
-                text: t("dHub_export_status"),
+                text: t("data_definition_import_status"),
                 width: 100,
                 sortable: true,
-                dataIndex: 'export_status'
+                dataIndex: 'import_status'
 
             },
             {
-                text: t("dHub_creation_date"),
+                text: t("data_definition_creation_date"),
                 width: 130,
                 sortable: true,
                 dataIndex: "creation_date"
 
             },
             {
-                text: t("dHub_process_start_time"),
+                text: t("data_definition_process_start_time"),
                 width: 130,
                 sortable: true,
                 dataIndex: "process_start_time"
 
             },
             {
-                text: t("dHub_process_end_time"),
+                text: t("data_definition_process_end_time"),
                 width: 130,
                 sortable: true,
                 dataIndex: "process_end_time"
 
             },
             {
-                text: t('dHub_file_download_column_header'),
+                text: t('data_definition_download_log_file'),
                 xtype: 'actioncolumn',
-                dataIndex: 'exportFilePimcoreAssetId',
+                dataIndex: 'importFilePimcoreAssetId',
                 width: 120,
                 renderer: function (value, metadata, record, rowIndex, colIndex, store, view) {
-                    if (record.get('exportFilePimcoreAssetId') == null) {
+                    if (record.get('importFilePimcoreAssetId') == null) {
                         this.items[0].icon = "";
                         metadata.style = 'cursor: pointer;';
                     } else {
@@ -293,10 +287,10 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 items: [{
                         icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
                         handler: function (grid, rowIndex, param, button, ) {
-                            let exportFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportFilePimcoreAssetId;
+                            let importFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().importFilePimcoreAssetId;
                             
-                            if (exportFilePimcoreAssetId) {
-                                pimcore.helpers.download("/admin/asset/download?id=" + exportFilePimcoreAssetId);
+                            if (importFilePimcoreAssetId) {
+                                pimcore.helpers.download("/admin/asset/download?id=" + importFilePimcoreAssetId);
                             }
                         }.bind(this)
                     }]
@@ -364,64 +358,39 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         });
         automap.grid.getView().refresh();
     },
-    save: function (callback) {
-        var me = this,
-            data;
 
-        if (this.isValid()) {
-            var saveData = this.getSaveData();
-
-            saveData['id'] = this.data.id;
-            saveData = this.convertDotNotationToObject(saveData);
-
-            if (saveData.hasOwnProperty('stores')) {
-                var stores = [];
-
-                saveData.stores.forEach(function (store) {
-                    stores.push(store + "");
-                });
-
-                saveData.stores = stores;
-            }
-
-            Ext.Ajax.request({
-                url: this.url.save,
-                method: 'post',
-                jsonData: saveData,
-                success: function (response) {
-                    try {
-                        if (this.parentPanel.store) {
-                            this.parentPanel.store.load();
-                        }
-
-                        this.parentPanel.refresh();
-
-                        var res = Ext.decode(response.responseText);
-
-                        this.postSave(res);
-
-                        if (Ext.isFunction(callback)) {
-                            callback(res);
-                        }
-
-                        if (res.success) {
-                            pimcore.helpers.showNotification(t('success'), t('coreshop_save_success'), 'success');
-
-                            this.data = res.data;
-
-                            this.panel.setTitle(this.getTitleText());
-                        } else {
-                            pimcore.helpers.showNotification(t('error'), t('coreshop_save_error'),
-                                'error', res.message);
-                        }
-                    } catch (e) {
-                        pimcore.helpers.showNotification(t('error'), t('coreshop_save_error'), 'error');
-                    }
-                }.bind(this)
-            });
-        }
-    },
     isValid: function () {
-        return false;
-    },    
+        return true;
+    },  
+
+    saveWizard: function () {
+
+        let form = this.wizardForm;
+        let outerScope = this;
+        let values = form.getForm().getFieldValues();
+        if (form.isValid()) {
+
+            form.submit({
+                url: '/admin/data_definitions/import_definitions/data-definition-import',
+                method: 'POST',
+                waitMsg: t('data_definition_import_processing'),
+                params: {
+                    importDefinitionId: this.data.id
+                },
+                success: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+                    outerScope.grid.store.insert(0, response);
+                },
+                failure: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+
+                    Ext.MessageBox.alert(t('data_failure'), response.msg);
+                }
+            });
+ 
+            this.wizardWindow.hide();
+        }
+    }
 });

@@ -15,6 +15,7 @@
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Controller;
 
+use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use CoreShop\Bundle\ResourceBundle\Controller\ResourceController;
 use Pimcore\Model\DataObject;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,6 +32,12 @@ use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
 use AppBundle\Tool\Utils;
 use Pimcore\Model\User\Role;
 use Pimcore\Tool\Admin;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
+use Pimcore\Model\Asset;
+use Wvision\Bundle\DataDefinitionsBundle\Helper\ImportHelper as importHelper;
+
 
 
 class ImportDefinitionController extends ResourceController
@@ -521,9 +528,9 @@ class ImportDefinitionController extends ResourceController
 
         $name = $request->get('name');
 
-        $loadConfigarray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
-        foreach ($loadConfigarray as $perconfig) {
-            $existname[] = strtolower($perconfig['name']);
+        $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
+        foreach ($configArray as $perConfig) {
+            $existname[] = strtolower($perConfig['name']);
         }
         $alreadyTakenName =  in_array(strtolower($name), $existname);
 
@@ -550,4 +557,92 @@ class ImportDefinitionController extends ResourceController
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
         }
     }
+
+    // fucntion to start data definition import
+    public function dataDefinitionImportAction(Request $request)
+    {
+        $commonHelperObject = new commonHelper();
+        $name               = $request->get('name');
+        $importDefinitionId = $request->get('importDefinitionId'); 
+
+        /**
+         * checking if the import definition exist
+         */
+        $importDefinition = null;
+        if ($importDefinitionId) {
+            $importDefinition = ImportDefinition::getById($importDefinitionId);
+        }
+        
+        if (!$importDefinition) {
+            DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ScheduleController saveScheduleAction .", DataImportLogger::INFO);
+            $msg = $this->trans('data_definition_not_found_relaod_admin');
+            return $this->json(['success' => false,'msg' => $msg]);
+        }
+
+        // get the config details to get the file path
+        $configArray        = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
+        $currentDefinition  = $configArray[$importDefinitionId];
+        $definitionName     = $currentDefinition['name'];
+        $fileName           = $definitionName . "-" . $currentDefinition['configuration']['csvFile'];
+        $filePath           = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $fileName;
+        $asset              = Asset::getByPath($filePath);
+        $fullPath           = $asset->getFileSystemPath();
+        $importFilePimcoreAssetId   = $asset->getId();
+
+        //$shellCmd           = shell_exec(PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"{\"file\": \"$fullPath\"}\"");
+        
+        // insert the record into the data definition import
+        $dataImport  = new DataDefinitionImport();
+        $dataImport->setName($name);
+        $dataImport->setStatus(Constants::SCHEDULE_STATUS_CREATED);
+        $dataImport->setImportFileName($fileName);
+        $dataImport->setImportFilePimcoreAssetId($importFilePimcoreAssetId);
+        $dataImport->setImportProcessStartTime(new \DateTime());
+        $dataImport->setImportDefinition($importDefinition);
+        $dataImport->setCreationDate(new \DateTime());
+
+        $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $dataImport->setUserOwner($user->getId());
+
+        try {
+            $dataImport->save();
+        } catch (NotNullConstraintViolationException $exception) {
+            DataImportLogger::log("Error saving schedule: ".$exception->getMessage(), DataImportLogger::CRITICAL);
+
+            $msg = $this->trans('data_definition_mandatory_field_check_failed');
+            return $this->json(['success' => false, 'msg' => $msg]);
+        } catch (\Exception $exception) {
+            DataImportLogger::log("Error saving schedule: ".$exception->getMessage(), DataImportLogger::CRITICAL);
+            return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
+        }
+
+        // return last inserted row
+        $importHelperObject = new importHelper();
+        $data = $importHelperObject->buildScheduleForGrid($dataImport);
+        $data['success'] = true;
+        
+        return $this->json($data);
+    }
+
+    // function to list data definition import
+    public function listDataDefinitionImport(Request $request)
+    {
+        $importDefinitionId = $request->get('importDefinitionId');
+
+        $list = new DataDefinitionImport\Listing();
+        $condition = "importDefinitionId = ".$importDefinitionId." AND status != ".$list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
+        $list->setCondition($condition);
+        $list->setOrderKey("creationDate");
+        $list->setOrder("DESC");
+        $list->load();
+
+        $data = [];
+        foreach ($list->getItems() as $schedule) {
+            //$tmp = $scheduleService->buildScheduleForGrid($schedule);
+            $tmp = [];
+            $data[] = $tmp;
+        }
+
+        return $this->json(['success'=> true, 'data' => $data]);
+    }    
 }
