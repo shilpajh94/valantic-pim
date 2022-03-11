@@ -378,17 +378,15 @@ class ImportDefinitionController extends ResourceController
      */
     public function listPrimaryKeyAction(Request $request)
     {
-        $isProductClass = false;
         $className      = $request->get('className');
         $buConfig       = $this->getBusinessUnitClassFromConfig();
 
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
         if ($className == 'Product') {
-            $isProductClass = true;
             foreach ($importLevels as $importType) {
                 $importTypeArray = array();
-                $importTypeArray['importLevel'] = $importType;
+                $importTypeArray['name'] = $importType;
                 $importLevelData[] = $importTypeArray;
             }
         }
@@ -409,7 +407,7 @@ class ImportDefinitionController extends ResourceController
             $primaryKeyData[] = $fieldArrayTemp;
         }
 
-        $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData, 'isProductClass' => $isProductClass];
+        $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData];
         return $this->json(["data" => $data]);
     }
     public function importDefClass()

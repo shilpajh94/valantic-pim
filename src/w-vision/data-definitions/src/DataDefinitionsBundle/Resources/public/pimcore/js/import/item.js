@@ -25,7 +25,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
 
     providers: [],
 
-    getPrimaryKey: function (className) {
+    getPrimaryKey: function (className,key) {
         let primaryKeyStore = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -37,17 +37,18 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 reader: {
                     type: 'json',
-                    rootProperty: 'data.primaryKeyData'
+                    rootProperty: 'data.'+key
                 }
             },
-            fields: ["name"],
+            
+        fields: ["name"],
 
-            sorters: [{
-                property: 'name',
-                direction: 'ASC'
-            }]
-        });
-
+        sorters: [{
+            property: 'name',
+            direction: 'ASC'
+        }]
+    });
+        
         return primaryKeyStore.load();
     },
 
@@ -194,19 +195,33 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     value: this.class,
                     listeners: {
                         change: function (data) {
-                            this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value));
+                            this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value,'primaryKeyData'));
                             this.configForm.getForm().findField('primaryKey').setReadOnly(false);
-                            this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value));
+
+                            if(data.value=='Product')
+                            {
+                                this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value,'importLevelData'));
+                                this.configForm.getForm().findField('importLevel').setReadOnly(false);
+                                this.configForm.getForm().findField('importLevel').allowBlank = false;
+                                this.configForm.getForm().findField('importLevel').show();
+                            }
+                            else
+                            {
+                                this.configForm.getForm().findField('importLevel').allowBlank = true;
+                                this.configForm.getForm().findField('importLevel').hide();
+                               // this.configForm.getForm().findField('importLevel').remove();
+                            }
+
                         }.bind(this)
                     },
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('Import Levels'),
+                    fieldLabel: t('Import Levels') + ' <span style="color:red;">*</span>',
                     name: 'importLevel',
                     queryMode: 'local',
                     editable: true,
-                    allowBlank: false,
+                    allowBlank: true,
                     blankText: 'Field is required',
                     forceSelection: true,
                     msgTarget: 'under',
@@ -214,7 +229,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
-                    //readOnly:true,
+                    readOnly:true,
+                    hidden: true
                 },
                 {
                     xtype: 'combo',
