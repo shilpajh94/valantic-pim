@@ -37,7 +37,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 reader: {
                     type: 'json',
-                    rootProperty: 'data'
+                    rootProperty: 'data.primaryKeyData'
                 }
             },
             fields: ["name"],
@@ -194,15 +194,32 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     value: this.class,
                     listeners: {
                         change: function (data) {
-                            this.configForm.getForm().findField('PrimaryKey').setStore(this.getPrimaryKey(data.value));
-                            this.configForm.getForm().findField('PrimaryKey').setReadOnly(false);
+                            this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value));
+                            this.configForm.getForm().findField('primaryKey').setReadOnly(false);
+                            this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value));
                         }.bind(this)
                     },
                 },
                 {
                     xtype: 'combo',
+                    fieldLabel: t('Import Levels'),
+                    name: 'importLevel',
+                    queryMode: 'local',
+                    editable: true,
+                    allowBlank: false,
+                    blankText: 'Field is required',
+                    forceSelection: true,
+                    msgTarget: 'under',
+                    displayField: 'name',
+                    valueField: 'name',
+                    width: 500,
+                    labelWidth: 200,
+                    //readOnly:true,
+                },
+                {
+                    xtype: 'combo',
                     fieldLabel: t('Primary Key'),
-                    name: 'PrimaryKey',
+                    name: 'primaryKey',
                     queryMode: 'local',
                     editable: true,
                     allowBlank: false,

@@ -374,8 +374,21 @@ class ImportDefinitionController extends ResourceController
      */
     public function listPrimaryKeyAction(Request $request)
     {
-        $className = $request->get('className');
-        $buConfig   = $this->getBusinessUnitClassFromConfig();
+        $isProductClass = false;
+        $className      = $request->get('className');
+        $buConfig       = $this->getBusinessUnitClassFromConfig();
+
+        $importLevelData   = [];
+        $importLevels      = $this->getImportLevels();
+        if ($className == 'Product') {
+            $isProductClass = true;
+            foreach ($importLevels as $importType) {
+                $importTypeArray = array();
+                $importTypeArray['importLevel'] = $importType;
+                $importLevelData[] = $importTypeArray;
+            }
+        }
+
         $arrPrimaryKey = [];
         if (isset($buConfig['config'])) {
             foreach ($buConfig['config'] as  $arrClass) {
@@ -383,13 +396,17 @@ class ImportDefinitionController extends ResourceController
                 $arrPrimaryKey[$configClassName] = $arrClass['PrimaryKey'];
             }
         }
-        $data = array_key_exists($className, $arrPrimaryKey) ? $arrPrimaryKey[$className] : [];
-        foreach ($data as $primaryKeyData) {
+
+        $primaryKeyData = [];
+        $primaryKeyConfigData = array_key_exists($className, $arrPrimaryKey) ? $arrPrimaryKey[$className] : [];
+        foreach ($primaryKeyConfigData as $primaryKey) {
             $fieldArrayTemp = array();
-            $fieldArrayTemp['name'] = $primaryKeyData;
-            $fieldArray[] = $fieldArrayTemp;
+            $fieldArrayTemp['name'] = $primaryKey;
+            $primaryKeyData[] = $fieldArrayTemp;
         }
-        return $this->json(["data" => $fieldArray]);
+
+        $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData, 'isProductClass' => $isProductClass];
+        return $this->json(["data" => $data]);
     }
     public function importDefClass()
     {
@@ -450,6 +467,22 @@ class ImportDefinitionController extends ResourceController
             }
             return $class;
         }
+    }
+
+    public function getImportLevels()
+    {
+        $buConfig   = $this->getBusinessUnitClassFromConfig();
+        $resultClass = [];
+        if (isset($buConfig['config'])) {
+            foreach ($buConfig['config'] as $buClass => $arrLevels) {
+                $resultImportLevels[] = $arrLevels['PRODUCT_TYPE'];
+            }
+        }
+        $importLevel = $resultImportLevels[0];
+
+        // p_r($importLevels);
+        //  p_r($resultImportLevels[0]);
+        return $importLevel;
     }
     public function getCommonRoles()
     {
