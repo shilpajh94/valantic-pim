@@ -2,6 +2,10 @@ Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition:
     exclusion_policy: ALL
     xml_root_name: import_definition
     properties:
+        PrimaryKey:
+            expose: true
+            type: string
+            groups: [Detailed]
         loader:
             expose: true
             type: string

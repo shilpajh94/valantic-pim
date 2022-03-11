@@ -19,6 +19,16 @@ interface ImportDefinitionInterface extends DataDefinitionInterface
     /**
      * @return mixed
      */
+    public function getPrimaryKey();
+
+    /**
+     * @param string $PrimaryKey
+     */
+    public function setPrimaryKey($PrimaryKey);
+
+    /**
+     * @return mixed
+     */
     public function getLoader();
 
     /**
