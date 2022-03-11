@@ -141,6 +141,11 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             }
         });
 
+        // set saved value in file upload field
+        if (this.data.csvFile) {
+            this.fileUploadField.setRawValue(this.data.csvFile);
+        }
+
         this.fileUploadForm = Ext.create('Ext.form.Panel', {
             layout: 'hbox',
             items: [this.fileUploadField, this.openAssetButton],
