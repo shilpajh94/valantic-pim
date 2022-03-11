@@ -84,6 +84,7 @@ class ImportDefinitionController extends ResourceController
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
                 try {
                     $asset = $commonHelperObject->addFileInAsset($uploadedFilePath, $request->get('definitionName'));
+                    $fileId = $asset->getId();
                 } catch (\Exception $exception) {
                     DataImportLogger::log("Error creating asset for uploaded file in ImportDefinitionController save:" . $exception->getMessage(), DataImportLogger::CRITICAL);
                     $msg = $this->trans("data_error_saving");
@@ -100,7 +101,7 @@ class ImportDefinitionController extends ResourceController
             DataImportLogger::log("Error reading uploaded file ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
-        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName']]);
+        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName'], 'fileId' => $fileId]);
     }
     /**
      * @param Request $request
