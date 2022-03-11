@@ -131,10 +131,12 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
+        $primaryKeyValue = $definition->getPrimaryKey();
+       
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
             $customFromColumn = new FromColumn();
-            $customFromColumn->setIdentifier('custom');
-            $customFromColumn->setLabel('Custom');
+            // $customFromColumn->setIdentifier('custom');
+            // $customFromColumn->setLabel('Custom');
             try {
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
                 $fromColumns[] = $customFromColumn;

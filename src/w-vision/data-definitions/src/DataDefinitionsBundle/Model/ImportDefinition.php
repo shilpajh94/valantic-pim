@@ -19,6 +19,11 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
     /**
      * @var string
      */
+    public $PrimaryKey;
+    
+    /**
+     * @var string
+     */
     public $loader;
 
     /**
@@ -75,6 +80,22 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
      * @var boolean
      */
     public $forceLoadObject = false;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPrimaryKey()
+    {
+        return $this->PrimaryKey;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPrimaryKey($PrimaryKey)
+    {
+        $this->PrimaryKey = $PrimaryKey;
+    }
 
     /**
      * {@inheritdoc}
