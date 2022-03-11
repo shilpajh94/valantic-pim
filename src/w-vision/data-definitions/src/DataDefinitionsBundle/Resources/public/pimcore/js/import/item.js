@@ -106,7 +106,6 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             }]
         });
         PrimaryKeyStore.load();
-        // var PrimaryKeyStore = [];
         classesStore.load();
 
 
@@ -192,7 +191,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
-                    value: this.class,
+                    value: this.data.class,
                     listeners: {
                         change: function (data) {
                             this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value,'primaryKeyData'));

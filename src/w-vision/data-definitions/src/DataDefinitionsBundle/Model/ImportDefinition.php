@@ -19,7 +19,12 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
     /**
      * @var string
      */
-    public $PrimaryKey;
+    public $importLevel;
+
+    /**
+     * @var string
+     */
+    public $primaryKey;
     
     /**
      * @var string
@@ -84,17 +89,33 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
     /**
      * {@inheritdoc}
      */
-    public function getPrimaryKey()
+    public function getImportLevel()
     {
-        return $this->PrimaryKey;
+        return $this->importLevel;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setPrimaryKey($PrimaryKey)
+    public function setImportLevel($importLevel)
     {
-        $this->PrimaryKey = $PrimaryKey;
+        $this->importLevel = $importLevel;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPrimaryKey()
+    {
+        return $this->primaryKey;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPrimaryKey($primaryKey)
+    {
+        $this->primaryKey = $primaryKey;
     }
 
     /**
