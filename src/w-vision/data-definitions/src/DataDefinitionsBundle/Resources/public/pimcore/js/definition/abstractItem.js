@@ -125,30 +125,30 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         return this.providerSettings;
     },
 
-    
+
 
     getImportDownloads: function () {
         if (!this.ImportDownloads) {
             this.ImportDownloads = new Ext.grid.Panel({
-            frame: false,
-            autoScroll: true,
-            store: this.store,
-            columns: this.getGridColumns(),
-            iconCls: 'dHub_schedule',
-            trackMouseOver: true,
-            columnLines: true,
-            stripeRows: true,
-            tbar: this.getGridToolbar(),
-            viewConfig: {
-                forceFit: true
-            },
-            title: t("Import Downloads")
-        });
+                frame: false,
+                autoScroll: true,
+                store: this.store,
+                columns: this.getGridColumns(),
+                iconCls: 'dHub_schedule',
+                trackMouseOver: true,
+                columnLines: true,
+                stripeRows: true,
+                tbar: this.getGridToolbar(),
+                viewConfig: {
+                    forceFit: true
+                },
+                title: t("Import Downloads")
+            });
         }
         return this.ImportDownloads;
     },
 
-    
+
 
     /* refreshGrid: function () {
         this.store.reload();
@@ -211,77 +211,71 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             modal: true,
             items: [this.wizardForm],
             buttons: [{
-                    text: t("Import Start"),
-                    iconCls: "pimcore_icon_accept",
-                    //handler: this.saveWizard.bind(this)
-                }]
+                text: t("Start Import"),
+                iconCls: "pimcore_icon_accept",
+                handler: this.saveWizard.bind(this)
+            }]
         });
         return wizardWindow;
     },
 
-    
+
     getGridColumns: function () {
- 
+
         var typesColumns = [
             {
-                text: t("dHub_id"),
+                text: t("data_definition_import_id"),
                 sortable: true,
                 hidden: true,
                 dataIndex: 'id'
             },
             {
-                text: t("dHub_name"),
+                text: t("data_definition_import_name"),
                 width: 140,
                 sortable: true,
                 dataIndex: 'name'
             },
             {
-                text: t("dHub_download_file_name"),
+                text: t("data_definition_log_file"),
                 width: 150,
                 sortable: true,
-                dataIndex: 'download_file_name'
+                dataIndex: 'log_file_name'
             },
             {
-                text: t("dHub_export_date"),
-                width: 130,
-                sortable: true,
-                dataIndex: "export_date"
-            },
-            {
-                text: t("dHub_export_status"),
+                text: t("data_definition_import_status"),
                 width: 100,
                 sortable: true,
-                dataIndex: 'export_status'
+                dataIndex: 'import_status'
 
             },
             {
-                text: t("dHub_creation_date"),
+                text: t("data_definition_creation_date"),
                 width: 130,
                 sortable: true,
                 dataIndex: "creation_date"
 
             },
             {
-                text: t("dHub_process_start_time"),
+                text: t("data_definition_process_start_time"),
                 width: 130,
                 sortable: true,
                 dataIndex: "process_start_time"
 
             },
             {
-                text: t("dHub_process_end_time"),
+                text: t("data_definition_process_end_time"),
                 width: 130,
                 sortable: true,
                 dataIndex: "process_end_time"
 
             },
             {
-                text: t('dHub_file_download_column_header'),
+                text: t('data_definition_download_log_file'),
                 xtype: 'actioncolumn',
-                dataIndex: 'exportFilePimcoreAssetId',
+                dataIndex: 'importFilePimcoreAssetId',
                 width: 120,
                 renderer: function (value, metadata, record, rowIndex, colIndex, store, view) {
-                    if (record.get('exportFilePimcoreAssetId') == null) {
+                    if (record.get('importFilePimcoreAssetId') == null) {
                         this.items[0].icon = "";
                         metadata.style = 'cursor: pointer;';
                     } else {
@@ -291,23 +285,23 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                     return '';
                 },
                 items: [{
-                        icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
-                        handler: function (grid, rowIndex, param, button, ) {
-                            let exportFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportFilePimcoreAssetId;
-                            
-                            if (exportFilePimcoreAssetId) {
-                                pimcore.helpers.download("/admin/asset/download?id=" + exportFilePimcoreAssetId);
-                            }
-                        }.bind(this)
-                    }]
+                    icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
+                    handler: function (grid, rowIndex, param, button,) {
+                        let importFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().importFilePimcoreAssetId;
+
+                        if (importFilePimcoreAssetId) {
+                            pimcore.helpers.download("/admin/asset/download?id=" + importFilePimcoreAssetId);
+                        }
+                    }.bind(this)
+                }]
             },
-            
-            
+
+
         ];
 
         return typesColumns;
     },
- 
+
     upload: function (callback) {
         pimcore.helpers.uploadDialog(this.url.upload + '?id=' + this.data.id, 'Filedata', function () {
             this.panel.destroy();
@@ -363,9 +357,40 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             }
         });
         automap.grid.getView().refresh();
-    },    
-    
+    },
+
     isValid: function () {
         return true;
-    },    
+    },
+
+    saveWizard: function () {
+
+        let form = this.wizardForm;
+        let outerScope = this;
+        let values = form.getForm().getFieldValues();
+        if (form.isValid()) {
+
+            form.submit({
+                url: '/admin/data_definitions/import_definitions/data-definition-import',
+                method: 'POST',
+                waitMsg: t('data_definition_import_processing'),
+                params: {
+                    importDefinitionId: this.data.id
+                },
+                success: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+                    outerScope.grid.store.insert(0, response);
+                },
+                failure: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+
+                    Ext.MessageBox.alert(t('data_failure'), response.msg);
+                }
+            });
+
+            this.wizardWindow.hide();
+        }
+    }
 });
