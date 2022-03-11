@@ -124,6 +124,7 @@ class Dao extends Model\Dao\PhpArrayTable
                 'name',
                 'provider',
                 'class',
+                'PrimaryKey',
                 'configuration',
                 'creationDate',
                 'modificationDate',
