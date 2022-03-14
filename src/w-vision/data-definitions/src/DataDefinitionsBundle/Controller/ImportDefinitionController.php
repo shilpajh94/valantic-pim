@@ -198,6 +198,15 @@ class ImportDefinitionController extends ResourceController
                     ];
                 }
             }
+            
+            $i = 0;
+            foreach($mappingDefinition as $testData){
+                if($mappingDefinition[$i]['toColumn'] == $primaryKeyValue){
+                    $mappingDefinition[$i]['primaryIdentifier'] = true;
+                }
+                $i++;
+            }
+            
             return $this->viewHandler->handle([
                 'success' => true,
                 'mapping' => $mappingDefinition,
