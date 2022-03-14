@@ -113,6 +113,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                             $obj    = DataObject::getById($deleteId);
                             $obj->setPublished(false);
                             $obj->save();
+                            $obj->delete();
                         }
                     }
                 } 
