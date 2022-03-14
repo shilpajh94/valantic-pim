@@ -53,6 +53,8 @@ final class ImportDefinitionType extends AbstractResourceType
             ->add('provider', ImportProviderChoiceType::class)
             ->add('loader', LoaderChoiceType::class)
             ->add('class', ClassChoiceType::class)
+            ->add('primaryKey', TextType::class)
+            ->add('importLevel', TextType::class)
             ->add('cleaner', CleanerChoiceType::class)
             ->add('filter', FilterChoiceType::class)
             ->add('runner', RunnerChoiceType::class)

@@ -84,6 +84,7 @@ class ImportDefinitionController extends ResourceController
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
                 try {
                     $asset = $commonHelperObject->addFileInAsset($uploadedFilePath, $request->get('definitionName'));
+                    $fileId = $asset->getId();
                 } catch (\Exception $exception) {
                     DataImportLogger::log("Error creating asset for uploaded file in ImportDefinitionController save:" . $exception->getMessage(), DataImportLogger::CRITICAL);
                     $msg = $this->trans("data_error_saving");
@@ -100,7 +101,7 @@ class ImportDefinitionController extends ResourceController
             DataImportLogger::log("Error reading uploaded file ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
-        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName']]);
+        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName'], 'fileId' => $fileId]);
     }
     /**
      * @param Request $request
@@ -130,10 +131,12 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
+        $primaryKeyValue = $definition->getPrimaryKey();
+       
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
             $customFromColumn = new FromColumn();
-            $customFromColumn->setIdentifier('custom');
-            $customFromColumn->setLabel('Custom');
+            // $customFromColumn->setIdentifier('custom');
+            // $customFromColumn->setLabel('Custom');
             try {
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
                 $fromColumns[] = $customFromColumn;
@@ -378,17 +381,15 @@ class ImportDefinitionController extends ResourceController
      */
     public function listPrimaryKeyAction(Request $request)
     {
-        $isProductClass = false;
         $className      = $request->get('className');
         $buConfig       = $this->getBusinessUnitClassFromConfig();
 
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
         if ($className == 'Product') {
-            $isProductClass = true;
             foreach ($importLevels as $importType) {
                 $importTypeArray = array();
-                $importTypeArray['importLevel'] = $importType;
+                $importTypeArray['name'] = $importType;
                 $importLevelData[] = $importTypeArray;
             }
         }
@@ -409,7 +410,7 @@ class ImportDefinitionController extends ResourceController
             $primaryKeyData[] = $fieldArrayTemp;
         }
 
-        $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData, 'isProductClass' => $isProductClass];
+        $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData];
         return $this->json(["data" => $data]);
     }
     public function importDefClass()
@@ -556,7 +557,7 @@ class ImportDefinitionController extends ResourceController
     }
 
     // fucntion to start data definition import
-    public function dataDefinitionImportAction(Request $request)
+    public function saveDataDefinitionImportAction(Request $request)
     {
         $commonHelperObject = new commonHelper();
         $name               = $request->get('name');
@@ -622,8 +623,9 @@ class ImportDefinitionController extends ResourceController
     }
 
     // function to list data definition import
-    public function listDataDefinitionImport(Request $request)
+    public function listDataDefinitionImportAction(Request $request)
     {
+        $importHelperObject = new importHelper();
         $importDefinitionId = $request->get('importDefinitionId');
 
         $list = new DataDefinitionImport\Listing();
@@ -634,10 +636,8 @@ class ImportDefinitionController extends ResourceController
         $list->load();
 
         $data = [];
-        foreach ($list->getItems() as $schedule) {
-            //$tmp = $scheduleService->buildScheduleForGrid($schedule);
-            $tmp = [];
-            $data[] = $tmp;
+        foreach ($list->getItems() as $dataImport) {
+            $data[] = $importHelperObject->buildScheduleForGrid($dataImport);
         }
 
         return $this->json(['success' => true, 'data' => $data]);
