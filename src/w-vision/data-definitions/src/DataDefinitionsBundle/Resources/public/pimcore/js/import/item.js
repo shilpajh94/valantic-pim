@@ -50,6 +50,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
     });
         
         return primaryKeyStore.load();
+        //console.log(data.value);
     },
 
 
@@ -65,6 +66,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             fields: ['text']
         });
         classesStore.load(); */
+       // alert(this.data.primaryKey);
 
         let classesStore = new Ext.data.JsonStore({
             proxy: {
@@ -84,30 +86,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             }]
         });
 
-
-        let PrimaryKeyStore = new Ext.data.JsonStore({
-            proxy: {
-                type: 'ajax',
-                url: '/admin/data_definitions/import_definitions/listPrimaryKey',
-                method: 'POST',
-                extraParams: {
-                    //classes: JSON.stringify(class),
-                },
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data'
-                }
-            },
-            fields: ["name"],
-
-            sorters: [{
-                property: 'name',
-                direction: 'ASC'
-            }]
-        });
-        PrimaryKeyStore.load();
         classesStore.load();
-
 
         this.configForm = new Ext.form.Panel({
             bodyStyle: 'padding:10px;',
@@ -206,9 +185,9 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             }
                             else
                             {
+                                this.configForm.getForm().findField('importLevel').clearValue();
                                 this.configForm.getForm().findField('importLevel').allowBlank = true;
                                 this.configForm.getForm().findField('importLevel').hide();
-                               // this.configForm.getForm().findField('importLevel').remove();
                             }
 
                         }.bind(this)
@@ -216,7 +195,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('Import Levels') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('data_definitions_import_level') + ' <span style="color:red;">*</span>',
                     name: 'importLevel',
                     queryMode: 'local',
                     editable: true,
@@ -229,11 +208,12 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     width: 500,
                     labelWidth: 200,
                     readOnly:true,
-                    hidden: true
+                    value: this.data.importLevel,
+                    hidden: this.data.importLevel?false:true
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('Primary Key'),
+                    fieldLabel: t('data_definitions_primary_key') + ' <span style="color:red;">*</span>',
                     name: 'primaryKey',
                     queryMode: 'local',
                     editable: true,
@@ -245,6 +225,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
+                    value: this.data.primaryKey,
                     readOnly: true,
                 },
                 {
