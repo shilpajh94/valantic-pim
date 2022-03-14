@@ -85,6 +85,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
     {
 
         $title = trim(ucwords($result['Title']));
+        $value = trim($result['Value']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
@@ -102,7 +103,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
                 $obj = $featureObj;
             }
 
-            $obj->setFeatureName($title, $language);
+            $obj->setFeatureName($value, $language);
             $obj->setFeatureDescription($description, $language);
             $obj->setPublished(true);
             $obj->setOmitMandatoryCheck(true);

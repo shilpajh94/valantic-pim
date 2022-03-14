@@ -85,6 +85,7 @@ class CSIndustriesImportCommand extends AbstractCommand
     {
 
         $title = trim(ucwords($result['Title']));
+        $value = trim($result['Value']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
@@ -99,7 +100,7 @@ class CSIndustriesImportCommand extends AbstractCommand
             } else {
                 $obj = $industryObj;
             }
-            $obj->setIndustryName($title, $language);
+            $obj->setIndustryName($value, $language);
             $obj->setPublished(true);
             $obj->setOmitMandatoryCheck(true);
             $obj->save();
@@ -125,7 +126,7 @@ class CSIndustriesImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, '@@', $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
