@@ -83,7 +83,6 @@ class CSApplicationImportCommand extends AbstractCommand
 
     public function insertApplication($result, $parentFolderID, $language)
     {
-
         $title = trim(ucwords($result['Title']));
 
         $validKey = DataObject\Service::getValidKey($title, "object");
