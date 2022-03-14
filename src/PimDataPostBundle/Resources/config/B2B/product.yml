@@ -82,6 +82,8 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(32) NULL
+      type: select
+      className: Product
     baseUOM:
       fieldName: baseUOM
       tableName: object_1
@@ -94,6 +96,8 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(32) NULL
+      type: select
+      className: Product
     proposition65WarningAttributesRequired: 
       fieldName: proposition65WarningAttributesRequired
       tableName: object_1
@@ -107,6 +111,7 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(32) NULL
+      type: numeric
     totalWeightPerPackage:
       fieldName: totalWeightPerPackage
       tableName: object_brick_query_HoseFert_1
@@ -262,6 +267,15 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(190) NULL
+      type: select
+      className: NomenClature
+      isLocalisedMaster: true
+      relationFieldName: Name
+      localisedTablePrefix: object_localised_
+      tablePrefix: object_
+      classId: 20
+      
+      
     FittingFamily:
       fieldName: FittingFamily
       tableName: object_20
@@ -270,6 +284,18 @@ parameters:
       sendToSF: true
       tableAttr: true
       attrType: VARCHAR(32) NULL
+      
+      type: advancedManyToManyObjectRelation
+      relationFieldName: Name
+      localisedTablePrefix: object_localised_
+      tablePrefix: object_
+      classId: 30
+#      relationJoins:
+#          - JOIN object_20 nc ON (nc.FittingFamily = CONCAT(",", object_30.o_id , ","))
+#          - JOIN object_brick_query_HydFittingsFert_1 b ON (b.nomenclatureDetails = CONCAT(",", nc.o_id , ","))
+#          - JOIN object_1 o ON ( b.o_id = o.o_id)
+      whereCondition: oo_id = "{%ID%}"
+      
     PackagingQuantityPerBox: 
       fieldName: PackagingQuantityPerBox
       tableName: object_brick_query_HydFittingsFert_1
