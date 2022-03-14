@@ -180,6 +180,6 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
     },
 
     openUploadedAsset: function () {
-        pimcore.helpers.openElement(this.headerMappingFileAssetId, 'asset');
+        pimcore.helpers.openElement(this.data.csvId, 'asset');
     }
 });
