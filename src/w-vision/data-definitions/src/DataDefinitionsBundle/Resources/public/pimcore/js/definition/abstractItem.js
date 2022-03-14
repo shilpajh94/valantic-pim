@@ -175,9 +175,9 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         return this.grid;
     },
     
-    refreshGrid: function () {
+    /*refreshGrid: function () {
         this.store.reload();
-    },
+    },*/
 
     getGridToolbar: function () {
 
