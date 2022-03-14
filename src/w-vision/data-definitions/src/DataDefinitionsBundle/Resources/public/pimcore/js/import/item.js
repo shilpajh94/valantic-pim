@@ -173,9 +173,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     value: this.data.class,
                     listeners: {
                         change: function (data) {
-                            //this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value,'primaryKeyData'));
                             this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value,'primaryKeyData'));
-
                             this.configForm.getForm().findField('primaryKey').setReadOnly(false);
 
                             if(data.value=='Product')
