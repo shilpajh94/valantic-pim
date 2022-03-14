@@ -15,7 +15,9 @@
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Form\Type\ImportProvider;
 
+use DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -28,6 +30,7 @@ final class CsvProviderType extends AbstractType
             ->add('delimiter', TextType::class)
             ->add('enclosure', TextType::class)
             ->add('csvHeaders', TextType::class)
-            ->add('csvFile', TextType::class);
+            ->add('csvFile', TextType::class)
+            ->add('csvId', TextType::class);
     }
 }

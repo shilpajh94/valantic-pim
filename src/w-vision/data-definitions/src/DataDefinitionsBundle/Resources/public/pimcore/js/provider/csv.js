@@ -41,6 +41,13 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
             padding: '0 0 5 205px'
         },
         this.getFileUploadForm(),
+        {
+            xtype: 'textfield',
+            name: 'csvId',
+            id: 'csvId',
+            hidden: true,
+            value: this.data['csvId'] ? this.data.csvId : ''
+        },
         this.getFooterInfoMsg()
             // {
             //     xtype: 'container',
@@ -70,7 +77,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
      */
     getFileUploadForm: function () {
         let definitionName = this.parentItemPanel.data.name;
-        let fileAlreadyImported = this.headerMappingFileAssetId ? true : false;
+        let fileAlreadyImported = this.data.csvId ? true : false;
 
         let outerScope = this;
 
@@ -118,19 +125,16 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
                                 response = response.response;
                                 response = Ext.decode(response.responseText);
                                 console.log(response);
-                                // if (response.fileType == 'Csv') {
-                                //     outerScope.addImportConfigFieldSet('Csv');
 
-                                // }
                                 fileField.setRawValue(rowValue);
                                 outerScope.openAssetButton.setHidden(true);
                                 // to send it in the save request
                                 outerScope.newlyUploadedFileName = response.fileName;
+                                Ext.getCmp('csvId').setValue(response.fileId);
                             },
                             failure: function (form, response) {
                                 response = response.response;
                                 response = Ext.decode(response.responseText);
-                                // fileField.setRawValue(rowValue);
                                 Ext.MessageBox.alert(t('data_failure'), response.msg);
                             }
                         });
