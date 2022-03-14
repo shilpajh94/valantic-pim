@@ -15,59 +15,70 @@ class RequestBodyGeneratorHelper
         $this->requestBodyGenerator = $requestBodyGenerator;
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
     }
+    
     /**
      * 
-     * @param object $object
+     * @param type $currentValue
      * @param array $config
+     * @param type $language
+     * @return type
      */
-    public function getInputTypeValue($currentValue, array $config) 
+    public function getCheckboxTypeValue($currentValue, array $config, $language = null) 
     {
-        $getter = "get".ucfirst($config['fieldName']);
-        if (method_exists($object, $getter)) {
-            return $object->$getter();
+        $return  = true;
+        if (empty($currentValue)) {
+            $return = false;
         }
-        return null;
+        unset($config);
+        unset($language);
+        return $return;
     }
     
     /**
      * 
-     * @param object $object
+     * @param type $currentValue
      * @param array $config
+     * @param type $language
+     * @return type
      */
-    public function getNumericTypeValue($currentValue, array $config) 
+    public function getBooleanTypeValue($currentValue, array $config, $language = null) 
     {
-        $getter = "get".ucfirst($config['fieldName']);
-        if (method_exists($object, $getter)) {
-            return $object->$getter();
+        $return = true;
+        if (empty($currentValue)) {
+            $return = null;
+        } elseif ($currentValue == "-1") {
+            $return = false;
         }
-        return null;
+        unset($config);
+        unset($language);
+        return $return;
+    }
+    /**
+     * 
+     * @param type $currentValue
+     * @param array $config
+     * @param type $language
+     * @return type
+     */
+    public function getMultiselectTypeValue($currentValue, array $config, $language = null) 
+    {
+        $returnArray = [];
+        $valueArray = $currentValue;
+        if (!is_array($currentValue)) {
+            $valueArray = explode(",", $currentValue);
+        }
+        foreach ($valueArray as $val) {
+            $returnArray[] = $this->getSelectTypeValue($val, $config, $language);
+        }
+        return $returnArray;
     }
     
     /**
      * 
-     * @param object $object
+     * @param type $currentValue
      * @param array $config
-     */
-    public function getBooleanTypeValue($currentValue, array $config) 
-    {
-        $getter = "get".ucfirst($config['fieldName']);
-        if (method_exists($object, $getter)) {
-            $val = $object->$getter();
-            if (empty($val)) {
-                return null;
-            } elseif ($val == "-1") {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return null;
-    }
-    
-    /**
-     * 
-     * @param object $object
-     * @param array $config
+     * @param type $language
+     * @return type
      */
     public function getSelectTypeValue($currentValue, array $config, $language = null) 
     {
@@ -90,32 +101,35 @@ class RequestBodyGeneratorHelper
         return null;
     }
     
+    /**
+     * 
+     * @param type $currentValue
+     * @param array $config
+     * @param type $language
+     * @return type
+     */
     public function getRelationValue($currentValue, array $config, $language = null) {
         
         if (!empty($config['relationFieldName']) ) {
             $select = "SELECT ".$config['relationFieldName'];
-            if (!empty($config['classId']) && (!empty($config['localisedTablePrefix']) || !empty($config['tablePrefix']))) {
-                if(!empty($language)) {
+            if (!empty($config['classId'])) {
+                if (!empty($language) && !empty($config['localisedTablePrefix'])) {
                     $tableName = $config['localisedTablePrefix'].$config['classId'];
-                } else {
+                } elseif (!empty($config['tablePrefix'])) {
                     $tableName = $config['tablePrefix'].$config['classId'];
                 }
                 if (!empty($tableName)) {
                     $select .= ' FROM '.$tableName.' ';
+                    if (!empty($config['whereCondition'])) {
+                        $where = $config['whereCondition'];
+                        $where = str_replace('{%ID%}', $currentValue, $where);
+                        $select = $select." WHERE ".$where;
+                    }
+                    return $this->b2bProductRequestBodyGeneratorDao->fetchOne($select);
                 }
-                if (!empty($config['relationJoins']) && count($config['relationJoins']) >0) {
-                    $joins = implode(" ", $config['relationJoins']);
-                    $select = $select." ".$joins;
-                }
-                if (!empty($config['whereCondition'])) {
-                    $where = $config['whereCondition'];
-                    $where = str_replace('{%ID%}', $currentValue, $where);
-                    $select = $select." WHERE ".$where;
-                }
-                return $this->b2bProductRequestBodyGeneratorDao->fetchOne($select);
             }
-            return null;
         }
+        return null;
     }
     
     
@@ -126,7 +140,7 @@ class RequestBodyGeneratorHelper
         } else {
             $returnValues = [];
             foreach ($values as $value) {
-                $returnValues[] = $this->getRelationValue($currentValue, $config, $language);
+                $returnValues[] = $this->getRelationValue($value, $config, $language);
             }
             return $returnValues;
         }

@@ -34,7 +34,6 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
             strtolower(PimFieldType::MULTISELECT()),
-            strtolower(PimFieldType::MULTISELECT()),
             strtolower(PimFieldType::CHECKBOX()),
             strtolower(PimFieldType::MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
@@ -61,29 +60,28 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
             $config = $this->config;
         }
         foreach ($tempTableData as $key => $value) {
-            //$returnArray[$key] = $value;
-            if (!empty($value)) {
-                if (!empty($config[$key])) {
-                    $configDetails = $config[$key];
-                    if(!empty($configDetails['type'])) {
-                        $type = $configDetails['type'];
-                        if (in_array(strtolower($type), $this->allowedAttributeTypes)) {
-//                            $subType = $configDetails['brickFieldType'];
-                            $fnc = "get".ucfirst($type)."TypeValue";
-                            if (in_array(strtolower($type), $relationFieldArray)) {
-                                $fnc = "getMultiRelationTypeValue";
-                            }
-                            if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
-                                $returnArray[$key] = $this->requestBodyGeneratorHelper->$fnc($value, $configDetails, $language);
-                            }
-                        }
-                    }
+            $returnArray[$key] = $value;
+            if (!empty($value) && !empty($this->validateConfig($config, $key))) {
+                $type = $config[$key]['type'];
+                $fnc = "get".ucfirst($type)."TypeValue";
+                if (in_array(strtolower($type), $relationFieldArray)) {
+                    $fnc = "getMultiRelationTypeValue";
+                }
+                if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
+                    $returnArray[$key] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                 }
             }
         }
         return $returnArray;
     }
 
+    private function validateConfig($config, $dataKey) {
+        if (!empty($config[$dataKey]) && !empty($config[$dataKey]['sendToSF']) && !empty($config[$dataKey]['type']) && in_array(strtolower($config[$dataKey]['type']), $this->allowedAttributeTypes)) {
+            return true;
+        }
+        return false;
+    }
+    
     public function generateCreateRequestBody(array $tempTableData): array
     {
 
