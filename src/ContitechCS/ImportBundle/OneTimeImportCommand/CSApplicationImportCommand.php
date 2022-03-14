@@ -83,8 +83,8 @@ class CSApplicationImportCommand extends AbstractCommand
 
     public function insertApplication($result, $parentFolderID, $language)
     {
-
         $title = trim(ucwords($result['Title']));
+        $value = trim($result['Value']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
@@ -99,7 +99,7 @@ class CSApplicationImportCommand extends AbstractCommand
             } else {
                 $obj = $applicationObj;
             }
-            $obj->setApplicationName($title, $language);
+            $obj->setApplicationName($value, $language);
             $obj->setPublished(true);
             $obj->setOmitMandatoryCheck(true);
             $obj->save();
@@ -125,7 +125,7 @@ class CSApplicationImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, '@@', $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
