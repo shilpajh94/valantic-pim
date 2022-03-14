@@ -125,11 +125,28 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         return this.providerSettings;
     },
 
-
-
     getImportDownloads: function () {
-        if (!this.ImportDownloads) {
-            this.ImportDownloads = new Ext.grid.Panel({
+
+        if (!this.grid) {
+
+            this.store = new Ext.data.JsonStore({
+                proxy: {
+                    type: 'ajax',
+                    url: '/admin/data_definitions/import_definitions/importList',
+                    extraParams: {
+                        importDefinitionId: this.data.id
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+                fields: ["id", "name", "download_file_name", "process_start_time", "process_end_time", "importFilePimcoreAssetId", "export_status", "creation_date"],
+               
+            });
+            this.store.load();
+
+            this.grid = new Ext.grid.Panel({
                 frame: false,
                 autoScroll: true,
                 store: this.store,
@@ -144,15 +161,23 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 },
                 title: t("Import Downloads")
             });
+
+            // set refresh time in milliseconds 
+            let refreshTime = 60 * 1000;
+            Ext.TaskManager.start({
+                    run: function () {
+                        this.refreshGrid();
+                    },
+                    interval: refreshTime,
+                    scope: this
+                });
         }
-        return this.ImportDownloads;
+        return this.grid;
     },
-
-
-
-    /* refreshGrid: function () {
+    
+    refreshGrid: function () {
         this.store.reload();
-    }, */
+    },
 
     getGridToolbar: function () {
 
@@ -170,7 +195,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                     xtype: "button",
                     text: t('refresh'),
                     iconCls: "pimcore_icon_refresh",
-                    //handler: this.refreshGrid.bind(this),
+                    handler: this.refreshGrid.bind(this),
                 }
             ]
         });
@@ -231,40 +256,40 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             },
             {
                 text: t("data_definition_import_name"),
-                width: 140,
+                width: '20%',
                 sortable: true,
                 dataIndex: 'name'
             },
             {
                 text: t("data_definition_log_file"),
-                width: 150,
+                width: '15%',
                 sortable: true,
-                dataIndex: 'log_file_name'
+                dataIndex: 'download_file_name'
             },
             {
                 text: t("data_definition_import_status"),
-                width: 100,
+                width: '15%',
                 sortable: true,
                 dataIndex: 'import_status'
 
             },
             {
                 text: t("data_definition_creation_date"),
-                width: 130,
+                width: '15%',
                 sortable: true,
                 dataIndex: "creation_date"
 
             },
             {
                 text: t("data_definition_process_start_time"),
-                width: 130,
+                width: '13%',
                 sortable: true,
                 dataIndex: "process_start_time"
 
             },
             {
                 text: t("data_definition_process_end_time"),
-                width: 130,
+                width: '13%',
                 sortable: true,
                 dataIndex: "process_end_time"
 
@@ -273,7 +298,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 text: t('data_definition_download_log_file'),
                 xtype: 'actioncolumn',
                 dataIndex: 'importFilePimcoreAssetId',
-                width: 120,
+                width: '9%',
                 renderer: function (value, metadata, record, rowIndex, colIndex, store, view) {
                     if (record.get('importFilePimcoreAssetId') == null) {
                         this.items[0].icon = "";
@@ -367,11 +392,12 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
 
         let form = this.wizardForm;
         let outerScope = this;
+        console.log(outerScope);
         let values = form.getForm().getFieldValues();
         if (form.isValid()) {
 
             form.submit({
-                url: '/admin/data_definitions/import_definitions/data-definition-import',
+                url: '/admin/data_definitions/import_definitions/saveImport',
                 method: 'POST',
                 waitMsg: t('data_definition_import_processing'),
                 params: {

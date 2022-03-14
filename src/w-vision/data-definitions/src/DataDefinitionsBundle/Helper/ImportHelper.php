@@ -47,9 +47,9 @@ class ImportHelper
             'id' => $dataImport->getId(),
             'name' => $dataImport->getName(),
             'download_file_name' => $dataImport->getDownloadFileName(),
-            'export_status' => $dataImport->getStatus(),
+            'import_status' => $dataImport->getStatus(),
             'creation_date' => $dataImport->getCreationDate()->format($dateFormat),
-            'exportFilePimcoreAssetId' => $dataImport->getImportFilePimcoreAssetId(),
+            'importFilePimcoreAssetId' => $dataImport->getImportFilePimcoreAssetId(),
             'process_start_time' => $processStartTime,
             'process_end_time' => $processEndTime
         ];

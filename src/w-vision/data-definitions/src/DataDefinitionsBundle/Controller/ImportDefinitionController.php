@@ -556,7 +556,7 @@ class ImportDefinitionController extends ResourceController
     }
 
     // fucntion to start data definition import
-    public function dataDefinitionImportAction(Request $request)
+    public function saveDataDefinitionImportAction(Request $request)
     {
         $commonHelperObject = new commonHelper();
         $name               = $request->get('name');
@@ -622,8 +622,9 @@ class ImportDefinitionController extends ResourceController
     }
 
     // function to list data definition import
-    public function listDataDefinitionImport(Request $request)
+    public function listDataDefinitionImportAction(Request $request)
     {
+        $importHelperObject = new importHelper();
         $importDefinitionId = $request->get('importDefinitionId');
 
         $list = new DataDefinitionImport\Listing();
@@ -634,10 +635,8 @@ class ImportDefinitionController extends ResourceController
         $list->load();
 
         $data = [];
-        foreach ($list->getItems() as $schedule) {
-            //$tmp = $scheduleService->buildScheduleForGrid($schedule);
-            $tmp = [];
-            $data[] = $tmp;
+        foreach ($list->getItems() as $dataImport) {
+            $data[] = $importHelperObject->buildScheduleForGrid($dataImport);
         }
 
         return $this->json(['success' => true, 'data' => $data]);

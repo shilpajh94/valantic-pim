@@ -39,9 +39,13 @@ data_definitions_admin_import_definitions:
             path: listPrimaryKey
             action: listPrimaryKey
             methods: [GET,POST]
-          dataDefinitionImport:
-            path: data-definition-import
-            action: dataDefinitionImport
+          saveDataDefinitionImport:
+            path: saveImport
+            action: saveDataDefinitionImport
+            methods: [GET,POST]
+          listDataDefinitionImport:
+            path: importList
+            action: listDataDefinitionImport
             methods: [GET,POST]
 data_definitions_admin_export_definitions:
     type: coreshop.resources
