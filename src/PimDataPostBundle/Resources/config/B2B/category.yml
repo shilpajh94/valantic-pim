@@ -4,88 +4,88 @@ parameters:
   Attribute:
     oo_id:
       fieldName: oo_id
-      tableName: object_2
-      tableAttr: true
-      attrType: INT(11) NOT NULL
+      pim_table_name: object_2
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NOT NULL
     # PrintedCatalogDescription:
     #   fieldName: PrintedCatalogDescription
-    #   tableName: object_2
+    #   pim_table_name: object_2
     #   sendToSF: Name
-    #   tableAttr: true
-    #   attrType: VARCHAR(190) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(190) NULL
     PrintedCatalogDescription_de:
       fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_de
-      tableName: object_localized_2_de
+      pim_table_name: object_localized_2_de
       joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
       sendToSF: PrintedCatalogDescription
-      tableAttr: true
-      attrType: VARCHAR(2500) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
     PrintedCatalogDescription_en:
       fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_en
-      tableName: object_localized_2_en
+      pim_table_name: object_localized_2_en
       joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
       sendToSF: PrintedCatalogDescription
-      tableAttr: true
-      attrType: VARCHAR(2500) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
     # CatalogId:
     #   fieldName: CatalogId
-    #   tableName: object_2
+    #   pim_table_name: object_2
     #   sendToSF: CatalogId
-    #   tableAttr: false
-    #   attrType: VARCHAR(32) NULL
+    #   temp_master_table_attr: false
+    #   temp_master_table_column_type: VARCHAR(32) NULL
     Level:
       fieldName: Level
-      tableName: object_2
-      tableAttr: true
-      attrType: VARCHAR(2) NULL
+      pim_table_name: object_2
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2) NULL
     o_parentId:
       fieldName: o_parentId
-      tableName: object_2
+      pim_table_name: object_2
       sendToSF: ParentCategoryId
-      tableAttr: true
-      attrType: INT(11) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NULL
     # longDescription:
     #   fieldName: longDescription
-    #   tableName: object_2
+    #   pim_table_name: object_2
     #   sendToSF: Description
-    #   tableAttr: true
-    #   attrType: VARCHAR(255) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(255) NULL
     SortOrder:
       fieldName: SortOrder
-      tableName: object_2
+      pim_table_name: object_2
       sendToSF: SortOrder
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(255) NULL
     ShowInMenu:
       fieldName: ShowInMenu
-      tableName: object_2
+      pim_table_name: object_2
       sendToSF: IsNavigational
-      tableAttr: true
-      attrType: TINYINT(1) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: TINYINT(1) NULL
     image:
       fieldName: image
-      tableName: object_2
+      pim_table_name: object_2
       sendToSF: B2B_Category_Image__c
-      tableAttr: true
-      attrType: int(11) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
       relationalAttr: true
     # externalId:
     #   fieldName: externalId
-    #   tableName: object_2
+    #   pim_table_name: object_2
     #   sendToSF: B2B_External_Id__c
-    #   tableAttr: true
-    #   attrType: VARCHAR(32) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(32) NULL
     basicHash:
       fieldName: basicHash
-      tableName: 
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      pim_table_name: 
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
     relationalHash:
       fieldName: relationalHash
-      tableName: 
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      pim_table_name: 
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
 
 

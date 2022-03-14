@@ -22,11 +22,23 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $this->helper->truncateTempTable(Constants::B2B_PRODUCT_TEMP_TABLE_NAME);
     }
 
-    public function getPimModifiedRecordIds(): array;
+    public function getPimModifiedRecordIds(): array
+    {
+        return $this->helper->getPimModifiedRecordIds();
+    }
 
-    public function getTempTableDataForIds(array $pimIds): void;
+    public function getTempTableDataForIds(array $pimIds): array
+    {
+        return $this->helper->getTempTableDataForIds($pimIds);
+    }
 
-    public function addHashesToTempTableData(array $tempTableData): array;
+    public function addHashesToTempTableData(array $tempTableData): array
+    {
+        return $this->helper->addHashesToTempTableData($tempTableData);
+    }
 
-    public function insertDataInTempTable();
+    public function insertDataInTempTable($insertTempData): void
+    {
+        $this->helper->insertDataInTempTable($insertTempData);
+    }
 }

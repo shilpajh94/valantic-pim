@@ -4,370 +4,370 @@ parameters:
   Attribute:
     o_id:
       fieldName: o_id
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: INT(11) NOT NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NOT NULL
     eanUpc:
       fieldName: eanUpc
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     articleNumber:
       fieldName: articleNumber
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(255) NULL
     brandName:
       fieldName: brandName
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     longDescription_de:
       fieldName: longDescription AS longDescription_de
-      tableName: object_localized_1_de
+      pim_table_name: object_localized_1_de
       joinOn: LEFT JOIN object_localized_1_de ON object_localized_1_de.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(2500) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
     longDescription_en:
       fieldName: longDescription AS longDescription_en
-      tableName: object_localized_1_en
+      pim_table_name: object_localized_1_en
       joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(2500) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
     # ProductNumber: 
     #   fieldName: ProductNumber
-    #   tableName: object_1
+    #   pim_table_name: object_1
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     o_published: 
       fieldName: o_published
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: tinyint(1) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: tinyint(1) NULL
     B2CStoreFlag:
       fieldName: B2CStoreFlag
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: tinyint(1) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: tinyint(1) NULL
     # page_description:
     #   fieldName: page_description
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     # page_keywords:
     #   fieldName: page_keywords
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     # page_title:
     #   fieldName: page_title
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     # searchable:
     #   fieldName: page_title
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     webDiscription:
       fieldName: webDiscription
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     baseUOM: 
       fieldName: baseUOM
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     mainImage:
       fieldName: mainImage
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: int(11) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
       relationalAttr: true
     altImage1:
       fieldName: altImage1
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: int(11) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
       relationalAttr: true
     altImage2:
       fieldName: altImage2
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: INT(11) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NULL
       relationalAttr: true
     Document:
       fieldName: Document
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
       relationalAttr: true
     # c_hosePDF1:
     #   fieldName: c_hosePDF1
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     # c_hosePDF2:
     #   fieldName: c_hosePDF2
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     # c_hoseVideo:
     #   fieldName: c_hoseVideo
     #   sendToSF: true
-    #   tableAttr: true
-    #   attrType: VARCHAR(30) NULL
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(30) NULL
     proposition65WarningAttributesRequired: 
       fieldName: proposition65WarningAttributesRequired
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: tinyint(1) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: tinyint(1) NULL
     californiaProposition65ChemicalName1: 
       fieldName: californiaProposition65ChemicalName1
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     BendRadiusMM:
       fieldName: BendRadiusMM
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     HoseIDNominalIDFrac: 
       fieldName: HoseIDNominalIDFrac
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     hoseOdin:
       fieldName: hoseOdin
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     workingPressurePSI:
       fieldName: workingPressurePSI
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     reinforcement:
       fieldName: reinforcement
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting1Material:
       fieldName: fitting1Material
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting1Size:
       fieldName: fitting1Size
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting1Type:
       fieldName: fitting1Type
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting2Material:
       fieldName: fitting2Material
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting2Size: 
       fieldName: fitting2Size
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     fitting2Type:
       fieldName: fitting2Type
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     tubeMaterial:
       fieldName: tubeMaterial
-      tableName: object_brick_query_HoseBase_1
+      pim_table_name: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     hoseidDec:
       fieldName: hoseidDec
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     hoseidmm:
       fieldName: hoseidmm
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     hoseLengthM:
       fieldName: hoseLengthM
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     tubeColor:
       fieldName: tubeColor
-      tableName: object_brick_query_HoseBase_1
+      pim_table_name: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     hoseOdmm:
       fieldName: hoseOdmm
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     maximumTemperatureC:
       fieldName: maximumTemperatureC
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(10) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(10) NULL
     coverMaterial:
       fieldName: coverMaterial
-      tableName: object_brick_query_HoseBase_1
+      pim_table_name: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     minimumTemperatureC:
       fieldName: minimumTemperatureC
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(10) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(10) NULL
     coverColor:
       fieldName: coverColor
-      tableName: object_brick_query_HoseBase_1
+      pim_table_name: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     coverCharacteristic:
       fieldName: coverCharacteristic
-      tableName: object_brick_query_HoseBase_1
+      pim_table_name: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     hoseLengthFT:
       fieldName: hoseLengthFT
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     maximumTemperatureF:
       fieldName: maximumTemperatureF
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(10) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(10) NULL
     minimumTemperatureF:
       fieldName: minimumTemperatureF
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(10) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(10) NULL
     BendRadiusIN:
       fieldName: BendRadiusIN
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     totalWeightPerPackage:
       fieldName: totalWeightPerPackage
-      tableName: object_brick_query_HoseFert_1
+      pim_table_name: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     VacuumIN:
       fieldName: VacuumIN
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     WeightLbsPerFTUOM:
       fieldName: WeightLbsPerFTUOM
-      tableName: object_1
+      pim_table_name: object_1
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
     VacuumMM:
       fieldName: VacuumMM
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     workingPressureBAR:
       fieldName: workingPressureBAR
-      tableName: object_brick_query_HoseSkeleton_1
+      pim_table_name: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
     basicHash:
       fieldName: basicHash
-      tableName: 
+      pim_table_name: 
       sendToSF: false
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
     relationalHash:
       fieldName: relationalHash
-      tableName: 
+      pim_table_name: 
       sendToSF: false
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
     

@@ -20,4 +20,17 @@ class AttributeConfigProviderHelper
         $classType = \strtolower($classType);
         return PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY."/{$shopType}/{$classType}.yml";
     }
+
+    public function getPIMRelationalAttributeConfig(Array $attribute): array
+    {
+        $array = [];
+        foreach ($attribute as $attrKey => $value) {
+
+            if(isset($value['relationalAttr']) && $value['relationalAttr'])
+            {
+                $array[] = $attrKey;
+            }
+        }
+        return $array;
+    }
 }
