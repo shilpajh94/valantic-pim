@@ -27,7 +27,7 @@ class APIRequestEntity extends AbstractModel
 
     public function setOperationType(APIOperationType $operationType):void
     {
-        $this->operationType = strval($operationType);
+        $this->operationType = $operationType;
     }
 
         /**
