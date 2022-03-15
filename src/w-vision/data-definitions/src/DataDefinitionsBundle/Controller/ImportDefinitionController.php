@@ -573,6 +573,17 @@ class ImportDefinitionController extends ResourceController
         $importDefinitionId = $request->get('importDefinitionId');
 
         /**
+         * checking if the data definition name exist
+         */
+        $existingDefinition =  DataDefinitionImport::getByName($name);
+
+        if ($existingDefinition) {
+            DataImportLogger::log("Requested data definition ($name) already exitst into the database.", DataImportLogger::INFO);
+            $msg = $this->trans('data_definition_already_exists');
+            return $this->json(['success' => false, 'msg' => $msg]);
+        }
+
+        /**
          * checking if the import definition exist
          */
         $importDefinition = null;
@@ -581,7 +592,7 @@ class ImportDefinitionController extends ResourceController
         }
 
         if (!$importDefinition) {
-            DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ScheduleController saveScheduleAction .", DataImportLogger::INFO);
+            DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ImportDefinitionController saveDataDefinitionImportAction .", DataImportLogger::INFO);
             $msg = $this->trans('data_definition_not_found_relaod_admin');
             return $this->json(['success' => false, 'msg' => $msg]);
         }

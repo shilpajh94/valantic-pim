@@ -18,6 +18,19 @@ abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
     }
 
     /**
+     * @param $name
+     * @throws \Exception
+     */
+    public function getByName($name)
+    {
+        $data = $this->db->fetchRow("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE name = ?", $name);
+        if (!$data["name"]) {
+            throw new \Exception("record with id " . $name . " not found");
+        }
+        $this->assignVariablesToModel($data);
+    }
+
+    /**
      * Save object to database
      *
      * @return bool

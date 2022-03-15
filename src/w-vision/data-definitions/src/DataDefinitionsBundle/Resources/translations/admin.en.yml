@@ -117,4 +117,5 @@ data_definition_creation_date: 'Creation Date'
 data_definition_process_start_time: 'Process Start Time'
 data_definition_process_end_time: 'Process End Time'
 data_definition_download_log_file: 'Download Log File'
+data_definition_already_exists: 'Data definition already exits! Please provide a different name.'
 
