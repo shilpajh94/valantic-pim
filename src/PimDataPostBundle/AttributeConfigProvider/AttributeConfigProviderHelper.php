@@ -14,6 +14,12 @@ class AttributeConfigProviderHelper
         return \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile($filePath);
     }
 
+    public function getCompleteAttributeConfig(ShopType $shopType, ClassType $classType): array
+    {
+        $completeConfig = $this->getCompleteConfig($shopType, $classType);
+        return $completeConfig["parameters"]["Attribute"];
+    }
+
     private function getConfigFileName($shopType, $classType): string
     {
         $shopType = \strtoupper($shopType);
@@ -32,5 +38,17 @@ class AttributeConfigProviderHelper
             }
         }
         return $array;
+    }
+    
+    public function getConfigForKeyValue($completeConfig, $key, $value): array
+    {
+        $returnValue = [];
+        foreach($completeConfig as $configAttrKey => $configAttrValue )
+        {
+            if(array_key_exists($key,$configAttrValue) && $configAttrValue[$key] === $value ){
+                $returnValue[$configAttrKey] = $configAttrValue;
+            }
+        }
+        return $returnValue;
     }
 }

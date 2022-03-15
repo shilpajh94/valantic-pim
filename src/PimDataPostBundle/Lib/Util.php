@@ -2,7 +2,11 @@
 
 namespace PimDataPostBundle\Lib;
 
-use PimDataPostBundle\Model\AuthToken;
+use PimDataPostBundle\Model\Auth\AuthToken;
+use PimDataPostBundle\Model\Types\ClassType;
+use PimDataPostBundle\Model\Types\ShopType;
+use PimDataPostBundle\Model\UpdateWindow;
+use PimDataPostBundle\Services\UtilService;
 
 class Util
 {
@@ -17,4 +21,16 @@ class Util
     {
         return \Pimcore::getKernel()->getContainer()->get($service);
     }
+
+    public static function getSymfonyParameter(string $param)
+    {
+        $utilService = self::getService(UtilService::class);
+        return $utilService->getParameter($param);
+    }
+
+    public static function getUpdateWindow(): UpdateWindow
+    {
+        return UpdateWindow::getInstance();
+    }
+
 }

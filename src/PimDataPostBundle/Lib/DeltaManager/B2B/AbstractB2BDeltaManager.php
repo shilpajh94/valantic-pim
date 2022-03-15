@@ -17,9 +17,9 @@ abstract class AbstractB2BDeltaManager implements IDeltaManager
      */
     public abstract function getRecordsToUpdate(): array;
     
-    private abstract function getHashChangedRecords(): array;
+    public abstract function getHashChangedRecords(): array;
         
-    private abstract function removeHashNotChangedRecordsFromTempTable(): array;
+    public abstract function removeHashNotChangedRecordsFromTempTable(): bool;
     
 }
 

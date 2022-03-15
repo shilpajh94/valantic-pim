@@ -21,7 +21,7 @@ class B2BSalesForceObjectType
 
     private function __construct(string $objectType)
     {
-        $this->operationType = $objectType;
+        $this->objectType = $objectType;
     }
 
     public function __toString()
