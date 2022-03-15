@@ -42,7 +42,7 @@ pimcore.plugin.data_definitions = Class.create(pimcore.plugin.admin, {
                 handler: this.openExportDefinitions
             });
 
-            layoutToolbar.settingsMenu.add(exportMenu);
+            //layoutToolbar.settingsMenu.add(exportMenu);
 
             coreshop.global.addStore('data_definitions_definitions', 'data_definitions/import_definitions');
             coreshop.global.addStore('data_definitions_export_definitions', 'data_definitions/export_definitions');
