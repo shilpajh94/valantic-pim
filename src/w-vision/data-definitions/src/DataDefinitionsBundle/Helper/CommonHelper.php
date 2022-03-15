@@ -80,12 +80,12 @@ class CommonHelper
     {
         $asset = null;
         $fileName = basename($file);
-
+/* 
         $hyphenPos = strpos($fileName, '-');
         // remove the custom random value added in file name
         if ($hyphenPos !== false) {
             $fileName = substr($fileName, ($hyphenPos + 1));
-        }
+        } */
         $pathinfo = pathinfo($fileName);
         $parentAsset = self::getDefaultAssetFolderForUploadedFiles();
 

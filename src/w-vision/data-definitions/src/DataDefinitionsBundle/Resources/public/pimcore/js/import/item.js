@@ -137,10 +137,12 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     displayField: 'loader',
                     valueField: 'loader',
                     store: pimcore.globalmanager.get('data_definitions_loaders'),
-                    value: this.data.loader,
+                   // value: this.data.loader,
+                    value: 'primary_key',
                     width: 500,
-                    allowBlank: false
-                    //hidden: true,
+                    readOnly: true,
+                    allowBlank: false,
+                    hidden: true,
                 },
                 {
                     /*  xtype: 'combo',
