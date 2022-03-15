@@ -352,6 +352,7 @@ class ImportDefinitionController extends ResourceController
     {
         return $this->getParameter('data_definitions.import_rule.actions');
     }
+    
     /**
      * @param Request $request
      */
@@ -385,6 +386,7 @@ class ImportDefinitionController extends ResourceController
         }
         return $this->json(["data" => $fieldArray]);
     }
+
     /**
      * @param Request $request
      */
@@ -452,16 +454,19 @@ class ImportDefinitionController extends ResourceController
         }
         return $importClass;
     }
+
     public function  getBusinessUnitClassFromConfig()
     {
         $yamlFilePath = Constants::DATA_DEFINITION_BU_CLASS;
         return Utils::getYmlConfig($yamlFilePath);
     }
+
     public function getBusinessUnitRolesFromConfig()
     {
         $yamlFilePath = Constants::DATA_DEFINITION_BU_ROLES;
         return Utils::getYmlConfig($yamlFilePath);
     }
+
     public function getRoleFromConfg()
     {
         $getAllRoles = $this->getBusinessUnitRolesFromConfig();
@@ -469,6 +474,7 @@ class ImportDefinitionController extends ResourceController
         $rolesCBS = array("CBS" => $getAllRoles['config']['CBS']['Roles']);
         return array_merge($rolesCBS, $rolesIFPTG);
     }
+
     public function getClassesAccordingToRoles()
     {
         $roles = $this->getRoleFromConfg();
@@ -486,18 +492,16 @@ class ImportDefinitionController extends ResourceController
     public function getImportLevels()
     {
         $buConfig   = $this->getBusinessUnitClassFromConfig();
-        $resultClass = [];
         if (isset($buConfig['config'])) {
-            foreach ($buConfig['config'] as $buClass => $arrLevels) {
+            foreach ($buConfig['config'] as  $arrLevels) {
                 $resultImportLevels[] = $arrLevels['PRODUCT_TYPE'];
             }
         }
         $importLevel = $resultImportLevels[0];
 
-        // p_r($importLevels);
-        //  p_r($resultImportLevels[0]);
         return $importLevel;
     }
+
     public function getCommonRoles()
     {
         $role_array = [];
