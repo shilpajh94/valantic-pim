@@ -476,11 +476,16 @@ final class Importer implements ImporterInterface
          */
         foreach ($definition->getMapping() as $mapItem) {
             $value = null;
-
-            if (array_key_exists($mapItem->getFromColumn(), $data) || $mapItem->getFromColumn() === "custom") {
-                $value = $data[$mapItem->getFromColumn()];
-                $this->setObjectValue($object, $mapItem, $value, $data, $dataSet, $definition, $params, $runner);
+            if($definition->importLevel != 'Fert' && $mapItem->getToColumn() == 'articleNumber'){
+                continue;
             }
+            else{
+                if (array_key_exists($mapItem->getFromColumn(), $data) || $mapItem->getFromColumn() === "custom") {
+                    $value = $data[$mapItem->getFromColumn()];
+                    $this->setObjectValue($object, $mapItem, $value, $data, $dataSet, $definition, $params, $runner);
+                }
+            }
+            
         }
 
         $shouldSave = true;
@@ -547,6 +552,7 @@ final class Importer implements ImporterInterface
         $params,
         RunnerInterface $runner = null
     ) {
+
         if ($map->getInterpreter()) {
             try {
                 $interpreter = $this->interpreterRegistry->get($map->getInterpreter());
@@ -649,14 +655,23 @@ final class Importer implements ImporterInterface
         }
 
         $obj = $loader->load($class, $data, $definition, $params);
-
+        if($definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
+            throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
+        }else{
+            if($definition->importLevel == 'Skeleton'){
+                $obj = $obj->getParent();
+            }
+            if($definition->importLevel == 'Base'){
+                $obj = $obj->getParent()->getParent();
+            }
+        }
         if (null === $obj) {
             $classImplementation = $this->modelFactory->getClassNameFor($classObject) ?? $classObject;
             $obj = new $classImplementation();
         }
 
         $key = Service::getValidKey($this->createKey($definition, $data), 'object');
-
+        
         if ($definition->getRelocateExistingObjects() || !$obj->getId()) {
             $obj->setParent(Service::createFolderByPath($this->createPath($definition, $data)));
         }
@@ -674,7 +689,7 @@ final class Importer implements ImporterInterface
         }
 
         $obj->setKey(Service::getUniqueKey($obj));
-
+       
         return $obj;
     }
 
