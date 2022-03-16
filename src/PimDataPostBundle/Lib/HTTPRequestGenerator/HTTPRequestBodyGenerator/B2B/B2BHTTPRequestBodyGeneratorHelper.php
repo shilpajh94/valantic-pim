@@ -1,0 +1,103 @@
+<?php
+
+namespace PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2B;
+
+use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
+use PimDataPostBundle\Model\Types\APIOperationType;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
+
+class B2BHTTPRequestBodyGeneratorHelper
+{
+   private $SFObjectType;
+
+   private $graphNo;
+
+   private $subRequestNo;
+   
+   private $b2bProductHelper;
+
+   
+    public function __construct($SFObjectType, $graphNo, $subRequestNo) {
+        $this->SFObjectType = $SFObjectType;
+        $this->graphNo = $graphNo;
+        $this->subRequestNo = $subRequestNo;
+        $this->b2bProductHelper = new B2BProductHelper;
+    }
+
+
+    public function getTotalBatches()
+    {
+        $listing = new B2BAPIRequestEntity\Listing();
+        $listing=$listing->load();
+        $totalRow=count($listing);
+
+        if($this->graphNo==0 || $this->subRequestNo==0)
+        return 0;
+        
+        $batches= ($totalRow/($this->graphNo*$this->subRequestNo));
+        return ceil($batches);
+    }
+
+
+    public function getHTTPRequestBodyByBatchNumber($batch)
+    {
+
+        $listing = new B2BAPIRequestEntity\Listing();
+        $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
+        $listing->setLimit($this->graphNo*$this->subRequestNo);
+        $listing=$listing->load();
+       
+        
+        $compositeRequest=array();
+        $graphData=array();
+
+        $insSubreq=0;
+        $insNode=0;
+        foreach($listing as $data)
+        {
+            $insSubreq++;
+
+            $subRequest= array();
+            $subRequest['body']=json_decode($data->body);
+
+            if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE())
+            $subRequest['method']='PATCH';
+            else if($data->operationType==APIOperationType::DELETE())
+            $subRequest['method']='DELETE';
+            else
+            $subRequest['method']='';
+
+            $subRequest['referenceId']=$data->referenceId;
+
+            
+            
+            $subRequest['url']= $this->b2bProductHelper->getEntityUrl().'/'.$this->b2bProductHelper->getExternalIdKey().'/'.$data->externalID;
+           
+            array_push($compositeRequest,$subRequest);
+
+            if($insSubreq==$this->subRequestNo)
+            {
+                $insNode++;
+                $graphData[]=array(
+                'graphId'=>'graph'.$insNode,
+                'compositeRequest'=>$compositeRequest
+                 );   
+                $compositeRequest=array();
+                $insSubreq=0;
+            }
+
+
+        }
+
+        $graphs=array(
+            'graphs' => $graphData
+        );
+
+        return json_encode($graphs,JSON_UNESCAPED_SLASHES);
+    }
+
+
+    
+    
+  
+}

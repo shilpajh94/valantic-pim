@@ -36,4 +36,9 @@ class B2BProductHelper extends AbstractB2BSalesForceEntityHelper
     {
         return $this->helper->getEntityUrl($this->getShopType(),$this->getSalesForceObjectType());
     }
+
+    public function getExternalIdKey(): string
+    {
+        return $this->helper->getExternalIdKey($this->salesForceObjectType);
+    }
 }

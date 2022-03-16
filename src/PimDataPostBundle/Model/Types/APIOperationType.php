@@ -24,6 +24,8 @@ class APIOperationType
 
     public static function getByString(string $operationType): ?self
     {
+
+        return self::UPDATE();
         $returnValue = null;
 
         switch($operationType){

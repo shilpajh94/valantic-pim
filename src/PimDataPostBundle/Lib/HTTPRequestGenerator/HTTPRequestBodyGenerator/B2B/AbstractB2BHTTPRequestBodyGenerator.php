@@ -6,6 +6,16 @@ use PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\IHTTPReq
 
 abstract class AbstractB2BHTTPRequestBodyGenerator implements IHTTPRequestBodyGenerator
 {
-    // 500
-    // 25
+    public $graphNo=3;   //Number of graphID in 1 graphs
+    
+    public $subRequestNo=2;   // Number of subrequest in 1 composite request
+
+    public $startBatch=1;        //start batch number
+
+    public $table='b2b_salesforce_request';
+
+    public abstract function getTotalBatches(): int;
+
+    public abstract function getHTTPRequestBodyByBatchNumber(int $batch): string;
+
 }
