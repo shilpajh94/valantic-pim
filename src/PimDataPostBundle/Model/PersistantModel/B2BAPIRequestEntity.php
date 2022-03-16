@@ -28,7 +28,7 @@ class B2BAPIRequestEntity extends AbstractModel
         return APIOperationType::getByString($this->operationType);
     }
 
-    public function setOperationType($operationType):void
+    public function setOperationType(string $operationType):void
     {
         $operationType= APIOperationType::getByString($operationType);
         $this->operationType = strval($operationType);
@@ -39,7 +39,7 @@ class B2BAPIRequestEntity extends AbstractModel
         return B2BSalesForceObjectType::getByString($this->SFObjectType);
     }
 
-    public function setSFObjectType($SFObjectType):void
+    public function setSFObjectType(string $SFObjectType):void
     {
         $SFObjectType= B2BSalesForceObjectType::getByString($SFObjectType);
         
