@@ -616,16 +616,20 @@ class ImportDefinitionController extends ResourceController
         $fullPath           = $asset->getFileSystemPath();
         $importFilePimcoreAssetId   = $asset->getId();
 
-        //$shellCmd           = shell_exec(PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"{\"file\": \"$fullPath\"}\"");
-
+        $csvContent         = file_get_contents($fullPath);
+        $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
+        $fd                 = fopen($tempFilePath, "w");
+        fputs($fd, $csvContent);
+        
+        
         // insert the record into the data definition import
         $dataImport  = new DataDefinitionImport();
         $dataImport->setName($name);
-        $dataImport->setStatus(Constants::SCHEDULE_STATUS_CREATED);
+        $dataImport->setStatus(Constants::SCHEDULE_STATUS_INPROGRESS);
         $dataImport->setImportFileName($fileName);
         $dataImport->setImportFilePimcoreAssetId($importFilePimcoreAssetId);
         $dataImport->setImportProcessStartTime(new \DateTime());
-        $dataImport->setImportDefinition($importDefinition);
+        $dataImport->setImportDefinitionId($importDefinition->getId());
         $dataImport->setCreationDate(new \DateTime());
 
         $user = \Pimcore\Tool\Admin::getCurrentUser();
@@ -633,6 +637,13 @@ class ImportDefinitionController extends ResourceController
 
         try {
             $dataImport->save();
+            $importDataId   = $dataImport->getId();
+
+            // create command to import the data of csv and run command in background
+            $arrParams      = ['file' => $tempFilePath, 'importDataId' => $importDataId];
+            $encParams      = json_encode(json_encode($arrParams,JSON_UNESCAPED_SLASHES), JSON_UNESCAPED_SLASHES);
+            $cmd            = PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"$encParams\"";
+            $executed       = \Pimcore\Tool\Console::execInBackground($cmd);
         } catch (NotNullConstraintViolationException $exception) {
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 
