@@ -42,11 +42,11 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
         },
         this.getFileUploadForm(),
         {
-            xtype: 'textfield',
+            xtype: 'hiddenfield',
             name: 'csvId',
             id: 'csvId',
-            hidden: true,
-            value: this.data['csvId'] ? this.data.csvId : ''
+            value: this.data['csvId'] ? this.data.csvId : '',
+            setHidden: true
         },
         this.getFooterInfoMsg()
             // {
@@ -127,9 +127,13 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
                                 console.log(response);
 
                                 fileField.setRawValue(rowValue);
-                                outerScope.openAssetButton.setHidden(true);
+                                outerScope.openAssetButton.setHidden(false);
+                                outerScope.openAssetButton.on('click', function () {
+                                    pimcore.helpers.openElement(response.fileId, 'asset');
+                                })
                                 // to send it in the save request
                                 outerScope.newlyUploadedFileName = response.fileName;
+                                outerScope.uploadedCSVId = response.fileId;
                                 Ext.getCmp('csvId').setValue(response.fileId);
                             },
                             failure: function (form, response) {
@@ -179,7 +183,13 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
         return this.footerInfoMsg;
     },
 
+
     openUploadedAsset: function () {
-        pimcore.helpers.openElement(this.data.csvId, 'asset');
+        if (this.data.csvId) {
+            pimcore.helpers.openElement(this.data.csvId, 'asset');
+        } else {
+            pimcore.helpers.openElement(uploadedCSVId, 'asset');
+        }
+
     }
 });
