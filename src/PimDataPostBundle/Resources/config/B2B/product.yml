@@ -5,7 +5,7 @@ parameters:
     o_id:
       fieldName: o_id
       tableName: object_1
-      sendToSF: true
+      sendToSF: false
       tableAttr: true
       attrType: INT(11) NOT NULL
     # ProductName:
@@ -18,18 +18,21 @@ parameters:
       fieldName: oldMaterialCode
       tableName: object_1
       sendToSF: true
+      sf_attribute_name: MaterialCode
       tableAttr: true
       attrType: VARCHAR(64) NULL
     industryStandard:
       fieldName: industryStandard
       tableName: object_1
       sendToSF: true
+      sf_attribute_name: Industry
       tableAttr: true
       attrType: VARCHAR(190) NULL
     articleNumber:
       fieldName: articleNumber
       tableName: object_1
       sendToSF: true
+      sf_attribute_name: ArtiKleNumber
       tableAttr: true
       attrType: VARCHAR(64) NULL
     webDiscription:
