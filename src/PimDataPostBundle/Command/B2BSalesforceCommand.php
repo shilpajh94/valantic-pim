@@ -14,13 +14,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use Pimcore\Db;
-use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
-use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
-
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
-
 
 
 class B2BSalesforceCommand extends AbstractCommand
@@ -37,30 +33,32 @@ class B2BSalesforceCommand extends AbstractCommand
 
         try {
 
-            // B2B Product Processing - Start
+
+            echo "\n Product Insert In Temp Table Started.";
 
             $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
             $b2bProductTempTablePopulator->truncateTempTable();
-            $resultSet = $b2bProductTempTablePopulator->getPimModifiedRecordIds();
+            $resultSet = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
             $resultSetProductsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($resultSet);
             $resultSetProductsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($resultSetProductsDetail);
             $b2bProductTempTablePopulator->insertDataInTempTable($resultSetProductsDetailWithHashData);
             
-            // B2B Product Processing - End
+            echo "\n Product Insert In Temp Table Completed.";
             
-            // B2B Categories Processing First Part - start
+
+            echo "\n Category Insert In Temp Table Started.";
 
             $b2bCategoryTempTablePopulator = new B2BCategoryTempTablePopulator();
             $b2bCategoryTempTablePopulator->truncateTempTable();
             $b2bCategoryActiveFlagHandler = new B2BCategoryActiveFlagHandler();
-            $b2bCategoryActiveFlagHandler->updatePIMCategories();
+            $masterTableCategories = $b2bCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
+            $categoriesActiveInactiveList = $b2bCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
+            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
 
-            // B2B Categories Processing First Part - end
-
-            // B2B Categories Processing Second  Part - start
             $allRelationCategories = $b2bCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
             if($allRelationCategories)
             {
+                $idAndActiveFlagValueArray = [];
                 $categoriesForTemp = [];
                 foreach ($allRelationCategories as $categoryId) {
                     $categoryData = $b2bCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
@@ -69,38 +67,33 @@ class B2BSalesforceCommand extends AbstractCommand
                         $isActive = $b2bCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
                         if(!$isActive)
                         {
-                            $b2bCategoryActiveFlagHandler->updateShowInMenuFlagInPIM($categoryId,$isActive);
+                            $idAndActiveFlagValueArray[$categoryId] = $isActive;
                         }   
                     }
                     else{
-                        $b2bCategoryActiveFlagHandler->updateShowInMenuFlagInPIM($categoryId, false);
+                        $idAndActiveFlagValueArray[$categoryId] = false;
                         $categoriesForTemp[] = $categoryId;
                     }
                 }
-
-                if($categoriesForTemp)
-                {
-                    $this->updateCategoryTempTable($b2bCategoryTempTablePopulator, $categoriesForTemp);
-                }
             }
-            // B2B Categories Processing Second  Part - end
 
-            // B2B Categories Processing third  Part - start
+            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
+
+
             $resultSet = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
-            $this->updateCategoryTempTable($b2bCategoryTempTablePopulator, $resultSet);
-            // B2B Categories Processing third  Part - end
+
+            $combinedResultSet = array_merge($categoriesForTemp, $resultSet);
+
+            $resultSetProductsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedResultSet);
+            $resultSetProductsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($resultSetProductsDetail);
+            $b2bCategoryTempTablePopulator->insertDataInTempTable($resultSetProductsDetailWithHashData);
+           
+            echo "\n Category Insert In Temp Table Completed.";
             
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
         echo "\n Script finished!!!\n";
         die;
-    }
-
-    public function updateCategoryTempTable($b2bCategoryTempTablePopulator, $resultSet)
-    {
-        $resultSetCategoriesDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($resultSet);
-        $resultSetCategoriesDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($resultSetCategoriesDetail);
-        $b2bCategoryTempTablePopulator->insertDataInTempTable($resultSetCategoriesDetailWithHashData);
     }
 }

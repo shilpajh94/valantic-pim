@@ -2,13 +2,23 @@
 
 namespace PimDataPostBundle\Lib\TempTablePopulator;
 
+use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Model\UpdateWindow;
+
 class TempTablePopulatorDao
 {
     private $db;
+    private $updateWindow;
 
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
+        $this->updateWindow = UpdateWindow::getInstance();
+    }
+
+    public function getDBInstance()
+    {
+        return $this->db;
     }
 
     public function truncate(string $tableName)
@@ -16,28 +26,18 @@ class TempTablePopulatorDao
         $sql = "TRUNCATE TABLE {$tableName}";
         $this->db->query($sql);
     }
-
-    public function getTodaysSaleMasterModifiedRecords()
+    
+    public function getPimModifiedRecordIds($tableName)
     {
-        $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS o_id FROM object_10 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
-        return $this->db->fetchCol($query);
-    }
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
 
-    public function getTodaysProductModifiedRecords()
-    {
-        $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
+        $query = "SELECT `o_id` FROM {$tableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
         return $this->db->fetchCol($query);
     }
     
-    public function getTodaysCategoryPimModifiedRecordIds()
+    public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {
-        $query = "SELECT `o_id` FROM object_2 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
-        return $this->db->fetchCol($query);
-    }
-
-    public function prepareQueryAndFetchDbData(Array $attribute, Array $pimIDs): Array
-    {
-        echo "\n Preparing SQL query.";
         $productIds = implode(",",$pimIDs);
         $selectArray = []; 
         $selectString = "";           
@@ -45,7 +45,7 @@ class TempTablePopulatorDao
         $joinOnArray = [];
         $joinOnString = "";
 
-        foreach ($attribute as $value) {
+        foreach ($attribute as $tableKey => $value) {
             if($value['hashField'])
             {
                 continue;
@@ -56,7 +56,7 @@ class TempTablePopulatorDao
                 $selectArray[] = $value['conditionalFieldName'];
             }
             else{
-                $selectArray[] = $value['pim_table_name'].".".$value['fieldName'];
+                $selectArray[] = $value['pim_table_name'].".".$value['pim_attribute_name']. " AS {$tableKey}";
             }
             
             
@@ -76,60 +76,11 @@ class TempTablePopulatorDao
         $selectString = implode(', ', $selectArray);
         $joinOnString = implode(' ', $joinOnArray);
 
-        echo "\n Fetch data.";
-
-        $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
+        $query = "SELECT {$selectString} FROM {$tableName} {$joinOnString} WHERE {$tableName}.o_id IN (".$productIds.")";
         return $this->db->fetchAll($query);
     }
 
-    public function prepareCategoryQueryAndFetchDbData(Array $attribute, Array $pimIDs): Array
-    {
-        echo "\n Category Preparing SQL query.";
-        $productIds = implode(",",$pimIDs);
-        $selectArray = []; 
-        $selectString = "";           
-        $secondJoinOnArray = [];
-        $joinOnArray = [];
-        $joinOnString = "";
-
-        foreach ($attribute as $value) {
-            if($value['hashField'])
-            {
-                continue;
-            }
-
-            if($value['conditionalFieldName'])
-            {
-                $selectArray[] = $value['conditionalFieldName'];
-            }
-            else{
-                $selectArray[] = $value['pim_table_name'].".".$value['fieldName'];
-            }
-            
-            
-            if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
-            {
-                $joinOnArray[] = $value['joinOn'];
-            }
-
-            if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
-            {
-                $secondJoinOnArray[] = $value['addOnJoin'];
-            }
-        }
-
-        $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
-
-        $selectString = implode(', ', $selectArray);
-        $joinOnString = implode(' ', $joinOnArray);
-
-        echo "\n Fetch data.";
-
-        $query = "SELECT {$selectString} FROM object_2 {$joinOnString} WHERE object_2.oo_id IN (".$productIds.")";
-        return $this->db->fetchAll($query);
-    }
-
-    public function createHashData(Array $resultSet, Array $relationalFields): Array
+    public function addHashesToTempTableData(Array $resultSet, Array $relationalFields): Array
     {
         $basicData = [];
         $relationalData = [];
@@ -162,7 +113,7 @@ class TempTablePopulatorDao
         return $dataInsert;
     }
 
-    public function insertDataInTemp($arrData, $tempTable)
+    public function insertDataInTempTable($arrData, $tempTable)
     {
         $insertArray = [];
 
@@ -184,7 +135,7 @@ class TempTablePopulatorDao
             $values .= "('{$strData}'),";
 
             // inserting records in batch
-            if ($rowCount % 50 == 0) {
+            if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',');
                 $this->db->query($query);
                 $values = '';
@@ -196,33 +147,6 @@ class TempTablePopulatorDao
             $query = $sql.rtrim($values, ',');
             $this->db->query($query);
         }
-    }
-    
-    public function iterateMasterTableCategories($tableName)
-    {
-        $query = "SELECT `oo_id` FROM {$tableName}";
-        return $this->db->fetchCol($query);
-    }
-
-    public function isCategoryPresentInMasterTable($tableName, $categoryId)
-    {
-        $query = "SELECT oo_id FROM {$tableName} where oo_id = {$categoryId}";
-        $resultSet =  $this->db->fetchCol($query);
-        return ($resultSet) ? true : false;
-    }
-
-    public function isCategoryActiveInMasterTable($tableName, $categoryId)
-    {
-        $query = "SELECT oo_id FROM {$tableName} where oo_id = {$categoryId} AND ShowInMenu = 1";
-        $resultSet =  $this->db->fetchCol($query);
-        return ($resultSet) ? true : false;
-    }
-
-    public function isAnyActiveProductPresentInProductMasterForGivenCategory($tableName, $categoryId)
-    {
-        $query = "SELECT `o_id` FROM {$tableName} WHERE (epixFlag = 1 AND o_published = 1) AND (TRIM(BOTH ',' FROM  SIOPLevel4) = {$categoryId}) ";
-        $resultSet =  $this->db->fetchCol($query);
-        return ($resultSet) ? true : false;
     }
     
 }
