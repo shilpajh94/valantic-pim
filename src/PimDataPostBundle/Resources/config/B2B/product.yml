@@ -4,1505 +4,1469 @@ parameters:
   Attribute:
     o_id:
       fieldName: o_id
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: INT(11) NOT NULL
+      tableAttr: true
+      attrType: INT(11) NOT NULL
     # ProductName:
     #   fieldName: ProductName
-    #   pim_table_name: object_1
+    #   tableName: object_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     oldMaterialCode:
       fieldName: oldMaterialCode
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     industryStandard:
       fieldName: industryStandard
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     articleNumber:
       fieldName: articleNumber
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     webDiscription:
       fieldName: webDiscription
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     epixFlag:
       fieldName: epixFlag 
       conditionalFieldName: (SELECT IF (count(object_10.oo_id)>0, 1, 0) FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) = object_1.o_id and (object_10.epixFlag = '001' and object_10.o_published = 1)) AS epixFlag 
-      pim_table_name: object_10 
+      tableName: object_10 
       # joinOn: LEFT JOIN object_10 ON object_1.o_id = TRIM(BOTH ',' FROM  object_10.Material) and (object_10.epixFlag = '001' and object_10.o_published = 1) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     ProductType:
       fieldName: ProductType
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     # SalesUOM:
     #   fieldName: SalesUOM
-    #   pim_table_name: object_1
+    #   tableName: object_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     # StandardPackQuantity:
     #   fieldName: StandardPackQuantity
-    #   pim_table_name: object_1
+    #   tableName: object_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     eanUpc:
       fieldName: eanUpc
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     weightUnit:
       fieldName: weightUnit
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(10) NULL
+      tableAttr: true
+      attrType: VARCHAR(10) NULL
     brandName:
       fieldName: brandName
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     baseUOM:
       fieldName: baseUOM
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     californiaProposition65ChemicalName1: 
       fieldName: californiaProposition65ChemicalName1
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     proposition65WarningAttributesRequired: 
       fieldName: proposition65WarningAttributesRequired
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     totalWeight: 
       fieldName: totalWeight
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     totalWeightPerPackage:
       fieldName: totalWeightPerPackage
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     BoltHoleSizeInDec: 
       fieldName: BoltHoleSizeInDec
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     BoltHoleSizeInFract: 
       fieldName: BoltHoleSizeInFract
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     BoltHoleSizeMM: 
       fieldName: BoltHoleSizeMM
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ClampingDiameterInDec: 
       fieldName: ClampingDiameterInDec
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ClampingDiameterInFract: 
       fieldName: ClampingDiameterInFract
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ClampingDiameterMM: 
       fieldName: ClampingDiameterMM
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     DashSize: 
       fieldName: DashSize
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     FlatWidthIn: 
       fieldName: FlatWidthIn
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     HoseIdDecIN: 
       fieldName: HoseIdDecIN
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ORingIdInDec: 
       fieldName: ORingIdInDec
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ORingIdMM: 
       fieldName: ORingIdMM
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ORingThicknessMM: 
       fieldName: ORingThicknessMM
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     ORingThicknessInDec: 
       fieldName: ORingThicknessInDec
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     Width: 
       fieldName: Width
-      pim_table_name: object_brick_query_AccessoriesFert_1
+      tableName: object_brick_query_AccessoriesFert_1
       joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     # NutType: 
     #   fieldName: NutType
-    #   pim_table_name: object_brick_query_AccessoriesFert_1
+    #   tableName: object_brick_query_AccessoriesFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
     CutOffLengthIN: 
       fieldName: CutOffLengthIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     CutOffLengthMM: 
       fieldName: CutOffLengthMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     DescriptivePartNumber: 
       fieldName: DescriptivePartNumber
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     DropLengthIN: 
       fieldName: DropLengthIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     DropLengthMM: 
       fieldName: DropLengthMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     elbowType:
       fieldName: elbowType
-      pim_table_name: object_20
+      tableName: object_20
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       addOnJoin: LEFT JOIN object_20 ON  object_20.o_id = TRIM(BOTH ',' FROM  object_brick_query_HydFittingsFert_1.nomenclatureDetails) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     FittingFamily:
       fieldName: FittingFamily
-      pim_table_name: object_20
+      tableName: object_20
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       addOnJoin: LEFT JOIN object_20 ON  object_20.o_id = TRIM(BOTH ',' FROM  object_brick_query_HydFittingsFert_1.nomenclatureDetails) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     PackagingQuantityPerBox: 
       fieldName: PackagingQuantityPerBox
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     FittingWeight: 
       fieldName: FittingWeight
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     FlangeODInDec: 
       fieldName: FlangeODInDec
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     FlangeODMM: 
       fieldName: FlangeODMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     FlangeIDInFract: 
       fieldName: FlangeIDInFract
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     gender1: 
       fieldName: gender1
-      pim_table_name: object_20
+      tableName: object_20
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       addOnJoin: LEFT JOIN object_20 ON  object_20.o_id = TRIM(BOTH ',' FROM  object_brick_query_HydFittingsFert_1.nomenclatureDetails) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     Hex1WrenchSizeIN: 
       fieldName: Hex1WrenchSizeIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     Hex1WrenchSizeMM: 
       fieldName: Hex1WrenchSizeMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     Hex2WrenchSizeIN: 
       fieldName: Hex2WrenchSizeIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     Hex2WrenchSizeMM: 
       fieldName: Hex2WrenchSizeMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     HoseID1InFract: 
       fieldName: HoseID1InFract
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     InsertionDepthIN: 
       fieldName: InsertionDepthIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(32) NULL
+      tableAttr: true
+      attrType: VARCHAR(32) NULL
     AssemblyMaterial: 
       fieldName: AssemblyMaterial
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     ORingMaterial: 
       fieldName: ORingMaterial
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     HydFitting_OverallLengthIN: 
       fieldName: OverallLengthIN AS HydFitting_OverallLengthIN
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     HydFitting_OverallLengthMm: 
       fieldName: OverallLengthMm AS HydFitting_OverallLengthMm
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(150) NULL
+      tableAttr: true
+      attrType: VARCHAR(150) NULL
     swivel: 
       fieldName: swivel
-      pim_table_name: object_20
+      tableName: object_20
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       addOnJoin: LEFT JOIN object_20 ON  object_20.o_id = TRIM(BOTH ',' FROM  object_brick_query_HydFittingsFert_1.nomenclatureDetails) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     ThreadDashSize1: 
       fieldName: ThreadDashSize1
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     ThreadSize1InMMDecimal: 
       fieldName: ThreadSize1InMMDecimal
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     Thread:
       fieldName: Thread
-      pim_table_name: object_20
+      tableName: object_20
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       addOnJoin: LEFT JOIN object_20 ON  object_20.o_id = TRIM(BOTH ',' FROM  object_brick_query_HydFittingsFert_1.nomenclatureDetails) 
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     TubeODInDec: 
       fieldName: TubeODInDec
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     TubeODMM: 
       fieldName: TubeODMM
-      pim_table_name: object_brick_query_HydFittingsFert_1
+      tableName: object_brick_query_HydFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     hoseDashSize: 
       fieldName: hoseDashSize
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     # BarbLengthMM:
     #   fieldName: BarbLengthMM
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # ExposedLengthMM:
     #   fieldName: ExposedLengthMM
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # FlowDiameterMM:
     #   fieldName: FlowDiameterMM
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # HexSizeMM:
     #   fieldName: HexSizeMM
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # MaximumWidthAcrossAdapterMM:
     #   fieldName: MaximumWidthAcrossAdapterMM
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # MaximumWidthWithCamArmsClosed:
     #   fieldName: MaximumWidthWithCamArmsClosed
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # MaximumWidthWithCamArmsExtended:
     #   fieldName: MaximumWidthWithCamArmsExtended
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # MinimumId:
     #   fieldName: MinimumId
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # PressureRating:
     #   fieldName: PressureRating
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # SizeEnd1:
     #   fieldName: SizeEnd1
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     # SizeEnd2:
     #   fieldName: SizeEnd2
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     AdapterGenderEnd1:
       fieldName: AdapterGenderEnd1
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     AdapterGenderEnd2:
       fieldName: AdapterGenderEnd2
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     AdapterType:
       fieldName: AdapterType
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     BarbLength:
       fieldName: BarbLength
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     # Descriptive:
     #   fieldName: Descriptive
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     DistanceChainLugExtendsfromBodyIN:
       fieldName: DistanceChainLugExtendsfromBodyIN
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     DistanceChainLugExtendsfromBodyMM:
       fieldName: DistanceChainLugExtendsfromBodyMM
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     ExposedLengthInches:
       fieldName: ExposedLengthInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     FlowDiameter:
       fieldName: FlowDiameter
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketColor:
       fieldName: GasketColor
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketIDInches:
       fieldName: GasketIDInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketIDMM:
       fieldName: GasketIDMM
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketMaterial:
       fieldName: GasketMaterial
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     GasketODInches:
       fieldName: GasketODInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketODMM:
       fieldName: GasketODMM
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketThicknessInches:
       fieldName: GasketThicknessInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     GasketThicknessMM:
       fieldName: GasketThicknessMM
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     HexSize:
       fieldName: HexSize
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     # MaterialType:
     #   fieldName: MaterialType
-    #   pim_table_name: object_brick_query_INHFittingsFert_1
+    #   tableName: object_brick_query_INHFittingsFert_1
     #   sendToSF: true
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(190) NULL
+    #   tableAttr: true
+    #   attrType: VARCHAR(190) NULL
     #   joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
     MaximumWidthAcrossAdapterInches:
       fieldName: MaximumWidthAcrossAdapterInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     MaximumWidthwithCamArmsClosedInches:
       fieldName: MaximumWidthwithCamArmsClosedInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     MaximumWidthwithCamArmsExtendedInches:
       fieldName: MaximumWidthwithCamArmsExtendedInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     MinimumIDInches:
       fieldName: MinimumIDInches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     NPTFThread:
       fieldName: NPTFThread
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     INHFitting_OverallLengthIN:
       fieldName: OverallLengthInches AS INHFitting_OverallLengthIN
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     INHFitting_OverallLengthMM:
       fieldName: OverallLengthMM AS INHFitting_OverallLengthMM
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     PressureRatingPSI:
       fieldName: PressureRatingPSI
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     SizeInchesFraction:
       fieldName: SizeInchesFraction
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     SizeEnd1Inches:
       fieldName: SizeEnd1Inches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     SizeEnd2Inches:
       fieldName: SizeEnd2Inches
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     ThreadSize:
       fieldName: ThreadSize
-      pim_table_name: object_brick_query_INHFittingsFert_1
+      tableName: object_brick_query_INHFittingsFert_1
       joinOn: LEFT JOIN object_brick_query_INHFittingsFert_1 ON object_brick_query_INHFittingsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     weightKg:
       fieldName: weightKg
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     WeightLbsPerFTUOM:
       fieldName: WeightLbsPerFTUOM
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     HoseIDNominalIDFrac:
       fieldName: HoseIDNominalIDFrac
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     hoseOdin:
       fieldName: hoseOdin
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     hoseOdmm:
       fieldName: hoseOdmm
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     workingPressureBAR:
       fieldName: workingPressureBAR
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     workingPressurePSI:
       fieldName: workingPressurePSI
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     tubeMaterial: 
       fieldName: tubeMaterial
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     tubeColor: 
       fieldName: tubeColor
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     coverMaterial: 
       fieldName: coverMaterial
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     coverColor: 
       fieldName: coverColor
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     coverCharacteristic: 
       fieldName: coverCharacteristic
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     hoseLengthFT:
       fieldName: hoseLengthFT
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     hoseLengthM:
       fieldName: hoseLengthM
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     staticWire: 
       fieldName: staticWire
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     assembly:
       fieldName: assembly
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     BendRadiusIN:
       fieldName: BendRadiusIN
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     bendRestrictorType:
       fieldName: bendRestrictorType
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     bendRestrictor:
       fieldName: bendRestrictor
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     BendRadiusMM:
       fieldName: BendRadiusMM
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     descriptive:
       fieldName: descriptive
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting1Material:
       fieldName: fitting1Material
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting1Size:
       fieldName: fitting1Size
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting1Type:
       fieldName: fitting1Type
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting2Material:
       fieldName: fitting2Material
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting2Size:
       fieldName: fitting2Size
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     fitting2Type:
       fieldName: fitting2Type
-      pim_table_name: object_brick_query_HoseFert_1
+      tableName: object_brick_query_HoseFert_1
       joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     hoseidDec:
       fieldName: hoseidDec
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     hoseidmm:
       fieldName: hoseidmm
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     minBurstPressureMPA:
       fieldName: minBurstPressureMPA
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     minBurstPressurePSI:
       fieldName: minBurstPressurePSI
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     numberOfHelixWires: 
       fieldName: numberOfHelixWires
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     numberOfPlies: 
       fieldName: numberOfPlies
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     safetyFactor: 
       fieldName: safetyFactor
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     StandardMetCover: 
       fieldName: StandardMetCover
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     StandardMetHose: 
       fieldName: StandardMetHose
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     StandardMetTube: 
       fieldName: StandardMetTube
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     tubeCharacteristic: 
       fieldName: tubeCharacteristic
-      pim_table_name: object_brick_query_HoseBase_1
+      tableName: object_brick_query_HoseBase_1
       joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     tubeGaugeIN:
       fieldName: tubeGaugeIN
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     tubeGaugeMM:
       fieldName: tubeGaugeMM
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     VacuumIN:
       fieldName: VacuumIN
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     VacuumMM:
       fieldName: VacuumMM
-      pim_table_name: object_brick_query_HoseSkeleton_1
+      tableName: object_brick_query_HoseSkeleton_1
       joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     reinforcement:
       fieldName: reinforcement
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     maximumTemperatureC:
       fieldName: maximumTemperatureC
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(10) NULL
+      tableAttr: true
+      attrType: VARCHAR(10) NULL
     maximumTemperatureF:
       fieldName: maximumTemperatureF
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(10) NULL
+      tableAttr: true
+      attrType: VARCHAR(10) NULL
     minimumTemperatureC:
       fieldName: minimumTemperatureC
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(10) NULL
+      tableAttr: true
+      attrType: VARCHAR(10) NULL
     minimumTemperatureF:
       fieldName: minimumTemperatureF
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(10) NULL
+      tableAttr: true
+      attrType: VARCHAR(10) NULL
     color:
       fieldName: color
-      pim_table_name: object_brick_query_PTGFert_1
+      tableName: object_brick_query_PTGFert_1
       joinOn: LEFT JOIN object_brick_query_PTGFert_1 ON object_brick_query_PTGFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     heightIn:
       fieldName: heightIn
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     heightMm:
       fieldName: heightMm
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     material:
       fieldName: material
-      pim_table_name: object_brick_query_PTGBase_1
+      tableName: object_brick_query_PTGBase_1
       joinOn: LEFT JOIN object_brick_query_PTGBase_1 ON object_brick_query_PTGBase_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     profile:
       fieldName: profile
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     widthIn:
       fieldName: widthIn
-      pim_table_name: object_brick_query_PTGFert_1
+      tableName: object_brick_query_PTGFert_1
       joinOn: LEFT JOIN object_brick_query_PTGFert_1 ON object_brick_query_PTGFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     widthmm:
       fieldName: widthmm
-      pim_table_name: object_brick_query_PTGFert_1
+      tableName: object_brick_query_PTGFert_1
       joinOn: LEFT JOIN object_brick_query_PTGFert_1 ON object_brick_query_PTGFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     beltAngle:
       fieldName: beltAngle
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinytext NULL
+      tableAttr: true
+      attrType: tinytext NULL
     datumLengthIn:
       fieldName: datumLengthIn
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     datumLengtMM:
       fieldName: datumLengtMM
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     EffectiveLengthUOM:
       fieldName: EffectiveLengthUOM
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     heatOilResistant:
       fieldName: heatOilResistant
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     insideLengthIN:
       fieldName: insideLengthIN
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     insideLengthMM:
       fieldName: insideLengthMM
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     numberOfBands:
       fieldName: numberOfBands
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     outsideLengthIN:
       fieldName: outsideLengthIN
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     outsideLengtMM:
       fieldName: outsideLengtMM
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     productEffectiveLengthIN:
       fieldName: productEffectiveLengthIN
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     productEffectiveLengthMM:
       fieldName: productEffectiveLengthMM
-      pim_table_name: object_brick_query_BeltsFert_1
+      tableName: object_brick_query_BeltsFert_1
       joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     staticConductive:
       fieldName: staticConductive
-      pim_table_name: object_brick_query_PTGSkeleton_1
+      tableName: object_brick_query_PTGSkeleton_1
       joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     boreType:
       fieldName: boreType
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     faceWidthIn:
       fieldName: faceWidthIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     faceWidthMm:
       fieldName: faceWidthMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     finish:
       fieldName: finish
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     flange:
       fieldName: flange
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(190) NULL
+      tableAttr: true
+      attrType: tinyint(190) NULL
     flangeDiameterIn:
       fieldName: flangeDiameterIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     flangeDiameterMm:
       fieldName: flangeDiameterMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     flangeMaterial:
       fieldName: flangeMaterial
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     beltType:
       fieldName: beltType
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     beltWidth:
       fieldName: beltWidth
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     beltWidthUOM:
       fieldName: beltWidthUOM
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     hubDiameterIn:
       fieldName: hubDiameterIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     hubDiameterMm:
       fieldName: hubDiameterMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     insideDiameterIn:
       fieldName: insideDiameterIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     insideDiameterMm:
       fieldName: insideDiameterMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     maxBoreSizeIN:
       fieldName: maxBoreSizeIN
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     maxBoreSizeMM:
       fieldName: maxBoreSizeMM
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     minBoreIn:
       fieldName: minBoreIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     minBoreMm:
       fieldName: minBoreMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     outsideDiameterIn:
       fieldName: outsideDiameterIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     outsideDiameterMm:
       fieldName: outsideDiameterMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     MetalFert_OverallLengthIN:
       fieldName: overAllLengthIn AS MetalFert_OverallLengthIN
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     MetalFert_overAllLengthMm:
       fieldName: overAllLengthMm AS MetalFert_overAllLengthMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     overallThicknessIn:
       fieldName: overallThicknessIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     overallThicknessMM:
       fieldName: overallThicknessMM
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchDiameterIn:
       fieldName: pitchDiameterIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchDiameterMm:
       fieldName: pitchDiameterMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     setScrew:
       fieldName: setScrew
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     stockThicknessIn:
       fieldName: stockThicknessIn
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     stockThicknessMm:
       fieldName: stockThicknessMm
-      pim_table_name: object_brick_query_MetalFert_1
+      tableName: object_brick_query_MetalFert_1
       joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     numberOfTeeth:
       fieldName: numberOfTeeth
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchIN:
       fieldName: pitchIN
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchMM:
       fieldName: pitchMM
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchLengthIN:
       fieldName: pitchLengthIN
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchLengthMM:
       fieldName: pitchLengthMM
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
     pitchLengthUOM:
       fieldName: pitchLengthUOM
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     pitchUOM:
       fieldName: pitchUOM
-      pim_table_name: object_brick_query_SynchronousFert_1
+      tableName: object_brick_query_SynchronousFert_1
       joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.o_id = object_1.o_id
       sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(190) NULL
+      tableAttr: true
+      attrType: VARCHAR(190) NULL
     o_published:
       fieldName: o_published
-      pim_table_name: object_1
+      tableName: object_1
       sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: tinyint(1) NULL
-    SIOPLevel1:
-      fieldName: SIOPLevel1
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
-    SIOPLevel2:
-      fieldName: SIOPLevel2
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
-    SIOPLevel3:
-      fieldName: SIOPLevel3
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
-    SIOPLevel4:
-      fieldName: SIOPLevel4
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
-    SIOPLevel5:
-      fieldName: SIOPLevel5
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
-    SIOPLevel6:
-      fieldName: SIOPLevel6
-      pim_table_name: object_1
-      sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(11) NULL
+      tableAttr: true
+      attrType: tinyint(1) NULL
     basicHash:
       fieldName: basicHash
-      pim_table_name: 
+      tableName: 
       sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
       hashField: true
     relationalHash:
       fieldName: relationalHash
-      pim_table_name: 
+      tableName: 
       sendToSF: false
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
+      tableAttr: true
+      attrType: VARCHAR(64) NULL
       hashField: true
       
