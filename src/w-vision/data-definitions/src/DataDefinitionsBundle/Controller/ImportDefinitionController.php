@@ -370,20 +370,26 @@ class ImportDefinitionController extends ResourceController
             $adminClass = $this->getBusinessUnitClassFromConfig();
             $adminClasses = $adminClass['config'];
             $adminClassesList = new DataObject\ClassDefinition\Listing();
+            $classNameAndDisplayNameArray = array();
             foreach ($adminClasses as $classForAdmin) {
-                $conditionArray[] =  'name = ' . $adminClassesList->quote($classForAdmin['Class'][0]);
+                $conditionArray[] =  'name = ' . $adminClassesList->quote(implode("",array_keys($classForAdmin['Class'][0])));
+                $classNameAndDisplayNameArray[(implode("",array_keys($classForAdmin['Class'][0])))] = implode("",array_values($classForAdmin['Class'][0]));
             }
+            
             $adminClassesList->setCondition(implode(" OR ", $conditionArray));
             $adminClassesList->setOrderKey('name');
             $adminClassesList->setOrder('asc');
             $classes = $adminClassesList->load();
             $fieldArray = array();
+            
             foreach ($classes as $class) {
                 $fieldArrayTemp = array();
                 $fieldArrayTemp['name'] = $class->getName();
+                $fieldArrayTemp['displayName'] = $classNameAndDisplayNameArray[$fieldArrayTemp['name']];
                 $fieldArray[] = $fieldArrayTemp;
             }
         }
+        
         return $this->json(["data" => $fieldArray]);
     }
 
@@ -394,7 +400,6 @@ class ImportDefinitionController extends ResourceController
     {
         $className      = $request->get('className');
         $buConfig       = $this->getBusinessUnitClassFromConfig();
-
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
         if ($className == 'Product') {
@@ -408,7 +413,7 @@ class ImportDefinitionController extends ResourceController
         $arrPrimaryKey = [];
         if (isset($buConfig['config'])) {
             foreach ($buConfig['config'] as  $arrClass) {
-                $configClassName = $arrClass['Class'][0];
+                $configClassName = implode("",array_keys($arrClass['Class'][0]));
                 $arrPrimaryKey[$configClassName] = $arrClass['PrimaryKey'];
             }
         }

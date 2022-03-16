@@ -78,14 +78,14 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     rootProperty: 'data'
                 }
             },
-            fields: ["name"],
+            fields: ["displayName","name"],
 
             sorters: [{
                 property: 'name',
                 direction: 'ASC'
             }]
         });
-
+        
         classesStore.load();
 
         this.configForm = new Ext.form.Panel({
@@ -168,7 +168,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     blankText: 'Field is required',
                     forceSelection: true,
                     msgTarget: 'under',
-                    displayField: 'name',
+                    displayField: 'displayName',
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
