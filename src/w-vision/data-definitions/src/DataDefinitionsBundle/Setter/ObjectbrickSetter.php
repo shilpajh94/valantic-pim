@@ -31,33 +31,34 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
         $keyParts = explode('~', $map->getToColumn());
 
         $config = $map->getSetterConfig();
-        $fieldName = $config['brickField'];
-        $class = $config['class'];
-        $brickField = $keyParts[3];
-
-        $brickGetter = sprintf('get%s', ucfirst($fieldName));
+        $fieldName = $config['brickField']; // "brickField" => "Fert"
+        $class = $config['class'];         // "class" => "BeltsFert"
+        $brickField = $keyParts[3];       //  "insideLengthIN"
+        $brickGetter = sprintf('get%s', ucfirst($fieldName));   // "getFert"
         $brickSetter = sprintf('set%s', ucfirst($fieldName));
-
+        
         if (method_exists($object, $brickGetter)) {
             $brick = $object->$brickGetter();
-
+            
             if (!$brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
                 $brick = new \Pimcore\Model\DataObject\Objectbrick($object, $fieldName);
                 $object->$brickSetter($brick);
             }
 
             if ($brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
-                $brickClassGetter = sprintf('get%s', ucfirst($class));
-                $brickClassSetter = sprintf('set%s', ucfirst($class));
-
+                
+                $brickClassGetter = sprintf('get%s', ucfirst($class));    
+                // $brickClassSetter = sprintf('set%s', ucfirst($class));
+               
                 $brickFieldObject = $brick->$brickClassGetter();
 
                 if (!$brickFieldObject instanceof AbstractData) {
-                    $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
+                   
+                    // $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
 
-                    $brickFieldObject = new $brickFieldObjectClass($object);
+                    // $brickFieldObject = new $brickFieldObjectClass($object);
 
-                    $brick->$brickClassSetter($brickFieldObject);
+                    // $brick->$brickClassSetter($brickFieldObject);
                 }
 
                 $setter = sprintf('set%s', ucfirst($brickField));
