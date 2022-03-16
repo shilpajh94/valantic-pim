@@ -25,25 +25,19 @@ class DataDefinitionImport extends AbstractModel
     public $importDefinitionId;
 
      /**
-     * @param ImportDefinition $importDefinition
+     * @return mixed
      */
-    public function setImportDefinition(ImportDefinition $importDefinition)
+    public function setImportDefinitionId(?int $importDefinitionId): void
     {
-        if ($importDefinition->getId()) {
-            $this->importDefinitionId = $importDefinition->getId();
-        }
+        $this->importDefinitionId = $importDefinitionId;
     }
 
     /**
-     * @return ImportDefinition|null
+     * @return mixed
      */
-    public function getImportDefinition(): ? ImportDefinition
+    public function getImportDefinitionId()
     {
-        $importDefinition = null;
-        if ($this->importDefinitionId) {
-            $importDefinition = ImportDefinition::getById($this->importDefinitionId);
-        }
-        return $importDefinition;
+        return $this->importDefinitionId;
     }
 
     /**
@@ -65,9 +59,9 @@ class DataDefinitionImport extends AbstractModel
     /**
      * @return mixed
      */
-    public function getImportedFileName()
+    public function getImportFileName()
     {
-        return $this->importedFileName;
+        return $this->importFileName;
     }
 
     /**

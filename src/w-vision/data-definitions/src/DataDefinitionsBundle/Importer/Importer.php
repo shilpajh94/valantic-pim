@@ -42,6 +42,9 @@ use Wvision\Bundle\DataDefinitionsBundle\Runner\RunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Runner\SaveRunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Runner\SetterRunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 
 final class Importer implements ImporterInterface
 {
@@ -392,6 +395,23 @@ final class Importer implements ImporterInterface
                 $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
                     'Process has been stopped.');
                 return [$objectIds, $exceptions];
+            }
+
+            // set status and process end time 
+            if(count($dataSet) === $count)
+            {                      
+                $importDataId   = $params['importDataId'];
+                $dataImport     = DataDefinitionImport::getById($importDataId);
+                $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
+                $dataImport->setImportProcessEndTime(new \DateTime());  
+                $dataImport->save();
+
+                // unlink temp file 
+                $tempFilePath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$dataImport->getImportFileName();
+                if(file_exists($tempFilePath))
+                {
+                    unlink($tempFilePath);
+                }
             }
         }
 
