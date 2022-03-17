@@ -1,5 +1,4 @@
 <?php
-
 namespace PimDataPostBundle\Lib\RelationChangeRegistrar\B2B;
 
 use PimDataPostBundle\Lib\RelationChangeRegistrar\IRelationChangeRegistrar;
@@ -9,6 +8,8 @@ abstract class AbstractB2BRelationChangeRegistrar implements IRelationChangeRegi
     public abstract function registerChangedRelation();
 
     protected abstract function fetchRecordsWhereRelationHashChanged(): array;
+
+    protected abstract function getRecordsPresentInTempNotInMaster(): array;
 
     protected abstract function getAllRelationalAttributes(): array;
 
