@@ -3,18 +3,18 @@
 namespace PimDataPostBundle\Lib\TempTablePopulator\B2B;
 
 use PimDataPostBundle\Lib\Constants;
-use PimDataPostBundle\Lib\TempTablePopulator\B2B\Dao\B2BCategoryTempTablePopulatorDao;
+use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 
 class B2BCategoryTempTablePopulator extends AbstractB2BTempTablePopulator
 {
     private $helper;
 
-    private $dao;
+    private $attributeConfigProvider;
 
     public function __construct()
     {
         $this->helper = new B2BTempTablePopulatorHelper();
-        $this->dao = new B2BCategoryTempTablePopulatorDao();
+        $this->attributeConfigProvider = new B2BCategoryAttributeConfigProvider();
     }
     
     public function truncateTempTable(): void
@@ -24,21 +24,22 @@ class B2BCategoryTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function getPimModifiedRecordIds(): array
     {
-        return $this->helper->getTodaysCategoryPimModifiedRecordIds();
+        return $this->helper->getPimModifiedRecordIds(Constants::B2B_CATEGORY_OBJECT_TABLE_NAME);
     }
 
     public function getTempTableDataForIds(array $pimIds): array
     {
-        return $this->helper->getCategoryTempTableDataForIds($pimIds);
+        return $this->helper->getTempTableDataForIds($pimIds, $this->attributeConfigProvider->getCompleteAttributeConfig(), Constants::B2B_CATEGORY_OBJECT_TABLE_NAME);
     }
 
     public function addHashesToTempTableData(array $tempTableData): array
     {
-        return $this->helper->addCategoryHashesToTempTableData($tempTableData);
+        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig();
+        return $this->helper->addHashesToTempTableData($tempTableData, $relationalFields);
     }
 
     public function insertDataInTempTable($insertTempData): void
     {
-        $this->helper->insertCategoriesDataInTempTable($insertTempData);
+        $this->helper->insertDataInTempTable($insertTempData, Constants::B2B_CATEGORY_TEMP_TABLE_NAME);
     }
 }

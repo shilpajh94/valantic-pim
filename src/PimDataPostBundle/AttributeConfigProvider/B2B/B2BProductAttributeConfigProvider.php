@@ -48,9 +48,10 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
         return $this->getPIMRelationalAttributeConfig($this->getCompleteAttributeConfig());
     }
 
-    public function getPIMRelationalAttributeConfig(Array $attribute): array
+    public function getPIMRelationalAttributeConfig(): array
     {
-        return $this->b2bAttributeConfigProviderHelper->getPIMRelationalAttributeConfig($attribute);
+        return $this->b2bAttributeConfigProviderHelper
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"relationalAttr",true);
     }
 
 }

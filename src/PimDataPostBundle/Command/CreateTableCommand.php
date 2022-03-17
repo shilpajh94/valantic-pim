@@ -35,34 +35,44 @@ class CreateTableCommand extends AbstractCommand
         $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
         $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
-        $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
-        $productAttributes = $this->commonHelper->getParameter($B2BProductAttributeConfig, 'Attribute');
-        $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME);
-        $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME);
+        $productAttributes = $B2BProductAttributeConfigProvider->getCompleteAttributeConfig();
+        // $productAttributes = $this->commonHelper->getParameter($B2BProductAttributeConfig, 'Attribute');
+        $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 'o_id');
 
         $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
-        $B2BCategoryAttributeConfig = $B2BCategoryAttributeConfigProvider->getCompleteConfig();
-        $categoryAttributes = $this->commonHelper->getParameter($B2BCategoryAttributeConfig, 'Attribute');
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME);
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME);
+        $categoryAttributes = $B2BCategoryAttributeConfigProvider->getCompleteAttributeConfig();
+        // $categoryAttributes = $this->commonHelper->getParameter($B2BCategoryAttributeConfig, 'Attribute');
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'oo_id');
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'oo_id');
     }
 
-    public function createTable($fields, $tableName)
+    public function createTable($fields, $tableName, $uniqueIndexKey)
     {
         if($fields)
         {
             $fieldsArray = [];
             $fieldsString = '';
+            $uniqueKeyIndexRequired = false;
             foreach ($fields as $key => $value) {
                 if(isset($value['temp_master_table_attr']) && $value['temp_master_table_attr'])
                 {
                     $temp_master_table_column_type = $value['temp_master_table_column_type'];
                     $fieldsArray[] = "{$key} {$temp_master_table_column_type}";
                 }
+
+                if($uniqueIndexKey == $key)
+                {
+                    $uniqueKeyIndexRequired = true;
+                }
+            }
+
+            if(trim($uniqueIndexKey) && $uniqueKeyIndexRequired)
+            {
+                $fieldsArray[] = "UNIQUE KEY unique_pim_id ({$uniqueIndexKey})";
             }
 
             $fieldsString = implode(', ', $fieldsArray);
-
             // Create B2C/B2C temp table
             $sql = "CREATE TABLE IF NOT EXISTS {$tableName} (
                 id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
