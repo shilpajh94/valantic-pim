@@ -6,13 +6,15 @@ class DataDefinitionImport extends AbstractModel
 {
     public $name;
 
-    public $downloadFileName;
+    public $logFileName;
 
     public $importFileName;
 
     public $status;
 
     public $importFilePimcoreAssetId;
+
+    public $logFilePimcoreAssetId;
 
     public $userOwner;
 
@@ -75,17 +77,17 @@ class DataDefinitionImport extends AbstractModel
     /**
      * @return mixed
      */
-    public function getDownloadFileName()
+    public function getLogFileName()
     {
-        return $this->downloadFileName;
+        return $this->logFileName;
     }
 
     /**
-     * @param mixed $downloadFileName
+     * @param mixed $logFileName
      */
-    public function setDownloadFileName(?string $downloadFileName): void
+    public function setLogFileName(?string $logFileName): void
     {
-        $this->downloadFileName = $downloadFileName;
+        $this->logFileName = $logFileName;
     }
 
     /**
@@ -104,14 +106,36 @@ class DataDefinitionImport extends AbstractModel
         $this->status = $status;
     }
 
+    /**
+     * @return mixed
+     */
     public function getImportFilePimcoreAssetId()
     {
         return $this->importFilePimcoreAssetId;
     }
 
+    /**
+     * @param mixed $importFilePimcoreAssetId
+     */
     public function setImportFilePimcoreAssetId(?int $importFilePimcoreAssetId): void
     {
         $this->importFilePimcoreAssetId = $importFilePimcoreAssetId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogFilePimcoreAssetId()
+    {
+        return $this->logFilePimcoreAssetId;
+    }
+
+    /**
+     * @param mixed $logFilePimcoreAssetId
+     */
+    public function setLogFilePimcoreAssetId(?int $logFilePimcoreAssetId): void
+    {
+        $this->logFilePimcoreAssetId = $logFilePimcoreAssetId;
     }
 
     /**

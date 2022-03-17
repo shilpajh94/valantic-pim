@@ -45,6 +45,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
+use Pimcore\Model\Element;
 
 final class Importer implements ImporterInterface
 {
@@ -142,7 +143,7 @@ final class Importer implements ImporterInterface
      * {@inheritdoc}
      */
     public function doImport(ImportDefinitionInterface $definition, $params)
-    {
+    {   
         $filter = null;
         $objectIds = [];
         $exceptions = [];
@@ -215,7 +216,7 @@ final class Importer implements ImporterInterface
     public function processSuccessfullImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions)
     {
         $this->sendDocument($definition, Document::getById($definition->getSuccessNotificationDocument()),
-            $objectIds, $exceptions);
+            $objectIds, $exceptions, $params);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.success', $params);
     }
 
@@ -229,7 +230,7 @@ final class Importer implements ImporterInterface
     public function processFailedImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions)
     {
         $this->sendDocument($definition, Document::getById($definition->getFailureNotificationDocument()),
-            $objectIds, $exceptions);
+            $objectIds, $exceptions, $params);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.failure', $params);
     }
 
@@ -248,84 +249,89 @@ final class Importer implements ImporterInterface
      * @param array                     $exceptions
      * @throws \Exception
      */
-    private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions)
+    private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions, $importDataParams =[])
     {
-       $failure_reason = [];
-       foreach ($exceptions as $obj)
-       {
-        $failure_reason[] = $obj->getMessage();
-       }
-        if ($document instanceof Document) {
+
+       // if ($document instanceof Document) {
             $params = [
-                'exceptions' => $failure_reason,  
-                'objectIds' => $objectIds,
+                'exceptions' => $exceptions,  
+                'objectIds' => implode(',',$objectIds),
                 'className' => $definition->getClass(),
                 'countObjects' => \count($objectIds),
                 'countExceptions' => \count($exceptions),
                 'name' => $definition->getName(),
                 'provider' => $definition->getProvider(),
+                'importDataId' => $importDataParams['importDataId']
             ];
-            $rows = [];
-            if($params['exceptions'])
-            {
-                foreach($params['exceptions'] as $msg)
-                {
-                    $rows[] = [$msg,$params['className'],'Failed'];
-                }
-            }
-            else
-            {
-                $rows[] = ['',$params['className'],'Success'];
-            }
-
-            $path = $this->mailAttachements($rows);
+            $this->CreateLogsFilesForImport($params );
 
             if ($document instanceof Document\Email) {
                 $mail = new Mail();
-              //  $mail->addto('tehreempervez959@gmail.com'); //???
                 $mail->setDocument($document);
                 $mail->setSubject("Import Log");
                 $mail->setParams($params);
-                $attachment = $this->createAttachmentAssetsObject($path);
-                $mail->createAttachment($attachment->getData(), $attachment->getMimetype(), $attachment->getFilename());
-                $mail->send();
+                // $mail->send();
             } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
                 $document->send($params);
             }
-        }
+       // }
     }
 
-    public function mailAttachements($rows)
+    public function CreateLogsFilesForImport($params)
     {   
+        $rows = [];
+       
 
-        $data[]  = ['Failed Reason','Class Name','Status Code'];
+        $data[]  = ['ObjectId','Class Name','Status Code','Failed Reason'];
 
-        $data = array_merge($data,$rows);
+        $data           = array_merge($data,$rows);
+        $importDataId   = $params['importDataId'];
+        $dataImport     = DataDefinitionImport::getById($importDataId);
 
-        $fileName = "ImportModule_Succes_And_Failure_Records".date('mdy').'.csv';
-        $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName;
-        $fileResource = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
+        $importDataName = $dataImport->getName();
+        $importFileName = $dataImport->getImportFileName();
+        $arrFileName    = explode('.', $importFileName);
+        $fileExtension  = end($arrFileName);
+        $onlyFileName   = str_replace('.'.$fileExtension,"",$importFileName);
+        $fileName       = $onlyFileName. '-'.$importDataName. '-Log.'.$fileExtension;
+        $fileResource   = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
         
         foreach($data as $arr)
         {
             fputcsv($fileResource, $arr, ',');
         }
-        return $filePath;
+        $this->ImportLogFileAsset($fileName, $importDataId);
     }
 
-    /**
-     * Create file asstes object which is used in email to get file properties.
-     */
-    protected function createAttachmentAssetsObject($filePath) {
-        $fileName = basename($filePath);
-        // Create an assets object only not save to get properties of file.
-        $html = @file_get_contents($filePath);
-        // Remove file after reading data.
-        @unlink($filePath);
-        $newAsset = new Asset();
-        $newAsset->setFilename($fileName);
-        $newAsset->setData($html);
-        return $newAsset;
+    public function ImportLogFileAsset($fileName, $importDataId) 
+    {
+        $fileName = basename($fileName);
+        $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName;
+        $parentAsset = Constants::DATA_DEFINITION_LOG_FILES_IN_ASSET_FOLDER;
+        $fileName = Element\Service::getValidKey($fileName, 'asset');
+        if (empty($fileName)) {
+            throw new \Exception('The filename of the asset is empty');
+        }
+
+        try 
+        {
+            $newAsset = new Asset();
+            $newAsset->setFilename($fileName);
+            $newAsset->setData(@file_get_contents($filePath));
+            $newAsset->setParent(\Pimcore\Model\Asset::getByPath($parentAsset));
+            $newAsset->save(); 
+
+            $assetId =  $newAsset->getId();
+
+            // update file name and asset id for the respective record into data definition import table
+            $dataImport     = DataDefinitionImport::getById($importDataId);
+            $dataImport->setLogFilePimcoreAssetId($assetId); 
+            $dataImport->setLogFileName($fileName);  
+            $dataImport->save();
+
+        } catch (\Exception $ex) {
+
+        }
     }
 
     /**
@@ -350,7 +356,7 @@ final class Importer implements ImporterInterface
      * @throws \Exception
      */
     private function runImport(ImportDefinitionInterface $definition, $params, $filter = null, $dataSet = null)
-    {
+    {   
         if (null === $dataSet) {
             $dataSet = [];
         }
@@ -374,7 +380,6 @@ final class Importer implements ImporterInterface
                     $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Collect Garbage',
                         $params);
                 }
-
                 $count++;
             } catch (\Throwable $ex) {
                 $this->logger->error($ex);
@@ -399,13 +404,13 @@ final class Importer implements ImporterInterface
 
             // set status and process end time 
             if(count($dataSet) === $count)
-            {                      
+            {                   
                 $importDataId   = $params['importDataId'];
                 $dataImport     = DataDefinitionImport::getById($importDataId);
                 $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
-                $dataImport->setImportProcessEndTime(new \DateTime());  
+                $dataImport->setImportProcessEndTime(new \DateTime());
                 $dataImport->save();
-
+                
                 // unlink temp file 
                 $tempFilePath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$dataImport->getImportFileName();
                 if(file_exists($tempFilePath))
@@ -674,7 +679,7 @@ final class Importer implements ImporterInterface
             $loader = $this->loaderRegistry->get('primary_key');
         }
 
-        $obj = $loader->load($class, $data, $definition, $params);
+        $obj = $loader->load($class, $data, $definition, $params); 
         if($definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
             throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
         }else{

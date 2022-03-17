@@ -141,7 +141,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                         rootProperty: 'data'
                     }
                 },
-                fields: ["id", "name", "download_file_name", "process_start_time", "process_end_time", "importFilePimcoreAssetId", "export_status", "creation_date"],
+                fields: ["id", "name", "process_start_time", "process_end_time", "importFilePimcoreAssetId", "export_status", "creation_date"],
                
             });
             this.store.load();
@@ -163,7 +163,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             });
 
             // set refresh time in milliseconds 
-            let refreshTime = 60 * 1000;
+            let refreshTime = 30 * 1000;
             Ext.TaskManager.start({
                     run: function () {
                         this.refreshGrid();
@@ -256,15 +256,9 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             },
             {
                 text: t("data_definition_import_name"),
-                width: '20%',
+                width: '30%',
                 sortable: true,
                 dataIndex: 'name'
-            },
-            {
-                text: t("data_definition_log_file"),
-                width: '15%',
-                sortable: true,
-                dataIndex: 'download_file_name'
             },
             {
                 text: t("data_definition_import_status"),
@@ -282,14 +276,14 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             },
             {
                 text: t("data_definition_process_start_time"),
-                width: '13%',
+                width: '15%',
                 sortable: true,
                 dataIndex: "process_start_time"
 
             },
             {
                 text: t("data_definition_process_end_time"),
-                width: '13%',
+                width: '15%',
                 sortable: true,
                 dataIndex: "process_end_time"
 
@@ -297,10 +291,10 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             {
                 text: t('data_definition_download_log_file'),
                 xtype: 'actioncolumn',
-                dataIndex: 'importFilePimcoreAssetId',
-                width: '9%',
+                dataIndex: 'logFilePimcoreAssetId',
+                width: '10%',
                 renderer: function (value, metadata, record, rowIndex, colIndex, store, view) {
-                    if (record.get('importFilePimcoreAssetId') == null) {
+                    if (record.get('logFilePimcoreAssetId') == null) {
                         this.items[0].icon = "";
                         metadata.style = 'cursor: pointer;';
                     } else {
@@ -312,10 +306,10 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 items: [{
                     icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
                     handler: function (grid, rowIndex, param, button,) {
-                        let importFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().importFilePimcoreAssetId;
+                        let logFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().logFilePimcoreAssetId;
 
-                        if (importFilePimcoreAssetId) {
-                            pimcore.helpers.download("/admin/asset/download?id=" + importFilePimcoreAssetId);
+                        if (logFilePimcoreAssetId) {
+                            pimcore.helpers.download("/admin/asset/download?id=" + logFilePimcoreAssetId);
                         }
                     }.bind(this)
                 }]
