@@ -679,8 +679,8 @@ final class Importer implements ImporterInterface
             $loader = $this->loaderRegistry->get('primary_key');
         }
 
-        $obj = $loader->load($class, $data, $definition, $params); 
-        if($definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
+        $obj = $loader->load($class, $data, $definition, $params);
+        if($class == 'Product' && $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
             throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
         }else{
             if($definition->importLevel == 'Skeleton'){
