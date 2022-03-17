@@ -30,7 +30,7 @@ class B2BProductRelationChangeRegistrarDao
         return $result;
     }
 
-    public function getRecordsPresentInTempNotInMaster()
+    public function fetchNewActiveRecordsInTempTable()
     {
         $sql = "SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
         $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";

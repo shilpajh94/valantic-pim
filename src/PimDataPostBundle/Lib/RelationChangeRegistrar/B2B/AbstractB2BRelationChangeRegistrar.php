@@ -9,7 +9,7 @@ abstract class AbstractB2BRelationChangeRegistrar implements IRelationChangeRegi
 
     protected abstract function fetchRecordsWhereRelationHashChanged(): array;
 
-    protected abstract function getRecordsPresentInTempNotInMaster(): array;
+    protected abstract function fetchNewActiveRecordsInTempTable(): array;
 
     protected abstract function getAllRelationalAttributes(): array;
 

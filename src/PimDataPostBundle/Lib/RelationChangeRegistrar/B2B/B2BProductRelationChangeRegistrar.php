@@ -33,9 +33,9 @@ class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistr
         return $this->b2bProductRelationChangeRegistrarDao->fetchRecordsWhereRelationHashChanged();
     }
     
-    public function getRecordsPresentInTempNotInMaster(): array
+    public function fetchNewActiveRecordsInTempTable(): array
     {
-        return $this->b2bProductRelationChangeRegistrarDao->getRecordsPresentInTempNotInMaster();
+        return $this->b2bProductRelationChangeRegistrarDao->fetchNewActiveRecordsInTempTable();
     }
 
     public function getAllRelationalAttributes(): array
