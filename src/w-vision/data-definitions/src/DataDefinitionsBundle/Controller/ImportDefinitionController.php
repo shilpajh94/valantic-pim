@@ -548,7 +548,9 @@ class ImportDefinitionController extends ResourceController
         foreach ($configArray as $perConfig) {
             $existname[] = strtolower($perConfig['name']);
         }
-        $alreadyTakenName =  in_array(strtolower($name), $existname);
+        if(is_array($existname)){
+            $alreadyTakenName =  in_array(strtolower($name), $existname);
+        }
 
         if (strlen($name) <= 0 || $alreadyTakenName == true) {
             return $this->viewHandler->handle(['success' => false]);

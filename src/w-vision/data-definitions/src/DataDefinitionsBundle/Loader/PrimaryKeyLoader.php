@@ -31,7 +31,7 @@ class PrimaryKeyLoader implements LoaderInterface
 
         $list = new $classList();
 
-        if ($list instanceof Listing) {
+        if ($list instanceof Listing && $class != 'CSProducts') {
             $mapping = $definition->getMapping();
             $condition = [];
             $conditionValues = [];
@@ -73,6 +73,9 @@ class PrimaryKeyLoader implements LoaderInterface
 
                 return $obj;
             }
+        }else{
+            $obj = DataObject\CSProducts::getByPath('/Contitech_ConveyorSolution/Products/'.$data['Product Hierarchy'].'/'.$data['Product Name']);
+            return $obj;
         }
 
         return null;
