@@ -2,8 +2,8 @@
 
 return [
     2 => [
-        "importLevel" => "Base",
-        "primaryKey" => "Path",
+        "importLevel" => "Fert",
+        "primaryKey" => "articleNumber",
         "loader" => "primary_key",
         "objectPath" => NULL,
         "cleaner" => NULL,
@@ -19,24 +19,45 @@ return [
         "id" => 2,
         "name" => "ContiTech_Import_2",
         "provider" => "csv",
-        "class" => "CSProducts",
+        "class" => "Product",
         "configuration" => [
             "csvExample" => NULL,
             "delimiter" => ",",
             "enclosure" => "\"",
             "csvHeaders" => NULL,
-            "csvFile" => NULL
+            "csvFile" => "test.csv",
+            "csvId" => "16314"
         ],
         "creationDate" => 1645596729,
-        "modificationDate" => 1647001725,
+        "modificationDate" => 1647362377,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "search keyword",
+                "toColumn" => "searchKeywords",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "sap number",
+                "toColumn" => "articleNumber",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ]
+        ],
         "runner" => NULL,
         "stopOnException" => FALSE,
         "failureNotificationDocument" => NULL,
         "successNotificationDocument" => NULL
     ],
     3 => [
-        "importLevel" => NULL,
-        "primaryKey" => NULL,
+        "importLevel" => "Base",
+        "primaryKey" => "articleNumber",
         "loader" => "primary_key",
         "objectPath" => NULL,
         "cleaner" => NULL,
@@ -58,10 +79,11 @@ return [
             "delimiter" => ",",
             "enclosure" => "\"",
             "csvHeaders" => NULL,
-            "csvFile" => NULL
+            "csvFile" => "ImportModule_Succes_And_Failure_Records.csv",
+            "csvId" => "16306"
         ],
         "creationDate" => 1646218159,
-        "modificationDate" => 1647001475,
+        "modificationDate" => 1647323276,
         "runner" => NULL,
         "stopOnException" => FALSE,
         "failureNotificationDocument" => NULL,
@@ -91,18 +113,19 @@ return [
             "delimiter" => ",",
             "enclosure" => "\"",
             "csvHeaders" => NULL,
-            "csvFile" => NULL
+            "csvFile" => "testnew.csv",
+            "csvId" => "16316"
         ],
         "creationDate" => 1647000332,
-        "modificationDate" => 1647000515,
+        "modificationDate" => 1647362397,
         "runner" => NULL,
         "stopOnException" => FALSE,
         "failureNotificationDocument" => NULL,
         "successNotificationDocument" => NULL
     ],
     5 => [
-        "importLevel" => NULL,
-        "primaryKey" => "SapCode",
+        "importLevel" => "Fert",
+        "primaryKey" => "articleNumber",
         "loader" => "primary_key",
         "objectPath" => NULL,
         "cleaner" => NULL,
@@ -118,16 +141,233 @@ return [
         "id" => 5,
         "name" => "testproduct",
         "provider" => "csv",
-        "class" => "CSProducts",
+        "class" => "Product",
         "configuration" => [
             "csvExample" => NULL,
             "delimiter" => ",",
             "enclosure" => "\"",
             "csvHeaders" => NULL,
-            "csvFile" => NULL
+            "csvFile" => "test.csv",
+            "csvId" => "16325"
         ],
         "creationDate" => 1647000599,
-        "modificationDate" => 1647001063,
+        "modificationDate" => 1647415427,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "search keyword",
+                "toColumn" => "searchKeywords",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ],
+            [
+                "primaryIdentifier" => TRUE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "sap number",
+                "toColumn" => "articleNumber",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ]
+        ],
+        "runner" => NULL,
+        "stopOnException" => FALSE,
+        "failureNotificationDocument" => NULL,
+        "successNotificationDocument" => NULL
+    ],
+    6 => [
+        "importLevel" => "Fert",
+        "primaryKey" => "articleNumber",
+        "loader" => "primary_key",
+        "objectPath" => NULL,
+        "cleaner" => NULL,
+        "key" => NULL,
+        "filter" => NULL,
+        "renameExistingObjects" => FALSE,
+        "relocateExistingObjects" => FALSE,
+        "skipNewObjects" => FALSE,
+        "skipExistingObjects" => FALSE,
+        "createVersion" => FALSE,
+        "omitMandatoryCheck" => FALSE,
+        "forceLoadObject" => FALSE,
+        "id" => 6,
+        "name" => "testtttttttt",
+        "provider" => "csv",
+        "class" => "Product",
+        "configuration" => [
+            "csvExample" => NULL,
+            "delimiter" => ",",
+            "enclosure" => "\"",
+            "csvHeaders" => NULL,
+            "csvFile" => "duplicate-dropdown_master-MD (1).csv",
+            "csvId" => "16308"
+        ],
+        "creationDate" => 1647335033,
+        "modificationDate" => 1647335270,
+        "runner" => NULL,
+        "stopOnException" => FALSE,
+        "failureNotificationDocument" => NULL,
+        "successNotificationDocument" => NULL
+    ],
+    7 => [
+        "importLevel" => "Base",
+        "primaryKey" => "articleNumber",
+        "loader" => "primary_key",
+        "objectPath" => NULL,
+        "cleaner" => NULL,
+        "key" => NULL,
+        "filter" => NULL,
+        "renameExistingObjects" => FALSE,
+        "relocateExistingObjects" => FALSE,
+        "skipNewObjects" => TRUE,
+        "skipExistingObjects" => FALSE,
+        "createVersion" => FALSE,
+        "omitMandatoryCheck" => FALSE,
+        "forceLoadObject" => FALSE,
+        "id" => 7,
+        "name" => "logtest",
+        "provider" => "csv",
+        "class" => "Product",
+        "configuration" => [
+            "csvExample" => NULL,
+            "delimiter" => ",",
+            "enclosure" => "\"",
+            "csvHeaders" => NULL,
+            "csvFile" => "test.csv",
+            "csvId" => "16311"
+        ],
+        "creationDate" => 1647346011,
+        "modificationDate" => 1647500329,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "search keyword",
+                "toColumn" => "searchKeywords",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ],
+            [
+                "primaryIdentifier" => TRUE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "sap number",
+                "toColumn" => "articleNumber",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ]
+        ],
+        "runner" => NULL,
+        "stopOnException" => FALSE,
+        "failureNotificationDocument" => 284,
+        "successNotificationDocument" => 284
+    ],
+    8 => [
+        "importLevel" => "Fert",
+        "primaryKey" => "articleNumber",
+        "loader" => "primary_key",
+        "objectPath" => NULL,
+        "cleaner" => NULL,
+        "key" => NULL,
+        "filter" => NULL,
+        "renameExistingObjects" => FALSE,
+        "relocateExistingObjects" => FALSE,
+        "skipNewObjects" => FALSE,
+        "skipExistingObjects" => FALSE,
+        "createVersion" => FALSE,
+        "omitMandatoryCheck" => FALSE,
+        "forceLoadObject" => FALSE,
+        "id" => 8,
+        "name" => "testnewwwww",
+        "provider" => "csv",
+        "class" => "Product",
+        "configuration" => [
+            "csvExample" => NULL,
+            "delimiter" => ",",
+            "enclosure" => "\"",
+            "csvHeaders" => NULL,
+            "csvFile" => "test.csv",
+            "csvId" => "16332"
+        ],
+        "creationDate" => 1647417351,
+        "modificationDate" => 1647425473,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "search keyword",
+                "toColumn" => "searchKeywords",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ],
+            [
+                "primaryIdentifier" => TRUE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "sap number",
+                "toColumn" => "articleNumber",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ]
+        ],
+        "runner" => NULL,
+        "stopOnException" => FALSE,
+        "failureNotificationDocument" => NULL,
+        "successNotificationDocument" => NULL
+    ],
+    9 => [
+        "importLevel" => "Fert",
+        "primaryKey" => "articleNumber",
+        "loader" => "primary_key",
+        "objectPath" => NULL,
+        "cleaner" => NULL,
+        "key" => NULL,
+        "filter" => NULL,
+        "renameExistingObjects" => FALSE,
+        "relocateExistingObjects" => FALSE,
+        "skipNewObjects" => TRUE,
+        "skipExistingObjects" => FALSE,
+        "createVersion" => FALSE,
+        "omitMandatoryCheck" => FALSE,
+        "forceLoadObject" => FALSE,
+        "id" => 9,
+        "name" => "testobject",
+        "provider" => "csv",
+        "class" => "Product",
+        "configuration" => [
+            "csvExample" => NULL,
+            "delimiter" => ",",
+            "enclosure" => "\"",
+            "csvHeaders" => NULL,
+            "csvFile" => "test.csv",
+            "csvId" => "16333"
+        ],
+        "creationDate" => 1647422731,
+        "modificationDate" => 1647425448,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "search keyword",
+                "toColumn" => "searchKeywords",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ],
+            [
+                "primaryIdentifier" => TRUE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "sap number",
+                "toColumn" => "articleNumber",
+                "interpreter" => NULL,
+                "interpreterConfig" => NULL
+            ]
+        ],
         "runner" => NULL,
         "stopOnException" => FALSE,
         "failureNotificationDocument" => NULL,

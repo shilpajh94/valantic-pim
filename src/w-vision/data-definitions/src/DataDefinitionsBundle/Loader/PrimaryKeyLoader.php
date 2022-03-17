@@ -71,13 +71,12 @@ class PrimaryKeyLoader implements LoaderInterface
                     }
                 }
 
-                return $obj;
+                return $obj; 
             }
         }else{
             $obj = DataObject\CSProducts::getByPath('/Contitech_ConveyorSolution/Products/'.$data['Product Hierarchy'].'/'.$data['Product Name']);
             return $obj;
         }
-
         return null;
     }
 }

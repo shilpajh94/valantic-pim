@@ -87,7 +87,7 @@ EOT
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    {   
         $eventDispatcher = $this->eventDispatcher;
 
         $params = json_decode($input->getOption('params'), true);
