@@ -71,10 +71,9 @@ class PrimaryKeyLoader implements LoaderInterface
                     }
                 }
 
-                return $obj;
+                return $obj; 
             }
         }
-
         return null;
     }
 }

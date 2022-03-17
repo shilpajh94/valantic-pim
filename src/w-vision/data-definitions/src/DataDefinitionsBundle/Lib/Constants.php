@@ -36,4 +36,8 @@ class Constants
     const DATA_DEFINITION_BU_CLASS = PIMCORE_PROJECT_ROOT .'/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_class.yml';
     const DATA_DEFINITION_BU_ROLES = PIMCORE_PROJECT_ROOT .'/src/w-vision/data-definitions/src/DataDefinitionsBundle/Resources/config/business_unit_role.yml';
    
+    //constant for Product Data Import Module uploaded Files and And Log Files
+    const DATA_DEFINITION_UPLOADED_FILES_IN_ASSET_FOLDER= '/Product Data Import Module/Uploaded Files';
+    const DATA_DEFINITION_LOG_FILES_IN_ASSET_FOLDER= '/Product Data Import Module/Log Files';
+
 }

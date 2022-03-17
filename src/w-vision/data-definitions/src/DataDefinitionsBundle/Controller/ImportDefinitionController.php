@@ -586,7 +586,7 @@ class ImportDefinitionController extends ResourceController
          */
         $existingDefinition =  DataDefinitionImport::getByName($name);
 
-        if ($existingDefinition) {
+        if ($existingDefinition && $existingDefinition->getImportDefinitionId()==$importDefinitionId) {
             DataImportLogger::log("Requested data definition ($name) already exitst into the database.", DataImportLogger::INFO);
             $msg = $this->trans('data_definition_already_exists');
             return $this->json(['success' => false, 'msg' => $msg]);
@@ -681,5 +681,32 @@ class ImportDefinitionController extends ResourceController
         }
 
         return $this->json(['success' => true, 'data' => $data]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $this->isGrantedOr403();
+
+        $id = $request->get('id');
+
+        $resource = $this->repository->find($id);
+
+        if ($resource instanceof ResourceInterface) {
+            $this->eventDispatcher->dispatchPreEvent('delete', $this->metadata, $resource, $request);
+
+            $this->manager->remove($resource);
+            $this->manager->flush();
+
+            $this->eventDispatcher->dispatchPostEvent('delete', $this->metadata, $resource, $request);
+
+            return $this->viewHandler->handle(['success' => true]);
+        }
+
+        return $this->viewHandler->handle(['success' => false]);
     }
 }
