@@ -232,5 +232,39 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
 
     getItemClass: function () {
         return pimcore.plugin.datadefinitions.import.item;
+    },
+    
+    // function to override the function coreshop resource import panel deleteItem
+    deleteItem: function (record) {
+            Ext.MessageBox.show({
+                title: 'Delete Definition',
+                msg: 'Are you sure you want to delete? All the associated imported items will be deleted permanently.',
+                buttons: Ext.MessageBox.OKCANCEL,
+                icon: Ext.MessageBox.WARNING,
+                fn: function(btn){
+                    if(btn == 'ok')
+                    {
+                        Ext.Ajax.request({
+                            url: this.url.delete,
+                            method: 'DELETE',
+                            params: {
+                                id: record.id
+                            },
+                            success: function () {
+                                this.grid.getStore().reload();
+                
+                                this.refresh();
+                
+                                if (this.panels[this.getPanelKey(record)]) {
+                                    this.panels[this.getPanelKey(record)].destroy();
+                                }
+                
+                            }.bind(this)
+                        });
+                    } else {
+                        return;
+                    }
+                }
+            });
     }
 });
