@@ -706,6 +706,43 @@ class ImportDefinitionController extends ResourceController
 
             $this->eventDispatcher->dispatchPostEvent('delete', $this->metadata, $resource, $request);
 
+            // get all the associated data to the relevant import and delete from the database
+            $importResult = new DataDefinitionImport\Listing();
+            $condition = "importDefinitionId = " . $id;
+            $importResult->setCondition($condition);
+            $importResult->setOrderKey("creationDate");
+            $importResult->setOrder("DESC");
+            $importResult->load();
+            if(!empty($importResult))
+            {
+                foreach ($importResult->getItems() as $data)
+                {   
+                    // check and delete the log file
+                    $importFilePimcoreAssetId   = $data->importFilePimcoreAssetId;
+                    if(!empty($importFilePimcoreAssetId))
+                    {
+                        $importFilePimcoreAsset = Asset::getById($importFilePimcoreAssetId);
+                        if(!empty($importFilePimcoreAsset))
+                        {
+                            $importFilePimcoreAsset->delete();
+                        }
+                    }
+    
+                    // check and delete the log file
+                    $logFilePimcoreAssetId      = $data->logFilePimcoreAssetId;
+                    if(!empty($logFilePimcoreAssetId))
+                    {
+                        $logFilePimcoreAsset  = Asset::getById($logFilePimcoreAssetId);
+                        $logFilePimcoreAsset->delete();
+                    }
+    
+                    // check and delete the import data from the database
+                    $importId       = $data->id;
+                    $dataImport     = DataDefinitionImport::getById($importId);
+                    $dataImport->delete();
+                }
+            }
+
             return $this->viewHandler->handle(['success' => true]);
         }
 
