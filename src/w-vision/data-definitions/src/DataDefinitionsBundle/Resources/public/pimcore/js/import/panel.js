@@ -236,6 +236,7 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
     
     // function to override the function coreshop resource import panel deleteItem
     deleteItem: function (record) {
+            var localConst = this;
             Ext.MessageBox.show({
                 title: 'Delete Definition',
                 msg: 'Are you sure you want to delete? All the associated imported items will be deleted permanently.',
@@ -245,21 +246,21 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
                     if(btn == 'ok')
                     {
                         Ext.Ajax.request({
-                            url: this.url.delete,
+                            url: localConst.url.delete,
                             method: 'DELETE',
                             params: {
                                 id: record.id
                             },
                             success: function () {
-                                this.grid.getStore().reload();
+                                localConst.grid.getStore().reload();
                 
-                                this.refresh();
+                                localConst.refresh();
                 
-                                if (this.panels[this.getPanelKey(record)]) {
-                                    this.panels[this.getPanelKey(record)].destroy();
+                                if (localConst.panels[localConst.getPanelKey(record)]) {
+                                    localConst.panels[localConst.getPanelKey(record)].destroy();
                                 }
                 
-                            }.bind(this)
+                            }.bind(localConst)
                         });
                     } else {
                         return;
