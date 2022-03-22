@@ -26,13 +26,13 @@ class PimFieldType
     
     private const ADVANCED_MANY_TO_MANY_OBJECT_RELATION = "advancedManyToManyObjectRelation";
 
-    private const ADVANCED_MANY_TO_MANY_OBJECT_RELATION = "advancedManyToManyObjectRelation";
-
     private const BOOLEAN_SELECT = "booleanSelect";
 
     private const IMAGE = "image";
 
     private const VIDEO = "video";
+    
+    private const SALES_FORCE_ID ="salesForceId";
 
     private $pimFieldType;
 
@@ -101,10 +101,7 @@ class PimFieldType
         return new self(self::ADVANCED_MANY_TO_MANY_OBJECT_RELATION);
     }
 
-    public static function ADVANCED_MANY_TO_MANY_OBJECT_RELATION(): self
-    {
-        return new self(self::ADVANCED_MANY_TO_MANY_OBJECT_RELATION);
-    }
+   
 
     public static function BOOLEAN_SELECT(): self
     {
@@ -121,5 +118,9 @@ class PimFieldType
         return new self(self::VIDEO);
     }
 
-
+    
+    public static function SALESFORCE_ID(): self
+    {
+        return new self(self::SALESFORCE_ID);
+    }
 }

@@ -146,6 +146,34 @@ class RequestBodyGeneratorHelper
         }
     }
     
+    public function getSalesForceIdTypeValue($currentValue, array $config, $language = null) {
+        try {
+            if (!empty($config['relationFieldName']) && !empty($config['modelClassName'])) {
+                $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['modelClassName']."\\Listing";
+                $list = new $className();
+                if (!empty($config['whereCondition'])) {
+                    $where = $config['whereCondition'];
+                    $where = str_replace('{%ID%}', $list->quote($currentValue), $where);
+                    $list->setCondition($where);
+                }
+                $list->load();
+                if (!empty($list) && count($list)>0) {
+                    $objects = $list->getObjects();
+                    $getter = "get".ucfirst($config['relationFieldName']);
+                    return $objects[0]->$getter();
+                }
+            }
+        } catch(\Exception $e) {
+            
+        }
+        return null;
+    }
+    
+    public function getSalesForceConstantTypeValue($currentValue, array $config, $language = null) {
+        
+        return null;
+    }
+    
     
 //    public function getRelationTypeValue($currentValue, array $config) {
 //        $fieldType = $config['relationFieldType'];

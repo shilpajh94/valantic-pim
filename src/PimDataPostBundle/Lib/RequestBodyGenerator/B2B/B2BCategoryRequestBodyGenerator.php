@@ -48,7 +48,8 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
             strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
-            strtolower(PimFieldType::BOOLEAN_SELECT())
+            strtolower(PimFieldType::BOOLEAN_SELECT()),
+            strtolower(PimFieldType::SALESFORCE_ID())
         ];
         
     }
