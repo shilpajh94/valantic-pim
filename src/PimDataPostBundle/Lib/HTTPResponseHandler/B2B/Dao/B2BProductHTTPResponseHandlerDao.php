@@ -4,7 +4,6 @@ namespace PimDataPostBundle\Lib\HTTPResponseHandler\B2B\Dao;
 use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
-use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 
 class B2BProductHTTPResponseHandlerDao
 {

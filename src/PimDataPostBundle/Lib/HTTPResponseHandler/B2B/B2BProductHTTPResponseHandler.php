@@ -20,9 +20,9 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
         $this->b2bProductHTTPResponseHandlerDao = new B2BProductHTTPResponseHandlerDao(Constants::B2B_PRODUCT_TEMP_TABLE_NAME,Constants::B2B_PRODUCT_MASTER_TABLE_NAME);
     }
 
-    public function handleResponse(Response $responseString): bool
+    public function handleResponse(Response $responseResult): bool
     {
-        $responseArr= json_decode($responseString->getBody()->getContents(),true);
+        $responseArr= json_decode($responseResult->getBody()->getContents(),true);
         if(isset($responseArr['graphs']))
         {
             foreach($responseArr['graphs'] as $graphArr)
