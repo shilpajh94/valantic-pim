@@ -26,6 +26,10 @@ class DataDefinitionImport extends AbstractModel
 
     public $importDefinitionId;
 
+    public $totalReocrds;
+
+    public $processedRecords;
+
      /**
      * @return mixed
      */
@@ -227,5 +231,37 @@ class DataDefinitionImport extends AbstractModel
         $date->setTimestamp($timestamp);
 
         return $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalReocrds()
+    {
+        return $this->totalReocrds;
+    }
+
+    /**
+     * @param mixed $totalReocrds
+     */
+    public function setTotalReocrds(?int $totalReocrds): void
+    {
+        $this->totalReocrds = $totalReocrds;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProcessedRecords()
+    {
+        return $this->processedRecords;
+    }
+
+    /**
+     * @param mixed $processedRecords
+     */
+    public function setProcessedRecords(?int $processedRecords): void
+    {
+        $this->processedRecords = $processedRecords;
     }
 }
