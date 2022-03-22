@@ -5,7 +5,7 @@ namespace PimDataPostBundle\Lib\DeltaManager;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 class DeltaManagerDao
 {
-    private $db;    //database
+    protected $db;    //database
     private $tempMasterTablesMeta;  
    
     
@@ -45,7 +45,7 @@ class DeltaManagerDao
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t2.id IS NULL AND t1.epixFlag=1 AND t1.o_published=1";
        
-       $result = $this->db->fetchAll($sql);
+       $result = $this->db->fetchCol($sql);
        return $result;
 
     }

@@ -22,6 +22,8 @@ class B2BAPIRequestEntity extends AbstractModel
 
     public $externalID;
 
+    public $pimId;
+
 
     public function getOperationType(): APIOperationType
     {
@@ -132,7 +134,13 @@ class B2BAPIRequestEntity extends AbstractModel
         $this->externalID = $externalID;
     }
 
+    public function getPimId()
+    {
+        return $this->pimId;
+    }
 
-
-
+    public function setPimId($pimId)
+    {
+        $this->pimId = $pimId;
+    }
 }

@@ -1,88 +1,86 @@
 parameters:
-  Master Table: b2b_category_master
-  Temp Table: b2b_category_temp
   Attribute:
     oo_id:
-      fieldName: oo_id
+      pim_attribute_name: oo_id
       pim_table_name: object_2
       temp_master_table_attr: true
       temp_master_table_column_type: INT(11) NOT NULL
     # PrintedCatalogDescription:
-    #   fieldName: PrintedCatalogDescription
+    #   pim_attribute_name: PrintedCatalogDescription
     #   pim_table_name: object_2
     #   sendToSF: Name
     #   temp_master_table_attr: true
     #   temp_master_table_column_type: VARCHAR(190) NULL
     PrintedCatalogDescription_de:
-      fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_de
+      pim_attribute_name: PrintedCatalogDescription
       pim_table_name: object_localized_2_de
       joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
       sendToSF: PrintedCatalogDescription
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(2500) NULL
     PrintedCatalogDescription_en:
-      fieldName: PrintedCatalogDescription AS PrintedCatalogDescription_en
+      pim_attribute_name: PrintedCatalogDescription
       pim_table_name: object_localized_2_en
       joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
       sendToSF: PrintedCatalogDescription
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(2500) NULL
     # CatalogId:
-    #   fieldName: CatalogId
+    #   pim_attribute_name: CatalogId
     #   pim_table_name: object_2
     #   sendToSF: CatalogId
     #   temp_master_table_attr: false
     #   temp_master_table_column_type: VARCHAR(32) NULL
     Level:
-      fieldName: Level
+      pim_attribute_name: Level
       pim_table_name: object_2
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(2) NULL
     o_parentId:
-      fieldName: o_parentId
+      pim_attribute_name: o_parentId
       pim_table_name: object_2
       sendToSF: ParentCategoryId
       temp_master_table_attr: true
       temp_master_table_column_type: INT(11) NULL
     # longDescription:
-    #   fieldName: longDescription
+    #   pim_attribute_name: longDescription
     #   pim_table_name: object_2
     #   sendToSF: Description
     #   temp_master_table_attr: true
     #   temp_master_table_column_type: VARCHAR(255) NULL
     SortOrder:
-      fieldName: SortOrder
+      pim_attribute_name: SortOrder
       pim_table_name: object_2
       sendToSF: SortOrder
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(255) NULL
     ShowInMenu:
-      fieldName: ShowInMenu
+      pim_attribute_name: ShowInMenu
       pim_table_name: object_2
       sendToSF: IsNavigational
       temp_master_table_attr: true
       temp_master_table_column_type: TINYINT(1) NULL
     image:
-      fieldName: image
+      pim_attribute_name: image
       pim_table_name: object_2
       sendToSF: B2B_Category_Image__c
       temp_master_table_attr: true
       temp_master_table_column_type: int(11) NULL
       relationalAttr: true
     # externalId:
-    #   fieldName: externalId
+    #   pim_attribute_name: externalId
     #   pim_table_name: object_2
     #   sendToSF: B2B_External_Id__c
     #   temp_master_table_attr: true
     #   temp_master_table_column_type: VARCHAR(32) NULL
     basicHash:
-      fieldName: basicHash
+      pim_attribute_name: basicHash
       pim_table_name: 
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
     relationalHash:
-      fieldName: relationalHash
+      pim_attribute_name: relationalHash
       pim_table_name: 
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(64) NULL

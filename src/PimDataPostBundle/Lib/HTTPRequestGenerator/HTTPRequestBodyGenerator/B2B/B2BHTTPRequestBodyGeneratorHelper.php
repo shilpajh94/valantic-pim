@@ -47,7 +47,6 @@ class B2BHTTPRequestBodyGeneratorHelper
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
        
-        
         $compositeRequest=array();
         $graphData=array();
 
@@ -75,7 +74,7 @@ class B2BHTTPRequestBodyGeneratorHelper
            
             array_push($compositeRequest,$subRequest);
 
-            if($insSubreq==$this->subRequestNo)
+            if($insSubreq==$this->subRequestNo || count($listing)==$insNode+1)
             {
                 $insNode++;
                 $graphData[]=array(
