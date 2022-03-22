@@ -165,8 +165,8 @@ final class Importer implements ImporterInterface
         if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
-
-        list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $filter, $data);
+        $totalRowsWithData = count($data);
+        list($objectIds, $exceptions) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
         if ($cleanerType) {
@@ -357,7 +357,7 @@ final class Importer implements ImporterInterface
      * @return array
      * @throws \Exception
      */
-    private function runImport(ImportDefinitionInterface $definition, $params, $filter = null, $dataSet = null)
+    private function runImport(ImportDefinitionInterface $definition, $params, $totalRowsWithData, $filter = null, $dataSet = null)
     {   
         if (null === $dataSet) {
             $dataSet = [];
@@ -425,7 +425,7 @@ final class Importer implements ImporterInterface
             }
 
             // set status and process end time 
-            if(count($dataSet) === $count)
+            if($totalRowsWithData === $count)
             {                   
                 $importDataId   = $params['importDataId'];
                 $dataImport     = DataDefinitionImport::getById($importDataId);
