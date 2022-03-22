@@ -188,7 +188,7 @@ final class Importer implements ImporterInterface
                 $cleaner->setLogger($this->logger);
             }
 
-            $cleaner->cleanup($definition, $objectIds);
+            $cleaner->cleanup($definition, $objectIds, $logResult);
 
             $this->logger->info(sprintf('Finished Cleaner "%s"', $cleanerType));
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
@@ -196,9 +196,9 @@ final class Importer implements ImporterInterface
         }
 
         if (\count($exceptions) > 0) {
-            $this->processFailedImport($definition, $params, $objectIds, $exceptions);
+            $this->processFailedImport($definition, $params, $objectIds, $exceptions, $logResult);
         } else {
-            $this->processSuccessfullImport($definition, $params, $objectIds, $exceptions);
+            $this->processSuccessfullImport($definition, $params, $objectIds, $exceptions, $logResult);
         }
 
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.finished', '', $params);
@@ -213,10 +213,10 @@ final class Importer implements ImporterInterface
      * @param                           $exceptions
      * @throws \Exception
      */
-    public function processSuccessfullImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions)
+    public function processSuccessfullImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions, $logResult)
     {
         $this->sendDocument($definition, Document::getById($definition->getSuccessNotificationDocument()),
-            $objectIds, $exceptions, $params);
+            $objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.success', $params);
     }
 
@@ -227,10 +227,10 @@ final class Importer implements ImporterInterface
      * @param                           $exceptions
      * @throws \Exception
      */
-    public function processFailedImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions)
+    public function processFailedImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions, $logResult)
     {
         $this->sendDocument($definition, Document::getById($definition->getFailureNotificationDocument()),
-            $objectIds, $exceptions, $params);
+            $objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.failure', $params);
     }
 
@@ -249,7 +249,7 @@ final class Importer implements ImporterInterface
      * @param array                     $exceptions
      * @throws \Exception
      */
-    private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions, $importDataParams =[])
+    private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions, $importDataParams =[], $logResult=[])
     {
 
        // if ($document instanceof Document) {
@@ -261,7 +261,8 @@ final class Importer implements ImporterInterface
                 'countExceptions' => \count($exceptions),
                 'name' => $definition->getName(),
                 'provider' => $definition->getProvider(),
-                'importDataId' => $importDataParams['importDataId']
+                'importDataId' => $importDataParams['importDataId'],
+                'logResult' => $logResult
             ];
             $this->CreateLogsFilesForImport($params );
 
@@ -280,9 +281,10 @@ final class Importer implements ImporterInterface
     public function CreateLogsFilesForImport($params)
     {   
         $rows = [];
-       
+       // DataImportLogger::log(json_encode($params['logResult']));
+       $rows = $params['logResult'];
 
-        $data[]  = ['ObjectId','Class Name','Status Code','Failed Reason'];
+        $data[]  = ['Sap Number','Class Name','Status Code','Failed Reason'];
 
         $data           = array_merge($data,$rows);
         $importDataId   = $params['importDataId'];
@@ -361,45 +363,65 @@ final class Importer implements ImporterInterface
             $dataSet = [];
         }
 
-        $count = 0;
-        $countToClean = 1000;
-        $objectIds = [];
-        $exceptions = [];
+        $count          = 0;
+        $countToClean   = 1000;
+        $objectIds      = [];
+        $exceptions     = [];
+        $logResult      = [];
+
+        $primaryKey     = $definition->getPrimaryKey();
+        $className      = $definition->getClass();
+        DataImportLogger::log(json_encode($definition->mapping->getFromColumn)); //exit;
 
         foreach ($dataSet as $row) {
-            try {
-                $object = $this->importRow($definition, $row, $dataSet, array_merge($params, ['row' => $count]), $filter);
 
-                if ($object instanceof Concrete) {
-                    $objectIds[] = $object->getId();
+            $primaryKeyValue    = $row[$primaryKey];
+            $objCheckNew = $this->getObject($definition, $row, $params);
+
+            if (null !== $objCheckNew && !$objCheckNew->getId()) {
+
+                try {
+                    $object = $this->importRow($definition, $row, $dataSet, array_merge($params, ['row' => $count]), $filter);
+
+                    if ($object instanceof Concrete) {
+                        $objectIds[] = $object->getId();
+                    }
+
+                    if (($count + 1) % $countToClean === 0) {
+                        \Pimcore::collectGarbage();
+                        $this->logger->info('Clean Garbage');
+                        $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Collect Garbage',
+                            $params);
+                    }
+                    $count++;
+
+                    $logResult[] = ['primaryKey' => $primaryKey, 'primaryKeyValue' => $row, 'className' => $className, 'statusCode' => 'Success', 'Reason' => 'Success'];
+                } catch (\Throwable $ex) {
+                    $this->logger->error($ex);
+
+                    $exceptions[] = $ex;
+
+                    $logResult[] = ['primaryKey' => $primaryKey, 'primaryKeyValue' => $primaryKeyValue,  'className' => $className, 'statusCode' => 'Failed', 'Reason' => $ex->getMessage()];
+
+                    $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
+                        sprintf('Error: %s', $ex->getMessage()), $params);
+
+                    if ($definition->getStopOnException()) {
+                        throw $ex;
+                    }
                 }
 
-                if (($count + 1) % $countToClean === 0) {
-                    \Pimcore::collectGarbage();
-                    $this->logger->info('Clean Garbage');
-                    $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Collect Garbage',
-                        $params);
-                }
-                $count++;
-            } catch (\Throwable $ex) {
-                $this->logger->error($ex);
+                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
 
-                $exceptions[] = $ex;
-
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
-                    sprintf('Error: %s', $ex->getMessage()), $params);
-
-                if ($definition->getStopOnException()) {
-                    throw $ex;
+                if ($this->shouldStop) {
+                    $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
+                        'Process has been stopped.');
+                    return [$objectIds, $exceptions];
                 }
             }
-
-            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
-
-            if ($this->shouldStop) {
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
-                    'Process has been stopped.');
-                return [$objectIds, $exceptions];
+            else
+            {
+                $logResult[] = ['primaryKey' => $primaryKey, 'primaryKeyValue' => $primaryKeyValue, 'className' => $className, 'statusCode' => 'Failed', 'Reason' => 'Record does not exits.'];
             }
 
             // set status and process end time 
@@ -420,7 +442,7 @@ final class Importer implements ImporterInterface
             }
         }
 
-        return [$objectIds, $exceptions];
+        return [$objectIds, $exceptions, $logResult];
     }
 
     /**
@@ -438,6 +460,7 @@ final class Importer implements ImporterInterface
             return null;
         }
         $runner = null;
+
 
         $object = $this->getObject($definition, $data, $params);
 
