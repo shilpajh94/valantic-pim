@@ -343,7 +343,6 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
 
         let form = this.wizardForm;
         let outerScope = this;
-        console.log(outerScope);
         let values = form.getForm().getFieldValues();
         if (form.isValid()) {
 
