@@ -17,15 +17,10 @@ class B2BProductHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBodyGener
     public function getTotalBatches(): int
     {
         return $this->httpRequestGeneratorHelper->getTotalBatches();
-
     }
 
     public function getHTTPRequestBodyByBatchNumber($batch): string
     {
         return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch);
-
     }
-
-
-
 }

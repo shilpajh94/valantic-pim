@@ -45,7 +45,6 @@ class B2BCategoryHTTPResponseHandlerDao
         return true;
         else
         return false;
-
     }
 
 }

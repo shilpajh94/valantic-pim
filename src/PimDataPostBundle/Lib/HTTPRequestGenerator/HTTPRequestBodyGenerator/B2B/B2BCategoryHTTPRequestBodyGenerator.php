@@ -19,13 +19,10 @@ class B2BCategoryHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBodyGene
 
     }
 
-
     public function getHTTPRequestBodyByBatchNumber($batch): string
     {
         return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch);
 
     }
-
-
 
 }
