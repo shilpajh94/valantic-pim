@@ -166,6 +166,13 @@ final class Importer implements ImporterInterface
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
         $totalRowsWithData = count($data);
+
+        // update total rows for the respective data definition import id
+        $importDataId   = $params['importDataId'];
+        $dataImport     = DataDefinitionImport::getById($importDataId);
+        $dataImport->setTotalReocrds($totalRowsWithData);
+        $dataImport->save();
+
         list($objectIds, $exceptions) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
@@ -368,12 +375,16 @@ final class Importer implements ImporterInterface
         $objectIds      = [];
         $exceptions     = [];
         $logResult      = [];
+        $importDataId   = $params['importDataId'];
 
         $primaryKey     = $definition->getPrimaryKey();
         $className      = $definition->getClass();
         DataImportLogger::log(json_encode($definition->mapping->getFromColumn)); //exit;
 
+        $i = 0;
         foreach ($dataSet as $row) {
+
+            $i++;
 
             $primaryKeyValue    = $row[$primaryKey];
             $objCheckNew = $this->getObject($definition, $row, $params);
@@ -425,12 +436,12 @@ final class Importer implements ImporterInterface
             }
 
             // set status and process end time 
-            if($totalRowsWithData === $count)
-            {                   
-                $importDataId   = $params['importDataId'];
+            if($totalRowsWithData === $i)
+            {                  
                 $dataImport     = DataDefinitionImport::getById($importDataId);
                 $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
                 $dataImport->setImportProcessEndTime(new \DateTime());
+                $dataImport->setProcessedRecords($totalRowsWithData);
                 $dataImport->save();
                 
                 // unlink temp file 
@@ -440,6 +451,18 @@ final class Importer implements ImporterInterface
                     unlink($tempFilePath);
                 }
             }
+            else
+            {
+                // update definition import table after every 10 iteration
+                if(fmod($i, 10)==0)
+                {
+                    $dataImport     = DataDefinitionImport::getById($importDataId);
+                    $dataImport->setProcessedRecords($i);
+                    $dataImport->save();
+                }
+            }
+
+            
         }
 
         return [$objectIds, $exceptions, $logResult];
