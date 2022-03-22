@@ -288,8 +288,7 @@ final class Importer implements ImporterInterface
     public function CreateLogsFilesForImport($params)
     {   
         $rows = [];
-       // DataImportLogger::log(json_encode($params['logResult']));
-       $rows = $params['logResult'];
+        $rows = $params['logResult'];
 
         $data[]  = ['Sap Number','Class Name','Status Code','Failed Reason'];
 
@@ -379,7 +378,6 @@ final class Importer implements ImporterInterface
 
         $primaryKey     = $definition->getPrimaryKey();
         $className      = $definition->getClass();
-        DataImportLogger::log(json_encode($definition->mapping->getFromColumn)); //exit;
 
         $i = 0;
         foreach ($dataSet as $row) {
@@ -454,7 +452,7 @@ final class Importer implements ImporterInterface
             else
             {
                 // update definition import table after every 10 iteration
-                if(fmod($i, 10)==0)
+                if(fmod($i, 100)==0)
                 {
                     $dataImport     = DataDefinitionImport::getById($importDataId);
                     $dataImport->setProcessedRecords($i);
