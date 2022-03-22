@@ -25,11 +25,8 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
         $configProviderService = new B2BProductAttributeConfigProvider();
-        $config = $configProviderService->getCompleteConfig();
-        $this->config = [];
-        if (!empty($config) && !empty($config['parameters']) && !empty($config['parameters']['Attribute'])) {
-            $this->config = $config['parameters']['Attribute'];
-        }
+        $this->config = $configProviderService->getCompleteAttributeConfig();
+        
         
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
@@ -72,7 +69,7 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfFetchValue($attributeConfig))) {
-                        $type = $config[$key]['type'];
+                        $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {
                             $fnc = "getMultiRelationTypeValue";

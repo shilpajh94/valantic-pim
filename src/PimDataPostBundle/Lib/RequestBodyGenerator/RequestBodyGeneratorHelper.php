@@ -85,9 +85,9 @@ class RequestBodyGeneratorHelper
         if (!empty($language) && $config['isLocalisedMaster']) {
             return $this->getRelationValue($currentValue, $config, $language); 
         } else {
-            $className = $config['className'];
+            $className = $config['pimcoreClassName'];
             $definiion = $this->requestBodyGenerator->getClassDefinition($className);
-            $fieldName = $config['fieldName'];
+            $fieldName = $config['pim_attribute_name'];
             $fieldDefinition = $definiion->getFieldDefinition($fieldName);
             if (!empty($fieldDefinition) && ($fieldDefinition->getFieldtype() == 'select' || $fieldDefinition->getFieldtype() == 'multiselect')) {
                 $options = $fieldDefinition->getOptions();
@@ -112,22 +112,21 @@ class RequestBodyGeneratorHelper
         
         if (!empty($config['relationFieldName']) ) {
             $select = "SELECT ".$config['relationFieldName'];
-            if (!empty($config['classId'])) {
-                if (!empty($language) && !empty($config['localisedTablePrefix'])) {
-                    $tableName = $config['localisedTablePrefix'].$config['classId'];
-                } elseif (!empty($config['tablePrefix'])) {
-                    $tableName = $config['tablePrefix'].$config['classId'];
-                }
-                if (!empty($tableName)) {
-                    $select .= ' FROM '.$tableName.' ';
-                    if (!empty($config['whereCondition'])) {
-                        $where = $config['whereCondition'];
-                        $where = str_replace('{%ID%}', $currentValue, $where);
-                        $select = $select." WHERE ".$where;
-                    }
-                    return $this->b2bProductRequestBodyGeneratorDao->fetchOne($select);
-                }
+            if (!empty($language) && !empty($config['localisedTableName'])) {
+                $tableName = $config['localisedTableName'];
+            } elseif (!empty($config['tableName'])) {
+                $tableName = $config['tableName'];
             }
+            if (!empty($tableName)) {
+                $select .= ' FROM '.$tableName.' ';
+                if (!empty($config['whereCondition'])) {
+                    $where = $config['whereCondition'];
+                    $where = str_replace('{%ID%}', $currentValue, $where);
+                    $select = $select." WHERE ".$where;
+                }
+                return $this->b2bProductRequestBodyGeneratorDao->fetchOne($select);
+            }
+            
         }
         return null;
     }
@@ -169,66 +168,5 @@ class RequestBodyGeneratorHelper
         return null;
     }
     
-    public function getSalesForceConstantTypeValue($currentValue, array $config, $language = null) {
-        
-        return null;
-    }
-    
-    
-//    public function getRelationTypeValue($currentValue, array $config) {
-//        $fieldType = $config['relationFieldType'];
-//        $fieldName = $config['fieldName'];
-//        $getter = "get".ucfirst($fieldName);
-//        if (method_exists($object, $getter)) {
-//            $relationFieldObject = $object->$getter();
-//            
-//            if (!empty($relationFieldObject) && count($relationFieldObject)>0) {
-//                if (!empty($relationFieldObject[0])) {
-//                    $relationFieldObject = $relationFieldObject[0];
-//                    if ($relationFieldObject instanceof \Pimcore\Model\DataObject\Data\ObjectMetadata) {
-//                        $relationFieldObject = $relationFieldObject->getObject();
-//                    }
-//                }
-//                $relationFieldName = $config['relationFieldName'];
-//                $relationFieldType = $config['relationFieldType'];
-//                $typeGetter = "get".ucfirst($relationFieldType)."TypeValue";
-//                $updatedConfig = $config;
-//                $updatedConfig['fieldName'] = $config['relationFieldName'];
-//                
-//                if ($relationFieldType == 'relation') {
-//                    $updatedConfig['className'] = $config['relationToRelationClassName'];
-//                    $updatedConfig['relationFieldName'] = $config['relationToRelationFieldName'];
-//                    $updatedConfig['relationFieldType'] = $config['relationToRelationFieldType'];
-//                }
-//                return $this->$typeGetter($relationFieldObject, $currentValue, $updatedConfig);
-//            }
-//        }
-//    }
-//    
-//    /**
-//     * 
-//     * @param object $object
-//     * @param array $config
-//     */
-//    public function getObjectbrickTypeValue($currentValue, array $config) 
-//    {
-//        $fieldGetter = "get".ucfirst($config['classFieldName']);
-//        $brickGetter = "get".ucfirst($config['brickName']);
-//        $classField = $object->$fieldGetter();
-//        if (method_exists($classField, $brickGetter)) {
-//            $brickObject = $classField->$brickGetter();
-//            if (empty($brickObject)) {
-//                return null;
-//            }
-//            $fieldType = $config['brickFieldType'];
-//            $typeGetter = "get".ucfirst($fieldType)."TypeValue";
-//            $updatedConfig = $config;
-//            if ($fieldType == 'relation') {
-//                $updatedConfig['fieldName'] = $config['brickFieldName'];
-//                $updatedConfig['className'] = $config['relationClassName'];
-//            }   
-//            return $this->$typeGetter($brickObject, $currentValue, $updatedConfig);
-//        }
-//    }
 }
 
