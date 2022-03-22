@@ -8,9 +8,9 @@ interface ITempTablePopulator
 
     public function getPimModifiedRecordIds(): array;
 
-    public function getTempTableDataForIds(array $pimIds): void;
+    public function getTempTableDataForIds(array $pimIds): array;
 
     public function addHashesToTempTableData(array $tempTableData): array;
 
-    public function insertDataInTempTable();
+    public function insertDataInTempTable(array $insertTableData): void;
 }

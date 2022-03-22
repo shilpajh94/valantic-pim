@@ -1,72 +1,101 @@
 parameters:
-  Master Table: b2b_category_master
-  Temp Table: b2b_category_temp
   Attribute:
-    o_id:
-      fieldName: o_id
-      tableName: object_2
-      tableAttr: true
-      attrType: INT(11) NOT NULL
-    PrintedCatalogDescription:
-      fieldName: PrintedCatalogDescription
-      tableName: object_2
-      sendToSF: Name
-      tableAttr: true
-      attrType: VARCHAR(190) NULL
-    CatalogId:
-      fieldName: CatalogId
-      tableName: object_2
-      sendToSF: CatalogId
-      tableAttr: false
-      attrType: VARCHAR(32) NULL
-    ParentCategoryId:
-      fieldName: ParentCategoryId
-      tableName: object_2
-      sendToSF: ParentCategoryId
-      tableAttr: true
-      attrType: INT(11) NULL
-    longDescription:
-      fieldName: longDescription
-      tableName: object_2
-      sendToSF: Description
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
+    oo_id:
+      pim_attribute_name: oo_id
+      pim_table_name: object_2
+      temp_master_table_attr: true
+      sendToSF: true
+      temp_master_table_column_type: INT(11) NOT NULL
+      sf_attribute_name: B2B_External_Id__c
+    PrintedCatalogDescription_de:
+      pim_attribute_name: PrintedCatalogDescription
+      pim_table_name: object_localized_2_de
+      joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
+      sf_attribute_name: Name
+    PrintedCatalogDescription_en:
+      pim_attribute_name: PrintedCatalogDescription
+      pim_table_name: object_localized_2_en
+      joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
+      sf_attribute_name: Name
+    # CatalogId:
+    #   pim_attribute_name: CatalogId
+    #   pim_table_name: object_2
+    #   sendToSF: CatalogId
+    #   temp_master_table_attr: false
+    #   temp_master_table_column_type: VARCHAR(32) NULL
+    Level:
+      pim_attribute_name: Level
+      pim_table_name: object_2
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2) NULL
+    o_parentId:
+      pim_attribute_name: o_parentId
+      pim_table_name: object_2
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NULL
+      sf_attribute_name: ParentCategoryId
+    longDescription_de:
+      pim_attribute_name: longDescription
+      pim_table_name: object_localized_2_de
+      joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
+      sf_attribute_name: Name
+    longDescription_en:
+      pim_attribute_name: longDescription
+      pim_table_name: object_localized_2_en
+      joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(2500) NULL
+      sf_attribute_name: Name
     SortOrder:
-      fieldName: SortOrder
-      tableName: object_2
-      sendToSF: SortOrder
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
+      pim_attribute_name: SortOrder
+      pim_table_name: object_2
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(255) NULL
+      sf_attribute_name: ParentCategoryId
     ShowInMenu:
-      fieldName: ShowInMenu
-      tableName: object_2
-      sendToSF: IsNavigational
-      tableAttr: true
-      attrType: VARCHAR(255) NULL
-    CategoryImage:
-      fieldName: CategoryImage
-      tableName: object_2
-      sendToSF: B2B_Category_Image__c
-      tableAttr: true
-      attrType: int(11) NULL
-      relationalAttr: true
-    externalId:
-      fieldName: externalId
-      tableName: object_2
-      sendToSF: B2B_External_Id__c
-      tableAttr: true
-      attrType: VARCHAR(32) NULL
+      pim_attribute_name: ShowInMenu
+      pim_table_name: object_2
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: TINYINT(1) NULL
+      sf_attribute_name: IsNavigational
+    image:
+      pim_attribute_name: image
+      pim_table_name: object_2
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
+      salesForceRelationalAttr: true
+      sf_attribute_name: B2B_Category_Image__c
+    # externalId:
+    #   pim_attribute_name: externalId
+    #   pim_table_name: object_2
+    #   sendToSF: B2B_External_Id__c
+    #   temp_master_table_attr: true
+    #   temp_master_table_column_type: VARCHAR(32) NULL
     basicHash:
-      fieldName: basicHash
-      tableName: 
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      pim_attribute_name: basicHash
+      pim_table_name: 
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
     relationalHash:
-      fieldName: relationalHash
-      tableName: 
-      tableAttr: true
-      attrType: VARCHAR(64) NULL
+      pim_attribute_name: relationalHash
+      pim_table_name: 
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(64) NULL
       hashField: true
 
 

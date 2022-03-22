@@ -19,7 +19,7 @@ class B2BCategoryHTTPResponseHandlerDao
 
     public function moveTempToMaster(int $pimId): bool
     {
-        $sql = "select * from ".$this->tempTable." where oo_id = ".$pimId;
+        $sql = "select * from ".$this->tempTable." where o_id = ".$pimId;
         $resultTemp = $this->db->fetchAll($sql); 
         foreach($resultTemp as $resultArr)
         {

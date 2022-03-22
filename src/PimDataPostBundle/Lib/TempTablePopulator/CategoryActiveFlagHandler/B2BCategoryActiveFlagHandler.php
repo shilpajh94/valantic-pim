@@ -24,30 +24,35 @@ class B2BCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
 
     public function getAllCategoryIdsInMasterTable(): array
     {
-        return $this->helper->getAllCategoryIdsInMasterTable($this->getShopType());
+        return $this->helper->getAllCategoryIdsInMasterTable();
     }
 
-    public function getValueForActiveFlag(array $categoryIds): array;
+    public function getValueForActiveFlag(array $categoryIds): array
+    {
+        return $this->helper->getValueForActiveFlag($categoryIds);
+    }
 
     /**
      * Change the value only if the value in the category was different
      * If the value is equal to what is needed to be set then do not hit save on the category object
      */
-    public function updateActiveFlagValue(array $idAndActiveFlagValueArray): void;
+    public function updateActiveFlagValue(array $idAndActiveFlagValueArray): void
+    {
+        $this->helper->updateActiveFlagValue($idAndActiveFlagValueArray);
+    }
 
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
-        $this->helper->getCategoryIdsWhereRelationWithProductChanged($this->shopType);
+        return $this->helper->getCategoryIdsWhereRelationWithProductChanged();
     }
 
-    public function isCategoryPresentInMasterTable(int $categoryId): bool
+    public function isCategoryPresentInMasterTable(string $categoryId): bool
     {
-        $this->helper->isCategoryPresentInMasterTable($this->shopType);
+        return $this->helper->isCategoryPresentInMasterTable($categoryId);
     }
 
-    public function isCategoryActiveInMasterTable(int $categoryId): bool
+    public function isCategoryActiveInMasterTable(string $categoryId): bool
     {
-        $this->helper->isCategoryActiveInMasterTable($this->shopType);
+        return $this->helper->isCategoryActiveInMasterTable($categoryId);
     }
-
 }

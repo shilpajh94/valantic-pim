@@ -27,6 +27,11 @@ class B2BCategoryAttributeConfigProvider extends AbstractB2BAttributeConfigProvi
         return $this->b2bAttributeConfigProviderHelper->getCompleteConfig($this->getShopType(),$this->getClassType());
     }
 
+    public function getCompleteAttributeConfig(): array
+    {
+        return $this->b2bAttributeConfigProviderHelper->getCompleteAttributeConfig($this->getShopType(),$this->getClassType());
+    }
+
     public function getLocalizedAttributeConfig(): array
     {
 
@@ -35,6 +40,12 @@ class B2BCategoryAttributeConfigProvider extends AbstractB2BAttributeConfigProvi
     public function getSalesForceRelationalAttributeConfig(): array
     {
         
+    }
+
+    public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
+    {
+        return $this->b2bAttributeConfigProviderHelper
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),$attrbuteForGrouping,true);
     }
 
 }

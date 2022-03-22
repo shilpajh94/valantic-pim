@@ -2,7 +2,7 @@
 
 /**
  * File Path: Your File path on system
- * Command: b2c:product <filePath>
+ * Command: conti:datapost:b2b-salesforce <filePath>
  * Des: Region data import script.
  */
 
@@ -12,16 +12,16 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\DataObject;
-use Pimcore\Db;
-use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
-use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
+use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
+use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
+use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
+
+use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
+
 
 class B2BSalesforceCommand extends AbstractCommand
 {
-    private $commonHelper;
-    private $db;
-
     protected function configure()
     {
         $this->setName('conti:datapost:b2b-salesforce')
@@ -31,305 +31,107 @@ class B2BSalesforceCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         echo " Script started!";
-        $this->db = Db::get();
 
-        $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-        
         try {
 
-            // B2B Product Processing
+            echo "\n Product Insert In Temp Table Started.";
 
-            $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
-            $B2BProductAttributeConfig = $B2BProductAttributeConfigProvider->getCompleteConfig();
+            $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
+            $b2bProductTempTablePopulator->truncateTempTable();
+            $productIds = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
+            $productsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($productIds);
             
-            // create B2C Temp and Master Table
-            // $B2CProductAttributesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2CProductAtrributeConfig();
-            // $this->createTempMasterTable($B2CProductAttributesConfig);
-
-            // create B2B Temp and Master Table
-            // $B2BProductAttributeConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getB2BProductAtrributeConfig();
-            $this->createTempMasterTable($B2BProductAttributeConfig);
+            $productsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($productsDetail);
             
-            // $B2CB2BAttributeArray[]= $B2CProductAttributesConfig;
-            $B2CB2BAttributeArray[]= $B2BProductAttributeConfig;
+            $b2bProductTempTablePopulator->insertDataInTempTable($productsDetailWithHashData);
+            
+            echo "\n Product Insert In Temp Table Completed.";
 
-        
+            echo "\n Process started relation table data insertion.";
+            $objProductTempMasterTablesMeta= new TempMasterTablesMeta('b2b_product_temp','b2b_product_master','basicHash','relationalHash');
+            $objB2BProductRelationChangeRegistrar=new B2BProductRelationChangeRegistrar($objProductTempMasterTablesMeta);
+            
+            $changedRecords = $objB2BProductRelationChangeRegistrar->fetchRecordsWhereRelationHashChanged();
+            $relationalChangedData = $objB2BProductRelationChangeRegistrar->processAllRelations($changedRecords, false);
 
-            // get product records using sales master updated records
-            $salesMaterialProductIDs = $this->getTodaysSaleMasterModifiedRecords();
+            $newTempActiveProducts = $objB2BProductRelationChangeRegistrar->fetchNewActiveRecordsInTempTable();
+            $relationalNewData = $objB2BProductRelationChangeRegistrar->processAllRelations($newTempActiveProducts, true);
+            
+            $relationalData = [];
 
-            // get all today's modified product
-            $materialProductIDs = $this->getTodaysProductModifiedRecords();
-
-            if($salesMaterialProductIDs || $materialProductIDs)
+            if($relationalChangedData)
             {
-                $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+                $relationalData = array_merge($relationalChangedData, $relationalNewData);
             }
-            
-            if($resultSet)
+            elseif($relationalNewData)
             {
-                // loop b2b and b2c array
+                $relationalData = array_merge($relationalNewData, $relationalChangedData);
+            }
 
-                foreach ($B2CB2BAttributeArray as $B2CB2BattributeConfig) {
+            $objB2BProductRelationChangeRegistrar->saveChangedRelation($relationalData);
+            
+            echo "\n Process end relation table data insertion.";
 
-                    $attribute = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Attribute');
-                    $tempTable = $this->commonHelper->getParameter($B2CB2BattributeConfig, 'Temp Table');
+            echo "\n Category Insert In Temp Table Started.";
 
-                    // prepare sql query and fetch the data from the object table
-                    $resultSetProductsDetail = $this->prepareQueryAndFetchDbData($attribute, $resultSet);
+            $b2bCategoryTempTablePopulator = new B2BCategoryTempTablePopulator();
+            $b2bCategoryTempTablePopulator->truncateTempTable();
+            $b2bCategoryActiveFlagHandler = new B2BCategoryActiveFlagHandler();
+            $masterTableCategories = $b2bCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
+            
+            $categoriesActiveInactiveList = $b2bCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
 
-                    //create hashes for the records
-                    $resultSetProductsDetailWithHashData = $this->createHashData($attribute, $resultSetProductsDetail);
+            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
 
-                    // insert data in the temp tables
-                    $this->insertDataInTemp($resultSetProductsDetailWithHashData, $tempTable);
+            $allRelationCategories = $b2bCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
 
+            $idAndActiveFlagValueArray = [];
+            if($allRelationCategories)
+            {
+                $categoriesForTemp = [];
+                foreach ($allRelationCategories as $categoryId) {
+
+                    $categoryData = $b2bCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
+                    if($categoryData)
+                    {
+                        $isActive = $b2bCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
+                        if(!$isActive)
+                        {
+                            $idAndActiveFlagValueArray[$categoryId] = $isActive;
+                        }   
+                    }
+                    else{
+                        $idAndActiveFlagValueArray[$categoryId] = false;
+                        $categoriesForTemp[] = $categoryId;
+                    }
                 }
             }
-            else{
-                echo "\n Modified records not found today.";
+            
+            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
+
+            $categoryIds = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
+
+            $combinedCategoryIds = [];
+
+            if($categoriesForTemp)
+            {
+                $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
+            }
+            elseif($categoryIds)
+            {
+                $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
             }
 
+            $combinedCategoryIdsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedCategoryIds);
+            $combinedCategoryIdsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($combinedCategoryIdsDetail);
+            $b2bCategoryTempTablePopulator->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
 
-            // B2B Category Processing
+            echo "\n Category Insert In Temp Table Completed.";
 
-            $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
-            $B2BCategoryAttributeConfig = $B2BCategoryAttributeConfigProvider->getCompleteConfig();
-            $this->createTempMasterTable($B2BCategoryAttributeConfig);
-
-            
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
         echo "\n Script finished!!!\n";
         die;
     }
-
-    // public function getBasicFields($attribute): Array
-    // {
-    //     $array = [];
-    //     foreach ($attribute as $attrKey => $value) {
-
-    //         if(!isset($value['relationalAttr']) || !$value['relationalAttr'])
-    //         {
-    //             $array[] = $attrKey;
-    //         }
-    //     }
-    //     return $array;
-    // }
-
-    public function getRelationalFields($attribute): Array
-    {
-        $array = [];
-        foreach ($attribute as $attrKey => $value) {
-
-            if(isset($value['relationalAttr']) && $value['relationalAttr'])
-            {
-                $array[] = $attrKey;
-            }
-        }
-        return $array;
-    }
-
-    public function createHashData($attribute, $resultSetProductsDetail)
-    {
-        echo "\n create hash data for the record.";
-
-        $basicData = [];
-        $relationalData = [];
-
-        $dataInsert = [];
-        $relationalFields = [];
-
-        // $basicFields = $this->getBasicFields($attribute);
-        $relationalFields = $this->getRelationalFields($attribute);
-
-        foreach ($resultSetProductsDetail as $productArray) 
-        {
-            foreach ($productArray as $key => $value) {
-                if(in_array($key,$relationalFields))
-                {
-                    $relationalData[$key] = $value;
-                }
-                else
-                {
-                    $basicData[$key] = $value;
-                }
-            }
-            
-            $basicHash = md5(json_encode($basicData, true));
-            $relationalHash = md5(json_encode($relationalData, true));
-    
-            $data = array_merge($basicData,$relationalData);
-            $data['basicHash'] = $basicHash;
-            $data['relationalHash'] = $relationalHash;
-
-            $dataInsert[] = $data;
-        }
-
-        return $dataInsert;
-    }
-
-    public function getTodaysProductModifiedRecords()
-    {
-        echo "\n Fetching product modified record.";
-        // $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
-        $query = "SELECT `o_id` FROM object_1 WHERE  DATE(from_unixtime(`o_modificationDate`)) = '2022-03-02';";
-        return $this->db->fetchCol($query);
-    }
-
-    public function getTodaysSaleMasterModifiedRecords()
-    {
-        echo "\n Fetching sales modified record.";
-        // $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS o_id FROM object_10 WHERE  DATE(from_unixtime(`o_modificationDate`)) = CURDATE();";
-        $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS o_id FROM object_10 WHERE  DATE(from_unixtime(`o_modificationDate`)) = '2022-03-02';";
-        return $this->db->fetchCol($query);
-    }
-
-    public function prepareQueryAndFetchDbData($attribute, $resultSet)
-    {
-        echo "\n Preparing SQL query.";
-        $productIds = implode(",",$resultSet);
-        $selectArray = []; 
-        $selectString = "";           
-        $secondJoinOnArray = [];
-        $joinOnArray = [];
-        $joinOnString = "";
-
-        foreach ($attribute as $value) {
-            if($value['hashField'])
-            {
-                continue;
-            }
-
-            if($value['conditionalFieldName'])
-            {
-                $selectArray[] = $value['conditionalFieldName'];
-            }
-            else{
-                $selectArray[] = $value['tableName'].".".$value['fieldName'];
-            }
-            
-            
-            if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
-            {
-                $joinOnArray[] = $value['joinOn'];
-            }
-
-            if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
-            {
-                $secondJoinOnArray[] = $value['addOnJoin'];
-            }
-        }
-
-        $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
-
-        $selectString = implode(', ', $selectArray);
-        $joinOnString = implode(' ', $joinOnArray);
-
-        echo "\n Fetch data.";
-
-        $query = "SELECT {$selectString} FROM object_1 {$joinOnString} WHERE object_1.o_id IN (".$productIds.")";
-        return $this->db->fetchAll($query);
-    }
-
-    public function truncateTempTable($tempTable){
-
-        // truncating temp table
-        echo "\n Truncating table - {$tempTable}";
-        $sql = "TRUNCATE TABLE {$tempTable}";
-        $this->db->query($sql);
-
-    }
-
-    public function createTempMasterTable($AttributesConfig)
-    {
-        $arrData = $this->commonHelper->getParameter($AttributesConfig, 'Attribute');
-        $tempTable = $this->commonHelper->getParameter($AttributesConfig, 'Temp Table');
-        $masterTable = $this->commonHelper->getParameter($AttributesConfig, 'Master Table');
-
-        $this->truncateTempTable($tempTable);
-        $fieldsArray = [];
-        $fieldsString = '';
-        foreach ($arrData as $key => $value) {
-            if(isset($value['tableAttr']) && $value['tableAttr'])
-            {
-                $attrType = $value['attrType'];
-                $fieldsArray[] = "{$key} {$attrType}";
-            }
-        }
-
-        $fieldsString = implode(', ', $fieldsArray);
-
-        echo "\n create temp table.";
-
-        // Create B2C/B2C temp table
-        $sql = "CREATE TABLE IF NOT EXISTS {$tempTable} (
-            id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            {$fieldsString}
-            )";
-        $this->db->query($sql);
-
-        echo "\n create master table.";
-
-        // Create B2C/B2C temp table
-        $sql = "CREATE TABLE IF NOT EXISTS {$masterTable} (
-            id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            {$fieldsString}
-            )";
-        $this->db->query($sql);
-    }
-
-    public function insertDataInTemp($arrData, $tempTable)
-    {
-        echo "\n data insertion started into table - {$tempTable}.";
-        $insertArray = [];
-        $updateArray = [];
-
-        $keys = $arrData[0];
-
-        foreach ($keys as $key => $value) {
-            $insertArray[] = "`".$key."`";
-            $updateArray[]= "`".$key."` = `".$key."`";
-        }
-
-        $insertArrayString = implode(',',$insertArray);
-        $updateArrayString = implode(',',$updateArray);
-
-        $rowCount = 1;
-        $sql      = "INSERT INTO `{$tempTable}` ({$insertArrayString}) VALUES";
-        $values   = '';
-        // $update = " ON DUPLICATE KEY UPDATE {$updateArrayString} ";
-        foreach ($arrData as $data) {
-            $strData = implode("','",$data);
-            // $newData = $data;
-            // $id = $data[0];
-            // $siopfullcode = $data['4'];
-            // if (empty($siopfullcode)) {
-            //     if (!empty($data[17])) {
-            //         $siopfullcode = $data[17];
-            //     } elseif (!empty($data[13])) {
-            //         $siopfullcode = $data[13];
-            //     }
-            // }
-            // $newData[4] = $siopfullcode;
-            // $record = addslashes(json_encode($newData, true));
-            // $hash   = md5($record);
-            $values .= "('{$strData}'),";
-            // inserting records in batch
-            if ($rowCount % 50 == 0) {
-                // echo "FIERT \n\n";
-                $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
-                $values = '';
-            }
-            $rowCount++;
-            unset($newData);
-        }
-        if ($values) {
-            $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
-        }
-    }
-
 }

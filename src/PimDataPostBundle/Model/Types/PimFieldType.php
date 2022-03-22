@@ -23,6 +23,8 @@ class PimFieldType
     private const MANY_TO_MANY_OBJECT_RELATION = "manyToManyObjectRelation";
 
     private const ADVANCED_MANY_TO_MANY_RELATION = "advancedManyToManyRelation";
+    
+    private const ADVANCED_MANY_TO_MANY_OBJECT_RELATION = "advancedManyToManyObjectRelation";
 
     private const ADVANCED_MANY_TO_MANY_OBJECT_RELATION = "advancedManyToManyObjectRelation";
 
@@ -93,6 +95,11 @@ class PimFieldType
     {
         return new self(self::ADVANCED_MANY_TO_MANY_RELATION);
     }
+    
+    public static function ADVANCED_MANY_TO_MANY_OBJECT_RELATION(): self
+    {
+        return new self(self::ADVANCED_MANY_TO_MANY_OBJECT_RELATION);
+    }
 
     public static function ADVANCED_MANY_TO_MANY_OBJECT_RELATION(): self
     {
@@ -113,5 +120,6 @@ class PimFieldType
     {
         return new self(self::VIDEO);
     }
+
 
 }

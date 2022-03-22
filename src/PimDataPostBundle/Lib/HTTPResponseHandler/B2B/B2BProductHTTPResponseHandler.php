@@ -23,6 +23,7 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
     public function handleResponse(Response $responseResult): bool
     {
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
+
         if(isset($responseArr['graphs']))
         {
             foreach($responseArr['graphs'] as $graphArr)

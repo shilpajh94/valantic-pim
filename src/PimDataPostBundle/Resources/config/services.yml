@@ -32,5 +32,9 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
 
+    PimDataPostBundle\Command\CreateTableCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:create-table' }
+
     PimDataPostBundle\Services\UtilService:
         public: true

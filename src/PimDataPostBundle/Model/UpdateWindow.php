@@ -2,18 +2,20 @@
 
 namespace PimDataPostBundle\Model;
 
+use PimDataPostBundle\Lib\Constants;
+
 class UpdateWindow
 {
-    private $startTimestamp;
+    private $startTime;
 
-    private $endTimestamp;
+    private $endTime;
 
     private static $instance;
 
     private function __construct()
     {
-        $this->initializeStartTimeStamp();
-        $this->initializeEndTimestamp();
+        $this->initializeEndTime();
+        $this->initializeStartTime();
     }
 
     public static function getInstance(): self
@@ -24,23 +26,28 @@ class UpdateWindow
         return self::$instance;
     }
 
-    private function initializeStartTimeStamp()
+    private function initializeStartTime()
     {
-
+        $endTime = clone($this->endTime);
+        $this->startTime = $endTime->modify("-" . Constants::UPDATE_WINDOW_LENGTH_IN_MINUTES . " minutes");
     }
 
-    private function initializeEndTimestamp()
+    private function initializeEndTime()
     {
+        $Ymd = date("Y-m-d");
+        $His = Constants::UPDATE_WINDOW_END_HOUR . "-" . "00" . "-" . "00";
+        $datetime = $Ymd . " " . $His;
 
+        $this->endTime = \DateTime::createFromFormat("Y-m-d H-i-s", $datetime);
     }
 
     public function getStartTimestamp(): int
     {
-        return $this->startTimestamp;
+        return $this->startTime->getTimeStamp();
     }
 
     public function getEndTimestamp(): int
     {
-        return $this->endTimestamp;
+        return $this->endTime->getTimeStamp();
     }
 }
