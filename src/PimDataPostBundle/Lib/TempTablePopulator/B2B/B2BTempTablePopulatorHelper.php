@@ -26,7 +26,8 @@ class B2BTempTablePopulatorHelper extends TempTablePopulatorHelper
 
     public function getTempTableDataForIds($pimIds, $attribute, $tableName)
     {
-        return $this->dao->getTempTableDataForIds($attribute, $pimIds, $tableName);
+        $resultSet =  $this->dao->getTempTableDataForIds($attribute, $pimIds, $tableName);
+        return ($resultSet) ? $resultSet : [];
     }
 
     public function addHashesToTempTableData($resultSet, $relationalFields)

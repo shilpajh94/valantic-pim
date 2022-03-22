@@ -46,12 +46,12 @@ class B2BCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
         return $this->helper->getCategoryIdsWhereRelationWithProductChanged();
     }
 
-    public function isCategoryPresentInMasterTable(int $categoryId): bool
+    public function isCategoryPresentInMasterTable(string $categoryId): bool
     {
         return $this->helper->isCategoryPresentInMasterTable($categoryId);
     }
 
-    public function isCategoryActiveInMasterTable(int $categoryId): bool
+    public function isCategoryActiveInMasterTable(string $categoryId): bool
     {
         return $this->helper->isCategoryActiveInMasterTable($categoryId);
     }

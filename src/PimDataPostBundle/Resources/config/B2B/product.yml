@@ -1453,42 +1453,76 @@ parameters:
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: tinyint(1) NULL
+    mainImage:
+      pim_attribute_name: mainImage
+      pim_table_name: object_1
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
+      salesForceRelationalAttr: true
+    altImage1:
+      pim_attribute_name: altImage1
+      pim_table_name: object_1
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: int(11) NULL
+      salesForceRelationalAttr: true
+    altImage2:
+      pim_attribute_name: altImage2
+      pim_table_name: object_1
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: INT(11) NULL
+      salesForceRelationalAttr: true
+    Document:
+      pim_attribute_name: Document
+      pim_table_name: object_1
+      sendToSF: true
+      temp_master_table_attr: true
+      temp_master_table_column_type: VARCHAR(190) NULL
+      salesForceRelationalAttr: true
     SIOPLevel1:
       pim_attribute_name: SIOPLevel1
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     SIOPLevel2:
       pim_attribute_name: SIOPLevel2
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     SIOPLevel3:
       pim_attribute_name: SIOPLevel3
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     SIOPLevel4:
       pim_attribute_name: SIOPLevel4
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     SIOPLevel5:
       pim_attribute_name: SIOPLevel5
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     SIOPLevel6:
       pim_attribute_name: SIOPLevel6
       pim_table_name: object_1
       sendToSF: false
       temp_master_table_attr: true
       temp_master_table_column_type: VARCHAR(11) NULL
+      salesForceRelationalAttr: true
     basicHash:
       pim_attribute_name: basicHash
       pim_table_name: 

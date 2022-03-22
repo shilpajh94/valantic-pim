@@ -19,10 +19,10 @@ abstract class AbstractB2BRelationChangeRegistrar implements IRelationChangeRegi
      *      identify the attribute where the value changed using data of temp and master table
      *          for this attribute create a relation change object and save this object
      */
-    protected abstract function processAllRelations();
+    protected abstract function processAllRelations(array $products, bool $isNewRecord): array;
 
     /**
      * accept the model for the relation change object. so create the model first
      */
-    protected abstract function saveChangedRelation();
+    protected abstract function saveChangedRelation(array $relationalData): void;
 }

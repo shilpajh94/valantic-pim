@@ -12,11 +12,12 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Pimcore\Model\DataObject;
-use Pimcore\Db;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
+
+use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
 
 
 class B2BSalesforceCommand extends AbstractCommand
@@ -33,18 +34,43 @@ class B2BSalesforceCommand extends AbstractCommand
 
         try {
 
-
             echo "\n Product Insert In Temp Table Started.";
 
             $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
             $b2bProductTempTablePopulator->truncateTempTable();
-            $resultSet = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
-            $resultSetProductsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($resultSet);
-            $resultSetProductsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($resultSetProductsDetail);
-            $b2bProductTempTablePopulator->insertDataInTempTable($resultSetProductsDetailWithHashData);
+            $productIds = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
+            $productsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($productIds);
+            
+            $productsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($productsDetail);
+            
+            $b2bProductTempTablePopulator->insertDataInTempTable($productsDetailWithHashData);
             
             echo "\n Product Insert In Temp Table Completed.";
+
+            echo "\n Process started relation table data insertion.";
+            $objProductTempMasterTablesMeta= new TempMasterTablesMeta('b2b_product_temp','b2b_product_master','basicHash','relationalHash');
+            $objB2BProductRelationChangeRegistrar=new B2BProductRelationChangeRegistrar($objProductTempMasterTablesMeta);
             
+            $changedRecords = $objB2BProductRelationChangeRegistrar->fetchRecordsWhereRelationHashChanged();
+            $relationalChangedData = $objB2BProductRelationChangeRegistrar->processAllRelations($changedRecords, false);
+
+            $newTempActiveProducts = $objB2BProductRelationChangeRegistrar->fetchNewActiveRecordsInTempTable();
+            $relationalNewData = $objB2BProductRelationChangeRegistrar->processAllRelations($newTempActiveProducts, true);
+            
+            $relationalData = [];
+
+            if($relationalChangedData)
+            {
+                $relationalData = array_merge($relationalChangedData, $relationalNewData);
+            }
+            elseif($relationalNewData)
+            {
+                $relationalData = array_merge($relationalNewData, $relationalChangedData);
+            }
+
+            $objB2BProductRelationChangeRegistrar->saveChangedRelation($relationalData);
+            
+            echo "\n Process end relation table data insertion.";
 
             echo "\n Category Insert In Temp Table Started.";
 
@@ -52,15 +78,19 @@ class B2BSalesforceCommand extends AbstractCommand
             $b2bCategoryTempTablePopulator->truncateTempTable();
             $b2bCategoryActiveFlagHandler = new B2BCategoryActiveFlagHandler();
             $masterTableCategories = $b2bCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
+            
             $categoriesActiveInactiveList = $b2bCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
+
             $b2bCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
 
             $allRelationCategories = $b2bCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+
+            $idAndActiveFlagValueArray = [];
             if($allRelationCategories)
             {
-                $idAndActiveFlagValueArray = [];
                 $categoriesForTemp = [];
                 foreach ($allRelationCategories as $categoryId) {
+
                     $categoryData = $b2bCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
                     if($categoryData)
                     {
@@ -76,20 +106,28 @@ class B2BSalesforceCommand extends AbstractCommand
                     }
                 }
             }
-
+            
             $b2bCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
 
+            $categoryIds = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
 
-            $resultSet = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
+            $combinedCategoryIds = [];
 
-            $combinedResultSet = array_merge($categoriesForTemp, $resultSet);
+            if($categoriesForTemp)
+            {
+                $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
+            }
+            elseif($categoryIds)
+            {
+                $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
+            }
 
-            $resultSetProductsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedResultSet);
-            $resultSetProductsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($resultSetProductsDetail);
-            $b2bCategoryTempTablePopulator->insertDataInTempTable($resultSetProductsDetailWithHashData);
-           
+            $combinedCategoryIdsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedCategoryIds);
+            $combinedCategoryIdsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($combinedCategoryIdsDetail);
+            $b2bCategoryTempTablePopulator->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
+
             echo "\n Category Insert In Temp Table Completed.";
-            
+
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }

@@ -38,11 +38,11 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function addHashesToTempTableData(array $tempTableData): array
     {
-        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig();
+        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig("salesForceRelationalAttr");
         return $this->helper->addHashesToTempTableData($tempTableData, $relationalFields);
     }
 
-    public function insertDataInTempTable($insertTempData): void
+    public function insertDataInTempTable(array $insertTempData): void
     {
         $this->helper->insertDataInTempTable($insertTempData, Constants::B2B_PRODUCT_TEMP_TABLE_NAME);
     }
@@ -52,13 +52,17 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $salesMaterialProductIDs = $this->dao->getTodaysSaleMasterModifiedRecords();
         $materialProductIDs = $this->getPimModifiedRecordIds();
 
-        $resultSet = [];
+        $productIds = [];
 
-        if($salesMaterialProductIDs || $materialProductIDs)
+        if($salesMaterialProductIDs)
         {
-            $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            $productIds = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+        }
+        elseif($materialProductIDs)
+        {
+            $productIds = \array_unique(array_merge($materialProductIDs, $salesMaterialProductIDs));
         }
 
-        return $resultSet;
+        return $productIds;
     }
 }

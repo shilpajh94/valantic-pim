@@ -34,11 +34,11 @@ class B2BCategoryTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function addHashesToTempTableData(array $tempTableData): array
     {
-        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig();
+        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig("salesForceRelationalAttr");
         return $this->helper->addHashesToTempTableData($tempTableData, $relationalFields);
     }
 
-    public function insertDataInTempTable($insertTempData): void
+    public function insertDataInTempTable(array $insertTempData): void
     {
         $this->helper->insertDataInTempTable($insertTempData, Constants::B2B_CATEGORY_TEMP_TABLE_NAME);
     }
