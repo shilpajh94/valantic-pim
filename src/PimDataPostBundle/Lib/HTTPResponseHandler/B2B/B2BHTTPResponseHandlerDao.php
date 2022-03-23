@@ -1,11 +1,11 @@
 <?php
-namespace PimDataPostBundle\Lib\HTTPResponseHandler\B2B\Dao;
+namespace PimDataPostBundle\Lib\HTTPResponseHandler\B2B;
 
 use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 
-class B2BCategoryHTTPResponseHandlerDao
+class B2BHTTPResponseHandlerDao
 {
     private $db;
 

@@ -63,6 +63,7 @@ class B2BHTTPRequestBodyGeneratorHelper
             else
             $subRequest['method']='';
             $subRequest['referenceId']=$data->referenceId;
+            //$subRequest['B2B_External_Id__c']=$data->externalID;
             $subRequest['url']= $this->b2bHelper->getEntityUrl().'/'.$this->b2bHelper->getExternalIdKey().'/'.$data->externalID;
             if($subRequest['method']!='')
             {
