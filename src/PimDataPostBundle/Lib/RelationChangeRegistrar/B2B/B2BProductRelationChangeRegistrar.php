@@ -22,33 +22,37 @@ class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistr
         $this->attributeConfigProvider = new B2BProductAttributeConfigProvider();
     }
 
-    public function registerChangedRelation(): array
+    public function registerChangedRelation(): void
     {
+        $relationsChanged = $this->fetchRecordsWhereRelationHashChanged();
+        $newRelations = $this->fetchNewActiveRecordsInTempTable();
 
+        $relationDataArray = $this->processAllRelations(array_merge($relationsChanged,$newRelations));
+        $this->saveChangedRelation($relationDataArray);
     }
     
-    public function fetchRecordsWhereRelationHashChanged(): array
+    protected function fetchRecordsWhereRelationHashChanged(): array
     {
         return $this->b2bProductRelationChangeRegistrarDao->fetchRecordsWhereRelationHashChanged();
     }
     
-    public function fetchNewActiveRecordsInTempTable(): array
+    protected function fetchNewActiveRecordsInTempTable(): array
     {
         return $this->b2bProductRelationChangeRegistrarDao->fetchNewActiveRecordsInTempTable();
     }
 
-    public function getAllRelationalAttributes(): array
+    protected function getAllRelationalAttributes(): array
     {
-       return $this->attributeConfigProvider->getPIMRelationalAttributeConfig("salesForceRelationalAttr");
+       return $this->attributeConfigProvider->getSalesForceRelationalAttributeConfig();
     }
 
-    public function processAllRelations(array $products, bool $isNewRecord): array
+    protected function processAllRelations(array $productIds): array
     {
         $relationalFieldConfig = $this->getAllRelationalAttributes();
-        return $this->b2bProductRelationChangeRegistrarDao->fetchRelationalAttributeData($relationalFieldConfig, $products, $isNewRecord);
+        return $this->b2bProductRelationChangeRegistrarDao->fetchRelationalAttributeData($relationalFieldConfig, $productIds);
     }
 
-    public function saveChangedRelation(array $relationalData): void
+    protected function saveChangedRelation(array $relationalData): void
     {
        $this->helper->saveChangedRelation($relationalData);
     }
