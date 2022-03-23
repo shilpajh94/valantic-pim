@@ -7,6 +7,7 @@ use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\DeltaManager\B2B\B2BProductDeltaManager;
 use PimDataPostBundle\Lib\HTTPRequestGenerator\B2B\B2BProductHTTPRequestGenerator;
 use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\B2BProductHTTPResponseHandler;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BProductRequestBodyGenerator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
@@ -33,6 +34,10 @@ class B2BProductDataPoster
                                                             Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 
                                                             "basicHash", 
                                                             "relationalHash");
+
+        $relationChangeRegistrar = new B2BProductRelationChangeRegistrar($tempMasterTableMeta);
+        $relationChangeRegistrar->registerChangedRelation();
+        
         $deltaManager = new B2BProductDeltaManager($tempMasterTableMeta);
         $deltaManager->removeHashNotChangedRecordsFromTempTable();
         
