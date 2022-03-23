@@ -42,10 +42,10 @@ class B2BCategoryAttributeConfigProvider extends AbstractB2BAttributeConfigProvi
         
     }
 
-    public function getPIMRelationalAttributeConfig(): array
+    public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
     {
         return $this->b2bAttributeConfigProviderHelper
-                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"relationalAttr",true);
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),$attrbuteForGrouping,true);
     }
 
 }

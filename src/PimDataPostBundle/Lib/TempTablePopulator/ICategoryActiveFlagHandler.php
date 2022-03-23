@@ -16,7 +16,7 @@ interface ICategoryActiveFlagHandler
 
     public function getCategoryIdsWhereRelationWithProductChanged(): array;
 
-    public function isCategoryPresentInMasterTable(int $categoryId): bool;
+    public function isCategoryPresentInMasterTable(string $categoryId): bool;
 
-    public function isCategoryActiveInMasterTable(int $categoryId): bool;
+    public function isCategoryActiveInMasterTable(string $categoryId): bool;
 }
