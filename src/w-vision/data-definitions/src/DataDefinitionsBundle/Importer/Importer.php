@@ -145,11 +145,6 @@ final class Importer implements ImporterInterface
      */
     public function doImport(ImportDefinitionInterface $definition, $params)
     {  
-    //     $bricks = [];
-    //     $classDefinition = ClassDefinition::getByName($definition->getClass());
-    //     foreach($classDefinition->getFieldDefinitions() as $brickFields){
-    //         DataImportLogger::log(json_encode($bricks[$brickFields->getName()]));
-    //    } 
         $filter = null;
         $objectIds = [];
         $exceptions = [];
@@ -279,16 +274,15 @@ final class Importer implements ImporterInterface
             ];
             $this->CreateLogsFilesForImport($params );
 
-            // if ($document instanceof Document\Email) {
+            if ($document instanceof Document\Email) {
                 $mail = new Mail();
-                $mail->to('susmita.mallick@happiestminds.com');
-                // $mail->setDocument($document);
+                $mail->setDocument($document);
                 $mail->setSubject("Import Log");
                 $mail->setParams($params);
-                $mail->send();
-            // } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
-            //     $document->send($params);
-            // }
+                // $mail->send();
+            } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
+                $document->send($params);
+            }
        // }
     }
 
