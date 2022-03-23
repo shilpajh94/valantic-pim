@@ -47,6 +47,14 @@ data_definitions_admin_import_definitions:
             path: importList
             action: listDataDefinitionImport
             methods: [GET,POST]
+          listClassInterpreter:
+            path: listClassInterpreter
+            action: listClassInterpreter
+            methods: [GET,POST]
+          listClassField:
+            path: listClassField
+            action: listClassField
+            methods: [GET,POST]
 data_definitions_admin_export_definitions:
     type: coreshop.resources
     resource: |
