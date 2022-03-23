@@ -14,6 +14,36 @@
 pimcore.registerNS('pimcore.plugin.datadefinitions.interpreters.generic');
 
 pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugin.datadefinitions.interpreters.abstract, {
+
+    getClassAttributes: function (className) {
+        console.log(className);
+        let listClassField = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listClassField',
+                method: 'POST',
+                extraParams: {
+                    className: className,
+
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data.' 
+                }
+            },
+
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+
+        return listClassField.load();
+        //console.log(data.value);
+    },
+
     getLayout: function (fromColumn, toColumn, record, config) {
         var classesStore = new Ext.data.JsonStore({
             autoDestroy: true,
@@ -25,6 +55,26 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
         });
         classesStore.load();
 
+         var classesNameStore = new Ext.data.JsonStore({
+            autoDestroy: true,
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listClassInterpreter',
+
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            },
+            fields: ['name'],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+        classesNameStore.load(); 
+       
         return [
             {
                 xtype: 'textfield',
@@ -38,18 +88,35 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 xtype: 'combo',
                 fieldLabel: t('class'),
                 name: 'class',
-                displayField: 'text',
-                valueField: 'text',
-                store: classesStore,
+                store: classesNameStore,
+                queryMode: 'local',
+                editable: true,
+                allowBlank: false,
+                blankText: 'Field is required',
+                forceSelection: true,
+                msgTarget: 'under',
+                displayField: 'name',
+                valueField: 'name',
                 width: 500,
-                value: config.class ? config.class : null
+                labelWidth: 200,
+                value: config.class,
+                listeners: {
+                    change: function (data) {
+                        Ext.getCmp('fieldName').setStore(this.getClassAttributes(data.value));
+                        Ext.getCmp('fieldName').clearValue();
+                    }.bind(this)
+                },
             },
             {
-                xtype: 'textfield',
+                xtype: 'combo',
                 fieldLabel: t('data_definitions_interpreter_generic_field'),
                 name: 'field',
+                id: 'fieldName',
+                store: this.getClassAttributes(config.class),
                 width: 500,
-                value: config.field ? config.field : null
+                displayField: 'name',
+                valueField: 'name',
+                value: config.field ? config.field : null,
             },
             {
                 xtype: 'checkbox',

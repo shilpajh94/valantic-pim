@@ -37,6 +37,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
 use Pimcore\Model\Asset;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\ImportHelper as importHelper;
+use Pimcore\Model\DataObject\ClassDefinition;
 
 
 
@@ -747,5 +748,61 @@ class ImportDefinitionController extends ResourceController
         }
 
         return $this->viewHandler->handle(['success' => false]);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function listClassInterpreterAction(Request $request)
+    {
+        $classesList = new DataObject\ClassDefinition\Listing();
+        $classesList->setOrderKey('name');
+        $classesList->setOrder('asc');
+        $classes = $classesList->load();
+
+        $fieldArray = array();
+        foreach ($classes as $classDef) {
+            //p_r($classDef);
+           // $data['text'][] = ['name'=>$classDef->getName()];
+            //$classFields = $classDef->getFieldDefinitions();
+
+            $fieldArrayTemp = array();
+                $fieldArrayTemp['name'] = $classDef->getName();
+                $fieldArray[] = $fieldArrayTemp;
+        }
+            return $this->json(["data" => $fieldArray]);
+
+    }
+
+     /**
+     * @param Request $request
+     */
+    public function listClassFieldAction(Request $request)
+    {
+        $className      = $request->get('className');
+        if($className ) {
+            $class = ClassDefinition::getByName($className);
+            $fields = $class->getFielddefinitions();
+        
+            $classFields = [];
+            foreach($fields as $classFieldAttributes) {
+                $fieldAttributes = $classFieldAttributes->getName();
+
+                if($fieldAttributes!=='localizedfields')
+                {
+                    $classFields[] = ['name'=>$fieldAttributes];
+                }
+
+                $fieldType =  $classFieldAttributes->getFieldType(); 
+
+                if ($fieldType == 'localizedfields') {
+                    foreach ($classFieldAttributes->getChilds() as $obj) {
+                        $localizedfieldsFields = $obj->getName();
+                        $classFields[] = ['name'=>$localizedfieldsFields];
+                    }
+                }
+            }
+        }
+        return $this->json(["data" => $classFields]);
     }
 }
