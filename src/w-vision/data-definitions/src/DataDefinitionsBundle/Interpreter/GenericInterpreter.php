@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Data Definitions.
  *
@@ -38,53 +39,57 @@ class GenericInterpreter implements InterpreterInterface, DataSetAwareInterface
         }
         $value = trim($value);
 
-        if( (strpos($map->getToColumn(),"objectbrick") === 0) && (strpos($map->getToColumn(),"~") !== false) ){
-            $parts = explode("~",$map->getToColumn());
+        \Pimcore::setAdminMode();
+
+        if ((strpos($map->getToColumn(), "objectbrick") === 0) && (strpos($map->getToColumn(), "~") !== false)) {
+            $parts = explode("~", $map->getToColumn());
             $brickName = $parts[2];
             $attributeName = $parts[3];
-            $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$brickName;
+            $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\' . $brickName;
 
             $brickFieldObject = new $brickFieldObjectClass($object);
             $brickDefinition = $brickFieldObject->getDefinition();
             $fieldDefinition = $brickDefinition->getFieldDefinition($attributeName);
-        }else{
+        } else {
             $fieldDefinition = $object->getClass()->getFieldDefinition($map->getToColumn());
         }
 
-        if($fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data){
+        if ($fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data) {
             $attributeType = $fieldDefinition->getFieldType();
-            if($attributeType === "select"){
+            if ($attributeType === "select") {
                 $value = $this->getValueForSelect($fieldDefinition, $value, $configuration);
-            }elseif($attributeType === "multiselect"){
+            } elseif ($attributeType === "multiselect") {
                 $value = $this->getValueForMultiselect($fieldDefinition, $value, $configuration);
-            }elseif($attributeType === "booleanSelect"){
+            } elseif ($attributeType === "booleanSelect") {
                 $value = $this->getValueForBooleanSelect($fieldDefinition, $value, $configuration);
-            }elseif($attributeType === "manyToOneRelation"){
+            } elseif ($attributeType === "manyToOneRelation") {
                 $value = $this->getValueForManyToOneRelation($fieldDefinition, $value, $configuration);
-            }elseif($attributeType === "manyToManyObjectRelation"){
+            } elseif ($attributeType === "manyToManyObjectRelation") {
                 $value = $this->getValueForManyToManyObjectRelation($fieldDefinition, $value, $configuration);
-            }elseif($attributeType === "advancedManyToManyObjectRelation"){
+            } elseif ($attributeType === "advancedManyToManyObjectRelation") {
                 $value = $this->getValueForAdvancedManyToManyObjectRelation($fieldDefinition, $value, $configuration);
             }
         }
-        
+
+        \Pimcore::unsetAdminMode();
         return $value;
     }
 
-    private function getValueForSelect($fieldDefinition, $rawValue, $configuration){
+    private function getValueForSelect($fieldDefinition, $rawValue, $configuration)
+    {
         $options = $fieldDefinition->getOptions();
         $value = '';
 
-        if(is_array($options)){
+        if (is_array($options)) {
             $found = false;
-            foreach($options as $option){
-                if(strval($option['key']) == strval($rawValue)  ){
+            foreach ($options as $option) {
+                if (strval($option['key']) == strval($rawValue)) {
                     $value = $option['value'];
                     $found = true;
                     break;
                 }
             }
-            if(!$found){
+            if (!$found) {
                 //@TODO: throw exception that the value is not found in the system
             }
         }
@@ -96,19 +101,19 @@ class GenericInterpreter implements InterpreterInterface, DataSetAwareInterface
         $options = $fieldDefinition->getOptions();
         $valueArray = [];
 
-        $allKeys = $this->separateValues($rawValue,$configuration);
+        $allKeys = $this->separateValues($rawValue, $configuration);
 
-        if(is_array($options)){
-            foreach($allKeys as $singleKey){
+        if (is_array($options)) {
+            foreach ($allKeys as $singleKey) {
                 $found = false;
-                foreach($options as $option){
-                    if(strval($option['key']) == strval(trim($singleKey))){
+                foreach ($options as $option) {
+                    if (strval($option['key']) == strval(trim($singleKey))) {
                         $valueArray[] = $option['value'];
                         $found = true;
                         break;
                     }
                 }
-                if(!$found){
+                if (!$found) {
                     //@TODO: throw exception that the value is not found in the system
                 }
             }
@@ -121,88 +126,89 @@ class GenericInterpreter implements InterpreterInterface, DataSetAwareInterface
     {
         $returnValue = null;
 
-        if( in_array(strtolower($rawValue),["y","1","true","yes"])){
+        if (in_array(strtolower($rawValue), ["y", "1", "true", "yes"])) {
             $returnValue =  true;
-        }elseif(in_array(strtolower($rawValue),["n","0","false","no"])){
+        } elseif (in_array(strtolower($rawValue), ["n", "0", "false", "no"])) {
             $returnValue = false;
-        }elseif( $rawValue === ""){
+        } elseif ($rawValue === "") {
             $returnValue = null;
-        }else{
+        } else {
             //@TODO: throw exception that the value is not found in the system
         }
 
         return $returnValue;
     }
 
-    private function getValueForManyToOneRelation($fieldDefinition, $rawValue, $configuration){
+    private function getValueForManyToOneRelation($fieldDefinition, $rawValue, $configuration)
+    {
         $returnValue = null;
-        $class = 'Pimcore\Model\DataObject\\'.ucfirst($configuration['class']);
-        $lookup = 'getBy'.ucfirst($configuration['field']);
+        $class = 'Pimcore\Model\DataObject\\' . ucfirst($configuration['class']);
+        $lookup = 'getBy' . ucfirst($configuration['field']);
 
         $listing = $class::$lookup($rawValue);
         $listing->setUnpublished($configuration['match_unpublished']);
 
         if ($listing->count() > 1) {
             // @TODO: inform that more than one value found
-        }elseif($listing->count() < 1){
+        } elseif ($listing->count() < 1) {
             // @TODO: inform that no related record found
-        }else{
+        } else {
             $returnValue =  $listing->current();
         }
 
         return $returnValue;
     }
 
-    private function getValueForManyToManyObjectRelation($fieldDefinition, $rawValue, $configuration){
+    private function getValueForManyToManyObjectRelation($fieldDefinition, $rawValue, $configuration)
+    {
         $returnValue = [];
-        $allValues = $this->separateValues($rawValue,$configuration);
+        $allValues = $this->separateValues($rawValue, $configuration);
 
-        $class = 'Pimcore\Model\DataObject\\'.ucfirst($configuration['class']);
-        $lookup = 'getBy'.ucfirst($configuration['field']);
+        $class = 'Pimcore\Model\DataObject\\' . ucfirst($configuration['class']);
+        $lookup = 'getBy' . ucfirst($configuration['field']);
 
-        foreach($allValues as $singleValue){
+        foreach ($allValues as $singleValue) {
             $listing = $class::$lookup(trim($singleValue));
             $listing->setUnpublished($configuration['match_unpublished']);
 
             if ($listing->count() > 1) {
                 // @TODO: inform that more than one value found
-            }elseif($listing->count() < 1){
+            } elseif ($listing->count() < 1) {
                 // @TODO: inform that no related record found
-            }else{
+            } else {
                 $returnValue[] =  $listing->current();
             }
         }
         return $returnValue;
     }
 
-    private function getValueForAdvancedManyToManyObjectRelation($fieldDefinition, $rawValue, $configuration){
+    private function getValueForAdvancedManyToManyObjectRelation($fieldDefinition, $rawValue, $configuration)
+    {
         $returnValue = [];
-        $allValues = $this->separateValues($rawValue,$configuration);
+        $allValues = $this->separateValues($rawValue, $configuration);
 
-        $class = 'Pimcore\Model\DataObject\\'.ucfirst($configuration['class']);
-        $lookup = 'getBy'.ucfirst($configuration['field']);
+        $class = 'Pimcore\Model\DataObject\\' . ucfirst($configuration['class']);
+        $lookup = 'getBy' . ucfirst($configuration['field']);
 
-        foreach($allValues as $singleValue){
+        foreach ($allValues as $singleValue) {
             $listing = $class::$lookup(trim($singleValue));
             $listing->setUnpublished($configuration['match_unpublished']);
 
             if ($listing->count() > 1) {
                 // @TODO: inform that more than one value found
-            }elseif($listing->count() < 1){
+            } elseif ($listing->count() < 1) {
                 // @TODO: inform that no related record found
-            }else{
+            } else {
                 $elementMetadata = new \Pimcore\Model\DataObject\Data\ObjectMetadata($fieldDefinition->getName(), [], $listing->current());
                 $returnValue[] =  $elementMetadata;
             }
         }
-        return $returnValue;        
+        return $returnValue;
     }
 
-    private function separateValues(string $value,$configuration): array{
+    private function separateValues(string $value, $configuration): array
+    {
         $separator  = $configuration['separator'] ? $configuration['separator'] : '|';
-        return explode($separator,$value);
+        return explode($separator, $value);
     }
-
 }
-
-
