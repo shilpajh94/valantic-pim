@@ -74,7 +74,18 @@ class PrimaryKeyLoader implements LoaderInterface
                 return $obj; 
             }
         }else{
-            $obj = DataObject\CSProducts::getByPath('/Contitech_ConveyorSolution/Products/'.$data['Product Hierarchy'].'/'.$data['Product Name']);
+            $path = $data['Product Hierarchy'];
+            
+            if($data['Product Flag'] == 0 || ($data['Product Flag'] == 1 && !$data['Region'])){
+                $productName = str_replace("/", "-", $data['Product Name']);
+                $path = $data['Product Hierarchy'].'/'.$productName;
+
+            }elseif($data['Product Flag'] == 1 && $data['Region']){
+                $productName = str_replace("/", "-", $data['Product Name']);
+                $region = explode("|",$data['Region']);
+                $path = $data['Product Hierarchy'].'/'.$region[0].'/'.$productName;
+            }
+            $obj = DataObject\CSProducts::getByPath('/Contitech_ConveyorSolution/Products/'.$path);
             return $obj;
         }
         return null;
