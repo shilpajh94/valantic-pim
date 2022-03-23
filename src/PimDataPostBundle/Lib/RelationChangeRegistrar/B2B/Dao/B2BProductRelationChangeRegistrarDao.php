@@ -38,7 +38,7 @@ class B2BProductRelationChangeRegistrarDao
         return $this->db->fetchCol($sql);
     }
 
-    public function fetchRelationalAttributeData($config, $products, $isNewRecord)
+    public function fetchRelationalAttributeData($config, $products)
     {
         $rowsToInsertInRelationalDb = [];
 
@@ -66,13 +66,13 @@ class B2BProductRelationChangeRegistrarDao
             $sql .=  "WHERE t1.o_id IN ({$productIds})";
             $result = $this->db->fetchAll($sql);
 
-            $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result, $isNewRecord);
+            $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result);
             
         }
         return $rowsToInsertInRelationalDb;
     }
 
-    public function prepareRelationalRecords($fieldKeys, $result, $isNewRecord){
+    public function prepareRelationalRecords($fieldKeys, $result){
         $rowsToInsertInRelationalDb = [];
 
         foreach ($fieldKeys as $key) {
@@ -85,25 +85,20 @@ class B2BProductRelationChangeRegistrarDao
 
                     if(isset($resultValue[$tempKey]))
                     {
-                        $data = [];
-                        $data['productId'] = $resultValue['o_id'];
-                        $data['attributeName'] = $key;
-                        $data['oldValue'] = $resultValue['t2_'.$key];
-                        $data['newValue'] = $resultValue['t1_'.$key];
-
                         $oldValue = $resultValue[$masterKey];
                         $newValue = $resultValue[$tempKey];
 
-                        if($isNewRecord)
+                        if($oldValue != $newValue)
                         {
+                            $data = [];
+                            $data['productId'] = $resultValue['o_id'];
+                            $data['attributeName'] = $key;
+                            $data['oldValue'] = $resultValue['t2_'.$key];
+                            $data['newValue'] = $resultValue['t1_'.$key];
+    
                             $rowsToInsertInRelationalDb[] = $data;
                         }
-                        else{
-                            if($oldValue != $newValue)
-                            {
-                                $rowsToInsertInRelationalDb[] = $data;
-                            }
-                        }
+                        
                         
                     }
                 }

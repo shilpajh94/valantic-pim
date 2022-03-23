@@ -48,7 +48,7 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function addHashesToTempTableData(array $tempTableData): array
     {
-        $relationalFields = $this->attributeConfigProvider->getPIMRelationalAttributeConfig("salesForceRelationalAttr");
+        $relationalFields = $this->attributeConfigProvider->getSalesForceRelationalAttributeConfig();
         return $this->helper->addHashesToTempTableData($tempTableData, $relationalFields);
     }
 

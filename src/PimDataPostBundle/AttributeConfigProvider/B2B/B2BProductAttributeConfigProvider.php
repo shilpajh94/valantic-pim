@@ -45,13 +45,14 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
 
     public function getSalesForceRelationalAttributeConfig(): array
     {
-        // return $this->getPIMRelationalAttributeConfig($this->getCompleteAttributeConfig());
+        return $this->b2bAttributeConfigProviderHelper
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_relational_attribute",true);
     }
 
-    public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
-    {
-        return $this->b2bAttributeConfigProviderHelper
-                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),$attrbuteForGrouping,true);
-    }
+    // public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
+    // {
+    //     return $this->b2bAttributeConfigProviderHelper
+    //                     ->getConfigForKeyValue($this->getCompleteAttributeConfig(),$attrbuteForGrouping,true);
+    // }
 
 }
