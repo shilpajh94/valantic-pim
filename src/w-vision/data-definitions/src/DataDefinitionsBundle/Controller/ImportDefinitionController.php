@@ -399,20 +399,6 @@ class ImportDefinitionController extends ResourceController
      */
     public function listPrimaryKeyAction(Request $request)
     {
-        // $classDefinition = ClassDefinition::getByName('Product');
-        // p_r($classDefinition->getFieldDefinitions());
-        $list = new DataObject\Objectbrick\Definition\Listing();
-        $list = $list->load();
-        foreach($list as $brickDef){
-            $fieldDefs = $brickDef->getFieldDefinitions();
-            // p_r($fieldDefs);
-            foreach($fieldDefs as $fieldName => $field){
-                if($fieldName == 'descriptive'){
-                    p_r($field->getFieldtype());
-                }
-            }
-
-        }
         $className      = $request->get('className');
         $buConfig       = $this->getBusinessUnitClassFromConfig();
         $importLevelData   = [];

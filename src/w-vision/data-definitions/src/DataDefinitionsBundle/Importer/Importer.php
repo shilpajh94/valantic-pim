@@ -408,7 +408,7 @@ final class Importer implements ImporterInterface
             
             try {
                 list($object, $nonImportedAttributes) = $this->importRow($definition, $row, $dataSet, array_merge($params, ['row' => $count]), $filter);
-                $nonImportedAttributesString =  implode($nonImportedAttributes);
+                $nonImportedAttributesString =  implode(", ",$nonImportedAttributes);
                 if ($object instanceof Concrete) {
                     $objectIds[] = $object->getId();
                 }
@@ -565,7 +565,6 @@ final class Importer implements ImporterInterface
         /**
          * @var $mapItem ImportMapping
          */
-        // DataImportLogger::log(json_encode('total weight'));
         foreach ($definition->getMapping() as $mapItem) {
             $value = null;
             if ((array_key_exists($mapItem->getFromColumn(), $data) && $mapItem->getToColumn() != $definition->primaryKey) || $mapItem->getFromColumn() === "custom") {
@@ -593,6 +592,7 @@ final class Importer implements ImporterInterface
                     }
                 }
                 $this->setObjectValue($object, $mapItem, $value, $data, $dataSet, $definition, $params, $runner);
+                 
             }
         }
 
@@ -660,7 +660,7 @@ final class Importer implements ImporterInterface
         $params,
         RunnerInterface $runner = null
     ) {
-
+        DataImportLogger::log(json_encode($map->getInterpreter()));
         if ($map->getInterpreter()) {
             try {
                 $interpreter = $this->interpreterRegistry->get($map->getInterpreter());
