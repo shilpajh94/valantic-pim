@@ -142,7 +142,7 @@ class ObjectListener
                 //if (php_sapi_name() != "cli") {
                 $object->setGetInheritedValues(true);
                 //}
-                $this->percentageCompletionService->completenessPercentage($object);
+                //$this->percentageCompletionService->completenessPercentage($object);
             }
         }
         /**

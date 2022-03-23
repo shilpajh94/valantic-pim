@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-28T08:04:21+05:30
+* Generated at: 2022-01-21T07:40:55+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -24,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622169260,
+   'modificationDate' => 1642747255,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -228,30 +228,45 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'key' => 'Tube Gauge',
-                    'value' => 'tubeGaugeIN',
+                    'key' => 'Static Wire Type',
+                    'value' => 'staticWireType',
                   ),
                   1 => 
                   array (
-                    'key' => 'Number of Plies',
-                    'value' => 'numberOfPlies',
+                    'key' => 'Cover Characteristic',
+                    'value' => 'coverCharacteristic',
                   ),
                   2 => 
-                  array (
-                    'key' => 'Static Wire',
-                    'value' => 'staticWire',
-                  ),
-                  3 => 
-                  array (
-                    'key' => 'Tube Material',
-                    'value' => 'tubeMaterial',
-                  ),
-                  4 => 
                   array (
                     'key' => 'Cover Material',
                     'value' => 'coverMaterial',
                   ),
+                  3 => 
+                  array (
+                    'key' => 'Number of Plies',
+                    'value' => 'numberOfPlies',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'Reinforcement',
+                    'value' => 'reinforcement',
+                  ),
                   5 => 
+                  array (
+                    'key' => 'Static Wire',
+                    'value' => 'staticWire',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 'Tube Gauge',
+                    'value' => 'tubeGaugeIN',
+                  ),
+                  7 => 
+                  array (
+                    'key' => 'Tube Material',
+                    'value' => 'tubeMaterial',
+                  ),
+                  8 => 
                   array (
                     'key' => 'Working Pressure (psi)',
                     'value' => 'workingPressurePSI',
