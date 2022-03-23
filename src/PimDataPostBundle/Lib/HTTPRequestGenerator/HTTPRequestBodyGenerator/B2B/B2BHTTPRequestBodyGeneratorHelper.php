@@ -5,99 +5,84 @@ namespace PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
+use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\Factory;
 
 class B2BHTTPRequestBodyGeneratorHelper
 {
-   private $SFObjectType;
+    private $SFObjectType;
 
-   private $graphNo;
+    private $graphNo;
 
-   private $subRequestNo;
-   
-   private $b2bProductHelper;
+    private $subRequestNo;
 
+    private $b2bHelper;
    
     public function __construct($SFObjectType, $graphNo, $subRequestNo) {
-        $this->SFObjectType = $SFObjectType;
+        $this->SFObjectType = B2BSalesForceObjectType::getByString($SFObjectType);
         $this->graphNo = $graphNo;
         $this->subRequestNo = $subRequestNo;
-        $this->b2bProductHelper = new B2BProductHelper;
+        $this->b2bHelper =  Factory::getb2bHelper(B2BSalesForceObjectType::getByString($SFObjectType));
     }
 
-
-    public function getTotalBatches()
+    public function getTotalBatches(): int
     {
         $listing = new B2BAPIRequestEntity\Listing();
+        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         $listing=$listing->load();
         $totalRow=count($listing);
-
         if($this->graphNo==0 || $this->subRequestNo==0)
         return 0;
-        
         $batches= ($totalRow/($this->graphNo*$this->subRequestNo));
         return ceil($batches);
     }
 
-
-    public function getHTTPRequestBodyByBatchNumber($batch)
+    public function getHTTPRequestBodyByBatchNumber($batch): string
     {
-
         $listing = new B2BAPIRequestEntity\Listing();
+        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        //$listing = $listing->setCondition('responseStatus = ?', null);
         $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
-       
-        
         $compositeRequest=array();
         $graphData=array();
-
-        $insSubreq=0;
-        $insNode=0;
+        $insSubreq=1;
+        $insNode=1;
+        $totalCount=0;
         foreach($listing as $data)
         {
-            $insSubreq++;
-
+            $totalCount++;
             $subRequest= array();
             $subRequest['body']=json_decode($data->body);
-
             if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE())
             $subRequest['method']='PATCH';
             else if($data->operationType==APIOperationType::DELETE())
             $subRequest['method']='DELETE';
             else
             $subRequest['method']='';
-
             $subRequest['referenceId']=$data->referenceId;
-
-            
-            
-            $subRequest['url']= $this->b2bProductHelper->getEntityUrl().'/'.$this->b2bProductHelper->getExternalIdKey().'/'.$data->externalID;
-           
-            array_push($compositeRequest,$subRequest);
-
-            if($insSubreq==$this->subRequestNo)
+            //$subRequest['B2B_External_Id__c']=$data->externalID;
+            $subRequest['url']= $this->b2bHelper->getEntityUrl().'/'.$this->b2bHelper->getExternalIdKey().'/'.$data->externalID;
+            if($subRequest['method']!='')
             {
-                $insNode++;
-                $graphData[]=array(
-                'graphId'=>'graph'.$insNode,
-                'compositeRequest'=>$compositeRequest
-                 );   
-                $compositeRequest=array();
-                $insSubreq=0;
+                array_push($compositeRequest,$subRequest);
+                if($insSubreq==$this->subRequestNo || count($listing)==$totalCount)
+                {
+                    $graphData[]=array(
+                    'graphId'=>'graph'.$insNode,
+                    'compositeRequest'=>$compositeRequest
+                    );   
+                    $compositeRequest=array();
+                    $insSubreq=0;
+                    $insNode++;
+                }
+                $insSubreq++;
             }
-
-
+         
         }
-
-        $graphs=array(
-            'graphs' => $graphData
-        );
-
+        $graphs=array('graphs' => $graphData);
         return json_encode($graphs,JSON_UNESCAPED_SLASHES);
-    }
-
-
-    
-    
-  
+    } 
 }

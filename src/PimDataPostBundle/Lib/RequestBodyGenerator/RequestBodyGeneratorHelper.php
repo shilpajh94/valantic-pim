@@ -168,5 +168,61 @@ class RequestBodyGeneratorHelper
         return null;
     }
     
+    
+//    public function getRelationTypeValue($currentValue, array $config) {
+//        $fieldType = $config['relationFieldType'];
+//        $fieldName = $config['fieldName'];
+//        $getter = "get".ucfirst($fieldName);
+//        if (method_exists($object, $getter)) {
+//            $relationFieldObject = $object->$getter();
+//            
+//            if (!empty($relationFieldObject) && count($relationFieldObject)>0) {
+//                if (!empty($relationFieldObject[0])) {
+//                    $relationFieldObject = $relationFieldObject[0];
+//                    if ($relationFieldObject instanceof \Pimcore\Model\DataObject\Data\ObjectMetadata) {
+//                        $relationFieldObject = $relationFieldObject->getObject();
+//                    }
+//                }
+//                $relationFieldName = $config['relationFieldName'];
+//                $relationFieldType = $config['relationFieldType'];
+//                $typeGetter = "get".ucfirst($relationFieldType)."TypeValue";
+//                $updatedConfig = $config;
+//                $updatedConfig['fieldName'] = $config['relationFieldName'];
+//                
+//                if ($relationFieldType == 'relation') {
+//                    $updatedConfig['className'] = $config['relationToRelationClassName'];
+//                    $updatedConfig['relationFieldName'] = $config['relationToRelationFieldName'];
+//                    $updatedConfig['relationFieldType'] = $config['relationToRelationFieldType'];
+//                }
+//                return $this->$typeGetter($relationFieldObject, $currentValue, $updatedConfig);
+//            }
+//        }
+//    }
+//    
+//    /**
+//     * 
+//     * @param object $object
+//     * @param array $config
+//     */
+//    public function getObjectbrickTypeValue($currentValue, array $config) 
+//    {
+//        $fieldGetter = "get".ucfirst($config['classFieldName']);
+//        $brickGetter = "get".ucfirst($config['brickName']);
+//        $classField = $object->$fieldGetter();
+//        if (method_exists($classField, $brickGetter)) {
+//            $brickObject = $classField->$brickGetter();
+//            if (empty($brickObject)) {
+//                return null;
+//            }
+//            $fieldType = $config['brickFieldType'];
+//            $typeGetter = "get".ucfirst($fieldType)."TypeValue";
+//            $updatedConfig = $config;
+//            if ($fieldType == 'relation') {
+//                $updatedConfig['fieldName'] = $config['brickFieldName'];
+//                $updatedConfig['className'] = $config['relationClassName'];
+//            }   
+//            return $this->$typeGetter($brickObject, $currentValue, $updatedConfig);
+//        }
+//    }
 }
 
