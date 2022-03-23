@@ -7,6 +7,8 @@ use PimDataPostBundle\Lib\RequestBodyGenerator\IRequestBodyGenerator;
 
 abstract class AbstractB2BRequestBodyGenerator implements IRequestBodyGenerator
 {
+    protected $allowedAttributeTypes;
+    
     public abstract function generateRequestBody(array $tempTableData): array;
 
     public abstract function generateCreateRequestBody(array $tempTableData): array;
@@ -32,8 +34,8 @@ abstract class AbstractB2BRequestBodyGenerator implements IRequestBodyGenerator
      * @param type $config
      * @return boolean
      */
-    protected function checkIfFetchValue($config) {
-        if (!empty($config['sendToSF']) && !empty($config['type']) && in_array(strtolower($config['type']), $this->allowedAttributeTypes)) {
+    protected function checkIfTypeIsAllowed($config) {
+        if (!empty($config['pim_attribute_type']) && in_array(strtolower($config['pim_attribute_type']), $this->allowedAttributeTypes)) {
             return true;
         }
         return false;
