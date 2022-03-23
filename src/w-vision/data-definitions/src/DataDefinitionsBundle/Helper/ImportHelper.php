@@ -43,10 +43,22 @@ class ImportHelper
             $processEndTime = $processEndTime->format($dateFormat);
         }
 
+        if($dataImport->getStatus()=='COMPLETED')
+        {
+            $importStatus   = $dataImport->getStatus();
+        }
+        else
+        {
+            $processedRecords   = $dataImport->getProcessedRecords();
+            $totalReocrds       = $dataImport->getTotalReocrds();
+            $processedPercentage= $totalReocrds > 0 ? ($processedRecords * 100) / $totalReocrds : 0;
+            $importStatus       = round($processedPercentage). '%';
+        }
+        
         return [
             'id' => $dataImport->getId(),
             'name' => $dataImport->getName(),
-            'import_status' => $dataImport->getStatus(),
+            'import_status' => $importStatus,
             'creation_date' => $dataImport->getCreationDate()->format($dateFormat),
             'logFilePimcoreAssetId' => $dataImport->getLogFilePimcoreAssetId(),
             'process_start_time' => $processStartTime,
