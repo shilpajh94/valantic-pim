@@ -34,11 +34,8 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
         $configProviderService = new B2BCategoryAttributeConfigProvider();
-        $config = $configProviderService->getCompleteConfig();
-        $this->config = [];
-        if (!empty($config) && !empty($config['parameters']) && !empty($config['parameters']['Attribute'])) {
-            $this->config = $config['parameters']['Attribute'];
-        }
+        $this->config = $configProviderService->getCompleteAttributeConfig();
+        
         
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
@@ -48,7 +45,8 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
             strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
-            strtolower(PimFieldType::BOOLEAN_SELECT())
+            strtolower(PimFieldType::BOOLEAN_SELECT()),
+            strtolower(PimFieldType::SALESFORCE_ID())
         ];
         
     }
@@ -81,7 +79,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfFetchValue($attributeConfig))) {
-                        $type = $config[$key]['type'];
+                        $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {
                             $fnc = "getMultiRelationTypeValue";

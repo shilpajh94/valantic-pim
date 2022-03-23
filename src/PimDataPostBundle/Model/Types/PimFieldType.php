@@ -31,6 +31,8 @@ class PimFieldType
     private const IMAGE = "image";
 
     private const VIDEO = "video";
+    
+    private const SALES_FORCE_ID ="salesForceId";
 
     private $pimFieldType;
 
@@ -114,5 +116,9 @@ class PimFieldType
         return new self(self::VIDEO);
     }
 
-
+    
+    public static function SALESFORCE_ID(): self
+    {
+        return new self(self::SALESFORCE_ID);
+    }
 }

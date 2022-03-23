@@ -26,7 +26,9 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     
     public function getRecordsToCreate(): array
     {
-        return $this->helper->getRecordsPresentInTempNotInMaster();
+        return $this->b2bProductDeltaManagerDao->getRecordsPresentInTempNotInMaster();
+            // find out the records which  are present in temp and not in master
+        // filter these records and keep only those which are active
     }
     
     public function getRecordsToUpdate(): array
@@ -36,7 +38,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     
     public function getHashChangedRecords(): array
     {
-        return $this->helper->getHashChangedRecords();
+        return $this->b2bProductDeltaManagerDao->getHashChangedRecords();
     }
     
     public function getProductIdsForUpdatedMaster(): array
@@ -51,7 +53,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
     {
-        return $this->helper->removeHashNotChangedRecordsFromTempTable();
+        return $this->b2bProductDeltaManagerDao->removeHashNotChangedRecordsFromTempTable();
     }
 
     private function getProductIdsForUpdatedTranslationMasters()

@@ -23,61 +23,75 @@ class TempTablePopulatorDao
 
     public function truncate(string $tableName)
     {
-        $sql = "TRUNCATE TABLE {$tableName}";
-        $this->db->query($sql);
+        if(trim($tableName))
+        {
+            $sql = "TRUNCATE TABLE {$tableName}";
+            $this->db->query($sql);
+        }
     }
     
     public function getPimModifiedRecordIds($tableName)
     {
-        $startTime = $this->updateWindow->getStartTimestamp();
-        $endTime = $this->updateWindow->getEndTimestamp();
+        if(trim($tableName))
+        {
+            $startTime = $this->updateWindow->getStartTimestamp();
+            $endTime = $this->updateWindow->getEndTimestamp();
 
-        $query = "SELECT `o_id` FROM {$tableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
-        return $this->db->fetchCol($query);
+            $query = "SELECT `o_id` FROM {$tableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+            $resultSet = $this->db->fetchCol($query);
+        }
+        
+        return ($resultSet) ? $resultSet : [];
     }
     
     public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {
-        $productIds = implode(",",$pimIDs);
-        $selectArray = []; 
-        $selectString = "";           
-        $secondJoinOnArray = [];
-        $joinOnArray = [];
-        $joinOnString = "";
+        if($pimIDs && $attribute && $tableName)
+        {
+            array_walk($pimIDs, create_function('&$val','$val = trim($val,",");'));
 
-        foreach ($attribute as $tableKey => $value) {
-            if($value['hashField'])
-            {
-                continue;
+            $productIds = implode(",",$pimIDs);
+            $selectArray = []; 
+            $selectString = "";           
+            $secondJoinOnArray = [];
+            $joinOnArray = [];
+            $joinOnString = "";
+
+            foreach ($attribute as $tableKey => $value) {
+                if($value['hashField'])
+                {
+                    continue;
+                }
+
+                if($value['conditionalFieldName'])
+                {
+                    $selectArray[] = $value['conditionalFieldName'];
+                }
+                else{
+                    $selectArray[] = $value['pim_table_name'].".".$value['pim_attribute_name']. " AS {$tableKey}";
+                }
+                
+                
+                if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
+                {
+                    $joinOnArray[] = $value['joinOn'];
+                }
+
+                if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
+                {
+                    $secondJoinOnArray[] = $value['addOnJoin'];
+                }
             }
 
-            if($value['conditionalFieldName'])
-            {
-                $selectArray[] = $value['conditionalFieldName'];
-            }
-            else{
-                $selectArray[] = $value['pim_table_name'].".".$value['pim_attribute_name']. " AS {$tableKey}";
-            }
-            
-            
-            if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
-            {
-                $joinOnArray[] = $value['joinOn'];
-            }
+            $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
 
-            if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
-            {
-                $secondJoinOnArray[] = $value['addOnJoin'];
-            }
+            $selectString = implode(', ', $selectArray);
+            $joinOnString = implode(' ', $joinOnArray);
+
+            $query = "SELECT {$selectString} FROM {$tableName} {$joinOnString} WHERE {$tableName}.o_id IN (".$productIds.")";
+            $resultSet = $this->db->fetchAll($query);
         }
-
-        $joinOnArray = array_merge($joinOnArray, $secondJoinOnArray);
-
-        $selectString = implode(', ', $selectArray);
-        $joinOnString = implode(' ', $joinOnArray);
-
-        $query = "SELECT {$selectString} FROM {$tableName} {$joinOnString} WHERE {$tableName}.o_id IN (".$productIds.")";
-        return $this->db->fetchAll($query);
+        return ($resultSet) ? $resultSet : [];
     }
 
     public function addHashesToTempTableData(Array $resultSet, Array $relationalFields): Array
@@ -87,65 +101,71 @@ class TempTablePopulatorDao
 
         $dataInsert = [];
 
-        foreach ($resultSet as $productArray) 
+        if($resultSet && $relationalFields)
         {
-            foreach ($productArray as $key => $value) {
-                if(in_array($key,$relationalFields))
-                {
-                    $relationalData[$key] = $value;
+            foreach ($resultSet as $productArray) 
+            {
+                foreach ($productArray as $key => $value) {
+                    if(in_array($key,$relationalFields))
+                    {
+                        $relationalData[$key] = $value;
+                    }
+                    else
+                    {
+                        $basicData[$key] = $value;
+                    }
                 }
-                else
-                {
-                    $basicData[$key] = $value;
-                }
+                
+                $basicHash = md5(json_encode($basicData, true));
+                $relationalHash = md5(json_encode($relationalData, true));
+        
+                $data = array_merge($basicData,$relationalData);
+                $data['basicHash'] = $basicHash;
+                $data['relationalHash'] = $relationalHash;
+
+                $dataInsert[] = $data;
             }
-            
-            $basicHash = md5(json_encode($basicData, true));
-            $relationalHash = md5(json_encode($relationalData, true));
-    
-            $data = array_merge($basicData,$relationalData);
-            $data['basicHash'] = $basicHash;
-            $data['relationalHash'] = $relationalHash;
-
-            $dataInsert[] = $data;
         }
-
         return $dataInsert;
     }
 
     public function insertDataInTempTable($arrData, $tempTable)
     {
-        $insertArray = [];
+        if($arrData && trim($tempTable))
+        {
+            $insertArray = [];
 
-        $keys = $arrData[0];
+            $keys = $arrData[0];
 
-        foreach ($keys as $key => $value) {
-            $insertArray[] = "`".$key."`";
-        }
-
-        $insertArrayString = implode(',',$insertArray);
-
-        $rowCount = 1;
-        $sql      = "INSERT INTO `{$tempTable}` ({$insertArrayString}) VALUES";
-        $values   = '';
-
-        foreach ($arrData as $data) {
-            $strData = implode("','",$data);
-            
-            $values .= "('{$strData}'),";
-
-            // inserting records in batch
-            if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {
-                $query = $sql.rtrim($values, ',');
-                $this->db->query($query);
-                $values = '';
+            foreach ($keys as $key => $value) {
+                $insertArray[] = "`".$key."`";
             }
-            $rowCount++;
-            unset($newData);
-        }
-        if ($values) {
-            $query = $sql.rtrim($values, ',');
-            $this->db->query($query);
+
+            $insertArrayString = implode(',',$insertArray);
+
+            $rowCount = 1;
+            $sql      = "INSERT INTO `{$tempTable}` ({$insertArrayString}) VALUES";
+            $values   = '';
+
+            foreach ($arrData as $data) {
+                $strData = implode("','",$data);
+                
+                $values .= "('{$strData}'),";
+
+                // inserting records in batch
+                if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($values, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+                unset($newData);
+            }
+            if ($values) {
+                $query = $sql.rtrim($values, ',');
+                $query;
+                $this->db->query($query);
+            }
         }
     }
     

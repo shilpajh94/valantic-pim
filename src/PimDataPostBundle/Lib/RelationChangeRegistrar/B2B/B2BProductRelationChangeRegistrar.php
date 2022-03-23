@@ -24,8 +24,7 @@ class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistr
 
     public function registerChangedRelation(): array
     {
-        // $relationHashChangedRecords = $this->fetchRecordsWhereRelationHashChanged();
-        return $this->getAllRelationalAttributes();
+
     }
     
     public function fetchRecordsWhereRelationHashChanged(): array
@@ -40,17 +39,18 @@ class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistr
 
     public function getAllRelationalAttributes(): array
     {
-       return $this->attributeConfigProvider->getSalesForceRelationalAttributeConfig();
+       return $this->attributeConfigProvider->getPIMRelationalAttributeConfig("salesForceRelationalAttr");
     }
 
-    public function processAllRelations()
+    public function processAllRelations(array $products, bool $isNewRecord): array
     {
-       //processAllRelations
+        $relationalFieldConfig = $this->getAllRelationalAttributes();
+        return $this->b2bProductRelationChangeRegistrarDao->fetchRelationalAttributeData($relationalFieldConfig, $products, $isNewRecord);
     }
 
-    public function saveChangedRelation()
+    public function saveChangedRelation(array $relationalData): void
     {
-       //saveChangedRelation
+       $this->helper->saveChangedRelation($relationalData);
     }
 }
 

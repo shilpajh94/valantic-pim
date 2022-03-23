@@ -39,18 +39,18 @@ class B2BProductRelationChange extends AbstractModel
         return $this->oldValue;
     }
 
-    public function setOldValue(int $oldValue): self
+    public function setOldValue($oldValue): self
     {
         $this->oldValue = $oldValue;
         return $this;
     }
 
-    public function getNewValue(): int
+    public function getNewValue(): string
     {
         return $this->newValue;
     }
 
-    public function setNewValue(int $newValue): self
+    public function setNewValue($newValue): self
     {
         $this->newValue = $newValue;
         return $this;

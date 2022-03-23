@@ -4,25 +4,29 @@ namespace PimDataPostBundle\Lib\HTTPResponseHandler\B2B;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\Lib\HTTPResponseHandler\HTTPResponseHandlerHelper;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\Dao\B2BProductHTTPResponseHandlerDao;
+use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\B2BHTTPResponseHandlerDao;
 use PimDataPostBundle\Lib\Constants;
 use GuzzleHttp\Psr7\Response;
+use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\Helper\B2BProductHTTPResponseHandlerHelper;
 class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
 {
     private $helper;
     private $attributeConfigProvider;
     private $b2bProductHTTPResponseHandlerDao;
+    private $productHelper;
 
     public function __construct()
     {
         $this->helper = new HTTPResponseHandlerHelper();
+        $this->productHelper = new B2BProductHTTPResponseHandlerHelper();
         $this->attributeConfigProvider = new B2BProductAttributeConfigProvider();
-        $this->b2bProductHTTPResponseHandlerDao = new B2BProductHTTPResponseHandlerDao(Constants::B2B_PRODUCT_TEMP_TABLE_NAME,Constants::B2B_PRODUCT_MASTER_TABLE_NAME);
+        $this->b2bProductHTTPResponseHandlerDao = new B2BHTTPResponseHandlerDao(Constants::B2B_PRODUCT_TEMP_TABLE_NAME,Constants::B2B_PRODUCT_MASTER_TABLE_NAME);
     }
 
-    public function handleResponse(Response $responseString): bool
+    public function handleResponse(Response $responseResult): bool
     {
-        $responseArr= json_decode($responseString->getBody()->getContents(),true);
+        $responseArr= json_decode($responseResult->getBody()->getContents(),true);
+
         if(isset($responseArr['graphs']))
         {
             foreach($responseArr['graphs'] as $graphArr)
@@ -87,7 +91,7 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
     
     private function insertSalesforceId(int $pimId, string $salesforceId): bool
     {
-        return $this->helper->insertSalesforceId($pimId,$salesforceId);
+        return $this->productHelper->insertSalesforceId($pimId,$salesforceId);
     }
       
 }

@@ -35,12 +35,12 @@ class CategoryActiveFlagHelper
         return array_unique($categories);
     }
 
-    public function isCategoryPresentInMasterTable(int $categoryId): bool
+    public function isCategoryPresentInMasterTable(string $categoryId): bool
     {
         return $this->dao->isCategoryPresentInMasterTable(Constants::B2B_CATEGORY_MASTER_TABLE_NAME, $categoryId);
     }
 
-    public function isCategoryActiveInMasterTable(int $categoryId): bool
+    public function isCategoryActiveInMasterTable(string $categoryId): bool
     {
         return $this->dao->isCategoryActiveInMasterTable(Constants::B2B_CATEGORY_MASTER_TABLE_NAME, $categoryId);
     }
@@ -52,17 +52,20 @@ class CategoryActiveFlagHelper
 
     public function updateActiveFlagValue(array $idAndActiveFlagValueArray): void
     {
-        foreach ($idAndActiveFlagValueArray as $categoryId => $flag) {
+        if($idAndActiveFlagValueArray)
+        {
+            foreach ($idAndActiveFlagValueArray as $categoryId => $flag) {
+                $categoryId = trim($categoryId, ',');
+                $hierarchyObj = DataObject\ProductCategory::getById($categoryId);
 
-            $hierarchyObj = DataObject\ProductCategory::getById($categoryId);
+                $showInMenu = $hierarchyObj->getShowInMenu();
+                $showInMenu = ($showInMenu) ? true : false;
 
-            $showInMenu = $hierarchyObj->getShowInMenu();
-            $showInMenu = ($showInMenu) ? true : false;
-
-            if($showInMenu != $flag)
-            {
-                $hierarchyObj->setShowInMenu($flag);
-                $hierarchyObj->save();  
+                if($showInMenu != $flag)
+                {
+                    $hierarchyObj->setShowInMenu($flag);
+                    $hierarchyObj->save();  
+                }
             }
         }
     }

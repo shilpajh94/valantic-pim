@@ -17,14 +17,20 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
         $this->helper = new DeltaManagerHelper($tempMasterTablesMeta);
-        $this->b2bCategoryDeltaManagerDao = new B2BCategoryDeltaManagerDao($tempMasterTablesMeta);
+        $this->b2bCategoryDeltaManagerDao = new B2BCategoryDeltaManagerDao($this->tempMasterTablesMeta);
     }
     
     public function getRecordsToCreate(): array
     {
-        return $this->helper->getRecordsPresentInTempNotInMaster();
+        return $this->b2bCategoryDeltaManagerDao->getRecordsPresentInTempNotInMaster();
         
     }
+
+    public function getRecordsToCreateByLevel(int $level): array
+    {
+        return $this->b2bCategoryDeltaManagerDao->getRecordsPresentInTempNotInMasterByLevel($level);  
+    }
+    
     
     public function getRecordsToUpdate(): array
     {
@@ -36,7 +42,7 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
     
     public function getHashChangedRecords(): array
     {
-        return $this->helper->getHashChangedRecords();
+        return $this->b2bCategoryDeltaManagerDao->getHashChangedRecords();
     }
 
    
@@ -51,7 +57,7 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
     {
-        return $this->helper->removeHashNotChangedRecordsFromTempTable();
+        return $this->b2bCategoryDeltaManagerDao->removeHashNotChangedRecordsFromTempTable();
     }
 }
 
