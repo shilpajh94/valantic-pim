@@ -38,8 +38,6 @@ use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\ImportHelper as importHelper;
-use Pimcore\Model\DataObject\ClassDefinition;
-
 
 
 class ImportDefinitionController extends ResourceController
