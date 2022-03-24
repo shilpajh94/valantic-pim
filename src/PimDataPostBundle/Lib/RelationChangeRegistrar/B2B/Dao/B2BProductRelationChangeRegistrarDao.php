@@ -38,7 +38,7 @@ class B2BProductRelationChangeRegistrarDao
         return $this->db->fetchCol($sql);
     }
 
-    public function fetchRelationalAttributeData($config, $products)
+    public function fetchRelationalAttributeData($config, $products, $isNewRecord)
     {
         $rowsToInsertInRelationalDb = [];
 
@@ -48,6 +48,7 @@ class B2BProductRelationChangeRegistrarDao
 
             $selectFields = [];
             $selectFields[] = "t1.o_id";
+            $selectFields[] = "t1.BusinessUnit";
             $selectFieldsString = "";
 
             foreach ($fieldKeys as $value) {
@@ -66,13 +67,14 @@ class B2BProductRelationChangeRegistrarDao
             $sql .=  "WHERE t1.o_id IN ({$productIds})";
             $result = $this->db->fetchAll($sql);
 
-            $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result);
+            $fieldKeys[] = "BusinessUnit";
+            $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result, $isNewRecord);
             
         }
         return $rowsToInsertInRelationalDb;
     }
 
-    public function prepareRelationalRecords($fieldKeys, $result){
+    public function prepareRelationalRecords($fieldKeys, $result, $isNewRecord){
         $rowsToInsertInRelationalDb = [];
 
         foreach ($fieldKeys as $key) {
@@ -85,20 +87,26 @@ class B2BProductRelationChangeRegistrarDao
 
                     if(isset($resultValue[$tempKey]))
                     {
+                        $data = [];
+                        $data['productId'] = $resultValue['o_id'];
+                        $data['BusinessUnit'] = $resultValue['BusinessUnit'];
+                        $data['attributeName'] = $key;
+                        $data['oldValue'] = $resultValue['t2_'.$key];
+                        $data['newValue'] = $resultValue['t1_'.$key];
+
                         $oldValue = $resultValue[$masterKey];
                         $newValue = $resultValue[$tempKey];
 
-                        if($oldValue != $newValue)
+                        if($isNewRecord)
                         {
-                            $data = [];
-                            $data['productId'] = $resultValue['o_id'];
-                            $data['attributeName'] = $key;
-                            $data['oldValue'] = $resultValue['t2_'.$key];
-                            $data['newValue'] = $resultValue['t1_'.$key];
-    
                             $rowsToInsertInRelationalDb[] = $data;
                         }
-                        
+                        else{
+                            if($oldValue != $newValue)
+                            {
+                                $rowsToInsertInRelationalDb[] = $data;
+                            }
+                        }
                         
                     }
                 }

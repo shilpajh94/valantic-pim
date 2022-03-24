@@ -12,11 +12,13 @@ class RelationChangeRegistrarHelper
         {
             foreach ($relationalData as $value) {
                 $productId = $value['productId'];
+                $businessUnit = $value['BusinessUnit'];
                 $attributeName = $value['attributeName'];
                 $oldValue = $value['oldValue'];
                 $newValue = $value['newValue'];
                 $obj = new B2BProductRelationChange();
                 $obj->setProductId($productId)
+                    ->setBusinessUnit($businessUnit)
                     ->setAttributeName($attributeName)
                     ->setOldValue($oldValue)
                     ->setNewValue($newValue);
