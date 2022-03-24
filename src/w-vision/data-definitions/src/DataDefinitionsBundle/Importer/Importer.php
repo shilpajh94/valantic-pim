@@ -259,31 +259,31 @@ final class Importer implements ImporterInterface
      */
     private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions, $importDataParams =[], $logResult=[])
     {
+        $params = [
+            'exceptions' => $exceptions,  
+            'objectIds' => implode(',',$objectIds),
+            'className' => $definition->getClass(),
+            'countObjects' => \count($objectIds),
+            'countExceptions' => \count($exceptions),
+            'name' => $definition->getName(),
+            'provider' => $definition->getProvider(),
+            'importDataId' => $importDataParams['importDataId'],
+            'logResult' => $logResult
+        ];
+        $this->CreateLogsFilesForImport($params );
+        $templateParam['tableContent'] = $definition->getName();
+        $documentEmail = Document\Email::getByPath(Constants::BULK_PRODUCT_IMPORT_REPORT);
+        if ($documentEmail instanceof Document\Email) {
+            $mail = new Mail();
+            $mail->setDocument($documentEmail);
+            $mail->addto('tehreempervez959@gmail.com');
+            $mail->setSubject("Import Log");
+            $mail->setParams($templateParam);
 
-       // if ($document instanceof Document) {
-            $params = [
-                'exceptions' => $exceptions,  
-                'objectIds' => implode(',',$objectIds),
-                'className' => $definition->getClass(),
-                'countObjects' => \count($objectIds),
-                'countExceptions' => \count($exceptions),
-                'name' => $definition->getName(),
-                'provider' => $definition->getProvider(),
-                'importDataId' => $importDataParams['importDataId'],
-                'logResult' => $logResult
-            ];
-            $this->CreateLogsFilesForImport($params );
-
-            if ($document instanceof Document\Email) {
-                $mail = new Mail();
-                $mail->setDocument($document);
-                $mail->setSubject("Import Log");
-                $mail->setParams($params);
-                // $mail->send();
-            } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
-                $document->send($params);
-            }
-       // }
+            $mail->send();
+        } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
+            $document->send($params);
+        }
     }
 
     public function CreateLogsFilesForImport($params)

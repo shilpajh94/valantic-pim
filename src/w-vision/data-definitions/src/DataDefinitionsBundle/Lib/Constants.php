@@ -40,4 +40,6 @@ class Constants
     const DATA_DEFINITION_UPLOADED_FILES_IN_ASSET_FOLDER= '/Product Data Import Module/Uploaded Files';
     const DATA_DEFINITION_LOG_FILES_IN_ASSET_FOLDER= '/Product Data Import Module/Log Files';
 
+    // //constant for Bulk Product Import Report Email Template
+    const BULK_PRODUCT_IMPORT_REPORT = '/Bulk Product Import/BulkProductImportReport';
 }
