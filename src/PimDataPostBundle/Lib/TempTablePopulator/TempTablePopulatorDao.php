@@ -43,6 +43,20 @@ class TempTablePopulatorDao
         
         return ($resultSet) ? $resultSet : [];
     }
+
+    public function getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(string $objectTableName, string $masterTableName): array
+    {
+
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+
+        $query = "SELECT {$objectTableName}.`o_id` FROM {$objectTableName}" ;
+        $query .= " JOIN {$masterTableName} ON {$objectTableName}.`o_id` = {$masterTableName}.`o_id`";
+        $query .= " WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+        $resultSet = $this->db->fetchCol($query);
+        
+        return $resultSet;
+    }
     
     public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {

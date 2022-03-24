@@ -24,6 +24,11 @@ class B2BTempTablePopulatorHelper extends TempTablePopulatorHelper
         return $this->dao->getPimModifiedRecordIds($tableName);
     }
 
+    public function getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(string $objectTableName, string $masterTableName)
+    {
+        return $this->dao->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster($objectTableName, $masterTableName);
+    }
+
     public function getTempTableDataForIds($pimIds, $attribute, $tableName)
     {
         $resultSet =  $this->dao->getTempTableDataForIds($attribute, $pimIds, $tableName);
