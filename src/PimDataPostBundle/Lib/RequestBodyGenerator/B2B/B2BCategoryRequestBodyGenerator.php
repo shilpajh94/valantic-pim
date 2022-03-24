@@ -27,27 +27,12 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     
     private $classDefinition;
     
-    private $allowedAttributeTypes;
-    
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
         $configProviderService = new B2BCategoryAttributeConfigProvider();
         $this->config = $configProviderService->getCompleteAttributeConfig();
-        
-        
-        $this->allowedAttributeTypes = [
-            strtolower(PimFieldType::SELECT()),
-            strtolower(PimFieldType::MULTISELECT()),
-            strtolower(PimFieldType::CHECKBOX()),
-            strtolower(PimFieldType::MANY_TO_MANY_RELATION()),
-            strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
-            strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
-            strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
-            strtolower(PimFieldType::BOOLEAN_SELECT()),
-            strtolower(PimFieldType::SALESFORCE_ID())
-        ];
         
     }
     
@@ -70,7 +55,22 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION())
         ];
-        if (empty($config)) {
+        $updatedConfig = [];
+        if (!empty($config) && !empty($language)) {
+            $updatedConfig = $config;
+            foreach ($config as $key => $attributeConfig) {
+                if ($this->checkIfSendToSF($attributeConfig)) {
+                    $localisedDataKey = $key."_".$language;
+                    if (array_key_exists($localisedDataKey, $tempTableData)) {
+                        $returnArray[$attributeConfig['sf_attribute_name']] = $tempTableData[$localisedDataKey];
+                        unset($updatedConfig[$key]);
+                    }
+                }
+            }
+            if (count($updatedConfig)>0) {
+                $config = $updatedConfig;
+            }
+        } else {
             $config = $this->config;
         }
         foreach ($tempTableData as $key => $value) {
@@ -78,7 +78,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
-                    if (!empty($value) && !empty($this->checkIfFetchValue($attributeConfig))) {
+                    if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {
                         $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {

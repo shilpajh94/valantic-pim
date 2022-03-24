@@ -10,10 +10,13 @@ class RequestBodyGeneratorHelper
     
     private $b2bProductRequestBodyGeneratorDao;
     
+    private $classIdNameMapping;
+    
     public function __construct($requestBodyGenerator)
     {
         $this->requestBodyGenerator = $requestBodyGenerator;
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
+        $this->classIdNameMapping = [];
     }
     
     /**
@@ -85,7 +88,7 @@ class RequestBodyGeneratorHelper
         if (!empty($language) && $config['isLocalisedMaster']) {
             return $this->getRelationValue($currentValue, $config, $language); 
         } else {
-            $className = $config['pimcoreClassName'];
+            $className = $config['container_pim_class_or_brick_name'];
             $definiion = $this->requestBodyGenerator->getClassDefinition($className);
             $fieldName = $config['pim_attribute_name'];
             $fieldDefinition = $definiion->getFieldDefinition($fieldName);
@@ -110,23 +113,19 @@ class RequestBodyGeneratorHelper
      */
     public function getRelationValue($currentValue, array $config, $language = null) {
         
-        if (!empty($config['relationFieldName']) ) {
-            $select = "SELECT ".$config['relationFieldName'];
-            if (!empty($language) && !empty($config['localisedTableName'])) {
-                $tableName = $config['localisedTableName'];
-            } elseif (!empty($config['tableName'])) {
-                $tableName = $config['tableName'];
-            }
-            if (!empty($tableName)) {
-                $select .= ' FROM '.$tableName.' ';
-                if (!empty($config['whereCondition'])) {
-                    $where = $config['whereCondition'];
-                    $where = str_replace('{%ID%}', $currentValue, $where);
-                    $select = $select." WHERE ".$where;
+        if (!empty($config['pim_attribute_for_sf_in_allowed_object_class_name']) && !empty($config['allowed_object_class_name'])) {
+            $classId = $this->getClassIdByClassName($config['allowed_object_class_name']);
+            $select = "SELECT ".$config['pim_attribute_for_sf_in_allowed_object_class_name'];
+            if (!empty($classId)) {
+                if (!empty($language)) {
+                    $tableName = "object_localized_".$classId."_".$language;
+                } else {
+                    $tableName = "object_".$classId;
                 }
+                $select .= ' FROM '.$tableName.' ';
+                $select = $select." WHERE `oo_id` = '".$currentValue."' ";
                 return $this->b2bProductRequestBodyGeneratorDao->fetchOne($select);
             }
-            
         }
         return null;
     }
@@ -147,18 +146,14 @@ class RequestBodyGeneratorHelper
     
     public function getSalesForceIdTypeValue($currentValue, array $config, $language = null) {
         try {
-            if (!empty($config['relationFieldName']) && !empty($config['modelClassName'])) {
-                $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['modelClassName']."\\Listing";
+            if (!empty($config['pim_attribute_for_sf_in_allowed_object_class_name']) && !empty($config['pim_id_to_sf_id_mapping_model'])) {
+                $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['pim_id_to_sf_id_mapping_model']."\\Listing";
                 $list = new $className();
-                if (!empty($config['whereCondition'])) {
-                    $where = $config['whereCondition'];
-                    $where = str_replace('{%ID%}', $list->quote($currentValue), $where);
-                    $list->setCondition($where);
-                }
+                $list->setCondition("`pimId` = ".$list->quote($currentValue));
                 $list->load();
                 if (!empty($list) && count($list)>0) {
                     $objects = $list->getObjects();
-                    $getter = "get".ucfirst($config['relationFieldName']);
+                    $getter = "get".ucfirst($config['pim_attribute_for_sf_in_allowed_object_class_name']);
                     return $objects[0]->$getter();
                 }
             }
@@ -168,61 +163,13 @@ class RequestBodyGeneratorHelper
         return null;
     }
     
+    public function getClassIdByClassName($className) {
+        if (empty($this->classIdNameMapping[$className])) {
+            $def = \Pimcore\Model\DataObject\ClassDefinition::getByName($className);
+            $this->classIdNameMapping[$className] = $def->getId();
+        }
+        return $this->classIdNameMapping[$className];
+    }
     
-//    public function getRelationTypeValue($currentValue, array $config) {
-//        $fieldType = $config['relationFieldType'];
-//        $fieldName = $config['fieldName'];
-//        $getter = "get".ucfirst($fieldName);
-//        if (method_exists($object, $getter)) {
-//            $relationFieldObject = $object->$getter();
-//            
-//            if (!empty($relationFieldObject) && count($relationFieldObject)>0) {
-//                if (!empty($relationFieldObject[0])) {
-//                    $relationFieldObject = $relationFieldObject[0];
-//                    if ($relationFieldObject instanceof \Pimcore\Model\DataObject\Data\ObjectMetadata) {
-//                        $relationFieldObject = $relationFieldObject->getObject();
-//                    }
-//                }
-//                $relationFieldName = $config['relationFieldName'];
-//                $relationFieldType = $config['relationFieldType'];
-//                $typeGetter = "get".ucfirst($relationFieldType)."TypeValue";
-//                $updatedConfig = $config;
-//                $updatedConfig['fieldName'] = $config['relationFieldName'];
-//                
-//                if ($relationFieldType == 'relation') {
-//                    $updatedConfig['className'] = $config['relationToRelationClassName'];
-//                    $updatedConfig['relationFieldName'] = $config['relationToRelationFieldName'];
-//                    $updatedConfig['relationFieldType'] = $config['relationToRelationFieldType'];
-//                }
-//                return $this->$typeGetter($relationFieldObject, $currentValue, $updatedConfig);
-//            }
-//        }
-//    }
-//    
-//    /**
-//     * 
-//     * @param object $object
-//     * @param array $config
-//     */
-//    public function getObjectbrickTypeValue($currentValue, array $config) 
-//    {
-//        $fieldGetter = "get".ucfirst($config['classFieldName']);
-//        $brickGetter = "get".ucfirst($config['brickName']);
-//        $classField = $object->$fieldGetter();
-//        if (method_exists($classField, $brickGetter)) {
-//            $brickObject = $classField->$brickGetter();
-//            if (empty($brickObject)) {
-//                return null;
-//            }
-//            $fieldType = $config['brickFieldType'];
-//            $typeGetter = "get".ucfirst($fieldType)."TypeValue";
-//            $updatedConfig = $config;
-//            if ($fieldType == 'relation') {
-//                $updatedConfig['fieldName'] = $config['brickFieldName'];
-//                $updatedConfig['className'] = $config['relationClassName'];
-//            }   
-//            return $this->$typeGetter($brickObject, $currentValue, $updatedConfig);
-//        }
-//    }
 }
 
