@@ -47,6 +47,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Pimcore\Model\Element;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\BlockElement;
 
 final class Importer implements ImporterInterface
 {
@@ -711,8 +712,29 @@ final class Importer implements ImporterInterface
 
         if ($map->getSetter()) {
             $setter = $this->setterRegistry->get($map->getSetter());
+            $blockDataArray = [];
+            if (strpos($map->getToColumn(), 'featureBlock') !== false){
+                $blockDataArray = explode('|',$value);
+                $method = 'set'.ucfirst(strtok($map->getToColumn(), '~'));
+                foreach($blockDataArray as $blockData){
+                    $fieldValueBlock[] = [
+                        "Feature" => new BlockElement("Feature", 'input', $blockData)
+                    ];
+                }
+                $object->$method($fieldValueBlock);
 
-            if ($setter instanceof SetterInterface) {
+            }
+            elseif(strpos($map->getToColumn(), 'benefitBlock') !== false){
+                $blockDataArray = explode('|',$value);
+                $method = 'set'.ucfirst(strtok($map->getToColumn(), '~'));
+                foreach($blockDataArray as $blockData){
+                    $fieldValueBlock[] = [
+                        "Benefit" => new BlockElement("Benefit", 'input', $blockData)
+                    ];
+                }
+                $object->$method($fieldValueBlock);
+            }
+            elseif ($setter instanceof SetterInterface) {
                 if ($setter instanceof DataSetAwareInterface) {
                     $setter->setDataSet($dataSet);
                 }
