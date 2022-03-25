@@ -715,24 +715,27 @@ final class Importer implements ImporterInterface
             $blockDataArray = [];
             if (strpos($map->getToColumn(), 'featureBlock') !== false){
                 $blockDataArray = explode('|',$value);
-                $method = 'set'.ucfirst(strtok($map->getToColumn(), '~'));
+                $methodNameAndLanguageArray = explode('~',$map->getToColumn());
+                $method = 'set'.ucfirst($methodNameAndLanguageArray[0]);
                 foreach($blockDataArray as $blockData){
                     $fieldValueBlock[] = [
                         "Feature" => new BlockElement("Feature", 'input', $blockData)
                     ];
                 }
-                $object->$method($fieldValueBlock);
+                $object->$method($fieldValueBlock,$methodNameAndLanguageArray[1]);
 
             }
             elseif(strpos($map->getToColumn(), 'benefitBlock') !== false){
                 $blockDataArray = explode('|',$value);
-                $method = 'set'.ucfirst(strtok($map->getToColumn(), '~'));
+                $methodNameAndLanguageArray = explode('~',$map->getToColumn());
+                $method = 'set'.ucfirst($methodNameAndLanguageArray[0]);
                 foreach($blockDataArray as $blockData){
                     $fieldValueBlock[] = [
                         "Benefit" => new BlockElement("Benefit", 'input', $blockData)
                     ];
                 }
-                $object->$method($fieldValueBlock);
+                DataImportLogger::log(json_encode($methodNameAndLanguageArray[1]));
+                $object->$method($fieldValueBlock,$methodNameAndLanguageArray[1]);
             }
             elseif ($setter instanceof SetterInterface) {
                 if ($setter instanceof DataSetAwareInterface) {
