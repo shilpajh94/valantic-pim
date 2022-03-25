@@ -389,11 +389,11 @@ final class Importer implements ImporterInterface
 
             }elseif($definition->getClass() == 'CSProducts'){
                 $primaryKey = $row['Product Hierarchy'];
-                if($row['Product Flag'] == 0 || ($row['Product Flag'] == 1 && !$row['Region'])){
+                if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
                     $productName = str_replace("/", "-", $row['Product Name']);
                     $primaryKey = $row['Product Hierarchy'].'/'.$productName;
 
-                }elseif($row['Product Flag'] == 1 && $row['Region']){
+                }elseif($row['Product Flag'] == "1" && $row['Region']){
                     $productName = str_replace("/", "-", $row['Product Name']);
                     $region = explode("|",$row['Region']);
                     $primaryKey = $row['Product Hierarchy'].'/'.$region[0].'/'.$productName;
@@ -654,7 +654,6 @@ final class Importer implements ImporterInterface
         $params,
         RunnerInterface $runner = null
     ) {
-        DataImportLogger::log(json_encode($map->getInterpreter()));
         if ($map->getInterpreter()) {
             try {
                 $interpreter = $this->interpreterRegistry->get($map->getInterpreter());

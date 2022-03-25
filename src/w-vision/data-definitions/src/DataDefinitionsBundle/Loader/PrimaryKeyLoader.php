@@ -17,6 +17,7 @@ namespace Wvision\Bundle\DataDefinitionsBundle\Loader;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Listing;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
 
 class PrimaryKeyLoader implements LoaderInterface
@@ -75,12 +76,11 @@ class PrimaryKeyLoader implements LoaderInterface
             }
         }else{
             $path = $data['Product Hierarchy'];
-            
-            if($data['Product Flag'] == 0 || ($data['Product Flag'] == 1 && !$data['Region'])){
+            if($data['Product Flag'] == "0" || ($data['Product Flag'] == "1" && !$data['Region'])){
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $path = $data['Product Hierarchy'].'/'.$productName;
 
-            }elseif($data['Product Flag'] == 1 && $data['Region']){
+            }elseif($data['Product Flag'] == "1" && $data['Region']){
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $region = explode("|",$data['Region']);
                 $path = $data['Product Hierarchy'].'/'.$region[0].'/'.$productName;
