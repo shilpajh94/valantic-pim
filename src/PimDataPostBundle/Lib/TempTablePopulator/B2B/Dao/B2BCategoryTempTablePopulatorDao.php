@@ -16,14 +16,14 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
 
     public function iterateMasterTableCategories($tableName)
     {
-        $query = "SELECT `oo_id` FROM {$tableName}";
+        $query = "SELECT `o_id` FROM {$tableName}";
         return $this->db->fetchCol($query);
     }
 
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT oo_id FROM {$tableName} where oo_id = {$categoryId}";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId}";
         $resultSet =  $this->db->fetchCol($query);
         return ($resultSet) ? true : false;
     }
@@ -31,7 +31,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryActiveInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT oo_id FROM {$tableName} where oo_id = {$categoryId} AND ShowInMenu = 1";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND ShowInMenu = 1";
         $resultSet =  $this->db->fetchCol($query);
         return ($resultSet) ? true : false;
     }

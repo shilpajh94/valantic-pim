@@ -19,48 +19,58 @@ class B2BProductDataPoster
 {
     public function postData()
     {
-        $tempTablePopulator = new B2BProductTempTablePopulator();
-        $tempTablePopulator->truncateTempTable();
-        $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
-        $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);
-
-        /**
-         * @TODO:
-         * add relation change registrar
-         * add logging
-         */
-
-        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 
-                                                            Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 
-                                                            "basicHash", 
-                                                            "relationalHash");
-
-        $relationChangeRegistrar = new B2BProductRelationChangeRegistrar($tempMasterTableMeta);
-        $relationChangeRegistrar->registerChangedRelation();
-        
-        $deltaManager = new B2BProductDeltaManager($tempMasterTableMeta);
-        $deltaManager->removeHashNotChangedRecordsFromTempTable();
-        
-        $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
-        if(count($productIdsForUpdatedMasters) > 0){
-            $this->insertProductIdsInTempTable($tempTablePopulator, $productIdsForUpdatedMasters);
+        try{
+            $tempTablePopulator = new B2BProductTempTablePopulator();
+            $tempTablePopulator->truncateTempTable();
+            $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);    
+    
+            /**
+             * @TODO:
+             * add relation change registrar
+             * add logging
+             */
+    
+            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 
+                                                                Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 
+                                                                "basicHash", 
+                                                                "relationalHash");
+    
+            $relationChangeRegistrar = new B2BProductRelationChangeRegistrar($tempMasterTableMeta);
+            $relationChangeRegistrar->registerChangedRelation();
+            
+            $deltaManager = new B2BProductDeltaManager($tempMasterTableMeta);
+            $deltaManager->removeHashNotChangedRecordsFromTempTable();
+            
+            /**
+             * to capture the product for which the masters in dynamic dropdonw,
+             * nomenclature,fittingfamily and thread updated.
+             */
+            $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
+            p_r($productIdsForUpdatedMasters);
+            if(count($productIdsForUpdatedMasters) > 0){
+                $this->insertProductIdsInTempTable($tempTablePopulator, $productIdsForUpdatedMasters);
+            }
+            $recordsToUpdate = array_unique(array_merge($deltaManager->getRecordsToUpdate(), $productIdsForUpdatedMasters));
+            $recordsToCreate = $deltaManager->getRecordsToCreate();
+    
+            $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
+            $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
+    
+            $httpRequestGenerator = new B2BProductHTTPRequestGenerator();
+            $responseHandler = new B2BProductHTTPResponseHandler();
+            $firstBatchIndex = 1;
+            $totalBatches = $httpRequestGenerator->getTotalBatches();
+            $client = new \GuzzleHttp\Client();
+            for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
+                $request = $httpRequestGenerator->getRequest($i);
+                $response = $client->send($request);
+                $responseHandler->handleResponse($response);
+            }
+        }catch(\Throwable $ex){
+            p_r($ex);
         }
-        $recordsToUpdate = array_unique(array_merge($deltaManager->getRecordsToUpdate(), $productIdsForUpdatedMasters));
-        $recordsToCreate = $deltaManager->getRecordsToCreate();
-
-        $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
-        $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
-
-        $httpRequestGenerator = new B2BProductHTTPRequestGenerator();
-        $responseHandler = new B2BProductHTTPResponseHandler();
-        $firstBatchIndex = 1;
-        $totalBatches = $httpRequestGenerator->getTotalBatches();
-        $client = new \GuzzleHttp\Client();
-        for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-            $request = $httpRequestGenerator->getRequest($i);
-            $response = $client->send($request);
-            $responseHandler->handleResponse($response);
-        }
+      
     }
 
     private function createAPIRequestEntityForRecords(array $records, 

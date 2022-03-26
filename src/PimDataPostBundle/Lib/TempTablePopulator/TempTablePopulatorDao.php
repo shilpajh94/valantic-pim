@@ -115,7 +115,7 @@ class TempTablePopulatorDao
 
         $dataInsert = [];
 
-        if($resultSet && $relationalFields)
+        if($resultSet)
         {
             foreach ($resultSet as $productArray) 
             {
@@ -143,6 +143,11 @@ class TempTablePopulatorDao
         return $dataInsert;
     }
 
+    public function quoteString(?string $str)
+    {
+        return empty($str) ? $this->db->quote("") : $this->db->quote($str);
+    }
+
     public function insertDataInTempTable($arrData, $tempTable)
     {
         if($arrData && trim($tempTable))
@@ -162,9 +167,11 @@ class TempTablePopulatorDao
             $values   = '';
 
             foreach ($arrData as $data) {
-                $strData = implode("','",$data);
+                $data = array_map([$this,"quoteString"],$data);
+
+                $strData = implode(",",$data);
                 
-                $values .= "('{$strData}'),";
+                $values .= "({$strData}),";
 
                 // inserting records in batch
                 if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {

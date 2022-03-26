@@ -48,7 +48,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
         // $setCb = $this->getProductIdsForUpdatedMasterTableAttribute("Thread");
         // $setCc = $this->getProductIdsForUpdatedMasterTableAttribute("NomenclatureDetails");
 
-        return array_merge($setB, $setCa, $setCb, $setCc);
+        return array_merge($setB);
     }
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
@@ -64,7 +64,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
             if( array_key_exists("temp_master_table_attr", $configAttrValue) && $configAttrValue["temp_master_table_attr"] === true){
                 $productIds = array_merge($productIds, 
                                                 $this->getProductIdsForMasters(
-                                                                            $configAttrValue["masterClass"], 
+                                                                            $configAttrValue["allowed_object_class_name"], 
                                                                             $configAttrKey, 
                                                                             $configAttrValue["pim_attribute_type"]));
             }

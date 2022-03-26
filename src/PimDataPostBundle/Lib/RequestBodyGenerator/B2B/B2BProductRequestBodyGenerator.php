@@ -36,7 +36,8 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
             strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
-            strtolower(PimFieldType::BOOLEAN_SELECT())
+            strtolower(PimFieldType::BOOLEAN_SELECT()),
+            strtolower(PimFieldType::SALES_FORCE_ID())
         ];
         
     }
@@ -117,6 +118,9 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
     public function getClassDefinition($className) {
         if (empty($this->classDefinition[$className])) {
             $def = \Pimcore\Model\DataObject\ClassDefinition::getByName($className);
+            if($def === null){
+                $def = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($className);
+            }
             $this->classDefinition[$className] = $def;
         }
         return $this->classDefinition[$className];

@@ -18,76 +18,83 @@ class B2BCategoryDataPoster {
 
     public function postData()
     {
-
-        $tempTablePopulator = new B2BCategoryTempTablePopulator();
-        $tempTablePopulator->truncateTempTable();
-
-
-        $activeFlagHandler = new B2BCategoryActiveFlagHandler();
-        $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
-        $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
-        $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
-        $categoryIdsToBeAddedInTempTable = [];
-
-        $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
-        foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
-            if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
-                if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
-                    $activeFlagHandler->updateActiveFlagValue([ [$categoryId => true] ]);
+        try{
+            $tempTablePopulator = new B2BCategoryTempTablePopulator();
+            // $tempTablePopulator->truncateTempTable();
+    
+    
+            // $activeFlagHandler = new B2BCategoryActiveFlagHandler();
+            // $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
+            // $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
+            // $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
+            // $categoryIdsToBeAddedInTempTable = [];
+    
+            // $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+            // foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
+            //     if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
+            //         if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+            //             $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+            //         }
+            //     }else{
+            //         $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+            //         $categoryIdsToBeAddedInTempTable[] = $categoryId;
+            //     }
+            // }
+    
+            // $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
+            // $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
+    
+            // $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
+            // $tempTableData = $tempTablePopulator->addHashesToTempTableData($tempTableData);
+            // $tempTablePopulator->insertDataInTempTable($tempTableData);
+    
+    
+            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
+                                            Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 
+                                            "basicHash", 
+                                            "relationalHash");
+            $deltaManager = new B2BCategoryDeltaManager($tempMasterTableMeta);
+    
+            for($level = 1; $level <= 6; $level++){
+                $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
+                if(!empty($recordsToCreate)){
+                    $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
+    
+                    $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
+                    $responseHandler = new B2BCategoryHTTPResponseHandler();
+                    $firstBatchIndex = 1;
+                    $totalBatches = $httpRequestGenerator->getTotalBatches();
+                    $client = new \GuzzleHttp\Client();
+                    for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
+                        $request = $httpRequestGenerator->getRequest($i);
+                        // $response = $client->send($request);
+                        // $responseHandler->handleResponse($response);
+                    }
                 }
-            }else{
-                $activeFlagHandler->updateActiveFlagValue([ [$categoryId => true] ]);
-                $categoryIdsToBeAddedInTempTable[] = $categoryId;
+ 
             }
-        }
-
-        $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
-        $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
-
-        $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
-        $tempTableData = $tempTablePopulator->addHashesToTempTableData($tempTableData);
-        $tempTablePopulator->insertDataInTempTable($tempTableData);
-
-
-        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
-                                        Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 
-                                        "basicHash", 
-                                        "relationalHash");
-        $deltaManager = new B2BCategoryDeltaManager($tempMasterTableMeta);
-
-        for($level = 1; $level <= 6; $level++){
-            $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
-            $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
-
+    
+            /**
+             * here the system will pick the above sent records again ?
+             */
+            $recordsToUpdate = $deltaManager->getRecordsToUpdate();
+            $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
+    
             $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
-            $responseHandler = new B2BCategoryHTTPResponseHandler();
-            $firstBatchIndex = 1;
-            $totalBatches = $httpRequestGenerator->getTotalBatches();
-            $client = new \GuzzleHttp\Client();
-            for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-                $request = $httpRequestGenerator->getRequest($i);
-                $response = $client->send($request);
-                $responseHandler->handleResponse($response);
-            }
+                $responseHandler = new B2BCategoryHTTPResponseHandler();
+                $firstBatchIndex = 1;
+                $totalBatches = $httpRequestGenerator->getTotalBatches();
+                $client = new \GuzzleHttp\Client();
+                for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
+                    $request = $httpRequestGenerator->getRequest($i);
+                    // $response = $client->send($request);
+                    // $responseHandler->handleResponse($response);
+                }
+    
+        }catch(\Throwable $ex){
+            p_r($ex);
         }
-
-        /**
-         * here the system will pick the above sent records again ?
-         */
-        $recordsToUpdate = $deltaManager->getRecordsToUpdate();
-        $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
-
-        $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
-            $responseHandler = new B2BCategoryHTTPResponseHandler();
-            $firstBatchIndex = 1;
-            $totalBatches = $httpRequestGenerator->getTotalBatches();
-            $client = new \GuzzleHttp\Client();
-            for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-                $request = $httpRequestGenerator->getRequest($i);
-                $response = $client->send($request);
-                $responseHandler->handleResponse($response);
-            }
-
+       
     }
 
     private function createAPIRequestEntityForRecords(array $records, 
@@ -101,11 +108,11 @@ class B2BCategoryDataPoster {
             $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
 
             $apiRequestEntity = new B2BAPIRequestEntity();
-            $apiRequestEntity->setBody(json_encode($requestBody));
+            $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::CATEGORY());
     
-            $apiRequestEntity->setexternalID($tempTableData["external_id"]);
+            $apiRequestEntity->setexternalID("category_" . $tempTableData["o_id"]);
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . time());
             $apiRequestEntity->save();
