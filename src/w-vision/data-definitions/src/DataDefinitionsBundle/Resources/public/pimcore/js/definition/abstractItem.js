@@ -108,7 +108,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 autoScroll: true,
                 store: this.store,
                 columns: this.getGridColumns(),
-                iconCls: 'dHub_schedule',
+                iconCls: 'data_definition_import',
                 trackMouseOver: true,
                 columnLines: true,
                 stripeRows: true,
@@ -174,21 +174,21 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             },
             items: [
                 {
-                    fieldLabel: t("dHub_name") + ' <span style="color:red;">*</span>',
+                    fieldLabel: t("data_definition_name") + ' <span style="color:red;">*</span>',
                     xtype: 'textfield',
                     anchor: '100%',
                     name: 'name',
                     maxLength: 100,
-                    maxLengthText: t('dHub_max_allowed_length_100'),
+                    maxLengthText: t('data_definition_max_allowed_length_100'),
                     allowBlank: false,
-                    blankText: t('dHub_field_is_required'),
+                    blankText: t('data_definition_field_is_required'),
                     msgTarget: 'under'
                 },
             ]
         });
 
         let wizardWindow = new Ext.Window({
-            title: t('dHub_create_schedule'),
+            title: t('data_definition_create_import'),
             width: 600,
             modal: true,
             items: [this.wizardForm],
