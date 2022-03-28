@@ -277,7 +277,7 @@ final class Importer implements ImporterInterface
         if ($documentEmail instanceof Document\Email) {
             $mail = new Mail();
             $mail->setDocument($documentEmail);
-            $mail->addto('tehreempervez959@gmail.com');
+            $mail->addto('admin@example.com');
             $mail->setSubject("Import Log");
             $mail->setParams($templateParam);
 
