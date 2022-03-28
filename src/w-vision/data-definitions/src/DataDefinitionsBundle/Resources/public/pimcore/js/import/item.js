@@ -635,10 +635,11 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                                         editor: {
                                             xtype: 'combo',
                                             store: fromColumnStore,
-                                            mode: 'local',
+                                            queryMode: 'local',
                                             displayField: 'label',
                                             valueField: 'id',
-                                            editable: false,
+                                            editable: true,
+                                            forceSelection: true,
                                             listeners: {
                                                 change: function (combo, newValue, oldValue, eOpts) {
                                                     if (newValue === '') {
