@@ -12,6 +12,8 @@ class B2BProductRelationChange extends AbstractModel
 
     public $newValue;
 
+    public $businessUnit;
+
     public function getProductId(): int
     {
         return $this->productId;
@@ -20,6 +22,17 @@ class B2BProductRelationChange extends AbstractModel
     public function setProductId(int $productId): self
     {
         $this->productId = $productId;
+        return $this;
+    }
+
+    public function getBusinessUnit(): string
+    {
+        return $this->businessUnit;
+    }
+
+    public function setBusinessUnit(string $businessUnit): self
+    {
+        $this->businessUnit = $businessUnit;
         return $this;
     }
  
