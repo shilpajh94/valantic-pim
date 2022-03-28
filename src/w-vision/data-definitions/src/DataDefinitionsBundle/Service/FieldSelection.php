@@ -124,6 +124,7 @@ class FieldSelection
                                         $resultField1->setConfig(['class' => $key]);
                                         $result[] = $resultField1;
                                     }
+                                }
 
                                 break;
                             }
