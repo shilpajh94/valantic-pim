@@ -118,4 +118,9 @@ data_definition_process_start_time: 'Process Start Time'
 data_definition_process_end_time: 'Process End Time'
 data_definition_download_log_file: 'Download Log File'
 data_definition_already_exists: 'Data definition already exits! Please provide a different name.'
+data_definition_import: 'Data definition Import'
+data_definition_create_import: 'Create Data definition Import'
+data_definition_name: 'Data Definition Name'
+data_definition_max_allowed_length_100: "Maximum allowed length is 100"
+data_definition_field_is_required: "Field is required"
 
