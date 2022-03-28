@@ -172,7 +172,7 @@ final class Importer implements ImporterInterface
         // update total rows for the respective data definition import id
         $importDataId   = $params['importDataId'];
         $dataImport     = DataDefinitionImport::getById($importDataId);
-        $dataImport->setTotalReocrds($totalRowsWithData);
+        $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
 
         list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
