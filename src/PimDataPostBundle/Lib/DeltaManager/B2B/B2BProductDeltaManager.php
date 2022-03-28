@@ -33,9 +33,7 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     
     public function getRecordsToUpdate(): array
     {
-        $setA = $this->getHashChangedRecords();
-        $others = $this->getOtherRecordsToUpdate();
-        return array_unique(array_merge($setA, $others));
+        return $this->getHashChangedRecords();
     }
     
     public function getHashChangedRecords(): array
@@ -43,14 +41,14 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
         return $this->b2bProductDeltaManagerDao->getHashChangedRecords();
     }
     
-    private function getOtherRecordsToUpdate(): array
+    public function getProductIdsForUpdatedMaster(): array
     {
         $setB = $this->getProductIdsForUpdatedTranslationMasters();
-        $setCa = $this->getProductIdsForUpdatedMasterTableAttribute("FittingFamily");
-        $setCb = $this->getProductIdsForUpdatedMasterTableAttribute("Thread");
-        $setCc = $this->getProductIdsForUpdatedMasterTableAttribute("nomenclatureDetails");
+        // $setCa = $this->getProductIdsForUpdatedMasterTableAttribute("FittingFamily");
+        // $setCb = $this->getProductIdsForUpdatedMasterTableAttribute("Thread");
+        // $setCc = $this->getProductIdsForUpdatedMasterTableAttribute("NomenclatureDetails");
 
-        return array_merge($setB, $setCa, $setCb, $setCc);
+        return array_merge($setB);
     }
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
@@ -63,10 +61,10 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
         $productIds = [];
         $translationMasterAttributes = $this->attributeConfigProvider->getTranslationMasterConfig();
         foreach($translationMasterAttributes as $configAttrKey => $configAttrValue){
-            if( array_key_exists("tableAttr", $configAttrValue) && $configAttrValue["tableAttr"] === true){
-                $productIds[] = array_merge($productIds, 
+            if( array_key_exists("temp_master_table_attr", $configAttrValue) && $configAttrValue["temp_master_table_attr"] === true){
+                $productIds = array_merge($productIds, 
                                                 $this->getProductIdsForMasters(
-                                                                            $configAttrValue["masterClass"], 
+                                                                            $configAttrValue["allowed_object_class_name"], 
                                                                             $configAttrKey, 
                                                                             $configAttrValue["pim_attribute_type"]));
             }

@@ -62,7 +62,7 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.Level = ".$level." AND t2.id IS NULL  AND t1.ShowInMenu=1";
        
-       $result = $this->db->fetchAll($sql);
+       $result = $this->db->fetchCol($sql);
        return $result;
 
     }

@@ -8,6 +8,6 @@ parameters:
             username: pradeep.singh@pimcore.services.pimcom
             password: Continental@9z5Ew7EGfxOS3LAyg3clWhL0C6
             grant_type: password
-        token_lifetime: 5
+        token_lifetime: 60
         guzzle_request_timeout: 10
         content_type: application/x-www-form-urlencoded

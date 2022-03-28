@@ -43,6 +43,20 @@ class TempTablePopulatorDao
         
         return ($resultSet) ? $resultSet : [];
     }
+
+    public function getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(string $objectTableName, string $masterTableName): array
+    {
+
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+
+        $query = "SELECT {$objectTableName}.`o_id` FROM {$objectTableName}" ;
+        $query .= " JOIN {$masterTableName} ON {$objectTableName}.`o_id` = {$masterTableName}.`o_id`";
+        $query .= " WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+        $resultSet = $this->db->fetchCol($query);
+        
+        return $resultSet;
+    }
     
     public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {
@@ -101,7 +115,7 @@ class TempTablePopulatorDao
 
         $dataInsert = [];
 
-        if($resultSet && $relationalFields)
+        if($resultSet)
         {
             foreach ($resultSet as $productArray) 
             {
@@ -129,6 +143,11 @@ class TempTablePopulatorDao
         return $dataInsert;
     }
 
+    public function quoteString(?string $str)
+    {
+        return empty($str) ? $this->db->quote("") : $this->db->quote($str);
+    }
+
     public function insertDataInTempTable($arrData, $tempTable)
     {
         if($arrData && trim($tempTable))
@@ -148,9 +167,11 @@ class TempTablePopulatorDao
             $values   = '';
 
             foreach ($arrData as $data) {
-                $strData = implode("','",$data);
+                $data = array_map([$this,"quoteString"],$data);
+
+                $strData = implode(",",$data);
                 
-                $values .= "('{$strData}'),";
+                $values .= "({$strData}),";
 
                 // inserting records in batch
                 if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {

@@ -101,8 +101,6 @@ class PimFieldType
         return new self(self::ADVANCED_MANY_TO_MANY_OBJECT_RELATION);
     }
 
-   
-
     public static function BOOLEAN_SELECT(): self
     {
         return new self(self::BOOLEAN_SELECT);
@@ -119,8 +117,8 @@ class PimFieldType
     }
 
     
-    public static function SALESFORCE_ID(): self
+    public static function SALES_FORCE_ID(): self
     {
-        return new self(self::SALESFORCE_ID);
+        return new self(self::SALES_FORCE_ID);
     }
 }

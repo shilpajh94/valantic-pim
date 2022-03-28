@@ -27,6 +27,11 @@ class B2BCategoryTempTablePopulator extends AbstractB2BTempTablePopulator
         return $this->helper->getPimModifiedRecordIds(Constants::B2B_CATEGORY_OBJECT_TABLE_NAME);
     }
 
+    public function getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(): array
+    {
+        return $this->helper->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(Constants::B2B_CATEGORY_OBJECT_TABLE_NAME, Constants::B2B_CATEGORY_MASTER_TABLE_NAME);
+    }
+
     public function getTempTableDataForIds(array $pimIds): array
     {
         return $this->helper->getTempTableDataForIds($pimIds, $this->attributeConfigProvider->getCompleteAttributeConfig(), Constants::B2B_CATEGORY_OBJECT_TABLE_NAME);

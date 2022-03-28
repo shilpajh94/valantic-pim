@@ -12,6 +12,7 @@ use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
 
 /**
  * Description of B2BCategoryRequestBodyGenerator
@@ -34,6 +35,18 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         $configProviderService = new B2BCategoryAttributeConfigProvider();
         $this->config = $configProviderService->getCompleteAttributeConfig();
         
+        $this->allowedAttributeTypes = [
+            strtolower(PimFieldType::SELECT()),
+            strtolower(PimFieldType::MULTISELECT()),
+            strtolower(PimFieldType::CHECKBOX()),
+            strtolower(PimFieldType::MANY_TO_MANY_RELATION()),
+            strtolower(PimFieldType::MANY_TO_MANY_OBJECT_RELATION()),
+            strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
+            strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
+            strtolower(PimFieldType::BOOLEAN_SELECT()),
+            strtolower(PimFieldType::SALES_FORCE_ID()),
+            strtolower(PimFieldType::IMAGE())
+        ];
     }
     
     /**
@@ -78,15 +91,20 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
-                    if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {
+                    if (!empty($value) && $this->checkIfTypeIsAllowed($attributeConfig)) {
                         $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {
                             $fnc = "getMultiRelationTypeValue";
                         }
-                        if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
+
+                        if($key == "o_parentId" && $type == "salesForceId"){
+                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData["Level"], $config[$key], $language);
+                        }elseif (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
+       
+                        $returnArray["CatalogId"] = (new B2BCategoryHelper())->getCatalogId();
                     }
                 }
             }
@@ -94,6 +112,32 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         return $returnArray;
     }
     
+    public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
+        
+        if($level == 1){
+            return null;
+        }
+
+        $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
+        
+        while($parentType != 'object')
+        {
+            $parentPimId = $this->b2bProductRequestBodyGeneratorDao->getParentId($parentPimId);
+            $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
+        }
+
+        if (!empty($config['pim_id_to_sf_id_mapping_model'])) {
+            $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['pim_id_to_sf_id_mapping_model']."\\Listing";
+            $list = new $className();
+            $list->setCondition("`pimId` = ".$list->quote($parentPimId));
+            $list->load();
+            foreach($list as $object){
+                return $object->getSalesForceId();
+            }
+        }
+        
+        return null;
+    }
     
     public function generateCreateRequestBody(array $tempTableData): array
     {

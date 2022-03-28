@@ -35,7 +35,7 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
     public function getTranslationMasterConfig(): array
     {
         return $this->b2bAttributeConfigProviderHelper
-                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"isTranslationMaster",true);
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"update_product_if_master_updated",true);
     }
 
     public function getLocalizedAttributeConfig(): array

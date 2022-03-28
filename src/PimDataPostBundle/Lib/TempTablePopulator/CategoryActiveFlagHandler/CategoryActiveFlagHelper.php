@@ -25,14 +25,14 @@ class CategoryActiveFlagHelper
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
         $list = new B2BProductRelationChange\Listing();
-        $list->setCondition("attributeName = 'SIOPLevel4'");
+        // $list->setCondition("attributeName = 'SIOPLevel4'");
 
         $categories = [];
         
         foreach($list as $obj){
             $categories[] = $obj->getNewValue();
         }
-        return array_unique($categories);
+        return array_values(array_unique($categories));
     }
 
     public function isCategoryPresentInMasterTable(string $categoryId): bool

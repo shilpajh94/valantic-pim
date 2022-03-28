@@ -2,7 +2,7 @@
 namespace PimDataPostBundle\Lib\RequestBodyGenerator;
 
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
-
+use S3CustomizationBundle\Lib\Utils;
 
 class RequestBodyGeneratorHelper
 {
@@ -68,12 +68,13 @@ class RequestBodyGeneratorHelper
         $returnArray = [];
         $valueArray = $currentValue;
         if (!is_array($currentValue)) {
+            $currentValue = trim($currentValue,",");
             $valueArray = explode(",", $currentValue);
         }
         foreach ($valueArray as $val) {
             $returnArray[] = $this->getSelectTypeValue($val, $config, $language);
         }
-        return $returnArray;
+        return $returnArray[0] ? $returnArray[0] : "";
     }
     
     /**
@@ -132,6 +133,7 @@ class RequestBodyGeneratorHelper
     
     
     public function getMultiRelationTypeValue($currentValue, array $config, $language = null) {
+        $currentValue = trim($currentValue,",");
         $values = explode(",", $currentValue);
         if (count($values) == 1) {
             return $this->getRelationValue($currentValue, $config, $language);
@@ -143,29 +145,38 @@ class RequestBodyGeneratorHelper
             return $returnValues;
         }
     }
+
+    public function getImageTypeValue($currentValue, array $config, $language = null): string {
+        if($currentValue){
+            $asset = \Pimcore\Model\Asset\Image::getById($currentValue);
+            return Utils::getAssetFullPathCompatibleToS3($asset);
+        }
+        return '';
+    }
     
     public function getSalesForceIdTypeValue($currentValue, array $config, $language = null) {
-        try {
-            if (!empty($config['pim_attribute_for_sf_in_allowed_object_class_name']) && !empty($config['pim_id_to_sf_id_mapping_model'])) {
-                $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['pim_id_to_sf_id_mapping_model']."\\Listing";
-                $list = new $className();
-                $list->setCondition("`pimId` = ".$list->quote($currentValue));
-                $list->load();
-                if (!empty($list) && count($list)>0) {
-                    $objects = $list->getObjects();
-                    $getter = "get".ucfirst($config['pim_attribute_for_sf_in_allowed_object_class_name']);
-                    return $objects[0]->$getter();
-                }
+        
+        if (!empty($config['pim_attribute_for_sf_in_allowed_object_class_name']) && !empty($config['pim_id_to_sf_id_mapping_model'])) {
+            $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['pim_id_to_sf_id_mapping_model']."\\Listing";
+            $list = new $className();
+            $list->setCondition("`pimId` = ".$list->quote($currentValue));
+            $list->load();
+            if (!empty($list) && count($list)>0) {
+                $objects = $list->getObjects();
+                $getter = "get".ucfirst($config['pim_attribute_for_sf_in_allowed_object_class_name']);
+                return $objects[0]->$getter();
             }
-        } catch(\Exception $e) {
-            
         }
+        
         return null;
     }
     
     public function getClassIdByClassName($className) {
         if (empty($this->classIdNameMapping[$className])) {
             $def = \Pimcore\Model\DataObject\ClassDefinition::getByName($className);
+            if($def === null){
+                $def = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($className);
+            }
             $this->classIdNameMapping[$className] = $def->getId();
         }
         return $this->classIdNameMapping[$className];

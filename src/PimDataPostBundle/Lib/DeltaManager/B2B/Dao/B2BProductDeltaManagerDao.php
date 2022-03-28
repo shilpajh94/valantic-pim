@@ -40,18 +40,19 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
         if(empty($updatedMasterIds)){
             return [];
         }
+
         $sql = "SELECT o_id FROM " . $masterTableName;
 
-        if($pimAttributeType === PimFieldType::SELECT()){
+        if($pimAttributeType === strval(PimFieldType::SELECT())){
             $updatedMasterIdsString = "(" . implode(",", $updatedMasterIds) . ")";
             $sql .= " WHERE " . $productAttributeNameInMasterTable . " IN " . $updatedMasterIdsString;
 
-        }elseif($pimAttributeType === PimFieldType::MULTISELECT() || 
-                    $pimAttributeType === PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()){
+        }elseif($pimAttributeType === strval(PimFieldType::MULTISELECT()) || 
+                    $pimAttributeType === strval(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION())){
             $sql .= " WHERE ";
             $queryPart = [];
             foreach($updatedMasterIds as $masterId){
-                $queryPart[] = " " . $productAttributeNameInMasterTable . " LIKE " . "," . $masterId . ",";
+                $queryPart[] = " " . $productAttributeNameInMasterTable . " LIKE " . "'%," . $masterId . ",%'";
             }
             $sql .= implode(" OR ", $queryPart);
 
@@ -95,7 +96,7 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
                 LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
                 WHERE t2.id IS NULL AND t1.epixFlag=1 AND t1.o_published=1";
            
-           $result = $this->db->fetchAll($sql);
+           $result = $this->db->fetchCol($sql);
            return $result;
     
         }

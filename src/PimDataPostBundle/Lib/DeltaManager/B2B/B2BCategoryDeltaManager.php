@@ -34,10 +34,7 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
     
     public function getRecordsToUpdate(): array
     {
-        // X = getHashChangedRecords
-        // register changed relations
-        // Y = getOtherRecordsToUpdate
-        // return X + Y
+        return $this->getHashChangedRecords();
     }
     
     public function getHashChangedRecords(): array
@@ -45,13 +42,8 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
         return $this->b2bCategoryDeltaManagerDao->getHashChangedRecords();
     }
 
-   
-
-    
     private function getOtherRecordsToUpdate(): array
     {
-        // prepare set B
-        // prepare set C
         return [];
     }
     

@@ -28,7 +28,17 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function getPimModifiedRecordIds(): array
     {
-        return $this->helper->getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        $salesMaterialProductIDs = $this->dao->getTodaysSaleMasterModifiedRecords();
+        $materialProductIDs =  $this->helper->getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+
+        $resultSet = [];
+
+        if($salesMaterialProductIDs || $materialProductIDs)
+        {
+            $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+        }
+
+        return $resultSet;
     }
 
     public function getTempTableDataForIds(array $pimIds): array
@@ -47,22 +57,4 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $this->helper->insertDataInTempTable($insertTempData, Constants::B2B_PRODUCT_TEMP_TABLE_NAME);
     }
 
-    public function getPimProductAndSalesMasterModifiedRecordIds(): array
-    {
-        $salesMaterialProductIDs = $this->dao->getTodaysSaleMasterModifiedRecords();
-        $materialProductIDs = $this->getPimModifiedRecordIds();
-
-        $productIds = [];
-
-        if($salesMaterialProductIDs)
-        {
-            $productIds = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
-        }
-        elseif($materialProductIDs)
-        {
-            $productIds = \array_unique(array_merge($materialProductIDs, $salesMaterialProductIDs));
-        }
-
-        return $productIds;
-    }
 }
