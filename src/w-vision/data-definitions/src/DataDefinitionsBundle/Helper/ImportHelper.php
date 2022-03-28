@@ -50,8 +50,8 @@ class ImportHelper
         else
         {
             $processedRecords   = $dataImport->getProcessedRecords();
-            $totalReocrds       = $dataImport->getTotalReocrds();
-            $processedPercentage= $totalReocrds > 0 ? ($processedRecords * 100) / $totalReocrds : 0;
+            $totalRecords       = $dataImport->getTotalRecords();
+            $processedPercentage= $totalRecords > 0 ? ($processedRecords * 100) / $totalRecords : 0;
             $importStatus       = round($processedPercentage). '%';
         }
         
