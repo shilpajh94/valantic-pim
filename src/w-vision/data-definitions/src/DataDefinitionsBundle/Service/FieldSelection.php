@@ -93,22 +93,37 @@ class FieldSelection
                                     {
                                         continue;
                                     }
-                                    $resultField = $this->getFieldConfiguration($brickField);
-
-                                    $resultField->setGroup('objectbrick.'.$key);
-                                    $resultField->setType('objectbrick');
-                                    $resultField->setIdentifier(
-                                        sprintf(
-                                            'objectbrick~%s~%s~%s',
-                                            $field->getName(),
-                                            $key,
-                                            $resultField->getIdentifier()
-                                        )
-                                    );
-                                    $resultField->setSetter('objectbrick');
-                                    $resultField->setConfig(['class' => $key]);
-                                    $result[] = $resultField;
-                                }
+                                    $resultField1 = $this->getFieldConfiguration($brickField);
+                                    if($resultField1->getFieldtype() == 'localizedfields'){
+                                        $localizedFieldsBrick = $brickField->getFieldDefinitions();
+                                        foreach ($activatedLanguages as $language) {
+                                            foreach($localizedFieldsBrick as $bricks){
+                                                $resultField = $this->getFieldConfiguration($bricks);
+                                                $resultField->setGroup('objectbrick.'.$key.'~'.$language);
+                                                $resultField1->setType('objectbrick');
+                                                $resultField->setIdentifier(sprintf('%s~%s', $resultField->getIdentifier(), $language));
+                                                $resultField->setSetter('objectbrick');
+                                                $resultField->setConfig(['class' => $key]);
+                                                $resultField->setSetterConfig(['language' => $language]);
+                                                $result[] = $resultField;
+    
+                                            }
+                                        }
+                                    }else{
+                                        $resultField1->setGroup('objectbrick.'.$key);
+                                        $resultField1->setType('objectbrick');
+                                        $resultField1->setIdentifier(
+                                            sprintf(
+                                                'objectbrick~%s~%s~%s',
+                                                $field->getName(),
+                                                $key,
+                                                $resultField1->getIdentifier()
+                                            )
+                                        );
+                                        $resultField1->setSetter('objectbrick');
+                                        $resultField1->setConfig(['class' => $key]);
+                                        $result[] = $resultField1;
+                                    }
 
                                 break;
                             }
