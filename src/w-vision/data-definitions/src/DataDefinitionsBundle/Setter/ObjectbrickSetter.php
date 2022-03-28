@@ -29,12 +29,15 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
     public function set(Concrete $object, $value, ImportMapping $map, $data)
     {
         $keyParts = explode('~', $map->getToColumn());
-
+        if(sizeof($keyParts) == 2){
+            $brickField = $keyParts[0];
+        }else{
+            $brickField = $keyParts[3];
+        }
         $config = $map->getSetterConfig();
-        $fieldName = $config['brickField']; // "brickField" => "Fert"
-        $class = $config['class'];         // "class" => "BeltsFert"
-        $brickField = $keyParts[3];       //  "insideLengthIN"
-        $brickGetter = sprintf('get%s', ucfirst($fieldName));   // "getFert"
+        $fieldName = $config['brickField']; 
+        $class = $config['class'];   
+        $brickGetter = sprintf('get%s', ucfirst($fieldName));  
         $brickSetter = sprintf('set%s', ucfirst($fieldName));
         
         if (method_exists($object, $brickGetter)) {
@@ -64,7 +67,11 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                 $setter = sprintf('set%s', ucfirst($brickField));
 
                 if (method_exists($brickFieldObject, $setter)) {
-                    $brickFieldObject->$setter($value);
+                    if(sizeof($keyParts) == 2){
+                        $brickFieldObject->$setter($value,$keyParts[1]);
+                    }else{
+                        $brickFieldObject->$setter($value);
+                    }
                 }
             }
         }
