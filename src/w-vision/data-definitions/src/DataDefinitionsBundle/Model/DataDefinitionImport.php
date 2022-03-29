@@ -236,17 +236,17 @@ class DataDefinitionImport extends AbstractModel
     /**
      * @return mixed
      */
-    public function getTotalReocrds()
+    public function getTotalRecords()
     {
-        return $this->totalReocrds;
+        return $this->totalRecords;
     }
 
     /**
-     * @param mixed $totalReocrds
+     * @param mixed $totalRecords
      */
-    public function setTotalReocrds(?int $totalReocrds): void
+    public function setTotalRecords(?int $totalRecords): void
     {
-        $this->totalReocrds = $totalReocrds;
+        $this->totalRecords = $totalRecords;
     }
 
     /**
