@@ -19,9 +19,9 @@ class B2BProductCategoryRelationRequestBodyGenerator implements IProductRelation
 
     public function generateRequestBody(B2BProductRelationChange $b2bProductRelationChange): array
     {
-        $returnArray = [];
+        $newValue = trim($b2bProductRelationChange->newValue,",");
         return array(
-                "ProductCategoryId" => $this->dao->getCategorySalesforceIdByPimId($b2bProductRelationChange->newValue),
+                "ProductCategoryId" => $this->dao->getCategorySalesforceIdByPimId($newValue),
                 "ProductId" => $this->dao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
                 "IsPrimaryCategory" => false
                 );
