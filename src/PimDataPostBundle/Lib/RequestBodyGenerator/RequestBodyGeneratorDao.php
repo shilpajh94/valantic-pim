@@ -11,14 +11,11 @@ class RequestBodyGeneratorDao
     }
     
     public function fetchOne($sql) {
-        try {
-            if (!empty($sql)) {
-                return $this->db->fetchOne($sql);
-            }
-            return null;
-        } catch (Exception $ex) {
-
+        
+        if (!empty($sql)) {
+            return $this->db->fetchOne($sql);
         }
+        return null;
     }
 
     public function getObjectType(int $objectId): string

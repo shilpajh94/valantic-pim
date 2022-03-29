@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-03-08T10:22:54+01:00
+* Generated at: 2022-03-28T18:31:56+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1646731374,
+   'modificationDate' => 1648472516,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -339,17 +339,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'fieldtype' => 'checkbox',
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'queryColumnType' => 'tinyint(1)',
                          'columnType' => 'tinyint(1)',
                          'phpdocType' => 'boolean',
                          'name' => 'ShowInMenu',
                          'title' => 'Show In Menu',
-                         'tooltip' => 'It is used to show/hide in salesforce',
+                         'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',

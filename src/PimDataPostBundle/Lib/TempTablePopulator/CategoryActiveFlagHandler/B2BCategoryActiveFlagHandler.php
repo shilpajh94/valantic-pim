@@ -27,6 +27,17 @@ class B2BCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
         return $this->helper->getAllCategoryIdsInMasterTable();
     }
 
+    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
+    {
+        return $this->helper->getCategoryIdToCategoryLevelMapping($categoryIds);
+    }
+
+    /**
+     * return the value of the active flag for categories according to the
+     * current product data like this ->
+     * if there is any active product for the category then the category should be active
+     * other wise the category should be inactite
+     */
     public function getValueForActiveFlag(array $categoryIds): array
     {
         return $this->helper->getValueForActiveFlag($categoryIds);
