@@ -94,6 +94,7 @@ class B2BProductRelationChangeRegistrarDao
                         {
                             $data = [];
                             $data['productId'] = $resultValue['o_id'];
+                            $data['BusinessUnit'] = $resultValue['BusinessUnit'];
                             $data['attributeName'] = $key;
                             $data['oldValue'] = $resultValue['t2_'.$key];
                             $data['newValue'] = $resultValue['t1_'.$key];
