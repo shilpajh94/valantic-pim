@@ -408,11 +408,12 @@ final class Importer implements ImporterInterface
                     $objectIds[] = $object->getId();
                 }
                 else{
+
                     if($definition->getClass() == 'Product'){
                         $failedReason = 'Article Number does not exist';
                         $status = 'Failure';
                     }
-                    elseif($definition->getClass() == 'CSProduct'){
+                    elseif($definition->getClass() == 'CSProducts'){
                         $failedReason  = 'Path does not exist';
                         $status = 'Failure';
                     }
@@ -426,12 +427,16 @@ final class Importer implements ImporterInterface
                 }
                 $count++;
 
-                $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => $nonImportedAttributesString, 'Status Code' => $status, 'Reason' => $failedReason];            } catch (\Throwable $ex) {
+                $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => $nonImportedAttributesString, 'Status Code' => $status, 'Reason' => $failedReason]; 
+            }catch (\Throwable $ex) {
+                $mesage = $ex->getMessage();
+                preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
+                $failedReason = implode(PHP_EOL,$match[1]);
+                $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => '', 'Status Code' => 'Failure', 'Reason' => $failedReason]; 
+
                 $this->logger->error($ex);
 
                 $exceptions[] = $ex;
-
-                // $logResult[] = ['primaryKey' => $primaryKey, 'primaryKeyValue' => $primaryKeyValue,  'className' => $className, 'statusCode' => 'Failed', 'Reason' => $ex->getMessage()];
 
                 $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
                     sprintf('Error: %s', $ex->getMessage()), $params);
@@ -572,7 +577,7 @@ final class Importer implements ImporterInterface
                     foreach($list as $brickDef){
                         $fieldDefs = $brickDef->getFieldDefinitions();
                         foreach($fieldDefs as $fieldName => $field){
-                            if($fieldName == $objectBrickFieldName && $field->getFieldtype() == 'numeric' && !is_numeric($value)){
+                            if($value && $fieldName == $objectBrickFieldName && $field->getFieldtype() == 'numeric' && !is_numeric($value)){
                                 array_push($nonImportedAttributes,$mapItem->getFromColumn());
                             }
                         }
@@ -734,7 +739,6 @@ final class Importer implements ImporterInterface
                         "Benefit" => new BlockElement("Benefit", 'input', $blockData)
                     ];
                 }
-                DataImportLogger::log(json_encode($methodNameAndLanguageArray[1]));
                 $object->$method($fieldValueBlock,$methodNameAndLanguageArray[1]);
             }
             elseif ($setter instanceof SetterInterface) {
