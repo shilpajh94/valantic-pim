@@ -36,8 +36,9 @@ class B2BHTTPResponseHandlerDao
         foreach(array_keys($data) as $key )
         {
             $fields[] = "`$key`";
-            $values[] = "'" . $data[$key] . "'";
+            $values[] =   empty($data[$key]) ?  $this->db->quote("") : $this->db->quote($data[$key]); // "'" . $data[$key] . "'";
         }
+
         $fields = implode(",", $fields);
         $values = implode(",", $values);
         $sql = "REPLACE INTO `$table` ($fields) VALUES ($values)";

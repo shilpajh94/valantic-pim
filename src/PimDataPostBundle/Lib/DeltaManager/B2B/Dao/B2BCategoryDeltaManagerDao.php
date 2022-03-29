@@ -73,10 +73,10 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
     {
         $sql="SELECT t1.o_id
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
+            JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
        
-        $result = $this->db->fetchAll($sql);
+        $result = $this->db->fetchCol($sql);
         return $result;
 
     }

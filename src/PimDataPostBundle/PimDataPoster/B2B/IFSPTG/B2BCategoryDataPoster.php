@@ -20,33 +20,39 @@ class B2BCategoryDataPoster {
     {
         try{
             $tempTablePopulator = new B2BCategoryTempTablePopulator();
-            // $tempTablePopulator->truncateTempTable();
+            $tempTablePopulator->truncateTempTable();
     
+            $activeFlagHandler = new B2BCategoryActiveFlagHandler();
+            $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
+            $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
+            $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
+            $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
+            $categoryIdsToBeAddedInTempTable = [];
     
-            // $activeFlagHandler = new B2BCategoryActiveFlagHandler();
-            // $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
-            // $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
-            // $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
-            // $categoryIdsToBeAddedInTempTable = [];
+            $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+            foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
+                if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
+                    if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+                        $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                    }
+                }else{
+                    $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                    $categoryIdsToBeAddedInTempTable[] = $categoryId;
+                }
+            }
+            /**
+             * In the above piece of code
+             * if the category is present in category master table
+             * and if an active product do not exist in for this category in product master table
+             * and if the category is present in relation table
+             * -> then the active flag will NOT be turned to true here
+             */
+            $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
+            $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
     
-            // $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
-            // foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
-            //     if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
-            //         if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
-            //             $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-            //         }
-            //     }else{
-            //         $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-            //         $categoryIdsToBeAddedInTempTable[] = $categoryId;
-            //     }
-            // }
-    
-            // $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
-            // $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
-    
-            // $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
-            // $tempTableData = $tempTablePopulator->addHashesToTempTableData($tempTableData);
-            // $tempTablePopulator->insertDataInTempTable($tempTableData);
+            $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
+            $tempTableData = $tempTablePopulator->addHashesToTempTableData($tempTableData);
+            $tempTablePopulator->insertDataInTempTable($tempTableData);
     
     
             $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
@@ -67,30 +73,28 @@ class B2BCategoryDataPoster {
                     $client = new \GuzzleHttp\Client();
                     for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
                         $request = $httpRequestGenerator->getRequest($i);
-                        // $response = $client->send($request);
-                        // $responseHandler->handleResponse($response);
+                        $response = $client->send($request);
+                        $responseHandler->handleResponse($response);
                     }
                 }
- 
             }
     
-            /**
-             * here the system will pick the above sent records again ?
-             */
             $recordsToUpdate = $deltaManager->getRecordsToUpdate();
-            $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
+            if(!empty($recordsToUpdate)){
+                $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
     
-            $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
+                $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
                 $responseHandler = new B2BCategoryHTTPResponseHandler();
                 $firstBatchIndex = 1;
                 $totalBatches = $httpRequestGenerator->getTotalBatches();
                 $client = new \GuzzleHttp\Client();
                 for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
                     $request = $httpRequestGenerator->getRequest($i);
-                    // $response = $client->send($request);
-                    // $responseHandler->handleResponse($response);
+                    $response = $client->send($request);
+                    $responseHandler->handleResponse($response);
                 }
-    
+            }
+           
         }catch(\Throwable $ex){
             p_r($ex);
         }
