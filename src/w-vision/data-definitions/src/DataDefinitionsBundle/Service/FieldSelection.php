@@ -94,6 +94,10 @@ class FieldSelection
                                         continue;
                                     }
                                     $resultField1 = $this->getFieldConfiguration($brickField);
+                                    // p_r($resultField1->getIdentifier());
+                                    if(stristr($resultField1->getIdentifier(),"unit")!==FALSE){
+                                        continue;
+                                    }
                                     if($resultField1->getFieldtype() == 'localizedfields'){
                                         $localizedFieldsBrick = $brickField->getFieldDefinitions();
                                         foreach ($activatedLanguages as $language) {
@@ -233,8 +237,7 @@ class FieldSelection
     protected function getFieldConfiguration(DataObject\ClassDefinition\Data $field): ToColumn
     {
         $toColumn = new ToColumn();
-
-        $toColumn->setLabel($field->getTitle());
+        $toColumn->setLabel($field->getTitle() . ' ('. $field->getName().')');
         $toColumn->setFieldtype($field->getFieldtype());
         $toColumn->setIdentifier($field->getName());
         $toColumn->setGroup('fields');

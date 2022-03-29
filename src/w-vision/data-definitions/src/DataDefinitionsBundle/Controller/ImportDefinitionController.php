@@ -80,6 +80,10 @@ class ImportDefinitionController extends ResourceController
         try {
             $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile']);
             if ($result) {
+                $regex = preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $result['fileName']);
+                if($regex){
+                    return $this->json(['success' => false, 'msg' => $this->trans('data_name_not_valid')]);
+                }
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $commonHelperObject->getConfig('tmp_template_upload_pimcore_dir');
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
                 try {
