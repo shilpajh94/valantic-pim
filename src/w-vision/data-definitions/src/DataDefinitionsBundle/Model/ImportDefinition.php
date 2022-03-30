@@ -64,7 +64,7 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
     /**
      * @var bool
      */
-    public $skipNewObjects = false;
+    public $skipNewObjects = true;
 
     /**
      * @var bool
