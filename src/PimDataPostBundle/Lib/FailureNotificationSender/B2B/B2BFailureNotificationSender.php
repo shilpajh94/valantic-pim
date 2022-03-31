@@ -17,7 +17,6 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
 
     public function SendFailureNotification(): void 
     {
-        
         $failedRecords = $this->helper->getSfFailureRecords();
 
         $fileName = "failed_log_".date("d")."_".time().".csv";
@@ -26,7 +25,7 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         
         if(count($failedRecords)> 1)
         {
-            $isFileCreated = Util::createFile($filePath, $failedRecords);
+            $isFileCreated = Util::createCsvFile($filePath, $failedRecords);
 
             if($isFileCreated)
             {
@@ -51,14 +50,13 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         $link = APPLICATION_HOST . "/admin/login/deeplink?";
 
         return $link."{$type}_{$id}_{$subType}";
-
     }
     
     public function sendFailureCsvLinkEmail($deepLink)
     {
         $userEmailIds = $this->helper->getUsersEmailByRolesNameList();
 
-        $link = "<a href='".$deepLink."' target='_blank'>".$deepLink."</a>";
+        $link = "<a href='".$deepLink."' target='_blank'>Link</a>";
         $params = ['file_url' => $link];
         
         $mail = new \Pimcore\Mail();

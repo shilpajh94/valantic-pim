@@ -8,7 +8,6 @@ use PimDataPostBundle\Model\Types\ShopType;
 use PimDataPostBundle\Model\UpdateWindow;
 use PimDataPostBundle\Services\UtilService;
 use Pimcore\Model\Asset;
-use Pimcore\Model\DataObject;
 
 class Util
 {
@@ -35,46 +34,31 @@ class Util
         return UpdateWindow::getInstance();
     }
 
-    public static function createFile(string $filePath, array $records, string $delimiter=','): bool
+    public static function createCsvFile(string $filePath, array $records, string $delimiter=','): bool
     {
-        try {
-            $handle = fopen($filePath, "w");
-            foreach ($records as $record) {
-                fputcsv($handle, $record, $delimiter);
-            }
-            
-            fclose($handle);
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
+        $handle = fopen($filePath, "w");
+        foreach ($records as $record) {
+            fputcsv($handle, $record, $delimiter);
         }
-
-        return file_exists($filePath);
         
+        fclose($handle);
+        return file_exists($filePath);
     }
 
     public static function deleteFile(string $filePath): void
     {
-        try {
-            \unlink($filePath);
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-        }
+        \unlink($filePath);
     }
 
-    public static function createAsset(string $fileName, string $filePath, string $assetFolderPath): Asset
+    public static function createAsset(string $fileName, string $filePath, string $parentFolderPath): Asset
     {
-        try{
-            $parentObj = Asset\Service::createFolderByPath("/$assetFolderPath");
+        $parentObj = Asset\Service::createFolderByPath("/$parentFolderPath");
 
-            $newAsset = new Asset();
-            $newAsset->setFilename($fileName);
-            $newAsset->setData(file_get_contents($filePath));
-            $newAsset->setParent($parentObj);
-            $newAsset->save();
-
-        } catch (\Exception $ex) {
-            $ex->getMessage();
-        }
+        $newAsset = new Asset();
+        $newAsset->setFilename($fileName);
+        $newAsset->setData(file_get_contents($filePath));
+        $newAsset->setParent($parentObj);
+        $newAsset->save();
 
         return $newAsset;      
     }

@@ -19,9 +19,9 @@ class DefaultController extends FrontendController
 
 
     /**
-     * @Route("/salesforce_failure_record_email")
+     * @Route("/default_email_template")
      */
-    public function salesforceFailureRecordEmailAction(Request $request)
+    public function defaultEmailTemplateAction(Request $request)
     {
 
     }

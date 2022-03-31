@@ -21,8 +21,8 @@ class B2BFailureNotificationSenderHelper
         $endTime = $this->updateWindow->getEndTimestamp();
 
         $list = new B2BAPIRequestEntity\Listing();
-        $list->setCondition("responseStatus IS NULL OR responseStatus NOT IN (200, 201)");
-        $list->setCondition("responseTimestamp >=  {$endTime}");
+        $list->setCondition("responseStatus NOT IN (200, 201)");
+        // $list->setCondition("responseTimestamp >=  {$endTime}");
         $list->load();
         
         $failedRecords = [];
@@ -51,30 +51,21 @@ class B2BFailureNotificationSenderHelper
 
         $userRoleIdsList = [];
 
-        if($list)
+        foreach ($list as $role) 
         {
-            foreach ($list as $role) 
-            {
-                $userRoleIdsList[] = $role->getId();
-            }
+            $userRoleIdsList[] = $role->getId();
         }
 
         $users = new \Pimcore\Model\DataObject\Users\Listing();
 
-        if($userRoleIdsList)
-        {
-            foreach ($userRoleIdsList as $value) {
-                $users->setCondition("userType LIKE ".$users->quote('%,'.$value.',%'));
-            }
+        foreach ($userRoleIdsList as $value) {
+            $users->setCondition("userType LIKE ".$users->quote('%,'.$value.',%'));
         }
         
         $users->load();
         
-        if($users)
-        {
-            foreach ($users as $user) {
-                $userEmailIds[] = $user->getEmail();
-            }
+        foreach ($users as $user) {
+            $userEmailIds[] = $user->getEmail();
         }
 
         return $userEmailIds;

@@ -25,7 +25,12 @@
         <h1><?= $this->input('headline'); ?></h1>
         <?= $this->wysiwyg('content'); ?>
         <?= $this->wysiwyg('signature'); ?>
-        %Text(file_url);
+
+        <?php if($this->editmode): ?>
+            <p><strong> Placeholder List - </strong></p>
+            <li>%Text(file_url);</li>
+        <?php endif; ?>
+        
     </div>
 </body>
 </html>
