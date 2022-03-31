@@ -16,4 +16,13 @@ class DefaultController extends FrontendController
     {
         return new Response('Hello world from pim_data_post');
     }
+
+
+    /**
+     * @Route("/salesforce_failure_record_email")
+     */
+    public function salesforceFailureRecordEmailAction(Request $request)
+    {
+
+    }
 }
