@@ -22,7 +22,7 @@ class B2BFailureNotificationSenderHelper
 
         $list = new B2BAPIRequestEntity\Listing();
         $list->setCondition("responseStatus NOT IN (200, 201)");
-        // $list->setCondition("responseTimestamp >=  {$endTime}");
+        $list->setCondition("responseTimestamp >=  {$endTime}");
         $list->load();
         
         $failedRecords = [];
