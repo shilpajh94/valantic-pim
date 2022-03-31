@@ -4,3 +4,6 @@ required_attributes_homepage:
 label_value_data_for_nomeclature:
     path: /admin/required_attribute/customization/get_label_value_data
     defaults: { _controller: RequiredAttributesBundle:Customization:getLabelValueData }
+get_data_for_xliff_filters:
+    path: /admin/xliff-filters/get-data
+    defaults: { _controller: RequiredAttributesBundle:CustomTranslation:getXliffFiltersConfig }

@@ -38,6 +38,10 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
 
         new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
 
+        // calling of overriden function for xliff filter
+        new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
+
+
         /**
          * screen was moving up and down when setTitle was running to set dirty mark on the tab
          */
@@ -62,6 +66,8 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
         new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
         new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
+
+        new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
     },
     postOpenObject: function (object, type) {
 
