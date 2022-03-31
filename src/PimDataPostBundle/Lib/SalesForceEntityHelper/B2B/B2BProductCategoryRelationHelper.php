@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib\SalesForceEntityHelper\B2B;
 
+use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 
 class B2BProductCategoryRelationHelper extends AbstractB2BSalesForceEntityHelper
@@ -42,5 +43,8 @@ class B2BProductCategoryRelationHelper extends AbstractB2BSalesForceEntityHelper
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
     
-    
+    public static function getExternalId(B2BProductRelationChange $relationChangeObject): string
+    {
+        return $relationChangeObject->getProductId() . "_category";
+    }
 }
