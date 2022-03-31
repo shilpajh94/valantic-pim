@@ -48,4 +48,9 @@ class B2BCategoryHelper extends AbstractB2BSalesForceEntityHelper
         $objectTypeConfig =  $this->helper->getSymfonyParameter($parameter);
         return $objectTypeConfig["catalogId"];
     }
+
+    public static function getExternalId(array $tempTableData): string
+    {
+        return "category_" . $tempTableData["o_id"];
+    }
 }

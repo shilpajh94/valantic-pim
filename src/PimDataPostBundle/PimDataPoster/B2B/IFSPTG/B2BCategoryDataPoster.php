@@ -4,42 +4,39 @@ namespace PimDataPostBundle\PimDataPoster\B2B\IFSPTG;
 
 use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\DeltaManager\B2B\B2BCategoryDeltaManager;
+use PimDataPostBundle\Lib\EnforcedRecordsProvider\B2B\B2BCategoryEnforcedRecordsProvider;
 use PimDataPostBundle\Lib\HTTPRequestGenerator\B2B\B2BCategoryHTTPRequestGenerator;
 use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\B2BCategoryHTTPResponseHandler;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BCategoryRequestBodyGenerator;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
+use PimDataPostBundle\PimDataPoster\IDataPoster;
 
-class B2BCategoryDataPoster {
+class B2BCategoryDataPoster implements IDataPoster
+{
 
     public function postData()
     {
         try{
             $tempTablePopulator = new B2BCategoryTempTablePopulator();
+            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
+                                                                Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 
+                                                                "basicHash", 
+                                                                "relationalHash");
+            $deltaManager = new B2BCategoryDeltaManager($tempMasterTableMeta);
+            $enforcedRecordProvier = new B2BCategoryEnforcedRecordsProvider();
+            $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
+            $responseHandler = new B2BCategoryHTTPResponseHandler();
+            $helper = new B2BDataPosterHelper();
+
             $tempTablePopulator->truncateTempTable();
     
-            $activeFlagHandler = new B2BCategoryActiveFlagHandler();
-            $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
-            $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
-            $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
-            $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
-            $categoryIdsToBeAddedInTempTable = [];
-    
-            $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
-            foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
-                if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
-                    if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
-                        $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-                    }
-                }else{
-                    $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-                    $categoryIdsToBeAddedInTempTable[] = $categoryId;
-                }
-            }
+            $categoryIdsToBeAddedInTempTable = $this->performActiveFlagChangesAndReturnCategoriyIdsToAddInTempTable();
             /**
              * In the above piece of code
              * if the category is present in category master table
@@ -50,49 +47,32 @@ class B2BCategoryDataPoster {
             $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
             $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
     
-            $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
-            $tempTableData = $tempTablePopulator->addHashesToTempTableData($tempTableData);
-            $tempTablePopulator->insertDataInTempTable($tempTableData);
-    
-    
-            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
-                                            Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 
-                                            "basicHash", 
-                                            "relationalHash");
-            $deltaManager = new B2BCategoryDeltaManager($tempMasterTableMeta);
-    
+            $this->insertProductIdsInTempTable($tempTablePopulator, $categoryIdsToBeAddedInTempTable);
+
             for($level = 1; $level <= 6; $level++){
                 $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
+                $categoriesEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreateByLevel($level);
+
+                if(count($categoriesEnforcedToPushForCreate) > 0){
+                    $this->insertProductIdsInTempTable($tempTablePopulator, $categoriesEnforcedToPushForCreate);
+                }
+
                 if(!empty($recordsToCreate)){
                     $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
-    
-                    $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
-                    $responseHandler = new B2BCategoryHTTPResponseHandler();
-                    $firstBatchIndex = 1;
-                    $totalBatches = $httpRequestGenerator->getTotalBatches();
-                    $client = new \GuzzleHttp\Client();
-                    for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-                        $request = $httpRequestGenerator->getRequest($i);
-                        $response = $client->send($request);
-                        $responseHandler->handleResponse($response);
-                    }
+                    $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
                 }
             }
     
-            $recordsToUpdate = $deltaManager->getRecordsToUpdate();
+            $categoriesEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
+
+            if(count($categoriesEnforcedToPushForUpdate) > 0){
+                $this->insertProductIdsInTempTable($tempTablePopulator, $categoriesEnforcedToPushForUpdate);
+            }
+
+            $recordsToUpdate = array_merge($deltaManager->getRecordsToUpdate(), $categoriesEnforcedToPushForUpdate);
             if(!empty($recordsToUpdate)){
                 $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
-    
-                $httpRequestGenerator = new B2BCategoryHTTPRequestGenerator();
-                $responseHandler = new B2BCategoryHTTPResponseHandler();
-                $firstBatchIndex = 1;
-                $totalBatches = $httpRequestGenerator->getTotalBatches();
-                $client = new \GuzzleHttp\Client();
-                for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-                    $request = $httpRequestGenerator->getRequest($i);
-                    $response = $client->send($request);
-                    $responseHandler->handleResponse($response);
-                }
+                $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
             }
            
         }catch(\Throwable $ex){
@@ -101,9 +81,32 @@ class B2BCategoryDataPoster {
        
     }
 
+    private function performActiveFlagChangesAndReturnCategoriyIdsToAddInTempTable(): array
+    {
+        $activeFlagHandler = new B2BCategoryActiveFlagHandler();
+        $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
+        $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
+        $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
+        $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
+        $categoryIdsToBeAddedInTempTable = [];
+
+        $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+        foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
+            if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
+                if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+                    $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                }
+            }else{
+                $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                $categoryIdsToBeAddedInTempTable[] = $categoryId;
+            }
+        }
+        return $categoryIdsToBeAddedInTempTable;
+    }
+
     private function createAPIRequestEntityForRecords(array $records, 
                                                             APIOperationType $operationType, 
-                                                            B2BCategoryTempTablePopulator $tempTablePopulator)
+                                                            B2BCategoryTempTablePopulator $tempTablePopulator): void
     {
         $b2bProductRequestBodyGenerator = new B2BCategoryRequestBodyGenerator();
         foreach($records as $recordPimId){
@@ -116,11 +119,18 @@ class B2BCategoryDataPoster {
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::CATEGORY());
     
-            $apiRequestEntity->setexternalID("category_" . $tempTableData["o_id"]);
+            $apiRequestEntity->setexternalID(B2BCategoryHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . time());
             $apiRequestEntity->save();
         }
+    }
+
+    private function insertProductIdsInTempTable(B2BCategoryTempTablePopulator $tempTablePopulator, array $ids): void
+    {
+        $tempTableData = $tempTablePopulator->getTempTableDataForIds($ids);
+        $tempTableDataWithHashes = $tempTablePopulator->addHashesToTempTableData($tempTableData);
+        $tempTablePopulator->insertDataInTempTable($tempTableDataWithHashes);
     }
 
 }
