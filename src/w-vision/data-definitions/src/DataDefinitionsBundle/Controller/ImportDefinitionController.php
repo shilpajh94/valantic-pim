@@ -138,12 +138,12 @@ class ImportDefinitionController extends ResourceController
         $primaryKeyValue = $definition->getPrimaryKey();
        
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
-            $customFromColumn = new FromColumn();
+            // $customFromColumn = new FromColumn();
             // $customFromColumn->setIdentifier('custom');
             // $customFromColumn->setLabel('Custom');
             try {
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
-                $fromColumns[] = $customFromColumn;
+                // $fromColumns[] = $customFromColumn;
             } catch (\Exception $e) {
                 $fromColumns = [];
             }
