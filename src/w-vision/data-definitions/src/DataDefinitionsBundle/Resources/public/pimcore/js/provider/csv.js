@@ -97,7 +97,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
 
         this.fileUploadField = new Ext.create('Ext.form.field.File', {
             name: 'csvFile',
-            fieldLabel: t('data_file_csv_label') + ' <span style="color:red;">*</span>',
+            fieldLabel: t('data_file_csv_label'),
             labelWidth: 200,
             width: 750,
             regex: /^.*\.(csv|CSV|Csv)$/,

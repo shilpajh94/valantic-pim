@@ -21,6 +21,5 @@ config:
           ]
         PrimaryKey:
           [
-              "SapCode",
               "Path"
           ]
