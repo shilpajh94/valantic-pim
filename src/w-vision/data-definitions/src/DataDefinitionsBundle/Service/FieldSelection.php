@@ -252,7 +252,7 @@ class FieldSelection
         {
             return false;
         }
-        elseif($field->getNoteditable()) // ignore non-editable fields
+        elseif($field->getNoteditable() && $field->getName()!='articleNumber') // ignore non-editable fields
         {
             return false;
         }
