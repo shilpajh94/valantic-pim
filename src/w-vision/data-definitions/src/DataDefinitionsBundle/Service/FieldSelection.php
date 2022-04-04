@@ -247,8 +247,16 @@ class FieldSelection
 
     protected function isAllowFieldForMapping(DataObject\ClassDefinition\Data $field): bool
     {
-        return true;
-        // return !$field->getNoteditable();
+        // ignore image, video and documents
+        if($field->getFieldType()=='image' || $field->getFieldType()=='imageGallery' || $field->getFieldType()=='video' || $field->getFieldType()=='manyToManyRelation')
+        {
+            return false;
+        }
+        elseif($field->getNoteditable()) // ignore non-editable fields
+        {
+            return false;
+        }
+        return true;   
     }
 }
 

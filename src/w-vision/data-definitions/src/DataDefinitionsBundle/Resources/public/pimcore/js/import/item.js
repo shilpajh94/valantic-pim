@@ -106,15 +106,16 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             items: [
                 {
                     xtype: 'textfield',
-                    fieldLabel: t('name') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('name'),
                     name: 'name',
                     width: 500,
                     value: this.data.name,
-                    allowBlank: false
+                    allowBlank: false,
+                    readOnly: true,
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_provider') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('data_definitions_provider'),
                     name: 'provider',
                     displayField: 'provider',
                     valueField: 'provider',
@@ -132,7 +133,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_loader') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('data_definitions_loader'),
                     name: 'loader',
                     displayField: 'loader',
                     valueField: 'loader',
@@ -159,7 +160,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                   */
 
                     xtype: 'combo',
-                    fieldLabel: t('class') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('class'),
                     name: 'class',
                     store: classesStore,
                     queryMode: 'local',
@@ -195,7 +196,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_import_level') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('data_definitions_import_level'),
                     name: 'importLevel',
                     queryMode: 'local',
                     editable: true,
@@ -213,7 +214,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                 },
                 {
                     xtype: 'combo',
-                    fieldLabel: t('data_definitions_primary_key') + ' <span style="color:red;">*</span>',
+                    fieldLabel: t('data_definitions_primary_key'),
                     name: 'primaryKey',
                     queryMode: 'local',
                     editable: true,

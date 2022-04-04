@@ -16,6 +16,7 @@
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
 use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
@@ -107,7 +108,8 @@ class GenericInterpreter implements InterpreterInterface, DataSetAwareInterface
             foreach ($allKeys as $singleKey) {
                 $found = false;
                 foreach ($options as $option) {
-                    if (strval($option['key']) == strval(trim($singleKey))) {
+                    // if (strval($option['key']) == strval(trim($singleKey))) {
+                    if(strcasecmp($option['key'],trim($singleKey)) == 0){
                         $valueArray[] = $option['value'];
                         $found = true;
                         break;
