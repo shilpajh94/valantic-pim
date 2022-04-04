@@ -110,7 +110,8 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     name: 'name',
                     width: 500,
                     value: this.data.name,
-                    allowBlank: false
+                    allowBlank: false,
+                    disabled: true
                 },
                 {
                     xtype: 'combo',

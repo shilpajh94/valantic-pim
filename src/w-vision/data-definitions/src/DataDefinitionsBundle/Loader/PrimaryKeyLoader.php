@@ -27,6 +27,7 @@ class PrimaryKeyLoader implements LoaderInterface
      */
     public function load(string $class, $data, DataDefinitionInterface $definition, $params): ?Concrete
     {
+        $this->db = \Pimcore\Db::get();
         $classObject = '\Pimcore\Model\DataObject\\'.ucfirst($class);
         $classList = '\Pimcore\Model\DataObject\\'.ucfirst($class).'\Listing';
 
@@ -75,17 +76,44 @@ class PrimaryKeyLoader implements LoaderInterface
                 return $obj; 
             }
         }else{
+            $productFolderPath = '/Contitech_ConveyorSolution/Products/';
+            $region = '';
+            if($data['Region']){
+                $regionArray = explode("|",$data['Region']);
+                foreach($regionArray as $eachRegion){
+                    $regionObj = DataObject\CSRegion::getByPath('/Contitech_ConveyorSolution/Master Data/Region/'.$eachRegion);
+                    if($regionObj){
+                        $region = $eachRegion;
+                        break;
+                    }
+                }    
+            }
             $path = $data['Product Hierarchy'];
             if($data['Product Flag'] == "0" || ($data['Product Flag'] == "1" && !$data['Region'])){
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $path = $data['Product Hierarchy'].'/'.$productName;
-
             }elseif($data['Product Flag'] == "1" && $data['Region']){
                 $productName = str_replace("/", "-", $data['Product Name']);
-                $region = explode("|",$data['Region']);
-                $path = $data['Product Hierarchy'].'/'.$region[0].'/'.$productName;
+                $completepath = $data['Product Hierarchy'].'/'.$region.'/'.$productName;
+                $obj = DataObject\CSProducts::getByPath($productFolderPath.$completepath);
+                if(!$obj){
+                    $pathWithoutProductName = $productFolderPath.$data['Product Hierarchy'].'/'.$region;
+                    $pathWithoutRegion = $productFolderPath.$data['Product Hierarchy'];
+                    $productName = trim(str_replace("/", "-", $data['Product Name']));
+                    $parentId = DataObject\Service::createFolderByPath($pathWithoutProductName)->getId();
+                    $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                    $result = $this->db->fetchCol($query);
+                    DataImportLogger::log(json_encode($result));
+                    $count = count($result);
+                    if ($count > 0) {
+                        $obj = DataObject\CSProducts::getById($result[0], true);
+                        $obj->setParentId($parentId);
+                        return $obj;
+                    }
+                }
+                return $obj;
             }
-            $obj = DataObject\CSProducts::getByPath('/Contitech_ConveyorSolution/Products/'.$path);
+            $obj = DataObject\CSProducts::getByPath($productFolderPath.$path);
             return $obj;
         }
         return null;
