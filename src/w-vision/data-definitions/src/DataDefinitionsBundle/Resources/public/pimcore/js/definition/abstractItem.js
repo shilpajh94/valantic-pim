@@ -99,7 +99,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                     }
                 },
                 fields: ["id", "name", "process_start_time", "process_end_time", "importFilePimcoreAssetId", "export_status", "creation_date"],
-               
+
             });
             this.store.load();
 
@@ -116,18 +116,18 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 viewConfig: {
                     forceFit: true
                 },
-                title: t("Import Downloads")
+                title: t("Import Logs")
             });
 
             // set refresh time in milliseconds 
             let refreshTime = 5 * 1000;
             Ext.TaskManager.start({
-                    run: function () {
-                        this.refreshGrid();
-                    },
-                    interval: refreshTime,
-                    scope: this
-                });
+                run: function () {
+                    this.refreshGrid();
+                },
+                interval: refreshTime,
+                scope: this
+            });
         }
         return this.grid;
     },
@@ -143,7 +143,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             items: [
                 {
                     xtype: "button",
-                    text: t('add'),
+                    text: t('Start Import'),
                     iconCls: "pimcore_icon_add",
                     handler: this.openWizard.bind(this),
 
