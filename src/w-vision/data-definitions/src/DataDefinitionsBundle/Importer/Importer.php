@@ -392,7 +392,7 @@ final class Importer implements ImporterInterface
             $status = 'Success';
 
             if($definition->getClass() == 'Product'){
-                $primaryKey = $row['Sap Number'];
+                $primaryKey = $row['SAP Code / Material Number'];
 
             }elseif($definition->getClass() == 'CSProducts'){
                 $primaryKey = $row['Product Hierarchy'];
