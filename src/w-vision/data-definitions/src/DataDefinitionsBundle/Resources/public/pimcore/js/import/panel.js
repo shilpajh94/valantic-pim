@@ -198,6 +198,7 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
 
     // function to override the function coreshop resource import panel
     addItemComplete: function (button, value, object) {
+        
         var jsonData = {
             name: value
         };
@@ -219,7 +220,7 @@ pimcore.plugin.datadefinitions.import.panel = Class.create(coreshop.resource.pan
                     this.refresh();
 
                     if (!data || !data.success) {
-                        Ext.Msg.alert(t('data_definition_warning'), t('data_definition_config_exists'));
+                        Ext.Msg.alert(t('data_definition_warning'), data.msg);
                     } else {
                         this.openItem(data.data);
                     }
