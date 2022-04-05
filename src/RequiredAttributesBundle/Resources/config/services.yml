@@ -36,3 +36,6 @@ services:
 
     RequiredAttributesBundle\Services\CustomizationService:
         public: true
+
+    Pimcore\Bundle\AdminBundle\Controller\Admin\TranslationController:
+        class: RequiredAttributesBundle\Controller\CustomTranslationController
