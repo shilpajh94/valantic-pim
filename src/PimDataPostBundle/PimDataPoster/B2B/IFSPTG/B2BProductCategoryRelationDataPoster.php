@@ -31,7 +31,6 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
         $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
     }
 
-
     private function createAPIRequestEntityForRelationChangeObjects(array $relationChangeObjects, 
                                                         B2BProductCategoryRelationRequestBodyGenerator $requestBodyGenerator): void
     {
@@ -44,7 +43,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
     
             $externalId = B2BProductCategoryRelationHelper::getExternalId($relationChangeObject);
-            $apiRequestEntity->setexternalID(B2BProductCategoryRelationHelper::getExternalId($relationChangeObject));
+            $apiRequestEntity->setexternalID($externalId);
             $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . $relationChangeObject->getNewValue());
             $apiRequestEntity->setReferenceId($externalId . "_" . time());
             $apiRequestEntity->save();

@@ -38,14 +38,14 @@ class B2BProductDataPoster implements IDataPoster
             $tempTablePopulator->truncateTempTable();
             $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);    
-    
+
             /**
              * @TODO:
              * add logging
              */
 
             $relationChangeRegistrar->registerChangedRelation();
-            $deltaManager->removeHashNotChangedRecordsFromTempTable();
+            // $deltaManager->removeHashNotChangedRecordsFromTempTable();
             $productEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
 
             /**
@@ -55,6 +55,11 @@ class B2BProductDataPoster implements IDataPoster
             $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
             $productEnforcedToPushForUpdate = array_merge($productIdsForUpdatedMasters, $productEnforcedToPushForUpdate);
             if(count($productEnforcedToPushForUpdate) > 0){
+                /**
+                 * need to push the enforced records to the temp table because after successfull push to salesforce
+                 * the corresponding record is moved from the temp table to the master table so that
+                 * delta comparison can work fine.
+                 */
                 $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForUpdate);
             }
             $recordsToUpdate = array_unique(array_merge($deltaManager->getRecordsToUpdate(), $productEnforcedToPushForUpdate));
@@ -62,10 +67,15 @@ class B2BProductDataPoster implements IDataPoster
             $recordsToCreate = $deltaManager->getRecordsToCreate();
             $productEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreate();
             if(count($productEnforcedToPushForCreate) > 0){
+                /**
+                 * need to push the enforced records to the temp table because after successfull push to salesforce
+                 * the corresponding record is moved from the temp table to the master table so that
+                 * delta comparison can work fine.
+                 */
                 $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
             }
             $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
-    
+
             $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
             $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
     

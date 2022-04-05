@@ -66,6 +66,11 @@ class B2BCategoryDataPoster implements IDataPoster
             $categoriesEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
 
             if(count($categoriesEnforcedToPushForUpdate) > 0){
+                 /**
+                 * need to push the enforced records to the temp table because after successfull push to salesforce
+                 * the corresponding record is moved from the temp table to the master table so that
+                 * delta comparison can work fine.
+                 */
                 $this->insertProductIdsInTempTable($tempTablePopulator, $categoriesEnforcedToPushForUpdate);
             }
 
