@@ -10,11 +10,11 @@ use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
 
 class B2BProductCategoryRelationRequestBodyGenerator implements IProductRelationRequestBodyGenerator
 {
-    Private $dao;
+    private $dao;
+
     public function __construct()  
     {
         $this->dao = new B2BProductCategoryReationRequestBodyGeneratorDao();
-
     }
 
     public function generateRequestBody(B2BProductRelationChange $b2bProductRelationChange): array
