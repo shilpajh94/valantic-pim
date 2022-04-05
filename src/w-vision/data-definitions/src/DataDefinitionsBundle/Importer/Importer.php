@@ -167,7 +167,7 @@ final class Importer implements ImporterInterface
         if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
-        $totalRowsWithData = count($data);
+        $totalRowsWithData = !empty($data) ? count($data) : null ;
 
         // update total rows for the respective data definition import id
         $importDataId   = $params['importDataId'];
@@ -353,9 +353,15 @@ final class Importer implements ImporterInterface
     private function getData(ImportDefinitionInterface $definition, $params)
     {
         /** @var ImportProviderInterface $provider */
-        $provider = $this->providerRegistry->get($definition->getProvider());
-
-        return $provider->getData($definition->getConfiguration(), $definition, $params);
+        try{
+            $provider = $this->providerRegistry->get($definition->getProvider());
+            
+            return $provider->getData($definition->getConfiguration(), $definition, $params);
+            
+        }catch(\Exception $ex){
+            return $ex->getMessage();
+            //DataImportLogger::log(json_encode($mesage));
+        }
     }
 
     /**

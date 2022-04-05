@@ -548,6 +548,11 @@ class ImportDefinitionController extends ResourceController
 
         $name = $request->get('name');
 
+        if(preg_match('/[\s@!#$%^&*()<>?|}​​​​​​​{​​​​​​​~:]/', $name)) 
+        {
+            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_name_not_valid')]);
+        }
+
         $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
         foreach ($configArray as $perConfig) {
             $existname[] = strtolower($perConfig['name']);
@@ -557,7 +562,7 @@ class ImportDefinitionController extends ResourceController
         }
 
         if (strlen($name) <= 0 || $alreadyTakenName == true) {
-            return $this->viewHandler->handle(['success' => false]);
+            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definition_config_exists')]);
         } else {
             $resource = $this->factory->createNew();
 
