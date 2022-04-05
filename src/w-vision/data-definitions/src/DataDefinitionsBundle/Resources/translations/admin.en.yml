@@ -17,7 +17,7 @@ data_file_csv_label: "Upload file (csv)"
 data_failure: "Failure"
 data_error_saving: "An unexpected error occurred while saving."
 data_file_not_valid: "Uploaded file not valid."
-data_name_not_valid: "File name should not contain space or special characters"
+data_name_not_valid: "File name should not contain space or special characters."
 data_definitions_csv_enclosure: 'Enclosure'
 data_definitions_csv_delimiter: 'Delimiter'
 data_definitions_excel_headers: 'Excel headers'
