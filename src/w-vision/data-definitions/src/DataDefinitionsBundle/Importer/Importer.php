@@ -171,9 +171,13 @@ final class Importer implements ImporterInterface
         // update total rows for the respective data definition import id
         $importDataId   = $params['importDataId'];
         $dataImport     = DataDefinitionImport::getById($importDataId);
+        if($totalRowsWithData == null)
+        {
+            $dataImport->setStatus(Constants::SCHEDULE_STATUS_FAILED);
+            $dataImport->setImportProcessEndTime(new \DateTime());
+        }
         $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
-
         list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
@@ -294,7 +298,7 @@ final class Importer implements ImporterInterface
         # If sheet provided is incorrect
         if(empty($rows)){
             $data[]  = ['Failure Reason'];
-            $params['logResult'][0] = ['Sheet data incorrect'];
+            $params['logResult'][0] = ["The column names must be unique."];
             $rows = $params['logResult'];
 
 

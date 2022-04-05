@@ -47,6 +47,10 @@ class ImportHelper
         {
             $importStatus   = $dataImport->getStatus();
         }
+        elseif($dataImport->getStatus()=='FAILED')
+        {
+            $importStatus   = $dataImport->getStatus();
+        }
         else
         {
             $processedRecords   = $dataImport->getProcessedRecords();
