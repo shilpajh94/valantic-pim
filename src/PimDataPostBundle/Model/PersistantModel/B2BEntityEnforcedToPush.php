@@ -13,12 +13,12 @@ class B2BEntityEnforcedToPush extends AbstractModel {
     
     public $SFObjectType;
     
-    public function getObjectId(): int
+    public function getObjectId(): string
     {
         return $this->objectId;
     }
  
-    public function setObjectId(int $objectId)
+    public function setObjectId(string $objectId)
     {
         $this->objectId = $objectId;
 
