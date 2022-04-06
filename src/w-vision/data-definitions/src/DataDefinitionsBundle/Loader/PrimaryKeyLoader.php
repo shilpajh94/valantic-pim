@@ -34,7 +34,7 @@ class PrimaryKeyLoader implements LoaderInterface
 
         $list = new $classList();
 
-        if ($list instanceof Listing && $class != 'CSProducts') {
+        if ($list instanceof Listing && $class != 'CSProducts' && !empty($data['SAP Code / Material Number'])) {
             $condition = [];
             $conditionValues = [];
             $condition[] = '`articleNumber` = ?';
@@ -70,7 +70,7 @@ class PrimaryKeyLoader implements LoaderInterface
                 }
                 return $obj; 
             }
-        }else{
+        }elseif($class == 'CSProducts'){
 
             $productFolderPath = '/Contitech_ConveyorSolution/Products/';
             $region = '';

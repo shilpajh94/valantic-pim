@@ -427,7 +427,7 @@ final class Importer implements ImporterInterface
                 else{
 
                     if($definition->getClass() == 'Product'){
-                        $failedReason = 'Article Number does not exist';
+                        $failedReason = 'Sap Number does not exist';
                         $status = 'Failure';
                     }
                     elseif($definition->getClass() == 'CSProducts'){
@@ -449,6 +449,9 @@ final class Importer implements ImporterInterface
                 $mesage = $ex->getMessage();
                 preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
                 $failedReason = implode(PHP_EOL,$match[1]);
+                if(empty($failedReason)){
+                    $failedReason = $mesage;
+                }
                 $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => '', 'Status Code' => 'Failure', 'Reason' => $failedReason]; 
 
                 $this->logger->error($ex);
@@ -594,7 +597,7 @@ final class Importer implements ImporterInterface
                     foreach($list as $brickDef){
                         $fieldDefs = $brickDef->getFieldDefinitions();
                         foreach($fieldDefs as $fieldName => $field){
-                            if($value && $fieldName == $objectBrickFieldName && $field->getFieldtype() == 'numeric' && !is_numeric($value)){
+                            if($value && $fieldName == $objectBrickFieldName && $field->getFieldtype() == 'numeric' && !is_numeric($value) && !empty($value)){
                                 array_push($nonImportedAttributes,$mapItem->getFromColumn());
                             }
                         }
@@ -603,7 +606,7 @@ final class Importer implements ImporterInterface
                 }else{
                     $classDefinition = ClassDefinition::getByName($definition->getClass());
                     foreach($classDefinition->getFieldDefinitions() as $field){
-                        if($field->getName() == $mapItem->getToColumn() && $field->fieldtype == 'numeric' && !is_numeric($value)){
+                        if($field->getName() == $mapItem->getToColumn() && $field->fieldtype == 'numeric' && !is_numeric($value) && !empty($value)){
                             array_push($nonImportedAttributes,$mapItem->getFromColumn());
                         }
                     }
