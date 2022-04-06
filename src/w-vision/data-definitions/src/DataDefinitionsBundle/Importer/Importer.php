@@ -172,9 +172,13 @@ final class Importer implements ImporterInterface
         // update total rows for the respective data definition import id
         $importDataId   = $params['importDataId'];
         $dataImport     = DataDefinitionImport::getById($importDataId);
+        if($totalRowsWithData == null)
+        {
+            $dataImport->setStatus(Constants::SCHEDULE_STATUS_FAILED);
+            $dataImport->setImportProcessEndTime(new \DateTime());
+        }
         $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
-
         list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
@@ -292,8 +296,16 @@ final class Importer implements ImporterInterface
         $rows = [];
         $rows = $params['logResult'];
 
-        $data[]  = ['Primary Key','Non Imported Attributes','Status Code','Failure Reason'];
+        # If sheet provided is incorrect
+        if(empty($rows)){
+            $data[]  = ['Failure Reason'];
+            $params['logResult'][0] = ["Sheet data provided is incorrect"];
+            $rows = $params['logResult'];
 
+
+        }else{
+            $data[]  = ['Primary Key','Non Imported Attributes','Status Code','Failure Reason'];
+        }
 
         $data           = array_merge($data,$rows);
         $importDataId   = $params['importDataId'];
@@ -359,8 +371,7 @@ final class Importer implements ImporterInterface
             return $provider->getData($definition->getConfiguration(), $definition, $params);
             
         }catch(\Exception $ex){
-            return $ex->getMessage();
-            //DataImportLogger::log(json_encode($mesage));
+           $message = $ex->getMessage();
         }
     }
 
