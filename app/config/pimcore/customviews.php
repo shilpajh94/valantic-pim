@@ -146,7 +146,7 @@ return [
                     'items' => [
                         'publish' => 0,                                         // hide "Publish"
                         'unpublish' => 0,                                       // hide "Unpublish"
-                        'delete' => 0,  
+                        //'delete' => 0,  
                         'searchAndMove' => 0, 
                         'unlock' => 0,            
                         'unlockAndPropagete' => 0

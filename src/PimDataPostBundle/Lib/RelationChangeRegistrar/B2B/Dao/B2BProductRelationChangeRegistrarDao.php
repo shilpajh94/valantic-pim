@@ -48,6 +48,7 @@ class B2BProductRelationChangeRegistrarDao
 
             $selectFields = [];
             $selectFields[] = "t1.o_id";
+            $selectFields[] = "t1.BusinessUnit";
             $selectFieldsString = "";
 
             foreach ($fieldKeys as $value) {
@@ -66,6 +67,7 @@ class B2BProductRelationChangeRegistrarDao
             $sql .=  "WHERE t1.o_id IN ({$productIds})";
             $result = $this->db->fetchAll($sql);
 
+            $fieldKeys[] = "BusinessUnit";
             $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result);
             
         }
@@ -92,6 +94,7 @@ class B2BProductRelationChangeRegistrarDao
                         {
                             $data = [];
                             $data['productId'] = $resultValue['o_id'];
+                            $data['BusinessUnit'] = $resultValue['BusinessUnit'];
                             $data['attributeName'] = $key;
                             $data['oldValue'] = $resultValue['t2_'.$key];
                             $data['newValue'] = $resultValue['t1_'.$key];

@@ -22,10 +22,14 @@ class CategoryActiveFlagHelper
         return $this->dao->iterateMasterTableCategories(Constants::B2B_CATEGORY_MASTER_TABLE_NAME);
     }
 
+    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
+    {
+        return $this->dao->getCategoryIdToCategoryLevelMapping($categoryIds);
+    }
+
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
         $list = new B2BProductRelationChange\Listing();
-        // $list->setCondition("attributeName = 'SIOPLevel4'");
 
         $categories = [];
         
@@ -57,6 +61,7 @@ class CategoryActiveFlagHelper
             foreach ($idAndActiveFlagValueArray as $categoryId => $flag) {
                 $categoryId = trim($categoryId, ',');
                 $hierarchyObj = DataObject\ProductCategory::getById($categoryId);
+                $hierarchyObj->setGetInheritedValues(false);
 
                 $showInMenu = $hierarchyObj->getShowInMenu();
                 $showInMenu = ($showInMenu) ? true : false;

@@ -58,12 +58,9 @@ class B2BCategoryHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
 
     private function isSuccessResponse($response): bool
     {
-        if($response['httpStatusCode']===200 || $response['httpStatusCode']===201)
+        if(($response['httpStatusCode']===200 || $response['httpStatusCode']===201) && (isset($response['body']['success']) && $response['body']['success']===true))
         {
-            if(isset($response['body']['success']) && $response['body']['success']===true)
-            {
-                return  true;
-            }
+            return  true;
         }
         return  false;
         
@@ -75,8 +72,8 @@ class B2BCategoryHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
        $pimId =  $this->helper->updateSuccessRecords($referenceId, $responseStatus);   
        if($pimId != 0)
        {
-        $this->b2bCategoryHTTPResponseHandlerDao->moveTempToMaster($pimId);
-        $this->insertSalesforceId($pimId,$salesforceId);
+            $this->b2bCategoryHTTPResponseHandlerDao->moveTempToMaster($pimId);
+            $this->insertSalesforceId($pimId,$salesforceId);
        }  
        return true;
     }

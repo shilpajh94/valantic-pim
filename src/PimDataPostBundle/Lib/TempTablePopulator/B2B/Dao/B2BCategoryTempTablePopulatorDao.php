@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib\TempTablePopulator\B2B\Dao;
 
+use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\TempTablePopulator\TempTablePopulatorDao;
 
 class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
@@ -18,6 +19,27 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     {
         $query = "SELECT `o_id` FROM {$tableName}";
         return $this->db->fetchCol($query);
+    }
+
+    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
+    {
+        if(empty($categoryIds)){
+            return [];
+        }
+        $returnValue = [];
+
+        $categoryIds = array_map(function(string $categoryIdWithComma){
+            return trim($categoryIdWithComma,",");
+        },$categoryIds);
+
+        $query = "SELECT `o_id`,`Level` FROM " . Constants::B2B_CATEGORY_OBJECT_TABLE_NAME;
+        $query .= " WHERE `o_id` IN " . "(" . implode(",",$categoryIds) . ")";
+
+        $resultSet =  $this->db->fetchAll($query);
+        foreach($resultSet as $index){
+            $returnValue[$index["o_id"]] = $index["Level"];
+        }
+        return $returnValue;
     }
 
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
@@ -41,10 +63,11 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         $categoriesActiveInactiveList = [];
         if($categoryIds)
         {
-            foreach ($categoryIds as $categoryId) {
+            foreach ($categoryIds as $categoryId => $categoryLevel) {
+                $columnName = "SIOPLevel" . $categoryLevel;
                 $categoryId = trim($categoryId,',');
-                $query = "SELECT `o_id` FROM {$tableName} WHERE (epixFlag = 1 AND o_published = 1) AND (TRIM(BOTH ',' FROM  SIOPLevel4) = {$categoryId}) ";
-                $resultSet =  $this->db->fetchCol($query);
+                $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (epixFlag = 1 AND o_published = 1) AND  {$columnName} = ',{$categoryId},' ";
+                $resultSet =  $this->db->fetchOne($query);
                 $categoriesActiveInactiveList[$categoryId] = ($resultSet) ? true : false;
             }
         }

@@ -72,9 +72,12 @@ class CSHierarchyImportCommand extends AbstractCommand
     {
         $hierarchy = '';
         foreach ($result as $key => $value) {
-            $hierarchyName = $value;
+            $hierarchyName = trim($value);
             $level = $key;
-            $hierarchy = $hierarchy . '/' . $hierarchyName;
+            if (strpos($value, "/") !== false) {
+                $hierarchyName = str_replace("/", "-", $value);
+            }
+            $hierarchy = $hierarchy . '/' . trim($hierarchyName);
             if (!empty($hierarchyName)) {
                 $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/" . $hierarchy;
                 $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath);

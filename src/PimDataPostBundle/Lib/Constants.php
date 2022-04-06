@@ -10,6 +10,10 @@ class Constants
 
     const B2B_PRODUCT_OBJECT_TABLE_NAME = "object_1";
 
+    const B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE = "Product Image Small";
+
+    const B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE = "Product Image Medium";
+
     const B2B_CATEGORY_TEMP_TABLE_NAME = "b2b_category_temp";
 
     const B2B_CATEGORY_MASTER_TABLE_NAME = "b2b_category_master";

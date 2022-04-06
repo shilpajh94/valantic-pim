@@ -41,4 +41,9 @@ class B2BProductHelper extends AbstractB2BSalesForceEntityHelper
     {
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
+
+    public static function getExternalId(array $tempTableData): string
+    {
+        return $tempTableData["external_id"];
+    }
 }

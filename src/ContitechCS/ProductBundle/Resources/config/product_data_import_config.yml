@@ -1,3 +1,15 @@
+MarCom:
+    fieldName: MarcomUser
+    fieldType: User
+    objectType: class
+Product Manager:
+    fieldName: ProductOwner
+    fieldType: User
+    objectType: class
+RandD:
+    fieldName: RnDUser
+    fieldType: User
+    objectType: class
 industrial service tension capacity in PIW (for Elevator Belt only):
     fieldName: IndustrialServiceTensionCapacityinPIW
     fieldType: Number
@@ -857,6 +869,10 @@ Type of Idler - Offset LC Roll - 40 in mm:
     fieldName: TypeofIdlerOffsetLCRoll45mm
     fieldType: Number
     objectType: TypeOfIdler
+DIN Abrasion in mm3:
+    fieldName: DINAbrasion
+    fieldType: Number
+    objectType: Performance2
 Thickness mm:
     fieldName: ThicknessMM
     fieldType: Number
@@ -994,7 +1010,7 @@ Features and Benefits (combination of text and pic):
     fieldNameToSearch: FeatureName
     objectType: class
     mandatoryFields: "FeatureName|FeatureDescription"
-    createFlag: true
+    createFlag: false
 Industries:
     fieldName: CSProductIndustries
     fieldType: manyToManyObjectRelation

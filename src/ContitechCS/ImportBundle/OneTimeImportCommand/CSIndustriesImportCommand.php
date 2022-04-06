@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
+use ContitechCS\ProductBundle\Services\ConfigProviderService;
 
 class CSIndustriesImportCommand extends AbstractCommand
 {
@@ -24,25 +25,34 @@ class CSIndustriesImportCommand extends AbstractCommand
     {
         $this->setName('cs:one-time-import:industries-import')
             ->setDescription('Industries data import script')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('language', InputArgument::REQUIRED, 'Enter Language');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->configProviderService = new ConfigProviderService();
+        $languageArray = $this->configProviderService->getLanguageConfig();
         $filePath = $input->getArgument('filePath');
+        $language = strtolower($input->getArgument('language'));
+
+        if (!in_array($language, $languageArray)) {
+            echo "\n Invalid Argument: Use atleast one language code, among 'en', 'de', 'pt', 'es', 'fr', 'zh' to import the data in that particular language. \n ";
+            die;
+        }
 
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $language);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $language)
     {
         try {
 
@@ -59,7 +69,7 @@ class CSIndustriesImportCommand extends AbstractCommand
                 foreach ($data  as $result) {
 
                     if (isset($result) && is_array($result)) {
-                        $this->insertIndustries($result, $parentFolderID);
+                        $this->insertIndustries($result, $parentFolderID, $language);
                     }
                 }
 
@@ -71,10 +81,11 @@ class CSIndustriesImportCommand extends AbstractCommand
         }
     }
 
-    public function insertIndustries($result, $parentFolderID)
+    public function insertIndustries($result, $parentFolderID, $language)
     {
 
         $title = trim(ucwords($result['Title']));
+        $value = trim($result['Value']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
@@ -85,14 +96,14 @@ class CSIndustriesImportCommand extends AbstractCommand
             if (!$industryObj) {
                 $obj = new DataObject\CSIndustries();
                 $obj->setKey($validKey);
-                $obj->setIndustryName($title);
                 $obj->setParentID($parentFolderID);
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
             } else {
-                $this->duplicateTitle[] = $title;
+                $obj = $industryObj;
             }
+            $obj->setIndustryName($value, $language);
+            $obj->setPublished(true);
+            $obj->setOmitMandatoryCheck(true);
+            $obj->save();
         } else {
             echo "Title not found";
         }
@@ -115,7 +126,7 @@ class CSIndustriesImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, '@@', $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);

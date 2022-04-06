@@ -26,8 +26,6 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     
     private $config;
     
-    private $classDefinition;
-    
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
@@ -91,7 +89,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
-                    if (!empty($value) && $this->checkIfTypeIsAllowed($attributeConfig)) {
+                    if ($value !== null && $this->checkIfTypeIsAllowed($attributeConfig)) {
                         $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {
@@ -141,16 +139,16 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     
     public function generateCreateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateUpdateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateDeleteRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 }
