@@ -19,6 +19,9 @@ use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCatego
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
 
+use PimDataPostBundle\Lib\FailureNotificationSender\B2B\B2BFailureNotificationSender;
+
+// use Pimcore\Mail;
 
 class B2BSalesforceCommand extends AbstractCommand
 {
@@ -34,99 +37,107 @@ class B2BSalesforceCommand extends AbstractCommand
 
         try {
 
-            echo "\n Product Insert In Temp Table Started.";
+            // echo "\n Product Insert In Temp Table Started.";
 
-            $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
-            $b2bProductTempTablePopulator->truncateTempTable();
-            $productIds = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
-            $productsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($productIds);
+            // $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
+            // $b2bProductTempTablePopulator->truncateTempTable();
+            // $productIds = $b2bProductTempTablePopulator->getPimProductAndSalesMasterModifiedRecordIds();
+            // $productsDetail = $b2bProductTempTablePopulator->getTempTableDataForIds($productIds);
             
-            $productsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($productsDetail);
+            // $productsDetailWithHashData = $b2bProductTempTablePopulator->addHashesToTempTableData($productsDetail);
             
-            $b2bProductTempTablePopulator->insertDataInTempTable($productsDetailWithHashData);
+            // $b2bProductTempTablePopulator->insertDataInTempTable($productsDetailWithHashData);
             
-            echo "\n Product Insert In Temp Table Completed.";
+            // echo "\n Product Insert In Temp Table Completed.";
 
-            echo "\n Process started relation table data insertion.";
-            $objProductTempMasterTablesMeta= new TempMasterTablesMeta('b2b_product_temp','b2b_product_master','basicHash','relationalHash');
-            $objB2BProductRelationChangeRegistrar=new B2BProductRelationChangeRegistrar($objProductTempMasterTablesMeta);
+            // echo "\n Process started relation table data insertion.";
+            // $objProductTempMasterTablesMeta= new TempMasterTablesMeta('b2b_product_temp','b2b_product_master','basicHash','relationalHash');
+            // $objB2BProductRelationChangeRegistrar=new B2BProductRelationChangeRegistrar($objProductTempMasterTablesMeta);
             
-            $changedRecords = $objB2BProductRelationChangeRegistrar->fetchRecordsWhereRelationHashChanged();
-            $relationalChangedData = $objB2BProductRelationChangeRegistrar->processAllRelations($changedRecords, false);
+            // $changedRecords = $objB2BProductRelationChangeRegistrar->fetchRecordsWhereRelationHashChanged();
+            // $relationalChangedData = $objB2BProductRelationChangeRegistrar->processAllRelations($changedRecords, false);
 
-            $newTempActiveProducts = $objB2BProductRelationChangeRegistrar->fetchNewActiveRecordsInTempTable();
-            $relationalNewData = $objB2BProductRelationChangeRegistrar->processAllRelations($newTempActiveProducts, true);
+            // $newTempActiveProducts = $objB2BProductRelationChangeRegistrar->fetchNewActiveRecordsInTempTable();
+            // $relationalNewData = $objB2BProductRelationChangeRegistrar->processAllRelations($newTempActiveProducts, true);
             
-            $relationalData = [];
+            // $relationalData = [];
 
-            if($relationalChangedData)
-            {
-                $relationalData = array_merge($relationalChangedData, $relationalNewData);
-            }
-            elseif($relationalNewData)
-            {
-                $relationalData = array_merge($relationalNewData, $relationalChangedData);
-            }
+            // if($relationalChangedData)
+            // {
+            //     $relationalData = array_merge($relationalChangedData, $relationalNewData);
+            // }
+            // elseif($relationalNewData)
+            // {
+            //     $relationalData = array_merge($relationalNewData, $relationalChangedData);
+            // }
 
-            $objB2BProductRelationChangeRegistrar->saveChangedRelation($relationalData);
+            // $objB2BProductRelationChangeRegistrar->saveChangedRelation($relationalData);
             
-            echo "\n Process end relation table data insertion.";
+            // echo "\n Process end relation table data insertion.";
 
-            echo "\n Category Insert In Temp Table Started.";
+            // echo "\n Category Insert In Temp Table Started.";
 
-            $b2bCategoryTempTablePopulator = new B2BCategoryTempTablePopulator();
-            $b2bCategoryTempTablePopulator->truncateTempTable();
-            $b2bCategoryActiveFlagHandler = new B2BCategoryActiveFlagHandler();
-            $masterTableCategories = $b2bCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
+            // $b2bCategoryTempTablePopulator = new B2BCategoryTempTablePopulator();
+            // $b2bCategoryTempTablePopulator->truncateTempTable();
+            // $b2bCategoryActiveFlagHandler = new B2BCategoryActiveFlagHandler();
+            // $masterTableCategories = $b2bCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
             
-            $categoriesActiveInactiveList = $b2bCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
+            // $categoriesActiveInactiveList = $b2bCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
 
-            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
+            // $b2bCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
 
-            $allRelationCategories = $b2bCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+            // $allRelationCategories = $b2bCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
 
-            $idAndActiveFlagValueArray = [];
-            if($allRelationCategories)
-            {
-                $categoriesForTemp = [];
-                foreach ($allRelationCategories as $categoryId) {
+            // $idAndActiveFlagValueArray = [];
+            // if($allRelationCategories)
+            // {
+            //     $categoriesForTemp = [];
+            //     foreach ($allRelationCategories as $categoryId) {
 
-                    $categoryData = $b2bCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
-                    if($categoryData)
-                    {
-                        $isActive = $b2bCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
-                        if(!$isActive)
-                        {
-                            $idAndActiveFlagValueArray[$categoryId] = $isActive;
-                        }   
-                    }
-                    else{
-                        $idAndActiveFlagValueArray[$categoryId] = false;
-                        $categoriesForTemp[] = $categoryId;
-                    }
-                }
-            }
+            //         $categoryData = $b2bCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
+            //         if($categoryData)
+            //         {
+            //             $isActive = $b2bCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
+            //             if(!$isActive)
+            //             {
+            //                 $idAndActiveFlagValueArray[$categoryId] = $isActive;
+            //             }   
+            //         }
+            //         else{
+            //             $idAndActiveFlagValueArray[$categoryId] = false;
+            //             $categoriesForTemp[] = $categoryId;
+            //         }
+            //     }
+            // }
             
-            $b2bCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
+            // $b2bCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
 
-            $categoryIds = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
+            // $categoryIds = $b2bCategoryTempTablePopulator->getPimModifiedRecordIds();
 
-            $combinedCategoryIds = [];
+            // $combinedCategoryIds = [];
 
-            if($categoriesForTemp)
-            {
-                $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
-            }
-            elseif($categoryIds)
-            {
-                $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
-            }
+            // if($categoriesForTemp)
+            // {
+            //     $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
+            // }
+            // elseif($categoryIds)
+            // {
+            //     $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
+            // }
 
-            $combinedCategoryIdsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedCategoryIds);
-            $combinedCategoryIdsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($combinedCategoryIdsDetail);
-            $b2bCategoryTempTablePopulator->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
+            // $combinedCategoryIdsDetail = $b2bCategoryTempTablePopulator->getTempTableDataForIds($combinedCategoryIds);
+            // $combinedCategoryIdsDetailWithHashData = $b2bCategoryTempTablePopulator->addHashesToTempTableData($combinedCategoryIdsDetail);
+            // $b2bCategoryTempTablePopulator->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
 
-            echo "\n Category Insert In Temp Table Completed.";
+            // echo "\n Category Insert In Temp Table Completed.";
+
+
+            echo "\n Start sending failure notification mail.";
+            $b2bFailureNotificationSender = new B2BFailureNotificationSender();
+            $b2bFailureNotificationSender->SendFailureNotification();
+            
+
+            echo "\n End sending failure notification mail.";
 
         } catch (\Exception $ex) {
             echo $ex->getMessage();

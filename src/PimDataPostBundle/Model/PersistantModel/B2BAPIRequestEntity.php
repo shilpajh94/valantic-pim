@@ -24,6 +24,10 @@ class B2BAPIRequestEntity extends AbstractModel
 
     public $pimId;
 
+    public $responseTimestamp;
+
+    public $businessUnit;
+
 
     public function getOperationType(): APIOperationType
     {
@@ -142,5 +146,25 @@ class B2BAPIRequestEntity extends AbstractModel
     public function setPimId($pimId)
     {
         $this->pimId = $pimId;
+    }
+
+    public function getResponseTimestamp(): int
+    {
+        return $this->responseTimestamp;
+    }
+    
+    public function setResponseTimestamp(int $responseTimestamp)
+    {
+        $this->responseTimestamp = $responseTimestamp;
+    }
+
+    public function getBusinessUnit(): string
+    {
+        return $this->businessUnit;
+    }
+
+    public function setBusinessUnit(string $businessUnit)
+    {
+        $this->businessUnit = $businessUnit;
     }
 }
