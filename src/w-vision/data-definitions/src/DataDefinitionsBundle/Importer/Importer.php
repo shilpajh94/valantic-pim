@@ -371,8 +371,7 @@ final class Importer implements ImporterInterface
             return $provider->getData($definition->getConfiguration(), $definition, $params);
             
         }catch(\Exception $ex){
-            return $ex->getMessage();
-            //DataImportLogger::log(json_encode($mesage));
+           $message = $ex->getMessage();
         }
     }
 
