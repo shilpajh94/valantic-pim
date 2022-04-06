@@ -16,7 +16,6 @@ class B2BProductEnforcedRecordsProvider extends AbstractEnforcedRecordsProvider
     public function getRecordsToCreate(): array
     {
         return $this->helper->getEntityEnforceRecords(APIOperationType::CREATE());
-      
     }
     
     public function getRecordsToUpdate(): array
@@ -28,6 +27,5 @@ class B2BProductEnforcedRecordsProvider extends AbstractEnforcedRecordsProvider
     {
         return $this->helper->deleteEntityEnforceRecords();
     }
-    
 }
 
