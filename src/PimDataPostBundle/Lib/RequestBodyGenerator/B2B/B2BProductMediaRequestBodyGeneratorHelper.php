@@ -31,18 +31,18 @@ class B2BProductMediaRequestBodyGeneratorHelper
         $returnArr = array();
         if(isset($imageAsset))
         {
-        $request = array();
-        $request['operationType'] = APIOperationType::UPDATE();
-        $request['asset_id'] = $b2bProductRelationChange->newValue;
-        $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
-        $body =array(
-            "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
-            "B2B_Media_Type__c" => "Image",
-            "B2B_Description__c" => $imageAsset->getFileName(),
-            "B2B_Display_Type__c" => Constants::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE,
-            "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::SMALL()),
-            "B2B_Sequence__c" => $sequence
-         );
+            $request = array();
+            $request['operationType'] = APIOperationType::UPDATE();
+            $request['asset_id'] = $b2bProductRelationChange->newValue;
+            $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
+            $body =array(
+                "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
+                "B2B_Media_Type__c" => "Image",
+                "B2B_Description__c" => $imageAsset->getFileName(),
+                "B2B_Display_Type__c" => Constants::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE,
+                "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::SMALL()),
+                "B2B_Sequence__c" => $sequence
+            );
         $request['body'] = $body;
         $returnArr[]=$request;  // push small image request
 
@@ -63,16 +63,16 @@ class B2BProductMediaRequestBodyGeneratorHelper
         $returnArr = array();
         if(isset($videoAsset))
         {
-        $request = array();
-        $request['operationType'] = APIOperationType::UPDATE();
-        $request['asset_id'] = $b2bProductRelationChange->newValue;
-        $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
-        $body =array(
-            "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
-            "B2B_Media_Type__c" => "Video",
-            "B2B_Description__c" => $videoAsset->getFileName(),
-            "B2B_Media_URL__c" => Util::getAssetPublicPath($videoAsset),
-            "B2B_Sequence__c" => $sequence
+            $request = array();
+            $request['operationType'] = APIOperationType::UPDATE();
+            $request['asset_id'] = $b2bProductRelationChange->newValue;
+            $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
+            $body =array(
+                "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
+                "B2B_Media_Type__c" => "Video",
+                "B2B_Description__c" => $videoAsset->getFileName(),
+                "B2B_Media_URL__c" => Util::getAssetPublicPath($videoAsset),
+                "B2B_Sequence__c" => $sequence
          );
         $request['body'] = $body;
         $returnArr[]=$request;  // push video request
@@ -123,10 +123,10 @@ class B2BProductMediaRequestBodyGeneratorHelper
     function getSequenceOfAttribute($attributeType)
     { 
         $attributesArray = $this->b2bProductAttributeConfigProvider->getMediaAttributeConfig();
-        if(isset($attributesArray[$attributeType]['sf_media_sequence']))
-        return $attributesArray[$attributeType]['sf_media_sequence'];
-        else
-        return 0; 
+        if(isset($attributesArray[$attributeType]['sf_media_sequence'])){
+            return $attributesArray[$attributeType]['sf_media_sequence'];
+        }
+        return 1; 
     }
 
 }

@@ -33,11 +33,10 @@ class B2BProductCategoryRelationHTTPRequestGenerator extends AbstractB2BHTTPRequ
     {
         $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken();
         $authHeader="Bearer ".$b2bAuthToken->getTokenString();
-        $header=array(
+        return array(
             'Content-Type' => 'application/json',
             'Authorization' => $authHeader
         );
-        return $header;
     }
 
     private function getRequestBody($batch): string
@@ -47,7 +46,7 @@ class B2BProductCategoryRelationHTTPRequestGenerator extends AbstractB2BHTTPRequ
 
     public function getRequest($batch): Request
     {
-       return $request = new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
+       return new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
     }
 
     public function getTotalBatches():int

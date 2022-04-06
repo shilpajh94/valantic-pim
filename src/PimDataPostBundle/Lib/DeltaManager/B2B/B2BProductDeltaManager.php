@@ -44,10 +44,6 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
     public function getProductIdsForUpdatedMaster(): array
     {
         $setB = $this->getProductIdsForUpdatedTranslationMasters();
-        // $setCa = $this->getProductIdsForUpdatedMasterTableAttribute("FittingFamily");
-        // $setCb = $this->getProductIdsForUpdatedMasterTableAttribute("Thread");
-        // $setCc = $this->getProductIdsForUpdatedMasterTableAttribute("NomenclatureDetails");
-
         return array_merge($setB);
     }
     
@@ -70,15 +66,6 @@ class B2BProductDeltaManager extends AbstractB2BDeltaManager
             }
         }
         return $productIds;
-    }
-
-    private function getProductIdsForUpdatedMasterTableAttribute(string $masterTableColumnName): array
-    {
-        $completeAttributeConfig = $this->attributeConfigProvider->getCompleteAttributeConfig();
-        $fittingFamilyAttributeConfig = $completeAttributeConfig[$masterTableColumnName];
-        return $this->getProductIdsForMasters($fittingFamilyAttributeConfig["masterClass"], 
-                                                $masterTableColumnName, 
-                                                $fittingFamilyAttributeConfig["pim_attribute_type"]);
     }
 
     private function getProductIdsForMasters(string $masterClassName, 

@@ -10,7 +10,6 @@ class B2BProductMediaDeltaManager extends AbstractB2BMediaDeltaManager
         $this->helper = new MediaDeltaManagerHelper();
     }
 
-
     public function getAssetsUpdatedRecords(): array
     {
         return $this->helper->getAssetsUpdatedRecords();
