@@ -10,9 +10,9 @@ use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductMediaHelper;
 
 class Factory 
 {
-    public static function getb2bHelper($SFObjectType)
+    public static function getb2bHelper($SFObjectType): ? IB2BSalesForceEntityHelper
     {
-        $returnObject = '';
+        $returnObject = null;
         if($SFObjectType == B2BSalesForceObjectType::PRODUCT()) {
             $returnObject = new B2BProductHelper();
         } else if($SFObjectType == B2BSalesForceObjectType::CATEGORY()) {
