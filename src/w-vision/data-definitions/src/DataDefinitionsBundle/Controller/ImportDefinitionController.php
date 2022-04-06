@@ -506,9 +506,8 @@ class ImportDefinitionController extends ResourceController
                 $resultImportLevels[] = $arrLevels['PRODUCT_TYPE'];
             }
         }
-        $importLevel = $resultImportLevels[0];
 
-        return $importLevel;
+        return $resultImportLevels[0];
     }
 
     public function getCommonRoles()

@@ -138,7 +138,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
 
     getGridToolbar: function () {
 
-        var toolbar = Ext.create('Ext.Toolbar', {
+        return Ext.create('Ext.Toolbar', {
             cls: 'pimcore_main_toolbar',
             items: [
                 {
@@ -156,8 +156,6 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 }
             ]
         });
-
-        return toolbar;
     },
 
     openWizard: function () {
@@ -187,7 +185,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             ]
         });
 
-        let wizardWindow = new Ext.Window({
+        return new Ext.Window({
             title: t('data_definition_create_import'),
             width: 600,
             modal: true,
@@ -198,13 +196,12 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 handler: this.saveWizard.bind(this)
             }]
         });
-        return wizardWindow;
     },
 
 
     getGridColumns: function () {
 
-        var typesColumns = [
+        return [
             {
                 text: t("data_definition_import_id"),
                 sortable: true,
@@ -274,8 +271,6 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
 
 
         ];
-
-        return typesColumns;
     },
 
     upload: function (callback) {
@@ -325,7 +320,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
         };
         var fuse = new Fuse(automap.fromColumnItems, options);
         automap.mapping.forEach(function (map) {
-            result = fuse.search(map.data.toColumn)[0];
+            let result = fuse.search(map.data.toColumn)[0];
             if (result !== undefined) {
                 if (!(['o_published', 'o_key', 'o_parentId', 'o_parent', 'o_type'].indexOf(map.data.toColumn) > -1 && result.score > 0.5)) {
                     map.data.fromColumn = automap.fromColumnItems[result.item];

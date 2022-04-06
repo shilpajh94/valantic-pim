@@ -163,6 +163,7 @@ final class Importer implements ImporterInterface
 
         /** @var ImportDataSetInterface|array $data */
         $data = $this->getData($definition, $params);
+
         if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
@@ -171,9 +172,13 @@ final class Importer implements ImporterInterface
         // update total rows for the respective data definition import id
         $importDataId   = $params['importDataId'];
         $dataImport     = DataDefinitionImport::getById($importDataId);
+        if($totalRowsWithData == null)
+        {
+            $dataImport->setStatus(Constants::SCHEDULE_STATUS_FAILED);
+            $dataImport->setImportProcessEndTime(new \DateTime());
+        }
         $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
-
         list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
@@ -294,17 +299,15 @@ final class Importer implements ImporterInterface
         # If sheet provided is incorrect
         if(empty($rows)){
             $data[]  = ['Failure Reason'];
-            $params['logResult'][0] = ['Sheet data incorrect'];
+            $params['logResult'][0] = ["Sheet data provided is incorrect"];
             $rows = $params['logResult'];
 
 
         }else{
             $data[]  = ['Primary Key','Non Imported Attributes','Status Code','Failure Reason'];
-
         }
 
         $data           = array_merge($data,$rows);
-
         $importDataId   = $params['importDataId'];
         $dataImport     = DataDefinitionImport::getById($importDataId);
 
@@ -362,15 +365,13 @@ final class Importer implements ImporterInterface
     private function getData(ImportDefinitionInterface $definition, $params)
     {
         /** @var ImportProviderInterface $provider */
-        try 
-        {
+        try{
             $provider = $this->providerRegistry->get($definition->getProvider());
+            
             return $provider->getData($definition->getConfiguration(), $definition, $params);
             
-        }
-        catch(\Exception $ex)
-        {
-            $message = $ex->getMessage();
+        }catch(\Exception $ex){
+           $message = $ex->getMessage();
         }
     }
 

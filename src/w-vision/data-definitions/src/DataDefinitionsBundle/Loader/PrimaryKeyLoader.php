@@ -27,6 +27,7 @@ class PrimaryKeyLoader implements LoaderInterface
      */
     public function load(string $class, $data, DataDefinitionInterface $definition, $params): ?Concrete
     {
+
         $this->db = \Pimcore\Db::get();
         $classObject = '\Pimcore\Model\DataObject\\'.ucfirst($class);
         $classList = '\Pimcore\Model\DataObject\\'.ucfirst($class).'\Listing';
@@ -34,15 +35,10 @@ class PrimaryKeyLoader implements LoaderInterface
         $list = new $classList();
 
         if ($list instanceof Listing && $class != 'CSProducts') {
-            $mapping = $definition->getMapping();
             $condition = [];
             $conditionValues = [];
-            foreach ($mapping as $map) {
-                if ($map->getPrimaryIdentifier()) {
-                    $condition[] = '`'.$map->getToColumn().'` = ?';
-                    $conditionValues[] = $data[$map->getFromColumn()];
-                }
-            }
+            $condition[] = '`articleNumber` = ?';
+            $conditionValues[] = $data['SAP Code / Material Number'];
 
             if (\count($condition) === 0) {
                 throw new \InvalidArgumentException('No primary identifier defined!');
@@ -72,12 +68,14 @@ class PrimaryKeyLoader implements LoaderInterface
                         $obj = new $classObject();
                     }
                 }
-
                 return $obj; 
             }
         }else{
+
             $productFolderPath = '/Contitech_ConveyorSolution/Products/';
             $region = '';
+
+            // If multiple regions given to get the first region that exists in master
             if($data['Region']){
                 $regionArray = explode("|",$data['Region']);
                 foreach($regionArray as $eachRegion){
@@ -88,27 +86,41 @@ class PrimaryKeyLoader implements LoaderInterface
                     }
                 }    
             }
+
+            // If only Product Hierarchy has data for product
             $path = $data['Product Hierarchy'];
+
+            // If condition to set path for product groups or products with no region
             if($data['Product Flag'] == "0" || ($data['Product Flag'] == "1" && !$data['Region'])){
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $path = $data['Product Hierarchy'].'/'.$productName;
-            }elseif($data['Product Flag'] == "1" && $data['Region']){
+            }
+            // Condition for products with region
+            elseif($data['Product Flag'] == "1" && $data['Region']){
+                
+                // When there is no updation of region folder for products
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $completepath = $data['Product Hierarchy'].'/'.$region.'/'.$productName;
                 $obj = DataObject\CSProducts::getByPath($productFolderPath.$completepath);
+
+                // Condition is region is updated for products to be moved to new folder
                 if(!$obj){
-                    $pathWithoutProductName = $productFolderPath.$data['Product Hierarchy'].'/'.$region;
-                    $pathWithoutRegion = $productFolderPath.$data['Product Hierarchy'];
-                    $productName = trim(str_replace("/", "-", $data['Product Name']));
-                    $parentId = DataObject\Service::createFolderByPath($pathWithoutProductName)->getId();
-                    $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
-                    $result = $this->db->fetchCol($query);
-                    DataImportLogger::log(json_encode($result));
-                    $count = count($result);
-                    if ($count > 0) {
-                        $obj = DataObject\CSProducts::getById($result[0], true);
-                        $obj->setParentId($parentId);
-                        return $obj;
+                    $pathWithoutProductName = $productFolderPath.$data['Product Hierarchy'];
+                    $hierarchyObj = DataObject\CSHierarchy::getByPath($pathWithoutProductName);
+                    if($hierarchyObj){
+                        $pathWithoutRegion = $productFolderPath.$data['Product Hierarchy'];
+                        $productName = trim(str_replace("/", "-", $data['Product Name']));
+                        $parentId = DataObject\Service::createFolderByPath($pathWithoutProductName.'/'.$region)->getId();
+                        $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
+                        $result = $this->db->fetchCol($query);
+                        $count = count($result);
+    
+                        if ($count > 0) {
+                            $obj = DataObject\CSProducts::getById($result[0], true);
+                            $obj->setParentId($parentId);
+                            return $obj;
+                        }
+    
                     }
                 }
                 return $obj;
