@@ -506,9 +506,8 @@ class ImportDefinitionController extends ResourceController
                 $resultImportLevels[] = $arrLevels['PRODUCT_TYPE'];
             }
         }
-        $importLevel = $resultImportLevels[0];
 
-        return $importLevel;
+        return $resultImportLevels[0];
     }
 
     public function getCommonRoles()
@@ -550,7 +549,7 @@ class ImportDefinitionController extends ResourceController
 
         if(preg_match('/[\s@!#$%^&*()<>?|}​​​​​​​{​​​​​​​~:]/', $name)) 
         {
-            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_name_not_valid')]);
+            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('config_name_not_valid')]);
         }
 
         $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
