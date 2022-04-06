@@ -23,15 +23,15 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(32) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: ean
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -41,15 +41,15 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(255) NULL
+            temp_master_table_column_type: VARCHAR(64) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: id
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -59,15 +59,33 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(32) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: brand
+            pim_attribute_type: select
+            sf_relational_attribute:
+            allowed_object_class_name: Brand
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name: name
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
+        longDescription:
+            pim_attribute_name: longDescription
+            pim_table_name: object_localized_1_en
+            joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: TEXT NULL
+            sf_attribute_name: long_description
+            addOnJoin:
+            pim_attribute_type: wysiwyg
             sf_relational_attribute:
             allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -76,34 +94,16 @@ parameters:
             pim_attribute_name: longDescription
             pim_table_name: object_localized_1_de
             joinOn: LEFT JOIN object_localized_1_de ON object_localized_1_de.o_id = object_1.o_id
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(2500) NULL
+            temp_master_table_column_type: TEXT NULL
+            sf_attribute_name: long_description
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            pim_attribute_type: wysiwyg
             sf_relational_attribute:
             allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
-            pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
-        longDescription_en:
-            pim_attribute_name: longDescription
-            pim_table_name: object_localized_1_en
-            joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
-            sendToSF: true
-            temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(2500) NULL
-            addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
-            sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -152,12 +152,12 @@ parameters:
             temp_master_table_column_type: VARCHAR(190) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: short_description
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -167,15 +167,15 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(32) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: unit_measure
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -183,18 +183,17 @@ parameters:
         mainImage:
             pim_attribute_name: mainImage
             pim_table_name: object_1
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
-            salesForceRelationalAttr: true
+            sf_relational_attribute: true
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
-            sf_relational_attribute:
+            sf_attribute_name: c_hoseImage1
+            pim_attribute_type: image
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -202,18 +201,17 @@ parameters:
         altImage1:
             pim_attribute_name: altImage1
             pim_table_name: object_1
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
-            salesForceRelationalAttr: true
+            sf_relational_attribute: true
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
-            sf_relational_attribute:
+            sf_attribute_name: c_hoseImage2
+            pim_attribute_type: image
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -221,18 +219,17 @@ parameters:
         altImage2:
             pim_attribute_name: altImage2
             pim_table_name: object_1
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: INT(11) NULL
-            salesForceRelationalAttr: true
+            sf_relational_attribute: true
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
-            sf_relational_attribute:
+            sf_attribute_name: c_hoseImage3
+            pim_attribute_type: image
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -240,18 +237,17 @@ parameters:
         Document:
             pim_attribute_name: Document
             pim_table_name: object_1
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
-            salesForceRelationalAttr: true
+            sf_relational_attribute: true
             joinOn:
             addOnJoin:
             sf_attribute_name:
-            pim_attribute_type:
-            sf_relational_attribute:
+            pim_attribute_type: advancedManyToManyRelation
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -264,12 +260,12 @@ parameters:
             temp_master_table_column_type: tinyint(1) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseProposition65WarningAttributesRequired
+            pim_attribute_type: booleanSelect
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -279,18 +275,18 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(32) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseCaliforniaProposition65ChemicalName1
+            pim_attribute_type: select
             sf_relational_attribute:
-            allowed_object_class_name:
+            allowed_object_class_name: Chemical
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
+            update_product_if_master_updated: true
             isLocalisedMaster:
         BendRadiusMM:
             pim_attribute_name: BendRadiusMM
@@ -298,14 +294,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseBandRadiusMM
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -316,14 +312,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseIDFraction
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -334,14 +330,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseODIN
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -352,14 +348,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseWorkingPressurePSI
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -369,19 +365,19 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseReinforcement
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         fitting1Material:
             pim_attribute_name: fitting1Material
             pim_table_name: object_brick_query_HoseFert_1
@@ -390,12 +386,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting1Material
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -408,12 +404,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting1Size
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -426,12 +422,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting1Type
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -444,12 +440,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting2Material
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -462,12 +458,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting2Size
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -480,12 +476,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseFitting2Type
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -496,18 +492,18 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseTubeMaterial
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: HoseBase
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         hoseidDec:
             pim_attribute_name: hoseidDec
             pim_table_name: object_brick_query_HoseSkeleton_1
@@ -516,12 +512,12 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(64) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseIDDec
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -532,14 +528,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseIDMM
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -550,14 +546,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseLengthM
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -568,32 +564,32 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseTubeColor
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: HoseBase
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         hoseOdmm:
             pim_attribute_name: hoseOdmm
             pim_table_name: object_brick_query_HoseSkeleton_1
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseODMM
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -606,12 +602,12 @@ parameters:
             temp_master_table_column_type: VARCHAR(10) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseMaximumTemperatureC
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -622,18 +618,18 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseCoverMaterial
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: HoseBase
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         minimumTemperatureC:
             pim_attribute_name: minimumTemperatureC
             pim_table_name: object_1
@@ -642,12 +638,12 @@ parameters:
             temp_master_table_column_type: VARCHAR(10) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseMinimumTemperatureC
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -658,50 +654,50 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseCoverColor
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: HoseBase
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         coverCharacteristic:
             pim_attribute_name: coverCharacteristic
             pim_table_name: object_brick_query_HoseBase_1
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: tinytext NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseCoverCharacteristic
+            pim_attribute_type: multiselect
             sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
-            pim_attribute_for_sf_in_allowed_object_class_name:
+            allowed_object_class_name: MultiselectMaster
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: HoseBase
+            pim_attribute_for_sf_in_allowed_object_class_name: Name
             pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+            update_product_if_master_updated: true
+            isLocalisedMaster: true
         hoseLengthFT:
             pim_attribute_name: hoseLengthFT
             pim_table_name: object_brick_query_HoseFert_1
             joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseLengthFT
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -714,12 +710,12 @@ parameters:
             temp_master_table_column_type: VARCHAR(10) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseMaximumTemperatureF
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -732,12 +728,12 @@ parameters:
             temp_master_table_column_type: VARCHAR(10) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseMinimumTemperatureF
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -748,14 +744,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseBendRadiusIN
+            pim_attribute_type: true
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -766,14 +762,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseFert_1 ON object_brick_query_HoseFert_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseTotalWeightPerPackage
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseFert
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -784,14 +780,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseSkeletonVacuumIN
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -801,15 +797,15 @@ parameters:
             pim_table_name: object_1
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseWeightLbsPerFTUOM
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: Product
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -820,14 +816,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseVacuumMM
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -838,14 +834,14 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(64) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: c_hoseWorkingPressureBAR
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: HoseSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
