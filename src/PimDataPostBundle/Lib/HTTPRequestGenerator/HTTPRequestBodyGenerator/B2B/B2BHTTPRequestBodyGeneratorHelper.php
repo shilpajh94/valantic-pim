@@ -33,7 +33,7 @@ class B2BHTTPRequestBodyGeneratorHelper
         $listing=$listing->load();
         $totalRow=count($listing);
         if($this->graphNo==0 || $this->subRequestNo==0) {
-        return 0; 
+            return 0; 
         }
         $batches= ($totalRow/($this->graphNo*$this->subRequestNo));
         return ceil($batches);
@@ -57,13 +57,11 @@ class B2BHTTPRequestBodyGeneratorHelper
             $subRequest= array();
             $subRequest['body']=json_decode($data->body);
             if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE()) {
-            $subRequest['method']='PATCH';
-            }
-            else if($data->operationType==APIOperationType::DELETE()) {
-            $subRequest['method']='DELETE';
-            }
-            else {
-            $subRequest['method']='';
+                $subRequest['method']='PATCH';
+            } else if($data->operationType==APIOperationType::DELETE()) {
+                $subRequest['method']='DELETE';
+            } else {
+                $subRequest['method']='';
             }
             $subRequest['referenceId']=$data->referenceId;
             $subRequest['url']= $this->b2bHelper->getEntityUrl().'/'.$this->b2bHelper->getExternalIdKey().'/'.$data->externalID;
