@@ -32,8 +32,9 @@ class B2BHTTPRequestBodyGeneratorHelper
         $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         $listing=$listing->load();
         $totalRow=count($listing);
-        if($this->graphNo==0 || $this->subRequestNo==0)
-        return 0;
+        if($this->graphNo==0 || $this->subRequestNo==0) {
+        return 0; 
+        }
         $batches= ($totalRow/($this->graphNo*$this->subRequestNo));
         return ceil($batches);
     }
@@ -42,7 +43,6 @@ class B2BHTTPRequestBodyGeneratorHelper
     {
         $listing = new B2BAPIRequestEntity\Listing();
         $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
-        //$listing = $listing->setCondition('responseStatus = ?', null);
         $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
@@ -56,14 +56,16 @@ class B2BHTTPRequestBodyGeneratorHelper
             $totalCount++;
             $subRequest= array();
             $subRequest['body']=json_decode($data->body);
-            if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE())
+            if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE()) {
             $subRequest['method']='PATCH';
-            else if($data->operationType==APIOperationType::DELETE())
+            }
+            else if($data->operationType==APIOperationType::DELETE()) {
             $subRequest['method']='DELETE';
-            else
+            }
+            else {
             $subRequest['method']='';
+            }
             $subRequest['referenceId']=$data->referenceId;
-            //$subRequest['B2B_External_Id__c']=$data->externalID;
             $subRequest['url']= $this->b2bHelper->getEntityUrl().'/'.$this->b2bHelper->getExternalIdKey().'/'.$data->externalID;
             if($subRequest['method']!='')
             {

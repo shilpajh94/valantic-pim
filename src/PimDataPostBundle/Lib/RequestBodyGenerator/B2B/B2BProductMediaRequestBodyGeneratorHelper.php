@@ -123,9 +123,9 @@ class B2BProductMediaRequestBodyGeneratorHelper
     function getSequenceOfAttribute($attributeType)
     { 
         $attributesArray = $this->b2bProductAttributeConfigProvider->getMediaAttributeConfig();
-        if(isset($attributesArray[$attributeType]['sf_media_sequence']))
-        return $attributesArray[$attributeType]['sf_media_sequence'];
-        else
+        if(isset($attributesArray[$attributeType]['sf_media_sequence'])){
+            return $attributesArray[$attributeType]['sf_media_sequence'];
+        }
         return 0; 
     }
 

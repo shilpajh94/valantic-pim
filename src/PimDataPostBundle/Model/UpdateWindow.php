@@ -28,8 +28,8 @@ class UpdateWindow
 
     private function initializeStartTime()
     {
-        $endTime = clone($this->endTime);
-        $this->startTime = $endTime->modify("-" . Constants::UPDATE_WINDOW_LENGTH_IN_MINUTES . " minutes");
+        $clonedEndTime = clone($this->endTime);
+        $this->startTime = $clonedEndTime->modify("-" . Constants::UPDATE_WINDOW_LENGTH_IN_MINUTES . " minutes");
     }
 
     private function initializeEndTime()

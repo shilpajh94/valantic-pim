@@ -34,7 +34,6 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         
         $attributesArray = $this->attributeConfigProvider->getMediaAttributeConfig();
         $returnArray = [];
-        $whereCondition='';
         foreach($attributesArray as $key => $attributesRow)
         {
             $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;

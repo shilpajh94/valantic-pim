@@ -42,7 +42,6 @@ class MediaDeltaManagerHelper
             $returnArray[$assetRow->assetId] = $this->dao->getProductIdsByDeletedAsset($assetRow->assetId);
         }
         return $returnArray;
-       
     }
 
 }
