@@ -5,10 +5,10 @@ use PimDataPostBundle\Model\PersistantModel\PimFailureRecord;
 class B2BPimFailedRecordHandlerHelper
 {
    
-    public function getFixedPimFailedRecord(): array
+    public function getFixedPimFailedRecord(string $sfObjectType): array
     {
         $listing = new PimFailureRecord\Listing();
-        $listing->setCondition("status = ?", "FIXED");
+        $listing->setCondition("status = ? and sfObjectType = ? ", ["FIXED", $sfObjectType]);
         return $listing = $listing->load();
     }
 

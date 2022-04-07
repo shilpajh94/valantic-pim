@@ -10,9 +10,9 @@ class B2BPimFailedRecordHandler extends AbstractB2BPimFailedRecordHandler
         $this->helper = new B2BPimFailedRecordHandlerHelper();
     }
 
-    public function getFixedPimFailedRecord(): array
+    public function getFixedPimFailedRecord(string $sfObjectType): array
     {
-        return $this->helper->getFixedPimFailedRecord();
+        return $this->helper->getFixedPimFailedRecord($sfObjectType);
     }
 
     public function deleteFixedPimFailedRecord(array $pimFailureRecords): bool
