@@ -104,6 +104,12 @@ final class Importer implements ImporterInterface
      */
     private $shouldStop = false;
 
+    const PRIMARY_KEY_HEADER = 'Primary Key';
+    const NON_IMPORTED_ATTRIBUTES = 'Non Imported Attributes';
+    const STATUS_CODE = 'Status Code';
+    const FAILURE_REASON = 'Failure Reason';
+
+
     /**
      * Importer constructor.
      * @param ServiceRegistryInterface $providerRegistry
@@ -146,6 +152,7 @@ final class Importer implements ImporterInterface
      */
     public function doImport(ImportDefinitionInterface $definition, $params)
     {  
+
         $filter = null;
         $objectIds = [];
         $exceptions = [];
@@ -292,17 +299,17 @@ final class Importer implements ImporterInterface
     }
 
     public function CreateLogsFilesForImport($params)
-    {   
+    {  
         $rows = [];
         $rows = $params['logResult'];
 
         # If sheet provided is incorrect
         if(empty($rows)){
-            $data[]  = ['Failure Reason'];
+            $data[]  = [self::FAILURE_REASON];
             $params['logResult'][0] = ["Import failed due to one or more reason(s)\n1. Duplicate column name exist\n2. Blank column exist\n3. Data incorrect"];
             $rows = $params['logResult'];
         }else{
-            $data[]  = ['Primary Key','Non Imported Attributes','Status Code','Failure Reason'];
+            $data[]  = [self::PRIMARY_KEY_HEADER,self::NON_IMPORTED_ATTRIBUTES,self::STATUS_CODE,self::FAILURE_REASON];
         }
 
         $data           = array_merge($data,$rows);
@@ -442,7 +449,7 @@ final class Importer implements ImporterInterface
                 }
                 $count++;
 
-                $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => $nonImportedAttributesString, 'Status Code' => $status, 'Reason' => $failedReason]; 
+                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey, self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString, self::STATUS_CODE => $status, self::FAILURE_REASON => $failedReason]; 
             }catch (\Throwable $ex) {
                 $mesage = $ex->getMessage();
                 preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
@@ -450,7 +457,7 @@ final class Importer implements ImporterInterface
                 if(empty($failedReason)){
                     $failedReason = $mesage;
                 }
-                $logResult[] = ['Primary Key' => $primaryKey, 'Non Imported Attributes' => '', 'Status Code' => 'Failure', 'Reason' => $failedReason]; 
+                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey, self::NON_IMPORTED_ATTRIBUTES => '', self::STATUS_CODE => 'Failure', self::FAILURE_REASON => $failedReason]; 
 
                 $this->logger->error($ex);
 

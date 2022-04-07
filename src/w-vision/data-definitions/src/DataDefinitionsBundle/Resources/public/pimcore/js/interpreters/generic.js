@@ -82,8 +82,7 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 name: 'separator',
                 width: 500,
                 maxLength: 1,
-                // value: config.separator ? config.separator : '|',
-                value: '|'
+                value: config.separator ? config.separator : '|',
             },
             {
                 xtype: 'combo',
