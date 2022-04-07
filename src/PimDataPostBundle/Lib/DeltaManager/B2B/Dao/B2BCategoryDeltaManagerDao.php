@@ -28,13 +28,10 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
        
-        if($this->db->query($sql))
-        return true;
-        else
+        if($this->db->query($sql)) {
+            return true;
+        }
         return false; 
-
-       
-    
     }
         // End  ---------
 
@@ -42,29 +39,22 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
     public function getRecordsPresentInTempNotInMaster()
     {
        
-       $sql="SELECT t1.o_id
-            FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
+        $sql="SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t2.id IS NULL  AND t1.ShowInMenu=1";
-       
-       $result = $this->db->fetchAll($sql);
-       return $result;
-
+        return $this->db->fetchAll($sql);
     }
        // End  ---------
 
        // Start  # new data which is not in master table by level
     public function getRecordsPresentInTempNotInMasterByLevel($level)
     {
-       
        $sql="SELECT t1.o_id
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.Level = ".$level." AND t2.id IS NULL  AND t1.ShowInMenu=1";
        
-       $result = $this->db->fetchCol($sql);
-       return $result;
-
+        return $this->db->fetchCol($sql);
     }
        // End  ---------
 
@@ -76,9 +66,7 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
             JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
        
-        $result = $this->db->fetchCol($sql);
-        return $result;
-
+        return $this->db->fetchCol($sql);
     }
        // End  --------
 

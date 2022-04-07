@@ -14,9 +14,6 @@ class Constants
 
     const B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE = "Product Image Medium";
 
-    // const B2B_SALES_MASTER_OBJECT_TABLE_NAME = "object_1";
-
-
     const B2B_CATEGORY_TEMP_TABLE_NAME = "b2b_category_temp";
 
     const B2B_CATEGORY_MASTER_TABLE_NAME = "b2b_category_master";
@@ -38,5 +35,15 @@ class Constants
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
     const INSERT_BATCH_SIZE = 50;
+
+    const FAILURE_LOG_ASSET_FOLDER = "/Saleforce Integration Failure Logs";
+
+    const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
+
+    const FAILURE_NOTIFICATION_ROLES = ['ApplicationAdmin'];
+
+    const FAILURE_TEMPLATE_NAME = "/Email/Saleforce Integration Failure Email";
+
+    const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
 
 }

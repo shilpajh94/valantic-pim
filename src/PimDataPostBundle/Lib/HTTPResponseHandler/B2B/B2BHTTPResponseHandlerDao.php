@@ -23,9 +23,8 @@ class B2BHTTPResponseHandlerDao
         $resultTemp = $this->db->fetchAll($sql); 
         foreach($resultTemp as $resultArr)
         {
-        $id=$resultArr['id'];
-        unset($resultArr['id']);
-        return $this->replaceMasterRow($this->masterTable,$resultArr);
+            unset($resultArr['id']);
+            return $this->replaceMasterRow($this->masterTable,$resultArr);
         } 
         return false;
     }
@@ -36,15 +35,15 @@ class B2BHTTPResponseHandlerDao
         foreach(array_keys($data) as $key )
         {
             $fields[] = "`$key`";
-            $values[] =   empty($data[$key]) ?  $this->db->quote("") : $this->db->quote($data[$key]); // "'" . $data[$key] . "'";
+            $values[] =   empty($data[$key]) ?  $this->db->quote("") : $this->db->quote($data[$key]);
         }
 
         $fields = implode(",", $fields);
         $values = implode(",", $values);
         $sql = "REPLACE INTO `$table` ($fields) VALUES ($values)";
-        if($this->db->query($sql))
-        return true;
-        else
+        if($this->db->query($sql)){
+            return true;
+        }
         return false;
     }
 

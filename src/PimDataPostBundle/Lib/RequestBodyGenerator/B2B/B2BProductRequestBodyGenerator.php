@@ -103,17 +103,17 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
     
     public function generateCreateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateUpdateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateDeleteRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
     
     public function getClassDefinition($className) {

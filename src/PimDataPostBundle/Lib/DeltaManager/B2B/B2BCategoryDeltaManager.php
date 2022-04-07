@@ -41,11 +41,6 @@ class B2BCategoryDeltaManager extends AbstractB2BDeltaManager
     {
         return $this->b2bCategoryDeltaManagerDao->getHashChangedRecords();
     }
-
-    private function getOtherRecordsToUpdate(): array
-    {
-        return [];
-    }
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
     {
