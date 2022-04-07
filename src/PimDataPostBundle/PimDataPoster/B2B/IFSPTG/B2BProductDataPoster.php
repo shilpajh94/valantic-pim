@@ -14,6 +14,7 @@ use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
+use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\PimDataPoster\IDataPoster;
@@ -35,17 +36,19 @@ class B2BProductDataPoster implements IDataPoster
             $responseHandler = new B2BProductHTTPResponseHandler();
             $helper = new B2BDataPosterHelper();
 
+            $this->deleteAllRelationChangeObjects();
             $tempTablePopulator->truncateTempTable();
             $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
+            
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);    
-
+    
             /**
              * @TODO:
              * add logging
              */
 
             $relationChangeRegistrar->registerChangedRelation();
-            // $deltaManager->removeHashNotChangedRecordsFromTempTable();
+            $deltaManager->removeHashNotChangedRecordsFromTempTable();
             $productEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
 
             /**
@@ -75,7 +78,7 @@ class B2BProductDataPoster implements IDataPoster
                 $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
             }
             $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
-
+    
             $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
             $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
     
@@ -114,5 +117,13 @@ class B2BProductDataPoster implements IDataPoster
         $tempTableData = $tempTablePopulator->getTempTableDataForIds($ids);
         $tempTableDataWithHashes = $tempTablePopulator->addHashesToTempTableData($tempTableData);
         $tempTablePopulator->insertDataInTempTable($tempTableDataWithHashes);
+    }
+
+    private function deleteAllRelationChangeObjects()
+    {
+        $list = new B2BProductRelationChange\Listing();
+        foreach($list as $obj){
+            $obj->delete();
+        }
     }
 }
