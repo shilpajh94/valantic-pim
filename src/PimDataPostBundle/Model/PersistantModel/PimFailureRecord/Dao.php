@@ -1,0 +1,10 @@
+<?php
+
+namespace PimDataPostBundle\Model\PersistantModel\PimFailureRecord;
+
+use PimDataPostBundle\Model\PersistantModel\AbstractDao;
+
+class Dao extends AbstractDao
+{
+    const TABLE_NAME = 'salesforce_integration_pimcore_failed_record';
+}
