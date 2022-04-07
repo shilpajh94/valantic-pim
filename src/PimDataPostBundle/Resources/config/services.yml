@@ -32,9 +32,13 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
 
-    PimDataPostBundle\Command\CreateTableCommand:
+    PimDataPostBundle\Command\CreateB2CTableCommand:
         tags:
-            - { name: 'console.command', command: 'conti:datapost:create-table' }
+            - { name: 'console.command', command: 'conti:datapost:create-b2c-table' }
+
+    PimDataPostBundle\Command\CreateB2BTableCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:create-b2b-table' }
 
     PimDataPostBundle\Services\UtilService:
         public: true
