@@ -51,6 +51,7 @@ class CreateTableCommand extends AbstractCommand
         $this->createTableB2bPimToSfProductMapping();
         $this->createTableB2bProductRelationChange();
         $this->createTableSalesforceIntegrationPimcoreDeletedAssets();
+        $this->createTableSalesforceIntegrationPimcoreFailedRecord();
         echo "\n";
     }
 
@@ -174,6 +175,21 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets\Dao::TABLE_NAME." - table created.";
+    }
+
+    private function createTableSalesforceIntegrationPimcoreFailedRecord()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME."` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `pimId` varchar(155) NOT NULL,
+            `SFObjectType` varchar(55) NOT NULL,
+            `failureMessage` text   ,
+            `status` enum('FIXED','NON-FIXED') NOT NULL,
+            `timestamp` int DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB";
+        $this->db->query($sql);
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME." - table created.";
     }
 
 
