@@ -1,6 +1,7 @@
 <?php
 namespace PimDataPostBundle\Lib\PimFailedRecordHandler\B2B;
 
+use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 class B2BPimFailedRecordHandler extends AbstractB2BPimFailedRecordHandler
 {
     private $helper;
@@ -10,7 +11,7 @@ class B2BPimFailedRecordHandler extends AbstractB2BPimFailedRecordHandler
         $this->helper = new B2BPimFailedRecordHandlerHelper();
     }
 
-    public function getFixedPimFailedRecord(string $sfObjectType): array
+    public function getFixedPimFailedRecord(B2BSalesForceObjectType $sfObjectType): array
     {
         return $this->helper->getFixedPimFailedRecord($sfObjectType);
     }
