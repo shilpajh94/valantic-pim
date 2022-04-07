@@ -35,9 +35,9 @@ class GenericInterpreter implements InterpreterInterface, DataSetAwareInterface
         $params,
         $configuration
     ) {
-        if (!$value) {
-            return $value;
-        }
+        // if (!$value) {
+        //     return $value;
+        // }
         $value = trim($value);
 
         \Pimcore::setAdminMode();

@@ -299,10 +299,8 @@ final class Importer implements ImporterInterface
         # If sheet provided is incorrect
         if(empty($rows)){
             $data[]  = ['Failure Reason'];
-            $params['logResult'][0] = ["Sheet data provided is incorrect"];
+            $params['logResult'][0] = ["Import failed due to one or more reason(s)\n1. Duplicate column name exist\n2. Blank column exist\n3. Data incorrect"];
             $rows = $params['logResult'];
-
-
         }else{
             $data[]  = ['Primary Key','Non Imported Attributes','Status Code','Failure Reason'];
         }
