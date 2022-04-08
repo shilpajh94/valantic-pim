@@ -57,7 +57,7 @@ class B2BCategoryDataPoster implements IDataPoster
             $this->insertProductIdsInTempTable($tempTablePopulator, $categoryIdsToBeAddedInTempTable);
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::CATEGORY());
-            $pimFailedRecordIdsToResend = $this->helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
+            $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
             $categoryIdsForFailureEntry = array_merge($categoryIdsForFailureEntry, $pimFailedRecordIdsToResend);
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
@@ -95,7 +95,7 @@ class B2BCategoryDataPoster implements IDataPoster
            
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BCategoryDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-            $this->helper->addPimFailedRecords($categoryIdsForFailureEntry, $throwable, B2BSalesForceObjectType::CATEGORY());
+            $helper->addPimFailedRecords($categoryIdsForFailureEntry, $throwable, B2BSalesForceObjectType::CATEGORY());
         }
     }
 

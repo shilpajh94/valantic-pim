@@ -52,7 +52,7 @@ class B2BProductDataPoster implements IDataPoster
                 $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords); 
 
                 $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT());
-                $pimFailedRecordIdsToResend = $this->helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
+                $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
                 $productIdsForFailureEntry = array_merge($productIdsForFailureEntry, $pimFailedRecordIdsToResend);
                 $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
                 $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
@@ -95,7 +95,7 @@ class B2BProductDataPoster implements IDataPoster
         
             }catch(\Throwable $throwable){
                 B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-                $this->helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2BSalesForceObjectType::PRODUCT() );
+                $helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2BSalesForceObjectType::PRODUCT() );
             }
            
     }
@@ -118,6 +118,7 @@ class B2BProductDataPoster implements IDataPoster
             $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . time());
+            $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
             $apiRequestEntity->save();
         }
     }
