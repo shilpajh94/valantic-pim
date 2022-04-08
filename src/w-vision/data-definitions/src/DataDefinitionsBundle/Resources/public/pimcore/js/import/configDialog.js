@@ -67,6 +67,9 @@ pimcore.plugin.datadefinitions.import.configDialog = Class.create({
             valueField: 'interpreter',
             displayField: 'interpreter',
             queryMode: 'local',
+            allowBlank : false,
+            blankText: 'Field is required',
+            msgTarget: 'under',
             listeners: {
                 change: function (combo, newValue) {
                     this.getInterpreterPanel().removeAll();
@@ -85,6 +88,7 @@ pimcore.plugin.datadefinitions.import.configDialog = Class.create({
             valueField: 'setter',
             displayField: 'setter',
             queryMode: 'local',
+            hidden: true,
             listeners: {
                 change: function (combo, newValue) {
                     this.getSetterPanel().removeAll();
@@ -141,7 +145,8 @@ pimcore.plugin.datadefinitions.import.configDialog = Class.create({
             this.interpreterPanel = new Ext.form.FormPanel({
                 defaults: {anchor: '90%'},
                 layout: 'form',
-                title: t('data_definitions_interpreter_settings')
+        
+                title: "<img src='/bundles/pimcoreadmin/img/flat-color-icons/info.svg' style='vertical-align: middle' >"+" "+"<i><u>"+t('data_definitions_interpreter_settings_note')+"</u></i>"
             });
         }
 
