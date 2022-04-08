@@ -24,6 +24,8 @@ class Constants
 
     const B2C_PRODUCT_MASTER_TABLE_NAME = "b2c_product_master";
 
+    const B2C_PRODUCT_OBJECT_TABLE_NAME = "object_1";
+
     const B2C_CATEGORY_TEMP_TABLE_NAME = "b2c_category_temp";
 
     const B2C_CATEGORY_MASTER_TABLE_NAME = "b2c_category_master";
@@ -39,7 +41,7 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 14;
+    const UPDATE_WINDOW_END_HOUR = 22;
 
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
