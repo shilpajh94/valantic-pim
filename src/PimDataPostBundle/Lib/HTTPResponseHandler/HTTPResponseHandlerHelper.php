@@ -38,7 +38,7 @@ class HTTPResponseHandlerHelper
         return false;   
     }
 
-    public function addEntityToEnforce($requestObject): bool
+    private function addEntityToEnforce($requestObject): bool
     {
         $listing = new B2BEntityEnforcedToPush\Listing();
         $listing->setCondition("objectId = ?", [$requestObject->pimId]);
@@ -53,7 +53,7 @@ class HTTPResponseHandlerHelper
         return true;
     }
 
-    public function removeEntityFromEnforce($pimId)
+    private function removeEntityFromEnforce($pimId)
     {
 
         $listing = new B2BEntityEnforcedToPush\Listing();

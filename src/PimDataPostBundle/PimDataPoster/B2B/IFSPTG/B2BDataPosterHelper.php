@@ -2,8 +2,13 @@
 
 namespace PimDataPostBundle\PimDataPoster\B2B\IFSPTG;
 
+use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\HTTPRequestGenerator\IHTTPRequestGenerator;
 use PimDataPostBundle\Lib\HTTPResponseHandler\IHTTPResponseHandler;
+use PimDataPostBundle\Lib\Util;
+use PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord;
+use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
+use PimDataPostBundle\Model\Types\StatusType;
 
 class B2BDataPosterHelper
 {
@@ -15,8 +20,32 @@ class B2BDataPosterHelper
         $totalBatches = $requestGenerator->getTotalBatches();
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
             $request = $requestGenerator->getRequest($i);
-            $response = $client->send($request);
+            $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
             $responseHandler->handleResponse($response);
         }
+    }
+
+    public function addPimFailedRecords(array $pimIds, \Throwable $throwable, B2BSalesForceObjectType $objectType)
+    {
+        $time = time();
+        foreach($pimIds as $pimId)
+        {
+            $failureObject = new B2BPimFailureRecord();
+            $failureObject->setPimId($pimId)
+                    ->setFailureMessage($throwable->getMessage())
+                    ->setSFObjectType(strval($objectType))
+                    ->setStatus(StatusType::NONFIXED())
+                    ->setTimestamp($time);
+        }
+    }
+
+    public function getPimFailedRecordIdsFromObjects(array $pimFailedRecordObjects): array
+    {
+        $returnValue = [];
+        foreach($pimFailedRecordObjects as $object)
+        {
+            $returnValue[] = $object->getPimId();
+        }
+        return $returnValue;
     }
 }

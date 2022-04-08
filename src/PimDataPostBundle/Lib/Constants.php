@@ -46,4 +46,12 @@ class Constants
 
     const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
 
+    const MAX_HTTP_CONNECTION_RETRIES = 5;
+
+    // in seconds
+    const SLEEP_TIME_WITHIN_CONNECTION_RETRIES = 2;
+
+    // in seconds
+    const REQUEST_TIMEOUT_FOR_DATA_REQUESTS = 300;
+
 }
