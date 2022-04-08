@@ -82,7 +82,7 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 name: 'separator',
                 width: 500,
                 maxLength: 1,
-                value: config.separator ? config.separator : '|'
+                value: config.separator ? config.separator : '|',
             },
             {
                 xtype: 'combo',
@@ -91,10 +91,10 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 store: classesNameStore,
                 queryMode: 'local',
                 editable: true,
-                allowBlank: false,
-                blankText: 'Field is required',
+                // allowBlank: false,
+                // blankText: 'Field is required',
                 forceSelection: true,
-                msgTarget: 'under',
+                // msgTarget: 'under',
                 displayField: 'name',
                 valueField: 'name',
                 width: 500,

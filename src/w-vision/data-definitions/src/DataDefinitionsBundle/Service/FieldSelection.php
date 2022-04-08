@@ -49,7 +49,7 @@ class FieldSelection
             $toColumn->setIdentifier($sysColumn);
             $toColumn->setType('systemColumn');
             $toColumn->setGroup('systemColumn');
-
+            $toColumn->setInterpreter('generic');
             $result[] = $toColumn;
         }
 
@@ -71,6 +71,7 @@ class FieldSelection
                         $localizedField->setSetter('localizedfield');
                         $localizedField->setConfig(['language' => $language]);
                         $localizedField->setSetterConfig(['language' => $language]);
+                        $localizedField->setInterpreter('generic');
                         $result[] = $localizedField;
                     }
                 }
@@ -109,6 +110,7 @@ class FieldSelection
                                                 $resultField->setSetter('objectbrick');
                                                 $resultField->setConfig(['class' => $key]);
                                                 $resultField->setSetterConfig(['language' => $language]);
+                                                $resultField->setInterpreter('generic');
                                                 $result[] = $resultField;
     
                                             }
@@ -125,6 +127,7 @@ class FieldSelection
                                             )
                                         );
                                         $resultField1->setSetter('objectbrick');
+                                        $resultField1->setInterpreter('generic');
                                         $resultField1->setConfig(['class' => $key]);
                                         $result[] = $resultField1;
                                     }
@@ -162,7 +165,7 @@ class FieldSelection
                         );
                         $resultField->setSetter('fieldcollection');
                         $resultField->setConfig(['class' => $type]);
-
+                        $resultField->setInterpreter('generic');
                         $result[] = $resultField;
                     }
                 }
@@ -213,7 +216,7 @@ class FieldSelection
                                 'groupId' => $config->getId(),
                             ]);
                             $toColumn->setLabel($keyConfig->getName());
-
+                            $toColumn->setInterpreter('generic');
                             $result[] = $toColumn;
                         }
                     }
@@ -240,6 +243,7 @@ class FieldSelection
         $toColumn->setLabel($field->getTitle() . ' ('. $field->getName().')');
         $toColumn->setFieldtype($field->getFieldtype());
         $toColumn->setIdentifier($field->getName());
+        $toColumn->setInterpreter('generic');
         $toColumn->setGroup('fields');
 
         return $toColumn;

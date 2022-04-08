@@ -547,7 +547,7 @@ class ImportDefinitionController extends ResourceController
 
         $name = $request->get('name');
 
-        if(preg_match('/[\s@!#$%^&*()<>?|}​​​​​​​{​​​​​​​~:]/', $name)) 
+        if(preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $name)) 
         {
             return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('config_name_not_valid')]);
         }
