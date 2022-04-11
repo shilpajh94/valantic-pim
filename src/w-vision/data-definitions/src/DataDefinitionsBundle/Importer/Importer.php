@@ -170,7 +170,6 @@ final class Importer implements ImporterInterface
 
         /** @var ImportDataSetInterface|array $data */
         $data = $this->getData($definition, $params);
-
         if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
@@ -358,7 +357,6 @@ final class Importer implements ImporterInterface
             $dataImport->save();
 
         } catch (\Exception $ex) {
-
         }
     }
 
@@ -411,15 +409,25 @@ final class Importer implements ImporterInterface
                 $primaryKey = $row['SAP Code / Material Number'];
 
             }elseif($definition->getClass() == 'CSProducts'){
-                $primaryKey = $row['Product Hierarchy'];
+                $region = '';
+                if($row['Region']){
+                    $regionArray = explode("|",$row['Region']);
+                    foreach($regionArray as $eachRegion){
+                        $regionObj = DataObject\CSRegion::getByPath('/Contitech_ConveyorSolution/Master Data/Region/'.trim($eachRegion));
+                        if($regionObj){
+                            $region = trim($eachRegion);
+                            break;
+                        }
+                    }    
+                }
+                $primaryKey = trim($row['Product Hierarchy']);
                 if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
                     $productName = str_replace("/", "-", $row['Product Name']);
-                    $primaryKey = $row['Product Hierarchy'].'/'.$productName;
+                    $primaryKey = trim($row['Product Hierarchy']).'/'.trim($productName);
 
                 }elseif($row['Product Flag'] == "1" && $row['Region']){
                     $productName = str_replace("/", "-", $row['Product Name']);
-                    $region = explode("|",$row['Region']);
-                    $primaryKey = $row['Product Hierarchy'].'/'.$region[0].'/'.$productName;
+                    $primaryKey = trim($row['Product Hierarchy']).'/'.$region.'/'.trim($productName);
                 }
             }
             
