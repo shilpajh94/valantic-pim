@@ -807,6 +807,7 @@ class ProductSQLModel
             'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
+            'externalID' => null,
             'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
@@ -827,6 +828,7 @@ class ProductSQLModel
             $queryTableData['grossWeight'] = $grossWeight;
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $queryTableData['weightUnit'] = $weightUnit;
+            $queryTableData['externalID'] = trim($record[$this->getRecordIndexByKey('externalID')]);
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
@@ -875,6 +877,7 @@ class ProductSQLModel
             'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
+            'externalID' => null,
             'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
@@ -895,6 +898,7 @@ class ProductSQLModel
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $storeTableDataArray['weightUnit'] = $weightUnit;
+            $storeTableDataArray['externalID'] = trim($record[$this->getRecordIndexByKey('externalID')]);
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
                     $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
