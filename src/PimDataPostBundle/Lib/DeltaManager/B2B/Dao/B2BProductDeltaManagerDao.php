@@ -26,10 +26,9 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
         $sql .= " WHERE o_className = :className";
         $sql .= " AND o_modificationDate BETWEEN :updateWindowStartTime AND :updateWindowEndTime";
 
-        $result = $this->db->fetchCol($sql,["className" => $masterClassName, 
+        return $this->db->fetchCol($sql,["className" => $masterClassName, 
                                     "updateWindowStartTime" => Util::getUpdateWindow()->getStartTimestamp(),
                                     "updateWindowEndTime" => Util::getUpdateWindow()->getEndTimestamp()]);
-        return $result;
     }
 
     public function getProductIdsForUpdatedMasterIds(array $updatedMasterIds, 
@@ -60,9 +59,7 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
             // @TODO: throw exception, this type is not handled
             return [];
         }
-
-        $result = $this->db->fetchCol($sql);
-        return $result;
+        return $this->db->fetchCol($sql);
     }
 
 
@@ -77,13 +74,10 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
                 WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()."
                 AND t1.".$this->tempMasterTablesMeta->getRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
            
-            if($this->db->query($sql))
-            return true;
-            else
-            return false; 
-    
-           
-        
+            if($this->db->query($sql)){
+                return true;
+            }
+            return false;
         }
             // End  ---------
     
@@ -91,14 +85,12 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
         public function getRecordsPresentInTempNotInMaster()
         {
            
-           $sql="SELECT t1.o_id
+            $sql="SELECT t1.o_id
                 FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
                 LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
                 WHERE t2.id IS NULL AND t1.epixFlag=1 AND t1.o_published=1";
            
-           $result = $this->db->fetchCol($sql);
-           return $result;
-    
+            return $this->db->fetchCol($sql);
         }
            // End  ---------
     
@@ -110,9 +102,7 @@ class B2BProductDeltaManagerDao extends DeltaManagerDao
                 LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
                 WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
            
-            $result = $this->db->fetchAll($sql);
-            return $result;
-    
+            return $this->db->fetchAll($sql);
         }
            // End  --------
 

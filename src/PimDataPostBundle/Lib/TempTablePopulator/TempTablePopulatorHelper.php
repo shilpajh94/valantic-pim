@@ -5,8 +5,8 @@ namespace PimDataPostBundle\Lib\TempTablePopulator;
 
 class TempTablePopulatorHelper
 {
-    public function truncateTempTable(string $tableName)
+    public function truncateTempTable(string $tableName): bool
     {
-        
+        return false;
     }
 }

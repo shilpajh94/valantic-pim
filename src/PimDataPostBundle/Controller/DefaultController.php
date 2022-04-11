@@ -16,4 +16,13 @@ class DefaultController extends FrontendController
     {
         return new Response('Hello world from pim_data_post');
     }
+
+
+    /**
+     * @Route("/default_email_template")
+     */
+    public function defaultEmailTemplateAction(Request $request)
+    {
+
+    }
 }

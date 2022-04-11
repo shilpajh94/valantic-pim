@@ -6,5 +6,5 @@ use PimDataPostBundle\Model\PersistantModel\AbstractDao;
 
 class Dao extends AbstractDao
 {
-    const TABLE_NAME = 'b2b_pim_to_sf_product_mapping';
+    const TABLE_NAME = 'salesforce_integration_b2b_pim_to_sf_product_mapping';
 }

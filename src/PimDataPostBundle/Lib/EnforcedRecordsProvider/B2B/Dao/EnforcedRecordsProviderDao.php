@@ -25,7 +25,6 @@ class EnforcedRecordsProviderDao
         $sql .= " WHERE t1.operationType = '".APIOperationType::getByString($operationType)."'";
         $sql .= " AND t1.SFObjectType = '".B2BSalesForceObjectType::getByString($this->SFObjectType)."'";
         $sql .= " AND t2.Level = ".$level;
-   
         $result = $this->db->fetchAll($sql);
         return array_column($result,'objectId');
     }

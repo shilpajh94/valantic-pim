@@ -7,9 +7,8 @@ class DeltaManagerHelper
 {
     private $tempMasterTablesMeta;
     
-    private $deltaManagerDao;
-    
-    public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
+    public function __construct(TempMasterTablesMeta $tempMasterTablesMeta)
+    {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;  
     }
     
@@ -18,6 +17,5 @@ class DeltaManagerHelper
         return $this->tempMasterTablesMeta;
     }
     
-
 }
 

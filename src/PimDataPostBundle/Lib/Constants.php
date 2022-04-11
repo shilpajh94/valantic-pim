@@ -4,31 +4,33 @@ namespace PimDataPostBundle\Lib;
 
 class Constants
 {
-    // B2B
+    const B2B_PRODUCT_TEMP_TABLE_NAME = "salesforce_integration_b2b_product_temp";
 
-    const B2B_PRODUCT_TEMP_TABLE_NAME = "b2b_product_temp";
-
-    const B2B_PRODUCT_MASTER_TABLE_NAME = "b2b_product_master";
+    const B2B_PRODUCT_MASTER_TABLE_NAME = "salesforce_integration_b2b_product_master";
 
     const B2B_PRODUCT_OBJECT_TABLE_NAME = "object_1";
 
-    const B2B_CATEGORY_TEMP_TABLE_NAME = "b2b_category_temp";
+    const B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE = "Product Image Small";
 
-    const B2B_CATEGORY_MASTER_TABLE_NAME = "b2b_category_master";
+    const B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE = "Product Image Medium";
+
+    const B2B_CATEGORY_TEMP_TABLE_NAME = "salesforce_integration_b2b_category_temp";
+
+    const B2B_CATEGORY_MASTER_TABLE_NAME = "salesforce_integration_b2b_category_master";
 
     const B2B_CATEGORY_OBJECT_TABLE_NAME = "object_2";
 
 
     // B2C
-    const B2C_PRODUCT_TEMP_TABLE_NAME = "b2c_product_temp";
+    const B2C_PRODUCT_TEMP_TABLE_NAME = "salesforce_integration_b2c_product_temp";
 
-    const B2C_PRODUCT_MASTER_TABLE_NAME = "b2c_product_master";
+    const B2C_PRODUCT_MASTER_TABLE_NAME = "salesforce_integration_b2c_product_master";
 
     const B2C_PRODUCT_OBJECT_TABLE_NAME = "object_1";
 
-    const B2C_CATEGORY_TEMP_TABLE_NAME = "b2c_category_temp";
+    const B2C_CATEGORY_TEMP_TABLE_NAME = "salesforce_integration_b2c_category_temp";
 
-    const B2C_CATEGORY_MASTER_TABLE_NAME = "b2c_category_master";
+    const B2C_CATEGORY_MASTER_TABLE_NAME = "salesforce_integration_b2c_category_master";
 
 
     /**
@@ -46,5 +48,15 @@ class Constants
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
     const INSERT_BATCH_SIZE = 50;
+
+    const FAILURE_LOG_ASSET_FOLDER = "/Saleforce Integration Failure Logs";
+
+    const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
+
+    const FAILURE_NOTIFICATION_ROLES = ['ApplicationAdmin'];
+
+    const FAILURE_TEMPLATE_NAME = "/Email/Saleforce Integration Failure Email";
+
+    const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
 
 }

@@ -30,7 +30,6 @@ class CategoryActiveFlagHelper
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
         $list = new B2BProductRelationChange\Listing();
-        // $list->setCondition("attributeName = 'SIOPLevel4'");
 
         $categories = [];
         

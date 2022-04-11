@@ -26,8 +26,6 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     
     private $config;
     
-    private $classDefinition;
-    
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
@@ -141,16 +139,16 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     
     public function generateCreateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateUpdateRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 
     public function generateDeleteRequestBody(array $tempTableData): array
     {
-
+        return [];
     }
 }
