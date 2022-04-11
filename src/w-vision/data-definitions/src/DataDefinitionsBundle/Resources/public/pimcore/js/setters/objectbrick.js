@@ -17,28 +17,35 @@ pimcore.plugin.datadefinitions.setters.objectbrick = Class.create(pimcore.plugin
     getLayout: function (fromColumn, toColumn, record, config, definitionConfig) {
         this.toColumn = toColumn;
 
-        var possibleFields = [];
+        // var possibleFields = [];
         var fieldClass = toColumn.data.config.class;
-
+        var brcikName = '';
         Ext.Object.each(definitionConfig.bricks, function (key, value) {
             if (value.indexOf(fieldClass) >= 0) {
-                possibleFields.push(key);
+                // possibleFields.push(key);
+                brcikName = key;
             }
         });
 
         this.fieldCombo = Ext.create({
-            xtype: 'combo',
+            xtype: 'textfield',
             fieldLabel: t('field'),
             name: 'brickField',
+            id: 'brickName',
             value: config.brickField ? config.brickField : null,
-            store: possibleFields,
+            // store: possibleFields,
             triggerAction: 'all',
             typeAhead: false,
             editable: false,
             forceSelection: true,
-            queryMode: 'local'
+            queryMode: 'local',
+            allowBlank: false,
+            blankText: 'Field is required',
+            msgTarget: 'under',
+            readOnly: true
         });
-
+        var name = Ext.getCmp('brickName').setValue(brcikName);
+        
         return [this.fieldCombo];
     },
 
