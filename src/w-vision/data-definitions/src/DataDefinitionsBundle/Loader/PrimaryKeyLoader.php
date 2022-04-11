@@ -79,39 +79,40 @@ class PrimaryKeyLoader implements LoaderInterface
             if($data['Region']){
                 $regionArray = explode("|",$data['Region']);
                 foreach($regionArray as $eachRegion){
-                    $regionObj = DataObject\CSRegion::getByPath('/Contitech_ConveyorSolution/Master Data/Region/'.$eachRegion);
+                    $regionObj = DataObject\CSRegion::getByPath('/Contitech_ConveyorSolution/Master Data/Region/'.trim($eachRegion));
                     if($regionObj){
-                        $region = $eachRegion;
+                        $region = trim($eachRegion);
                         break;
                     }
                 }    
             }
-
             // If only Product Hierarchy has data for product
-            $path = $data['Product Hierarchy'];
+            $path = trim($data['Product Hierarchy']);
 
             // If condition to set path for product groups or products with no region
             if($data['Product Flag'] == "0" || ($data['Product Flag'] == "1" && !$data['Region'])){
                 $productName = str_replace("/", "-", $data['Product Name']);
-                $path = $data['Product Hierarchy'].'/'.$productName;
+                $path = trim($data['Product Hierarchy']).'/'.trim($productName);
             }
             // Condition for products with region
             elseif($data['Product Flag'] == "1" && $data['Region']){
-                
+
                 // When there is no updation of region folder for products
                 $productName = str_replace("/", "-", $data['Product Name']);
-                $completepath = $data['Product Hierarchy'].'/'.$region.'/'.$productName;
+                $completepath = trim($data['Product Hierarchy']).'/'.$region.'/'.trim($productName);
                 $obj = DataObject\CSProducts::getByPath($productFolderPath.$completepath);
 
                 // Condition is region is updated for products to be moved to new folder
                 if(!$obj){
-                    $pathWithoutProductName = $productFolderPath.$data['Product Hierarchy'];
+                    $hierarchyobjPath = '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/';
+                    $pathWithoutProductName = $hierarchyobjPath.trim($data['Product Hierarchy']);
                     $hierarchyObj = DataObject\CSHierarchy::getByPath($pathWithoutProductName);
+
                     if($hierarchyObj){
-                        $pathWithoutRegion = $productFolderPath.$data['Product Hierarchy'];
-                        $productName = trim(str_replace("/", "-", $data['Product Name']));
-                        $parentId = DataObject\Service::createFolderByPath($pathWithoutProductName.'/'.$region)->getId();
-                        $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
+                        $pathWithoutRegion = $productFolderPath.trim($data['Product Hierarchy']);
+                        $productName = trim(str_replace("/", "-", trim($data['Product Name'])));
+                        $parentId = DataObject\Service::createFolderByPath($pathWithoutRegion.'/'.$region)->getId();
+                        $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
                         $result = $this->db->fetchCol($query);
                         $count = count($result);
     
