@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-22T13:52:25+01:00
+* Generated at: 2022-04-12T08:14:53+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSFeaturesAndBenefits',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637585545,
+   'modificationDate' => 1649744093,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -111,7 +111,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'FeatureName',
                      'title' => 'Name',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -138,7 +138,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'FeatureDescription',
                      'title' => 'Feature Description',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -166,12 +166,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'referencedFields' => 
                 array (
                 ),
-                 'tooltip' => NULL,
-                 'mandatory' => NULL,
-                 'noteditable' => NULL,
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
                  'index' => NULL,
-                 'locked' => NULL,
-                 'style' => NULL,
+                 'locked' => false,
+                 'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,

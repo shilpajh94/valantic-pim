@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-22T13:59:39+01:00
+* Generated at: 2022-04-12T08:16:01+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSSegment',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637585979,
+   'modificationDate' => 1649744161,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -86,7 +86,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'SegmentName',
              'title' => 'Segment',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
