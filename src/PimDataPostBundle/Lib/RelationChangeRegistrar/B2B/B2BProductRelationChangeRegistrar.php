@@ -2,7 +2,7 @@
 namespace PimDataPostBundle\Lib\RelationChangeRegistrar\B2B;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\RelationChangeRegistrar\RelationChangeRegistrarHelper;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BRelationChangeRegistrarHelper;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\Dao\B2BProductRelationChangeRegistrarDao;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistrar
@@ -17,7 +17,7 @@ class B2BProductRelationChangeRegistrar extends AbstractB2BRelationChangeRegistr
 
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
-        $this->helper = new RelationChangeRegistrarHelper($this->tempMasterTablesMeta);
+        $this->helper = new B2BRelationChangeRegistrarHelper();
         $this->b2bProductRelationChangeRegistrarDao = new B2BProductRelationChangeRegistrarDao($this->tempMasterTablesMeta);
         $this->attributeConfigProvider = new B2BProductAttributeConfigProvider();
     }
