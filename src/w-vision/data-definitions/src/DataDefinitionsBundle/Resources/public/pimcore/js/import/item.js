@@ -67,6 +67,55 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
         });
         classesStore.load(); */
         // alert(this.data.primaryKey);
+        let importLevelStore = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listPrimaryKey',
+                method: 'POST',
+                extraParams: {
+                    className: this.data.class,
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data.importLevelData'
+                }
+            },
+
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+
+        importLevelStore.load();
+
+
+        let primaryKeyStoreDefault = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/data_definitions/import_definitions/listPrimaryKey',
+                method: 'POST',
+                extraParams: {
+                    className: this.data.class,
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data.primaryKeyData'
+                }
+            },
+
+            fields: ["name"],
+
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+
+        primaryKeyStoreDefault.load();
+
 
         let classesStore = new Ext.data.JsonStore({
             proxy: {
@@ -198,6 +247,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     xtype: 'combo',
                     fieldLabel: t('data_definitions_import_level'),
                     name: 'importLevel',
+                    store: importLevelStore,
                     queryMode: 'local',
                     editable: true,
                     allowBlank: true,
@@ -208,7 +258,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,
-                    readOnly: true,
+                    //readOnly: true,
                     value: this.data.importLevel,
                     hidden: this.data.importLevel ? false : true
                 },
@@ -216,6 +266,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     xtype: 'combo',
                     fieldLabel: t('data_definitions_primary_key'),
                     name: 'primaryKey',
+                    store: primaryKeyStoreDefault,
                     queryMode: 'local',
                     editable: true,
                     allowBlank: false,
@@ -227,7 +278,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     width: 500,
                     labelWidth: 200,
                     value: this.data.primaryKey,
-                    readOnly: true,
+                    //readOnly: true,
                 },
                 {
                     xtype: 'textfield',
