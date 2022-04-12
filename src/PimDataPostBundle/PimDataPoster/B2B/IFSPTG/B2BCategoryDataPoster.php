@@ -69,7 +69,7 @@ class B2BCategoryDataPoster implements IDataPoster
                 if(count($categoriesEnforcedToPushForCreate) > 0){
                     $this->insertProductIdsInTempTable($tempTablePopulator, $categoriesEnforcedToPushForCreate);
                 }
-
+                $recordsToCreate = array_merge($recordsToCreate, $categoriesEnforcedToPushForCreate);
                 if(!empty($recordsToCreate)){
                     $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
                     $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
@@ -129,7 +129,7 @@ class B2BCategoryDataPoster implements IDataPoster
         $b2bProductRequestBodyGenerator = new B2BCategoryRequestBodyGenerator();
         foreach($records as $recordPimId){
             $tempTableData = $tempTablePopulator->getTempTableDataForIds([$recordPimId])[0];
-
+            $currTime = time();
             $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
 
             $apiRequestEntity = new B2BAPIRequestEntity();
@@ -139,7 +139,8 @@ class B2BCategoryDataPoster implements IDataPoster
     
             $apiRequestEntity->setexternalID(B2BCategoryHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
-            $apiRequestEntity->setReferenceId($recordPimId . "_" . time());
+            $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
+            $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();
         }
     }

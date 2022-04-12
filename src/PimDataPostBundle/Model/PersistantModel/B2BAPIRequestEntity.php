@@ -26,6 +26,8 @@ class B2BAPIRequestEntity extends AbstractModel
 
     public $responseTimestamp;
 
+    public $creationDate;
+
     public $businessUnit;
 
 
@@ -166,5 +168,15 @@ class B2BAPIRequestEntity extends AbstractModel
     public function setBusinessUnit(?string $businessUnit)
     {
         $this->businessUnit = $businessUnit;
+    }
+
+    public function getCreationDate(): int
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(int $creationDate)
+    {
+        $this->creationDate = $creationDate;
     }
 }

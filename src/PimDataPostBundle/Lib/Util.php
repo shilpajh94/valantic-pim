@@ -89,4 +89,18 @@ class Util
         }
         return $response;
     }
+
+    public static function setB2BScriptStartTime(int $timestampt): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
+        $session->set($key,$timestampt);
+    }
+
+    public static function getB2BScriptStartTime(): int
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
+        return $session->get($key);
+    }
 }

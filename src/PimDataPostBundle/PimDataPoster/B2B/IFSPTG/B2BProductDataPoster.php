@@ -107,7 +107,7 @@ class B2BProductDataPoster implements IDataPoster
         $b2bProductRequestBodyGenerator = new B2BProductRequestBodyGenerator();
         foreach($records as $recordPimId){
             $tempTableData = $tempTablePopulator->getTempTableDataForIds([$recordPimId])[0];
-
+            $currTime = time();
             $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
 
             $apiRequestEntity = new B2BAPIRequestEntity();
@@ -117,8 +117,9 @@ class B2BProductDataPoster implements IDataPoster
     
             $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
-            $apiRequestEntity->setReferenceId($recordPimId . "_" . time());
+            $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
+            $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();
         }
     }

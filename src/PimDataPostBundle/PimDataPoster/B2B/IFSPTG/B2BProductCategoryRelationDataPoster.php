@@ -35,20 +35,23 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $categoryRelationsObjectsEnforcedToPush = $enforcedRecordProvier->getEnforcedRelationObject();
     
             $relationObjectsForFailureEntry = array_merge($level4CategoriesRelationObject, $level6CategoriesRelationObject);
-            $this->createAPIRequestEntityForRelationChangeObjects($level4CategoriesRelationObject, $requestBodyGenerator);
-            $this->createAPIRequestEntityForRelationChangeObjects($level6CategoriesRelationObject, $requestBodyGenerator);
-            $this->createAPIRequestEntityForRelationChangeObjects($categoryRelationsObjectsEnforcedToPush, $requestBodyGenerator);
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
             $relationChangeObjectsToResent = $this->getRelationObjectFromPimFailedRecords($pimFailedRecordsToResend);
-            $this->createAPIRequestEntityForRelationChangeObjects($relationChangeObjectsToResent, $requestBodyGenerator);
+
+            $uniqueRelationChangeObjects = $this->mergeAndRemoveDuplicateRelationObjects($level4CategoriesRelationObject,
+                                                            $level6CategoriesRelationObject,
+                                                            $categoryRelationsObjectsEnforcedToPush,
+                                                            $relationChangeObjectsToResent);
+            $this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
+
             $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResent);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductCategoryRelationDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-            $failureRecordids = $this->getPimIdForRelationObjects($relationObjectsForFailureEntry);
+            $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
             $helper->addPimFailedRecords($failureRecordids, $throwable, B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT() );
         }
 
@@ -63,7 +66,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $idsArray = explode("_",$failedRecordId);
             $object = new B2BProductRelationChange();
             $object->setProductId($idsArray[0]);
-            $object->setNewValue($idsArray[1]);
+            $object->setNewValue("," . $idsArray[1] . ",");
             $relationObjects[] = $object;
         }
         return $relationObjects;
@@ -74,6 +77,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
     {
         foreach($relationChangeObjects as $relationChangeObject){
             $requestBody = $requestBodyGenerator->generateRequestBody($relationChangeObject);
+            $currTime = time();
 
             $apiRequestEntity = new B2BAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
@@ -82,17 +86,42 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
     
             $externalId = B2BProductCategoryRelationHelper::getExternalId($relationChangeObject);
             $apiRequestEntity->setexternalID($externalId);
-            $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . $relationChangeObject->getNewValue());
-            $apiRequestEntity->setReferenceId($externalId . "_" . time());
+            $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","));
+            $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);
+            $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();
         }
     }
 
-    private function getPimIdForRelationObjects(array $relationObjects): array
+    private function getPimIdsForRelationObjects(array $relationObjects): array
     {
         $returnValue = [];
         foreach($relationObjects as $object){
-            $returnValue[] = $object->getProductId(). "_" . $object->getNewValue();
+            $returnValue[] = $this->getPimIdForRelationChangeObject($object);
+        }
+        return $returnValue;
+    }
+
+    private function getPimIdForRelationChangeObject(B2BProductRelationChange $relationChangeObject): string
+    {
+        $newValue = trim($relationChangeObject->getNewValue(),",");
+        return $relationChangeObject->getProductId(). "_" . $newValue;
+    }
+
+    private function mergeAndRemoveDuplicateRelationObjects(...$allArrays): array
+    {
+        $allPimIds = [];
+        $returnValue = [];
+
+        foreach($allArrays as $arrayOfRelationChangeObjects){
+            foreach($arrayOfRelationChangeObjects as $object)
+            {
+                $pimId = $this->getPimIdForRelationChangeObject($object);
+                if(!in_array($pimId, $allPimIds)){
+                    $returnValue[] = $object;
+                    $allPimIds[] = $pimId;
+                }
+            }
         }
         return $returnValue;
     }

@@ -23,7 +23,7 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
         $this->b2bProductHTTPResponseHandlerDao = new B2BHTTPResponseHandlerDao(Constants::B2B_PRODUCT_TEMP_TABLE_NAME,Constants::B2B_PRODUCT_MASTER_TABLE_NAME);
     }
 
-    public function handleResponse(Response $responseResult): bool
+    public function handleResponse(Response $responseResult, int $responseTimestamp): bool
     {
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
 
@@ -37,13 +37,15 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
                     {
                         $this->updateSuccessRecords($response['referenceId'],
                                                 $response['httpStatusCode'],
-                                                $response['body']);
+                                                $response['body'],
+                                                $responseTimestamp);
                     }
                     else
                     {
                         $this->updateFailedRecords($response['referenceId'],
                                                 $response['httpStatusCode'],
-                                                $response['body']);
+                                                $response['body'],
+                                                $responseTimestamp);
                     }
                 }
             }
@@ -67,10 +69,10 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
         
     }
 
-    private function updateSuccessRecords(string $referenceId, int $responseStatus,  array $responseBody): bool
+    private function updateSuccessRecords(string $referenceId, int $responseStatus,  array $responseBody, int $responseTimestamp): bool
     {
        $salesforceId = $responseBody['id'];
-       $pimId =  $this->helper->updateSuccessRecords($referenceId, $responseStatus);   
+       $pimId =  $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);   
        if($pimId != 0)
        {
         $this->b2bProductHTTPResponseHandlerDao->moveTempToMaster($pimId);
@@ -79,11 +81,12 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
        return true;
     }
 
-    private function updateFailedRecords(string $referenceId, int $responseStatus, array $responseBody): bool
+    private function updateFailedRecords(string $referenceId, int $responseStatus, array $responseBody, $responseTimestamp): bool
     {
 
         return  $this->helper->updateFailedRecords($referenceId,$responseStatus,
-                                                    json_encode($responseBody));
+                                                    json_encode($responseBody),
+                                                    $responseTimestamp);
     }
     
     private function insertSalesforceId(int $pimId, string $salesforceId): bool

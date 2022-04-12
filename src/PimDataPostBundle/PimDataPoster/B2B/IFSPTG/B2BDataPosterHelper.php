@@ -21,7 +21,7 @@ class B2BDataPosterHelper
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
             $request = $requestGenerator->getRequest($i);
             $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
-            $responseHandler->handleResponse($response);
+            $responseHandler->handleResponse($response, time());
         }
     }
 
@@ -30,12 +30,19 @@ class B2BDataPosterHelper
         $time = time();
         foreach($pimIds as $pimId)
         {
-            $failureObject = new B2BPimFailureRecord();
-            $failureObject->setPimId($pimId)
-                    ->setFailureMessage($throwable->getMessage())
-                    ->setSFObjectType(strval($objectType))
-                    ->setStatus(StatusType::NONFIXED())
-                    ->setTimestamp($time);
+
+            $list = new B2BPimFailureRecord\Listing();
+            $list->setCondition(" PimId = ?", [$pimId]);
+            $objects = $list->load();
+            if(count($objects) == 0){
+                $failureObject = new B2BPimFailureRecord();
+                $failureObject->setPimId($pimId)
+                        ->setFailureMessage($throwable->getMessage())
+                        ->setSFObjectType(strval($objectType))
+                        ->setStatus(StatusType::NONFIXED())
+                        ->setTimestamp($time)
+                        ->save();
+            }
         }
     }
 

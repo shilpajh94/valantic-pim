@@ -30,13 +30,13 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 14;
+    const UPDATE_WINDOW_END_HOUR = 11;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 20;
 
     const INSERT_BATCH_SIZE = 50;
 
-    const FAILURE_LOG_ASSET_FOLDER = "/Saleforce Integration Failure Logs";
+    const FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs";
 
     const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
 
@@ -53,5 +53,7 @@ class Constants
 
     // in seconds
     const REQUEST_TIMEOUT_FOR_DATA_REQUESTS = 300;
+
+    const B2B_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2B_script_start_time";
 
 }
