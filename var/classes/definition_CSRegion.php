@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-04-12T08:15:54+02:00
+* Generated at: 2022-04-12T08:51:12+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSRegion',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1649744154,
+   'modificationDate' => 1649746272,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -86,7 +86,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'RegionName',
              'title' => 'Region',
              'tooltip' => '',
-             'mandatory' => false,
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
