@@ -8,6 +8,7 @@ use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\Factory;
+use PimDataPostBundle\Lib\Util;
 
 class B2BHTTPRequestBodyGeneratorHelper
 {
@@ -28,8 +29,11 @@ class B2BHTTPRequestBodyGeneratorHelper
 
     public function getTotalBatches(): int
     {
+        $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
+
         $listing=$listing->load();
         $totalRow=count($listing);
         if($this->graphNo==0 || $this->subRequestNo==0) {
@@ -41,8 +45,11 @@ class B2BHTTPRequestBodyGeneratorHelper
 
     public function getHTTPRequestBodyByBatchNumber($batch): string
     {
+        $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
+
         $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
@@ -72,6 +79,7 @@ class B2BHTTPRequestBodyGeneratorHelper
                 {
                     $graphData[]=array(
                     'graphId'=>'graph'.$insNode,
+                    'allOrNone' => false,
                     'compositeRequest'=>$compositeRequest
                     );   
                     $compositeRequest=array();

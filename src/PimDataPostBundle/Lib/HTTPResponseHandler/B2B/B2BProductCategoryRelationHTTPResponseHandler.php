@@ -16,7 +16,7 @@ class B2BProductCategoryRelationHTTPResponseHandler extends AbstractB2BHTTPRespo
         $this->helper = new HTTPResponseHandlerHelper();
     }
 
-    public function handleResponse(Response $responseResult): bool
+    public function handleResponse(Response $responseResult, int $responseTimestamp): bool
     {
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
         if(isset($responseArr['graphs']))
@@ -29,13 +29,15 @@ class B2BProductCategoryRelationHTTPResponseHandler extends AbstractB2BHTTPRespo
                     {
                         $this->updateSuccessRecords($response['referenceId'],
                                                 $response['httpStatusCode'],
-                                                $response['body']);
+                                                $response['body'],
+                                                $responseTimestamp);
                     }
                     else
                     {
                         $this->updateFailedRecords($response['referenceId'],
                                                 $response['httpStatusCode'],
-                                                $response['body']);
+                                                $response['body'],
+                                                $responseTimestamp);
                     }
                 }
             }
@@ -59,17 +61,18 @@ class B2BProductCategoryRelationHTTPResponseHandler extends AbstractB2BHTTPRespo
         
     }
 
-    private function updateSuccessRecords(string $referenceId, int $responseStatus,  array $responseBody): bool
+    private function updateSuccessRecords(string $referenceId, int $responseStatus,  array $responseBody, int $responseTimestamp): bool
     {
-       $this->helper->updateSuccessRecords($referenceId, $responseStatus);    
+       $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);    
        return true;
     }
 
-    private function updateFailedRecords(string $referenceId, int $responseStatus, array $responseBody): bool
+    private function updateFailedRecords(string $referenceId, int $responseStatus, array $responseBody, int $responseTimestamp): bool
     {
 
         return  $this->helper->updateFailedRecords($referenceId,$responseStatus,
-                                                    json_encode($responseBody));
+                                                    json_encode($responseBody),
+                                                    $responseTimestamp);
     }
     
 }

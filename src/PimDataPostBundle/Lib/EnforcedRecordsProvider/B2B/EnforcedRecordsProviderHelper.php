@@ -16,8 +16,10 @@ class EnforcedRecordsProviderHelper
     public function getEntityEnforceRecords(string $operationType): array
     {
         $listing = new B2BEntityEnforcedToPush\Listing();
-        $listing = $listing->setCondition('SFObjectType = ?', B2BSalesForceObjectType::getByString($this->SFObjectType));
-        $listing = $listing->setCondition('operationType = ?', APIOperationType::getByString($operationType));
+        $selection = "SFObjectType = " . $listing->quote(B2BSalesForceObjectType::getByString($this->SFObjectType)) . " AND ";
+        $selection .= "operationType = " . $listing->quote(APIOperationType::getByString($operationType));
+        $listing->setCondition($selection);
+        
         $ids =[];
 
         foreach($listing->load() as $row)
