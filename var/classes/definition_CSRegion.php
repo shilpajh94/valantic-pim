@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-06T19:18:41+05:30
+* Generated at: 2022-04-12T08:15:54+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSRegion',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633528121,
+   'modificationDate' => 1649744154,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -86,7 +86,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'RegionName',
              'title' => 'Region',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
