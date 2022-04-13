@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-24T18:14:47+01:00
+* Generated at: 2022-04-12T08:15:31+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSMaterial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637774084,
+   'modificationDate' => 1649744131,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -93,7 +93,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'MaterialName',
                  'title' => 'Add Material',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -122,12 +122,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => NULL,
-             'mandatory' => NULL,
-             'noteditable' => NULL,
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
              'index' => NULL,
-             'locked' => NULL,
-             'style' => NULL,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
