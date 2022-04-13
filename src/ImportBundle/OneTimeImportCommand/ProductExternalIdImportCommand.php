@@ -52,8 +52,6 @@ class ProductExternalIdImportCommand extends AbstractCommand
             "Comment"
         ));
 
-        $data = array_slice($data, 0, 1000);
-
         $totalCount = count($data);
         $this->consoleLog("Total {$totalCount} Records found." );
         
