@@ -256,7 +256,7 @@ class FieldSelection
         {
             return false;
         }
-        elseif($field->getNoteditable()) // ignore non-editable fields
+        elseif($field->getNoteditable() || $field->getName() == 'Document' || $field->getName() == 'CompletenessPercentage' || $field->getName() == 'EmptyFields') // ignore non-editable fields
         {
             return false;
         }
