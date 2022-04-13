@@ -42,3 +42,11 @@ services:
     PimDataPostBundle\EventListener\AssetListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.postDelete, method: onPostAssetDelete }
+
+    PimDataPostBundle\Command\PimDataPostCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:pim-data-post-command' }
+
+    PimDataPostBundle\Command\InitialLoadCommand\B2BInitialLoadCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }            

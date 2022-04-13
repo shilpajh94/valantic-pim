@@ -12,6 +12,9 @@ use PimDataPostBundle\Model\Types\ShopType;
 use PimDataPostBundle\Model\UpdateWindow;
 use PimDataPostBundle\Services\UtilService;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Asset\Image;
+use PimDataPostBundle\Logger\B2BLogger;
+use PimDataPostBundle\Model\Types\ImageTransformationSize;
 
 class Util
 {
@@ -102,5 +105,15 @@ class Util
         $session = self::getService('session');
         $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
         return $session->get($key);
+    }
+
+    public static function getAssetPublicPath(Asset $asset, ImageTransformationSize $imageTransformationSize = null): string
+    {
+        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        if( ($asset instanceof Image) && $imageTransformationSize){
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . strval($imageTransformationSize)));
+        }
+        return $sourcePath;
     }
 }
