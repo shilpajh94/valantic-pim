@@ -11,6 +11,9 @@ return [
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
         "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
         "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
-        "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE
+        "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
+        "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
+        "DistributionHubBundle\\DistributionHubBundle" => TRUE,
+        "EmailNotificationBundle\\EmailNotificationBundle" => TRUE
     ]
 ];
