@@ -43,7 +43,6 @@ class ProductExternalIdImportCommand extends AbstractCommand
         $this->consoleLog("log file created to store the product's updation status.");
 
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/{$fileName}_" . time() . "_log.csv";
-
         $csvLogFileHandle = fopen($csvLogFilePath, "a");
         $this->csvLog($csvLogFileHandle, array(
             "Material",
@@ -51,12 +50,19 @@ class ProductExternalIdImportCommand extends AbstractCommand
             "Status",
             "Comment"
         ));
-
-        $totalCount = count($data);
-        $this->consoleLog("Total {$totalCount} Records found." );
         
         $scriptStartTime = time();
-        
+        $this->processRecords($csvLogFileHandle, $data);
+        $scriptEndTime = time();
+        $totalExecTime = ($scriptEndTime - $scriptStartTime) / 60 ;
+        $this->consoleLog("Total Execution Time: " . $totalExecTime . " minutes" );
+    }
+
+    private function processRecords($csvLogFileHandle, $data)
+    {
+        $totalCount = count($data);
+        $this->consoleLog("Total {$totalCount} Records found." );
+
         if($totalCount > 0)
         {
             $this->consoleLog("Updation started." );
@@ -72,28 +78,22 @@ class ProductExternalIdImportCommand extends AbstractCommand
                 $status = "NA";
                 $msg = "";
 
-                if($articleNumber)
+                if($articleNumber && $externalID)
                 {
-                    if($externalID)
-                    {
-                        $isProductExist = $this->fetchRecordFromQueryTable($articleNumber);
+                    $isProductExist = $this->fetchRecordFromQueryTable($articleNumber);
 
-                        if($isProductExist)
-                        {
-                            $response = $this->insertDataIntoTable($articleNumber, $externalID);
-                            $status = $response['status'];
-                            $msg = $response['msg'];
-                        }
-                        else{
-                            $msg = "Material does not exist in system";
-                        }
+                    if($isProductExist)
+                    {
+                        $response = $this->insertDataIntoTable($articleNumber, $externalID);
+                        $status = $response['status'];
+                        $msg = $response['msg'];
                     }
                     else{
-                        $msg = "External ID field empty";
+                        $msg = "Material does not exist in system";
                     }
                 }
                 else{
-                    $msg = "Material field empty";
+                    $msg = "Material or External ID field empty";
                 }
 
                 $this->csvLog($csvLogFileHandle, array(
@@ -104,11 +104,6 @@ class ProductExternalIdImportCommand extends AbstractCommand
                 ));
             }
         }
-        
-        $scriptEndTime = time();
-        $totalExecTime = ($scriptEndTime - $scriptStartTime) / 60 ;
-        $this->consoleLog("Total Execution Time: " . $totalExecTime . " minutes" );
-
     }
 
     private function fetchRecordFromQueryTable($artcleNumber): bool
@@ -148,19 +143,15 @@ class ProductExternalIdImportCommand extends AbstractCommand
     public function getCSVData($fileName)
     {
         try {
-
             $csvFilePath = $fileName;
             $firstRowData = array();
             if (empty($csvFilePath)) {
                 return $firstRowData;
             }
-
             $csvFilePath = str_replace("%20", " ", $csvFilePath);
-
             $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
             $data = [];
             $count = 0;
-
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
                 while (($rowData = fgetcsv($handle, 0, ',', $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
