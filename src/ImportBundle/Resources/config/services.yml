@@ -86,6 +86,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:asset-import' }
 
+    ImportBundle\Command\ProductFailureMailCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:product-failure-mail' }
+
     ImportBundle\OneTimeImportCommand\AssociateNomenclatureToProductCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:assoc-nomenclature-product' }

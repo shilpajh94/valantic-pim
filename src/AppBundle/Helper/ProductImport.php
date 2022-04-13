@@ -17,6 +17,8 @@ class ProductImport
     private $db;
     private $common;
 
+    Const STATUS_CODE = 'Failed';
+
 
     /**
      * Getting DB connection object
@@ -342,14 +344,55 @@ class ProductImport
         }
         
     }
+    
+   public function getRecordsSiopCodeDigitsNot13And18()
+   {
+    $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18)";
+    $record = $this->db->fetchAll($sql);
+    $this->insertSiopDigitsNot13And18DataToLogTable($record);
+    $this->deleteSiopCodeDigitsNot13And18FromTemp($record);
+   } 
 
+   public function insertSiopDigitsNot13And18DataToLogTable($data)
+   {
+        try {
+        $rowCount = 1;
+        $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+        foreach ($data as $dataValue) {
+            $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 18","'.time().'"),';
+          // inserting records in batch
+                if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($value, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if($value)
+            {
+                $query = $sql.rtrim($value, ',') ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+   }
+
+   public function deleteSiopCodeDigitsNot13And18FromTemp($record)
+   {
+        foreach ($record as $deletedRecords) {
+            $deletedRecordsId = $deletedRecords['id'];
+            $sql = "DELETE FROM {$this->tempTable} WHERE id = '$deletedRecordsId'";
+            $this->db->executeQuery($sql);
+        }
+    } 
     /**
      * Function to update master table
      */
     public function updateMaster()
     {        
         try {
-            $this->truncateMasterTable();
+           $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
