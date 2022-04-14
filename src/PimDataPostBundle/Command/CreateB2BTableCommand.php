@@ -104,6 +104,7 @@ class CreateB2BTableCommand extends AbstractCommand
             `externalID` varchar(99) DEFAULT NULL,
             `pimId` varchar(151) DEFAULT NULL,
             `responseTimestamp` int UNSIGNED DEFAULT NULL,
+            `creationDate` int UNSIGNED DEFAULT NULL,
             `businessUnit` varchar(55) DEFAULT NULL,
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
@@ -177,7 +178,7 @@ class CreateB2BTableCommand extends AbstractCommand
 
     private function createTableSalesforceIntegrationPimcoreFailedRecord()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord\Dao::TABLE_NAME."` (
             `id` int NOT NULL AUTO_INCREMENT,
             `pimId` varchar(155) NOT NULL,
             `SFObjectType` varchar(55) NOT NULL,
@@ -187,7 +188,7 @@ class CreateB2BTableCommand extends AbstractCommand
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
         $this->db->query($sql);
-        echo "\n ".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME." - table created.";
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord\Dao::TABLE_NAME." - table created.";
     }
 
 

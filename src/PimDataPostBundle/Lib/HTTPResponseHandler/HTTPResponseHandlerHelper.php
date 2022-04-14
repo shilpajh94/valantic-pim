@@ -7,7 +7,7 @@ use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
 
 class HTTPResponseHandlerHelper
 {
-    public function updateSuccessRecords(string $referenceId, int $statusCode): string
+    public function updateSuccessRecords(string $referenceId, int $statusCode, int $responseTimestamp): string
     {
         $listing = new B2BAPIRequestEntity\Listing();
         $listing->setCondition("referenceId = ?", $referenceId);
@@ -15,6 +15,7 @@ class HTTPResponseHandlerHelper
         foreach($listing as $rowObject)
         {
             $rowObject->setResponseStatus($statusCode);
+            $rowObject->setResponseTimestamp($responseTimestamp);
             $rowObject->save();
             $this->removeEntityFromEnforce($rowObject->pimId);
             return $rowObject->pimId;
@@ -22,7 +23,7 @@ class HTTPResponseHandlerHelper
         return 0;
     }
 
-    public function updateFailedRecords(string $referenceId, int $responceStatus, string $responceMsg): bool
+    public function updateFailedRecords(string $referenceId, int $responceStatus, string $responceMsg, int $responseTimestamp): bool
     {
         $listing = new B2BAPIRequestEntity\Listing();
         $listing->setCondition("referenceId = ?", [$referenceId]);
@@ -31,6 +32,7 @@ class HTTPResponseHandlerHelper
         {
           $rowObject->setResponseStatus($responceStatus);
           $rowObject->setResponseMsg($responceMsg);
+          $rowObject->setResponseTimestamp($responseTimestamp);
           $rowObject->save();
           $this->addEntityToEnforce($rowObject);
           return true;
@@ -38,7 +40,7 @@ class HTTPResponseHandlerHelper
         return false;   
     }
 
-    public function addEntityToEnforce($requestObject): bool
+    private function addEntityToEnforce($requestObject): bool
     {
         $listing = new B2BEntityEnforcedToPush\Listing();
         $listing->setCondition("objectId = ?", [$requestObject->pimId]);
@@ -53,7 +55,7 @@ class HTTPResponseHandlerHelper
         return true;
     }
 
-    public function removeEntityFromEnforce($pimId)
+    private function removeEntityFromEnforce($pimId)
     {
 
         $listing = new B2BEntityEnforcedToPush\Listing();

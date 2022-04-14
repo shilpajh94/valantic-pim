@@ -2,6 +2,10 @@
 
 namespace PimDataPostBundle\Lib;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PimDataPostBundle\Model\Auth\AuthToken;
 use PimDataPostBundle\Model\Types\ClassType;
 use PimDataPostBundle\Model\Types\ShopType;
@@ -61,5 +65,42 @@ class Util
         $newAsset->save();
 
         return $newAsset;      
+    }
+
+    /**
+     * @throws: ConnectException
+     */
+    public static function sendRequestWithConnectionRetries(Client $client, Request $request, int $requestTimeout): Response
+    {
+        $maxConnectionRetries = Constants::MAX_HTTP_CONNECTION_RETRIES;
+        $currentTryCount = 0;
+
+        while($currentTryCount < $maxConnectionRetries){
+            try{
+                $response = $client->send($request,["timeout" => $requestTimeout]);
+                break;                
+            }catch(ConnectException $ex){
+                $currentTryCount++;
+                if($currentTryCount == $maxConnectionRetries){
+                    throw $ex;
+                }
+                sleep(Constants::SLEEP_TIME_WITHIN_CONNECTION_RETRIES);
+            }
+        }
+        return $response;
+    }
+
+    public static function setB2BScriptStartTime(int $timestampt): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
+        $session->set($key,$timestampt);
+    }
+
+    public static function getB2BScriptStartTime(): int
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
+        return $session->get($key);
     }
 }
