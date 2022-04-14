@@ -238,8 +238,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                         }
     
                                     }
+                                    // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/EMEA/400-3  --> for example
                                     $query = "SELECT o_id from objects where concat(o_path,o_key) 
-                                    LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                    LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
                                     $result = $this->db->fetchCol($query);
                                     $count = count($result);
                                     if ($count > 0) {
@@ -247,10 +248,21 @@ class CSProductDataImportCommand extends AbstractCommand
                                         $product = DataObject\CSProducts::getById($result[0], true);
                                         $product->setParentId($parentId);
                                     } else {
-                                        $product = new DataObject\CSProducts();
-                                        $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
-                                        $product->setKey($hierarchyKey);
-                                        $product->setParentId($parentId);
+                                        // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/1000-5  -->for example
+                                        $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                        LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                        $result = $this->db->fetchCol($query);
+                                        $count = count($result);
+                                        if ($count > 0) {
+                                            echo "\n Changing Region Folder";
+                                            $product = DataObject\CSProducts::getById($result[0], true);
+                                            $product->setParentId($parentId);
+                                        } else {
+                                            $product = new DataObject\CSProducts();
+                                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
+                                            $product->setKey($hierarchyKey);
+                                            $product->setParentId($parentId);
+                                        }
                                     }
                                 }
 
