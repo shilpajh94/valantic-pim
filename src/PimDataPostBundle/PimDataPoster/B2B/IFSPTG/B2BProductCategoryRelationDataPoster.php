@@ -9,6 +9,7 @@ use PimDataPostBundle\Lib\PimFailedRecordHandler\B2B\B2BPimFailedRecordHandler;
 use PimDataPostBundle\Lib\RelationChangeProvider\B2B\CategoryRelationChangeProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BProductCategoryRelationRequestBodyGenerator;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductCategoryRelationHelper;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
@@ -53,6 +54,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductCategoryRelationDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
             $helper->addPimFailedRecords($failureRecordids, $throwable, B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT() );
+            Util::setPIMFailureFlag();
         }
 
     }

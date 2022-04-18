@@ -17,10 +17,10 @@ class TokenAuthService
         $this->parameters = $parameters;
     }
     
-    public function getB2BAuthToken(): AuthToken
+    public function getB2BAuthToken(bool $forceNewToken = false): AuthToken
     {
         $tokenConfig = $this->getB2BTokenAuthConfig();
-        return (new B2BAuth())->getToken($tokenConfig);
+        return (new B2BAuth())->getToken($tokenConfig, $forceNewToken);
     }
     
     public function getB2CAuthToken(): AuthToken

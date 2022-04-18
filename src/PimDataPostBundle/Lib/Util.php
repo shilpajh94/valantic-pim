@@ -116,4 +116,35 @@ class Util
         }
         return $sourcePath;
     }
+
+    public static function setPIMFailureFlag(): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
+        $session->set($key, true);
+    }
+
+    public static function isPIMFailureFlagSet(): ?bool
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
+        return $session->get($key);
+    }
+
+    public static function getB2BRequestHeader(bool $forceNewToken = false): array
+    {
+        $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken($forceNewToken);
+        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        return array(
+            'Content-Type' => 'application/json',
+            'Authorization' => $authHeader
+        );
+    }
+
+    public static function refreshB2BRequestHeader(Request $request): Request
+    {
+        // $newHeader = self::getB2BRequestHeader(true);
+        // $request->withHeader($newHeader);
+        // return $request;
+    }
 }

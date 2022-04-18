@@ -30,9 +30,9 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 11;
+    const UPDATE_WINDOW_END_HOUR = 22;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 20;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 40;
 
     const INSERT_BATCH_SIZE = 50;
 
@@ -56,4 +56,7 @@ class Constants
 
     const B2B_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2B_script_start_time";
 
+    const B2B_PIM_FAILURE_FLAG_SESSION_KEY = "salesforce_integration_B2B_PIM_failure_flag";
+
+    const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
 }

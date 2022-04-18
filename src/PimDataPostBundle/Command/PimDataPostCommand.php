@@ -30,8 +30,12 @@ class PimDataPostCommand extends AbstractCommand
 
         $scriptEndTime = time();
         p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
+
         $notificationSender = new B2BFailureNotificationSender();
         $notificationSender->SendFailureNotification();
+        if(Util::isPIMFailureFlagSet()){
+            $notificationSender->sendPIMFailureNotification();
+        }
 
          echo "executed\n";
     }
