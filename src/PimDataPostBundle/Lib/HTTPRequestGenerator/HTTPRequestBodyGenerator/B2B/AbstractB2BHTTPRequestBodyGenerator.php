@@ -6,9 +6,9 @@ use PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\IHTTPReq
 
 abstract class AbstractB2BHTTPRequestBodyGenerator implements IHTTPRequestBodyGenerator
 {
-    public $graphNo=3;   //Number of graphID in 1 graphs
+    public $graphNo= 10;   //Number of graphID in 1 graphs
     
-    public $subRequestNo=2;   // Number of subrequest in 1 composite request
+    public $subRequestNo= 50;   // Number of subrequest in 1 composite request
 
     public $startBatch=1;        //start batch number
 

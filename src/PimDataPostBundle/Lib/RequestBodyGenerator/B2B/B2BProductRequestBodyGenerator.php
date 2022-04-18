@@ -92,11 +92,13 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                         if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
-                        $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
                     }
                 }
             }
         }
+        $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
+        $returnArray["Type"] = null;
+
         return $returnArray;
     }
     

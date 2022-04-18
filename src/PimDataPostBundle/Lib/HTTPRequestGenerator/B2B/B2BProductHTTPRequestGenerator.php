@@ -31,14 +31,15 @@ class B2BProductHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerator
         return $this->b2bProductHelper->getApiHost().$this->b2bProductHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestHeaders(): array
+    private function getRequestHeaders(bool $forceNewToken = false): array
     {
-        $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken();
-        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        // $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken($forceNewToken);
+        // $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        // return array(
+        //     'Content-Type' => 'application/json',
+        //     'Authorization' => $authHeader
+        // );
+        return Util::getB2BRequestHeader($forceNewToken)
     }
 
     private function getRequestBody($batch): string
@@ -48,12 +49,18 @@ class B2BProductHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerator
 
     public function getRequest($batch): Request
     {
+        
        return  new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
     }
 
     public function getTotalBatches(): int
     {
         return $this->b2bHTTPRequestBodyGenerator->getTotalBatches();
+    }
+
+    public static function refreshRequestToken(Request $request)
+    {
+        $newHeader = 
     }
 
 }
