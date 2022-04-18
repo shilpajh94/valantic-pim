@@ -17,15 +17,15 @@ use Pimcore\Db;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 
-class CreateTableCommand extends AbstractCommand
+class CreateB2BTableCommand extends AbstractCommand
 {
     private $commonHelper;
     private $db;
 
     protected function configure()
     {
-        $this->setName('conti:datapost:create-table')
-            ->setDescription('Create B2B & B2C Temp Master tables.');
+        $this->setName('conti:datapost:create-b2b-table')
+            ->setDescription('Create B2B Temp Master tables.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -36,15 +36,14 @@ class CreateTableCommand extends AbstractCommand
 
         $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
         $productAttributes = $B2BProductAttributeConfigProvider->getCompleteAttributeConfig();
-        // $productAttributes = $this->commonHelper->getParameter($B2BProductAttributeConfig, 'Attribute');
         $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 'o_id');
         $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 'o_id');
 
         $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
         $categoryAttributes = $B2BCategoryAttributeConfigProvider->getCompleteAttributeConfig();
-        // $categoryAttributes = $this->commonHelper->getParameter($B2BCategoryAttributeConfig, 'Attribute');
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'oo_id');
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'oo_id');
+
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'o_id');
         $this->createTableB2bApiRequestEntities();
         $this->createTableB2bEntityEnforce();
         $this->createTableB2bPimToSfCategoryMapping();
@@ -53,7 +52,7 @@ class CreateTableCommand extends AbstractCommand
         $this->createTableSalesforceIntegrationPimcoreDeletedAssets();
         $this->createTableSalesforceIntegrationPimcoreFailedRecord();
         echo "\n";
-    }
+  }
 
     public function createTable($fields, $tableName, $uniqueIndexKey)
     {
@@ -81,7 +80,7 @@ class CreateTableCommand extends AbstractCommand
             }
 
             $fieldsString = implode(', ', $fieldsArray);
-            // Create B2C/B2C temp table
+
             $sql = "CREATE TABLE IF NOT EXISTS {$tableName} (
                 id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 {$fieldsString}
