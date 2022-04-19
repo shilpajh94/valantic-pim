@@ -29,14 +29,9 @@ class B2BProductCategoryRelationHTTPRequestGenerator extends AbstractB2BHTTPRequ
         return $this->b2bProductCategoryRelationHelper->getApiHost().$this->b2bProductCategoryRelationHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestHeaders(): array
+    private function getRequestHeaders(bool $forceNewToken = false): array
     {
-        $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken();
-        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        return Util::getB2BRequestHeader($forceNewToken);
     }
 
     private function getRequestBody($batch): string

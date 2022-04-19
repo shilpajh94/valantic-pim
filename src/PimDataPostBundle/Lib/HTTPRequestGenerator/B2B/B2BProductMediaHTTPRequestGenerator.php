@@ -31,29 +31,24 @@ class B2BProductMediaHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerato
         return $this->b2bProductHelper->getApiHost().$this->b2bProductHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestHeaders(): array
+    private function getRequestHeaders(bool $forceNewToken = false): array
     {
-        $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken();
-        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        return Util::getB2BRequestHeader($forceNewToken);
     }
 
-    private function getRequestBody($batch): string
+    private function getRequestBody($batch, $operationType = null): string
     {
-        return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch);
+        return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch, $operationType);
     }
 
-    public function getRequest($batch): Request
+    public function getRequest($batch, $operationType = null): Request
     {
-       return  new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
+       return  new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch, $operationType));
     }
 
-    public function getTotalBatches(): int
+    public function getTotalBatches($operationType = null): int
     {
-        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches();
+        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches($operationType);
     }
 
 }

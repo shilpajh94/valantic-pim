@@ -19,10 +19,10 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         $this->attributeConfigProvider= new B2BProductAttributeConfigProvider();
     }
 
-    public function getProductIdsByAsset(int $assetId)
+    public function getProductIdsByUpdatedAsset(int $assetId)
     {
         $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
-        $sql .= " WHERE Document LIKE '%|".$assetId.",'";
+        $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
         $result = $this->db->fetchAll($sql);
         $returnArray = [];
         $returnArray['Document'] = array_column($result , 'o_id');
@@ -39,7 +39,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
             $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
             if($key == 'Document')
             {
-                $sql .= " WHERE ".$key." LIKE '%|".$assetId.",'";
+                $sql .= " WHERE ".$key." LIKE '%|".$assetId.",%'";
             }
             else
             {

@@ -14,13 +14,13 @@ class B2BProductMediaHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBody
         $this->httpRequestGeneratorHelper = new B2BHTTPRequestBodyGeneratorHelper(B2BSalesForceObjectType::PRODUCT_MEDIA(),$this->graphNo,$this->subRequestNo);   
     }
 
-    public function getTotalBatches(): int
+    public function getTotalBatches($operationType = null): int
     {
-        return $this->httpRequestGeneratorHelper->getTotalBatches();
+        return $this->httpRequestGeneratorHelper->getTotalBatches($operationType);
     }
 
-    public function getHTTPRequestBodyByBatchNumber($batch): string
+    public function getHTTPRequestBodyByBatchNumber($batch, $operationType = null): string
     {
-        return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch);
+        return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch, $operationType);
     }
 }

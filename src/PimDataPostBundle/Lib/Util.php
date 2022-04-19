@@ -14,6 +14,7 @@ use PimDataPostBundle\Services\UtilService;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Asset\Image;
 use PimDataPostBundle\Logger\B2BLogger;
+use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Model\Types\ImageTransformationSize;
 
 class Util
@@ -141,10 +142,11 @@ class Util
         );
     }
 
-    public static function refreshB2BRequestHeader(Request $request): Request
+    public static function refreshB2BRequestHeader(Request $request)
     {
-        // $newHeader = self::getB2BRequestHeader(true);
-        // $request->withHeader($newHeader);
-        // return $request;
+        $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken(true);
+        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        $request = $request->withHeader("Authorization", $authHeader);
+        return $request;
     }
 }

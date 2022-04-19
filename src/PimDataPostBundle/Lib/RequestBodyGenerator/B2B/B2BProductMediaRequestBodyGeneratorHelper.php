@@ -27,8 +27,15 @@ class B2BProductMediaRequestBodyGeneratorHelper
 
     function generateRequestBodyForImage(B2BProductRelationChange $b2bProductRelationChange): array
     {
-        $imageAsset = Image::getById($b2bProductRelationChange->newValue);
         $returnArr = array();
+        if($b2bProductRelationChange->oldValue!='' && $b2bProductRelationChange->oldValue!= null)
+        {
+            $request['operationType'] = APIOperationType::DELETE();
+            $request['asset_id'] = $b2bProductRelationChange->oldValue;
+            $request['body'] = [];
+            $returnArr[]=$request;
+        }
+        $imageAsset = Image::getById($b2bProductRelationChange->newValue);
         if(isset($imageAsset))
         {
             $request = array();
