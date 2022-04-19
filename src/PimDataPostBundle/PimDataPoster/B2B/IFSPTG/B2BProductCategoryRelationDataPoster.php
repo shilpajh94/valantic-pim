@@ -19,6 +19,8 @@ use PimDataPostBundle\PimDataPoster\IDataPoster;
 
 class B2BProductCategoryRelationDataPoster implements IDataPoster
 {
+    private $pimIdSeparator = "_";
+
     public function postData()
     {
         $relationChangeProvider = new CategoryRelationChangeProvider();
@@ -65,10 +67,12 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
         foreach($pimFailedRecords as $failedRecord)
         {
             $failedRecordId = $failedRecord->getPimId();
-            $idsArray = explode("_",$failedRecordId);
+            $idsArray = explode($this->pimIdSeparator, $failedRecordId);
             $object = new B2BProductRelationChange();
             $object->setProductId($idsArray[0]);
-            $object->setNewValue("," . $idsArray[1] . ",");
+            // $object->setNewValue("," . $idsArray[1] . ",");
+            $object->setNewValue($idsArray[1]);
+
             $relationObjects[] = $object;
         }
         return $relationObjects;
@@ -106,8 +110,8 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
 
     private function getPimIdForRelationChangeObject(B2BProductRelationChange $relationChangeObject): string
     {
-        $newValue = trim($relationChangeObject->getNewValue(),",");
-        return $relationChangeObject->getProductId(). "_" . $newValue;
+        // $newValue = trim($relationChangeObject->getNewValue(),",");
+        return $relationChangeObject->getProductId(). $this->pimIdSeparator . $relationChangeObject->getNewValue();
     }
 
     private function mergeAndRemoveDuplicateRelationObjects(...$allArrays): array

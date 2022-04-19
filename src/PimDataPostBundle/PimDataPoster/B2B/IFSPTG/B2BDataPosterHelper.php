@@ -7,19 +7,21 @@ use PimDataPostBundle\Lib\HTTPRequestGenerator\IHTTPRequestGenerator;
 use PimDataPostBundle\Lib\HTTPResponseHandler\IHTTPResponseHandler;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord;
+use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\Model\Types\StatusType;
 
 class B2BDataPosterHelper
 {
     public function sendAllRequestsToSFAndHandleResponses(IHTTPRequestGenerator $requestGenerator,
-                                                            IHTTPResponseHandler $responseHandler)
+                                                            IHTTPResponseHandler $responseHandler,
+                                                            APIOperationType $operationType = null)
     {
         $client = new \GuzzleHttp\Client();
         $firstBatchIndex = 1;
-        $totalBatches = $requestGenerator->getTotalBatches();
+        $totalBatches = $requestGenerator->getTotalBatches($operationType);
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
-            $request = $requestGenerator->getRequest($i);
+            $request = $requestGenerator->getRequest($i, $operationType);
             $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
             $responseHandler->handleResponse($response, time());
         }
