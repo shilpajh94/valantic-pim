@@ -28,7 +28,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
     function generateRequestBodyForImage(B2BProductRelationChange $b2bProductRelationChange): array
     {
         $returnArr = array();
-        if($b2bProductRelationChange->oldValue!='' && $b2bProductRelationChange->oldValue!= null && $b2bProductRelationChange->newValue == '')
+        if($b2bProductRelationChange->oldValue!='' && $b2bProductRelationChange->oldValue!= null && ($b2bProductRelationChange->newValue == '' || $b2bProductRelationChange->newValue == null))
         {
             $request['operationType'] = APIOperationType::DELETE();
             $request['asset_id'] = $b2bProductRelationChange->oldValue;
