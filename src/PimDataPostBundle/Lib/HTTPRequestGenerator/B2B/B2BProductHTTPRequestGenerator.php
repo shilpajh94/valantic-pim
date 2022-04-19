@@ -13,29 +13,20 @@ class B2BProductHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerator
 
     public $b2bHTTPRequestBodyGenerator;
 
+    public $b2bHTTPRequestGeneratorHelper;
+
     public function __construct()
     {
         $this->b2bProductHelper = new B2BProductHelper();
         $this->b2bHTTPRequestBodyGenerator= new B2BProductHTTPRequestBodyGenerator();
-     
-    }
-
-    private function getRequestMethod()
-    {
-        return 'POST';
+        $this->b2bHTTPRequestGeneratorHelper = new B2BHTTPRequestGeneratorHelper();
     }
 
     private function getRequestUrl(): string
-    {
-             
+    {    
         return $this->b2bProductHelper->getApiHost().$this->b2bProductHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestHeaders(bool $forceNewToken = false): array
-    {
-        return Util::getB2BRequestHeader($forceNewToken);
-    }
-
     private function getRequestBody($batch): string
     {
         return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch);
@@ -44,7 +35,7 @@ class B2BProductHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerator
     public function getRequest($batch): Request
     {
         
-       return  new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
+       return  new Request($this->b2bHTTPRequestGeneratorHelper->getRequestMethod(), $this->getRequestUrl(), $this->b2bHTTPRequestGeneratorHelper->getRequestHeaders() , $this->getRequestBody($batch));
     }
 
     public function getTotalBatches(): int
