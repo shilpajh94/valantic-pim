@@ -97,7 +97,7 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
             }
         }
         $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
-        $returnArray["Type"] = null;
+        // $returnArray["Type"] = null;
 
         return $returnArray;
     }

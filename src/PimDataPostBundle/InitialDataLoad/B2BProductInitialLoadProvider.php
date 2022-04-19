@@ -24,7 +24,8 @@ class B2BProductInitialLoadProvider
                 WHERE
                     salesMaster.epixFlag = '001'
                         AND salesMaster.o_published = 1
-                        AND product.o_published = 1;";
+                        AND product.o_published = 1
+                ORDER BY product.o_id ASC;";
             
         return $this->db->fetchCol($sql);
     }

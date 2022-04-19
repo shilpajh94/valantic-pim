@@ -8,6 +8,7 @@ use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BCategoryDataPoster;
 use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductCategoryRelationDataPoster;
 use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductDataPoster;
+use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductMediaPoster;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -26,6 +27,9 @@ class PimDataPostCommand extends AbstractCommand
         $executor->postData();
 
         $executor = new B2BProductCategoryRelationDataPoster();
+        $executor->postData();
+
+        $executor = new B2BProductMediaPoster();
         $executor->postData();
 
         $scriptEndTime = time();

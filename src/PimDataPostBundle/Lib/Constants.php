@@ -59,4 +59,6 @@ class Constants
     const B2B_PIM_FAILURE_FLAG_SESSION_KEY = "salesforce_integration_B2B_PIM_failure_flag";
 
     const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
+
+    const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
 }

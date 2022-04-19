@@ -31,39 +31,65 @@ class B2BProductMediaRequestBodyGeneratorHelper
 
     function generateRequestBodyForImage(B2BProductRelationChange $b2bProductRelationChange): array
     {
-        $imageAsset = Image::getById($b2bProductRelationChange->newValue);
         $returnArr = array();
-        if(isset($imageAsset))
+        /**
+         * check if the image has been removed from the product
+         * In this case, send the delete request only for small and medium transformation
+         */
+        if( ($b2bProductRelationChange->oldValue != '' && $b2bProductRelationChange->oldValue != null) && 
+            ($b2bProductRelationChange->newValue == '' || $b2bProductRelationChange->newValue == null)
+        )
         {
-            $request = array();
-            $request['operationType'] = APIOperationType::UPDATE();
-            $request['asset_id'] = $b2bProductRelationChange->newValue;
-            $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
-            $body =array(
-                "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
-                "B2B_Media_Type__c" => "Image",
-                "B2B_Description__c" => $imageAsset->getFileName(),
-                "B2B_Display_Type__c" => Constants::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE,
-                "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::SMALL()),
-                "B2B_Sequence__c" => $sequence
-            );
-            $request['body'] = $body;
+            // entry for the small image transformation
+            $request['operationType'] = APIOperationType::DELETE();
+            $request['asset_id'] = $b2bProductRelationChange->oldValue;
             $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                         $b2bProductRelationChange->getAttributeName(),
                                                                                         1);
-            $returnArr[]=$request;  // push small image request
+            $request['body'] = [];
 
-            $body['B2B_Display_Type__c'] = Constants::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
-            $body['B2B_Media_URL__c'] = Util::getAssetPublicPath($imageAsset, ImageTransformationSize::MEDIUM());
-            $body['B2B_Sequence__c'] = $sequence+1;
-            
-            $request['body'] = $body;
-            $request['operationType'] = APIOperationType::UPDATE();
+            $returnArr[] = $request;
+
+            // entry for medium image transformation
             $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                         $b2bProductRelationChange->getAttributeName(),
                                                                                         2);
-            $returnArr[]=$request;  // push medium image request
+            $returnArr[] = $request;
+        }else{
+            $imageAsset = Image::getById($b2bProductRelationChange->newValue);
+            if(isset($imageAsset))
+            {
+                $request = array();
+                $request['operationType'] = APIOperationType::UPDATE();
+                $request['asset_id'] = $b2bProductRelationChange->newValue;
+                $sequence = $this->getSequenceOfAttribute($b2bProductRelationChange->attributeName);
+                $body =array(
+                    "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
+                    "B2B_Media_Type__c" => "Image",
+                    "B2B_Description__c" => $imageAsset->getFileName(),
+                    "B2B_Display_Type__c" => Constants::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE,
+                    "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::SMALL()),
+                    "B2B_Sequence__c" => $sequence
+                );
+                $request['body'] = $body;
+                $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
+                                                                                            $b2bProductRelationChange->getAttributeName(),
+                                                                                            1);
+                $returnArr[]=$request;  // push small image request
+    
+                $body['B2B_Display_Type__c'] = Constants::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
+                $body['B2B_Media_URL__c'] = Util::getAssetPublicPath($imageAsset, ImageTransformationSize::MEDIUM());
+                $body['B2B_Sequence__c'] = $sequence+1;
+                
+                $request['body'] = $body;
+                $request['operationType'] = APIOperationType::UPDATE();
+                $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
+                                                                                            $b2bProductRelationChange->getAttributeName(),
+                                                                                            2);
+                $returnArr[]=$request;  // push medium image request
+            }
         }
+       
         return $returnArr;
     }
 

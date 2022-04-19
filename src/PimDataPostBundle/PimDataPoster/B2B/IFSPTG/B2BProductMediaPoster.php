@@ -136,7 +136,7 @@ class B2BProductMediaPoster implements IDataPoster
                 $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_MEDIA() );
     
                 $externalId = $requestBodyParam["externalId"];
-                $pimId = $externalId . "_" . $requestBodyParam["operationType"];
+                $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
                 $apiRequestEntity->setexternalID($externalId);
                 $apiRequestEntity->setPimId($pimId);
                 $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);
@@ -240,13 +240,13 @@ class B2BProductMediaPoster implements IDataPoster
         foreach($pimFailedRecords as $failedRecord)
         {
             $failedRecordId = $failedRecord->getPimId();
-            $idsArray = explode($this->pimIdSeparator, $failedRecordId);
-            $newValue = $idsArray[2] == "" ? null : $idsArray[2];
-            $oldValue = $idsArray[3] == "" ? null : $idsArray[3];
+            $valueArray = explode($this->pimIdSeparator, $failedRecordId);
+            $newValue = $valueArray[2] == "" ? null : $valueArray[2];
+            $oldValue = $valueArray[3] == "" ? null : $valueArray[3];
 
             $object = new B2BProductRelationChange();
-            $object->setProductId($idsArray[0]);
-            $object->setAttributeName($idsArray[1]);
+            $object->setProductId($valueArray[0]);
+            $object->setAttributeName($valueArray[1]);
             $object->setNewValue($newValue);
             $object->setOldValue($oldValue);
 
