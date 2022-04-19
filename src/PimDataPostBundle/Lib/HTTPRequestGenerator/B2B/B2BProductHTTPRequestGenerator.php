@@ -40,6 +40,6 @@ class B2BProductHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerator
 
     public function getTotalBatches(APIOperationType $operationType = null):int
     {
-        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches();
+        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches($operationType);
     }
 }

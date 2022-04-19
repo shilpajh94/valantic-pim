@@ -16,11 +16,11 @@ class B2BCategoryHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBodyGene
 
     public function getTotalBatches(APIOperationType $operationType = null): int
     {
-        return $this->httpRequestGeneratorHelper->getTotalBatches();
+        return $this->httpRequestGeneratorHelper->getTotalBatches($operationType);
     }
 
     public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
-        return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch);
+        return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch, $operationType);
     }
 }
