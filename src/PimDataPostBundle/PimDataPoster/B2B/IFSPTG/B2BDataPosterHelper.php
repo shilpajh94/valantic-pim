@@ -27,6 +27,8 @@ class B2BDataPosterHelper
                 {
                     $request = Util::refreshB2BRequestHeader($request);
                     $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+                }else {
+                    throw $ex;
                 }
             }
             $responseHandler->handleResponse($response, time());
