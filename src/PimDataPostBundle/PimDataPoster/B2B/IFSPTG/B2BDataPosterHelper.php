@@ -20,7 +20,17 @@ class B2BDataPosterHelper
         $totalBatches = $requestGenerator->getTotalBatches();
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
             $request = $requestGenerator->getRequest($i);
-            $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+            try{
+                $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+            } catch(ClientException $ex){
+                if($ex->getResponse()->getStatusCode() == 401)
+                {
+                    $request = Util::refreshB2BRequestHeader($request);
+                    $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+                }else {
+                    throw $ex;
+                }
+            }
             $responseHandler->handleResponse($response, time());
         }
     }
