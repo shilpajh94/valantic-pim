@@ -8,8 +8,5 @@ abstract class AbstractB2BHTTPRequestGenerator implements IHTTPRequestGenerator
 {
     public $startBatch = 1;  // start batch number
 
-    public abstract function getRequest(int $batch);
 
-    public abstract function getTotalBatches(): int;
-    
 }

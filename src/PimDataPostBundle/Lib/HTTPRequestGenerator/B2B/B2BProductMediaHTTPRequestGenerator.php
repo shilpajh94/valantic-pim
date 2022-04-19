@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib\HTTPRequestGenerator\B2B;
 
+use PimDataPostBundle\Model\Types\APIOperationType;
 use GuzzleHttp\Psr7\Request;
 use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Lib\Util;
@@ -29,17 +30,17 @@ class B2BProductMediaHTTPRequestGenerator extends AbstractB2BHTTPRequestGenerato
         return $this->b2bProductHelper->getApiHost().$this->b2bProductHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestBody($batch, $operationType = null): string
+    private function getRequestBody($batch, APIOperationType $operationType = null): string
     {
         return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch, $operationType);
     }
 
-    public function getRequest($batch, $operationType = null): Request
+    public function getRequest($batch, APIOperationType $operationType = null): Request
     {
        return  new Request($this->b2bHTTPRequestGeneratorHelper->getRequestMethod(), $this->getRequestUrl(), $this->b2bHTTPRequestGeneratorHelper->getRequestHeaders() , $this->getRequestBody($batch, $operationType));
     }
 
-    public function getTotalBatches($operationType = null): int
+    public function getTotalBatches(APIOperationType $operationType = null): int
     {
         return $this->b2bHTTPRequestBodyGenerator->getTotalBatches($operationType);
     }

@@ -27,13 +27,13 @@ class B2BHTTPRequestBodyGeneratorHelper
         $this->b2bHelper =  Factory::getb2bHelper(B2BSalesForceObjectType::getByString($SFObjectType));
     }
 
-    public function getTotalBatches($operationType = null): int
+    public function getTotalBatches(APIOperationType $operationType = null): int
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
         // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         if($operationType != null){
-            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, $operationType, $scriptStartTime]);
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
         
         } else {
             $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
@@ -47,13 +47,13 @@ class B2BHTTPRequestBodyGeneratorHelper
         return ceil($batches);
     }
 
-    public function getHTTPRequestBodyByBatchNumber($batch, $operationType = null): string
+    public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
         // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         if($operationType != null){
-            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, $operationType, $scriptStartTime]);
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
         
         } else {
             $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
@@ -98,7 +98,6 @@ class B2BHTTPRequestBodyGeneratorHelper
                 }
                 $insSubreq++;
             }
-         
         }
         $graphs=array('graphs' => $graphData);
         return json_encode($graphs,JSON_UNESCAPED_SLASHES);

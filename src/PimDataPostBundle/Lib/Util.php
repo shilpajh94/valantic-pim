@@ -142,7 +142,7 @@ class Util
         );
     }
 
-    public static function refreshB2BRequestHeader(Request $request)
+    public static function refreshB2BRequestHeader(Request $request): Request
     {
         $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken(true);
         $authHeader="Bearer ".$b2bAuthToken->getTokenString();

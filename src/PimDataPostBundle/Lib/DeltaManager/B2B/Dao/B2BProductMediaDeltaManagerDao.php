@@ -8,7 +8,6 @@ use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
 {
-
     private $db;    //database
 
     private $attributeConfigProvider;
@@ -19,7 +18,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         $this->attributeConfigProvider= new B2BProductAttributeConfigProvider();
     }
 
-    public function getProductIdsByUpdatedAsset(int $assetId)
+    public function getProductIdsByUpdatedAsset(int $assetId): array
     {
         $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
         $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
@@ -29,9 +28,8 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         return $returnArray;
     }
 
-    public function getProductIdsByDeletedAsset(int $assetId)
+    public function getProductIdsByDeletedAsset(int $assetId): array
     {
-        
         $attributesArray = $this->attributeConfigProvider->getMediaAttributeConfig();
         $returnArray = [];
         foreach($attributesArray as $key => $attributesRow)

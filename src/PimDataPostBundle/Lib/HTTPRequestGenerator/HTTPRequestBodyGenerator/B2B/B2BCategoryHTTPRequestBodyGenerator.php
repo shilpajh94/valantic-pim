@@ -5,8 +5,7 @@ namespace PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2
 use PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2B\B2BHTTPRequestBodyGeneratorHelper;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 class B2BCategoryHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBodyGenerator
-{
-    
+{ 
     public $httpRequestGeneratorHelper;
 
     public function __construct() {
@@ -16,13 +15,10 @@ class B2BCategoryHTTPRequestBodyGenerator extends AbstractB2BHTTPRequestBodyGene
     public function getTotalBatches(): int
     {
         return $this->httpRequestGeneratorHelper->getTotalBatches();
-
     }
 
     public function getHTTPRequestBodyByBatchNumber($batch): string
     {
         return $this->httpRequestGeneratorHelper->getHTTPRequestBodyByBatchNumber($batch);
-
     }
-
 }
