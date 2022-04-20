@@ -75,6 +75,11 @@ class TempTablePopulatorDao
                     continue;
                 }
 
+                if($value['epixFlag'])
+                {
+                    continue;
+                }
+
                 if($value['conditionalFieldName'])
                 {
                     $selectArray[] = $value['conditionalFieldName'];
