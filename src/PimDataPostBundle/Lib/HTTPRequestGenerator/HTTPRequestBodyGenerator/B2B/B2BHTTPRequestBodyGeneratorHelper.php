@@ -60,7 +60,7 @@ class B2BHTTPRequestBodyGeneratorHelper
         }
         $listing->setOrderKey("id");
         $listing->setOrder("asc");
-        $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
+        // $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
         $compositeRequest=array();

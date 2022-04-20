@@ -108,21 +108,24 @@ class B2BProductDataPoster implements IDataPoster
     {
         $b2bProductRequestBodyGenerator = new B2BProductRequestBodyGenerator();
         foreach($records as $recordPimId){
-            $tempTableData = $tempTablePopulator->getTempTableDataForIds([$recordPimId])[0];
-            $currTime = time();
-            $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
+            $tempTableData = $tempTablePopulator->getExistingTempTableData($recordPimId);
 
-            $apiRequestEntity = new B2BAPIRequestEntity();
-            $apiRequestEntity->setBody(json_encode($requestBody));
-            $apiRequestEntity->setOperationType($operationType);
-            $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
+            if($tempTableData["external_id"] != null && trim($tempTableData["external_id"]) != ""){
+                $currTime = time();
+                $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
     
-            $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
-            $apiRequestEntity->setPimId($tempTableData["o_id"]);
-            $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
-            $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
-            $apiRequestEntity->setCreationDate($currTime);
-            $apiRequestEntity->save();
+                $apiRequestEntity = new B2BAPIRequestEntity();
+                $apiRequestEntity->setBody(json_encode($requestBody));
+                $apiRequestEntity->setOperationType($operationType);
+                $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
+        
+                $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
+                $apiRequestEntity->setPimId($tempTableData["o_id"]);
+                $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
+                $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
+                $apiRequestEntity->setCreationDate($currTime);
+                $apiRequestEntity->save();
+            }
         }
     }
 

@@ -19,7 +19,8 @@ if (!DISABLE_S3_CDN) {
 require_once('log_file_name_constants.php');
 //require_once('sftp_constants.php');
 define("INTERNAL_ASSET_FOLDER_PATHS", [
-    "/Contitech_ConveyorSolution/Internal Assets"
+    "/Contitech_ConveyorSolution/Internal Assets",
+    "/Internal Assets"
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Resources/config");
