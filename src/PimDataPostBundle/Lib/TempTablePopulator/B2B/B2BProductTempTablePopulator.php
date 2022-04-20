@@ -43,7 +43,13 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
 
     public function getTempTableDataForIds(array $pimIds): array
     {
-        return $this->helper->getTempTableDataForIds($pimIds, $this->attributeConfigProvider->getCompleteAttributeConfig(), Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        $tempTableDataWIthoutEpixFlag = $this->helper->getTempTableDataForIds($pimIds, $this->attributeConfigProvider->getCompleteAttributeConfig(), Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        $epixFlagForPimIds = $this->dao->getEpixFlagValueForProductIds($pimIds);
+
+        foreach($tempTableDataWIthoutEpixFlag as &$tempTableRowWithoutEpixFlag){
+            $tempTableRowWithoutEpixFlag["epixFlag"] = $epixFlagForPimIds[$tempTableRowWithoutEpixFlag["o_id"]] ;
+        }
+        return $tempTableDataWIthoutEpixFlag;
     }
 
     public function addHashesToTempTableData(array $tempTableData): array
