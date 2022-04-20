@@ -47,7 +47,7 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $epixFlagForPimIds = $this->dao->getEpixFlagValueForProductIds($pimIds);
 
         foreach($tempTableDataWIthoutEpixFlag as &$tempTableRowWithoutEpixFlag){
-            $tempTableRowWithoutEpixFlag["epixFlag"] = $epixFlagForPimIds[$tempTableRowWithoutEpixFlag["o_id"]] ;
+            $tempTableRowWithoutEpixFlag["epixFlag"] = isset($epixFlagForPimIds[$tempTableRowWithoutEpixFlag["o_id"]]) ? 1 : 0 ;
         }
         return $tempTableDataWIthoutEpixFlag;
     }
