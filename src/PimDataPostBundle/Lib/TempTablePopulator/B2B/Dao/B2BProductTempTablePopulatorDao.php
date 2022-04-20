@@ -29,9 +29,14 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
 
     public function getEpixFlagValueForProductIds($pimIds)
     {
-        $productIds = implode(",",$pimIds); 
-        $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.o_published = 1)  GROUP BY pim_id;";
-        return $this->db->fetchPairs($query);
+        $resultSet = [];
+        if($pimIds)
+        {
+            $productIds = implode(",",$pimIds); 
+            $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.o_published = 1)  GROUP BY pim_id;";
+            $resultSet = $this->db->fetchPairs($query);
+        }
+        return $resultSet;
     }
 
     
