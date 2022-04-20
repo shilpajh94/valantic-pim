@@ -2,7 +2,7 @@ parameters:
     Attribute:
         o_id:
             pim_attribute_name: o_id
-            pim_table_name: object_1
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: INT(11) NOT NULL
@@ -19,11 +19,11 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         description:
-            pim_attribute_name: eanUpc
-            pim_table_name: object_1
+            pim_attribute_name: description
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: TEXT NULL
             joinOn:
             addOnJoin:
             sf_attribute_name: description
@@ -37,11 +37,11 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         displayName:
-            pim_attribute_name: articleNumber
-            pim_table_name: object_1
+            pim_attribute_name: displayName
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(255) NULL
+            temp_master_table_column_type: VARCHAR(190) NULL
             joinOn:
             addOnJoin:
             sf_attribute_name: name
@@ -55,11 +55,11 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         onlineFlag:
-            pim_attribute_name: brandName
-            pim_table_name: object_1
+            pim_attribute_name: onlineFlag
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: TINYINT(1) NULL
             joinOn:
             addOnJoin:
             sf_attribute_name: online
@@ -73,12 +73,12 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         pageDescription:
-            pim_attribute_name: longDescription
-            pim_table_name: object_localized_1_de
-            joinOn: LEFT JOIN object_localized_1_de ON object_localized_1_de.o_id = object_1.o_id
+            pim_attribute_name: pageDescription
+            pim_table_name: object_B2CCategory
+            joinOn:
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(2500) NULL
+            temp_master_table_column_type: TEXT NULL
             addOnJoin:
             sf_attribute_name: page_description
             pim_attribute_type:
@@ -91,12 +91,12 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         pageKeywords:
-            pim_attribute_name: longDescription
-            pim_table_name: object_localized_1_en
-            joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
+            pim_attribute_name: pageKeywords
+            pim_table_name: object_B2CCategory
+            joinOn:
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(2500) NULL
+            temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
             sf_attribute_name: page_keywords
             pim_attribute_type:
@@ -109,11 +109,11 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         pageTitle:
-            pim_attribute_name: o_published
-            pim_table_name: object_1
+            pim_attribute_name: pageTitle
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: tinyint(1) NULL
+            temp_master_table_column_type: VARCHAR(190) NULL
             joinOn:
             addOnJoin:
             sf_attribute_name: page_title
@@ -126,9 +126,9 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        parent:
-            pim_attribute_name: webDiscription
-            pim_table_name: object_1
+        parentCategoryID:
+            pim_attribute_name: parentCategoryID
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
@@ -145,8 +145,8 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         position:
-            pim_attribute_name: baseUOM
-            pim_table_name: object_1
+            pim_attribute_name: position
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
@@ -164,10 +164,47 @@ parameters:
             isLocalisedMaster:
         hoseCategoryImage:
             pim_attribute_name: mainImage
-            pim_table_name: object_1
+            pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
+            salesForceRelationalAttr: true
+            joinOn:
+            addOnJoin:
+            sf_attribute_name:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        level:
+            pim_attribute_name: level
+            pim_table_name: object_B2CCategory
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(2) NULL
+            joinOn:
+            addOnJoin:
+            sendToSF: false
+            sf_attribute_name:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: B2CCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        o_published:
+            pim_attribute_name: o_published
+            pim_table_name: object_B2CCategory
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: TINYINT(1) NULL
             salesForceRelationalAttr: true
             joinOn:
             addOnJoin:

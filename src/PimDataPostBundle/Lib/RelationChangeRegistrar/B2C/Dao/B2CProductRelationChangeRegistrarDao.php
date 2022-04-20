@@ -33,7 +33,7 @@ class B2CProductRelationChangeRegistrarDao
     {
         $sql = "SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
         $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
-        $sql .=  "WHERE t2.id IS NULL AND t1.epixFlag=1 AND t1.o_published=1";
+        $sql .=  "WHERE t2.id IS NULL AND t1.B2CStoreFlag=1 AND t1.o_published=1";
        
         return $this->db->fetchCol($sql);
     }

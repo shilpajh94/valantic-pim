@@ -2,7 +2,7 @@
 namespace PimDataPostBundle\Lib\RelationChangeRegistrar\B2C;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\RelationChangeRegistrar\RelationChangeRegistrarHelper;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\B2CRelationChangeRegistrarHelper;;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\Dao\B2CProductRelationChangeRegistrarDao;
 use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
 class B2CProductRelationChangeRegistrar extends AbstractB2CRelationChangeRegistrar
@@ -17,7 +17,7 @@ class B2CProductRelationChangeRegistrar extends AbstractB2CRelationChangeRegistr
 
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
-        $this->helper = new RelationChangeRegistrarHelper($this->tempMasterTablesMeta);
+        $this->helper = new B2CRelationChangeRegistrarHelper();
         $this->b2cProductRelationChangeRegistrarDao = new B2CProductRelationChangeRegistrarDao($this->tempMasterTablesMeta);
         $this->attributeConfigProvider = new B2CProductAttributeConfigProvider();
     }
@@ -26,7 +26,6 @@ class B2CProductRelationChangeRegistrar extends AbstractB2CRelationChangeRegistr
     {
         $relationsChanged = $this->fetchRecordsWhereRelationHashChanged();
         $newRelations = $this->fetchNewActiveRecordsInTempTable();
-
         $relationDataArray = $this->processAllRelations(array_merge($relationsChanged,$newRelations));
         $this->saveChangedRelation($relationDataArray);
     }

@@ -14,10 +14,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
+use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CProductTempTablePopulator;
+use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
+use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2CCategoryActiveFlagHandler;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\B2CProductRelationChangeRegistrar;
 
 use PimDataPostBundle\Lib\FailureNotificationSender\B2B\B2BFailureNotificationSender;
 
@@ -36,6 +40,86 @@ class B2BSalesforceCommand extends AbstractCommand
         echo " Script started!";
 
         try {
+
+            // echo "\n Product Insert In Temp Table Started.";
+
+            // $b2cProductTempTablePopulator = new B2CProductTempTablePopulator();
+            // $b2cProductTempTablePopulator->truncateTempTable();
+            // $productIds = $b2cProductTempTablePopulator->getPimModifiedRecordIds();
+            // $productsDetail = $b2cProductTempTablePopulator->getTempTableDataForIds($productIds);
+            
+            // $productsDetailWithHashData = $b2cProductTempTablePopulator->addHashesToTempTableData($productsDetail);
+            
+            // $b2cProductTempTablePopulator->insertDataInTempTable($productsDetailWithHashData);
+            
+            // echo "\n Product Insert In Temp Table Completed.";
+
+            // echo "\n Process started relation table data insertion.";
+            // $objProductTempMasterTablesMeta= new TempMasterTablesMeta('salesforce_integration_b2c_product_temp','salesforce_integration_b2c_product_master','basicHash','relationalHash');
+            // $objB2CProductRelationChangeRegistrar=new B2CProductRelationChangeRegistrar($objProductTempMasterTablesMeta);
+            // $objB2CProductRelationChangeRegistrar->registerChangedRelation();
+            // echo "\n Process end relation table data insertion.";
+
+            echo "\n Category Insert In Temp Table Started.";
+
+            $b2cCategoryTempTablePopulator = new B2CCategoryTempTablePopulator();
+            $b2cCategoryTempTablePopulator->truncateTempTable();
+            $b2cCategoryActiveFlagHandler = new B2CCategoryActiveFlagHandler();
+            $masterTableCategories = $b2cCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
+            // $categoriyIdsWithLevelInMasterTable = $b2cCategoryActiveFlagHandler->getCategoryIdToCategoryLevelMapping($masterTableCategories);
+            // p_r($categoriyIdsWithLevelInMasterTable);
+            
+            $categoriesActiveInactiveList = $b2cCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
+            p_r($categoriesActiveInactiveList);
+            die;
+            $b2cCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
+
+            $allRelationCategories = $b2cCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+
+            $idAndActiveFlagValueArray = [];
+            if($allRelationCategories)
+            {
+                $categoriesForTemp = [];
+                foreach ($allRelationCategories as $categoryId) {
+
+                    $categoryData = $b2cCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
+                    if($categoryData)
+                    {
+                        $isActive = $b2cCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
+                        if(!$isActive)
+                        {
+                            $idAndActiveFlagValueArray[$categoryId] = $isActive;
+                        }   
+                    }
+                    else{
+                        $idAndActiveFlagValueArray[$categoryId] = false;
+                        $categoriesForTemp[] = $categoryId;
+                    }
+                }
+            }
+            
+            $b2cCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
+
+            $categoryIds = $b2cCategoryActiveFlagHandler->getPimModifiedRecordIds();
+
+            $combinedCategoryIds = [];
+
+            if($categoriesForTemp)
+            {
+                $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
+            }
+            elseif($categoryIds)
+            {
+                $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
+            }
+
+            $combinedCategoryIdsDetail = $b2cCategoryActiveFlagHandler->getTempTableDataForIds($combinedCategoryIds);
+            $combinedCategoryIdsDetailWithHashData = $b2cCategoryActiveFlagHandler->addHashesToTempTableData($combinedCategoryIdsDetail);
+            $b2cCategoryActiveFlagHandler->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
+
+            echo "\n Category Insert In Temp Table Completed.";
+
+            // die;
 
             // echo "\n Product Insert In Temp Table Started.";
 
@@ -132,12 +216,12 @@ class B2BSalesforceCommand extends AbstractCommand
             // echo "\n Category Insert In Temp Table Completed.";
 
 
-            echo "\n Start sending failure notification mail.";
-            $b2bFailureNotificationSender = new B2BFailureNotificationSender();
-            $b2bFailureNotificationSender->SendFailureNotification();
+            // echo "\n Start sending failure notification mail.";
+            // $b2bFailureNotificationSender = new B2BFailureNotificationSender();
+            // $b2bFailureNotificationSender->SendFailureNotification();
             
 
-            echo "\n End sending failure notification mail.";
+            // echo "\n End sending failure notification mail.";
 
         } catch (\Exception $ex) {
             echo $ex->getMessage();

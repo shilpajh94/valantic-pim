@@ -21,26 +21,26 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         return $this->db->fetchCol($query);
     }
 
-    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
-    {
-        if(empty($categoryIds)){
-            return [];
-        }
-        $returnValue = [];
+    // public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
+    // {
+    //     if(empty($categoryIds)){
+    //         return [];
+    //     }
+    //     $returnValue = [];
 
-        $categoryIds = array_map(function(string $categoryIdWithComma){
-            return trim($categoryIdWithComma,",");
-        },$categoryIds);
+    //     $categoryIds = array_map(function(string $categoryIdWithComma){
+    //         return trim($categoryIdWithComma,",");
+    //     },$categoryIds);
 
-        $query = "SELECT `o_id`,`Level` FROM " . Constants::B2C_CATEGORY_OBJECT_TABLE_NAME;
-        $query .= " WHERE `o_id` IN " . "(" . implode(",",$categoryIds) . ")";
+    //     $query = "SELECT `o_id`,`level` FROM " . Constants::B2C_CATEGORY_OBJECT_TABLE_NAME;
+    //     $query .= " WHERE `o_id` IN " . "(" . implode(",",$categoryIds) . ")";
 
-        $resultSet =  $this->db->fetchAll($query);
-        foreach($resultSet as $index){
-            $returnValue[$index["o_id"]] = $index["Level"];
-        }
-        return $returnValue;
-    }
+    //     $resultSet =  $this->db->fetchAll($query);
+    //     foreach($resultSet as $index){
+    //         $returnValue[$index["o_id"]] = $index["level"];
+    //     }
+    //     return $returnValue;
+    // }
 
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
@@ -63,10 +63,10 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         $categoriesActiveInactiveList = [];
         if($categoryIds)
         {
-            foreach ($categoryIds as $categoryId => $categoryLevel) {
-                $columnName = "SIOPLevel" . $categoryLevel;
+            foreach ($categoryIds as $categoryId => $categoryId) {
+                $columnName = "B2CCategory";
                 $categoryId = trim($categoryId,',');
-                $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (epixFlag = 1 AND o_published = 1) AND  {$columnName} = ',{$categoryId},' ";
+                $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (B2CStoreFlag = 1 AND o_published = 1) AND  {$columnName} = ',{$categoryId},' ";
                 $resultSet =  $this->db->fetchOne($query);
                 $categoriesActiveInactiveList[$categoryId] = ($resultSet) ? true : false;
             }

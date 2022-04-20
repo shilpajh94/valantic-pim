@@ -3,7 +3,7 @@
 namespace PimDataPostBundle\Lib\TempTablePopulator\B2C;
 
 use PimDataPostBundle\Lib\Constants;
-use PimDataPostBundle\AttributeConfigProvider\B2B\B2CCategoryAttributeConfigProvider;
+use PimDataPostBundle\AttributeConfigProvider\B2C\B2CCategoryAttributeConfigProvider;
 
 class B2CCategoryTempTablePopulator extends AbstractB2CTempTablePopulator
 {
@@ -24,7 +24,7 @@ class B2CCategoryTempTablePopulator extends AbstractB2CTempTablePopulator
 
     public function getPimModifiedRecordIds(): array
     {
-        return $this->helper->getPimModifiedRecordIds(Constants::CATEGORY_OBJECT_TABLE_NAME);
+        return $this->helper->getPimModifiedRecordIds(Constants::B2C_CATEGORY_OBJECT_TABLE_NAME);
     }
 
     public function getPimModifiedRecordIdsWhichAreAlsoPresentInMaster(): array

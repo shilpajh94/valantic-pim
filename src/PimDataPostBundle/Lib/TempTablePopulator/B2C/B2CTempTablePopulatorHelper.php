@@ -14,9 +14,10 @@ class B2CTempTablePopulatorHelper extends TempTablePopulatorHelper
         $this->dao = new TempTablePopulatorDao();
     }
 
-    public function truncateTempTable(string $tableName)
+    public function truncateTempTable(string $tableName): bool
     {
         $this->dao->truncate($tableName);
+        return true;
     }
 
     public function getPimModifiedRecordIds($tableName)

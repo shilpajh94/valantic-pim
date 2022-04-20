@@ -13,7 +13,7 @@ class B2BCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
 
     public function __construct()
     {
-        $this->helper = new CategoryActiveFlagHelper();
+        $this->helper = new B2BCategoryActiveFlagHelper();
         $this->shopType = ShopType::B2B();
     }
 

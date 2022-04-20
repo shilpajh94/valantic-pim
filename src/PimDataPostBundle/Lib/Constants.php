@@ -32,6 +32,8 @@ class Constants
 
     const B2C_CATEGORY_MASTER_TABLE_NAME = "salesforce_integration_b2c_category_master";
 
+    const B2C_CATEGORY_OBJECT_TABLE_NAME = "object_B2CCategory";
+
 
     /**
      * To create a window to capture the pim changes
@@ -43,9 +45,9 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 11;
+    const UPDATE_WINDOW_END_HOUR = 24;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 20;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
     const INSERT_BATCH_SIZE = 50;
 

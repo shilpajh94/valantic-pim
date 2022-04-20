@@ -18,6 +18,42 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+        BusinessUnit:
+            pim_attribute_name: BusinessUnit
+            pim_table_name: object_1
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(20) NULL
+            joinOn:
+            addOnJoin:
+            sf_attribute_name:
+            pim_attribute_type: select
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        B2CCategory:
+            pim_attribute_name: B2CCategory
+            pim_table_name: object_1
+            sendToSF: false
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(20) NULL
+            sf_relational_attribute: true
+            joinOn:
+            addOnJoin:
+            sf_attribute_name: Name
+            pim_attribute_type: manyToManyObjectRelation
+            allowed_object_class_name: B2CCategory
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name: displayName
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
         eanUpc:
             pim_attribute_name: eanUpc
             pim_table_name: object_1
