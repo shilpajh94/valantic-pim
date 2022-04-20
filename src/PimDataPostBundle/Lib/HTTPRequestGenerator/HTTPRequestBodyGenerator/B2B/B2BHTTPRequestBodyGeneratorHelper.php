@@ -89,7 +89,6 @@ class B2BHTTPRequestBodyGeneratorHelper
                 {
                     $graphData[]=array(
                     'graphId'=>'graph'.$insNode,
-                    'allOrNone' => false,
                     'compositeRequest'=>$compositeRequest
                     );   
                     $compositeRequest=array();
