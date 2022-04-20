@@ -66,21 +66,19 @@ class EnforcedRecordsProviderHelper
         $returnArray =[];
         foreach($listing->load() as $row)
         {
-            $objectIdArray = explode("_",$row->objectId);
-            if(isset($objectIdArray[0]) && isset($objectIdArray[1]) && isset($objectIdArray[2]))
-            {
-                if($objectIdArray[1] == 'Document')
-                    $objectIdArray[1] = "asset|".$objectIdArray[1];
-                $object = new B2BProductRelationChange();
-                $object->setProductId($objectIdArray[0]);
-                if($row->operationType== APIOperationType::DELETE())
-                $object->setOldValue($objectIdArray[2]);
-                else
-                $object->setNewValue($objectIdArray[2]);
-                $object->setAttributeName($objectIdArray[1]);
+            $recordId = $row->getObjectId();
+            // separator here should be equal to B2BProductMediaPoster -> pimIdSeparator
+            $valueArray = explode("_", $recordId);
+            $newValue = $valueArray[2] == "" ? null : $valueArray[2];
+            $oldValue = $valueArray[3] == "" ? null : $valueArray[3];
 
-                $returnArray[] = $object;
-            }
+            $object = new B2BProductRelationChange();
+            $object->setProductId($valueArray[0]);
+            $object->setAttributeName($valueArray[1]);
+            $object->setNewValue($newValue);
+            $object->setOldValue($oldValue);
+
+            $returnArray[] = $object;
         }
         return $returnArray;
     }

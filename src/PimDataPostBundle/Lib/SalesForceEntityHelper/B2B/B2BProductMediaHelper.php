@@ -42,5 +42,8 @@ class B2BProductMediaHelper extends AbstractB2BSalesForceEntityHelper
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
     
-
+    public function getExternalIdForMedia(int $productId, string $attributeName, int $indexOrAssetId)
+    {
+        return strval($productId) . "_" . $attributeName . "_" . strval($indexOrAssetId);
+    }
 }

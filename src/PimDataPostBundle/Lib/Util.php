@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib;
 
+use AppBundle\Services\AppService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request;
