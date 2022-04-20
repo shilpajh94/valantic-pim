@@ -11,8 +11,11 @@ class B2BProductInitialLoadProvider
         $this->db = \Pimcore\Db::get();
     }
 
-    public function getProductIdsForInitialLoad(): array
+    public function getProductIdsForInitialLoad($pageSize, $pageNumber): array
     {
+        $limit = $pageSize;
+        $offSet = ($pageNumber > 0) ? (( $pageNumber - 1 ) * $pageSize) : 0;
+
         $sql = "SELECT DISTINCT
                     product.o_id
                 FROM
@@ -25,8 +28,9 @@ class B2BProductInitialLoadProvider
                     salesMaster.epixFlag = '001'
                         AND salesMaster.o_published = 1
                         AND product.o_published = 1
-                ORDER BY product.o_id ASC;";
-            
+                ORDER BY product.o_id ASC
+                LIMIT $offSet, $limit;";
+
         return $this->db->fetchCol($sql);
     }
 }
