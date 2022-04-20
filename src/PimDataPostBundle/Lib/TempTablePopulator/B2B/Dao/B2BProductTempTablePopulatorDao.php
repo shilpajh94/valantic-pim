@@ -4,6 +4,7 @@ namespace PimDataPostBundle\Lib\TempTablePopulator\B2B\Dao;
 
 use PimDataPostBundle\Lib\TempTablePopulator\TempTablePopulatorDao;
 use PimDataPostBundle\Model\UpdateWindow;
+use PimDataPostBundle\Lib\Constants;
 
 class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
 {
@@ -35,6 +36,17 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
             $productIds = implode(",",$pimIds); 
             $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.o_published = 1)  GROUP BY pim_id;";
             $resultSet = $this->db->fetchPairs($query);
+        }
+        return $resultSet;
+    }
+
+    public function getProductDetails($object_id)
+    {
+        $resultSet = [];
+        if($object_id)
+        {
+            $query = "SELECT * FROM ".Constants::B2B_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
+            $resultSet = $this->db->fetchAll($query);
         }
         return $resultSet;
     }
