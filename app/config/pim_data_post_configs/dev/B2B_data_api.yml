@@ -1,0 +1,33 @@
+parameters:
+    b2b_api_version: v50.0
+
+    b2b_api_host: https://continental-contitech--pimcom.my.salesforce.com
+    b2b_composite_graph_api_url: /services/data/%b2b_api_version%/composite/graph
+
+    # follow the following format to add more entries
+    # shopType_B2BSalesForceObjectType
+    b2b_Product2:
+        url: /services/data/%b2b_api_version%/sobjects/Product2
+        external_id: B2B_External_Id__c
+
+    b2b_ProductCategory:
+        url: /services/data/%b2b_api_version%/sobjects/ProductCategory
+        external_id: B2B_External_Id__c
+        catalogId: 0ZS3O000000CcNsWAK
+
+    b2b_ProductCategoryProduct:
+        url: /services/data/%b2b_api_version%/sobjects/ProductCategoryProduct
+        external_id: B2B_External_Id__c
+    
+    b2b_B2B_Product_Media__c:
+        url: /services/data/%b2b_api_version%/sobjects/B2B_Product_Media__c
+        external_id: B2B_External_Id_c__c
+    
+    b2b_Product2DataTranslation:
+        url: /services/data/%b2b_api_version%/sobjects/Product2DataTranslation
+        external_id: 
+
+    b2b_ProductCategoryDataTranslation:
+        url: /services/data/%b2b_api_version%/sobjects/ProductCategoryDataTranslation
+        external_id: 
+  
