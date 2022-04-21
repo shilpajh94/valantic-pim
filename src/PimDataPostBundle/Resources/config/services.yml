@@ -28,6 +28,10 @@ services:
     PimDataPostBundle\Command\SampleTestCommand:
         tags:
             - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
+    
+    PimDataPostBundle\Command\ConnectionTestCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:connection-test-command' }
 
     PimDataPostBundle\Command\CreateTableCommand:
         tags:
