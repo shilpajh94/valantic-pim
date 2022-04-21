@@ -30,9 +30,6 @@ class PimDataPostCommand extends AbstractCommand
         $executor = new B2BProductCategoryRelationDataPoster();
         $executor->postData();
 
-        // $executor = new B2BProductMediaPoster();
-        // $executor->postData();
-
         $scriptEndTime = time();
         p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
 

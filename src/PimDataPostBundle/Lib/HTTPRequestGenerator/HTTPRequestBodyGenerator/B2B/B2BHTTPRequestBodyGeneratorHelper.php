@@ -31,7 +31,6 @@ class B2BHTTPRequestBodyGeneratorHelper
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         if($operationType != null){
             $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
         
@@ -51,7 +50,6 @@ class B2BHTTPRequestBodyGeneratorHelper
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
         if($operationType != null){
             $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
         
@@ -60,6 +58,7 @@ class B2BHTTPRequestBodyGeneratorHelper
         }
         $listing->setOrderKey("id");
         $listing->setOrder("asc");
+        // setting offset creates problem for requests
         // $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();

@@ -21,10 +21,10 @@ class B2BAuth extends AbstractTokenBasedAuth
         $authRequest = new Request($tokenConfig->getMethod(),$tokenConfig->getURL());
 
         $client = new \GuzzleHttp\Client( ['query' => $tokenConfig->getParams()]);
-        $response = Util::sendRequestWithConnectionRetries($client, $authRequest, $tokenConfig->getGuzzleRequestTimeout());
+        $response = Util::sendRequestWithConnectionRetries($client, $authRequest, intval($tokenConfig->getGuzzleRequestTimeout()) );
         $responseArr = json_decode($response->getBody()->getContents(),true);
         $responseArr["access_token"];
-        return new AuthToken($responseArr["access_token"],floor($responseArr["issued_at"]/1000),$tokenConfig->getTokenLifetime());
+        return new AuthToken($responseArr["access_token"],floor($responseArr["issued_at"]/1000), intval($tokenConfig->getTokenLifetime()) );
     }
 
     protected function getType(): string

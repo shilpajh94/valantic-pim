@@ -70,7 +70,6 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $idsArray = explode($this->pimIdSeparator, $failedRecordId);
             $object = new B2BProductRelationChange();
             $object->setProductId($idsArray[0]);
-            // $object->setNewValue("," . $idsArray[1] . ",");
             $object->setNewValue($idsArray[1]);
 
             $relationObjects[] = $object;
@@ -110,7 +109,6 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
 
     private function getPimIdForRelationChangeObject(B2BProductRelationChange $relationChangeObject): string
     {
-        // $newValue = trim($relationChangeObject->getNewValue(),",");
         return $relationChangeObject->getProductId(). $this->pimIdSeparator . $relationChangeObject->getNewValue();
     }
 

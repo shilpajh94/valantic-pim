@@ -36,13 +36,11 @@ class CreateTableCommand extends AbstractCommand
 
         $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
         $productAttributes = $B2BProductAttributeConfigProvider->getCompleteAttributeConfig();
-        // $productAttributes = $this->commonHelper->getParameter($B2BProductAttributeConfig, 'Attribute');
         $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 'o_id');
         $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 'o_id');
 
         $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
         $categoryAttributes = $B2BCategoryAttributeConfigProvider->getCompleteAttributeConfig();
-        // $categoryAttributes = $this->commonHelper->getParameter($B2BCategoryAttributeConfig, 'Attribute');
         $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'oo_id');
         $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'oo_id');
         $this->createTableB2bApiRequestEntities();
