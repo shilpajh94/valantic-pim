@@ -19,6 +19,7 @@ class PimDataPostCommand extends AbstractCommand
     {
         $scriptStartTime = time();
         Util::setB2BScriptStartTime($scriptStartTime);
+        p_r($scriptStartTime);
 
         $executor = new B2BProductDataPoster();
         $executor->postData();
@@ -29,8 +30,8 @@ class PimDataPostCommand extends AbstractCommand
         $executor = new B2BProductCategoryRelationDataPoster();
         $executor->postData();
 
-        $executor = new B2BProductMediaPoster();
-        $executor->postData();
+        // $executor = new B2BProductMediaPoster();
+        // $executor->postData();
 
         $scriptEndTime = time();
         p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");

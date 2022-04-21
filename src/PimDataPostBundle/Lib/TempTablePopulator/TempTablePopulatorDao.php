@@ -75,7 +75,7 @@ class TempTablePopulatorDao
                     continue;
                 }
 
-                if($value['epixFlag'])
+                if($tableKey == 'epixFlag' && $value['pim_attribute_name'] == 'epixFlag')
                 {
                     continue;
                 }

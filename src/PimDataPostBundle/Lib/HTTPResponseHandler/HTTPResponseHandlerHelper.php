@@ -30,12 +30,12 @@ class HTTPResponseHandlerHelper
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {
-          $rowObject->setResponseStatus($responceStatus);
-          $rowObject->setResponseMsg($responceMsg);
-          $rowObject->setResponseTimestamp($responseTimestamp);
-          $rowObject->save();
-          $this->addEntityToEnforce($rowObject);
-          return true;
+            $rowObject->setResponseStatus($responceStatus);
+            $rowObject->setResponseMsg($responceMsg);
+            $rowObject->setResponseTimestamp($responseTimestamp);
+            $rowObject->save();
+            $this->addEntityToEnforce($rowObject);
+            return true;
         }
         return false;   
     }
@@ -46,11 +46,11 @@ class HTTPResponseHandlerHelper
         $listing->setCondition("objectId = ?", [$requestObject->pimId]);
         if(count($listing->load()) == 0)
         {
-        $newObject = new B2BEntityEnforcedToPush();
-        $newObject->setObjectId($requestObject->pimId);
-        $newObject->setOperationType($requestObject->operationType);
-        $newObject->setSFObjectType($requestObject->SFObjectType);
-        $newObject->save();
+            $newObject = new B2BEntityEnforcedToPush();
+            $newObject->setObjectId($requestObject->pimId);
+            $newObject->setOperationType($requestObject->operationType);
+            $newObject->setSFObjectType($requestObject->SFObjectType);
+            $newObject->save();
         }
         return true;
     }

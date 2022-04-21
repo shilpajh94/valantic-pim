@@ -40,13 +40,13 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         return $resultSet;
     }
 
-    public function getProductDetails($object_id)
+    public function getExistingTempTableData($object_id)
     {
         $resultSet = [];
         if($object_id)
         {
             $query = "SELECT * FROM ".Constants::B2B_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
-            $resultSet = $this->db->fetchAll($query);
+            $resultSet = $this->db->fetchRow($query);
         }
         return $resultSet;
     }
