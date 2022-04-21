@@ -166,7 +166,7 @@ class TempTablePopulatorDao
             $insertArrayString = implode(',',$insertArray);
 
             $rowCount = 1;
-            $sql      = "INSERT INTO `{$tempTable}` ({$insertArrayString}) VALUES";
+            $sql      = "REPLACE INTO `{$tempTable}` ({$insertArrayString}) VALUES";
             $values   = '';
 
             foreach ($arrData as $data) {
