@@ -34,12 +34,12 @@ class B2BCategoryAttributeConfigProvider extends AbstractB2BAttributeConfigProvi
 
     public function getLocalizedAttributeConfig(): array
     {
-
+        return [];
     }
 
     public function getSalesForceRelationalAttributeConfig(): array
     {
-        
+        return [];
     }
 
     public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
