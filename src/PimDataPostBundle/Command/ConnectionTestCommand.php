@@ -18,11 +18,19 @@ class ConnectionTestCommand extends AbstractCommand
         $request = new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders(), 
                                 $this->getRequestBody());
         $client = new \GuzzleHttp\Client();
-        $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
-        if($response->getStatusCode() == 200){
-            echo "-----Working-----\n";
-        } else{
-            echo "-----Not Working-----\n";
+        try{
+            $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+            
+            p_r("=============== Response Status Code: " . $response->getStatusCode());
+
+            if($response->getStatusCode() != 200){
+                p_r($response->getBody());
+            }
+
+        }catch(\Throwable $th){
+            echo "============== Exception while trying connection\n";
+            echo "\n\n\n\n";
+            p_r($th);
         }
     }
 
