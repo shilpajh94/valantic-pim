@@ -8,6 +8,7 @@ use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CProductHelper;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CCategoryHelper;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\Factory;
+use PimDataPostBundle\Lib\Util;
 
 class B2CHTTPRequestBodyGeneratorHelper
 {
@@ -26,25 +27,37 @@ class B2CHTTPRequestBodyGeneratorHelper
         $this->b2cHelper =  Factory::getb2cHelper(B2CSalesForceObjectType::getByString($SFObjectType));
     }
 
-    public function getTotalBatches(): int
+    public function getTotalBatches(APIOperationType $operationType = null): int
     {
+        //$scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        if($operationType != null){
+            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType)]);
+        
+        } else {
+            $listing = $listing->setCondition('SFObjectType = ?', [$this->SFObjectType]);
+        }
         $listing=$listing->load();
         return count($listing);
     }
 
-    public function getHTTPRequestBodyByBatchNumber($batch): string
+    public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
+        //$scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
+        if($operationType != null){
+            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? ', [$this->SFObjectType, strval($operationType)]);
+        } else {
+            $listing = $listing->setCondition('SFObjectType = ?', [$this->SFObjectType]);
+        }
+        $listing->setOrderKey("id");
+        $listing->setOrder("asc");
         $listing->setOffset($batch-1);
         $listing->setLimit(1);
         $listing = $listing->load();
         $allRequest=array();
         foreach($listing as $data)
         {
-            
             $subRequest= array();
             $subRequest['body']=json_decode($data->body);
             if($data->operationType== APIOperationType::CREATE()) {
@@ -56,7 +69,7 @@ class B2CHTTPRequestBodyGeneratorHelper
             } else {
                 $subRequest['method']='';
             }
-            $subRequest['url']= "https://bgxw-010.sandbox.us01.dx.commercecloud.salesforce.com/s/-/dw/data/v18_1/products/".$data->externalID;
+            $subRequest['externalID']= $data->externalID;
             if($subRequest['method']!='')
             {
                 $allRequest=$subRequest;

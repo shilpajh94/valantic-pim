@@ -3,6 +3,7 @@
 namespace PimDataPostBundle\Lib\HTTPRequestGenerator\B2C;
 
 use GuzzleHttp\Psr7\Request;
+use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CCategoryHelper;
@@ -22,29 +23,25 @@ class B2CCategoryHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator
         $this->b2cHTTPRequestBodyGenerator= new B2CCategoryHTTPRequestBodyGenerator();
     }
     
-    private function getRequestHeaders(): array
+    private function getRequestUrl($request): string
     {
-        $b2cAuthToken = Util::getService(TokenAuthService::class)->getB2CAuthToken();
-        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        $decodeRequest = json_decode($request, true);
+        return "https://bgxw-010.sandbox.us01.dx.commercecloud.salesforce.com/s/-/dw/data/v18_1/products/".$decodeRequest['externalID'];
     }
 
-    private function getRequestBody($batch): string
+    private function getRequestBody($batch, APIOperationType $operationType = null): string
     {
-        return $this->b2cHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch);
+        return $this->b2cHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch,$operationType);
     }
 
-    public function getRequest($batch): Request
+    public function getRequest($batch, APIOperationType $operationType = null): Request
     {
-        $getbodyRequest = $this->getRequestBody($batch);
-        return  new Request($this->b2cHTTPRequestGeneratorHelper->getRequestMethod($getbodyRequest), $this->b2cHTTPRequestGeneratorHelper->getRequestUrl($getbodyRequest), $this->getRequestHeaders(), $this->b2cHTTPRequestGeneratorHelper->geBodyFromRequestBody($getbodyRequest));
+        $getbodyRequest = $this->getRequestBody($batch, $operationType);
+        return  new Request($this->b2cHTTPRequestGeneratorHelper->getRequestMethod($getbodyRequest), $this->getRequestUrl($getbodyRequest), $this->b2cHTTPRequestGeneratorHelper->getRequestHeaders(), $this->b2cHTTPRequestGeneratorHelper->geBodyFromRequestBody($getbodyRequest));
     }
 
-    public function getTotalBatches():int
+    public function getTotalBatches(APIOperationType $operationType = null):int
     {
-        return $this->b2cHTTPRequestBodyGenerator->getTotalBatches();
+        return $this->b2cHTTPRequestBodyGenerator->getTotalBatches($operationType);
     }
 }
