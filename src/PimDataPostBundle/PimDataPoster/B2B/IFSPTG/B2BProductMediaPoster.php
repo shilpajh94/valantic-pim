@@ -131,7 +131,11 @@ class B2BProductMediaPoster implements IDataPoster
             foreach($requestBodyParams as $requestBodyParam)
             {
                 $apiRequestEntity = new B2BAPIRequestEntity();
-                $apiRequestEntity->setBody(json_encode($requestBodyParam["body"],JSON_UNESCAPED_SLASHES));
+                if( $requestBodyParam["body"] === null){
+                    $apiRequestEntity->setBody(null);
+                }else{
+                    $apiRequestEntity->setBody(json_encode($requestBodyParam["body"],JSON_UNESCAPED_SLASHES));
+                }
                 $apiRequestEntity->setOperationType($requestBodyParam["operationType"]);
                 $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_MEDIA() );
     

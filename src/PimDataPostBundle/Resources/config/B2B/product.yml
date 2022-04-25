@@ -3837,26 +3837,26 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        # mainImage:
-        #     pim_attribute_name: mainImage
-        #     pim_table_name: object_1
-        #     sendToSF: false
-        #     temp_master_table_attr: true
-        #     temp_master_table_column_type: int(11) NULL
-        #     sf_relational_attribute: true
-        #     joinOn:
-        #     addOnJoin:
-        #     sf_attribute_name:
-        #     pim_attribute_type: image
-        #     allowed_object_class_name:
-        #     is_multilingual_for_sf:
-        #     container_pim_class_or_brick_name: Product
-        #     pim_attribute_for_sf_in_allowed_object_class_name:
-        #     pim_id_to_sf_id_mapping_model:
-        #     update_product_if_master_updated:
-        #     isLocalisedMaster:
-        #     sf_media_type_attribute: true
-        #     sf_media_sequence: 1
+        mainImage:
+            pim_attribute_name: mainImage
+            pim_table_name: object_1
+            sendToSF: false
+            temp_master_table_attr: true
+            temp_master_table_column_type: int(11) NULL
+            sf_relational_attribute: true
+            joinOn:
+            addOnJoin:
+            sf_attribute_name:
+            pim_attribute_type: image
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: Product
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+            sf_media_type_attribute: true
+            sf_media_sequence: 1
         # altImage1:
         #     pim_attribute_name: altImage1
         #     pim_table_name: object_1

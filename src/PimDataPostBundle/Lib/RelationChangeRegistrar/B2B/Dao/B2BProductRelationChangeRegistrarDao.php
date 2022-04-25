@@ -85,7 +85,7 @@ class B2BProductRelationChangeRegistrarDao
                     $tempKey = "t1_{$key}";
                     $masterKey = "t2_{$key}";
 
-                    if(isset($resultValue[$tempKey]))
+                    if( array_key_exists($tempKey, $resultValue))
                     {
                         $oldValue = $resultValue[$masterKey];
                         $newValue = $resultValue[$tempKey];
