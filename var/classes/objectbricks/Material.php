@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-13T06:06:41+01:00
-* IP: 127.0.0.1
+* Generated at: 2022-04-25T12:40:59+02:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -215,9 +215,61 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
-                     'options' => NULL,
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Alumina',
+                        'value' => 10970567,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Cement',
+                        'value' => 10970568,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Coal',
+                        'value' => 10970569,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Gypsum',
+                        'value' => 10970570,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Limestone',
+                        'value' => 10970571,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Potash',
+                        'value' => 10970572,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Salt',
+                        'value' => 10970573,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'Sand',
+                        'value' => 10970574,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Silica',
+                        'value' => 10970575,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'Tailing',
+                        'value' => 10970576,
+                      ),
+                    ),
                      'width' => 200,
-                     'height' => 30,
+                     'height' => '',
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSMaterialOptionProvider',
