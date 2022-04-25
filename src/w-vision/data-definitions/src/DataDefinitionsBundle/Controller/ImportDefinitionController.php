@@ -655,7 +655,13 @@ class ImportDefinitionController extends ResourceController
             $encParams      = trim($encParams,'"');
             $cmd            = PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"$encParams\"";
             DataImportLogger::log($cmd);
-            $executed       = \Pimcore\Tool\Console::execInBackground($cmd);
+            $processId      = \Pimcore\Tool\Console::execInBackground($cmd);
+
+            // update process id of respective data definition import 
+            $dataImport     = DataDefinitionImport::getById($importDataId);
+            $dataImport->setProcessId($processId);
+            $dataImport->save();
+
         } catch (NotNullConstraintViolationException $exception) {
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 
