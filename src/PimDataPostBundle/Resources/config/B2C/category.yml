@@ -163,7 +163,7 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
         hoseCategoryImage:
-            pim_attribute_name: mainImage
+            pim_attribute_name: hoseCategoryImage
             pim_table_name: object_B2CCategory
             sendToSF: true
             temp_master_table_attr: true

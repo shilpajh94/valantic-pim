@@ -17,7 +17,7 @@ use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CProductTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
-use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2CCategoryActiveFlagHandler;
+use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2C\B2CCategoryActiveFlagHandler;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRegistrar;
@@ -62,64 +62,36 @@ class B2BSalesforceCommand extends AbstractCommand
 
             echo "\n Category Insert In Temp Table Started.";
 
-            $b2cCategoryTempTablePopulator = new B2CCategoryTempTablePopulator();
-            $b2cCategoryTempTablePopulator->truncateTempTable();
-            $b2cCategoryActiveFlagHandler = new B2CCategoryActiveFlagHandler();
-            $masterTableCategories = $b2cCategoryActiveFlagHandler->getAllCategoryIdsInMasterTable();
-            // $categoriyIdsWithLevelInMasterTable = $b2cCategoryActiveFlagHandler->getCategoryIdToCategoryLevelMapping($masterTableCategories);
-            // p_r($categoriyIdsWithLevelInMasterTable);
-            
-            $categoriesActiveInactiveList = $b2cCategoryActiveFlagHandler->getValueForActiveFlag($masterTableCategories);
-            p_r($categoriesActiveInactiveList);
-            die;
-            $b2cCategoryActiveFlagHandler->updateActiveFlagValue($categoriesActiveInactiveList);
+            $tempTablePopulator = new B2CCategoryTempTablePopulator();
+            $activeFlagHandler = new B2CCategoryActiveFlagHandler();
+            $tempTablePopulator->truncateTempTable();
+            $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
+            $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
+            $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
 
-            $allRelationCategories = $b2cCategoryActiveFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+            $categoryIdsToBeAddedInTempTable = [];
+    
+            $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
 
-            $idAndActiveFlagValueArray = [];
-            if($allRelationCategories)
-            {
-                $categoriesForTemp = [];
-                foreach ($allRelationCategories as $categoryId) {
-
-                    $categoryData = $b2cCategoryActiveFlagHandler->isCategoryPresentInMasterTable($categoryId);
-                    if($categoryData)
-                    {
-                        $isActive = $b2cCategoryActiveFlagHandler->isCategoryActiveInMasterTable($categoryId);
-                        if(!$isActive)
-                        {
-                            $idAndActiveFlagValueArray[$categoryId] = $isActive;
-                        }   
+            foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
+                if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
+                    if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+                        $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
                     }
-                    else{
-                        $idAndActiveFlagValueArray[$categoryId] = false;
-                        $categoriesForTemp[] = $categoryId;
-                    }
+                }else{
+                    $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                    $categoryIdsToBeAddedInTempTable[] = $categoryId;
                 }
             }
-            
-            $b2cCategoryActiveFlagHandler->updateActiveFlagValue($idAndActiveFlagValueArray);
 
-            $categoryIds = $b2cCategoryActiveFlagHandler->getPimModifiedRecordIds();
-
-            $combinedCategoryIds = [];
-
-            if($categoriesForTemp)
-            {
-                $combinedCategoryIds = array_merge($categoriesForTemp, $categoryIds);
-            }
-            elseif($categoryIds)
-            {
-                $combinedCategoryIds = array_merge($categoryIds, $categoriesForTemp);
-            }
-
-            $combinedCategoryIdsDetail = $b2cCategoryActiveFlagHandler->getTempTableDataForIds($combinedCategoryIds);
-            $combinedCategoryIdsDetailWithHashData = $b2cCategoryActiveFlagHandler->addHashesToTempTableData($combinedCategoryIdsDetail);
-            $b2cCategoryActiveFlagHandler->insertDataInTempTable($combinedCategoryIdsDetailWithHashData);
-
+            $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
+            $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
+            $tempTableData = $tempTablePopulator->getTempTableDataForIds($categoryIdsToBeAddedInTempTable);
+            $tempTableDataWithHashes = $tempTablePopulator->addHashesToTempTableData($tempTableData);
+            $tempTablePopulator->insertDataInTempTable($tempTableDataWithHashes);
             echo "\n Category Insert In Temp Table Completed.";
 
-            // die;
+            die;
 
             // echo "\n Product Insert In Temp Table Started.";
 

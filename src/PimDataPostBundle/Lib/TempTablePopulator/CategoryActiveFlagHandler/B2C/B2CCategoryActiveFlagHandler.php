@@ -1,10 +1,10 @@
 <?php
 
-namespace PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler;
+namespace PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2C;
 
 use PimDataPostBundle\Model\Types\ShopType;
 
-class B2CCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
+class B2CCategoryActiveFlagHandler extends AbstractB2CCategoryActiveFlagHandler
 {
 
     private $helper;
@@ -25,11 +25,6 @@ class B2CCategoryActiveFlagHandler extends AbstractCategoryActiveFlagHandler
     public function getAllCategoryIdsInMasterTable(): array
     {
         return $this->helper->getAllCategoryIdsInMasterTable();
-    }
-
-    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
-    {
-        return $this->helper->getCategoryIdToCategoryLevelMapping($categoryIds);
     }
 
     /**

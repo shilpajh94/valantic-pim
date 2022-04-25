@@ -21,27 +21,6 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         return $this->db->fetchCol($query);
     }
 
-    // public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
-    // {
-    //     if(empty($categoryIds)){
-    //         return [];
-    //     }
-    //     $returnValue = [];
-
-    //     $categoryIds = array_map(function(string $categoryIdWithComma){
-    //         return trim($categoryIdWithComma,",");
-    //     },$categoryIds);
-
-    //     $query = "SELECT `o_id`,`level` FROM " . Constants::B2C_CATEGORY_OBJECT_TABLE_NAME;
-    //     $query .= " WHERE `o_id` IN " . "(" . implode(",",$categoryIds) . ")";
-
-    //     $resultSet =  $this->db->fetchAll($query);
-    //     foreach($resultSet as $index){
-    //         $returnValue[$index["o_id"]] = $index["level"];
-    //     }
-    //     return $returnValue;
-    // }
-
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
@@ -53,7 +32,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryActiveInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND ShowInMenu = 1";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND onlineFlag = 1";
         $resultSet =  $this->db->fetchCol($query);
         return ($resultSet) ? true : false;
     }
@@ -63,7 +42,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         $categoriesActiveInactiveList = [];
         if($categoryIds)
         {
-            foreach ($categoryIds as $categoryId => $categoryId) {
+            foreach ($categoryIds as $categoryId) {
                 $columnName = "B2CCategory";
                 $categoryId = trim($categoryId,',');
                 $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (B2CStoreFlag = 1 AND o_published = 1) AND  {$columnName} = ',{$categoryId},' ";

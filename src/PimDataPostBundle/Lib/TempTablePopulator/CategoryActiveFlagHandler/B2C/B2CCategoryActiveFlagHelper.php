@@ -1,6 +1,6 @@
 <?php
 
-namespace PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler;
+namespace PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2C;
 
 use PimDataPostBundle\Model\Types\ShopType;
 use PimDataPostBundle\Lib\TempTablePopulator\B2C\Dao\B2CCategoryTempTablePopulatorDao;
@@ -20,11 +20,6 @@ class B2CCategoryActiveFlagHelper
     public function getAllCategoryIdsInMasterTable(): array
     {
         return $this->dao->iterateMasterTableCategories(Constants::B2C_CATEGORY_MASTER_TABLE_NAME);
-    }
-
-    public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
-    {
-        return $this->dao->getCategoryIdToCategoryLevelMapping($categoryIds);
     }
 
     public function getCategoryIdsWhereRelationWithProductChanged(): array
@@ -60,15 +55,15 @@ class B2CCategoryActiveFlagHelper
         {
             foreach ($idAndActiveFlagValueArray as $categoryId => $flag) {
                 $categoryId = trim($categoryId, ',');
-                $hierarchyObj = DataObject\ProductCategory::getById($categoryId);
+                $hierarchyObj = DataObject\B2CCategory::getById($categoryId);
                 $hierarchyObj->setGetInheritedValues(false);
 
-                $showInMenu = $hierarchyObj->getShowInMenu();
-                $showInMenu = ($showInMenu) ? true : false;
+                $onlineFlag = $hierarchyObj->getOnlineFlag();
+                $onlineFlag = ($onlineFlag) ? true : false;
 
-                if($showInMenu != $flag)
+                if($onlineFlag != $flag)
                 {
-                    $hierarchyObj->setShowInMenu($flag);
+                    $hierarchyObj->setOnlineFlag($flag);
                     $hierarchyObj->save();  
                 }
             }
