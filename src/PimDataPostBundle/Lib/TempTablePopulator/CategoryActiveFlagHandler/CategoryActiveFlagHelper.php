@@ -30,7 +30,8 @@ class CategoryActiveFlagHelper
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
         $list = new B2BProductRelationChange\Listing();
-
+        $condition = " attributeName IN " . "(" . implode(",", array_map( array( $list, "quote" ), Constants::B2B_PIM_CATEGORY_ATTRIBUTES) ) . ")";
+        $list->setCondition($condition);
         $categories = [];
         
         foreach($list as $obj){

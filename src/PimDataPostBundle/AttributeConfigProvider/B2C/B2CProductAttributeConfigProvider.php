@@ -40,7 +40,7 @@ class B2CProductAttributeConfigProvider extends AbstractB2CAttributeConfigProvid
 
     public function getLocalizedAttributeConfig(): array
     {
-
+        return [];
     }
 
     public function getSalesForceRelationalAttributeConfig(): array

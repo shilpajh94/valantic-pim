@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib;
 
+use AppBundle\Services\AppService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request;
@@ -12,6 +13,10 @@ use PimDataPostBundle\Model\Types\ShopType;
 use PimDataPostBundle\Model\UpdateWindow;
 use PimDataPostBundle\Services\UtilService;
 use Pimcore\Model\Asset;
+use Pimcore\Model\Asset\Image;
+use PimDataPostBundle\Logger\B2BLogger;
+use PimDataPostBundle\Services\TokenAuthService;
+use PimDataPostBundle\Model\Types\ImageTransformationSize;
 
 class Util
 {
@@ -102,5 +107,47 @@ class Util
         $session = self::getService('session');
         $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
         return $session->get($key);
+    }
+
+    public static function getAssetPublicPath(Asset $asset, ImageTransformationSize $imageTransformationSize = null): string
+    {
+        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        if( ($asset instanceof Image) && $imageTransformationSize){
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . strval($imageTransformationSize)));
+        }
+        return $sourcePath;
+    }
+
+    public static function setPIMFailureFlag(): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
+        $session->set($key, true);
+    }
+
+    public static function isPIMFailureFlagSet(): ?bool
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
+        return $session->get($key);
+    }
+
+    public static function getB2BRequestHeader(bool $forceNewToken = false): array
+    {
+        $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken($forceNewToken);
+        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        return array(
+            'Content-Type' => 'application/json',
+            'Authorization' => $authHeader
+        );
+    }
+
+    public static function refreshB2BRequestHeader(Request $request): Request
+    {
+        $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken(true);
+        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        $request = $request->withHeader("Authorization", $authHeader);
+        return $request;
     }
 }

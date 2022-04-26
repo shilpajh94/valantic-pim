@@ -15,6 +15,7 @@ use PimDataPostBundle\Lib\RelationChangeRegistrar\B2B\B2BProductRelationChangeRe
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BProductRequestBodyGenerator;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
@@ -96,6 +97,7 @@ class B2BProductDataPoster implements IDataPoster
             }catch(\Throwable $throwable){
                 B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
                 $helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2BSalesForceObjectType::PRODUCT() );
+                Util::setPIMFailureFlag();
             }
            
     }
@@ -106,21 +108,24 @@ class B2BProductDataPoster implements IDataPoster
     {
         $b2bProductRequestBodyGenerator = new B2BProductRequestBodyGenerator();
         foreach($records as $recordPimId){
-            $tempTableData = $tempTablePopulator->getTempTableDataForIds([$recordPimId])[0];
-            $currTime = time();
-            $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
+            $tempTableData = $tempTablePopulator->getExistingTempTableData($recordPimId);
 
-            $apiRequestEntity = new B2BAPIRequestEntity();
-            $apiRequestEntity->setBody(json_encode($requestBody));
-            $apiRequestEntity->setOperationType($operationType);
-            $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
+            if($tempTableData["external_id"] != null && trim($tempTableData["external_id"]) != ""){
+                $currTime = time();
+                $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
     
-            $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
-            $apiRequestEntity->setPimId($tempTableData["o_id"]);
-            $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
-            $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
-            $apiRequestEntity->setCreationDate($currTime);
-            $apiRequestEntity->save();
+                $apiRequestEntity = new B2BAPIRequestEntity();
+                $apiRequestEntity->setBody(json_encode($requestBody));
+                $apiRequestEntity->setOperationType($operationType);
+                $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
+        
+                $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
+                $apiRequestEntity->setPimId($tempTableData["o_id"]);
+                $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
+                $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
+                $apiRequestEntity->setCreationDate($currTime);
+                $apiRequestEntity->save();
+            }
         }
     }
 

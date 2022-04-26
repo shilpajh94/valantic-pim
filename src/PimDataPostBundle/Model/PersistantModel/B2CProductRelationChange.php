@@ -47,7 +47,7 @@ class B2CProductRelationChange extends AbstractModel
         return $this;
     }
 
-    public function getOldValue(): int
+    public function getOldValue(): ?string
     {
         return $this->oldValue;
     }
@@ -58,7 +58,7 @@ class B2CProductRelationChange extends AbstractModel
         return $this;
     }
 
-    public function getNewValue(): string
+    public function getNewValue(): ?string
     {
         return $this->newValue;
     }

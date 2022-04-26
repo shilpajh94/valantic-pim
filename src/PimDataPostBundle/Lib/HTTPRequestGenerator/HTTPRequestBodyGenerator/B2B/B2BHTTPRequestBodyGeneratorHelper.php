@@ -27,13 +27,16 @@ class B2BHTTPRequestBodyGeneratorHelper
         $this->b2bHelper =  Factory::getb2bHelper(B2BSalesForceObjectType::getByString($SFObjectType));
     }
 
-    public function getTotalBatches(): int
+    public function getTotalBatches(APIOperationType $operationType = null): int
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
-        $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
-
+        if($operationType != null){
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
+        
+        } else {
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
+        }
         $listing=$listing->load();
         $totalRow=count($listing);
         if($this->graphNo==0 || $this->subRequestNo==0) {
@@ -43,14 +46,20 @@ class B2BHTTPRequestBodyGeneratorHelper
         return ceil($batches);
     }
 
-    public function getHTTPRequestBodyByBatchNumber($batch): string
+    public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2BAPIRequestEntity\Listing();
-        // $listing = $listing->setCondition('responseStatus  IS NULL AND SFObjectType = ?', $this->SFObjectType);
-        $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
-
-        $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
+        if($operationType != null){
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
+        
+        } else {
+            $listing = $listing->setCondition('responseStatus IS NULL AND SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
+        }
+        $listing->setOrderKey("id");
+        $listing->setOrder("asc");
+        // setting offset creates problem for requests
+        // $listing->setOffset(($batch-1)*$this->graphNo*$this->subRequestNo);
         $listing->setLimit($this->graphNo*$this->subRequestNo);
         $listing=$listing->load();
         $compositeRequest=array();
@@ -62,7 +71,13 @@ class B2BHTTPRequestBodyGeneratorHelper
         {
             $totalCount++;
             $subRequest= array();
-            $subRequest['body']=json_decode($data->body);
+            if($data->body === null){
+                $subRequest['body']= "{}";
+
+            }else{
+                $subRequest['body']=json_decode($data->body);
+
+            }
             if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE()) {
                 $subRequest['method']='PATCH';
             } else if($data->operationType==APIOperationType::DELETE()) {
@@ -79,7 +94,6 @@ class B2BHTTPRequestBodyGeneratorHelper
                 {
                     $graphData[]=array(
                     'graphId'=>'graph'.$insNode,
-                    'allOrNone' => false,
                     'compositeRequest'=>$compositeRequest
                     );   
                     $compositeRequest=array();
@@ -88,7 +102,6 @@ class B2BHTTPRequestBodyGeneratorHelper
                 }
                 $insSubreq++;
             }
-         
         }
         $graphs=array('graphs' => $graphData);
         return json_encode($graphs,JSON_UNESCAPED_SLASHES);

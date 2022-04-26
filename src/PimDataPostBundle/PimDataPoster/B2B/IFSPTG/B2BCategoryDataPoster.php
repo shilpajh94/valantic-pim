@@ -12,6 +12,7 @@ use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BCategoryRequestBodyGenerat
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
 use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2BCategoryActiveFlagHandler;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
@@ -96,6 +97,7 @@ class B2BCategoryDataPoster implements IDataPoster
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BCategoryDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $helper->addPimFailedRecords($categoryIdsForFailureEntry, $throwable, B2BSalesForceObjectType::CATEGORY());
+            Util::setPIMFailureFlag();
         }
     }
 

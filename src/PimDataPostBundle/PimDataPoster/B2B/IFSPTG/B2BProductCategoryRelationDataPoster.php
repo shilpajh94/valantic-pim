@@ -9,6 +9,7 @@ use PimDataPostBundle\Lib\PimFailedRecordHandler\B2B\B2BPimFailedRecordHandler;
 use PimDataPostBundle\Lib\RelationChangeProvider\B2B\CategoryRelationChangeProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BProductCategoryRelationRequestBodyGenerator;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductCategoryRelationHelper;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
@@ -18,6 +19,8 @@ use PimDataPostBundle\PimDataPoster\IDataPoster;
 
 class B2BProductCategoryRelationDataPoster implements IDataPoster
 {
+    private $pimIdSeparator = "_";
+
     public function postData()
     {
         $relationChangeProvider = new CategoryRelationChangeProvider();
@@ -53,6 +56,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductCategoryRelationDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
             $helper->addPimFailedRecords($failureRecordids, $throwable, B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT() );
+            Util::setPIMFailureFlag();
         }
 
     }
@@ -63,10 +67,11 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
         foreach($pimFailedRecords as $failedRecord)
         {
             $failedRecordId = $failedRecord->getPimId();
-            $idsArray = explode("_",$failedRecordId);
+            $idsArray = explode($this->pimIdSeparator, $failedRecordId);
             $object = new B2BProductRelationChange();
             $object->setProductId($idsArray[0]);
-            $object->setNewValue("," . $idsArray[1] . ",");
+            $object->setNewValue($idsArray[1]);
+
             $relationObjects[] = $object;
         }
         return $relationObjects;
@@ -104,8 +109,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
 
     private function getPimIdForRelationChangeObject(B2BProductRelationChange $relationChangeObject): string
     {
-        $newValue = trim($relationChangeObject->getNewValue(),",");
-        return $relationChangeObject->getProductId(). "_" . $newValue;
+        return $relationChangeObject->getProductId(). $this->pimIdSeparator . $relationChangeObject->getNewValue();
     }
 
     private function mergeAndRemoveDuplicateRelationObjects(...$allArrays): array

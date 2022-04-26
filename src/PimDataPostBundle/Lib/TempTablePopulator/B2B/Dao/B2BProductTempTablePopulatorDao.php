@@ -4,6 +4,7 @@ namespace PimDataPostBundle\Lib\TempTablePopulator\B2B\Dao;
 
 use PimDataPostBundle\Lib\TempTablePopulator\TempTablePopulatorDao;
 use PimDataPostBundle\Model\UpdateWindow;
+use PimDataPostBundle\Lib\Constants;
 
 class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
 {
@@ -26,4 +27,29 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS o_id FROM object_10 WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
         return $this->db->fetchCol($query);
     }
+
+    public function getEpixFlagValueForProductIds($pimIds)
+    {
+        $resultSet = [];
+        if($pimIds)
+        {
+            $productIds = implode(",",$pimIds); 
+            $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.o_published = 1)  GROUP BY pim_id;";
+            $resultSet = $this->db->fetchPairs($query);
+        }
+        return $resultSet;
+    }
+
+    public function getExistingTempTableData($object_id)
+    {
+        $resultSet = [];
+        if($object_id)
+        {
+            $query = "SELECT * FROM ".Constants::B2B_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
+            $resultSet = $this->db->fetchRow($query);
+        }
+        return $resultSet;
+    }
+
+    
 }

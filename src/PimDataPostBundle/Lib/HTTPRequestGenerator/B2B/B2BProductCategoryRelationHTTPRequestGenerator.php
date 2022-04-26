@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Lib\HTTPRequestGenerator\B2B;
 
+use PimDataPostBundle\Model\Types\APIOperationType;
 use GuzzleHttp\Psr7\Request;
 use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Lib\Util;
@@ -13,15 +14,13 @@ class B2BProductCategoryRelationHTTPRequestGenerator extends AbstractB2BHTTPRequ
 
     public $b2bHTTPRequestBodyGenerator;
 
+    public $b2bHTTPRequestGeneratorHelper;
+
     public function __construct()
     {
         $this->b2bProductCategoryRelationHelper = new B2BProductCategoryRelationHelper();
         $this->b2bHTTPRequestBodyGenerator= new B2BProductCategoryRelationHTTPRequestBodyGenerator();
-    }
-
-    private function getRequestMethod()
-    {
-        return 'POST';
+        $this->b2bHTTPRequestGeneratorHelper = new B2BHTTPRequestGeneratorHelper();
     }
 
     private function getRequestUrl(): string
@@ -29,28 +28,18 @@ class B2BProductCategoryRelationHTTPRequestGenerator extends AbstractB2BHTTPRequ
         return $this->b2bProductCategoryRelationHelper->getApiHost().$this->b2bProductCategoryRelationHelper->getCompositeGraphApiUrl();
     }
     
-    private function getRequestHeaders(): array
+    private function getRequestBody($batch, APIOperationType $operationType = null): string
     {
-        $b2bAuthToken = Util::getService(TokenAuthService::class)->getB2BAuthToken();
-        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch, $operationType);
     }
 
-    private function getRequestBody($batch): string
+    public function getRequest($batch, APIOperationType $operationType = null): Request
     {
-        return $this->b2bHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch);
+       return  new Request($this->b2bHTTPRequestGeneratorHelper->getRequestMethod(), $this->getRequestUrl(), $this->b2bHTTPRequestGeneratorHelper->getRequestHeaders() , $this->getRequestBody($batch, $operationType));
     }
 
-    public function getRequest($batch): Request
+    public function getTotalBatches(APIOperationType $operationType = null):int
     {
-       return new Request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestHeaders() , $this->getRequestBody($batch));
-    }
-
-    public function getTotalBatches():int
-    {
-        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches();
+        return $this->b2bHTTPRequestBodyGenerator->getTotalBatches($operationType);
     }
 }

@@ -25,12 +25,13 @@ services:
     PimDataPostBundle\Services\TokenAuthService:
         public: true
     
-    PimDataPostBundle\Command\B2BSalesforceCommand:
-        tags:
-            - { name: "console.command", command: "conti:datapost:b2b-salesforce" }
     PimDataPostBundle\Command\SampleTestCommand:
         tags:
             - { name: 'console.command', command: 'conti:datapost:sample-test-command' }
+    
+    PimDataPostBundle\Command\ConnectionTestCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:connection-test-command' }
 
     PimDataPostBundle\Command\CreateB2CTableCommand:
         tags:
@@ -50,3 +51,11 @@ services:
     PimDataPostBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preAdd, method: onPreAdd }
+
+    PimDataPostBundle\Command\PimDataPostCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:pim-data-post-command' }
+
+    PimDataPostBundle\Command\InitialLoadCommand\B2BInitialLoadCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }            
