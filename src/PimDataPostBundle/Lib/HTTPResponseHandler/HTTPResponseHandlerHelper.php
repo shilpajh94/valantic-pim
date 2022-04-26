@@ -75,10 +75,10 @@ class HTTPResponseHandlerHelper
     private function updateEntityFromEnforceByPimAttributeString(string $pimId): bool
     {
         $pimIdArray = explode("_", $pimId);
-        $PimAttributeString = $pimIdArray[0]."_".$pimIdArray[1];
+        $pimAttributeString = $pimIdArray[0]."_".$pimIdArray[1];
         $newValueOfNewRecord = explode(",",trim($pimIdArray[2]));
         $listing = new B2BEntityEnforcedToPush\Listing();
-        $listing = $listing->setCondition("objectId LIKE '".$PimAttributeString."_%'");
+        $listing = $listing->setCondition("objectId LIKE '".$pimAttributeString."_%'");
         foreach($listing->load() as $rowObject)
         {
             $oldPimIdArray = explode("_", $rowObject->objectId);
