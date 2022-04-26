@@ -9,6 +9,7 @@
 namespace Wvision\Bundle\DataDefinitionsBundle\Helper;
 use Wvision\Bundle\DataDefinitionsBundle\Service\BundleService;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 
 /**
  * Description of CommonHelper
@@ -35,6 +36,10 @@ class ImportHelper
         $dateFormat = $this->getDateFormat();
 
         $processStartTime = $dataImport->getImportProcessStartTime();
+        
+        // get the difference of current time and start time
+        $timeDiff = time() - $processStartTime->getTimeStamp();
+        
         if ($processStartTime instanceof \DateTime) {
             $processStartTime = $processStartTime->format($dateFormat);
         }
@@ -49,7 +54,7 @@ class ImportHelper
         }
         elseif($dataImport->getStatus()=='FAILED')
         {
-            $importStatus   = $dataImport->getStatus();
+            $importStatus   = $dataImport->getStatus()." (some error occurred)";
         }
         else
         {
@@ -57,8 +62,23 @@ class ImportHelper
             $totalRecords       = $dataImport->getTotalRecords();
             $processedPercentage= $totalRecords > 0 ? ($processedRecords * 100) / $totalRecords : 0;
             $importStatus       = round($processedPercentage). '%';
+
+            // kill the process if progress is 0% after 120 seconds
+            if($timeDiff > 120 && $processedPercentage==0)
+            {
+                $processId      = $dataImport->getProcessId();
+                $processKilled  = shell_exec(sprintf("kill -9 %d", $processId));
+
+                // update process id of respective data definition import 
+                $importDataId   = $dataImport->getId();
+                $dataImportExec = DataDefinitionImport::getById($importDataId);
+                $dataImportExec->setStatus(Constants::SCHEDULE_STATUS_FAILED);
+                $dataImportExec->setImportProcessEndTime(new \DateTime());
+                $dataImportExec->save();
+
+                $importStatus     = $dataImportExec->getStatus()." (some error occurred)";
+            }
         }
-        
         return [
             'id' => $dataImport->getId(),
             'name' => $dataImport->getName(),
