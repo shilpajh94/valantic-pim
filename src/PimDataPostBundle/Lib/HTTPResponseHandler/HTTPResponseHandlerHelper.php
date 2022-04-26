@@ -5,6 +5,7 @@ use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\PersistantModel\B2BPimToSFProductMapping;
 use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
+
 class HTTPResponseHandlerHelper
 {
     public function updateSuccessRecords(string $referenceId, int $statusCode, int $responseTimestamp): string
@@ -48,6 +49,7 @@ class HTTPResponseHandlerHelper
         {
 
             if($requestObject->SFObjectType === strval(B2BSalesForceObjectType::PRODUCT_MEDIA()) ){
+                #delete
                 $this->updateEntityFromEnforceByPimAttributeString($requestObject->pimId);
             }
             $newObject = new B2BEntityEnforcedToPush();
@@ -70,9 +72,9 @@ class HTTPResponseHandlerHelper
         return true;
     }
 
-    public function updateEntityFromEnforceByPimAttributeString($PimId)
+    private function updateEntityFromEnforceByPimAttributeString(string $pimId): bool
     {
-        $pimIdArray = explode("_", $PimId);
+        $pimIdArray = explode("_", $pimId);
         $PimAttributeString = $pimIdArray[0]."_".$pimIdArray[1];
         $newValueOfNewRecord = explode(",",trim($pimIdArray[2]));
         $listing = new B2BEntityEnforcedToPush\Listing();
