@@ -129,7 +129,12 @@ class B2BCategoryDataPoster implements IDataPoster
                                                             B2BCategoryTempTablePopulator $tempTablePopulator): void
     {
         $b2bProductRequestBodyGenerator = new B2BCategoryRequestBodyGenerator();
+        $savedRequestIds = [];
         foreach($records as $recordPimId){
+            // there is a probability of duplicate requests here, so handling with following
+            if( in_array($recordPimId, $savedRequestIds) ){
+                continue;
+            }
             $tempTableData = $tempTablePopulator->getTempTableDataForIds([$recordPimId])[0];
             $currTime = time();
             $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
@@ -144,6 +149,8 @@ class B2BCategoryDataPoster implements IDataPoster
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();
+
+            $savedRequestIds[] = $recordPimId;
         }
     }
 

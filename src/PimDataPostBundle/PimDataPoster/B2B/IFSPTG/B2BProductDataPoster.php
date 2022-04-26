@@ -107,7 +107,13 @@ class B2BProductDataPoster implements IDataPoster
                                                             B2BProductTempTablePopulator $tempTablePopulator)
     {
         $b2bProductRequestBodyGenerator = new B2BProductRequestBodyGenerator();
+        $savedRequestIds = [];
+
         foreach($records as $recordPimId){
+            // there is a probability of duplicate requests here, so handling with following
+            if( in_array($recordPimId, $savedRequestIds) ){
+                continue;
+            }
             $tempTableData = $tempTablePopulator->getExistingTempTableData($recordPimId);
 
             if($tempTableData["external_id"] != null && trim($tempTableData["external_id"]) != ""){
@@ -125,6 +131,8 @@ class B2BProductDataPoster implements IDataPoster
                 $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
                 $apiRequestEntity->setCreationDate($currTime);
                 $apiRequestEntity->save();
+
+                $savedRequestIds[] = $recordPimId;
             }
         }
     }

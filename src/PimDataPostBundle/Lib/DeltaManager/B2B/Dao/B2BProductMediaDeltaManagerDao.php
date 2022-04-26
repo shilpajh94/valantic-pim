@@ -24,7 +24,9 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
         $result = $this->db->fetchAll($sql);
         $returnArray = [];
-        $returnArray['Document'] = array_column($result , 'o_id');
+        if( count($result) > 0 ){
+            $returnArray['Document'] = array_column($result , 'o_id');
+        }
         return $returnArray;
     }
 
@@ -44,7 +46,9 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
                 $sql .= " WHERE ".$key." = '".$assetId."'";
             }
             $result = $this->db->fetchAll($sql);
-            $returnArray[$key] = array_column($result , 'o_id');
+            if( count($result) >0 ){
+                $returnArray[$key] = array_column($result , 'o_id');
+            }
         }
         return $returnArray;
     }

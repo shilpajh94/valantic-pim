@@ -71,13 +71,11 @@ class B2BHTTPRequestBodyGeneratorHelper
         {
             $totalCount++;
             $subRequest= array();
-            if($data->body === null){
-                $subRequest['body']= "{}";
 
-            }else{
+            if( $data->operationType != APIOperationType::DELETE()){
                 $subRequest['body']=json_decode($data->body);
-
             }
+
             if($data->operationType== APIOperationType::CREATE() || $data->operationType== APIOperationType::UPDATE()) {
                 $subRequest['method']='PATCH';
             } else if($data->operationType==APIOperationType::DELETE()) {

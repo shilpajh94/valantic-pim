@@ -118,8 +118,8 @@ class B2BProductMediaRequestBodyGeneratorHelper
 
     function generateRequestBodyForDocument(B2BProductRelationChange $b2bProductRelationChange): array
     {
-        $oldValueArray = explode(',',trim($b2bProductRelationChange->oldValue,','));
-        $newValueArray = explode(',',trim($b2bProductRelationChange->newValue,','));
+        $oldValueArray = $b2bProductRelationChange->oldValue === null ? [] : explode(',',trim($b2bProductRelationChange->oldValue,','));
+        $newValueArray = $b2bProductRelationChange->newValue === null ? [] : explode(',',trim($b2bProductRelationChange->newValue,','));
         $returnArr = array();
         $sequence = 0;
         $request = array();
@@ -128,7 +128,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
         {
             $oldValueRow = explode('|',$oldValue);
             $request['asset_id'] = $oldValueRow[1];
-            $request['body'] = [];
+            $request['body'] = NULL;
             $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                         $b2bProductRelationChange->getAttributeName(),
                                                                                         $oldValueRow[1]);
@@ -147,7 +147,8 @@ class B2BProductMediaRequestBodyGeneratorHelper
             $request['asset_id'] = $newValueRow[1];
             $body =array(
                 "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
-                "B2B_Media_Type__c" => $documentAsset->getProperty('media_type'),
+                // "B2B_Media_Type__c" => $documentAsset->getProperty('media_type'),
+                "B2B_Media_Type__c" => "Manual",
                 "B2B_Description__c" => $documentAsset->getFileName(),
                 "B2B_Media_URL__c" => Util::getAssetPublicPath($documentAsset),
                 "B2B_Sequence__c" => $sequence

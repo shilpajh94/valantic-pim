@@ -61,6 +61,10 @@ class B2BProductMediaHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
 
     private function isSuccessResponse($response): bool
     {
+        if( $response['httpStatusCode']===204 ){
+            return true;
+        }
+
         if(($response['httpStatusCode']===200 || $response['httpStatusCode']===201) && (isset($response['body']['success']) && $response['body']['success']===true))
         {
             return  true;
@@ -69,7 +73,7 @@ class B2BProductMediaHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
         
     }
 
-    private function updateSuccessRecords(string $referenceId, int $responseStatus,  array $responseBody, int $responseTimestamp): bool
+    private function updateSuccessRecords(string $referenceId, int $responseStatus,  ?array $responseBody, int $responseTimestamp): bool
     {
        $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);   
        return true;

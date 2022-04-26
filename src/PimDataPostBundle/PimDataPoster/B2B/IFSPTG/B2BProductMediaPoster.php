@@ -14,6 +14,7 @@ use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
+use PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\Model\Types\PimFieldType;
@@ -99,6 +100,7 @@ class B2BProductMediaPoster implements IDataPoster
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::UPDATE());
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::CREATE());
 
+            $this->removeEntriesFromPimDeletedAssets();
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductMediaPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
@@ -119,6 +121,9 @@ class B2BProductMediaPoster implements IDataPoster
     private function createAPIRequestEntityForRelationChangeObjects(array $relationChangeObjects, 
                                                             B2BProductMediaRequestBodyGenerator $requestBodyGenerator): void
     {
+        $savedRequestIds = [];
+        $currTime = time();
+
         foreach($relationChangeObjects as $relationChangeObject){
             $attributeName = $relationChangeObject->getAttributeName();
             if($attributeName != "Document"){
@@ -126,10 +131,17 @@ class B2BProductMediaPoster implements IDataPoster
             }else{
                 $requestBodyParams = $requestBodyGenerator->generateRequestBodyForDocument($relationChangeObject);
             }
-            $currTime = time();
 
             foreach($requestBodyParams as $requestBodyParam)
             {
+                $externalId = $requestBodyParam["externalId"];
+                $referenceId = $externalId . "_" . $currTime . "_" . $requestBodyParam["operationType"];
+                // there is a probability of duplicate requests here, so handling with following
+                if( in_array($referenceId, $savedRequestIds) ){
+                    continue;
+                }
+                $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
+
                 $apiRequestEntity = new B2BAPIRequestEntity();
                 if( $requestBodyParam["body"] === null){
                     $apiRequestEntity->setBody(null);
@@ -139,13 +151,14 @@ class B2BProductMediaPoster implements IDataPoster
                 $apiRequestEntity->setOperationType($requestBodyParam["operationType"]);
                 $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_MEDIA() );
     
-                $externalId = $requestBodyParam["externalId"];
-                $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
+
                 $apiRequestEntity->setexternalID($externalId);
                 $apiRequestEntity->setPimId($pimId);
-                $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);
+                $apiRequestEntity->setReferenceId($referenceId);
                 $apiRequestEntity->setCreationDate($currTime);
                 $apiRequestEntity->save();
+
+                $savedRequestIds[] = $referenceId;
             }
         }
     }
@@ -257,6 +270,14 @@ class B2BProductMediaPoster implements IDataPoster
             $relationObjects[] = $object;
         }
         return $relationObjects;
+    }
+
+    private function removeEntriesFromPimDeletedAssets()
+    {
+        $list = new PimcoreDeletedAssets\Listing();
+        foreach($list as $obj){
+            $obj->delete();
+        }
     }
 
 }

@@ -93,9 +93,9 @@ class CreateTableCommand extends AbstractCommand
 
     private function createTableB2bApiRequestEntities()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\APIRequestEntity\Dao::TABLE_NAME."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity\Dao::TABLE_NAME."` (
             `id` int NOT NULL AUTO_INCREMENT,
-            `body` longtext NOT NULL,
+            `body` longtext DEFAULT NULL,
             `SFObjectType` varchar(151) NOT NULL,
             `responseStatus` varchar(255) DEFAULT NULL,
             `responseMsg` text ,
