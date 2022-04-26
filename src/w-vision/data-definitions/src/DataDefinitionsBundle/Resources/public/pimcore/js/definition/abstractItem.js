@@ -120,7 +120,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
             });
 
             // set refresh time in milliseconds 
-            let refreshTime = 5 * 1000;
+            let refreshTime = 30 * 1000;
             Ext.TaskManager.start({
                 run: function () {
                     this.refreshGrid();

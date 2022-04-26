@@ -652,8 +652,16 @@ class ImportDefinitionController extends ResourceController
             // create command to import the data of csv and run command in background
             $arrParams      = ['file' => $tempFilePath, 'importDataId' => $importDataId];
             $encParams      = json_encode(json_encode($arrParams,JSON_UNESCAPED_SLASHES), JSON_UNESCAPED_SLASHES);
+            $encParams      = trim($encParams,'"');
             $cmd            = PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"$encParams\"";
-            $executed       = \Pimcore\Tool\Console::execInBackground($cmd);
+            DataImportLogger::log($cmd);
+            $processId      = \Pimcore\Tool\Console::execInBackground($cmd);
+
+            // update process id of respective data definition import 
+            $dataImport     = DataDefinitionImport::getById($importDataId);
+            $dataImport->setProcessId($processId);
+            $dataImport->save();
+
         } catch (NotNullConstraintViolationException $exception) {
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 

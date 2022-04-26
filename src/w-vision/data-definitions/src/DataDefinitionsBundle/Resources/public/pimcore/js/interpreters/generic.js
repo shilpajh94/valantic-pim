@@ -16,7 +16,7 @@ pimcore.registerNS('pimcore.plugin.datadefinitions.interpreters.generic');
 pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugin.datadefinitions.interpreters.abstract, {
 
     getClassAttributes: function (className) {
-        console.log(className);
+        //console.log(className);
         let listClassField = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -28,7 +28,7 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 },
                 reader: {
                     type: 'json',
-                    rootProperty: 'data.' 
+                    rootProperty: 'data.'
                 }
             },
 
@@ -55,7 +55,7 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
         });
         classesStore.load();
 
-         var classesNameStore = new Ext.data.JsonStore({
+        var classesNameStore = new Ext.data.JsonStore({
             autoDestroy: true,
             proxy: {
                 type: 'ajax',
@@ -73,8 +73,8 @@ pimcore.plugin.datadefinitions.interpreters.generic = Class.create(pimcore.plugi
                 direction: 'ASC'
             }]
         });
-        classesNameStore.load(); 
-       
+        classesNameStore.load();
+
         return [
             {
                 xtype: 'textfield',
