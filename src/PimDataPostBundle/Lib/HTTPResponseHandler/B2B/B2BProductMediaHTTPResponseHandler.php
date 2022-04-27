@@ -8,6 +8,8 @@ use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\B2BHTTPResponseHandlerDao;
 use PimDataPostBundle\Lib\Constants;
 use GuzzleHttp\Psr7\Response;
 use PimDataPostBundle\Lib\HTTPResponseHandler\B2B\Helper\B2BProductHTTPResponseHandlerHelper;
+use PimDataPostBundle\Lib\Util;
+
 class B2BProductMediaHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
 {
     private $helper;
@@ -75,7 +77,13 @@ class B2BProductMediaHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
 
     private function updateSuccessRecords(string $referenceId, int $responseStatus,  ?array $responseBody, int $responseTimestamp): bool
     {
-       $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);   
+        $pimId = $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);  
+        $productId = explode("_", $pimId)[0];
+        // it could be the case that the move operation has already been performed by the product response handler
+        if( !in_array($productId, Util::getB2BSuccessIds()) ){
+            $this->b2bProductHTTPResponseHandlerDao->moveTempToMaster($productId);        
+        }
+
        return true;
     }
 

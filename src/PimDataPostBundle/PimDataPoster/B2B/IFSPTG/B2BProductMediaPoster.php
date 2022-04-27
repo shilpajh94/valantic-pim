@@ -13,6 +13,7 @@ use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\B2BProductMediaRequestBodyGen
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
+use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
 use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
 use PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets;
 use PimDataPostBundle\Model\Types\APIOperationType;
@@ -123,8 +124,20 @@ class B2BProductMediaPoster implements IDataPoster
     {
         $savedRequestIds = [];
         $currTime = time();
-
+        $todaysFailedProductIds = Util::getB2BFailureIds();
         foreach($relationChangeObjects as $relationChangeObject){
+            $productId = $relationChangeObject->getProductId();
+            $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
+
+            if(in_array($productId, $todaysFailedProductIds) ){
+                $enfoceObject = new B2BEntityEnforcedToPush();                                
+                $enfoceObject->setObjectId($pimId);
+                $enfoceObject->setOperationType(strval(APIOperationType::UPDATE()));
+                $enfoceObject->setSFObjectType(strval(B2BSalesForceObjectType::PRODUCT_MEDIA()));
+                $enfoceObject->save();                      
+                continue;
+            }
+
             $attributeName = $relationChangeObject->getAttributeName();
             if($attributeName != "Document"){
                 $requestBodyParams = $requestBodyGenerator->generateRequestBodyForImage($relationChangeObject);
@@ -140,7 +153,6 @@ class B2BProductMediaPoster implements IDataPoster
                 if( in_array($referenceId, $savedRequestIds) ){
                     continue;
                 }
-                $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
 
                 $apiRequestEntity = new B2BAPIRequestEntity();
                 if( $requestBodyParam["body"] === null){

@@ -75,8 +75,8 @@ class B2BProductHTTPResponseHandler extends AbstractB2BHTTPResponseHandler
        $pimId =  $this->helper->updateSuccessRecords($referenceId, $responseStatus, $responseTimestamp);   
        if($pimId != 0)
        {
-        $this->b2bProductHTTPResponseHandlerDao->moveTempToMaster($pimId);
-        $this->insertSalesforceId($pimId,$salesforceId);
+            $this->b2bProductHTTPResponseHandlerDao->moveTempToMaster($pimId);
+            $this->insertSalesforceId($pimId,$salesforceId);
        }  
        return true;
     }

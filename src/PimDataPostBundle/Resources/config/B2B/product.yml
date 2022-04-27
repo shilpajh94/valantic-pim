@@ -3902,7 +3902,7 @@ parameters:
             pim_table_name: object_1
             sendToSF: false
             temp_master_table_attr: true
-            temp_master_table_column_type: VARCHAR(190) NULL
+            temp_master_table_column_type: VARCHAR(512) NULL
             sf_relational_attribute: true
             joinOn:
             addOnJoin:

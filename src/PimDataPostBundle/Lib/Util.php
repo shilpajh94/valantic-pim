@@ -150,4 +150,38 @@ class Util
         $request = $request->withHeader("Authorization", $authHeader);
         return $request;
     }
+
+    public static function addB2BFailureId(string $failureId): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_FAILURE_IDS_SESSION_KEY;
+
+        $existingFailureIds = self::getB2BFailureIds();
+        $existingFailureIds[] = $failureId;
+        $session->set($key, $existingFailureIds);
+    }
+
+    public static function getB2BFailureIds(): array
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_FAILURE_IDS_SESSION_KEY;
+        return $session->get($key) === null ? [] : $session->get($key);
+    }
+
+    public static function addB2BSuccessId(string $failureId): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
+
+        $existingFailureIds = self::getB2BSuccessIds();
+        $existingFailureIds[] = $failureId;
+        $session->set($key, $existingFailureIds);
+    }
+
+    public static function getB2BSuccessIds(): array
+    {
+        $session = self::getService('session');
+        $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
+        return $session->get($key) === null ? [] : $session->get($key);
+    }
 }
