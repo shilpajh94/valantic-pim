@@ -34,7 +34,7 @@
                     else
                     {
                         $imgSrcObj =  $this->image("Environment_Image");
-                        if(!empty($imgSrcObj))
+                        if(!empty($imgSrcObj->getId()))
                         {
                             ?>
                                 <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
@@ -49,7 +49,7 @@
                     else
                     {
                         $imgSrcObj =  $this->image("Image");
-                        if(!empty($imgSrcObj))
+                        if(!empty($imgSrcObj->getId()))
                         {   
                             ?>
                                 <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
@@ -131,7 +131,7 @@
                         $imgSrcObj1 =  $this->image("Environment_Image");
 
                         
-                        if(!empty($imgSrcObj1))
+                        if(!empty($imgSrcObj1->getId()))
                         {
                             ?>
                                 <img src="<?= $this->helper->getImageThumbnail($imgSrcObj1, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />
@@ -147,7 +147,7 @@
                     {
                         $imgSrcObj =  $this->image("Image");
 
-                        if(!empty($imgSrcObj))
+                        if(!empty($imgSrcObj->getId()))
                         {   
                             ?>
                                 <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px" />

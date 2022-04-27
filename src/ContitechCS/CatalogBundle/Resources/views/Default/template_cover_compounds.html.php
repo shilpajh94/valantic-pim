@@ -135,7 +135,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $productImgSrcObj =  $this->image("CC_productImage");
-                        if (!empty($productImgSrcObj)) { ?>
+                        if (!empty($productImgSrcObj->getId())) { ?>
                             <div class="full-image-sec">
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>"  alt="">
                             </div>
@@ -322,7 +322,7 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
-                        if (!empty($CCHRPage_productImageObj)) { ?>
+                        if (!empty($CCHRPage_productImageObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_productImageObj, $this->imageWidth); ?>" class="w-100 mb-4"  alt="">
                             <?php
                         }
@@ -369,7 +369,7 @@ $coverCompound = $data['coverCompoundData'];
                                     else
                                     {
                                         $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
-                                        if (!empty($CCHRPageFeatureImgSrcObj)) { ?>
+                                        if (!empty($CCHRPageFeatureImgSrcObj->getId())) { ?>
                                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPageFeatureImgSrcObj, $this->imageWidth); ?>" class="features-images"  alt="">
                                             <?php
                                         }
@@ -427,7 +427,7 @@ $coverCompound = $data['coverCompoundData'];
                         else
                         {
                             $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
-                            if (!empty($CCHRPage_tempratureImageObj)) { ?>
+                            if (!empty($CCHRPage_tempratureImageObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_tempratureImageObj, $this->imageWidth); ?>" class="features-images  ml-0"  alt="">
                                 <?php
                             }

@@ -540,6 +540,7 @@ class DefaultController extends AbstractController
                                                 foreach ($childrenDataChunk as $childValue)
                                                 {
                                                     $percentageSymbol = '';
+                                                    $showDecimalPlaces = '';
                                                     $bricks = $childValue->getProductAttributes();
     
                                                     if($ProductNamePrefix)
@@ -552,12 +553,21 @@ class DefaultController extends AbstractController
                                                     foreach ($MIValues as $key => $value) {
                                                         $brickName = $value['objectType'];
                                                         $percentageSymbol = $value['percentageSymbol'];
+                                                        $showDecimalPlaces = $value['showDecimalPlaces'];
                                                         $getBrick = 'get' . $brickName;
                                                         $getField = 'get' . $key;
             
                                                         if($brickName == 'class')
-                                                        {
-                                                            $data[$key] = $childValue->$getField();
+                                                        { 
+                                                            if($showDecimalPlaces == '')
+                                                            {
+                                                                $data[$key] = $childValue->$getField();
+                                                            }
+                                                            else{
+                                                                $formattedFieldValue = number_format($childValue->$getField(),3);
+                                                                $data[$key] = $formattedFieldValue;
+                                                            }
+                                                            
                                                         }
                                                         else
                                                         {
@@ -565,11 +575,26 @@ class DefaultController extends AbstractController
                                                             {   
                                                                 if($bricks->$getBrick()->$getField())
                                                                 {
-                                                                    $data[$key] = ($bricks->$getBrick()->$getField()).$percentageSymbol;
+                                                                    if($showDecimalPlaces == '')
+                                                                    {
+                                                                        $formattedFieldValue = $bricks->$getBrick()->$getField();
+                                                                    }
+                                                                    else{
+                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                    }
+
+                                                                    $data[$key] = $formattedFieldValue.$percentageSymbol;
                                                                 }
                                                                 else
                                                                 {
-                                                                    $data[$key] = $bricks->$getBrick()->$getField();
+                                                                    if($showDecimalPlaces == '')
+                                                                    {
+                                                                        $data[$key] = $bricks->$getBrick()->$getField();
+                                                                    }
+                                                                    else{
+                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                        $data[$key] = $formattedFieldValue;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -685,32 +710,41 @@ class DefaultController extends AbstractController
                                                     }
                                                     $theadfirstColspan = count($tbodyArray[0]);
                                                 }
-            
-                                                $MIKey = $this->addPrefix($MIKey);
-                                                $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
-                                                $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
-            
-            
-                                                if($groupingTitle)
+
+                                                // Remove blank row 
+                                                foreach($tbodyArray as $tableColKey => $tableRow)
                                                 {
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                                                    if(count(array_filter($tableRow)) <= 1)
+                                                    {
+                                                        unset($tbodyArray[$tableColKey]);
+                                                    }
                                                 }
-            
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
+
+                                                if(!empty($tbodyArray))
+                                                {
+                                                    $MIKey = $this->addPrefix($MIKey);
+                                                    $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
+                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
+                
+                
+                                                    if($groupingTitle)
+                                                    {
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                                                    }
+                
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-    
                         $productData['productTables'] = $productTables;
-                        $productData['productGroupInformation'] = $productTables;
                     }
                 }
                 $this->view['data'] = $productData;
                 $this->view['footer_logo_src']  = $footer_logo_src;
-    
             }
         }
         catch(Exception $e)
