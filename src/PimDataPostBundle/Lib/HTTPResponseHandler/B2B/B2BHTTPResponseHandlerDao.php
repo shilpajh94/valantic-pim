@@ -35,7 +35,7 @@ class B2BHTTPResponseHandlerDao
         foreach(array_keys($data) as $key )
         {
             $fields[] = "`$key`";
-            $values[] =   empty($data[$key]) ?  $this->db->quote("") : $this->db->quote($data[$key]);
+            $values[] =   $data[$key] === null ?  'NULL' : $this->db->quote($data[$key]);
         }
 
         $fields = implode(",", $fields);

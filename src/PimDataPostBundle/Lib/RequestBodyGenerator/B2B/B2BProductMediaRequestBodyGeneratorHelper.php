@@ -5,9 +5,7 @@ use PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange;
 use \Pimcore\Model\Asset\Image;
 use \Pimcore\Model\Asset\Video;
 use \Pimcore\Model\Asset;
-use \Pimcore\Model\Asset\Document;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductCategoryReationRequestBodyGeneratorDao;
-use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\ImageTransformationSize;
 use PimDataPostBundle\Lib\Util;
@@ -118,8 +116,8 @@ class B2BProductMediaRequestBodyGeneratorHelper
 
     function generateRequestBodyForDocument(B2BProductRelationChange $b2bProductRelationChange): array
     {
-        $oldValueArray = explode(',',trim($b2bProductRelationChange->oldValue,','));
-        $newValueArray = explode(',',trim($b2bProductRelationChange->newValue,','));
+        $oldValueArray = $b2bProductRelationChange->oldValue === null ? [] : explode(',',trim($b2bProductRelationChange->oldValue,','));
+        $newValueArray = $b2bProductRelationChange->newValue === null ? [] : explode(',',trim($b2bProductRelationChange->newValue,','));
         $returnArr = array();
         $sequence = 0;
         $request = array();
@@ -128,7 +126,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
         {
             $oldValueRow = explode('|',$oldValue);
             $request['asset_id'] = $oldValueRow[1];
-            $request['body'] = [];
+            $request['body'] = NULL;
             $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                         $b2bProductRelationChange->getAttributeName(),
                                                                                         $oldValueRow[1]);
@@ -140,23 +138,33 @@ class B2BProductMediaRequestBodyGeneratorHelper
         foreach($newValueArray as $newValue)
         {
             $newValueRow = explode('|',$newValue);
-            $documentAsset = Document::getById($newValueRow[1]);
+            $documentAsset = Asset::getById($newValueRow[1]);
             if(isset($documentAsset))
             {
-            $sequence++;
-            $request['asset_id'] = $newValueRow[1];
-            $body =array(
-                "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
-                "B2B_Media_Type__c" => $documentAsset->getProperty('media_type'),
-                "B2B_Description__c" => $documentAsset->getFileName(),
-                "B2B_Media_URL__c" => Util::getAssetPublicPath($documentAsset),
-                "B2B_Sequence__c" => $sequence
-                );
-            $request['body'] = $body;
-            $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
-                                                                                        $b2bProductRelationChange->getAttributeName(),
-                                                                                        $newValueRow[1]);
-            $returnArr[]=$request;  // push document array
+                $mediaType = null;
+                if($documentAsset->getType() === 'document'){
+                    $mediaType = $documentAsset->getProperty('media_type');
+                }elseif($documentAsset->getType() === 'image'){
+                    $mediaType = "Image";
+                }elseif($documentAsset->getType() === 'video'){
+                    $mediaType = "Video";
+                }
+
+                $sequence++;
+                $request['asset_id'] = $newValueRow[1];
+                $body =array(
+                    "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
+                    "B2B_Media_Type__c" => $mediaType,
+                    "B2B_Media_Type__c" => "Manual",
+                    "B2B_Description__c" => $documentAsset->getFileName(),
+                    "B2B_Media_URL__c" => Util::getAssetPublicPath($documentAsset),
+                    "B2B_Sequence__c" => $sequence
+                    );
+                $request['body'] = $body;
+                $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
+                                                                                            $b2bProductRelationChange->getAttributeName(),
+                                                                                            $newValueRow[1]);
+                $returnArr[]=$request;  // push document array
             }
         }
         return $returnArr;

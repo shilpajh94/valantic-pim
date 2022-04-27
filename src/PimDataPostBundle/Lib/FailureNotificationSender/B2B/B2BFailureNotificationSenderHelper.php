@@ -13,7 +13,7 @@ class B2BFailureNotificationSenderHelper
     {
         $scriptStartTime = Util::getB2BScriptStartTime();
         $list = new B2BAPIRequestEntity\Listing();
-        $list->setCondition("responseStatus NOT IN (200, 201) AND responseTimestamp >=  {$scriptStartTime}");
+        $list->setCondition("responseStatus NOT IN (200, 201, 204) AND responseTimestamp >=  {$scriptStartTime}");
         $list->load();
         
         $failedRecords = [];
