@@ -102,7 +102,7 @@
                         }
                     } else {
                         $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
-                        if (!empty($TBSProdImgSrcObj)) { ?>
+                        if (!empty($TBSProdImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSProdImgSrcObj, $this->imageWidth); ?>"  class="mb-4" alt="" />
                         <?php
                         }
@@ -125,7 +125,7 @@
                         }
                     } else {
                         $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
-                        if (!empty($TBSAppImgSrcObj)) { ?>
+                        if (!empty($TBSAppImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" />
                         <?php
                         }

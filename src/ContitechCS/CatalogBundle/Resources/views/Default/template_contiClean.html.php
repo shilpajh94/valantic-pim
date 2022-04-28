@@ -95,7 +95,7 @@
                     }
                 } else {
                     $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
-                    if (!empty($CCProdImgSrcObj)) { ?>
+                    if (!empty($CCProdImgSrcObj->getId())) { ?>
                         <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  />
                         <?php
                     }
@@ -187,7 +187,7 @@
                         }
                     } else {
                         $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
-                        if (!empty($CCReportImgSrcObj)) { ?>
+                        if (!empty($CCReportImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" />
                             <?php
                         }
@@ -209,7 +209,7 @@
                         }
                     } else {
                         $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
-                        if (!empty($CCAppImgSrcObj)) { ?>
+                        if (!empty($CCAppImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
                             <?php
                         }

@@ -207,6 +207,7 @@ section {
     height: 0.5in;
 }
 
+.new-page {break-inside: avoid-page;}
 
 }
 
@@ -278,7 +279,7 @@ section {
 
     }
 
-    @bottom-right {
+    @bottom-left {
         content: element(footerLogo, last);
         padding-bottom: 50px;
     }

@@ -84,7 +84,7 @@
                     } else
                         {
                         $STLogoImgSrcObj =  $this->image("ST_LogoImage");
-                        if (!empty($STLogoImgSrcObj)) { ?>
+                        if (!empty($STLogoImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin-right: 0px; margin-bottom: 0px;" width="180" />
                         <?php
                         }
@@ -126,7 +126,7 @@
                             }
                         } else {
                             $STProdImgSrcObj =  $this->image("ST_ProductImage");
-                            if (!empty($STProdImgSrcObj)) { ?>
+                            if (!empty($STProdImgSrcObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
                             <?php
                             }
@@ -147,7 +147,7 @@
                         }
                     } else {
                         $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
-                        if (!empty($STAppImgSrcObj)) { ?>
+                        if (!empty($STAppImgSrcObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="max-width:180px"  />
                         <?php
                         }

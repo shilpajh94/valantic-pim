@@ -6,7 +6,7 @@
     else
     {
         $imgSrcObj =  $this->image("QAE_Image");
-        if($imgSrcObj)
+        if($imgSrcObj->getId())
         {
             ?>
             <div class="full-image-sec">

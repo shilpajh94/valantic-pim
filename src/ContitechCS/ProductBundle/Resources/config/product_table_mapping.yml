@@ -262,6 +262,7 @@ Common Product Page:
                     objectType: LoadSupport
                 CarcassGaugeinInch:
                     objectType: Material
+                    showDecimalPlaces: 3
                 CarcassWeightLBS:
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
@@ -902,6 +903,7 @@ Common Product Page:
                     objectType: TensionElevatorBelt
                 CarcassGaugeinInch:
                     objectType: Material
+                    showDecimalPlaces: 3
                 SpacedIndustrialMaxBucketProjectionInch:
                     objectType: TensionElevatorBelt
                 ContinuousIndustrialMaxBucketProjectionInch:
