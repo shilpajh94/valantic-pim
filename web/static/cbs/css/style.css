@@ -1352,7 +1352,7 @@ overflow: hidden;
 
 @media print{
  
-.new-page {break-inside: avoid-page;}
+
 .cover-image { background:#000; height:100%; display:flex; flex-direction:column;  }
 .top-section{background: #fff; margin:0 0}
 .bottom-section{margin:0 -0;}
