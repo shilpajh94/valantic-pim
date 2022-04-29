@@ -181,6 +181,20 @@ return [
             'sort' => '10',
             'expanded' => false,
             'where' => '',
+        ],
+        [
+            'treetype' => 'asset',
+            'name' => 'Product Data Import Module',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
+            'id' => 'cs_product_data_import_module',
+            'rootfolder' => '/Product Data Import Module',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
         ]
         /** custom view for conveyor solution project **/
     ]

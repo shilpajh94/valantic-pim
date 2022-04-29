@@ -64,7 +64,7 @@ class ImportHelper
             $importStatus       = round($processedPercentage). '%';
 
             // kill the process if progress is 0% after 120 seconds
-            if($timeDiff > 120 && $processedPercentage==0)
+            if($timeDiff > 300 && $processedPercentage==0)
             {
                 $processId      = $dataImport->getProcessId();
                 $processKilled  = shell_exec(sprintf("kill -9 %d", $processId));
