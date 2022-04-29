@@ -9,7 +9,7 @@ use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
 
 class B2CHTTPResponseHandlerHelper
 {
-    public function updateSuccessRecord(string $externalID, int $statusCode): string
+    public function updateSuccessRecord(string $externalID, int $statusCode, int $responseTimestamp): string
     {
         $listing = new B2CAPIRequestEntity\Listing();
         $listing->setCondition("externalID = ? AND responseStatus IS NULL ", $externalID);
@@ -17,6 +17,7 @@ class B2CHTTPResponseHandlerHelper
         foreach($listing as $rowObject)
         {
             $rowObject->setResponseStatus($statusCode);
+            $rowObject->setResponseTimestamp($responseTimestamp);
             $rowObject->save();
             $this->removeEntityFromEnforce($rowObject->pimId);
             return $rowObject->pimId;
@@ -24,7 +25,7 @@ class B2CHTTPResponseHandlerHelper
         return 0;
     }
 
-    public function updateFailedRecord(string $externalID, int $responceStatus, string $responceMsg): bool
+    public function updateFailedRecord(string $externalID, int $responceStatus, string $responceMsg, int $responseTimestamp): bool
     {
         $listing = new B2CAPIRequestEntity\Listing();
         $listing->setCondition("externalID = ? AND responseStatus IS NULL ", $externalID);
@@ -32,6 +33,7 @@ class B2CHTTPResponseHandlerHelper
         foreach($listing as $rowObject)
         {
           $rowObject->setResponseStatus($responceStatus);
+          $rowObject->setResponseTimestamp($responseTimestamp);
           $rowObject->setResponseMsg($responceMsg);
           $rowObject->save();
           $this->addEntityToEnforce($rowObject);

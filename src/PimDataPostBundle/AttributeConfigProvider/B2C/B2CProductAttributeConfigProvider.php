@@ -40,13 +40,19 @@ class B2CProductAttributeConfigProvider extends AbstractB2CAttributeConfigProvid
 
     public function getLocalizedAttributeConfig(): array
     {
-
+        return [];
     }
 
     public function getSalesForceRelationalAttributeConfig(): array
     {
         return $this->b2cAttributeConfigProviderHelper
                         ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_relational_attribute",true);
+    }
+
+    public function getMediaAttributeConfig(): array
+    {
+        return $this->b2bAttributeConfigProviderHelper
+        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_media_type_attribute",true);
     }
 
 }

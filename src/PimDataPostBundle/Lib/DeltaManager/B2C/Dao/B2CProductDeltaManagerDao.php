@@ -91,7 +91,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
            
-        return $this->db->fetchAll($sql);
+            return $this->db->fetchCol($sql);
     }
            // End  --------
 

@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\Response;
 abstract class AbstractB2CHTTPResponseHandler implements IHTTPResponseHandler
 {
     
-    public abstract function handleResponse(Response $responseString);
+    public abstract function handleResponse(Response $responseString, int $responseTimestamp);
     
   
     

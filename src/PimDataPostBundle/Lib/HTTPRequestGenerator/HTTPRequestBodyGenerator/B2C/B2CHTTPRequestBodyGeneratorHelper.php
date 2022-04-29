@@ -29,13 +29,13 @@ class B2CHTTPRequestBodyGeneratorHelper
 
     public function getTotalBatches(APIOperationType $operationType = null): int
     {
-        //$scriptStartTime = Util::getB2BScriptStartTime();
+        $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
         if($operationType != null){
-            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType)]);
-        
+            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
+
         } else {
-            $listing = $listing->setCondition('SFObjectType = ?', [$this->SFObjectType]);
+            $listing = $listing->setCondition('SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
         }
         $listing=$listing->load();
         return count($listing);
@@ -43,12 +43,13 @@ class B2CHTTPRequestBodyGeneratorHelper
 
     public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
-        //$scriptStartTime = Util::getB2BScriptStartTime();
+        $scriptStartTime = Util::getB2BScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
         if($operationType != null){
-            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? ', [$this->SFObjectType, strval($operationType)]);
+            $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
+
         } else {
-            $listing = $listing->setCondition('SFObjectType = ?', [$this->SFObjectType]);
+            $listing = $listing->setCondition('SFObjectType = ? AND creationDate >= ?', [$this->SFObjectType, $scriptStartTime]);
         }
         $listing->setOrderKey("id");
         $listing->setOrder("asc");
