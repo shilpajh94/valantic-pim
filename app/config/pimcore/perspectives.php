@@ -96,7 +96,14 @@ return [
                 'sort' => 3,
                 'id' => 'cs_asset_internal',
             ],
-           
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 4,
+                'id' => 'cs_product_data_import_module',
+            ],
             [
                 'type' => 'customview',
                 'position' => 'left',

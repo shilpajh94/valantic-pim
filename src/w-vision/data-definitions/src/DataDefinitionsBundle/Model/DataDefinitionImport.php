@@ -30,6 +30,8 @@ class DataDefinitionImport extends AbstractModel
 
     public $processedRecords;
 
+    public $processId;
+
      /**
      * @return mixed
      */
@@ -263,5 +265,21 @@ class DataDefinitionImport extends AbstractModel
     public function setProcessedRecords(?int $processedRecords): void
     {
         $this->processedRecords = $processedRecords;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getProcessId()
+    {
+        return $this->processId;
+    }
+
+    /**
+     * @param mixed $processId
+     */
+    public function setProcessId(?string $processId): void
+    {
+        $this->processId = $processId;
     }
 }
