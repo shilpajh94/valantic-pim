@@ -185,13 +185,15 @@ class FailedRecords {
             $link = $this->getFaliureFilesDeeplink($objAsset);
             $li .= "<li><a href='".$link."'>".$link."</a></li>";
             }
-            $templateParam['file_url'] = $li;
-
+            $deepLink = $li;
+            $params = [
+            'deeplink' => $deepLink
+            ];
             $mail = new \Pimcore\Mail();
             $mail->addto($email_Id);
             $mail->setSubject("Product Fail Records");
             $mail->setDocument($document);
-            $mail->setParams($templateParam);
+            $mail->setParams($params);
             
             $mailSent = $mail->send();
               if ($mailSent) {
