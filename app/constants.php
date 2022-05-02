@@ -19,12 +19,7 @@ if (!DISABLE_S3_CDN) {
 require_once('log_file_name_constants.php');
 //require_once('sftp_constants.php');
 define("INTERNAL_ASSET_FOLDER_PATHS", [
-<<<<<<< HEAD
-    "/Contitech_ConveyorSolution/Internal Assets",
-    "/Internal Assets"
-=======
     "/Contitech_ConveyorSolution/Internal Assets","/IFS PTG Private Folder/Import Failure Logs"
->>>>>>> origin/CTTSUP01-22-failure-record-of-products
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Resources/config");
