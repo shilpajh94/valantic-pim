@@ -94,17 +94,18 @@ class CreateB2BTableCommand extends AbstractCommand
 
     private function createTableB2bApiRequestEntities()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\APIRequestEntity\Dao::TABLE_NAME."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity\Dao::TABLE_NAME."` (
             `id` int NOT NULL AUTO_INCREMENT,
-            `body` longtext NOT NULL,
+            `body` longtext DEFAULT NULL,
             `SFObjectType` varchar(151) NOT NULL,
             `responseStatus` varchar(255) DEFAULT NULL,
             `responseMsg` text ,
             `referenceId` varchar(55) NOT NULL,
             `operationType` varchar(151) DEFAULT NULL COMMENT 'CREATE/UPDATE/DELETE',
             `externalID` varchar(99) DEFAULT NULL,
-            `pimId` varchar(151) DEFAULT NULL,
+            `pimId` varchar(1024) DEFAULT NULL,
             `responseTimestamp` int UNSIGNED DEFAULT NULL,
+            `creationDate` int UNSIGNED DEFAULT NULL,
             `businessUnit` varchar(55) DEFAULT NULL,
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
@@ -116,7 +117,7 @@ class CreateB2BTableCommand extends AbstractCommand
     {
         $sql = "CREATE TABLE  IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush\Dao::TABLE_NAME."` (
             `id` int NOT NULL AUTO_INCREMENT,
-            `objectId` varchar(255) DEFAULT NULL,
+            `objectId` varchar(1024) DEFAULT NULL,
             `operationType` varchar(151) DEFAULT NULL COMMENT 'CREATE/UPDATE/DELETE',
             `SFObjectType` varchar(151) NOT NULL,
             PRIMARY KEY (`id`)
@@ -155,8 +156,8 @@ class CreateB2BTableCommand extends AbstractCommand
             `id` int NOT NULL AUTO_INCREMENT,
             `productId` varchar(100) DEFAULT NULL,
             `attributeName` varchar(100) DEFAULT NULL,
-            `oldValue` varchar(100) DEFAULT NULL,
-            `newValue` varchar(100) DEFAULT NULL,
+            `oldValue` varchar(512) DEFAULT NULL,
+            `newValue` varchar(512) DEFAULT NULL,
             `businessUnit` varchar(55) DEFAULT NULL,
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
@@ -178,9 +179,9 @@ class CreateB2BTableCommand extends AbstractCommand
 
     private function createTableSalesforceIntegrationPimcoreFailedRecord()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord\Dao::TABLE_NAME."` (
             `id` int NOT NULL AUTO_INCREMENT,
-            `pimId` varchar(155) NOT NULL,
+            `pimId` varchar(1024) NOT NULL,
             `SFObjectType` varchar(55) NOT NULL,
             `failureMessage` text   ,
             `status` enum('FIXED','NON-FIXED') NOT NULL,
@@ -188,7 +189,7 @@ class CreateB2BTableCommand extends AbstractCommand
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
         $this->db->query($sql);
-        echo "\n ".\PimDataPostBundle\Model\PersistantModel\PimFailureRecord\Dao::TABLE_NAME." - table created.";
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord\Dao::TABLE_NAME." - table created.";
     }
 
 

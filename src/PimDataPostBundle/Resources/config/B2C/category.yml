@@ -135,7 +135,7 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: parent_category_id
-            pim_attribute_type:
+            pim_attribute_type: b2cSalesForceId
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
