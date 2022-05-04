@@ -47,7 +47,8 @@ class B2CProductRelationChange extends AbstractModel
         return $this;
     }
 
-    public function getOldValue(): int
+
+    public function getOldValue(): ?string
     {
         return $this->oldValue;
     }
@@ -58,7 +59,7 @@ class B2CProductRelationChange extends AbstractModel
         return $this;
     }
 
-    public function getNewValue(): string
+    public function getNewValue(): ?string
     {
         return $this->newValue;
     }
@@ -72,8 +73,8 @@ class B2CProductRelationChange extends AbstractModel
     public function __toString()
     {
         return "@B2CProductRelationChange " . "[" . $this->getId() . " " . $this->getProductId() . " " .
-            $this->getAttributeName() . " " . $this->getOldValue() . " " .
-            $this->getNewValue() . "]";
+            $this->getAttributeName() . " " . $this->getOldValue() . " " . $this->getNewValue() . " " .
+            $this->getBusinessUnit() . "]";
     }
 
 }

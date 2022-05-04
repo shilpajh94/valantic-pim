@@ -41,8 +41,8 @@ class CreateB2CTableCommand extends AbstractCommand
 
         $B2CCategoryAttributeConfigProvider = new B2CCategoryAttributeConfigProvider();
         $categoryAttributes = $B2CCategoryAttributeConfigProvider->getCompleteAttributeConfig();
-        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 'oo_id');
-        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 'oo_id');
+        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 'o_id');
     }
 
     public function createTable($fields, $tableName, $uniqueIndexKey)

@@ -52,7 +52,7 @@ class CreateB2BTableCommand extends AbstractCommand
         $this->createTableSalesforceIntegrationPimcoreDeletedAssets();
         $this->createTableSalesforceIntegrationPimcoreFailedRecord();
         echo "\n";
-  }
+    }
 
     public function createTable($fields, $tableName, $uniqueIndexKey)
     {

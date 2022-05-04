@@ -21,13 +21,17 @@ class Constants
     const B2B_CATEGORY_OBJECT_TABLE_NAME = "object_2";
 
     // B2C
-    const B2C_PRODUCT_TEMP_TABLE_NAME = "b2c_product_temp";
+    const B2C_PRODUCT_TEMP_TABLE_NAME = "salesforce_integration_b2c_product_temp";
 
-    const B2C_PRODUCT_MASTER_TABLE_NAME = "b2c_product_master";
+    const B2C_PRODUCT_MASTER_TABLE_NAME = "salesforce_integration_b2c_product_master";
 
-    const B2C_CATEGORY_TEMP_TABLE_NAME = "b2c_category_temp";
+    const B2C_PRODUCT_OBJECT_TABLE_NAME = "object_1";
 
-    const B2C_CATEGORY_MASTER_TABLE_NAME = "b2c_category_master";
+    const B2C_CATEGORY_TEMP_TABLE_NAME = "salesforce_integration_b2c_category_temp";
+
+    const B2C_CATEGORY_MASTER_TABLE_NAME = "salesforce_integration_b2c_category_master";
+
+    const B2C_CATEGORY_OBJECT_TABLE_NAME = "object_B2CCategory";
 
 
     /**
