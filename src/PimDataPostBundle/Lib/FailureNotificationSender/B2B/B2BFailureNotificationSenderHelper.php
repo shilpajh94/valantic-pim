@@ -3,26 +3,17 @@
 namespace PimDataPostBundle\Lib\FailureNotificationSender\B2B;
 
 use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\UpdateWindow;
 use PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity;
 
 class B2BFailureNotificationSenderHelper
 {
-
-    private $updateWindow;
-
-    public function __construct()
-    {
-        $this->updateWindow = UpdateWindow::getInstance();
-    }
-
     public function getSfFailureRecords(): array
     {
-        $endTime = $this->updateWindow->getEndTimestamp();
-
+        $scriptStartTime = Util::getB2BScriptStartTime();
         $list = new B2BAPIRequestEntity\Listing();
-        $list->setCondition("responseStatus NOT IN (200, 201)");
-        $list->setCondition("responseTimestamp >=  {$endTime}");
+        $list->setCondition("responseStatus NOT IN (200, 201, 204) AND responseTimestamp >=  {$scriptStartTime}");
         $list->load();
         
         $failedRecords = [];

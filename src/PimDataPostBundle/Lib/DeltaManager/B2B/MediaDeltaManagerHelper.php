@@ -27,7 +27,10 @@ class MediaDeltaManagerHelper
         $returnArray = [];
         foreach($list->load() as $assetRow)
         {
-            $returnArray[$assetRow->getId()] = $this->dao->getProductIdsByUpdatedAsset($assetRow->getId());
+            $updatedAsset = $this->dao->getProductIdsByUpdatedAsset($assetRow->getId());
+            if(count($updatedAsset) != 0){
+                $returnArray[$assetRow->getId()] = $updatedAsset;
+            }        
         }
         return $returnArray;
     }
@@ -39,7 +42,10 @@ class MediaDeltaManagerHelper
         $returnArray = [];
         foreach($list->load() as $assetRow)
         {
-            $returnArray[$assetRow->assetId] = $this->dao->getProductIdsByDeletedAsset($assetRow->assetId);
+            $deletedAsset = $this->dao->getProductIdsByDeletedAsset($assetRow->assetId);
+            if(count($deletedAsset) != 0){
+                $returnArray[$assetRow->assetId] = $deletedAsset;
+            }        
         }
         return $returnArray;
     }

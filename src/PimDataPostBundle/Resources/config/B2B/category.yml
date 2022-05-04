@@ -1,101 +1,220 @@
 parameters:
-  Attribute:
-    oo_id:
-      pim_attribute_name: oo_id
-      pim_table_name: object_2
-      temp_master_table_attr: true
-      sendToSF: true
-      temp_master_table_column_type: INT(11) NOT NULL
-      sf_attribute_name: B2B_External_Id__c
-    PrintedCatalogDescription_de:
-      pim_attribute_name: PrintedCatalogDescription
-      pim_table_name: object_localized_2_de
-      joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(2500) NULL
-      sf_attribute_name: Name
-    PrintedCatalogDescription_en:
-      pim_attribute_name: PrintedCatalogDescription
-      pim_table_name: object_localized_2_en
-      joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(2500) NULL
-      sf_attribute_name: Name
-    # CatalogId:
-    #   pim_attribute_name: CatalogId
-    #   pim_table_name: object_2
-    #   sendToSF: CatalogId
-    #   temp_master_table_attr: false
-    #   temp_master_table_column_type: VARCHAR(32) NULL
-    Level:
-      pim_attribute_name: Level
-      pim_table_name: object_2
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(2) NULL
-    o_parentId:
-      pim_attribute_name: o_parentId
-      pim_table_name: object_2
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: INT(11) NULL
-      sf_attribute_name: ParentCategoryId
-    longDescription_de:
-      pim_attribute_name: longDescription
-      pim_table_name: object_localized_2_de
-      joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.oo_id = object_2.oo_id
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(2500) NULL
-      sf_attribute_name: Name
-    longDescription_en:
-      pim_attribute_name: longDescription
-      pim_table_name: object_localized_2_en
-      joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.oo_id = object_2.oo_id
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(2500) NULL
-      sf_attribute_name: Name
-    SortOrder:
-      pim_attribute_name: SortOrder
-      pim_table_name: object_2
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(255) NULL
-      sf_attribute_name: ParentCategoryId
-    ShowInMenu:
-      pim_attribute_name: ShowInMenu
-      pim_table_name: object_2
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: TINYINT(1) NULL
-      sf_attribute_name: IsNavigational
-    image:
-      pim_attribute_name: image
-      pim_table_name: object_2
-      sendToSF: true
-      temp_master_table_attr: true
-      temp_master_table_column_type: int(11) NULL
-      salesForceRelationalAttr: true
-      sf_attribute_name: B2B_Category_Image__c
-    # externalId:
-    #   pim_attribute_name: externalId
-    #   pim_table_name: object_2
-    #   sendToSF: B2B_External_Id__c
-    #   temp_master_table_attr: true
-    #   temp_master_table_column_type: VARCHAR(32) NULL
-    basicHash:
-      pim_attribute_name: basicHash
-      pim_table_name: 
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
-      hashField: true
-    relationalHash:
-      pim_attribute_name: relationalHash
-      pim_table_name: 
-      temp_master_table_attr: true
-      temp_master_table_column_type: VARCHAR(64) NULL
-      hashField: true
-
-
+    Attribute:  
+        o_id:
+            pim_attribute_name: o_id
+            pim_table_name: object_2
+            temp_master_table_attr: true
+            sendToSF: false
+            temp_master_table_column_type: INT(11) NOT NULL
+            sf_attribute_name: 
+            joinOn:
+            addOnJoin:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        PrintedCatalogDescription:
+            pim_attribute_name: PrintedCatalogDescription
+            pim_table_name: object_localized_2_en
+            joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.o_id = object_2.o_id
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: TEXT NULL
+            sf_attribute_name: Name
+            addOnJoin:
+            pim_attribute_type: textarea
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        # PrintedCatalogDescription_de:
+        #     pim_attribute_name: PrintedCatalogDescription
+        #     pim_table_name: object_localized_2_de
+        #     joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.o_id = object_2.o_id
+        #     sendToSF: false
+        #     temp_master_table_attr: true
+        #     temp_master_table_column_type: TEXT NULL
+        #     sf_attribute_name: Name
+        #     addOnJoin:
+        #     pim_attribute_type: textarea
+        #     sf_relational_attribute:
+        #     allowed_object_class_name:
+        #     is_multilingual_for_sf:
+        #     container_pim_class_or_brick_name: ProductCategory
+        #     pim_attribute_for_sf_in_allowed_object_class_name:
+        #     pim_id_to_sf_id_mapping_model:
+        #     update_product_if_master_updated:
+        #     isLocalisedMaster:
+        Level:
+            pim_attribute_name: Level
+            pim_table_name: object_2
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(2) NULL
+            joinOn:
+            addOnJoin:
+            sendToSF: false
+            sf_attribute_name:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: ProductCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        o_parentId:
+            pim_attribute_name: o_parentId
+            pim_table_name: object_2
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: INT(11) NULL
+            sf_attribute_name: ParentCategoryId
+            joinOn:
+            addOnJoin:
+            pim_attribute_type: salesForceId
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model: B2BPimToSFCategoryMapping
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        longDescription:
+            pim_attribute_name: longDescription
+            pim_table_name: object_localized_2_en
+            joinOn: LEFT JOIN object_localized_2_en ON object_localized_2_en.o_id = object_2.o_id
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: TEXT NULL
+            sf_attribute_name: Description
+            addOnJoin:
+            pim_attribute_type: wysiwyg
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf: true
+            container_pim_class_or_brick_name: ProductCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        # longDescription_de:
+        #     pim_attribute_name: longDescription
+        #     pim_table_name: object_localized_2_de
+        #     joinOn: LEFT JOIN object_localized_2_de ON object_localized_2_de.o_id = object_2.o_id
+        #     sendToSF: false
+        #     temp_master_table_attr: true
+        #     temp_master_table_column_type: TEXT NULL
+        #     sf_attribute_name: Description
+        #     addOnJoin:
+        #     pim_attribute_type: wysiwyg
+        #     sf_relational_attribute:
+        #     allowed_object_class_name:
+        #     is_multilingual_for_sf: true
+        #     container_pim_class_or_brick_name: ProductCategory
+        #     pim_attribute_for_sf_in_allowed_object_class_name:
+        #     pim_id_to_sf_id_mapping_model:
+        #     update_product_if_master_updated:
+        #     isLocalisedMaster:
+        SortOrder:
+            pim_attribute_name: SortOrder
+            pim_table_name: object_2
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(3) NULL
+            sf_attribute_name: SortOrder
+            joinOn:
+            addOnJoin:
+            pim_attribute_type: numeric
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: ProductCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        ShowInMenu:
+            pim_attribute_name: ShowInMenu
+            pim_table_name: object_2
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: TINYINT(1) NULL
+            sf_attribute_name: IsNavigational
+            joinOn:
+            addOnJoin:
+            pim_attribute_type: checkbox
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: ProductCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        # image:
+        #     pim_attribute_name: image
+        #     pim_table_name: object_2
+        #     sendToSF: true
+        #     temp_master_table_attr: true
+        #     temp_master_table_column_type: int(11) NULL
+        #     sf_relational_attribute: true
+        #     sf_attribute_name: B2B_Category_Image__c
+        #     joinOn:
+        #     addOnJoin:
+        #     pim_attribute_type: image
+        #     allowed_object_class_name:
+        #     is_multilingual_for_sf:
+        #     container_pim_class_or_brick_name: ProductCategory
+        #     pim_attribute_for_sf_in_allowed_object_class_name:
+        #     pim_id_to_sf_id_mapping_model:
+        #     update_product_if_master_updated:
+        #     isLocalisedMaster:
+        basicHash:
+            pim_attribute_name: basicHash
+            pim_table_name:
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(64) NULL
+            hashField: true
+            joinOn:
+            addOnJoin:
+            sendToSF:
+            sf_attribute_name:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
+        relationalHash:
+            pim_attribute_name: relationalHash
+            pim_table_name:
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(64) NULL
+            hashField: true
+            joinOn:
+            addOnJoin:
+            sendToSF:
+            sf_attribute_name:
+            pim_attribute_type:
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name:
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:

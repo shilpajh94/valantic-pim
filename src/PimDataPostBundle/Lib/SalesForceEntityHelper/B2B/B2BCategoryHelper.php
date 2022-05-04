@@ -51,6 +51,6 @@ class B2BCategoryHelper extends AbstractB2BSalesForceEntityHelper
 
     public static function getExternalId(array $tempTableData): string
     {
-        return "category_" . $tempTableData["o_id"];
+        return $tempTableData["o_id"] . "_category";
     }
 }

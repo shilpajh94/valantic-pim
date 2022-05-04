@@ -40,13 +40,13 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 14;
+    const UPDATE_WINDOW_END_HOUR = 19;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 60;
 
     const INSERT_BATCH_SIZE = 50;
 
-    const FAILURE_LOG_ASSET_FOLDER = "/Saleforce Integration Failure Logs";
+    const FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs";
 
     const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
 
@@ -56,4 +56,23 @@ class Constants
 
     const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
 
+    const MAX_HTTP_CONNECTION_RETRIES = 5;
+
+    // in seconds
+    const SLEEP_TIME_WITHIN_CONNECTION_RETRIES = 2;
+
+    // in seconds
+    const REQUEST_TIMEOUT_FOR_DATA_REQUESTS = 300;
+
+    const B2B_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2B_script_start_time";
+
+    const B2B_PIM_FAILURE_FLAG_SESSION_KEY = "salesforce_integration_B2B_PIM_failure_flag";
+
+    const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
+
+    const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
+
+    const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
+
+    const B2B_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2B_success_key";
 }

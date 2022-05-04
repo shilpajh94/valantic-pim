@@ -29,11 +29,11 @@ class B2CAuth extends AbstractTokenBasedAuth
             'query' => $tokenConfig->getParams()
         ]);
         
-        $response = $client->send($authRequest,["timeout" => $tokenConfig->getGuzzleRequestTimeout()]);
+        $response = Util::sendRequestWithConnectionRetries($client, $authRequest, intval($tokenConfig->getGuzzleRequestTimeout()) );
 
         $responseArr = json_decode($response->getBody()->getContents(),true);
         $responseArr["access_token"];
-        return new AuthToken($responseArr["access_token"],time(),$tokenConfig->getTokenLifetime());
+        return new AuthToken($responseArr["access_token"],time(), intval($tokenConfig->getTokenLifetime()) );
     }
 
     protected function getType(): string

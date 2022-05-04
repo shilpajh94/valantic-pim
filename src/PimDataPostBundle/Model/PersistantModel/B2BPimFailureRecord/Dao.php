@@ -1,6 +1,6 @@
 <?php
 
-namespace PimDataPostBundle\Model\PersistantModel\PimFailureRecord;
+namespace PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord;
 
 use PimDataPostBundle\Model\PersistantModel\AbstractDao;
 

@@ -25,4 +25,11 @@ class DefaultController extends FrontendController
     {
 
     }
+
+    public function executeScriptAction(Request $request)
+    {
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console conti:datapost:pim-data-post-command";
+        shell_exec($cmd);
+        return new Response('Executed');
+    }
 }

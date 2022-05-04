@@ -32,6 +32,12 @@ class B2CProductHelper extends AbstractB2CSalesForceEntityHelper
         return $this->helper->getCompositeGraphApiUrl();
     }
 
+    public function getCatalogId() 
+    {
+        $parameter = strtolower($this->getShopType()) ."_" . strtolower($this->getSalesForceObjectType()) . "_catalog";
+        return $this->helper->getSymfonyParameter($parameter);
+    }
+
     public function getEntityUrl(): string
     {
         return $this->helper->getEntityUrl($this->getShopType(),$this->getSalesForceObjectType());
@@ -42,8 +48,8 @@ class B2CProductHelper extends AbstractB2CSalesForceEntityHelper
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
 
-    public static function getExternalId(array $tempTableData): string
+    public static function getExternalId(string $external_id): string
     {
-        return $tempTableData["external_id"];
+        return $external_id;
     }
 }

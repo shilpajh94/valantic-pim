@@ -45,14 +45,14 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         }
     }
 
-    public function getDeepLink($id, $type, $subType)
+    private function getDeepLink($id, $type, $subType)
     {
         $link = APPLICATION_HOST . "/admin/login/deeplink?";
 
         return $link."{$type}_{$id}_{$subType}";
     }
     
-    public function sendFailureCsvLinkEmail($deepLink)
+    private function sendFailureCsvLinkEmail($deepLink)
     {
         $userEmailIds = $this->helper->getUsersEmailByRolesNameList();
 
@@ -68,6 +68,13 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         $mail->setSubject(Constants::FAILURE_TEMPLATE_SUBJECT_NAME);
         $mail->setDocument(Constants::FAILURE_TEMPLATE_NAME);
         $mail->setParams($params);
+        $mail->send();
+    }
+
+    public function sendPIMFailureNotification()
+    {
+        $mail = new \Pimcore\Mail();
+        $mail->setDocument(Constants::B2B_PIM_FAILURE_TEMPLATE);
         $mail->send();
     }
 }

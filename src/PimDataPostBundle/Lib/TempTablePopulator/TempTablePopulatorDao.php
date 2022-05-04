@@ -75,6 +75,11 @@ class TempTablePopulatorDao
                     continue;
                 }
 
+                if($tableKey == 'epixFlag' && $value['pim_attribute_name'] == 'epixFlag')
+                {
+                    continue;
+                }
+
                 if($value['conditionalFieldName'])
                 {
                     $selectArray[] = $value['conditionalFieldName'];
@@ -118,7 +123,7 @@ class TempTablePopulatorDao
             foreach ($resultSet as $productArray) 
             {
                 foreach ($productArray as $key => $value) {
-                    if(in_array($key,$relationalFields))
+                    if(array_key_exists($key,$relationalFields))
                     {
                         $relationalData[$key] = $value;
                     }
@@ -143,7 +148,7 @@ class TempTablePopulatorDao
 
     public function quoteString(?string $str)
     {
-        return empty($str) ? $this->db->quote("") : $this->db->quote($str);
+        return $str === null ? 'NULL' : $this->db->quote($str);   
     }
 
     public function insertDataInTempTable($arrData, $tempTable)
@@ -161,7 +166,7 @@ class TempTablePopulatorDao
             $insertArrayString = implode(',',$insertArray);
 
             $rowCount = 1;
-            $sql      = "INSERT INTO `{$tempTable}` ({$insertArrayString}) VALUES";
+            $sql      = "REPLACE INTO `{$tempTable}` ({$insertArrayString}) VALUES";
             $values   = '';
 
             foreach ($arrData as $data) {
