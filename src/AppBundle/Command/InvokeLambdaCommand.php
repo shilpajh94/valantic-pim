@@ -42,10 +42,11 @@ class InvokeLambdaCommand extends Command
             "pim_path",
             "s3_path",
             "key",
-            "file_exists",
             "function_error",
             "log_result",
             "status_code",
+            "payload_errorType",
+            "payload_errorMsg",
             "complete_response"
         ));
 
@@ -65,59 +66,43 @@ class InvokeLambdaCommand extends Command
             $logResult = "";
             $statusCode = "";
             $lambdaCompleteResponse = "";
+            $payloadErrorType = "";
+            $payloadErrorMsg = "";
 
             $s3ProtocolPath = "s3://".S3_BUCKET . "/assets" . $s3Path;
 
-            $file_exists = file_exists($s3ProtocolPath) ? '1': '0';
-            if($file_exists === '0'){
+            $lambdaResult = $this->invokeLambdaAndGetResponse($s3Key);
+            
+            $responsePayload = $lambdaResult->get("Payload")->getContents();
+            $responsePayload = json_decode($responsePayload,true);
+            if( is_array($responsePayload) && array_key_exists("errorType", $responsePayload)){
+                $payloadErrorType = $responsePayload["errorType"]; 
+                $payloadErrorMsg = $responsePayload["errorMessage"];
                 $failCount++;
-            }else{
-                // invoke lambda for this path
-                $lambdaClient = $this->getLambdaClient();
-
-                $payload = json_encode([
-                    "Records" => [
-                        [
-                            "s3" => [
-                                "object" => [
-                                    "key" => $s3Key
-                                ],
-                                "bucket" => [
-                                    "name" => S3_BUCKET
-                                ]
-                            ]
-                        ]
-                    ]
-                ]);
-
-                $lambdaResult = $lambdaClient->invoke([
-                    "FunctionName" => self::LAMBDA_FUNCTION_NAME,
-                    "Payload" => $payload
-                ]);
-
-                $functionError = $lambdaResult->get("FunctionError");
-                $logResult = $lambdaResult->get("LogResult");
-                $statusCode = $lambdaResult->get("StatusCode");
-
-                $lambdaCompleteResponse = strval($lambdaResult);
-
             }
+            
+            $functionError = $lambdaResult->get("FunctionError");
+            $logResult = $lambdaResult->get("LogResult");
+            $statusCode = $lambdaResult->get("StatusCode");
+
+            $lambdaCompleteResponse = strval($lambdaResult);
 
             $this->csvLog($csvLogFileHandle, array(
                 $id,
                 $pimPath,
                 $s3Path,
                 $s3Key,
-                $file_exists,
                 $functionError,
                 $logResult,
                 $statusCode,
+                $payloadErrorType,
+                $payloadErrorMsg,
                 $lambdaCompleteResponse
                 ) );
 
             $count++;
 
-            echo "Exists: " . $file_exists ." Status[". $statusCode ."] [". $s3Key ."]".PHP_EOL.PHP_EOL;
+            echo "Lambda Status[". $statusCode ."] [". $s3Key ."]" . "[" .$payloadErrorType. "]" .PHP_EOL.PHP_EOL;
 
             if($count % 20 == 0){
                 echo "---------------------------";
@@ -126,6 +111,31 @@ class InvokeLambdaCommand extends Command
             }
         }
         fclose($csvLogFileHandle);
+    }
+
+    private function invokeLambdaAndGetResponse(string $s3Key)
+    {
+        $lambdaClient = $this->getLambdaClient();
+
+        $payload = json_encode([
+            "Records" => [
+                [
+                    "s3" => [
+                        "object" => [
+                            "key" => $s3Key
+                        ],
+                        "bucket" => [
+                            "name" => S3_BUCKET
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        return $lambdaClient->invoke([
+            "FunctionName" => self::LAMBDA_FUNCTION_NAME,
+            "Payload" => $payload
+        ]);
     }
 
     /**
@@ -141,20 +151,20 @@ class InvokeLambdaCommand extends Command
         $query = "select * from pimcore_s3_path_mapping";
         $query .= " join assets";
         $query .= " on pimcore_s3_path_mapping.pimcore_object_id = assets.id";
-        $query .= " where type != 'folder'";
+        $query .= " where type = 'image'";
 
-        $result = $db->fetchAll($query);
+        // $result = $db->fetchAll($query);
 
         $result = [
             [
                 "pimcore_object_id" => 10816,
                 "pimcore_path" => "/Test Folder/lambda_test_folder/sql_joins3.png",
-                "s3_path" => "/Test Folder/lambda_test_folder/sql_joins3.png"
+                "s3_path" => "/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png"
             ],
             [
                 "pimcore_object_id" => 10817,
                 "pimcore_path" => "/Test Folder/lambda_test_folder/test_image.png",
-                "s3_path" => "/Test Folder/lambda_test_folder/test_image.png"
+                "s3_path" => "/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png"
             ]
         ];
 
@@ -174,21 +184,14 @@ class InvokeLambdaCommand extends Command
 
             $s3ConfigSettings = [
                 'version' => 'latest',
-                'region' => LAMBDA_FUNCTION_REGION,
-            ];
-
-            $s3ConfigSettings['http'] = [
-                'proxy' => [
-                    'http' => 'cias.geoaws.com:8080',
-                    'https' => 'cias.geoaws.com:8080'
-                ]
+                'region' => self::LAMBDA_FUNCTION_REGION,
             ];
 
         }elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc"){
 
             $s3ConfigSettings = [
                 'version' => 'latest',
-                'region' => LAMBDA_FUNCTION_REGION,
+                'region' => self::LAMBDA_FUNCTION_REGION,
                 'credentials' => [
                     'key' => S3_KEY,
                     'secret' => S3_SECRET
@@ -196,9 +199,6 @@ class InvokeLambdaCommand extends Command
             ];
         }
 
-
         return new LambdaClient($s3ConfigSettings);
-
     }
-
 }
