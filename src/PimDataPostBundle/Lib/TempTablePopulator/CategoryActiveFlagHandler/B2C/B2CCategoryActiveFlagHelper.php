@@ -69,4 +69,34 @@ class B2CCategoryActiveFlagHelper
             }
         }
     }
+
+    public function getUniqueParentIdsForObjectIdOfGivenClass(string $className, array $objectIds): array
+    {
+        $parentObjectIds = [];
+        return $this->getParentIdsForObjects($className, $objectIds, $parentObjectIds);
+    }
+
+    private function getParentIdsForObjects(string $className, array $objectIds, array $parentObjectIds): array
+    {
+        $objectIdsForNextIteration = [];
+
+        if(empty($objectIds)){
+            return $parentObjectIds;
+        }
+
+        $categoryData = $this->dao->getObjectData($objectIds);
+
+        foreach($categoryData as $data){
+
+            if($data["o_className"] === $className){
+                $parentObjectIds[] = $data["o_id"];
+            }
+
+            if($data["o_parentId"] !== "1" && !in_array($data["o_parentId"], $parentObjectIds) ){
+                $objectIdsForNextIteration[] = $data["o_parentId"];
+            }
+        }
+
+        return $this->getParentIdsForObjects($className, $objectIdsForNextIteration, $parentObjectIds);
+    }
 }
