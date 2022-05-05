@@ -2,8 +2,8 @@
 namespace PimDataPostBundle\Lib\PimFailedRecordHandler\B2C;
 
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
-use PimDataPostBundle\Lib\PimFailedRecordHandler\IPimFailedRecordHandler;
-abstract class AbstractB2BPimFailedRecordHandler implements IPimFailedRecordHandler
+use PimDataPostBundle\Lib\PimFailedRecordHandler\IB2CPimFailedRecordHandler;
+abstract class AbstractB2CPimFailedRecordHandler implements IB2CPimFailedRecordHandler
 {
     
     public abstract function getFixedPimFailedRecord(B2CSalesForceObjectType $sfObjectType): array;

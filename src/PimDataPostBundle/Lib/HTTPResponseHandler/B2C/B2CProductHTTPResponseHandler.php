@@ -16,7 +16,7 @@ class B2CProductHTTPResponseHandler extends AbstractB2CHTTPResponseHandler
         $this->dao = new B2CHTTPResponseHandlerDao(Constants::B2C_PRODUCT_TEMP_TABLE_NAME,Constants::B2C_PRODUCT_MASTER_TABLE_NAME);
     }
 
-    public function handleResponse(Response $responseResult): bool
+    public function handleResponse(Response $responseResult, int $responseTimestamp): bool
     {
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
         if(isset($responseArr['id']) && ($responseResult->getStatusCode() == 200 || $responseResult->getStatusCode() == 201) )
