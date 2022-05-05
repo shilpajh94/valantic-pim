@@ -47,4 +47,8 @@ class B2CProductTempTablePopulator extends AbstractB2CTempTablePopulator
         $this->helper->insertDataInTempTable($insertTempData, Constants::B2C_PRODUCT_TEMP_TABLE_NAME);
     }
 
+    public function getExistingTempTableData(int $o_id): array
+    {
+        return $this->dao->getExistingTempTableData($o_id);
+    }
 }

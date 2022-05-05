@@ -20,7 +20,7 @@ class B2CPimFailureRecord extends AbstractModel {
         return $this->pimId;
     }
  
-    public function setPimId(string $pimId)
+    public function setPimId(string $pimId): self
     {
         $this->pimId = $pimId;
         return $this;
@@ -31,7 +31,7 @@ class B2CPimFailureRecord extends AbstractModel {
         return $this->timestamp;
     }
  
-    public function setTimestamp(string $timestamp)
+    public function setTimestamp(string $timestamp): self
     {
         $this->timestamp = $timestamp;
         return $this;
@@ -42,7 +42,7 @@ class B2CPimFailureRecord extends AbstractModel {
         return $this->failureMessage;
     }
  
-    public function setFailureMessage(string $failureMessage)
+    public function setFailureMessage(string $failureMessage): self
     {
         $this->failureMessage = $failureMessage;
         return $this;
@@ -54,13 +54,11 @@ class B2CPimFailureRecord extends AbstractModel {
         return $this->status;
     }
  
-    public function setStatus(string $status)
+    public function setStatus(string $status): self
     {
         $this->status = $status;
         return $this;
     }
-
-
 
     public function getSFObjectType(): B2CSalesForceObjectType
     {
