@@ -26,7 +26,9 @@ class B2CProductCategoryRelationHTTPRequestGenerator extends AbstractB2CHTTPRequ
     private function getRequestUrl($request): string
     {
         $decodeRequest = json_decode($request, true);
-        return "https://bgxw-010.sandbox.us01.dx.commercecloud.salesforce.com/s/-/dw/data/v18_1/products/".$decodeRequest['externalID'];
+        $entityurl = str_replace('<CATEGORY_ID_PLACEHOLDER>', $decodeRequest['body']['category_id'] ,$this->b2cProductCategoryRelationHelper->getEntityUrl());
+        $entityurl = str_replace('<PRODUCT_ID_PLACEHOLDER>', $decodeRequest['body']['product_id'] , $entityurl);
+        return $this->b2cProductCategoryRelationHelper->getApiHost().$entityurl;
     }
 
     private function getRequestBody($batch, APIOperationType $operationType = null): string

@@ -3,6 +3,10 @@
 namespace PimDataPostBundle\Lib\RequestBodyGenerator\B2C;
 
 use Pimcore\Model\DataObject\Product;
+use \Pimcore\Model\Asset;
+use \Pimcore\Model\Asset\Image;
+use \Pimcore\Model\Asset\Video;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
 use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
@@ -83,7 +87,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
-                    if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {
+                    if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig)) && $attributeConfig['pim_attribute_name'] != 'Document') {
                         $type = $config[$key]['pim_attribute_type'];
                         $fnc = "get".ucfirst($type)."TypeValue";
                         if (in_array(strtolower($type), $relationFieldArray)) {
@@ -93,11 +97,53 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
                     }
+
+                    if (!empty($value) && $attributeConfig['pim_attribute_type'] == 'image') {
+                        $imageAsset = Image::getById($value);
+                        if(isset($imageAsset)){
+                            $returnArray[$attributeConfig['sf_attribute_name']] = Util::getAssetPublicPath($imageAsset, null);
+                        } else {
+                            $returnArray[$attributeConfig['sf_attribute_name']] = '';
+                        }
+                    }
+                    
+                    if (!empty($value) &&  $attributeConfig['pim_attribute_name'] == 'Document' && $attributeConfig['pim_attribute_type'] == 'advancedManyToManyRelation') {
+                        $valueArray = $value=== null ? [] : explode(',',trim($value,','));
+                        $returnArray['c_hosePDF1'] = '';
+                        $returnArray['c_hosePDF2'] = '';
+                        $returnArray['c_hoseVideo'] = '';
+                        foreach($valueArray as $assetrow){
+                            $assetValue = explode('|',$assetrow);
+                            $documentAsset = Asset::getById($assetValue[1]);
+                            if(isset($documentAsset)){
+                                $path = Util::getAssetPublicPath($documentAsset, null);
+                                if($documentAsset->getType() == 'video' && $returnArray['c_hoseVideo'] == ''){
+                                    $returnArray['c_hoseVideo'] = $path;
+                                } else {
+                                    $extension = pathinfo($path, PATHINFO_EXTENSION);
+                                    if(($extension == 'pdf' || $extension =='PDF') 
+                                        && ($returnArray['c_hosePDF1'] == '' || $returnArray['c_hosePDF2'] == '')
+                                        ){
+                                        if($returnArray['c_hosePDF1'] == ''){
+                                            $returnArray['c_hosePDF1'] = $path;
+                                        } else if($returnArray['c_hosePDF1'] != '' && $returnArray['c_hosePDF2'] == ''){
+                                            $returnArray['c_hosePDF2'] = $path;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+
                 }
             }
         }
-        $returnArray["onlineFlag"] = $tempTableData["B2CStoreFlag"] && $tempTableData["o_published"];
+        $returnArray["online_flag"] = $tempTableData["B2CStoreFlag"] && $tempTableData["o_published"];
+        $returnArray["searchable"] =  $returnArray["onlineFlag"];
         $returnArray["owning_catalog_id"] = (new B2CProductHelper())->getCatalogId();
+        unset($returnArray["Document"]);
         return $returnArray;
     }
     

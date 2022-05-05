@@ -219,7 +219,7 @@ parameters:
         mainImage:
             pim_attribute_name: mainImage
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
             sf_relational_attribute: true
@@ -237,7 +237,7 @@ parameters:
         altImage1:
             pim_attribute_name: altImage1
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
             sf_relational_attribute: true
@@ -255,7 +255,7 @@ parameters:
         altImage2:
             pim_attribute_name: altImage2
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: INT(11) NULL
             sf_relational_attribute: true
@@ -273,13 +273,13 @@ parameters:
         Document:
             pim_attribute_name: Document
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             sf_relational_attribute: true
             joinOn:
             addOnJoin:
-            sf_attribute_name:
+            sf_attribute_name: Document
             pim_attribute_type: advancedManyToManyRelation
             allowed_object_class_name:
             is_multilingual_for_sf:

@@ -2,7 +2,7 @@
 
 namespace PimDataPostBundle\Lib\SalesForceEntityHelper\B2C;
 
-use PimDataPostBundle\Lib\SalesForceEntityHelper\Helper as SalesForceEntityHelperHelper;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2CHelper as SalesForceEntityHelperHelper;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Model\Types\ShopType;
 

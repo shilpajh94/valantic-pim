@@ -40,7 +40,7 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
 
     public function getLocalizedAttributeConfig(): array
     {
-
+        return [];
     }
 
     public function getSalesForceRelationalAttributeConfig(): array
@@ -55,10 +55,5 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
                         ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_media_type_attribute",true);
     }
 
-    // public function getPIMRelationalAttributeConfig($attrbuteForGrouping): array
-    // {
-    //     return $this->b2bAttributeConfigProviderHelper
-    //                     ->getConfigForKeyValue($this->getCompleteAttributeConfig(),$attrbuteForGrouping,true);
-    // }
 
 }

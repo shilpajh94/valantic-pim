@@ -43,6 +43,12 @@ class CreateB2CTableCommand extends AbstractCommand
         $categoryAttributes = $B2CCategoryAttributeConfigProvider->getCompleteAttributeConfig();
         $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 'o_id');
         $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 'o_id');
+
+        $this->createTableB2cApiRequestEntities();
+        $this->createTableB2cEntityEnforce();
+        $this->createTableB2cProductRelationChange();
+        $this->createTableSalesforceIntegrationPimcoreFailedRecord();
+
     }
 
     public function createTable($fields, $tableName, $uniqueIndexKey)
@@ -81,5 +87,70 @@ class CreateB2CTableCommand extends AbstractCommand
 
             echo "\n {$tableName} - table created.";
         }
+    }
+
+
+    private function createTableB2cApiRequestEntities()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity\Dao::TABLE_NAME."` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `body` longtext DEFAULT NULL,
+            `SFObjectType` varchar(151) NOT NULL,
+            `responseStatus` varchar(255) DEFAULT NULL,
+            `responseMsg` text ,
+            `referenceId` varchar(55) NOT NULL,
+            `operationType` varchar(151) DEFAULT NULL COMMENT 'CREATE/UPDATE/DELETE',
+            `externalID` varchar(99) DEFAULT NULL,
+            `pimId` varchar(1024) DEFAULT NULL,
+            `responseTimestamp` int UNSIGNED DEFAULT NULL,
+            `creationDate` int UNSIGNED DEFAULT NULL,
+            `businessUnit` varchar(55) DEFAULT NULL,
+             PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB";
+        $this->db->query($sql);
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity\Dao::TABLE_NAME." - table created.";
+    }
+
+    private function createTableB2cEntityEnforce()
+    {
+        $sql = "CREATE TABLE  IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush\Dao::TABLE_NAME."` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `objectId` varchar(1024) DEFAULT NULL,
+            `operationType` varchar(151) DEFAULT NULL COMMENT 'CREATE/UPDATE/DELETE',
+            `SFObjectType` varchar(151) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB";
+        $this->db->query($sql);
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush\Dao::TABLE_NAME." - table created.";
+    }
+
+    private function createTableB2cProductRelationChange()
+    {
+        $sql = "CREATE TABLE  IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2CProductRelationChange\Dao::TABLE_NAME."` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `productId` varchar(100) DEFAULT NULL,
+            `attributeName` varchar(100) DEFAULT NULL,
+            `oldValue` varchar(512) DEFAULT NULL,
+            `newValue` varchar(512) DEFAULT NULL,
+            `businessUnit` varchar(55) DEFAULT NULL,
+             PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB";
+        $this->db->query($sql);
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CProductRelationChange\Dao::TABLE_NAME." - table created.";
+    }
+
+    private function createTableSalesforceIntegrationPimcoreFailedRecord()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `".\PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord\Dao::TABLE_NAME."` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `pimId` varchar(1024) NOT NULL,
+            `SFObjectType` varchar(55) NOT NULL,
+            `failureMessage` text   ,
+            `status` enum('FIXED','NON-FIXED') NOT NULL,
+            `timestamp` int DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB";
+        $this->db->query($sql);
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord\Dao::TABLE_NAME." - table created.";
     }
 }
