@@ -184,15 +184,17 @@ class AppService
 
             /**
              * setting 'Thrust Wire Nut (Y/N)' in hyd fittings fert
+             * 
+             * Commented this code because we removed thrustwirenut attribute as per client
              */
-            if( $hydFittingFert = $product->getFert()->getHydFittingsFert() ){
-                $thrustWireComponentNumber = $hydFittingFert->getThrustWireComponentNumber();
-                if( $thrustWireComponentNumber && trim($thrustWireComponentNumber) !== '' ){
-                    $hydFittingFert->setThrustWireNut(true);
-                }else{
-                    $hydFittingFert->setThrustWireNut(false);
-                }
-            }
+            // if( $hydFittingFert = $product->getFert()->getHydFittingsFert() ){
+            //     $thrustWireComponentNumber = $hydFittingFert->getThrustWireComponentNumber();
+            //     if( $thrustWireComponentNumber && trim($thrustWireComponentNumber) !== '' ){
+            //         $hydFittingFert->setThrustWireNut(true);
+            //     }else{
+            //         $hydFittingFert->setThrustWireNut(false);
+            //     }
+            // }
 
             /**
              * setting 'Number of teeth' in synchronous fert
