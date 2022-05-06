@@ -4,8 +4,6 @@ namespace PimDataPostBundle\PimDataPoster\B2C\IFSPTG;
 
 use GuzzleHttp\Exception\ClientException;
 use PimDataPostBundle\Lib\Constants;
-use PimDataPostBundle\Lib\HTTPRequestGenerator\IHTTPRequestGenerator;
-use PimDataPostBundle\Lib\HTTPResponseHandler\IHTTPResponseHandler;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord;
 use PimDataPostBundle\Model\Types\APIOperationType;
@@ -14,8 +12,8 @@ use PimDataPostBundle\Model\Types\StatusType;
 
 class B2CDataPosterHelper
 {
-    public function sendAllRequestsToSFAndHandleResponses(IHTTPRequestGenerator $requestGenerator,
-                                                            IHTTPResponseHandler $responseHandler,
+    public function sendAllRequestsToSFAndHandleResponses(IB2CHTTPRequestGenerator $requestGenerator,
+                                                            IB2CHTTPResponseHandler $responseHandler,
                                                             APIOperationType $operationType = null)
     {
         $client = new \GuzzleHttp\Client();
@@ -23,18 +21,22 @@ class B2CDataPosterHelper
         $totalBatches = $requestGenerator->getTotalBatches($operationType);
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
             $request = $requestGenerator->getRequest($i, $operationType);
+            $externalIdForCurrentRequest = $requestGenerator->getExternalIdForCurrentRequest();
+            $responseHandler->setExternalIdForCurrentRequest($externalIdForCurrentRequest);
             try{
                 $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+                $responseHandler->handleResponse($response, time());
             } catch(ClientException $ex){
+                $response = $ex->getResponse();
                 if($ex->getResponse()->getStatusCode() == 401)
                 {
                     $request = Util::refreshB2CRequestHeader($request);
                     $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
                 }else {
-                    throw $ex;
+                    $responseHandler->handleResponse($response, time());
                 }
             }
-            $responseHandler->handleResponse($response, time());
+            // $responseHandler->handleResponse($response, time());
         }
     }
 

@@ -44,7 +44,7 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 19;
+    const UPDATE_WINDOW_END_HOUR = 12;
 
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 60;
 
@@ -79,4 +79,6 @@ class Constants
     const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
 
     const B2B_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2B_success_key";
+
+    const B2C_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2C_script_start_time";
 }

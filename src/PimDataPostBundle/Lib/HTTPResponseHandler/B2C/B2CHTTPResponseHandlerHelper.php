@@ -11,8 +11,9 @@ class B2CHTTPResponseHandlerHelper
 {
     public function updateSuccessRecord(string $externalID, int $statusCode, int $responseTimestamp): string
     {
+        $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing->setCondition("externalID = ? AND responseStatus IS NULL ", $externalID);
+        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ", [$externalID, $scriptStartTime]);
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {
@@ -27,8 +28,9 @@ class B2CHTTPResponseHandlerHelper
 
     public function updateFailedRecord(string $externalID, int $responceStatus, string $responceMsg, int $responseTimestamp): bool
     {
+        $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing->setCondition("externalID = ? AND responseStatus IS NULL ", $externalID);
+        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ", [$externalID, $scriptStartTime]);
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {

@@ -7,8 +7,8 @@ use PimDataPostBundle\Model\UpdateWindow;
 
 class TempTablePopulatorDao
 {
-    private $db;
-    private $updateWindow;
+    protected $db;
+    protected $updateWindow;
 
     public function __construct()
     {

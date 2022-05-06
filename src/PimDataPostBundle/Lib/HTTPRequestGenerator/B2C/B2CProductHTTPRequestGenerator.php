@@ -16,6 +16,8 @@ class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator
 
     public $b2cHTTPRequestBodyGenerator;
 
+    private $externalIdForCurrentRequest;
+
     public function __construct()
     {
         $this->b2cProductHelper = new B2CProductHelper();
@@ -24,9 +26,10 @@ class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator
      
     }
 
-    private function getRequestUrl($request): string
+    private function getRequestUrl(string $request): string
     {
         $decodeRequest = json_decode($request, true);
+        $this->externalIdForCurrentRequest = $decodeRequest['externalID'];
         return $this->b2cProductHelper->getApiHost().str_replace('<PRODUCT_ID_PLACEHOLDER>', $decodeRequest['externalID'] ,$this->b2cProductHelper->getEntityUrl());
     }
 
@@ -39,6 +42,11 @@ class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator
     {
         $getbodyRequest = $this->getRequestBody($batch, $operationType);
         return  new Request($this->b2cHTTPRequestGeneratorHelper->getRequestMethod($getbodyRequest), $this->getRequestUrl($getbodyRequest), $this->b2cHTTPRequestGeneratorHelper->getRequestHeaders(), $this->b2cHTTPRequestGeneratorHelper->geBodyFromRequestBody($getbodyRequest));
+    }
+
+    public function getExternalIdForCurrentRequest(): string
+    {
+        return $this->externalIdForCurrentRequest;
     }
 
     public function getTotalBatches(APIOperationType $operationType = null):int

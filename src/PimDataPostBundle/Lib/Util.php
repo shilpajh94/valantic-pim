@@ -186,4 +186,18 @@ class Util
         return $session->get($key) === null ? [] : $session->get($key);
     }
 
+    public static function setB2CScriptStartTime(int $timestampt): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
+        $session->set($key,$timestampt);
+    }
+
+    public static function getB2CScriptStartTime(): int
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
+        return $session->get($key);
+    }
+
 }

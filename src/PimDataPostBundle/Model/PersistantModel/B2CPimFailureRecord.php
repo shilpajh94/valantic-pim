@@ -65,9 +65,10 @@ class B2CPimFailureRecord extends AbstractModel {
         return B2CSalesForceObjectType::getByString($this->SFObjectType);
     }
 
-    public function setSFObjectType(string $SFObjectType):void
+    public function setSFObjectType(string $SFObjectType): self
     {
         $SFObjectType= B2CSalesForceObjectType::getByString($SFObjectType);
         $this->SFObjectType = strval($SFObjectType);
+        return $this;
     }
 }

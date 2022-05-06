@@ -25,74 +25,74 @@ class B2CProductDataPoster implements IDataPoster
 {
     public function postData()
     {
-            $tempTablePopulator = new B2CProductTempTablePopulator();
-            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_PRODUCT_TEMP_TABLE_NAME, 
-                                                                Constants::B2C_PRODUCT_MASTER_TABLE_NAME, 
-                                                                "basicHash", 
-                                                                "relationalHash");
-            $relationChangeRegistrar = new B2CProductRelationChangeRegistrar($tempMasterTableMeta);
-            $deltaManager = new B2CProductDeltaManager($tempMasterTableMeta);
-            $enforcedRecordProvier = new B2CProductEnforcedRecordsProvider();
-            $httpRequestGenerator = new B2CProductHTTPRequestGenerator();
-            $responseHandler = new B2CProductHTTPResponseHandler();
-            $helper = new B2CDataPosterHelper();
-            $pimFailedRecordHandler = new B2CPimFailedRecordHandler();
-            $productIdsForFailureEntry = [];
+        $tempTablePopulator = new B2CProductTempTablePopulator();
+        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_PRODUCT_TEMP_TABLE_NAME, 
+                                                            Constants::B2C_PRODUCT_MASTER_TABLE_NAME, 
+                                                            "basicHash", 
+                                                            "relationalHash");
+        $relationChangeRegistrar = new B2CProductRelationChangeRegistrar($tempMasterTableMeta);
+        $deltaManager = new B2CProductDeltaManager($tempMasterTableMeta);
+        $enforcedRecordProvier = new B2CProductEnforcedRecordsProvider();
+        $httpRequestGenerator = new B2CProductHTTPRequestGenerator();
+        $responseHandler = new B2CProductHTTPResponseHandler();
+        $helper = new B2CDataPosterHelper();
+        $pimFailedRecordHandler = new B2CPimFailedRecordHandler();
+        $productIdsForFailureEntry = [];
 
-            try{
-                $this->deleteAllRelationChangeObjects();
-                $tempTablePopulator->truncateTempTable();
-                $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
-                $productIdsForFailureEntry = $pimModifiedRecords;
-                $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords); 
+        try{
+            $this->deleteAllRelationChangeObjects();
+            $tempTablePopulator->truncateTempTable();
+            $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
+            $productIdsForFailureEntry = $pimModifiedRecords;
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords); 
 
-                $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2CSalesForceObjectType::PRODUCT());
-                $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
-                $productIdsForFailureEntry = array_merge($productIdsForFailureEntry, $pimFailedRecordIdsToResend);
-                $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
-                $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
-    
-                $relationChangeRegistrar->registerChangedRelation();
-                $deltaManager->removeHashNotChangedRecordsFromTempTable();
-                $productEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
+            $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2CSalesForceObjectType::PRODUCT());
+            $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
+            $productIdsForFailureEntry = array_merge($productIdsForFailureEntry, $pimFailedRecordIdsToResend);
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
+            $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
+
+            $relationChangeRegistrar->registerChangedRelation();
+            $deltaManager->removeHashNotChangedRecordsFromTempTable();
+            $productEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
+            /**
+             * to capture the product for which the masters in dynamic dropdonw,
+             * nomenclature,fittingfamily and thread updated.
+             */
+            $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
+            $productEnforcedToPushForUpdate = array_merge($productIdsForUpdatedMasters, $productEnforcedToPushForUpdate);
+            if(count($productEnforcedToPushForUpdate) > 0){
                 /**
-                 * to capture the product for which the masters in dynamic dropdonw,
-                 * nomenclature,fittingfamily and thread updated.
+                 * need to push the enforced records to the temp table because after successfull push to salesforce
+                 * the corresponding record is moved from the temp table to the master table so that
+                 * delta comparison can work fine.
                  */
-                $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
-                $productEnforcedToPushForUpdate = array_merge($productIdsForUpdatedMasters, $productEnforcedToPushForUpdate);
-                if(count($productEnforcedToPushForUpdate) > 0){
-                    /**
-                     * need to push the enforced records to the temp table because after successfull push to salesforce
-                     * the corresponding record is moved from the temp table to the master table so that
-                     * delta comparison can work fine.
-                     */
-                    $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForUpdate);
-                }
-                $recordsToUpdate = array_unique(array_merge($deltaManager->getRecordsToUpdate(), $productEnforcedToPushForUpdate));
-    
-                $recordsToCreate = $deltaManager->getRecordsToCreate();
-                $productEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreate();
-                if(count($productEnforcedToPushForCreate) > 0){
-                    /**
-                     * need to push the enforced records to the temp table because after successfull push to salesforce
-                     * the corresponding record is moved from the temp table to the master table so that
-                     * delta comparison can work fine.
-                     */
-                    $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
-                }
-                $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
-        
-                $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
-                $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
-
-                $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
-        
-            }catch(\Throwable $throwable){
-                B2CLogger::getInstace()->error( get_class($throwable) . " in B2CProductDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-                $helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2CSalesForceObjectType::PRODUCT() );
-                Util::setPIMFailureFlag();
+                $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForUpdate);
             }
+            $recordsToUpdate = array_unique(array_merge($deltaManager->getRecordsToUpdate(), $productEnforcedToPushForUpdate));
+
+            $recordsToCreate = $deltaManager->getRecordsToCreate();
+            $productEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreate();
+            if(count($productEnforcedToPushForCreate) > 0){
+                /**
+                 * need to push the enforced records to the temp table because after successfull push to salesforce
+                 * the corresponding record is moved from the temp table to the master table so that
+                 * delta comparison can work fine.
+                 */
+                $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
+            }
+            $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
+    
+            $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
+            $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
+
+            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
+    
+        }catch(\Throwable $throwable){
+            B2CLogger::getInstace()->error( get_class($throwable) . " in B2CProductDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+            $helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2CSalesForceObjectType::PRODUCT() );
+            Util::setPIMFailureFlag();
+        }
            
     }
 
