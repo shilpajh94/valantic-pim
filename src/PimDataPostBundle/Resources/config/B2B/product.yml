@@ -80,7 +80,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(190) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name: B2B_PartNumber__c
+            sf_attribute_name: B2B_Part_Number__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -316,7 +316,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(14) NULL
             joinOn:
             addOnJoin:
-            sf_attribute_name: B2B_CaliforniaProposition65ChemicalName1
+            sf_attribute_name: B2B_CaliforniaProposition65ChemicalName1__c
             pim_attribute_type: select
             sf_relational_attribute:
             allowed_object_class_name: Chemical
@@ -388,7 +388,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_BoltHoleSizeinDecimal
+            sf_attribute_name: B2B_BoltHoleSizeinDecimal__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -602,9 +602,9 @@ parameters:
         #     joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
         #     sendToSF: true
         #     temp_master_table_attr: true
-        #     temp_master_table_column_type: VARCHAR(20) NULL
+        #     temp_master_table_column_type: VARCHAR(12) NULL
         #     addOnJoin:
-        #     sf_attribute_name:
+        #     sf_attribute_name: B2B_OringIdinDecimal__c
         #     pim_attribute_type: numeric
         #     sf_relational_attribute:
         #     allowed_object_class_name:
@@ -694,7 +694,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(100) NULL
             addOnJoin:
-            sf_attribute_name: B2B_Descriptrive__c
+            sf_attribute_name: B2B_Descriptive_HydFittings__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1324,7 +1324,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(14) NULL
             addOnJoin:
-            sf_attribute_name: B2B_TubeMaterial__c
+            sf_attribute_name: B2B_Tube_Material__c
             pim_attribute_type: multiselect
             sf_relational_attribute:
             allowed_object_class_name: MultiselectMaster
@@ -1522,7 +1522,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: tinyint(1) NULL
             addOnJoin:
-            sf_attribute_name: B2B_BendRestrictorYN
+            sf_attribute_name: B2B_BendRestrictorYN__c
             pim_attribute_type: booleanSelect
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1558,7 +1558,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
-            sf_attribute_name: B2B_Descriptrive__c
+            sf_attribute_name: B2B_Descriptive_HoseFert__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2044,7 +2044,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_Color
+            sf_attribute_name: B2B_Color__c
             pim_attribute_type: select
             sf_relational_attribute:
             allowed_object_class_name:
