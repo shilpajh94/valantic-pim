@@ -1,0 +1,25 @@
+config:
+    IFSPTG_US:
+        Class:
+          [
+              Product: "IFS/PTG",              
+          ]
+        PRODUCT_TYPE:
+          [
+              "Base",
+              "Skeleton",
+              "Fert"
+          ]
+        PrimaryKey:
+          [
+              "articleNumber"
+          ]
+    CBS:
+        Class:
+          [
+              CSProducts: "Conveyor Solution",
+          ]
+        PrimaryKey:
+          [
+              "Path"
+          ]
