@@ -10,11 +10,11 @@ use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CProductHelper;
 use PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2C\B2CProductHTTPRequestBodyGenerator;
 class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator 
 {
-    public $b2cProductHelper;
+    private $b2cProductHelper;
 
-    public $b2cHTTPRequestGeneratorHelper;
+    private $b2cHTTPRequestGeneratorHelper;
 
-    public $b2cHTTPRequestBodyGenerator;
+    private $b2cHTTPRequestBodyGenerator;
 
     private $externalIdForCurrentRequest;
 
@@ -33,15 +33,15 @@ class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator
         return $this->b2cProductHelper->getApiHost().str_replace('<PRODUCT_ID_PLACEHOLDER>', $decodeRequest['externalID'] ,$this->b2cProductHelper->getEntityUrl());
     }
 
-    private function getRequestBody($batch, APIOperationType $operationType = null): string
+    private function getRequestBody(int $batch, APIOperationType $operationType = null): string
     {
         return $this->b2cHTTPRequestBodyGenerator->getHTTPRequestBodyByBatchNumber($batch,$operationType);
     }
 
-    public function getRequest($batch, APIOperationType $operationType = null): Request
+    public function getRequest(int $batch, APIOperationType $operationType = null): Request
     {
         $getbodyRequest = $this->getRequestBody($batch, $operationType);
-        return  new Request($this->b2cHTTPRequestGeneratorHelper->getRequestMethod($getbodyRequest), $this->getRequestUrl($getbodyRequest), $this->b2cHTTPRequestGeneratorHelper->getRequestHeaders(), $this->b2cHTTPRequestGeneratorHelper->geBodyFromRequestBody($getbodyRequest));
+        return  new Request($this->b2cHTTPRequestGeneratorHelper->getRequestMethod($getbodyRequest), $this->getRequestUrl($getbodyRequest), $this->b2cHTTPRequestGeneratorHelper->getRequestHeaders(), $this->b2cHTTPRequestGeneratorHelper->getBodyFromRequestBody($getbodyRequest));
     }
 
     public function getExternalIdForCurrentRequest(): string

@@ -10,6 +10,8 @@ class B2CCategoryHTTPResponseHandler extends AbstractB2CHTTPResponseHandler
 
     private $dao;
 
+    private $externalIdForCurrentRequest;
+
     public function __construct()
     {
         $this->helper = new B2CHTTPResponseHandlerHelper();
@@ -21,10 +23,15 @@ class B2CCategoryHTTPResponseHandler extends AbstractB2CHTTPResponseHandler
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
         if(isset($responseArr['id']) && ($responseResult->getStatusCode() == 200 || $responseResult->getStatusCode() == 201) )
         {
-            return $this->updateSuccessRecord($responseArr['id'], $responseResult->getStatusCode(), $responseTimestamp);
+            return $this->updateSuccessRecord($this->externalIdForCurrentRequest, $responseResult->getStatusCode(), $responseTimestamp);
         }else {
-            return $this->helper->updateFailedRecord($responseArr['id'], $responseResult->getStatusCode(), json_encode($responseArr['fault']), $responseTimestamp);
+            return $this->helper->updateFailedRecord($this->externalIdForCurrentRequest, $responseResult->getStatusCode(), json_encode($responseArr['fault']), $responseTimestamp);
         }    
+    }
+
+    public function setExternalIdForCurrentRequest(string $externalIdForCurrentRequest): void
+    {
+        $this->externalIdForCurrentRequest = $externalIdForCurrentRequest;
     }
 
     private function updateSuccessRecord(string $externalId, int $statusCode, int $responseTimestamp): bool

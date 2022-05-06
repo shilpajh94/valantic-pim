@@ -3,28 +3,22 @@
 namespace PimDataPostBundle\Lib\HTTPRequestGenerator\B2C;
 
 use PimDataPostBundle\Lib\Util;
-use PimDataPostBundle\Services\TokenAuthService;
 class B2CHTTPRequestGeneratorHelper 
 {
        
-    public function getRequestHeaders(): array
+    public function getRequestHeaders(bool $forceNewToken = false): array
     {
-        $b2cAuthToken = Util::getService(TokenAuthService::class)->getB2CAuthToken();
-        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
-        return array(
-            'Content-Type' => 'application/json',
-            'Authorization' => $authHeader
-        );
+        return Util::getB2CRequestHeader($forceNewToken);
     }
 
-    public function geBodyFromRequestBody($request)
+    public function getBodyFromRequestBody(string $request): string
     {
         $decodeRequest = json_decode($request, true);
         $body = $decodeRequest['body'];
         return json_encode($body);
     }
 
-    public function getRequestMethod($request)
+    public function getRequestMethod(string $request): string
     {
         $decodeRequest = json_decode($request, true);
         return $decodeRequest['method'];

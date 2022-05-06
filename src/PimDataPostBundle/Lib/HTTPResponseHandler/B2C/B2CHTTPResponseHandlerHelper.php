@@ -13,7 +13,7 @@ class B2CHTTPResponseHandlerHelper
     {
         $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ", [$externalID, $scriptStartTime]);
+        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ?", [$externalID, $scriptStartTime]);
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {
@@ -30,7 +30,7 @@ class B2CHTTPResponseHandlerHelper
     {
         $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ", [$externalID, $scriptStartTime]);
+        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ?", [$externalID, $scriptStartTime]);
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {
@@ -44,7 +44,7 @@ class B2CHTTPResponseHandlerHelper
         return false;   
     }
 
-    public function addEntityToEnforce($requestObject): bool
+    public function addEntityToEnforce(B2CAPIRequestEntity $requestObject): bool
     {
         $listing = new B2BEntityEnforcedToPush\Listing();
         $listing->setCondition("objectId = ?", [$requestObject->pimId]);
@@ -59,7 +59,7 @@ class B2CHTTPResponseHandlerHelper
         return true;
     }
 
-    public function removeEntityFromEnforce($pimId)
+    public function removeEntityFromEnforce(int $pimId): bool
     {
 
         $listing = new B2BEntityEnforcedToPush\Listing();

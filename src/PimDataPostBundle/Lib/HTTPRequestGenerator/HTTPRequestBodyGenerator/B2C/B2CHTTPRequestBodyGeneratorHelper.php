@@ -29,7 +29,7 @@ class B2CHTTPRequestBodyGeneratorHelper
 
     public function getTotalBatches(APIOperationType $operationType = null): int
     {
-        $scriptStartTime = Util::getB2BScriptStartTime();
+        $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
         if($operationType != null){
             $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
@@ -43,9 +43,9 @@ class B2CHTTPRequestBodyGeneratorHelper
 
     public function getHTTPRequestBodyByBatchNumber($batch, APIOperationType $operationType = null): string
     {
-        $scriptStartTime = Util::getB2BScriptStartTime();
+        $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        if($operationType != null){
+        if(isset($operationType) && $operationType != null){
             $listing = $listing->setCondition('SFObjectType = ? AND operationType = ? AND creationDate >= ?', [$this->SFObjectType, strval($operationType), $scriptStartTime]);
 
         } else {

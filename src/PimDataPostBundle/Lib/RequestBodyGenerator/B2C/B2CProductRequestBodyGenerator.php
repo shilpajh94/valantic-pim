@@ -41,7 +41,8 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_RELATION()),
             strtolower(PimFieldType::ADVANCED_MANY_TO_MANY_OBJECT_RELATION()),
             strtolower(PimFieldType::BOOLEAN_SELECT()),
-            strtolower(PimFieldType::SALES_FORCE_ID())
+            strtolower(PimFieldType::SALES_FORCE_ID()),
+            strtolower(PimFieldType::IMAGE())
         ];
         
     }
@@ -76,7 +77,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                     }
                 }
             }
-            if (count($updatedConfig)>0) {
+            if (!empty($updatedConfig)) {
                 $config = $updatedConfig;
             }
         } else {
@@ -98,45 +99,11 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                         }
                     }
 
-                    if (!empty($value) && $attributeConfig['pim_attribute_type'] == 'image') {
-                        $imageAsset = Image::getById($value);
-                        if(isset($imageAsset)){
-                            $returnArray[$attributeConfig['sf_attribute_name']] = Util::getAssetPublicPath($imageAsset, null);
-                        } else {
-                            $returnArray[$attributeConfig['sf_attribute_name']] = '';
-                        }
-                    }
-                    
                     if (!empty($value) &&  $attributeConfig['pim_attribute_name'] == 'Document' && $attributeConfig['pim_attribute_type'] == 'advancedManyToManyRelation') {
-                        $valueArray = $value=== null ? [] : explode(',',trim($value,','));
-                        $returnArray['c_hosePDF1'] = '';
-                        $returnArray['c_hosePDF2'] = '';
-                        $returnArray['c_hoseVideo'] = '';
-                        foreach($valueArray as $assetrow){
-                            $assetValue = explode('|',$assetrow);
-                            $documentAsset = Asset::getById($assetValue[1]);
-                            if(isset($documentAsset)){
-                                $path = Util::getAssetPublicPath($documentAsset, null);
-                                if($documentAsset->getType() == 'video' && $returnArray['c_hoseVideo'] == ''){
-                                    $returnArray['c_hoseVideo'] = $path;
-                                } else {
-                                    $extension = pathinfo($path, PATHINFO_EXTENSION);
-                                    if(($extension == 'pdf' || $extension =='PDF') 
-                                        && ($returnArray['c_hosePDF1'] == '' || $returnArray['c_hosePDF2'] == '')
-                                        ){
-                                        if($returnArray['c_hosePDF1'] == ''){
-                                            $returnArray['c_hosePDF1'] = $path;
-                                        } else if($returnArray['c_hosePDF1'] != '' && $returnArray['c_hosePDF2'] == ''){
-                                            $returnArray['c_hosePDF2'] = $path;
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-
+                        $documentArray = $this->getSalesForceDocumentAttribute($value);
+                        $returnArray = array_merge($returnArray, $documentArray);
                     }
-
+                        
                 }
             }
         }
@@ -144,6 +111,38 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
         $returnArray["searchable"] =  $returnArray["onlineFlag"];
         $returnArray["owning_catalog_id"] = (new B2CProductHelper())->getCatalogId();
         unset($returnArray["Document"]);
+        return $returnArray;
+    }
+
+    private function getSalesForceDocumentAttribute(string $value): array
+    {
+        $returnArray = array();
+        $valueArray =explode(',',trim($value,','));
+        $returnArray['c_hosePDF1'] = '';
+        $returnArray['c_hosePDF2'] = '';
+        $returnArray['c_hoseVideo'] = '';
+        foreach($valueArray as $assetrow){
+            $assetValue = explode('|',$assetrow);
+            $documentAsset = Asset::getById($assetValue[1]);
+            if(isset($documentAsset)){
+                $path = Util::getAssetPublicPath($documentAsset, null);
+                if($documentAsset->getType() == 'video' && $returnArray['c_hoseVideo'] == ''){
+                    $returnArray['c_hoseVideo'] = $path;
+                } else {
+                    $extension = pathinfo($path, PATHINFO_EXTENSION);
+                    if(($extension == 'pdf' || $extension =='PDF') 
+                        && ($returnArray['c_hosePDF1'] == '' || $returnArray['c_hosePDF2'] == '')
+                    ){
+                        if($returnArray['c_hosePDF1'] == ''){
+                            $returnArray['c_hosePDF1'] = $path;
+                        } else if($returnArray['c_hosePDF1'] != '' && $returnArray['c_hosePDF2'] == ''){
+                            $returnArray['c_hosePDF2'] = $path;
+                        }
+                    }
+                }
+
+            }
+        }
         return $returnArray;
     }
     
