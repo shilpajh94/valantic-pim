@@ -18,7 +18,7 @@ use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Model\Types\ImageTransformationSize;
 
-class Util
+Class Util
 {
     public static function isTokenValid(AuthToken $token): bool
     {

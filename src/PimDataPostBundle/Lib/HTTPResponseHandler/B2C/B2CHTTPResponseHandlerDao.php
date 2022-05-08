@@ -9,7 +9,7 @@ class B2CHTTPResponseHandlerDao
 {
     private $db;
 
-    public function __construct($tempTable , $masterTable)
+    public function __construct(string $tempTable, string $masterTable)
     {
         $this->tempTable=$tempTable;
         $this->masterTable=$masterTable;

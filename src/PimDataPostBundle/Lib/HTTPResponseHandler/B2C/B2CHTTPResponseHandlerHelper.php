@@ -5,7 +5,7 @@ use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity;
-use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
+use PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush;
 
 class B2CHTTPResponseHandlerHelper
 {
@@ -46,11 +46,11 @@ class B2CHTTPResponseHandlerHelper
 
     public function addEntityToEnforce(B2CAPIRequestEntity $requestObject): bool
     {
-        $listing = new B2BEntityEnforcedToPush\Listing();
+        $listing = new B2CEntityEnforcedToPush\Listing();
         $listing->setCondition("objectId = ?", [$requestObject->pimId]);
         if(count($listing->load()) == 0)
         {
-        $newObject = new B2BEntityEnforcedToPush();
+        $newObject = new B2CEntityEnforcedToPush();
         $newObject->setObjectId($requestObject->pimId);
         $newObject->setOperationType($requestObject->operationType);
         $newObject->setSFObjectType($requestObject->SFObjectType);
@@ -62,7 +62,7 @@ class B2CHTTPResponseHandlerHelper
     public function removeEntityFromEnforce(int $pimId): bool
     {
 
-        $listing = new B2BEntityEnforcedToPush\Listing();
+        $listing = new B2CEntityEnforcedToPush\Listing();
         $listing->setCondition("objectId = ?", [$pimId]);
         foreach($listing->load() as $rowObject)
         {

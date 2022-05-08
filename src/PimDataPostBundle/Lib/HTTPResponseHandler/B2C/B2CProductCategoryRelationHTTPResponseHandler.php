@@ -18,7 +18,7 @@ class B2CProductCategoryRelationHTTPResponseHandler extends AbstractB2CHTTPRespo
     public function handleResponse(Response $responseResult, int $responseTimestamp): bool
     {
         $responseArr= json_decode($responseResult->getBody()->getContents(),true);
-        if(isset($responseArr['id']) && ($responseResult->getStatusCode() == 200 || $responseResult->getStatusCode() == 201) )
+        if(isset($responseArr['_resource_state']) && ($responseResult->getStatusCode() == 200 || $responseResult->getStatusCode() == 201) )
         {
             return $this->updateSuccessRecord($this->externalIdForCurrentRequest, $responseResult->getStatusCode(), $responseTimestamp);
         }else {
