@@ -1,11 +1,11 @@
 <?php
-namespace PimDataPostBundle\Lib\EnforcedRecordsProvider\B2B\Dao;
+namespace PimDataPostBundle\Lib\EnforcedRecordsProvider\B2C\Dao;
 
-use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
+use PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush;
 use PimDataPostBundle\Model\Types\APIOperationType;
-use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
+use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Lib\Constants;
-use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush\Dao as B2BEntityEnforcedToPushTable;
+use PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush\Dao as B2CEntityEnforcedToPushTable;
 class EnforcedRecordsProviderDao
 {
     private $db;    //database
@@ -20,10 +20,10 @@ class EnforcedRecordsProviderDao
     
     public function getEntityEnforceRecordsByLevel(string $operationType, $level): array
     {
-        $sql = "SELECT t1.objectId FROM ".B2BEntityEnforcedToPushTable::TABLE_NAME." t1 ";
-        $sql .= " JOIN ".Constants::B2B_CATEGORY_OBJECT_TABLE_NAME." t2 ON t2.oo_id = t1.objectId ";
+        $sql = "SELECT t1.objectId FROM ".B2CEntityEnforcedToPushTable::TABLE_NAME." t1 ";
+        $sql .= " JOIN ".Constants::B2C_CATEGORY_OBJECT_TABLE_NAME." t2 ON t2.oo_id = t1.objectId ";
         $sql .= " WHERE t1.operationType = '".APIOperationType::getByString($operationType)."'";
-        $sql .= " AND t1.SFObjectType = '".B2BSalesForceObjectType::getByString($this->SFObjectType)."'";
+        $sql .= " AND t1.SFObjectType = '".B2CSalesForceObjectType::getByString($this->SFObjectType)."'";
         $sql .= " AND t2.Level = ".$level;
         $result = $this->db->fetchAll($sql);
         return array_column($result,'objectId');

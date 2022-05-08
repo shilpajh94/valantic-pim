@@ -13,7 +13,7 @@ class B2CCategoryEnforcedRecordsProvider extends AbstractEnforcedRecordsProvider
 
     public function __construct() {
         $this->helper = new EnforcedRecordsProviderHelper(B2CSalesForceObjectType::CATEGORY());
-        $this->dao = new EnforcedRecordsProviderDao(BCBSalesForceObjectType::CATEGORY());
+        $this->dao = new EnforcedRecordsProviderDao(B2CSalesForceObjectType::CATEGORY());
     }
     
     public function getRecordsToCreate(): array
