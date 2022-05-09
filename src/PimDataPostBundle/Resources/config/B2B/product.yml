@@ -596,24 +596,24 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        # ORingThicknessInDec:
-        #     pim_attribute_name: ORingThicknessInDec
-        #     pim_table_name: object_brick_query_AccessoriesFert_1
-        #     joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
-        #     sendToSF: true
-        #     temp_master_table_attr: true
-        #     temp_master_table_column_type: VARCHAR(12) NULL
-        #     addOnJoin:
-        #     sf_attribute_name: B2B_OringIdinDecimal__c
-        #     pim_attribute_type: numeric
-        #     sf_relational_attribute:
-        #     allowed_object_class_name:
-        #     is_multilingual_for_sf:
-        #     container_pim_class_or_brick_name: AccessoriesFert
-        #     pim_attribute_for_sf_in_allowed_object_class_name:
-        #     pim_id_to_sf_id_mapping_model:
-        #     update_product_if_master_updated:
-        #     isLocalisedMaster:
+        ORingThicknessInDec:
+            pim_attribute_name: ORingThicknessInDec
+            pim_table_name: object_brick_query_AccessoriesFert_1
+            joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(12) NULL
+            addOnJoin:
+            sf_attribute_name: B2B_OringThicknessinDecimal__c
+            pim_attribute_type: numeric
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: AccessoriesFert
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
         Width:
             pim_attribute_name: Width
             pim_table_name: object_brick_query_AccessoriesFert_1
@@ -838,7 +838,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiametermm__c
+            sf_attribute_name: B2B_FlangeDiameterMmHyd
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1792,7 +1792,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(14) NULL
             addOnJoin:
-            sf_attribute_name: B2B_SafetyFactorARPMStandard
+            sf_attribute_name: B2B_SafetyFactorARPMStandard__c
             pim_attribute_type: multiselect
             sf_relational_attribute:
             allowed_object_class_name: MultiselectMaster
@@ -2494,7 +2494,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiameterin__c
+            sf_attribute_name: B2B_FlangeDiameterInMetal
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2540,24 +2540,24 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        # beltType:
-        #     pim_attribute_name: beltType
-        #     pim_table_name: object_brick_query_MetalFert_1
-        #     joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
-        #     sendToSF: true
-        #     temp_master_table_attr: true
-        #     temp_master_table_column_type: VARCHAR(190) NULL
-        #     addOnJoin:
-        #     sf_attribute_name: B2B_ForBeltType__c
-        #     pim_attribute_type: input
-        #     sf_relational_attribute:
-        #     allowed_object_class_name:
-        #     is_multilingual_for_sf:
-        #     container_pim_class_or_brick_name: MetalFert
-        #     pim_attribute_for_sf_in_allowed_object_class_name:
-        #     pim_id_to_sf_id_mapping_model:
-        #     update_product_if_master_updated:
-        #     isLocalisedMaster:
+        beltType:
+            pim_attribute_name: beltType
+            pim_table_name: object_brick_query_MetalFert_1
+            joinOn: LEFT JOIN object_brick_query_MetalFert_1 ON object_brick_query_MetalFert_1.o_id = object_1.o_id
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: VARCHAR(190) NULL
+            addOnJoin:
+            sf_attribute_name: B2B_ForBeltType__c
+            pim_attribute_type: input
+            sf_relational_attribute:
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: MetalFert
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
         beltWidth:
             pim_attribute_name: beltWidth
             pim_table_name: object_brick_query_MetalFert_1
