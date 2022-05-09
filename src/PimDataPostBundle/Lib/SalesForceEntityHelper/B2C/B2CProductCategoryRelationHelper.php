@@ -45,6 +45,6 @@ class B2CProductCategoryRelationHelper extends AbstractB2CSalesForceEntityHelper
     
     public static function getExternalId(B2CProductRelationChange $relationChangeObject): string
     {
-        return $relationChangeObject->getProductId() . "_category";
+        return $relationChangeObject->getProductId() . "__prod_cat_relation";
     }
 }
