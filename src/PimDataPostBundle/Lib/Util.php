@@ -146,8 +146,8 @@ Class Util
 
     public static function getB2CRequestHeader(bool $forceNewToken = false): array
     {
-        $b2bAuthToken = self::getService(TokenAuthService::class)->getB2CAuthToken($forceNewToken);
-        $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        $b2cAuthToken = self::getService(TokenAuthService::class)->getB2CAuthToken($forceNewToken);
+        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
         return array(
             'Content-Type' => 'application/json',
             'Authorization' => $authHeader
@@ -159,6 +159,14 @@ Class Util
     {
         $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken(true);
         $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        $request = $request->withHeader("Authorization", $authHeader);
+        return $request;
+    }
+
+    public static function refreshB2CRequestHeader(Request $request): Request
+    {
+        $b2cAuthToken = self::getService(TokenAuthService::class)->getB2CAuthToken(true);
+        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
         $request = $request->withHeader("Authorization", $authHeader);
         return $request;
     }
