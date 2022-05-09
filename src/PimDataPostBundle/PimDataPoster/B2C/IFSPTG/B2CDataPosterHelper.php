@@ -4,6 +4,8 @@ namespace PimDataPostBundle\PimDataPoster\B2C\IFSPTG;
 
 use GuzzleHttp\Exception\ClientException;
 use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Lib\HTTPRequestGenerator\B2C\IB2CHTTPRequestGenerator;
+use PimDataPostBundle\Lib\HTTPResponseHandler\B2C\IB2CHTTPResponseHandler;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord;
 use PimDataPostBundle\Model\Types\APIOperationType;
