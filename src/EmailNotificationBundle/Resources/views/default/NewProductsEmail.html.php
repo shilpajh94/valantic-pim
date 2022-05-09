@@ -27,9 +27,6 @@
         %Text(tableContent);
         <!-- <a href="%Text(file_url);" target="_blank">%Text(file_url);</a> -->
         <?= $this->wysiwyg('signature'); ?>
-        <ul>
-            %Text(file_url);
-        </ul>
     </div>
 </body>
 </html>

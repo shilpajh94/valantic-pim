@@ -209,7 +209,7 @@ class FailedRecords {
     {
       $host = APPLICATION_HOST;
       $link = $host. "/admin/login/deeplink?";
-      $link .= 'asset_' . $asset->getId() . '_document';  
+      $link .= 'asset_' . $asset->getId() . '_text';  
       return $link;
     }
 
