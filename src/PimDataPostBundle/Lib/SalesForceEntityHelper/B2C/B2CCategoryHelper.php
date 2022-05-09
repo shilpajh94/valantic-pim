@@ -50,6 +50,6 @@ class B2CCategoryHelper extends AbstractB2CSalesForceEntityHelper
 
     public static function getExternalId(string $o_id): string
     {
-        return "category_" . $o_id;
+        return $o_id."_category";
     }
 }

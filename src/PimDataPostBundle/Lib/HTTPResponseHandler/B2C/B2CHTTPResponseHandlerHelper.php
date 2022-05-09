@@ -59,7 +59,7 @@ class B2CHTTPResponseHandlerHelper
         return true;
     }
 
-    public function removeEntityFromEnforce(int $pimId): bool
+    public function removeEntityFromEnforce(string $pimId): bool
     {
 
         $listing = new B2CEntityEnforcedToPush\Listing();
