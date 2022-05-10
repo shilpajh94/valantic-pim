@@ -43,7 +43,7 @@
     else
     {
         $imgSrcObj =  $this->image("QAE_Image");
-        if($imgSrcObj)
+        if($imgSrcObj->getId())
         {
             ?>
                 <img src="<?= $this->helper->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />

@@ -130,7 +130,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CPS_productImageObj =  $this->image("CPS_productImage");
-                                if (!empty($CPS_productImageObj)) { ?>
+                                if (!empty($CPS_productImageObj->getId())) { ?>
                                     <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_productImageObj, $this->imageWidth); ?>" alt=""  class="features-images mr-0" >
                                 <?php
                                 }
@@ -195,7 +195,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CPS_ApplicationImageObj =  $this->image("CPS_ApplicationImage");
-                        if (!empty($CPS_ApplicationImageObj)) { ?>
+                        if (!empty($CPS_ApplicationImageObj->getId())) { ?>
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_ApplicationImageObj, $this->imageWidth); ?>" alt="" >
                         <?php
                         }

@@ -110,7 +110,7 @@
                         else
                         {
                             $SCBImgSrcObj =  $this->image("SCB_ProductImage");
-                            if (!empty($SCBImgSrcObj)) { ?>
+                            if (!empty($SCBImgSrcObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100 mb-5" />
                             <?php
                             }
@@ -141,7 +141,7 @@
                 else
                 {
                     $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
-                    if (!empty($SCBAppImgSrcObj)) { ?>
+                    if (!empty($SCBAppImgSrcObj->getId())) { ?>
                         <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBAppImgSrcObj, $this->imageWidth); ?>" alt="" class="mb-4" />
                     <?php
                     }
