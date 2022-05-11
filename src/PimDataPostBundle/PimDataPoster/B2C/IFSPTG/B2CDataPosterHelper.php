@@ -33,12 +33,12 @@ class B2CDataPosterHelper
                 if($ex->getResponse()->getStatusCode() == 401)
                 {
                     $request = Util::refreshB2CRequestHeader($request);
-                    $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+                    $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);              
                 }else {
                     $responseHandler->handleResponse($response, time());
                 }
             }
-            // $responseHandler->handleResponse($response, time());
+             $responseHandler->handleResponse($response, time());
         }
     }
 

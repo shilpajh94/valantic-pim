@@ -174,7 +174,7 @@ class B2CCategoryDataPoster implements IDataPoster
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2CSalesForceObjectType::CATEGORY());
 
-            $apiRequestEntity->setexternalID(B2CCategoryHelper::getExternalId($tempTableData["o_id"]));
+            $apiRequestEntity->setexternalID(B2CCategoryHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setCreationDate($currTime);

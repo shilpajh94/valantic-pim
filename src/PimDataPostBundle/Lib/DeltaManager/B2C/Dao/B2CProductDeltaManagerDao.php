@@ -6,6 +6,7 @@ use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
+use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
 
 class B2CProductDeltaManagerDao extends DeltaManagerDao
 {
@@ -17,6 +18,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
     {
         $this->db = \Pimcore\Db::get();
         $this->tempMasterTablesMeta=$tempMasterTablesMeta;
+        $this->attributeConfigProvider= new B2CProductAttributeConfigProvider();
     }
 
     public function getUpdatedMasterIds($masterClassName): array
@@ -95,6 +97,40 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
     }
            // End  --------
 
+     public function getProductIdsByUpdatedAsset(int $assetId): array
+    {
+        $sql = "SELECT o_id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
+        $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
+        $result = $this->db->fetchAll($sql);
+        $returnArray = [];
+        if( count($result) > 0 ){
+            $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
+        }
+        return $returnArray;
+    }
+
+    public function getProductIdsByDeletedAsset(int $assetId): array
+    {
+        $attributesArray = $this->attributeConfigProvider->getMediaAttributeConfig();
+        $returnArray = [];
+        foreach($attributesArray as $key => $attributesRow)
+        {
+            $sql = "SELECT o_id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
+            if($key == 'Document')
+            {
+                $sql .= " WHERE ".$key." LIKE '%|".$assetId.",%'";
+            }
+            else
+            {
+                $sql .= " WHERE ".$key." = '".$assetId."'";
+            }
+            $result = $this->db->fetchAll($sql);
+            if( count($result) >0 ){
+                $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
+            }
+        }
+        return $returnArray;
+    }
 
 }
 

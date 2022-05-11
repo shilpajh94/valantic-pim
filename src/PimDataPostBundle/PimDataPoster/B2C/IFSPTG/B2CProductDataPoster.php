@@ -82,7 +82,7 @@ class B2CProductDataPoster implements IDataPoster
                 $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
             }
             $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
-    
+            
             $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
             $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
 
@@ -118,7 +118,7 @@ class B2CProductDataPoster implements IDataPoster
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2CSalesForceObjectType::PRODUCT());
     
-            $apiRequestEntity->setexternalID(B2CProductHelper::getExternalId($tempTableData["o_id"]));
+            $apiRequestEntity->setexternalID(B2CProductHelper::getExternalId($tempTableData));
             $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
