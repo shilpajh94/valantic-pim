@@ -129,7 +129,7 @@ class B2BProductMediaPoster implements IDataPoster
             $productId = $relationChangeObject->getProductId();
             $pimId = $this->getPimIdForRelationChangeObject($relationChangeObject);
 
-            if(in_array($productId, $todaysFailedProductIds) ){
+            if(in_array(strval($productId), $todaysFailedProductIds) ){
                 $enfoceObject = new B2BEntityEnforcedToPush();                                
                 $enfoceObject->setObjectId($pimId);
                 $enfoceObject->setOperationType(strval(APIOperationType::UPDATE()));

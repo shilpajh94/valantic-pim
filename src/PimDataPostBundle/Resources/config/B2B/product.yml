@@ -838,7 +838,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiameterMmHyd
+            sf_attribute_name: B2B_FlangeDiameterMmHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1036,7 +1036,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverallLenghtin__c
+            sf_attribute_name: B2B_OverAllLengthInHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1054,7 +1054,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverallLenghtmm__c
+            sf_attribute_name: B2B_OverAllLengthMmHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1108,8 +1108,8 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: input
-            pim_attribute_type: B2B_ThreadSize1__c
+            sf_attribute_name: B2B_ThreadSize1__c
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -2166,7 +2166,7 @@ parameters:
             pim_attribute_name: beltAngle
             pim_table_name: object_brick_query_PTGSkeleton_1
             joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.o_id = object_1.o_id
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
@@ -2494,7 +2494,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiameterInMetal
+            sf_attribute_name: B2B_FlangeDiameterInMetal__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2782,7 +2782,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverAllLengthIn__c
+            sf_attribute_name: B2B_OverAllLengthInMetalFert__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2800,7 +2800,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverAllLengthMm__c
+            sf_attribute_name: B2B_OverAllLengthMmMetalFert__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
