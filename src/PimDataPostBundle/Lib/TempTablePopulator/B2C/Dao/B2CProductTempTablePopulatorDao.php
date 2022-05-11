@@ -9,9 +9,12 @@ use PimDataPostBundle\Model\UpdateWindow;
 class B2CProductTempTablePopulatorDao extends TempTablePopulatorDao
 {
 
+    private $db;
+
     public function __construct()
     {
         parent::__construct();
+        $this->db = $this->getDBInstance();
     }
 
     public function getExistingTempTableData($object_id)

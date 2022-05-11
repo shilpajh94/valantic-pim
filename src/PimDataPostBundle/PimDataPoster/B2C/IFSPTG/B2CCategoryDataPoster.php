@@ -104,7 +104,7 @@ class B2CCategoryDataPoster implements IDataPoster
         $allCategoriesWithRightActiveFlagValueForAssociatedCategories = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
 
         $associatedCategoriesWithTrueActiveFlag = $this->getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories);
-        $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $$associatedCategoriesWithTrueActiveFlag);
+        $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoriesWithTrueActiveFlag);
         $allActiveCategories = $parentsOfActiveAssociatedCategories;
         // returns a key value array for all the categories in mastr table with their respective active flag value 
         $allCategoriesInMasterTableWithActiveFlagValue = $this->prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories); 
@@ -113,6 +113,8 @@ class B2CCategoryDataPoster implements IDataPoster
         $categoryIdsToBeAddedInTempTable = [];
 
         $associatedCategoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+        $associatedCategoryIdsWhereRelationWithHashChanged = $this->getIdsWithoutComma($associatedCategoryIdsWhereRelationWithHashChanged);
+
         $parentOfAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoryIdsWhereRelationWithHashChanged); 
         foreach($parentOfAssociatedCategories as $categoryId){
             if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
@@ -125,6 +127,15 @@ class B2CCategoryDataPoster implements IDataPoster
             }
         }
         return $categoryIdsToBeAddedInTempTable;
+    }
+
+    public function getIdsWithoutComma(array $idsWithComma)
+    {
+        $returnValue = [];
+        foreach($idsWithComma as $idWithComma){
+            $returnValue[] = trim($idWithComma,",");
+        }
+        return $returnValue;
     }
 
     public function prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories)
