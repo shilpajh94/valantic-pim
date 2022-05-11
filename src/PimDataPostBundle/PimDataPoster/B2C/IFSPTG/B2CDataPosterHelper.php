@@ -4,6 +4,8 @@ namespace PimDataPostBundle\PimDataPoster\B2C\IFSPTG;
 
 use GuzzleHttp\Exception\ClientException;
 use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Lib\HTTPRequestGenerator\B2C\IB2CHTTPRequestGenerator;
+use PimDataPostBundle\Lib\HTTPResponseHandler\B2C\IB2CHTTPResponseHandler;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord;
 use PimDataPostBundle\Model\Types\APIOperationType;
@@ -31,12 +33,12 @@ class B2CDataPosterHelper
                 if($ex->getResponse()->getStatusCode() == 401)
                 {
                     $request = Util::refreshB2CRequestHeader($request);
-                    $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
+                    $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);              
                 }else {
                     $responseHandler->handleResponse($response, time());
                 }
             }
-            // $responseHandler->handleResponse($response, time());
+             $responseHandler->handleResponse($response, time());
         }
     }
 

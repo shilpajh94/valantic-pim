@@ -10,10 +10,13 @@ class B2CProductHelper extends AbstractB2CSalesForceEntityHelper
 
     private $helper;
 
+    private $dao;
+
     public function __construct()
     {
         $this->salesForceObjectType = B2CSalesForceObjectType::PRODUCT();
         $this->helper = new Helper();
+        $this->dao = new B2CProductDao();
         parent::__construct();
     }
 
@@ -48,8 +51,13 @@ class B2CProductHelper extends AbstractB2CSalesForceEntityHelper
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
 
-    public static function getExternalId(string $external_id): string
+    public static function getExternalId(array $tempTableData): string
     {
-        return $external_id;
+        return $tempTableData['articleNumber'];
+    }
+
+    public static function getExternalIdByPimId(int $pimId): string
+    {
+        return $this->dao->getArticleNumber($pimId);
     }
 }

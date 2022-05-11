@@ -1,5 +1,5 @@
 parameters:
-    b2c_api_version: v18_1
+    b2c_api_version: v21_10
 
     b2c_api_host: https://bgxw-010.sandbox.us01.dx.commercecloud.salesforce.com
 

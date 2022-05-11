@@ -3,7 +3,6 @@ namespace PimDataPostBundle\Lib\DeltaManager\B2C;
 
 use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\DeltaManager\DeltaManagerHelper;
 use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
 use PimDataPostBundle\Lib\DeltaManager\B2C\Dao\B2CProductDeltaManagerDao;
 
@@ -19,7 +18,7 @@ class B2CProductDeltaManager extends AbstractB2CDeltaManager
     
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
-        $this->helper = new DeltaManagerHelper($this->tempMasterTablesMeta);
+        $this->helper = new B2CProductDeltaManagerHelper($this->tempMasterTablesMeta);
         $this->b2cProductDeltaManagerDao = new B2CProductDeltaManagerDao($this->tempMasterTablesMeta);
         $this->attributeConfigProvider = new B2CProductAttributeConfigProvider();
     }
@@ -33,7 +32,7 @@ class B2CProductDeltaManager extends AbstractB2CDeltaManager
     
     public function getRecordsToUpdate(): array
     {
-        return $this->getHashChangedRecords();
+        return $this->getHashChangedRecords();  
     }
     
     public function getHashChangedRecords(): array
@@ -44,7 +43,8 @@ class B2CProductDeltaManager extends AbstractB2CDeltaManager
     public function getProductIdsForUpdatedMaster(): array
     {
         $setB = $this->getProductIdsForUpdatedTranslationMasters();
-        return array_merge($setB);
+        $setA = $this->getProductIdsByAssetsUpdatedOrDeletedRecords();
+        return array_unique(array_merge($setB, $setA));
     }
     
     public function removeHashNotChangedRecordsFromTempTable(): bool
@@ -77,6 +77,12 @@ class B2CProductDeltaManager extends AbstractB2CDeltaManager
                                                                                     $productAttributeNameInMasterTable, 
                                                                                     $pimAttributeType,
                                                                                     $this->tempMasterTablesMeta->getMasterTableName());
+    }
+
+    private function getProductIdsByAssetsUpdatedOrDeletedRecords(): array
+    {
+        return array_merge($this->helper->getProductIdsByAssetsUpdatedRecords(), 
+                            $this->helper->getProductIdsByAssetsDeletedRecords() );
     }
 }
 
