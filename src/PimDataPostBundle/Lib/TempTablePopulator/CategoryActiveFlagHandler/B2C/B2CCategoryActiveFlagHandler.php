@@ -61,4 +61,10 @@ class B2CCategoryActiveFlagHandler extends AbstractB2CCategoryActiveFlagHandler
     {
         return $this->helper->isCategoryActiveInMasterTable($categoryId);
     }
+
+    public function getUniqueParentIdsForObjectIdOfGivenClass(string $className, array $objectIds): array
+    {
+        return $this->helper->getUniqueParentIdsForObjectIdOfGivenClass($className, $objectIds);
+    }
+    
 }
