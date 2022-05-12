@@ -43,7 +43,6 @@ class ObjectListener
     protected function updateB2CCategoryLevel(DataObjectEvent $event): void
     {
         $object = $event->getObject();
-
         if ($object instanceof DataObject\B2CCategory) {
             $level = $this->getRecursiveB2CCategoryLevel($object);
             $object->setLevel($level);
@@ -52,7 +51,7 @@ class ObjectListener
 
     protected function getRecursiveB2CCategoryLevel($object): int
     {
-        static $level = 0;
+        static $level = 1;
 
         $parentID = $object->getParentID(); 
         $parentObject = DataObject::getById($parentID);
