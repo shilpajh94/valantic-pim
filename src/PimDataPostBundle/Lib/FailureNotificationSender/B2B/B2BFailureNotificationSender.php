@@ -21,8 +21,7 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
 
         $fileName = "failed_log_".date("d")."_".time().".csv";
         $filePath = PIMCORE_TEMPORARY_DIRECTORY . "/" . $fileName;
-        $sfFailureAssetFolder = Constants::FAILURE_LOG_ASSET_FOLDER."/".date("Y")."/".date("M");
-        
+        $sfFailureAssetFolder = Constants::B2B_FAILURE_LOG_ASSET_FOLDER."/".date("Y")."/".date("M");
         if(count($failedRecords)> 1)
         {
             $isFileCreated = Util::createCsvFile($filePath, $failedRecords);
@@ -65,8 +64,8 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
             $mail->addTo($email);
         }
 
-        $mail->setSubject(Constants::FAILURE_TEMPLATE_SUBJECT_NAME);
-        $mail->setDocument(Constants::FAILURE_TEMPLATE_NAME);
+        $mail->setSubject(Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME);
+        $mail->setDocument(Constants::B2B_FAILURE_TEMPLATE_NAME);
         $mail->setParams($params);
         $mail->send();
     }
