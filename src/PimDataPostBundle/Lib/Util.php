@@ -150,7 +150,7 @@ Class Util
         $authHeader="Bearer ".$b2cAuthToken->getTokenString();
         return array(
             'Content-Type' => 'application/json',
-            'Authorization' => "85685875"
+            'Authorization' => $authHeader
         );
     }
 
