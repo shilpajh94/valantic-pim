@@ -132,6 +132,10 @@ services:
     ImportBundle\OneTimeImportCommand\ChildProcessSaveAllProducts:
         tags:
             - { name: 'console.command', command: 'conti:save_all_products' }
+
+    ImportBundle\OneTimeImportCommand\ProductExternalIdImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:product_external_id_import' }
     
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
