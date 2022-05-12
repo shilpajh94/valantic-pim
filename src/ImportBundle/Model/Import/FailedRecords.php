@@ -139,7 +139,9 @@ class FailedRecords {
               $row[]  = $material;
               $row[]  = $plant;
               $row[]  = $salesorganization;
-              $row[]  = $distributionchannel;        
+              $row[]  = $distributionchannel; 
+
+              fputcsv($fileResource, $row, ','); 
             }
               $this->productFailureRecordsCSV($fileName);
         }
@@ -236,7 +238,7 @@ class FailedRecords {
             $email_Id[] = $users->getEmail();
           }
         }
-        return $email_Id;
+      return $email_Id;
     }  
 }
 
