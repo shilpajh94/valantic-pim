@@ -70,10 +70,10 @@ class ProductExternalIdImportCommand extends AbstractCommand
             foreach ($data as $key => $record) {
                 $recordNumber = $key+1;
 
-                $this->consoleLog("Process Record $recordNumber/$totalCount" );
-
                 $articleNumber = trim($record['Material']);
                 $externalID = trim($record['External ID']);
+
+                $this->consoleLog("Process Record $recordNumber/$totalCount - articleNumber:$articleNumber");
 
                 $status = "NA";
                 $msg = "";
@@ -114,6 +114,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
 
     private function insertDataIntoTable($articleNumber, $externalID): array
     {
+        $this->db->beginTransaction();
         try {
             $sql = "UPDATE object_query_1 SET externalID = '$externalID' WHERE articleNumber = '{$articleNumber}'";
             $this->db->query($sql);
@@ -121,8 +122,27 @@ class ProductExternalIdImportCommand extends AbstractCommand
             $sql = "UPDATE object_store_1 SET externalID = '$externalID' WHERE articleNumber = '{$articleNumber}'";
             $this->db->query($sql);
 
+            $sql = "select * FROM material_import_master WHERE id = '{$articleNumber}'";
+            $recordData = $this->db->fetchRow($sql);
+
+            if($recordData)
+            {
+                $record = json_decode($recordData['record']);
+                if(!in_array($externalID, $record))
+                {
+                    $record[]= $externalID;
+                    $record = addslashes(json_encode($record, true));
+                    $hash = md5($record);
+
+                    $sql = "UPDATE material_import_master SET record = '$record', `hash`= '$hash' WHERE id = '{$articleNumber}'";
+                    $this->db->query($sql);
+                }
+            }
+
+            $this->db->commit();
             $status = "SUCCESS";
         } catch (\Exception $exception) {
+            $this->db->rollBack();
             $status = "FAILURE";
             $msg = $exception->getMessage();
         }
