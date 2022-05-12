@@ -5,7 +5,7 @@ use GuzzleHttp\Psr7\Response;
 interface IHTTPResponseHandler
 {
     
-    public function handleResponse(Response $response, int $responseTimestamp): bool;
+    public function handleResponse(Response $response, int $responseTimestamp);
     
 }
 

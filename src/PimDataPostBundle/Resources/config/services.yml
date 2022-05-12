@@ -58,4 +58,8 @@ services:
 
     PimDataPostBundle\Command\InitialLoadCommand\B2BInitialLoadCommand:
         tags:
-            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }            
+            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }  
+                
+    PimDataPostBundle\Command\InitialLoadCommand\B2CInitialLoadCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:b2c-initial-load-command' }  

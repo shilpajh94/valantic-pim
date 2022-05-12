@@ -2,6 +2,7 @@
 
 namespace PimDataPostBundle\Model\PersistantModel;
 
+use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 class B2CPimFailureRecord extends AbstractModel {
     
@@ -47,7 +48,6 @@ class B2CPimFailureRecord extends AbstractModel {
         $this->failureMessage = $failureMessage;
         return $this;
     }
-
 
     public function getStatus(): string
     {

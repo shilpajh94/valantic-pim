@@ -52,4 +52,15 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         }
         return $categoriesActiveInactiveList;
     }
+
+    public function getObjectData(array $objectIds):array
+    {
+        if(empty($objectIds)){
+            return [];
+        }
+
+        $sql = "SELECT o_id, o_parentId, o_type, o_className";
+        $sql .= " FROM objects where o_id IN " . "(" . implode(",", $objectIds) . ")";
+        return $this->db->fetchAll($sql);
+    }
 }

@@ -38,7 +38,6 @@ class B2CDataPosterHelper
                     $responseHandler->handleResponse($response, time());
                 }
             }
-             $responseHandler->handleResponse($response, time());
         }
     }
 

@@ -12,6 +12,7 @@ use PimDataPostBundle\Lib\RequestBodyGenerator\B2C\B2CCategoryRequestBodyGenerat
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CCategoryHelper;
 use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CCategoryTempTablePopulator;
 use PimDataPostBundle\Lib\TempTablePopulator\CategoryActiveFlagHandler\B2C\B2CCategoryActiveFlagHandler;
+use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Logger\B2CLogger;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 use PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity;
@@ -98,25 +99,70 @@ class B2CCategoryDataPoster implements IDataPoster
 
     private function performActiveFlagChangesAndReturnCategoriyIdsToAddInTempTable(): array
     {
-        // $activeFlagHandler = new B2CCategoryActiveFlagHandler();
-        // $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
-        // $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
-        // $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
-        // $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
+        $activeFlagHandler = new B2CCategoryActiveFlagHandler();
+        $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
+        $allCategoriesWithRightActiveFlagValueForAssociatedCategories = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
+
+        $associatedCategoriesWithTrueActiveFlag = $this->getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories);
+        $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoriesWithTrueActiveFlag);
+        $allActiveCategories = $parentsOfActiveAssociatedCategories;
+        // returns a key value array for all the categories in mastr table with their respective active flag value 
+        $allCategoriesInMasterTableWithActiveFlagValue = $this->prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories); 
+        $activeFlagHandler->updateActiveFlagValue($allCategoriesInMasterTableWithActiveFlagValue); 
+
         $categoryIdsToBeAddedInTempTable = [];
 
-        // $categoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
-        // foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
-        //     if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
-        //         if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
-        //             $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-        //         }
-        //     }else{
-        //         $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
-        //         $categoryIdsToBeAddedInTempTable[] = $categoryId;
-        //     }
-        // }
+        $associatedCategoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
+        $associatedCategoryIdsWhereRelationWithHashChanged = $this->getIdsWithoutComma($associatedCategoryIdsWhereRelationWithHashChanged);
+
+        $parentOfAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoryIdsWhereRelationWithHashChanged); 
+        foreach($parentOfAssociatedCategories as $categoryId){
+            if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
+                if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+                    $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                }
+            }else{
+                $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
+                $categoryIdsToBeAddedInTempTable[] = $categoryId;
+            }
+        }
         return $categoryIdsToBeAddedInTempTable;
+    }
+
+    public function getIdsWithoutComma(array $idsWithComma)
+    {
+        $returnValue = [];
+        foreach($idsWithComma as $idWithComma){
+            $returnValue[] = trim($idWithComma,",");
+        }
+        return $returnValue;
+    }
+
+    public function prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories)
+    {
+        $allCategoriesInMasterTableWithActiveFlagValue = [];
+        foreach ($categoriyIdsInMasterTable as $categoryId) {
+            if(in_array($categoryId, $allActiveCategories))
+            {
+                $allCategoriesInMasterTableWithActiveFlagValue[$categoryId] = true;
+            }
+            else{
+                $allCategoriesInMasterTableWithActiveFlagValue[$categoryId] = false;
+            }
+        }
+        return $allCategoriesInMasterTableWithActiveFlagValue;
+    }
+
+    public function getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories)
+    {
+        $associatedCategoriesWithTrueActiveFlag = [];
+        foreach ($allCategoriesWithRightActiveFlagValueForAssociatedCategories as $categoryId => $flag) {
+            if($flag)
+            {
+                $associatedCategoriesWithTrueActiveFlag[] = $categoryId;
+            }
+        }
+        return $associatedCategoriesWithTrueActiveFlag;
     }
 
     private function createAPIRequestEntityForRecords(array $records, 
