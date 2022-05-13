@@ -62,6 +62,12 @@ class Constants
 
     const MAX_HTTP_CONNECTION_RETRIES = 5;
 
+    const B2C_FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs/B2C";
+
+    const B2C_FAILURE_TEMPLATE_NAME = "/Email/B2C Saleforce Integration Failure Email";
+
+    const B2C_FAILURE_TEMPLATE_SUBJECT_NAME = "B2C Saleforce Integration Failure Email";
+
     // in seconds
     const SLEEP_TIME_WITHIN_CONNECTION_RETRIES = 2;
 
@@ -73,6 +79,8 @@ class Constants
     const B2B_PIM_FAILURE_FLAG_SESSION_KEY = "salesforce_integration_B2B_PIM_failure_flag";
 
     const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
+
+    const B2C_PIM_FAILURE_TEMPLATE = "/Email/B2C Saleforce Integration PIM Failure Email";
 
     const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
 
