@@ -85,6 +85,10 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
             $config = $this->config;
         }
         foreach ($tempTableData as $key => $value) {
+            if($key == 'o_id')
+            {
+                $returnArray["parent_category_id"] = $this->getParentSalesForceId($value, $tempTableData["level"], $language);
+            }
             if (!empty($config[$key])) {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
@@ -96,9 +100,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
                             $fnc = "getMultiRelationTypeValue";
                         }
 
-                        if($key == "parent" && $type == "b2cSalesForceId"){
-                            $returnArray[$attributeConfig['sf_attribute_name']] = B2CCategoryHelper::getExternalId($value);
-                        }elseif (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
+                        if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
                         
@@ -108,16 +110,20 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
         }
         $returnArray["online"] = ($tempTableData["onlineFlag"] == 1) ? true : false;
         $returnArray["catalog_id"] = (new B2CCategoryHelper())->getCatalogId();
-        
+
+        if($returnArray["position"] != null){
+            $returnArray["position"] = intVal($returnArray["position"]);
+        }
         return $returnArray;
     }
     
-    public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
+    public function getParentSalesForceId($value, $level, $language = null) {
         
         if($level == 1){
             return null;
         }
 
+        $parentPimId = $this->b2cProductRequestBodyGeneratorDao->getParentId($value);
         $parentType = $this->b2cProductRequestBodyGeneratorDao->getObjectType($parentPimId);
         
         while($parentType != 'object')
@@ -126,17 +132,9 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
             $parentType = $this->b2cProductRequestBodyGeneratorDao->getObjectType($parentPimId);
         }
 
-        if (!empty($config['pim_id_to_sf_id_mapping_model'])) {
-            $className = "\\PimDataPostBundle\\Model\\PersistantModel\\".$config['pim_id_to_sf_id_mapping_model']."\\Listing";
-            $list = new $className();
-            $list->setCondition("`pimId` = ".$list->quote($parentPimId));
-            $list->load();
-            foreach($list as $object){
-                return $object->getSalesForceId();
-            }
-        }
+        $categoryTempData = array('o_id' => $parentPimId);
+        return B2CCategoryHelper::getExternalId($categoryTempData);
         
-        return null;
     }
     
     public function generateCreateRequestBody(array $tempTableData): array
