@@ -1234,7 +1234,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_HoseIDFraction__c
+            sf_attribute_name: B2B_Hose_ID_Fraction__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
