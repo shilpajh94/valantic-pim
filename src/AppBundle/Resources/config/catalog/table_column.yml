@@ -546,6 +546,7 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
+                columnWidth: 80
                 parent: 
                     name: Product
             articleNumber:
