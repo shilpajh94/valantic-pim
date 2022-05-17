@@ -192,5 +192,29 @@ class TempTablePopulatorDao
             }
         }
     }
+
+    public function filterIFSPTGProducts(array $productIds): array
+    {
+        if($productIds)
+        {
+            $ifsCategoriesFullSIOPCode = Constants::IFS_CATEGORIES;
+            $ptgCategoriesFullSIOPCode = Constants::PTG_CATEGORIES;
+            $allCategoriesFullSIOPCode = array_merge($ifsCategoriesFullSIOPCode, $ptgCategoriesFullSIOPCode);
+            $allCategoriesFullSIOPCodeString = implode(',', $allCategoriesFullSIOPCode);
+            
+            // Get all the categories id on the basis of SIOP full code
+            $query = "SELECT o_id FROM object_2 WHERE fullCode IN ($allCategoriesFullSIOPCodeString)";
+            $categoryIds = $this->db->fetchCol($query);
+
+            $categoryIdsString = implode(',', $categoryIds);
+            $productIdsString = implode(',', $productIds);
+            
+            // Get all the product ids that are belongs to SIOPLevel2
+            $query = "SELECT o_id FROM object_1 WHERE TRIM(BOTH ',' FROM SIOPLevel2) IN ($categoryIdsString) and o_id IN ($productIdsString)";
+            $resultSet = $this->db->fetchCol($query);
+        }
+        
+        return ($resultSet) ? $resultSet : [];
+    }
     
 }

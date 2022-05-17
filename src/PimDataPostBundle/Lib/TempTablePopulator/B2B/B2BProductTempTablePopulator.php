@@ -68,4 +68,9 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         return $this->dao->getExistingTempTableData($o_id);
     }
 
+    public function filterIFSPTGProducts(array $pimIds): array
+    {
+        return $this->helper->filterIFSPTGProducts($pimIds);
+    }
+
 }
