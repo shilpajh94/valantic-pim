@@ -197,8 +197,8 @@ class TempTablePopulatorDao
     {
         if($productIds)
         {
-            $ifsCategoriesFullSIOPCode = Constants::IFS_CATEGORIES;
-            $ptgCategoriesFullSIOPCode = Constants::PTG_CATEGORIES;
+            $ifsCategoriesFullSIOPCode = array_values(Constants::IFS_CATEGORIES);
+            $ptgCategoriesFullSIOPCode = array_values(Constants::PTG_CATEGORIES);
             $allCategoriesFullSIOPCode = array_merge($ifsCategoriesFullSIOPCode, $ptgCategoriesFullSIOPCode);
             $allCategoriesFullSIOPCodeString = implode(',', $allCategoriesFullSIOPCode);
             
