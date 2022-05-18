@@ -268,7 +268,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                         if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
 
                         ?>
-                        <table class="grid inh fitting continueLable" cellspacing="0" cellpadding="0">
+                        <table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
                             <thead>
                                 <?php if ($iconRequired == 'YES'): ?>
                                     <tr class="sub-head">
