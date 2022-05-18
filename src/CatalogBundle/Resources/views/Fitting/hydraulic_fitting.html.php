@@ -249,7 +249,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                                     if($this->editmode): 
                                         if($this->input('shortDescription' . $uniqueId)->isEmpty()): 
-                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource($tableRows['brandData']['shortDescription']);
+                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource(strip_tags($tableRows['brandData']['shortDescription']));
                                         else: 
                                         echo $this->input('shortDescription' . $uniqueId); 
                                         endif; 
