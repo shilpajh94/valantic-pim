@@ -1,0 +1,46 @@
+parameters:
+    host: 'https://pim.conti.de'
+    completed:
+        send_to_marcom_for_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users: 
+                    # - ProductOwner
+                roles:
+                    - MarComPTGEU
+                    # - EditorPTGEU
+        send_to_editor_for_fixes:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - EditorPTGEU
+        send_to_marcom_for_fixes:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComPTGEU
+                roles:
+                    - MarComPTGEU
+        send_to_pm_for_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - ProductManagerPTGEU
+        approved:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - ProductManagerPTGEU
+        published:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - RnDUser
+                roles:
+                    - ProductManagerPTGEU

@@ -1,0 +1,81 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    PTGEU\ImportBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+# add more services, or override services that need manual wiring
+#    PTGEU\ImportBundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
+    
+    # Commands
+    # this command will execute the import of SAP material
+    PTGEU\ImportBundle\Command\SAPMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-material-import' }
+
+
+    # this command will execute the import of SAP plant material
+    PTGEU\ImportBundle\Command\SAPPlantMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-plant-material-import' }
+
+    
+    # this command will execute the import of SAP sales material
+    PTGEU\ImportBundle\Command\SAPSalesMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-sales-material-import' }
+
+    # this command will execute the onetime import of product hierarchy
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductHierarchyImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-hierarchy-import' }
+
+    # Services
+    import.sap_file_feeder_service:
+        class: PTGEU\ImportBundle\Services\SAPFileFeederService
+        public: true
+
+    import.sap_material_service:
+        class: PTGEU\ImportBundle\Services\MaterialService
+        public: true
+
+    # Helpers
+    import.common_helper:
+        class: PTGEU\ImportBundle\Helper\Common
+        public: true
+        
+    import.category_helper:
+        class: PTGEU\ImportBundle\Helper\Category
+        public: true
+
+    import.config_provider_service:
+        class: PTGEU\ImportBundle\Services\ConfigProviderService
+        public: true
+
+    import.category_brick_mapping_service:
+        class:  PTGEU\ImportBundle\Services\CategoryBrickMappingService
+        public: true
+    
+    import.sap_category_service:
+        class:  PTGEU\ImportBundle\Services\CategoryService
+        public: true
+    
+    import.category_validator_service:
+        class: PTGEU\ImportBundle\Services\Validator\Category
+        public: true
