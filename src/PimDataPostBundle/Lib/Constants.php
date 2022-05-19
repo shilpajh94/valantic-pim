@@ -65,4 +65,8 @@ class Constants
     const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
 
     const B2B_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2B_success_key";
+
+    const IFS_CATEGORIES = ['Industrial Hose' => '041000', 'Hydraulics'=>'041500'];
+
+    const PTG_CATEGORIES = ['PTP' => '043000'];
 }
