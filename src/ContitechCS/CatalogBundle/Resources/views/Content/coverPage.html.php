@@ -27,10 +27,10 @@ if (!isset($this->parentContainer)) {
                     <?php } else { 
                         $logoSrcObj =  $this->image("cover_page_logo_image"); 
                         $collageSrcObj =  $this->image("cover_page_collage_image"); 
-                        if (!empty($logoSrcObj)) { ?>
+                        if (!empty($logoSrcObj->getId())) { ?>
                             <div class="logo"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($logoSrcObj, $this->imageWidth); ?>"/></div>
                         <?php }
-                        if (!empty($collageSrcObj)) { ?>
+                        if (!empty($collageSrcObj->getId())) { ?>
                             <div class="img-wrapper">
                                 <div class="set1-collage"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSrcObj, $this->imageWidth); ?>"/></div>
                             </div>
@@ -57,14 +57,14 @@ if (!isset($this->parentContainer)) {
                         $collageSetObj221 =  $this->image("cover_page_collage_image_2_2_1");
                         $collageSetObj222 =  $this->image("cover_page_collage_image_2_2_2");
                         $collageSetObj23 =  $this->image("cover_page_collage_image_2_3");
-                        if (!empty($logoSrcObj)) { ?>
+                        if (!empty($logoSrcObj->getId())) { ?>
                             <div class="logo"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($logoSrcObj, $this->imageWidth); ?>"/></div>
                         <?php } ?>
                         <div class="img-wrapper">
-                            <?php if (!empty($collageSetObj1)) { ?>
+                            <?php if (!empty($collageSetObj1->getId())) { ?>
                                 <div class="set1"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSetObj1, $this->imageWidth); ?>"/></div>
                             <?php } 
-                            if (!empty($collageSetObj21) || !empty($collageSetObj221) || !empty($collageSetObj222) || !empty($collageSetObj23)) { ?>
+                            if (!empty($collageSetObj21->getId()) || !empty($collageSetObj221->getId()) || !empty($collageSetObj222->getId()) || !empty($collageSetObj23->getId())) { ?>
                                 <div class="set2">
                                     <div class="col-3 set2-1"><img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($collageSetObj21, $this->imageWidth); ?>"/></div>
                                     <div class="col-3 set2-2">

@@ -16,7 +16,7 @@ if (!isset($this->parentContainer)) {
                         </div>
                     <?php } else { 
                         $logoImgSrcObj =  $this->image("CBG_logo_image");
-                        if (!empty($logoImgSrcObj)) { ?>
+                        if (!empty($logoImgSrcObj->getId())) { ?>
                             <span class="img-placeholder">
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($logoImgSrcObj, $this->imageWidth); ?>" alt=""  >
                             </span>
@@ -39,7 +39,7 @@ if (!isset($this->parentContainer)) {
                         else
                         {
                             $imgSrcObj =  $this->image("CBG_Image");
-                            if (!empty($imgSrcObj)) { ?>
+                            if (!empty($imgSrcObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj, $this->imageWidth); ?>" alt=""  >
                                 <?php
                             }

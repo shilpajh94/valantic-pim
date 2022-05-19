@@ -192,7 +192,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $MPB_productImageObj =  $this->image("MPB_productImage");
-                            if (!empty($MPB_productImageObj)) { ?>
+                            if (!empty($MPB_productImageObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($MPB_productImageObj, $this->imageWidth); ?>" class="w-100"  alt="">
                                 <?php
                             }

@@ -46,7 +46,7 @@
                         {
                             $CSSImgSrcObj =  $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
                             
-                            if($CSSImgSrcObj)
+                            if($CSSImgSrcObj->getId())
                             {
                                 ?>
             <div class="process-image">

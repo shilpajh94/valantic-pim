@@ -222,7 +222,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </div>
                         <?php } else { 
                             $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
-                            if (!empty($componentImage)) { ?>
+                            if (!empty($componentImage->getId())) { ?>
                                 <div class="media-img">
                                     <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt=""/>
                                 </div>
@@ -260,7 +260,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
                 <?php } else { 
                     $bannerImage =  $this->image("PP_BannerImage");
-                    if (!empty($bannerImage)) { ?>
+                    if (!empty($bannerImage->getId())) { ?>
                         <div class="full-image-sec">
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt=""/>
                         </div>
@@ -335,7 +335,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         </div>
                     <?php endif; ?>
-                    <?php if(!empty($productImgSrcObj)): ?>
+                    <?php if(!empty($productImgSrcObj->getId())): ?>
                         <div class="seal-image">
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt=""/>
                         </div>
@@ -470,7 +470,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <div class="media">
                                 <?php
                                     
-                                    if(!empty($cbcImgSrcObj))
+                                    if(!empty($cbcImgSrcObj->getId()))
                                     {
                                     ?>
                                     <div class="media-img">
@@ -513,7 +513,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?>
                 <?php 
                     $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                    if(!empty($ppBannerImgSrcObj))
+                    if(!empty($ppBannerImgSrcObj->getId()))
                     {
                     ?>
                     <div class="full-image-sec">
@@ -644,7 +644,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 else
                                 {
                                     $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                    if (!empty($PPFIImgSrcObj)) { ?>
+                                    if (!empty($PPFIImgSrcObj->getId())) { ?>
                                         <div class="media-img media-image">
                                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($PPFIImgSrcObj, $this->imageWidth); ?>" class="features-images" alt=""/>
                                         </div>
@@ -721,6 +721,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 foreach ($conveyorBeltDataArray as $chunkKey => $conveyorBeltData) {
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -830,7 +831,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                    </div>
                 <?php 
                 }
             }
@@ -844,6 +845,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 
                 foreach ($LoadSupportMaximumBeltWidthDataArr as $chunkKey => $LoadSupportMaximumBeltWidthData) {
                     ?>
+                    <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -959,6 +961,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
+                    </div>
                 <?php 
                 }
             }
@@ -972,6 +975,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 
                 foreach ($TroughabilityMinimumBeltWidthArray as $chunkKey => $TroughabilityMinimumBeltWidth) {
                 ?>  
+                <div class = "new-page">
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>
                     <?php endif;?>
@@ -1096,7 +1100,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 </p>
                             <?php endif; ?>
                         <?php endif; ?>
-
+                        </div>
                     <?php 
                     }
                 }
@@ -1109,7 +1113,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 foreach ($MinimumPulleyDiametersArray as $chunkKey => $MinimumPulleyDiameters) {
                 ?>
-
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1205,7 +1209,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1219,6 +1223,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($ElevatorBeltDataArray as $chunkKey => $ElevatorBeltData) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1312,7 +1317,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1326,6 +1331,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($MaximumBucketProjectionArray as $chunkKey => $MaximumBucketProjection) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1420,7 +1426,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1434,6 +1440,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($StandardSpecificationsArray as $chunkKey => $StandardSpecifications) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1521,7 +1528,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                         <p class="table-notes"><?= $this->textarea("PP_Standard_Specifications_Comment_{$chunkKey}",['placeholder'=>'Enter Standard Specifications']); ?></p>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }

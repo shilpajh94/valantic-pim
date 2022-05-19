@@ -76,7 +76,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiAProductImageObj =  $this->image("ContiA_Product_Image");
-                            if (!empty($ContiAProductImageObj)) { ?>
+                            if (!empty($ContiAProductImageObj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiAProductImageObj, $this->imageWidth); ?>" alt="" style="width:200px" >
                             <?php
                             }
@@ -149,7 +149,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $ppBannerImgSrcObj =  $this->image("ContiA_BannerImage");
-                        if (!empty($ppBannerImgSrcObj)) { ?>
+                        if (!empty($ppBannerImgSrcObj->getId())) { ?>
                             <div class="full-image-sec">
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ppBannerImgSrcObj, $this->imageWidth); ?>" alt="" >
                             </div>
@@ -230,7 +230,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature1Obj =  $this->image("ContiA_feature1");
-                            if (!empty($ContiA_feature1Obj)) { ?>
+                            if (!empty($ContiA_feature1Obj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
                             <?php
                             }
@@ -281,7 +281,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         else
                         {
                             $ContiA_feature2Obj =  $this->image("ContiA_feature2");
-                            if (!empty($ContiA_feature2Obj)) { ?>
+                            if (!empty($ContiA_feature2Obj->getId())) { ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
                             <?php
                             }
