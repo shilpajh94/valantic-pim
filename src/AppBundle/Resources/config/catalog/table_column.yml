@@ -554,6 +554,7 @@ parameters:
                 fieldLevel: class
                 fieldLabel: SAP Number
                 fieldType: Input
+                columnWidth: 70
             HoseID1InFract:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID 1 In Fract
@@ -644,6 +645,7 @@ parameters:
                 groupName: CutOffLength
                 unitName: in
                 numberOfDecimalPoints: 2
+                columnWidth: 70
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -653,6 +655,7 @@ parameters:
                 groupName: CutOffLength
                 unitName: mm
                 numberOfDecimalPoints: 2
+                columnWidth: 70
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -779,6 +782,7 @@ parameters:
                 groupName: OverallLength
                 unitName: in
                 numberOfDecimalPoints: 2
+                columnWidth: 70
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -788,6 +792,7 @@ parameters:
                 groupName: OverallLength
                 unitName: mm
                 numberOfDecimalPoints: 2
+                columnWidth: 70
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -898,6 +903,7 @@ parameters:
                 groupName: DropLength
                 unitName: in
                 numberOfDecimalPoints: 2
+                columnWidth: 60
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -907,6 +913,7 @@ parameters:
                 groupName: DropLength
                 unitName: mm
                 numberOfDecimalPoints: 2
+                columnWidth: 60
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -1117,6 +1124,21 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            coverCharacteristic:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            staticWireType:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire Type
+                fieldType: Select
+                parent:
+                    name: HoseBase
             staticWire:
                 fieldLevel: objectBrick
                 fieldLabel: Static Wire
