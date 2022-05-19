@@ -540,12 +540,14 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
                 fieldType: Input
+                columnWidth: 80
                 parent:
                     name: HydFittingsFert
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
+                columnWidth: 80
                 parent: 
                     name: Product
             articleNumber:
