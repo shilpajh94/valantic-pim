@@ -45,7 +45,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
+   'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 

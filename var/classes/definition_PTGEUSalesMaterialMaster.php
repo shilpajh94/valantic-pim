@@ -116,9 +116,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'queryColumnType' => 'text',
              'phpdocType' => 'array',
              'relationType' => true,
-             'visibleFields' => 
-            array (
-            ),
+             'visibleFields' => 'id,key,articleNumber',
              'allowToCreateNewObject' => false,
              'optimizedAdminLoading' => false,
              'visibleFieldDefinitions' => 
@@ -128,7 +126,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'classes' => 'PTGEuProduct',
+                'classes' => 'PTGEUProduct',
               ),
             ),
              'pathFormatterClass' => '',

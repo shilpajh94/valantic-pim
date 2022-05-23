@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-17T12:46:32+02:00
+* Generated at: 2022-05-20T11:57:08+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -16,6 +16,8 @@ Fields Summary:
 - virtualCatalogFlag [booleanSelect]
 - productType [select]
 - businessUnit [select]
+- rohs [select]
+- reach [select]
 - FeaturesBenefitsBulletPoint [multiselect]
 - minimumTemperatureF [numeric]
 - maximumTemperatureF [numeric]
@@ -57,8 +59,6 @@ Fields Summary:
 - hierarchyLevel5 [manyToManyObjectRelation]
 - hierarchyLevel6 [manyToManyObjectRelation]
 - hierarchyLevel7 [manyToManyObjectRelation]
-- rohs [select]
-- reach [select]
 - base [objectbricks]
 - eanUpc [input]
 - profile [input]
@@ -82,7 +82,19 @@ Fields Summary:
 - fert [objectbricks]
 - salesData [reverseManyToManyObjectRelation]
 - plantData [reverseManyToManyObjectRelation]
-- profileDimensionImage [image]
+- mainImage [image]
+- fullView [image]
+- technicalDrawing [image]
+- halfView1 [image]
+- halfView2 [image]
+- halfView3 [image]
+- applicationImage1 [image]
+- applicationImage2 [image]
+- applicationImage3 [image]
+- applicationImage4 [image]
+- applicationImage5 [image]
+- applicationImage6 [image]
+- priceData [table]
 */ 
 
 
@@ -91,7 +103,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1652784391,
+   'modificationDate' => 1653040628,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -103,8 +115,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
-   'allowVariants' => NULL,
+   'allowInherit' => true,
+   'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -527,6 +539,428 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'datatype' => 'data',
                                      'relationType' => false,
                                      'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Cadmium (Cd): < 100 ppm',
+                                        'value' => 'Cadmium (Cd): < 100 ppm',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Lead (Pb): < 1000 ppm',
+                                        'value' => 'Lead (Pb): < 1000 ppm',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Mercury (Hg): < 1000 ppm',
+                                        'value' => 'Mercury (Hg): < 1000 ppm',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
+                                        'value' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
+                                        'value' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
+                                        'value' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
+                                        'value' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
+                                        'value' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Dibutyl phthalate (DBP): < 1000 ppm',
+                                        'value' => 'Dibutyl phthalate (DBP): < 1000 ppm',
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
+                                        'value' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
+                                      ),
+                                    ),
+                                     'width' => 250,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'rohs',
+                                     'title' => 'Rohs',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => '1-methyl-2-pyrrolidone (NMP)',
+                                        'value' => '1-methyl-2-pyrrolidone -NMP-',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => '1,1-Dichloroethene',
+                                        'value' => '1-1-Dichloroethene',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => '1,1,1,2-Tetrachloroethane',
+                                        'value' => '1-1-1-2-Tetrachloroethane',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => '1,1,2-Trichloroethane',
+                                        'value' => '1-1-2-Trichloroethane',
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => '1,1,2,2-Tetrachloroethane',
+                                        'value' => '1-1-2-2-Tetrachloroethane',
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => '1,4-Dichlorobenzene',
+                                        'value' => '1-4-Dichlorobenzene',
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
+                                        'value' => '2--2-butoxyethoxy-ethanol -DEGBE-',
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
+                                        'value' => '2--2-methoxyethoxy-ethanol -DEGME-',
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => '2-naphthylamine and salts',
+                                        'value' => '2-naphthylamine and salts',
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => '4-Aminobiphenyl xenylamine and salts',
+                                        'value' => '4-Aminobiphenyl xenylamine and salts',
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => '4-Nitrobiphenyl',
+                                        'value' => '4-Nitrobiphenyl',
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Acrylamide',
+                                        'value' => 'Acrylamide',
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
+                                        'value' => 'Ammonium and compounds- nitrates- polysulphides- sulphide- hydrogen sulphides- inorganic salts',
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => 'Arsenic and compounds',
+                                        'value' => 'Arsenic and compounds',
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => 'Asbestos fibers',
+                                        'value' => 'Asbestos fibers',
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => 'Azocolourants and Azodyes',
+                                        'value' => 'Azocolourants and Azodyes',
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => 'Benzene',
+                                        'value' => 'Benzene',
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => 'Benzidine and salts',
+                                        'value' => 'Benzidine and salts',
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
+                                        'value' => 'Bis-pentabromophenyl-ether -decaBDE-',
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => 'Bisphenol A',
+                                        'value' => 'Bisphenol A',
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
+                                        'value' => 'Bromoacetic acid esters- Butyl bromoacetate- Propyl bromoacetate- Ethyl bromoacetate- Methyl bromoacetate',
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => 'Cadmium and compounds',
+                                        'value' => 'Cadmium and compounds',
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
+                                        'value' => 'Chloroethene and Chloroethylene -Vinyl chloride-',
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => 'Chloroform',
+                                        'value' => 'Chloroform',
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => 'Chromium VI and compounds',
+                                        'value' => 'Chromium VI and compounds',
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => 'CMR substances in textiles',
+                                        'value' => 'CMR substances in textiles',
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
+                                        'value' => 'Coal tars- low-temp oils- alkalines- acids- extracts- phenols- distillates; anthracene- creosote- naphthalene oils',
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => 'Cyclohexane',
+                                        'value' => 'Cyclohexane',
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
+                                        'value' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane - Dibutyltin hydrogen borate C8H19BO3Sn -DBB-',
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => 'Dichloromethane',
+                                        'value' => 'Dichloromethane',
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => 'Dimethylfumarate (DMF)',
+                                        'value' => 'Dimethylfumarate -DMF-',
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
+                                        'value' => 'Diphenylether- octabromo derivative C12H2Br8O',
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => 'Directive 1999/45/EC dangerous liquids',
+                                        'value' => 'Directive 1999-45-EC dangerous liquids',
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
+                                        'value' => 'EC 1272-2008 Annex VI Part 3 carcinogens- mutagens- and reprotoxins per category 1A- 1B -Table 3.1- or 1- 2 -Table 3.2-',
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
+                                        'value' => 'Flammable gases -Cat 1-2-- liquids -Cat 1-2-3-- solids -Cat 1-2- that in water emit flamable gases -Cat 1-2-3- of pyrophoric liquids- solids -Cat 1-',
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => 'Hexachloroethane',
+                                        'value' => 'Hexachloroethane',
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => 'Lead and compounds',
+                                        'value' => 'Lead and compounds',
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => 'Mercury and compounds',
+                                        'value' => 'Mercury and compounds',
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => 'Methanol',
+                                        'value' => 'Methanol',
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => 'Methylenediphenyl diisocyanate (MDI)',
+                                        'value' => 'Methylenediphenyl diisocyanate -MDI-',
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141)',
+                                        'value' => 'Monomethyl -tetrachlorodiphenyl methane -Ugilec 141-',
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
+                                        'value' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene- mixture of isomers -DBBT-',
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21)',
+                                        'value' => 'Monomethyl-dichloro-diphenyl methane -Ugilec 121-21-',
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => 'Nickel and compounds',
+                                        'value' => 'Nickel and compounds',
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates',
+                                        'value' => 'Nonylphenol C6H4-OH-C9H19 and Nonylphenol ethoxylates',
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
+                                        'value' => 'Nonylphenol ethoxylates -NPE- -C2H4O-nC15H24O',
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
+                                        'value' => 'Octamethylcyclotetrasiloxane -D4-- Decamethylcyclopentasiloxane -D5-',
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => 'Organostannic compounds',
+                                        'value' => 'Organostannic compounds',
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => 'Pentachloroethane',
+                                        'value' => 'Pentachloroethane',
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol and salts, esters',
+                                        'value' => 'Pentachlorophenol and salts- esters',
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => 'Perfluorooctanoic acid (PFOA) and salts',
+                                        'value' => 'Perfluorooctanoic acid -PFOA- and salts',
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
+                                        'value' => 'Phenylmercury- 2-ethylhexanoate- acetate- neodecanoate- octanoate- propionate',
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-isodecyl phthalate (DIDP), Di-n-octyl phthalate (DNOP)',
+                                        'value' => 'Phthalates- 1-2-Benzenedicarboxylic acid- di-C8-10-branched alkyl esters- C9-rich- 1-2-Benzenedicarboxylic acid- di-C9-11-branched alkyl esters- C10-rich- Di-isononyl phthalate -DINP-- Di-isodecyl phthalate -DIDP-- Di-n-octyl phthalate -DNOP-',
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
+                                        'value' => 'Phthalates- Dibutyl phthalate -DBP-- Benzyl butyl phthalate -BBP-- Bis -2-ethylhexyl- phthalate -DEHP-',
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
+                                        'value' => 'Polybromobiphenyls- Polybrominatedbiphenyls -PBB-',
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => 'Polychlorinated terphenyls (PCTs)',
+                                        'value' => 'Polychlorinated terphenyls -PCTs-',
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[k]fluoranthene (BkFA), Dibenzo[a,h]anthracene (DBAhA)',
+                                        'value' => 'Polycyclic-aromatic hydrocarbons -PAHs-- Benzo-a-pyrene -BaP-- Benzo-e-pyrene -BeP-- Benzo-a-anthracene -BaA-- Chrysen -CHR-- Benzo-b-fluoranthene -BbFA-- Benzo-j-fluoranthene -BjFA-- Benzo-k-fluoranthene -BkFA-- Dibenzo-a-h-anthracene -DBAhA-',
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
+                                        'value' => 'Soap bark powder -Quillaja saponaria- and saponine derivatives',
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => 'Toluene',
+                                        'value' => 'Toluene',
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => 'Trichlorobenzene',
+                                        'value' => 'Trichlorobenzene',
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => 'Tris (2,3 dibromopropyl) phosphate',
+                                        'value' => 'Tris -2-3 dibromopropyl- phosphate',
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => 'Tris(aziridinyl) phosphinoxide',
+                                        'value' => 'Tris-aziridinyl- phosphinoxide',
+                                      ),
+                                    ),
+                                     'width' => 250,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'reach',
+                                     'title' => 'Reach',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
@@ -4996,451 +5430,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'name' => 'Chemical Items',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Chemical Items',
-                     'width' => NULL,
-                     'height' => NULL,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'permissions' => NULL,
-                     'childs' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'Cadmium (Cd): < 100 ppm',
-                            'value' => 'Cadmium (Cd): < 100 ppm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'Lead (Pb): < 1000 ppm',
-                            'value' => 'Lead (Pb): < 1000 ppm',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Mercury (Hg): < 1000 ppm',
-                            'value' => 'Mercury (Hg): < 1000 ppm',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                            'value' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                            'value' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                            'value' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                            'value' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                            'value' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                            'value' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                            'value' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                          ),
-                        ),
-                         'width' => 730,
-                         'defaultValue' => '',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 850,
-                         'phpdocType' => 'string',
-                         'dynamicOptions' => false,
-                         'name' => 'rohs',
-                         'title' => 'Rohs',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => '1-methyl-2-pyrrolidone (NMP)',
-                            'value' => '1-methyl-2-pyrrolidone -NMP-',
-                          ),
-                          1 => 
-                          array (
-                            'key' => '1,1-Dichloroethene',
-                            'value' => '1-1-Dichloroethene',
-                          ),
-                          2 => 
-                          array (
-                            'key' => '1,1,1,2-Tetrachloroethane',
-                            'value' => '1-1-1-2-Tetrachloroethane',
-                          ),
-                          3 => 
-                          array (
-                            'key' => '1,1,2-Trichloroethane',
-                            'value' => '1-1-2-Trichloroethane',
-                          ),
-                          4 => 
-                          array (
-                            'key' => '1,1,2,2-Tetrachloroethane',
-                            'value' => '1-1-2-2-Tetrachloroethane',
-                          ),
-                          5 => 
-                          array (
-                            'key' => '1,4-Dichlorobenzene',
-                            'value' => '1-4-Dichlorobenzene',
-                          ),
-                          6 => 
-                          array (
-                            'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
-                            'value' => '2--2-butoxyethoxy-ethanol -DEGBE-',
-                          ),
-                          7 => 
-                          array (
-                            'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
-                            'value' => '2--2-methoxyethoxy-ethanol -DEGME-',
-                          ),
-                          8 => 
-                          array (
-                            'key' => '2-naphthylamine and salts',
-                            'value' => '2-naphthylamine and salts',
-                          ),
-                          9 => 
-                          array (
-                            'key' => '4-Aminobiphenyl xenylamine and salts',
-                            'value' => '4-Aminobiphenyl xenylamine and salts',
-                          ),
-                          10 => 
-                          array (
-                            'key' => '4-Nitrobiphenyl',
-                            'value' => '4-Nitrobiphenyl',
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'Acrylamide',
-                            'value' => 'Acrylamide',
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
-                            'value' => 'Ammonium and compounds- nitrates- polysulphides- sulphide- hydrogen sulphides- inorganic salts',
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'Arsenic and compounds',
-                            'value' => 'Arsenic and compounds',
-                          ),
-                          14 => 
-                          array (
-                            'key' => 'Asbestos fibers',
-                            'value' => 'Asbestos fibers',
-                          ),
-                          15 => 
-                          array (
-                            'key' => 'Azocolourants and Azodyes',
-                            'value' => 'Azocolourants and Azodyes',
-                          ),
-                          16 => 
-                          array (
-                            'key' => 'Benzene',
-                            'value' => 'Benzene',
-                          ),
-                          17 => 
-                          array (
-                            'key' => 'Benzidine and salts',
-                            'value' => 'Benzidine and salts',
-                          ),
-                          18 => 
-                          array (
-                            'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
-                            'value' => 'Bis-pentabromophenyl-ether -decaBDE-',
-                          ),
-                          19 => 
-                          array (
-                            'key' => 'Bisphenol A',
-                            'value' => 'Bisphenol A',
-                          ),
-                          20 => 
-                          array (
-                            'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
-                            'value' => 'Bromoacetic acid esters- Butyl bromoacetate- Propyl bromoacetate- Ethyl bromoacetate- Methyl bromoacetate',
-                          ),
-                          21 => 
-                          array (
-                            'key' => 'Cadmium and compounds',
-                            'value' => 'Cadmium and compounds',
-                          ),
-                          22 => 
-                          array (
-                            'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
-                            'value' => 'Chloroethene and Chloroethylene -Vinyl chloride-',
-                          ),
-                          23 => 
-                          array (
-                            'key' => 'Chloroform',
-                            'value' => 'Chloroform',
-                          ),
-                          24 => 
-                          array (
-                            'key' => 'Chromium VI and compounds',
-                            'value' => 'Chromium VI and compounds',
-                          ),
-                          25 => 
-                          array (
-                            'key' => 'CMR substances in textiles',
-                            'value' => 'CMR substances in textiles',
-                          ),
-                          26 => 
-                          array (
-                            'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
-                            'value' => 'Coal tars- low-temp oils- alkalines- acids- extracts- phenols- distillates; anthracene- creosote- naphthalene oils',
-                          ),
-                          27 => 
-                          array (
-                            'key' => 'Cyclohexane',
-                            'value' => 'Cyclohexane',
-                          ),
-                          28 => 
-                          array (
-                            'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
-                            'value' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane - Dibutyltin hydrogen borate C8H19BO3Sn -DBB-',
-                          ),
-                          29 => 
-                          array (
-                            'key' => 'Dichloromethane',
-                            'value' => 'Dichloromethane',
-                          ),
-                          30 => 
-                          array (
-                            'key' => 'Dimethylfumarate (DMF)',
-                            'value' => 'Dimethylfumarate -DMF-',
-                          ),
-                          31 => 
-                          array (
-                            'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
-                            'value' => 'Diphenylether- octabromo derivative C12H2Br8O',
-                          ),
-                          32 => 
-                          array (
-                            'key' => 'Directive 1999/45/EC dangerous liquids',
-                            'value' => 'Directive 1999-45-EC dangerous liquids',
-                          ),
-                          33 => 
-                          array (
-                            'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
-                            'value' => 'EC 1272-2008 Annex VI Part 3 carcinogens- mutagens- and reprotoxins per category 1A- 1B -Table 3.1- or 1- 2 -Table 3.2-',
-                          ),
-                          34 => 
-                          array (
-                            'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
-                            'value' => 'Flammable gases -Cat 1-2-- liquids -Cat 1-2-3-- solids -Cat 1-2- that in water emit flamable gases -Cat 1-2-3- of pyrophoric liquids- solids -Cat 1-',
-                          ),
-                          35 => 
-                          array (
-                            'key' => 'Hexachloroethane',
-                            'value' => 'Hexachloroethane',
-                          ),
-                          36 => 
-                          array (
-                            'key' => 'Lead and compounds',
-                            'value' => 'Lead and compounds',
-                          ),
-                          37 => 
-                          array (
-                            'key' => 'Mercury and compounds',
-                            'value' => 'Mercury and compounds',
-                          ),
-                          38 => 
-                          array (
-                            'key' => 'Methanol',
-                            'value' => 'Methanol',
-                          ),
-                          39 => 
-                          array (
-                            'key' => 'Methylenediphenyl diisocyanate (MDI)',
-                            'value' => 'Methylenediphenyl diisocyanate -MDI-',
-                          ),
-                          40 => 
-                          array (
-                            'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141)',
-                            'value' => 'Monomethyl -tetrachlorodiphenyl methane -Ugilec 141-',
-                          ),
-                          41 => 
-                          array (
-                            'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
-                            'value' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene- mixture of isomers -DBBT-',
-                          ),
-                          42 => 
-                          array (
-                            'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21)',
-                            'value' => 'Monomethyl-dichloro-diphenyl methane -Ugilec 121-21-',
-                          ),
-                          43 => 
-                          array (
-                            'key' => 'Nickel and compounds',
-                            'value' => 'Nickel and compounds',
-                          ),
-                          44 => 
-                          array (
-                            'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates',
-                            'value' => 'Nonylphenol C6H4-OH-C9H19 and Nonylphenol ethoxylates',
-                          ),
-                          45 => 
-                          array (
-                            'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
-                            'value' => 'Nonylphenol ethoxylates -NPE- -C2H4O-nC15H24O',
-                          ),
-                          46 => 
-                          array (
-                            'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
-                            'value' => 'Octamethylcyclotetrasiloxane -D4-- Decamethylcyclopentasiloxane -D5-',
-                          ),
-                          47 => 
-                          array (
-                            'key' => 'Organostannic compounds',
-                            'value' => 'Organostannic compounds',
-                          ),
-                          48 => 
-                          array (
-                            'key' => 'Pentachloroethane',
-                            'value' => 'Pentachloroethane',
-                          ),
-                          49 => 
-                          array (
-                            'key' => 'Pentachlorophenol and salts, esters',
-                            'value' => 'Pentachlorophenol and salts- esters',
-                          ),
-                          50 => 
-                          array (
-                            'key' => 'Perfluorooctanoic acid (PFOA) and salts',
-                            'value' => 'Perfluorooctanoic acid -PFOA- and salts',
-                          ),
-                          51 => 
-                          array (
-                            'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
-                            'value' => 'Phenylmercury- 2-ethylhexanoate- acetate- neodecanoate- octanoate- propionate',
-                          ),
-                          52 => 
-                          array (
-                            'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-isodecyl phthalate (DIDP), Di-n-octyl phthalate (DNOP)',
-                            'value' => 'Phthalates- 1-2-Benzenedicarboxylic acid- di-C8-10-branched alkyl esters- C9-rich- 1-2-Benzenedicarboxylic acid- di-C9-11-branched alkyl esters- C10-rich- Di-isononyl phthalate -DINP-- Di-isodecyl phthalate -DIDP-- Di-n-octyl phthalate -DNOP-',
-                          ),
-                          53 => 
-                          array (
-                            'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
-                            'value' => 'Phthalates- Dibutyl phthalate -DBP-- Benzyl butyl phthalate -BBP-- Bis -2-ethylhexyl- phthalate -DEHP-',
-                          ),
-                          54 => 
-                          array (
-                            'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
-                            'value' => 'Polybromobiphenyls- Polybrominatedbiphenyls -PBB-',
-                          ),
-                          55 => 
-                          array (
-                            'key' => 'Polychlorinated terphenyls (PCTs)',
-                            'value' => 'Polychlorinated terphenyls -PCTs-',
-                          ),
-                          56 => 
-                          array (
-                            'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[k]fluoranthene (BkFA), Dibenzo[a,h]anthracene (DBAhA)',
-                            'value' => 'Polycyclic-aromatic hydrocarbons -PAHs-- Benzo-a-pyrene -BaP-- Benzo-e-pyrene -BeP-- Benzo-a-anthracene -BaA-- Chrysen -CHR-- Benzo-b-fluoranthene -BbFA-- Benzo-j-fluoranthene -BjFA-- Benzo-k-fluoranthene -BkFA-- Dibenzo-a-h-anthracene -DBAhA-',
-                          ),
-                          57 => 
-                          array (
-                            'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
-                            'value' => 'Soap bark powder -Quillaja saponaria- and saponine derivatives',
-                          ),
-                          58 => 
-                          array (
-                            'key' => 'Toluene',
-                            'value' => 'Toluene',
-                          ),
-                          59 => 
-                          array (
-                            'key' => 'Trichlorobenzene',
-                            'value' => 'Trichlorobenzene',
-                          ),
-                          60 => 
-                          array (
-                            'key' => 'Tris (2,3 dibromopropyl) phosphate',
-                            'value' => 'Tris -2-3 dibromopropyl- phosphate',
-                          ),
-                          61 => 
-                          array (
-                            'key' => 'Tris(aziridinyl) phosphinoxide',
-                            'value' => 'Tris-aziridinyl- phosphinoxide',
-                          ),
-                        ),
-                         'width' => 730,
-                         'defaultValue' => '',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 1000,
-                         'phpdocType' => 'string',
-                         'dynamicOptions' => false,
-                         'name' => 'reach',
-                         'title' => 'Reach',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                     'icon' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'fieldtype' => 'panel',
-                     'labelWidth' => 100,
-                     'layout' => NULL,
-                     'border' => false,
                      'name' => 'Category Specific Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -6641,12 +6630,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'fieldtype' => 'panel',
                      'labelWidth' => 100,
-                     'layout' => '',
+                     'layout' => NULL,
                      'border' => false,
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Images',
+                     'title' => 'Product Images',
                      'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
@@ -6657,28 +6646,447 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                         'fieldtype' => 'image',
-                         'width' => '',
-                         'height' => '',
-                         'uploadPath' => '',
-                         'queryColumnType' => 'int(11)',
-                         'columnType' => 'int(11)',
-                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                         'name' => 'profileDimensionImage',
-                         'title' => 'Profile Dimension Image',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'margin:20px;',
+                         'datatype' => 'layout',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'mainImage',
+                                 'title' => 'Main Image',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'fullView',
+                                 'title' => 'Full View',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'technicalDrawing',
+                                 'title' => 'Technical Drawing',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => 'margin:20px;',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'halfView1',
+                                 'title' => 'Half View1',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'halfView2',
+                                 'title' => 'Half View2',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'halfView3',
+                                 'title' => 'Half View3',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Application Images',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'margin:20px;',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage1',
+                                 'title' => 'Application Image1',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage2',
+                                 'title' => 'Application Image2',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage3',
+                                 'title' => 'Application Image3',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => 'margin:20px;',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage4',
+                                 'title' => 'Application Image4',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage5',
+                                 'title' => 'Application Image5',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'applicationImage6',
+                                 'title' => 'Application Image6',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
                       )),
                     ),
                      'locked' => false,
@@ -6692,6 +7100,96 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
           )),
           4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Pricing Data',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Pricing Data',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                 'fieldtype' => 'table',
+                 'width' => '',
+                 'height' => '',
+                 'cols' => 7,
+                 'colsFixed' => true,
+                 'rows' => '',
+                 'rowsFixed' => false,
+                 'data' => '',
+                 'columnConfigActivated' => true,
+                 'columnConfig' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => '0',
+                    'label' => 'Unique ID',
+                  ),
+                  1 => 
+                  array (
+                    'key' => '1',
+                    'label' => 'Sales Organization',
+                  ),
+                  2 => 
+                  array (
+                    'key' => '2',
+                    'label' => 'Distribution Channel',
+                  ),
+                  3 => 
+                  array (
+                    'key' => '3',
+                    'label' => 'Validity End Date',
+                  ),
+                  4 => 
+                  array (
+                    'key' => '4',
+                    'label' => 'Validity Start Date',
+                  ),
+                  5 => 
+                  array (
+                    'key' => '5',
+                    'label' => 'Rate',
+                  ),
+                  6 => 
+                  array (
+                    'key' => '6',
+                    'label' => 'Rate Unit',
+                  ),
+                ),
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'array',
+                 'name' => 'priceData',
+                 'title' => 'Price Data',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/currency_exchange.svg',
+          )),
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,

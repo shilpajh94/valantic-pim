@@ -132,7 +132,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'classes' => 'PTGEuProduct',
+                'classes' => 'PTGEUProduct',
               ),
             ),
              'pathFormatterClass' => '',
