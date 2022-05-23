@@ -205,6 +205,23 @@ Class Util
         return $session->get($key) === null ? [] : $session->get($key);
     }
 
+    public static function getB2CSuccessIds(): array
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
+        return $session->get($key) === null ? [] : $session->get($key);
+    }
+
+    public static function addB2CSuccessId(string $failureId): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
+
+        $existingFailureIds = self::getB2BSuccessIds();
+        $existingFailureIds[] = $failureId;
+        $session->set($key, $existingFailureIds);
+    }
+
     public static function setB2CScriptStartTime(int $timestampt): void
     {
         $session = self::getService('session');

@@ -87,7 +87,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
         foreach ($tempTableData as $key => $value) {
             if($key == 'o_id')
             {
-                $returnArray["parent_category_id"] = $this->getParentSalesForceId($value, $tempTableData["level"], $language);
+                $returnArray["parent_category_id"] = $this->getParentExternalId($value, $tempTableData["level"], $language);
             }
             if (!empty($config[$key])) {
                 $attributeConfig = $config[$key];
@@ -117,24 +117,20 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
         return $returnArray;
     }
     
-    public function getParentSalesForceId($value, $level, $language = null) {
-        
+    public function getParentExternalId($value, $level, $language = null)
+    {
         if($level == 1){
             return null;
         }
-
         $parentPimId = $this->b2cProductRequestBodyGeneratorDao->getParentId($value);
         $parentType = $this->b2cProductRequestBodyGeneratorDao->getObjectType($parentPimId);
-        
         while($parentType != 'object')
         {
             $parentPimId = $this->b2cProductRequestBodyGeneratorDao->getParentId($parentPimId);
             $parentType = $this->b2cProductRequestBodyGeneratorDao->getObjectType($parentPimId);
         }
-
         $categoryTempData = array('o_id' => $parentPimId);
         return B2CCategoryHelper::getExternalId($categoryTempData);
-        
     }
     
     public function generateCreateRequestBody(array $tempTableData): array

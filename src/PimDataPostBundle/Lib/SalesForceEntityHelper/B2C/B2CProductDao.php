@@ -15,7 +15,7 @@ class B2CProductDao
     {
         $this->db = \Pimcore\Db::get();
         $sql="SELECT articleNumber
-        FROM ".Constants::B2B_PRODUCT_OBJECT_TABLE_NAME." where oo_id = ".$pimId;
+        FROM ".Constants::B2C_PRODUCT_OBJECT_TABLE_NAME." where oo_id = ".$pimId;
         $rowData = $this->db->fetchCol($sql);
         if(!empty($rowData))
         {

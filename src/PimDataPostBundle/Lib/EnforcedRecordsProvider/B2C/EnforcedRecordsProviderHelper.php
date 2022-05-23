@@ -70,7 +70,7 @@ class EnforcedRecordsProviderHelper
             $valueArray = explode("_", $recordId);
             $newValue = $valueArray[2] == "" ? null : $valueArray[2];
             $oldValue = $valueArray[3] == "" ? null : $valueArray[3];
-            $object = new B2BProductRelationChange();
+            $object = new B2CProductRelationChange();
             $object->setProductId($valueArray[0]);
             $object->setAttributeName($valueArray[1]);
             $object->setNewValue($newValue);

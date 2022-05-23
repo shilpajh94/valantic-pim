@@ -2,6 +2,7 @@
 namespace PimDataPostBundle\Lib\HTTPResponseHandler\B2C;
 
 use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CProductTempTablePopulator;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 
@@ -9,17 +10,24 @@ class B2CHTTPResponseHandlerDao
 {
     private $db;
 
+    private $b2cProductTempTablePopulator;
+
+    private $tempTable;
+
+    private $masterTable;
+
     public function __construct(string $tempTable, string $masterTable)
     {
         $this->tempTable=$tempTable;
         $this->masterTable=$masterTable;
         $this->db = \Pimcore\Db::get();
+        $this->b2cProductTempTablePopulator = new B2CProductTempTablePopulator();
     }
 
 
     public function moveTempToMaster(int $pimId): bool
     {
-        $sql = "select * from ".$this->tempTable." where o_id = ".$pimId;
+        $sql = "SELECT * FROM ".$this->tempTable." WHERE o_id = ".$pimId;
         $resultTemp = $this->db->fetchAll($sql); 
         foreach($resultTemp as $resultArr)
         {
@@ -41,6 +49,48 @@ class B2CHTTPResponseHandlerDao
         $fields = implode(",", $fields);
         $values = implode(",", $values);
         $sql = "REPLACE INTO `$table` ($fields) VALUES ($values)";
+        if($this->db->query($sql)){
+            return true;
+        }
+        return false;
+    }
+
+
+    public function updateCategoryInProductMasterFromTemp(int $pimId)
+    {
+        $sql = "SELECT * FROM ".$this->masterTable." where o_id = ".$pimId;
+        $resultMaster = $this->db->fetchAll($sql); 
+        foreach($resultMaster as $resultArr)
+        {
+            $sql = "SELECT * FROM ".$this->tempTable." where o_id = ".$pimId;
+            $resultTemp = $this->db->fetchAll($sql); 
+            foreach($resultTemp as $resultArrTemp)
+            {
+                $newMasterArray = array(); 
+                $newMasterArray['B2CCategory'] = $resultArr['B2CCategory'] = $resultArrTemp['B2CCategory'];
+                $hashRelationArray = $this->b2cProductTempTablePopulator->addHashesToTempTableData([$resultArr]);
+                $newMasterArray['relationalHash'] = $hashRelationArray[0]['relationalHash'];
+                return $this->updateMasterRow($resultArr['o_id'], $newMasterArray);
+            }
+        } 
+        return false;
+    }
+
+    private function updateMasterRow(int $pimId, array $newMasterArray): bool
+    {
+        $updateColumn  = '';
+        $index = 0;
+        foreach(array_keys($newMasterArray) as $key )
+        {
+            $index++;
+            $updateColumn .= $key ." = ";
+            $updateColumn .=   $newMasterArray[$key] === null ?  'NULL' : $this->db->quote($newMasterArray[$key]);
+            if($index != count($newMasterArray)){
+                $updateColumn .= ", ";
+            }
+        }
+        $updateColumn = trim($updateColumn, ",");
+        $sql = "UPDATE `$this->masterTable` SET $updateColumn WHERE o_id = $pimId";
         if($this->db->query($sql)){
             return true;
         }

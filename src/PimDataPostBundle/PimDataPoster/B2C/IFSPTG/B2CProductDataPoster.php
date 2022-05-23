@@ -112,7 +112,6 @@ class B2CProductDataPoster implements IDataPoster
 
             $currTime = time();
             $requestBody = $requestBodyGenerator->generateRequestBody($tempTableData);
-
             $apiRequestEntity = new B2CAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody));
             $apiRequestEntity->setOperationType($operationType);

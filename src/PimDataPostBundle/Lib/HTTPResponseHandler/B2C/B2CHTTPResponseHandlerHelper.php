@@ -21,6 +21,7 @@ class B2CHTTPResponseHandlerHelper
             $rowObject->setResponseTimestamp($responseTimestamp);
             $rowObject->save();
             $this->removeEntityFromEnforce($rowObject->pimId);
+            Util::addB2BSuccessId($rowObject->getPimId());
             return $rowObject->pimId;
         }
         return 0;

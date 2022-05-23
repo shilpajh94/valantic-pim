@@ -103,6 +103,18 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                         $documentArray = $this->getSalesForceDocumentAttribute($value);
                         $returnArray = array_merge($returnArray, $documentArray);
                     }
+
+                    if(isset($attributeConfig['sf_attrubute_format']) && 
+                    $attributeConfig['sf_attrubute_format']!= null && $attributeConfig['sf_attrubute_format']!='')
+                    {
+                        $returnArray[$attributeConfig['sf_attribute_name']] = str_replace('<VALUE>', $returnArray[$attributeConfig['sf_attribute_name']], $attributeConfig['sf_attrubute_format']);
+                    }
+
+                    if($returnArray[$attributeConfig['sf_attribute_name']]!= null && $returnArray[$attributeConfig['sf_attribute_name']] != ''
+                         && isset($attributeConfig['sf_attribute_type']) && $attributeConfig['sf_attribute_type']== 'numeric')
+                    {
+                        $returnArray[$attributeConfig['sf_attribute_name']] = (float) $returnArray[$attributeConfig['sf_attribute_name']];
+                    }
                         
                 }
             }
@@ -120,15 +132,12 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
         $valueArray =explode(',',trim($value,','));
         $returnArray['c_hosePDF1'] = '';
         $returnArray['c_hosePDF2'] = '';
-        $returnArray['c_hoseVideo'] = '';
         foreach($valueArray as $assetrow){
             $assetValue = explode('|',$assetrow);
             $documentAsset = Asset::getById($assetValue[1]);
             if(isset($documentAsset)){
                 $path = Util::getAssetPublicPath($documentAsset, null);
-                if($documentAsset->getType() == 'video' && $returnArray['c_hoseVideo'] == ''){
-                    $returnArray['c_hoseVideo'] = $path;
-                } else {
+                if($documentAsset->getType() != 'video'){
                     $extension = pathinfo($path, PATHINFO_EXTENSION);
                     if(($extension == 'pdf' || $extension =='PDF') 
                         && ($returnArray['c_hosePDF1'] == '' || $returnArray['c_hosePDF2'] == '')

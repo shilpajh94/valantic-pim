@@ -47,4 +47,9 @@ class B2CProductCategoryRelationHelper extends AbstractB2CSalesForceEntityHelper
     {
         return $relationChangeObject->getProductId() . "__prod_cat_relation";
     }
+
+    public static function getExternalIdByOperationType(B2CProductRelationChange $relationChangeObject, $key): string
+    {
+        return $relationChangeObject->getProductId() . "__prod_cat_relation_".$key;
+    }
 }
