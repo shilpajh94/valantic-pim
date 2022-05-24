@@ -19,7 +19,7 @@ if (!DISABLE_S3_CDN) {
 require_once('log_file_name_constants.php');
 //require_once('sftp_constants.php');
 define("INTERNAL_ASSET_FOLDER_PATHS", [
-    "/Contitech_ConveyorSolution/Internal Assets"
+    "/Contitech_ConveyorSolution/Internal Assets","/IFS PTG Private Folder/Import Failure Logs"
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Resources/config");
@@ -130,3 +130,5 @@ define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 
 //SAP Files older than these many days will be deleted from SFTP server
 define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
+define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
+define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
