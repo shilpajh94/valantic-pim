@@ -259,9 +259,6 @@ ContiAlert:
         fieldName: ProductClaimSlogan
         objectType: class  
 ContiClean:
-    Benefits:
-        fieldName: Benefits
-        objectType: class
     Short Text:
         fieldName: ShortText
         objectType: class
@@ -1013,9 +1010,6 @@ Survivor Series:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Benefits:
-        fieldName: Benefits
-        objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -1076,9 +1070,6 @@ Survivor:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Features and Benefits (combination of text and pic):
         fieldName: CSProductFeaturesAndBenefits
@@ -3714,9 +3705,6 @@ Digital Solutions:
     Features:
         fieldName: Features
         objectType: class
-    Benefits:
-        fieldName: Benefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3741,9 +3729,6 @@ Conveyor Monitoring Systems:
         objectType: class
     Features:
         fieldName: Features
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -3775,9 +3760,6 @@ CONTI LoadSense:
         objectType: class
     Features:
         fieldName: Features
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -3831,9 +3813,6 @@ Belt Monitoring Systems:
     Features:
         fieldName: Features
         objectType: class
-    Benefits:
-        fieldName: Benefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3864,9 +3843,6 @@ CONTI CordProtect:
         objectType: class
     Features:
         fieldName: Features
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Features and Benefits (combination of text and pic):
         fieldName: CSProductFeaturesAndBenefits
@@ -3938,9 +3914,6 @@ CONTI MultiProtect:
     Features:
         fieldName: Features
         objectType: class
-    Benefits:
-        fieldName: Benefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4004,9 +3977,6 @@ CONTI RipProtect Plus:
         objectType: class
     Features:
         fieldName: Features
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -4695,9 +4665,6 @@ Belt Refurbishment:
         objectType: class
     Long Text:
         fieldName: LongText
-        objectType: class
-    Benefits:
-        fieldName: Benefits
         objectType: class
     Product Claim/Slogan:
         fieldName: ProductClaimSlogan
