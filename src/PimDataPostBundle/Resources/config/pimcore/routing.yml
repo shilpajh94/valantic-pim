@@ -1,0 +1,3 @@
+pim_data_post_homepage:
+    path:     /pim_data_post
+    defaults: { _controller: PimDataPostBundle:Default:index }
