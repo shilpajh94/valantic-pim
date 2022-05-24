@@ -167,6 +167,7 @@ class ProductSQLModel
     
     public function import($csvData)
     {
+
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started"); 
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
@@ -179,6 +180,8 @@ class ProductSQLModel
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
         $this->initiateIFSProductsProcess();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
+        $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
         $this->tblImpHelper->updateMaster();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {

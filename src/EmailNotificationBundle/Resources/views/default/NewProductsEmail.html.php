@@ -25,7 +25,11 @@
         <h1><?= $this->input('headline'); ?></h1>
         <?= $this->wysiwyg('content'); ?>
         %Text(tableContent);
+        <!-- <a href="%Text(file_url);" target="_blank">%Text(file_url);</a> -->
         <?= $this->wysiwyg('signature'); ?>
+        <ul>
+            %Text(file_url);
+        </ul>
     </div>
 </body>
 </html>

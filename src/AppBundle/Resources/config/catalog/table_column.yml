@@ -540,12 +540,14 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
                 fieldType: Input
+                columnWidth: 80
                 parent:
                     name: HydFittingsFert
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
+                columnWidth: 80
                 parent: 
                     name: Product
             articleNumber:
@@ -602,6 +604,14 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
+            Hex1WrenchSizeFraction:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 1 Wrench Size (Fraction)
+                groupName: Hex1WrenchSize
+                unitName: fract
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
             Hex2WrenchSizeIN:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 2 Wrench Size
@@ -617,6 +627,14 @@ parameters:
                 groupName: Hex2WrenchSize
                 unitName: mm
                 numberOfDecimalPoints: 2
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex2WrenchSizeFraction:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 2 Wrench Size (Fraction)
+                groupName: Hex2WrenchSize
+                unitName: fract
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
