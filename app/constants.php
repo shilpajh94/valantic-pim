@@ -131,5 +131,4 @@ define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 //SAP Files older than these many days will be deleted from SFTP server
 define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
 define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
-
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
