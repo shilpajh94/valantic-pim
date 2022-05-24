@@ -107,7 +107,6 @@ class ConfigProviderService
     public function getINHFittingCoverPageConfig() {
         return $this->getConfigFromYmlFile(INH_FITTING_COVER_PAGE_FILE_PATH);
     }
-
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev

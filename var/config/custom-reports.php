@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     "ItemCount" => [
@@ -22,7 +22,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-1"
+                "id" => "extModel315-1"
             ],
             [
                 "name" => "Article Number",
@@ -32,7 +32,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-2"
+                "id" => "extModel315-2"
             ],
             [
                 "name" => "SAP Description",
@@ -42,7 +42,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-3"
+                "id" => "extModel315-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -52,7 +52,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-4"
+                "id" => "extModel315-4"
             ],
             [
                 "name" => "Product Type",
@@ -62,7 +62,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-5"
+                "id" => "extModel315-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -72,7 +72,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-6"
+                "id" => "extModel315-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -82,7 +82,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-7"
+                "id" => "extModel315-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -92,7 +92,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-8"
+                "id" => "extModel315-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -102,7 +102,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-9"
+                "id" => "extModel315-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -112,7 +112,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-10"
+                "id" => "extModel315-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -122,7 +122,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel664-11"
+                "id" => "extModel315-11"
             ],
             [
                 "name" => "o_id",
@@ -133,7 +133,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel664-12"
+                "id" => "extModel315-12"
             ]
         ],
         "niceName" => "Item Count",
@@ -146,19 +146,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078533,
+        "yAxis" => [],
+        "modificationDate" => 1608288402,
         "creationDate" => 1606361037,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ItemCount"
     ],
     "NewProducts" => [
@@ -182,7 +175,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-1"
+                "id" => "extModel3708-1"
             ],
             [
                 "name" => "Article Number",
@@ -192,7 +185,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-2"
+                "id" => "extModel3708-2"
             ],
             [
                 "name" => "SAP Description",
@@ -202,7 +195,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-3"
+                "id" => "extModel3708-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -212,7 +205,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-4"
+                "id" => "extModel3708-4"
             ],
             [
                 "name" => "Product Type",
@@ -222,7 +215,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-5"
+                "id" => "extModel3708-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -232,7 +225,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-6"
+                "id" => "extModel3708-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -242,7 +235,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-7"
+                "id" => "extModel3708-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -252,7 +245,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-8"
+                "id" => "extModel3708-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -262,7 +255,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-9"
+                "id" => "extModel3708-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -272,7 +265,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-10"
+                "id" => "extModel3708-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -282,7 +275,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel830-11"
+                "id" => "extModel3708-11"
             ],
             [
                 "name" => "o_id",
@@ -293,7 +286,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel830-12"
+                "id" => "extModel3708-12"
             ]
         ],
         "niceName" => "New Products",
@@ -306,19 +299,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078561,
+        "yAxis" => [],
+        "modificationDate" => 1608104456,
         "creationDate" => 1606362991,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "NewProducts"
     ],
     "BrandProducts" => [
@@ -342,7 +328,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-1"
+                "id" => "extModel3954-1"
             ],
             [
                 "name" => "Article Number",
@@ -352,7 +338,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-2"
+                "id" => "extModel3954-2"
             ],
             [
                 "name" => "SAP Description",
@@ -362,7 +348,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-3"
+                "id" => "extModel3954-3"
             ],
             [
                 "name" => "Brand",
@@ -372,7 +358,7 @@ return [
                 "width" => 150,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-4"
+                "id" => "extModel3954-4"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -382,7 +368,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-5"
+                "id" => "extModel3954-5"
             ],
             [
                 "name" => "Product Type",
@@ -392,7 +378,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-6"
+                "id" => "extModel3954-6"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -402,7 +388,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-7"
+                "id" => "extModel3954-7"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -412,7 +398,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-8"
+                "id" => "extModel3954-8"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -422,7 +408,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-9"
+                "id" => "extModel3954-9"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -432,7 +418,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-10"
+                "id" => "extModel3954-10"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -442,7 +428,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-11"
+                "id" => "extModel3954-11"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -452,7 +438,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1157-12"
+                "id" => "extModel3954-12"
             ],
             [
                 "name" => "o_id",
@@ -463,7 +449,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1157-13"
+                "id" => "extModel3954-13"
             ]
         ],
         "niceName" => "Brand Products",
@@ -476,19 +462,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078623,
+        "yAxis" => [],
+        "modificationDate" => 1608102702,
         "creationDate" => 1606812138,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "BrandProducts"
     ],
     "ProductsWithNoImage" => [
@@ -512,7 +491,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-1"
+                "id" => "extModel4624-1"
             ],
             [
                 "name" => "Article Number",
@@ -522,7 +501,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-2"
+                "id" => "extModel4624-2"
             ],
             [
                 "name" => "SAP Description",
@@ -532,7 +511,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-3"
+                "id" => "extModel4624-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -542,7 +521,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-4"
+                "id" => "extModel4624-4"
             ],
             [
                 "name" => "Product Type",
@@ -552,7 +531,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-5"
+                "id" => "extModel4624-25"
             ],
             [
                 "name" => "Main Image",
@@ -563,7 +542,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel994-6"
+                "id" => "extModel4624-5"
             ],
             [
                 "name" => "Front View Image",
@@ -574,7 +553,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel994-7"
+                "id" => "extModel4624-6"
             ],
             [
                 "name" => "Side View Image",
@@ -585,7 +564,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel994-8"
+                "id" => "extModel4624-7"
             ],
             [
                 "name" => "Cut View Image",
@@ -596,7 +575,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel994-9"
+                "id" => "extModel4624-8"
             ],
             [
                 "name" => "Epix Image",
@@ -606,7 +585,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-10"
+                "id" => "extModel4624-9"
             ],
             [
                 "name" => "Alternate Image 1",
@@ -616,7 +595,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-11"
+                "id" => "extModel4624-10"
             ],
             [
                 "name" => "Alternate Image 2",
@@ -626,7 +605,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-12"
+                "id" => "extModel4624-11"
             ],
             [
                 "name" => "Alternate Image 3",
@@ -636,7 +615,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-13"
+                "id" => "extModel4624-12"
             ],
             [
                 "name" => "Alternate Image 4",
@@ -646,7 +625,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-14"
+                "id" => "extModel4624-13"
             ],
             [
                 "name" => "Alternate Image 5",
@@ -656,7 +635,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-15"
+                "id" => "extModel4624-14"
             ],
             [
                 "name" => "Alternate Image 6",
@@ -666,7 +645,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-16"
+                "id" => "extModel4624-15"
             ],
             [
                 "name" => "Alternate Image 7",
@@ -676,7 +655,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-17"
+                "id" => "extModel4624-16"
             ],
             [
                 "name" => "Alternate Image 8",
@@ -686,7 +665,17 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-18"
+                "id" => "extModel4624-17"
+            ],
+            [
+                "name" => "Alternate Image 9",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 120,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel4624-18"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -696,7 +685,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-19"
+                "id" => "extModel4624-19"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -706,7 +695,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-20"
+                "id" => "extModel4624-20"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -716,7 +705,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-21"
+                "id" => "extModel4624-21"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -726,7 +715,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-22"
+                "id" => "extModel4624-22"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -736,7 +725,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-23"
+                "id" => "extModel4624-23"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -746,7 +735,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel994-24"
+                "id" => "extModel4624-24"
             ],
             [
                 "name" => "o_id",
@@ -757,16 +746,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel994-25"
-            ],
-            [
-                "name" => "Certification Image",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel994-26"
+                "id" => "extModel4624-26"
             ]
         ],
         "niceName" => "Products with No Images",
@@ -779,19 +759,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078597,
+        "yAxis" => [],
+        "modificationDate" => 1608103299,
         "creationDate" => 1606817832,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ProductsWithNoImage"
     ],
     "DataCompleteness" => [
@@ -815,7 +788,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-1"
+                "id" => "extModel5305-1"
             ],
             [
                 "name" => "Article Number",
@@ -825,7 +798,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-2"
+                "id" => "extModel5305-2"
             ],
             [
                 "name" => "SAP Description",
@@ -835,7 +808,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-3"
+                "id" => "extModel5305-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -845,7 +818,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-4"
+                "id" => "extModel5305-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -855,7 +828,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-5"
+                "id" => "extModel5305-5"
             ],
             [
                 "name" => "Product Type",
@@ -865,7 +838,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-6"
+                "id" => "extModel5305-6"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -875,7 +848,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-7"
+                "id" => "extModel5305-7"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -885,7 +858,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-8"
+                "id" => "extModel5305-8"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -895,7 +868,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-9"
+                "id" => "extModel5305-9"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -905,7 +878,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-10"
+                "id" => "extModel5305-10"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -915,7 +888,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-11"
+                "id" => "extModel5305-11"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -925,7 +898,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1320-12"
+                "id" => "extModel5305-12"
             ],
             [
                 "name" => "o_id",
@@ -936,7 +909,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1320-13"
+                "id" => "extModel5305-13"
             ]
         ],
         "niceName" => "Data Completeness",
@@ -949,19 +922,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078669,
+        "yAxis" => [],
+        "modificationDate" => 1608103142,
         "creationDate" => 1606822831,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "DataCompleteness"
     ],
     "ProductAttributeIncomplete" => [
@@ -985,7 +951,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-1"
+                "id" => "extModel5554-1"
             ],
             [
                 "name" => "Article Number",
@@ -995,7 +961,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-2"
+                "id" => "extModel5554-2"
             ],
             [
                 "name" => "SAP Description",
@@ -1005,7 +971,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-3"
+                "id" => "extModel5554-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1015,7 +981,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-4"
+                "id" => "extModel5554-4"
             ],
             [
                 "name" => "Product Type",
@@ -1025,7 +991,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-5"
+                "id" => "extModel5554-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1035,7 +1001,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-6"
+                "id" => "extModel5554-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1045,7 +1011,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-7"
+                "id" => "extModel5554-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1055,7 +1021,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-8"
+                "id" => "extModel5554-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1065,7 +1031,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-9"
+                "id" => "extModel5554-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1075,7 +1041,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-10"
+                "id" => "extModel5554-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1085,7 +1051,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1483-11"
+                "id" => "extModel5554-11"
             ],
             [
                 "name" => "o_id",
@@ -1096,7 +1062,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1483-12"
+                "id" => "extModel5554-12"
             ]
         ],
         "niceName" => "Product Attribute Incompleteness",
@@ -1109,19 +1075,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078735,
+        "yAxis" => [],
+        "modificationDate" => 1608103230,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ProductAttributeIncomplete"
     ],
     "WorkflowPendingProducts" => [
@@ -1145,7 +1104,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-1"
+                "id" => "extModel408-1"
             ],
             [
                 "name" => "Article Number",
@@ -1155,7 +1114,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-2"
+                "id" => "extModel408-2"
             ],
             [
                 "name" => "SAP Description",
@@ -1165,7 +1124,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-3"
+                "id" => "extModel408-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1175,7 +1134,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-4"
+                "id" => "extModel408-4"
             ],
             [
                 "name" => "Last Action Date",
@@ -1184,7 +1143,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel1646-5"
+                "id" => "extModel408-5"
             ],
             [
                 "name" => "Last Action Note",
@@ -1193,8 +1152,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel1646-6"
+                "id" => "extModel408-16",
+                "filter" => "string"
             ],
             [
                 "name" => "Pending Since",
@@ -1204,7 +1163,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-7"
+                "id" => "extModel408-7"
             ],
             [
                 "name" => "Product Type",
@@ -1214,7 +1173,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-8"
+                "id" => "extModel408-8"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1224,7 +1183,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-9"
+                "id" => "extModel408-9"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1234,7 +1193,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-10"
+                "id" => "extModel408-10"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1244,7 +1203,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-11"
+                "id" => "extModel408-11"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1254,7 +1213,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-12"
+                "id" => "extModel408-12"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1264,7 +1223,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-13"
+                "id" => "extModel408-13"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1274,7 +1233,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1646-14"
+                "id" => "extModel408-14"
             ],
             [
                 "name" => "o_id",
@@ -1285,7 +1244,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1646-15"
+                "id" => "extModel408-15"
             ]
         ],
         "niceName" => "Workflow Pending Products",
@@ -1298,19 +1257,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078769,
+        "yAxis" => [],
+        "modificationDate" => 1615715453,
         "creationDate" => 1606838413,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "WorkflowPendingProducts"
     ],
     "ChartBrandProduct" => [
@@ -1333,8 +1285,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel1809-3"
+                "id" => "extModel8961-6",
+                "filter" => "string"
             ],
             [
                 "name" => "Brand",
@@ -1344,7 +1296,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1809-4"
+                "id" => "extModel8961-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1354,7 +1306,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel1809-5"
+                "id" => "extModel8961-5"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1367,19 +1319,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078800,
+        "yAxis" => [],
+        "modificationDate" => 1614075082,
         "creationDate" => 1606812138,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartBrandProduct"
     ],
     "ChartProductsWithNoImage" => [
@@ -1402,8 +1347,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel1972-3"
+                "id" => "extModel9130-11",
+                "filter" => "string"
             ],
             [
                 "name" => "Main Image",
@@ -1413,7 +1358,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1972-4"
+                "id" => "extModel9130-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1423,7 +1368,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel1972-5"
+                "id" => "extModel9130-5"
             ]
         ],
         "niceName" => "Chart - Products with No Images - Main Image",
@@ -1436,19 +1381,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Main Image",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078826,
+        "yAxis" => [],
+        "modificationDate" => 1614075246,
         "creationDate" => 1606817832,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartProductsWithNoImage"
     ],
     "ChartNewProducts" => [
@@ -1472,7 +1410,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2135-3"
+                "id" => "extModel414-3"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1482,7 +1420,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2135-4"
+                "id" => "extModel414-4"
             ],
             [
                 "name" => "Month",
@@ -1492,7 +1430,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2135-5"
+                "id" => "extModel414-5"
             ],
             [
                 "name" => "# of SKUs",
@@ -1502,7 +1440,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel2135-6"
+                "id" => "extModel414-6"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -1518,16 +1456,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645078877,
+        "modificationDate" => 1615487332,
         "creationDate" => 1614589190,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartNewProducts"
     ],
     "ChartDataCompleteness" => [
@@ -1550,8 +1483,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel2298-3"
+                "id" => "extModel972-5",
+                "filter" => "string"
             ],
             [
                 "name" => "# of SKUs",
@@ -1560,8 +1493,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "numeric",
-                "id" => "extModel2298-4"
+                "id" => "extModel972-3",
+                "filter" => "numeric"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -1570,8 +1503,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter" => "numeric",
-                "id" => "extModel2298-5"
+                "id" => "extModel972-4",
+                "filter" => "numeric"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -1584,19 +1517,12 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078910,
+        "yAxis" => [],
+        "modificationDate" => 1615438796,
         "creationDate" => 1614589821,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartDataCompleteness"
     ],
     "ChartSKUsUnderReview" => [
@@ -1620,7 +1546,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2461-3"
+                "id" => "extModel1450-3"
             ],
             [
                 "name" => "Status",
@@ -1630,7 +1556,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2461-4"
+                "id" => "extModel1450-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -1643,19 +1569,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645078936,
+        "yAxis" => [],
+        "modificationDate" => 1615441276,
         "creationDate" => 1614630048,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartSKUsUnderReview"
     ],
     "ChartProductAtrributrIncomplete" => [
@@ -1678,8 +1597,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel2624-5"
+                "id" => "extModel316-8",
+                "filter" => "string"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -1689,7 +1608,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2624-6"
+                "id" => "extModel316-5"
             ],
             [
                 "name" => "# of SKUs",
@@ -1699,7 +1618,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel2624-7"
+                "id" => "extModel316-6"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -1708,8 +1627,8 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel2624-8"
+                "id" => "extModel316-9",
+                "filter" => "string"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -1725,16 +1644,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645078966,
+        "modificationDate" => 1615436789,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "ChartProductAtrributrIncomplete"
     ],
     "IndustrialHoseChartBrandProduct" => [
@@ -1757,7 +1671,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2787-3"
+                "id" => "extModel4266-3"
             ],
             [
                 "name" => "Brand",
@@ -1766,7 +1680,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2787-4"
+                "id" => "extModel4266-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1775,7 +1689,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2787-5"
+                "id" => "extModel4266-5"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1788,19 +1702,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079006,
+        "yAxis" => [],
+        "modificationDate" => 1620807442,
         "creationDate" => 1620661797,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartBrandProduct"
     ],
     "HydraulicHoseChartBrandProduct" => [
@@ -1823,7 +1730,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2950-3"
+                "id" => "extModel2502-3"
             ],
             [
                 "name" => "Brand",
@@ -1832,7 +1739,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2950-4"
+                "id" => "extModel2502-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1841,7 +1748,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel2950-5"
+                "id" => "extModel2502-5"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1854,19 +1761,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079040,
+        "yAxis" => [],
+        "modificationDate" => 1620807118,
         "creationDate" => 1620661797,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartBrandProduct"
     ],
     "HydraulicFittingsChartBrandProduct" => [
@@ -1889,7 +1789,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3113-3"
+                "id" => "extModel2978-3"
             ],
             [
                 "name" => "Brand",
@@ -1898,7 +1798,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3113-4"
+                "id" => "extModel2978-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1907,7 +1807,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3113-5"
+                "id" => "extModel2978-5"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1920,19 +1820,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079065,
+        "yAxis" => [],
+        "modificationDate" => 1620807090,
         "creationDate" => 1620661797,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartBrandProduct"
     ],
     "PTGChartBrandProduct" => [
@@ -1955,7 +1848,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3276-3"
+                "id" => "extModel461-3"
             ],
             [
                 "name" => "Brand",
@@ -1964,7 +1857,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3276-4"
+                "id" => "extModel461-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -1973,7 +1866,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3276-5"
+                "id" => "extModel461-5"
             ],
             [
                 "name" => "SIOP Level 4 -- Band",
@@ -1982,7 +1875,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3276-6"
+                "id" => "extModel461-18"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1995,19 +1888,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "SIOP Level 4 -- Band",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079089,
+        "yAxis" => [],
+        "modificationDate" => 1629875608,
         "creationDate" => 1620661797,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartBrandProduct"
     ],
     "IndustrialHoseChartNewProducts" => [
@@ -2031,7 +1917,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3439-3"
+                "id" => "extModel4994-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2041,7 +1927,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel3439-4"
+                "id" => "extModel4994-4"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -2057,16 +1943,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079123,
+        "modificationDate" => 1620810328,
         "creationDate" => 1614589190,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartNewProducts"
     ],
     "HydraulicHoseChartNewProduct" => [
@@ -2090,7 +1971,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3602-3"
+                "id" => "extModel4741-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2100,7 +1981,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel3602-4"
+                "id" => "extModel4741-4"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -2116,16 +1997,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079149,
+        "modificationDate" => 1620807567,
         "creationDate" => 1614589190,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartNewProduct"
     ],
     "PTGChartNewProducts" => [
@@ -2149,7 +2025,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3765-3"
+                "id" => "extModel5055-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2159,7 +2035,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel3765-4"
+                "id" => "extModel5055-4"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -2175,16 +2051,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079197,
+        "modificationDate" => 1620807641,
         "creationDate" => 1614589190,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ProductManager",
-            "ApplicationAdmin"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartNewProducts"
     ],
     "IndustrialHoseChartDataCompleteness" => [
@@ -2208,7 +2079,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3928-3"
+                "id" => "extModel294-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2218,7 +2089,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel3928-4"
+                "id" => "extModel294-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -2228,7 +2099,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel3928-5"
+                "id" => "extModel294-5"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -2241,19 +2112,12 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079242,
+        "yAxis" => [],
+        "modificationDate" => 1623916067,
         "creationDate" => 1614589821,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartDataCompleteness"
     ],
     "HydraulicHoseChartDataCompleteness" => [
@@ -2277,7 +2141,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4091-3"
+                "id" => "extModel6008-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2287,7 +2151,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel4091-4"
+                "id" => "extModel6008-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -2297,7 +2161,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel4091-5"
+                "id" => "extModel6008-5"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -2310,19 +2174,12 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079282,
+        "yAxis" => [],
+        "modificationDate" => 1620808055,
         "creationDate" => 1614589821,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartDataCompleteness"
     ],
     "PTGChartDataCompleteness" => [
@@ -2346,7 +2203,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4254-3"
+                "id" => "extModel6322-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2356,7 +2213,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel4254-4"
+                "id" => "extModel6322-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -2366,7 +2223,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel4254-5"
+                "id" => "extModel6322-5"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -2379,19 +2236,12 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079306,
+        "yAxis" => [],
+        "modificationDate" => 1620808147,
         "creationDate" => 1614589821,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartDataCompleteness"
     ],
     "IndustrialHoseChartSKUsUnderReview" => [
@@ -2415,7 +2265,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4417-3"
+                "id" => "extModel6806-3"
             ],
             [
                 "name" => "Status",
@@ -2425,7 +2275,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4417-4"
+                "id" => "extModel6806-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -2438,19 +2288,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079336,
+        "yAxis" => [],
+        "modificationDate" => 1620808419,
         "creationDate" => 1614630048,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartSKUsUnderReview"
     ],
     "HydrualicHoseChartSKUsUnderReview" => [
@@ -2474,7 +2317,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4580-3"
+                "id" => "extModel7120-3"
             ],
             [
                 "name" => "Status",
@@ -2484,7 +2327,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4580-4"
+                "id" => "extModel7120-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -2497,19 +2340,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079363,
+        "yAxis" => [],
+        "modificationDate" => 1620808538,
         "creationDate" => 1614630048,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydrualicHoseChartSKUsUnderReview"
     ],
     "PTGChartSKUsUnderReview" => [
@@ -2533,7 +2369,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4896-3"
+                "id" => "extModel7434-3"
             ],
             [
                 "name" => "Status",
@@ -2543,7 +2379,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4896-4"
+                "id" => "extModel7434-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -2556,19 +2392,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079396,
+        "yAxis" => [],
+        "modificationDate" => 1620808598,
         "creationDate" => 1614630048,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartSKUsUnderReview"
     ],
     "IndustrialHoseChartProductAttributeIncomplete" => [
@@ -2592,7 +2421,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4743-5"
+                "id" => "extModel8067-5"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -2602,7 +2431,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4743-6"
+                "id" => "extModel8067-6"
             ],
             [
                 "name" => "# of SKUs",
@@ -2612,7 +2441,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel4743-7"
+                "id" => "extModel8067-7"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -2622,7 +2451,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel4743-8"
+                "id" => "extModel8067-8"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -2638,16 +2467,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079445,
+        "modificationDate" => 1620808864,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartProductAttributeIncomplete"
     ],
     "HydraulicHoseChartProductAttributeIncomplete" => [
@@ -2671,7 +2495,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5217-5"
+                "id" => "extModel8381-5"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -2681,7 +2505,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5217-6"
+                "id" => "extModel8381-6"
             ],
             [
                 "name" => "# of SKUs",
@@ -2691,7 +2515,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5217-7"
+                "id" => "extModel8381-7"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -2701,7 +2525,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5217-8"
+                "id" => "extModel8381-8"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -2717,16 +2541,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079482,
+        "modificationDate" => 1620809052,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartProductAttributeIncomplete"
     ],
     "PTGChartProductAttributeIncomplete" => [
@@ -2750,7 +2569,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5380-5"
+                "id" => "extModel8695-5"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -2760,7 +2579,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5380-6"
+                "id" => "extModel8695-6"
             ],
             [
                 "name" => "# of SKUs",
@@ -2770,7 +2589,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5380-7"
+                "id" => "extModel8695-7"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -2780,7 +2599,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5380-8"
+                "id" => "extModel8695-8"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -2796,16 +2615,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079528,
+        "modificationDate" => 1620809115,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartProductAttributeIncomplete"
     ],
     "HydraulicFittingsChartNewProducts" => [
@@ -2829,7 +2643,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5543-3"
+                "id" => "extModel5374-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2839,7 +2653,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5543-4"
+                "id" => "extModel5374-4"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -2855,16 +2669,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079565,
+        "modificationDate" => 1620807816,
         "creationDate" => 1614589190,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartNewProducts"
     ],
     "HydraulicFittingsChartDataCompleteness" => [
@@ -2888,7 +2697,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5706-3"
+                "id" => "extModel6488-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2898,7 +2707,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5706-4"
+                "id" => "extModel6488-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -2908,7 +2717,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5706-5"
+                "id" => "extModel6488-5"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -2921,19 +2730,12 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079604,
+        "yAxis" => [],
+        "modificationDate" => 1620808313,
         "creationDate" => 1614589821,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartDataCompleteness"
     ],
     "HydraulicFittingsChartSKUsUnderReview" => [
@@ -2957,7 +2759,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5869-3"
+                "id" => "extModel7600-3"
             ],
             [
                 "name" => "Status",
@@ -2967,7 +2769,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5869-4"
+                "id" => "extModel7600-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -2980,19 +2782,12 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1645079645,
+        "yAxis" => [],
+        "modificationDate" => 1620808742,
         "creationDate" => 1614630048,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartSKUsUnderReview"
     ],
     "HydraulicFittingsChartProductAttributeIncomplete" => [
@@ -3016,7 +2811,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel6032-5"
+                "id" => "extModel9483-5"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -3026,7 +2821,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel6032-6"
+                "id" => "extModel9483-6"
             ],
             [
                 "name" => "# of SKUs",
@@ -3036,7 +2831,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel6032-7"
+                "id" => "extModel9483-7"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -3046,7 +2841,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel6032-8"
+                "id" => "extModel9483-8"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -3062,16 +2857,11 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1645079687,
+        "modificationDate" => 1620809370,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartProductAttributeIncomplete"
     ],
     "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3094,7 +2884,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6195-3"
+                "id" => "extModel1639-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3103,7 +2893,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6195-4"
+                "id" => "extModel1639-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3112,7 +2902,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6195-5"
+                "id" => "extModel1639-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3121,7 +2911,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6195-6"
+                "id" => "extModel1639-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -3131,7 +2921,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel6195-7"
+                "id" => "extModel1639-8"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Virtual Catalog Filter",
@@ -3147,16 +2937,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645079728,
+        "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3179,7 +2964,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6358-3"
+                "id" => "extModel473-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3188,7 +2973,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6358-4"
+                "id" => "extModel473-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3197,7 +2982,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6358-5"
+                "id" => "extModel473-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3206,7 +2991,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6358-6"
+                "id" => "extModel473-6"
             ],
             [
                 "name" => "BrandType",
@@ -3216,7 +3001,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel6358-7"
+                "id" => "extModel473-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - BrandType  Filter",
@@ -3232,16 +3017,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645079773,
+        "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3264,7 +3044,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6521-3"
+                "id" => "extModel2187-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3273,7 +3053,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6521-4"
+                "id" => "extModel2187-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3282,7 +3062,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6521-5"
+                "id" => "extModel2187-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3292,7 +3072,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "",
-                "id" => "extModel6521-6"
+                "id" => "extModel2187-6"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3302,7 +3082,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel6521-7"
+                "id" => "extModel2187-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Printed Catalog Filter",
@@ -3318,16 +3098,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645079805,
+        "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3350,7 +3125,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6684-3"
+                "id" => "extModel931-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3359,7 +3134,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6684-4"
+                "id" => "extModel931-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3368,7 +3143,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel6684-5"
+                "id" => "extModel931-2"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3377,8 +3152,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel6684-6"
+                "id" => "extModel931-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Printed Catalog Filter",
@@ -3394,16 +3169,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645079860,
+        "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3426,7 +3196,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6847-3"
+                "id" => "extModel583-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3435,7 +3205,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel6847-4"
+                "id" => "extModel583-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3444,7 +3214,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel6847-5"
+                "id" => "extModel583-2"
             ],
             [
                 "name" => "VirtualFlag",
@@ -3453,8 +3223,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel6847-6"
+                "id" => "extModel583-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Virtual Catalog Filter",
@@ -3470,16 +3240,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645079901,
+        "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-BrandFilter" => [
@@ -3502,7 +3267,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7010-3"
+                "id" => "extModel440-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3511,7 +3276,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7010-4"
+                "id" => "extModel440-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3520,7 +3285,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel7010-5"
+                "id" => "extModel440-5"
             ],
             [
                 "name" => "BrandType",
@@ -3530,7 +3295,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7010-6"
+                "id" => "extModel440-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - BrandType Filter",
@@ -3546,16 +3311,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645079951,
+        "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "IndustrialHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3578,7 +3338,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7173-3"
+                "id" => "extModel293-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3587,7 +3347,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7173-4"
+                "id" => "extModel293-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3596,7 +3356,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7173-5"
+                "id" => "extModel293-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3605,7 +3365,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7173-6"
+                "id" => "extModel293-6"
             ],
             [
                 "name" => "Virtualflag",
@@ -3615,7 +3375,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7173-7"
+                "id" => "extModel293-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Virtual Catalog Filter",
@@ -3631,16 +3391,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645079975,
+        "modificationDate" => 1629893476,
         "creationDate" => 1629891069,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3663,7 +3418,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7336-3"
+                "id" => "extModel458-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3672,7 +3427,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7336-4"
+                "id" => "extModel458-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3681,7 +3436,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7336-5"
+                "id" => "extModel458-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3690,7 +3445,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7336-6"
+                "id" => "extModel458-6"
             ],
             [
                 "name" => "BrandType",
@@ -3700,7 +3455,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7336-7"
+                "id" => "extModel458-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - BrandType  Filter",
@@ -3716,16 +3471,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080008,
+        "modificationDate" => 1629893494,
         "creationDate" => 1624293275,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3748,7 +3498,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7499-3"
+                "id" => "extModel619-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3757,7 +3507,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7499-4"
+                "id" => "extModel619-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3766,7 +3516,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7499-5"
+                "id" => "extModel619-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3776,7 +3526,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "",
-                "id" => "extModel7499-6"
+                "id" => "extModel619-6"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3786,7 +3536,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7499-7"
+                "id" => "extModel619-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Printed Catalog Filter",
@@ -3802,16 +3552,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080034,
+        "modificationDate" => 1629893512,
         "creationDate" => 1624450664,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3834,7 +3579,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7662-3"
+                "id" => "extModel781-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3843,7 +3588,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7662-4"
+                "id" => "extModel781-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3852,7 +3597,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel7662-5"
+                "id" => "extModel781-5"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3862,7 +3607,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7662-6"
+                "id" => "extModel781-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Printed Catalog Filter",
@@ -3878,16 +3623,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080070,
+        "modificationDate" => 1629893535,
         "creationDate" => 1625039156,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3910,7 +3650,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7825-3"
+                "id" => "extModel941-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3919,7 +3659,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7825-4"
+                "id" => "extModel941-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -3928,7 +3668,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel7825-5"
+                "id" => "extModel941-5"
             ],
             [
                 "name" => "VirtualFlag",
@@ -3938,7 +3678,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7825-6"
+                "id" => "extModel941-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Virtual Catalog Filter",
@@ -3954,16 +3694,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080094,
+        "modificationDate" => 1629893556,
         "creationDate" => 1625039584,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-BrandFilter" => [
@@ -3986,7 +3721,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7988-3"
+                "id" => "extModel1102-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -3995,7 +3730,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel7988-4"
+                "id" => "extModel1102-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4004,7 +3739,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel7988-5"
+                "id" => "extModel1102-5"
             ],
             [
                 "name" => "BrandType",
@@ -4014,7 +3749,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel7988-6"
+                "id" => "extModel1102-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - BrandType Filter",
@@ -4030,16 +3765,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080129,
+        "modificationDate" => 1629893578,
         "creationDate" => 1625040174,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -4062,7 +3792,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8151-3"
+                "id" => "extModel1639-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -4071,7 +3801,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8151-4"
+                "id" => "extModel1639-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4080,7 +3810,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8151-5"
+                "id" => "extModel1639-6"
             ],
             [
                 "name" => "No Percentage",
@@ -4089,7 +3819,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8151-6"
+                "id" => "extModel1639-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -4099,7 +3829,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8151-7"
+                "id" => "extModel1639-8"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Virtual Catalog Filter",
@@ -4115,16 +3845,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080175,
+        "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-BrandFilter" => [
@@ -4147,7 +3872,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8314-3"
+                "id" => "extModel473-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -4156,7 +3881,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8314-4"
+                "id" => "extModel473-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4165,7 +3890,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8314-5"
+                "id" => "extModel473-5"
             ],
             [
                 "name" => "No Percentage",
@@ -4174,7 +3899,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8314-6"
+                "id" => "extModel473-6"
             ],
             [
                 "name" => "BrandType",
@@ -4184,7 +3909,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8314-7"
+                "id" => "extModel473-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - BrandType  Filter",
@@ -4200,16 +3925,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080208,
+        "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4232,7 +3952,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8477-3"
+                "id" => "extModel2187-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -4241,7 +3961,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8477-4"
+                "id" => "extModel2187-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4250,7 +3970,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8477-5"
+                "id" => "extModel2187-5"
             ],
             [
                 "name" => "No Percentage",
@@ -4260,7 +3980,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "",
-                "id" => "extModel8477-6"
+                "id" => "extModel2187-6"
             ],
             [
                 "name" => "PrintedFlag",
@@ -4270,7 +3990,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8477-7"
+                "id" => "extModel2187-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Printed Catalog Filter",
@@ -4286,16 +4006,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080253,
+        "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4318,7 +4033,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8640-3"
+                "id" => "extModel931-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4327,7 +4042,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8640-4"
+                "id" => "extModel931-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4336,7 +4051,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel8640-5"
+                "id" => "extModel931-2"
             ],
             [
                 "name" => "PrintedFlag",
@@ -4345,8 +4060,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8640-6"
+                "id" => "extModel931-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Printed Catalog Filter",
@@ -4362,16 +4077,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080288,
+        "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4394,7 +4104,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8802-3"
+                "id" => "extModel583-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4403,7 +4113,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8802-4"
+                "id" => "extModel583-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4412,7 +4122,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel8802-5"
+                "id" => "extModel583-2"
             ],
             [
                 "name" => "VirtualFlag",
@@ -4421,8 +4131,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8802-6"
+                "id" => "extModel583-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Virtual Catalog Filter",
@@ -4438,16 +4148,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080317,
+        "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-BrandFilter" => [
@@ -4470,7 +4175,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8966-3"
+                "id" => "extModel440-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4479,7 +4184,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel8966-4"
+                "id" => "extModel440-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4488,7 +4193,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel8966-5"
+                "id" => "extModel440-5"
             ],
             [
                 "name" => "BrandType",
@@ -4498,7 +4203,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel8966-6"
+                "id" => "extModel440-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - BrandType Filter",
@@ -4514,16 +4219,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080349,
+        "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "HydraulicFittingsChartDataCompleteness-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -4546,7 +4246,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9129-3"
+                "id" => "extModel1639-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -4555,7 +4255,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9129-4"
+                "id" => "extModel1639-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4564,7 +4264,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9129-5"
+                "id" => "extModel1639-6"
             ],
             [
                 "name" => "No Percentage",
@@ -4573,7 +4273,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9129-6"
+                "id" => "extModel1639-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -4583,7 +4283,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9129-7"
+                "id" => "extModel1639-8"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Virtual Catalog Filter",
@@ -4599,16 +4299,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080387,
+        "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "PTGChartProductsWithNoImage-BrandFilter" => [
@@ -4631,7 +4326,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9292-3"
+                "id" => "extModel473-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -4640,7 +4335,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9292-4"
+                "id" => "extModel473-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4649,7 +4344,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9292-5"
+                "id" => "extModel473-5"
             ],
             [
                 "name" => "No Percentage",
@@ -4658,7 +4353,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9292-6"
+                "id" => "extModel473-6"
             ],
             [
                 "name" => "BrandType",
@@ -4668,7 +4363,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9292-7"
+                "id" => "extModel473-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - BrandType  Filter",
@@ -4684,16 +4379,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080421,
+        "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartProductsWithNoImage-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4716,7 +4406,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9454-3"
+                "id" => "extModel2187-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -4725,7 +4415,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9454-4"
+                "id" => "extModel2187-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -4734,7 +4424,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9454-5"
+                "id" => "extModel2187-5"
             ],
             [
                 "name" => "No Percentage",
@@ -4744,7 +4434,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "",
-                "id" => "extModel9454-6"
+                "id" => "extModel2187-6"
             ],
             [
                 "name" => "PrintedFlag",
@@ -4754,7 +4444,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9454-7"
+                "id" => "extModel2187-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - Printed Catalog Filter",
@@ -4770,16 +4460,11 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1645080451,
+        "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "PTGChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4802,7 +4487,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9618-3"
+                "id" => "extModel931-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4811,7 +4496,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9618-4"
+                "id" => "extModel931-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4820,7 +4505,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel9618-5"
+                "id" => "extModel931-2"
             ],
             [
                 "name" => "PrintedFlag",
@@ -4829,8 +4514,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9618-6"
+                "id" => "extModel931-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Printed Catalog Filter",
@@ -4846,16 +4531,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080484,
+        "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartDataCompleteness-PrintedCatalogFilter"
     ],
     "PTGChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4878,7 +4558,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9781-3"
+                "id" => "extModel583-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4887,7 +4567,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9781-4"
+                "id" => "extModel583-1"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4896,7 +4576,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel9781-5"
+                "id" => "extModel583-2"
             ],
             [
                 "name" => "VirtualFlag",
@@ -4905,8 +4585,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9781-6"
+                "id" => "extModel583-4",
+                "filter_drilldown" => "filter_and_show"
             ]
         ],
         "niceName" => "Chart - Data Completeness - Virtual Catalog Filter",
@@ -4922,16 +4602,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080509,
+        "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartDataCompleteness-VirtualCatalogFilter"
     ],
     "PTGChartDataCompleteness-BrandFilter" => [
@@ -4954,7 +4629,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9944-3"
+                "id" => "extModel440-3"
             ],
             [
                 "name" => "# of Sku's",
@@ -4963,7 +4638,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel9944-4"
+                "id" => "extModel440-4"
             ],
             [
                 "name" => "Completeness Percentage",
@@ -4972,7 +4647,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel9944-5"
+                "id" => "extModel440-5"
             ],
             [
                 "name" => "BrandType",
@@ -4982,7 +4657,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel9944-6"
+                "id" => "extModel440-6"
             ]
         ],
         "niceName" => "Chart - Data Completeness - BrandType Filter",
@@ -4998,16 +4673,11 @@ return [
         "yAxis" => [
             "Completeness Percentage"
         ],
-        "modificationDate" => 1645080541,
+        "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "PTGChartDataCompleteness-BrandFilter"
     ],
     "CS_NewProductsLastOneWeek" => [
@@ -5079,15 +4749,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1644510029,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5174,15 +4840,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1644510151,
         "creationDate" => 1632124921,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5449,15 +5111,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1641192223,
         "creationDate" => 1632215120,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5688,15 +5346,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1641192180,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5716,9 +5370,7 @@ return [
                 "type" => "sql"
             ]
         ],
-        "columnConfiguration" => [
-
-        ],
+        "columnConfiguration" => [],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
         "groupIconClass" => "",
@@ -5729,15 +5381,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1641192129,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5815,15 +5463,11 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
+        "yAxis" => [],
         "modificationDate" => 1641192091,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
+        "sharedUserNames" => [],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5836,7 +5480,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nen.CompletenessPercentage \"COMPLETED (%)\",REPLACE( REPLACE(en.EmptyFields,'\\n\\t', ' '),'\\n', ' ' ) 'Empty Fields',\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
+                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nen.CompletenessPercentage \"COMPLETED (%)\",\nREPLACE( REPLACE( REPLACE(en.EmptyFields,'\\n\\t', ' '),'\\n', ' ' ),'->','|') 'Empty Fields',\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
                 "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
                 "where" => "(o1.`o_published` = 1) AND (en.`CompletenessPercentage` != '') AND (en.`EmptyFields` != '')",
                 "groupby" => "",
@@ -5852,7 +5496,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-1"
+                "id" => "extModel1497-1"
             ],
             [
                 "name" => "Article Number",
@@ -5862,7 +5506,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-2"
+                "id" => "extModel1497-2"
             ],
             [
                 "name" => "SAP Description",
@@ -5872,7 +5516,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-3"
+                "id" => "extModel1497-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -5882,7 +5526,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-4"
+                "id" => "extModel1497-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -5892,7 +5536,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-5"
+                "id" => "extModel1497-5"
             ],
             [
                 "name" => "Empty Fields",
@@ -5901,7 +5545,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel524-6"
+                "id" => "extModel1497-6"
             ],
             [
                 "name" => "Product Type",
@@ -5911,7 +5555,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-7"
+                "id" => "extModel1497-7"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -5921,7 +5565,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-8"
+                "id" => "extModel1497-8"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -5931,7 +5575,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-9"
+                "id" => "extModel1497-9"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -5941,7 +5585,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-10"
+                "id" => "extModel1497-10"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -5951,7 +5595,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-11"
+                "id" => "extModel1497-11"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -5961,7 +5605,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-12"
+                "id" => "extModel1497-12"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -5971,7 +5615,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel524-13"
+                "id" => "extModel1497-13"
             ],
             [
                 "name" => "o_id",
@@ -5982,7 +5626,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel524-14"
+                "id" => "extModel1497-14"
             ]
         ],
         "niceName" => "Data Completeness - Empty Attributes",
@@ -5995,19 +5639,12 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1646577627,
+        "yAxis" => [],
+        "modificationDate" => 1643097180,
         "creationDate" => 1606822831,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-            "ApplicationAdmin",
-            "ProductManager"
-        ],
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [],
+        "sharedRoleNames" => [],
         "id" => "DataCompletenessEmptyAttributes"
     ]
 ];

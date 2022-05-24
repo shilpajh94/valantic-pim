@@ -24,7 +24,6 @@ define("INTERNAL_ASSET_FOLDER_PATHS", [
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Resources/config");
 define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/CatalogBundle/Resources/config");
-define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PimDataPostBundle/Resources/config");
 define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/ProductBundle/Resources/config");
 
 define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/CatalogUIApiBundle/Resources/config");
@@ -83,7 +82,6 @@ define('INH_PRODUCT_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/industri
 define('PRICE_LIST_TABLE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yml");
 define('INH_FITTING_COVER_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/INH_fitting_cover_config.yml");
 define('OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/option_provider_cache_config.yml");
-
 define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
 define('GRID_SQL_EDITOR_ALLOWED_ROLES', ['ApplicationAdmin']);
 
@@ -133,4 +131,5 @@ define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 //SAP Files older than these many days will be deleted from SFTP server
 define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
 define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
+
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');

@@ -139,8 +139,7 @@ class FailedRecords {
               $row[]  = $material;
               $row[]  = $plant;
               $row[]  = $salesorganization;
-              $row[]  = $distributionchannel; 
-              fputcsv($fileResource, $row, ','); 
+              $row[]  = $distributionchannel;        
             }
               $this->productFailureRecordsCSV($fileName);
         }
@@ -186,15 +185,13 @@ class FailedRecords {
             $link = $this->getFaliureFilesDeeplink($objAsset);
             $li .= "<li><a href='".$link."'>".$link."</a></li>";
             }
-            $deepLink = $li;
-            $params = [
-            'deeplink' => $deepLink
-            ];
+            $templateParam['file_url'] = $li;
+
             $mail = new \Pimcore\Mail();
             $mail->addto($email_Id);
             $mail->setSubject("Product Fail Records");
             $mail->setDocument($document);
-            $mail->setParams($params);
+            $mail->setParams($templateParam);
             
             $mailSent = $mail->send();
               if ($mailSent) {
@@ -210,7 +207,7 @@ class FailedRecords {
     {
       $host = APPLICATION_HOST;
       $link = $host. "/admin/login/deeplink?";
-      $link .= 'asset_' . $asset->getId() . '_text';  
+      $link .= 'asset_' . $asset->getId() . '_document';  
       return $link;
     }
 
@@ -237,7 +234,7 @@ class FailedRecords {
             $email_Id[] = $users->getEmail();
           }
         }
-      return $email_Id;
+        return $email_Id;
     }  
 }
 
