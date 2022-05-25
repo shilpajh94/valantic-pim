@@ -216,5 +216,13 @@ class TempTablePopulatorDao
         
         return ($resultSet) ? $resultSet : [];
     }
+
+    public function getChildrenObjectIds(int $parentId): array
+    {
+        $query = "SELECT o_id FROM objects";
+        $query .= " WHERE o_parentId = :parentId and o_type = 'object' ";
+
+        return $this->db->fetchCol($query);
+    }
     
 }

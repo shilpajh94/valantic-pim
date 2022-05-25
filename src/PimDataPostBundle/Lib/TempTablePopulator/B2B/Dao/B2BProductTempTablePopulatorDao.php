@@ -51,5 +51,17 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         return $resultSet;
     }
 
+    public function getPimModifiedProductIdsWithProductType(): array
+    {
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+        $tableName = Constants::B2B_PRODUCT_OBJECT_TABLE_NAME;
+        
+        $query = "SELECT `o_id`,`productType` FROM {$tableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+        $resultSet = $this->db->fetchAll($query);
+    
+        return ($resultSet) ? $resultSet : [];
+    }
+
     
 }

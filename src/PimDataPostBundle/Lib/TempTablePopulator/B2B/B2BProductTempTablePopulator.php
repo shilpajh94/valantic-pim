@@ -68,9 +68,46 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         return $this->dao->getExistingTempTableData($o_id);
     }
 
+    // return product ids which are only IFS or PTG
     public function filterIFSPTGProducts(array $pimIds): array
     {
         return $this->helper->filterIFSPTGProducts($pimIds);
+    }
+
+    private function getPimModifiedProductIdsWithProductType(): array
+    {
+        return $this->dao->getPimModifiedProductIdsWithProductType();
+    }
+
+    private function getAllFertsToBeUpdatedForSalesforce(): array
+    {
+        $allModifiedProductIdsWithProductType = $this->getPimModifiedProductIdsWithProductType();
+        $returnValue = [];
+        foreach($allModifiedProductIdsWithProductType as $productIdWithProductType){
+            if($productIdWithProductType["productType"] == "base" ){
+                $returnValue[] = array_merge($this->getFertIdsForBaseId($productIdWithProductType["o_id"]), $returnValue);
+            }elseif($productIdWithProductType["productType"] == "skeleton"){
+                $returnValue[] = array_merge($this->getFertIdsForSkeletonId($productIdWithProductType["o_id"]), $returnValue);
+            }else{
+                $returnValue[] = $productIdWithProductType["o_id"];
+            }
+        }
+        return $returnValue;
+    }
+
+    private function getFertIdsForBaseId(int $baseId): array
+    {
+        $skeletonIds = $this->dao->getChildrenObjectIds($baseId);
+        $returnValue = [];
+        foreach($skeletonIds as $skeletonId){
+            $returnValue[] = $this->getFertIdsForSkeletonId($skeletonId);
+        }
+        return $returnValue;
+    }
+
+    private function getFertIdsForSkeletonId(int $skeletonId): array
+    {
+        return $this->dao->getChildrenObjectIds($skeletonId);
     }
 
 }

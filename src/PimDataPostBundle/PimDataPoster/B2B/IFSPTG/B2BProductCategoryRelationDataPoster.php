@@ -33,17 +33,16 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
         $relationObjectsForFailureEntry = [];
 
         try{
-            $level4CategoriesRelationObject = $relationChangeProvider->getIFSSIOPLevel4Categories();
-            $level6CategoriesRelationObject = $relationChangeProvider->getPTGSIOPLevel6Categories();
+            $levelCategoriesRelationObject = $relationChangeProvider->getSIOPLevel4Categories();
+
             $categoryRelationsObjectsEnforcedToPush = $enforcedRecordProvier->getEnforcedRelationObject();
     
-            $relationObjectsForFailureEntry = array_merge($level4CategoriesRelationObject, $level6CategoriesRelationObject);
+            $relationObjectsForFailureEntry = $levelCategoriesRelationObject;
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
             $relationChangeObjectsToResent = $this->getRelationObjectFromPimFailedRecords($pimFailedRecordsToResend);
 
-            $uniqueRelationChangeObjects = $this->mergeAndRemoveDuplicateRelationObjects($level4CategoriesRelationObject,
-                                                            $level6CategoriesRelationObject,
+            $uniqueRelationChangeObjects = $this->mergeAndRemoveDuplicateRelationObjects($levelCategoriesRelationObject,
                                                             $categoryRelationsObjectsEnforcedToPush,
                                                             $relationChangeObjectsToResent);
             $this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
