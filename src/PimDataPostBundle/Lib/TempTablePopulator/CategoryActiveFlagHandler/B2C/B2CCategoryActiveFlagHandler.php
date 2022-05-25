@@ -27,6 +27,11 @@ class B2CCategoryActiveFlagHandler extends AbstractB2CCategoryActiveFlagHandler
         return $this->helper->getAllCategoryIdsInMasterTable();
     }
 
+    public function getAllAssociatesActiveCategories(): array
+    {
+        return $this->helper->getAllAssociatesActiveCategories();
+    }
+
     /**
      * return the value of the active flag for categories according to the
      * current product data like this ->

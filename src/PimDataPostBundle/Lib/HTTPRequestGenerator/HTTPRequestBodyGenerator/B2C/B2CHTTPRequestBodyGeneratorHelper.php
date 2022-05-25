@@ -4,8 +4,6 @@ namespace PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2
 
 use PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity;
 use PimDataPostBundle\Model\Types\APIOperationType;
-use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CProductHelper;
-use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CCategoryHelper;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\Factory;
 use PimDataPostBundle\Lib\Util;

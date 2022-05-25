@@ -4,8 +4,6 @@ namespace PimDataPostBundle\Lib\HTTPRequestGenerator\B2C;
 
 use GuzzleHttp\Psr7\Request;
 use PimDataPostBundle\Model\Types\APIOperationType;
-use PimDataPostBundle\Services\TokenAuthService;
-use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2C\B2CProductHelper;
 use PimDataPostBundle\Lib\HTTPRequestGenerator\HTTPRequestBodyGenerator\B2C\B2CProductHTTPRequestBodyGenerator;
 class B2CProductHTTPRequestGenerator extends AbstractB2CHTTPRequestGenerator 

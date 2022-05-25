@@ -3,7 +3,6 @@ namespace PimDataPostBundle\Lib\DeltaManager\B2C;
 
 use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\DeltaManager\DeltaManagerDao;
 use PimDataPostBundle\Lib\DeltaManager\B2C\Dao\B2CProductDeltaManagerDao;
 
 class B2CProductDeltaManager extends AbstractB2CDeltaManager

@@ -1,7 +1,6 @@
 <?php
 namespace PimDataPostBundle\Lib\EnforcedRecordsProvider\B2C\Dao;
 
-use PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush;
 use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Lib\Constants;

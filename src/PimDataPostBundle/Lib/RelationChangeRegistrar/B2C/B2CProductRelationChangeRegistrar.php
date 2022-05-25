@@ -2,7 +2,7 @@
 namespace PimDataPostBundle\Lib\RelationChangeRegistrar\B2C;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\B2CRelationChangeRegistrarHelper;;
+use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\B2CRelationChangeRegistrarHelper;
 use PimDataPostBundle\Lib\RelationChangeRegistrar\B2C\Dao\B2CProductRelationChangeRegistrarDao;
 use PimDataPostBundle\AttributeConfigProvider\B2C\B2CProductAttributeConfigProvider;
 class B2CProductRelationChangeRegistrar extends AbstractB2CRelationChangeRegistrar

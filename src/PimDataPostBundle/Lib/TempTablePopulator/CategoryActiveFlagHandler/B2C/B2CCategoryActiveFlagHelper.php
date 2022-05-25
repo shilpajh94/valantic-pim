@@ -22,6 +22,43 @@ class B2CCategoryActiveFlagHelper
         return $this->dao->iterateMasterTableCategories(Constants::B2C_CATEGORY_MASTER_TABLE_NAME);
     }
 
+    public function getAllAssociatesActiveCategories(): array
+    {
+        $productCategoryArrayFromProductMaster = $this->productCategoryArrayFromProductMaster();
+        $productCategoryArrayFromRelation= $this->productCategoryArrayFromRelation();
+        $finalArray = array_replace($productCategoryArrayFromProductMaster, $productCategoryArrayFromRelation);
+        $activeCategories = array_values($finalArray);
+        array_unique($activeCategories);
+        return $this->trimIdsInArray($activeCategories);
+    }
+
+    public function trimIdsInArray(array $activeCategories): array
+    {
+        $returnArray = [];
+        foreach($activeCategories as $val){
+            if($val!='') {
+                $returnArray[] =  trim($val,',');
+            }
+        }
+        return $returnArray;
+    }
+
+    public function productCategoryArrayFromProductMaster(): array
+    {
+        $masterArray = $this->dao->productCategoryArrayFromProductMaster();
+        $o_id = array_column($masterArray, 'o_id');
+        $category = array_column($masterArray, 'B2CCategory');
+        return array_combine($o_id, $category);
+    }
+
+    public function productCategoryArrayFromRelation(): array
+    {
+        $relationArray = $this->dao->productCategoryArrayFromRelation();
+        $productId = array_column($relationArray, 'productId');
+        $newValue = array_column($relationArray, 'newValue');
+        return array_combine($productId, $newValue);
+    }
+
     public function getCategoryIdsWhereRelationWithProductChanged(): array
     {
         $list = new B2CProductRelationChange\Listing();

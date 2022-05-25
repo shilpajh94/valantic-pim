@@ -12,6 +12,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
 {
 
     private $db;    //database
+    
     private $tempMasterTablesMeta;  
     
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta)

@@ -21,6 +21,18 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         return $this->db->fetchCol($query);
     }
 
+    public function productCategoryArrayFromProductMaster()
+    {
+        $query = "SELECT `o_id`, `B2CCategory` FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME." WHERE B2CStoreFlag = 1 AND o_published = 1";
+        return $this->db->fetchAll($query);
+    }
+
+    public function productCategoryArrayFromRelation()
+    {
+        $query = "SELECT `productId`, `newValue` FROM salesforce_integration_b2c_product_relation_change WHERE attributeName = 'B2CCategory'";
+        return $this->db->fetchAll($query);
+    }
+
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');

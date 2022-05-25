@@ -78,7 +78,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
                     }
                 }
             }
-            if (count($updatedConfig)>0) {
+            if (!empty($updatedConfig)) {
                 $config = $updatedConfig;
             }
         } else {

@@ -12,7 +12,7 @@ abstract class AbstractB2CHTTPRequestBodyGenerator implements IHTTPRequestBodyGe
 
     public $startBatch=1;        //start batch number
 
-    public $table='b2b_salesforce_request';
+    public $table='b2c_salesforce_request';
 
     public abstract function getTotalBatches(APIOperationType $operationType = null): int;
 

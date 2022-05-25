@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-04-25T07:41:20+02:00
-* Inheritance: no
+* Generated at: 2022-05-24T17:45:58+05:30
+* Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
 * IP: 127.0.0.1
@@ -27,7 +27,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2CCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1650865280,
+   'modificationDate' => 1653394558,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -39,7 +39,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
+   'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'fieldtype' => 'checkbox',
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'queryColumnType' => 'tinyint(1)',
                          'columnType' => 'tinyint(1)',
                          'phpdocType' => 'boolean',
@@ -175,7 +175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'title' => 'Online Flag',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => '',

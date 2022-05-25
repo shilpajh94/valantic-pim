@@ -10,13 +10,13 @@ use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 class B2CCategoryDeltaManagerDao extends DeltaManagerDao
 {
     private $db;    //database
+
     private $tempMasterTablesMeta;  
    
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta)
     {
         $this->db = \Pimcore\Db::get();
         $this->tempMasterTablesMeta=$tempMasterTablesMeta;
-  
     }
 
     // Start  # delete data from temp which have same hash in master basic  
@@ -66,6 +66,11 @@ class B2CCategoryDeltaManagerDao extends DeltaManagerDao
     }
        // End  --------
 
-
+    public function getMaxLevelInTemp(): int
+    {
+        $sql="SELECT max(`level`) as maxLevel FROM ".$this->tempMasterTablesMeta->getTempTableName();
+        $row = $this->db->fetchCol($sql);
+        return $row[0];
+    }
 }
 

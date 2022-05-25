@@ -2,7 +2,6 @@
 namespace PimDataPostBundle\Lib\DeltaManager\B2C;
 
 use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
-use \Pimcore\Model\Asset;
 use PimDataPostBundle\Model\UpdateWindow;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Lib\DeltaManager\B2C\Dao\B2CProductDeltaManagerDao;
@@ -10,8 +9,6 @@ use PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets;
 
 class B2CProductDeltaManagerHelper
 {
-    private $updateWindow;
-
     private $dao;
 
     private $tempMasterTablesMeta;

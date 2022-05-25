@@ -2,10 +2,7 @@
 
 namespace PimDataPostBundle\Lib\RequestBodyGenerator\B2C;
 
-use Pimcore\Model\DataObject\Product;
 use \Pimcore\Model\Asset;
-use \Pimcore\Model\Asset\Image;
-use \Pimcore\Model\Asset\Video;
 use PimDataPostBundle\Lib\Util;
 use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;

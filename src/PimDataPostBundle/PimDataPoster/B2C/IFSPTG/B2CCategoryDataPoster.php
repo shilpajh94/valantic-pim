@@ -59,8 +59,8 @@ class B2CCategoryDataPoster implements IDataPoster
             $categoryIdsForFailureEntry = array_merge($categoryIdsForFailureEntry, $pimFailedRecordIdsToResend);
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
-
-            for($level = 1; $level <= 6; $level++){
+            $maxlevel = $deltaManager->getMaxLevelInTemp();
+            for($level = 1; $level <= $maxlevel; $level++){
                 $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
                 $categoriesEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreateByLevel($level);
 
@@ -101,10 +101,12 @@ class B2CCategoryDataPoster implements IDataPoster
     {
         $activeFlagHandler = new B2CCategoryActiveFlagHandler();
         $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
-        $allCategoriesWithRightActiveFlagValueForAssociatedCategories = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
+        //$allCategoriesWithRightActiveFlagValueForAssociatedCategories = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
 
-        $associatedCategoriesWithTrueActiveFlag = $this->getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories);
-        $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoriesWithTrueActiveFlag);
+        //$associatedCategoriesWithTrueActiveFlag = $this->getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories);
+        
+        $allAssociatedActiveCategories = $activeFlagHandler->getAllAssociatesActiveCategories();
+        $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $allAssociatedActiveCategories);
         $allActiveCategories = $parentsOfActiveAssociatedCategories;
         // returns a key value array for all the categories in mastr table with their respective active flag value 
         $allCategoriesInMasterTableWithActiveFlagValue = $this->prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories); 
@@ -114,7 +116,6 @@ class B2CCategoryDataPoster implements IDataPoster
 
         $associatedCategoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
         $associatedCategoryIdsWhereRelationWithHashChanged = $this->getIdsWithoutComma($associatedCategoryIdsWhereRelationWithHashChanged);
-
         $parentOfAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoryIdsWhereRelationWithHashChanged); 
         foreach($parentOfAssociatedCategories as $categoryId){
             if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
@@ -133,7 +134,9 @@ class B2CCategoryDataPoster implements IDataPoster
     {
         $returnValue = [];
         foreach($idsWithComma as $idWithComma){
-            $returnValue[] = trim($idWithComma,",");
+            if($idWithComma != ''){
+                $returnValue[] = trim($idWithComma,",");
+            }
         }
         return $returnValue;
     }
