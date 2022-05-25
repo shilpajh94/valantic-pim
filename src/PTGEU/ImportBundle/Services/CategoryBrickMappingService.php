@@ -3,8 +3,8 @@
 namespace PTGEU\ImportBundle\Services;
 
 
-use Pimcore\Model\DataObject\Product;
-use Pimcore\Model\DataObject\ProductCategory;
+use Pimcore\Model\DataObject\PTGEUProduct;
+use Pimcore\Model\DataObject\PTGEUProductHierarchy;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -27,10 +27,10 @@ class CategoryBrickMappingService
     /**
      * add or remove bricks on the product based on the siop full code length and product type (base|skeleton|fert)
      *
-     * @param Product $object
+     * @param PTGEUProduct $object
      * @throws \Exception
      */
-    public function manageBricksForSIOPRelationChange(Product $object)
+    public function manageBricksForSIOPRelationChange(PTGEUProduct $object)
     {
         $catLevel = $this->getSIOPLevelBySIOPFullCode($object->getSiopFullCode());
 
@@ -40,7 +40,7 @@ class CategoryBrickMappingService
         if ($catLevel) {
             $category = $this->getCategoryByLevel($object, $catLevel);
 
-            if ($category instanceof ProductCategory) {
+            if ($category instanceof PTGEUProductHierarchy) {
                 $selectedObjectBrickGroups = $category->getRelatedObjectBrick();
             } else {
 
@@ -155,13 +155,13 @@ class CategoryBrickMappingService
     /**
      * add or remove the bricks according to the requirement in business logic
      *
-     * @param Product $product
+     * @param PTGEUProduct $product
      * @param array $selectedClassificationNames : selected object brick groups
      * @param string $level
-     * @return Product
+     * @return PTGEUProduct
      * @throws \Exception
      */
-    private function manageBrickForProductAtLevel(Product $product, array $selectedClassificationNames, string $level): Product
+    private function manageBrickForProductAtLevel(PTGEUProduct $product, array $selectedClassificationNames, string $level): PTGEUProduct
     {
         $shouldBeAttachedBrickKeys = $this->getMappedBrickKeys($selectedClassificationNames, $level);
 
@@ -200,12 +200,12 @@ class CategoryBrickMappingService
      * remove the given brick at the given level
      * MUST save the product after this operation
      *
-     * @param Product $product
+     * @param PTGEUProduct $product
      * @param string $key
      * @param string $level
      * @throws \Exception
      */
-    private function removeBrickFromProductByKeyAtLevel(Product $product, string $key, string $level)
+    private function removeBrickFromProductByKeyAtLevel(PTGEUProduct $product, string $key, string $level)
     {
         $brickFieldName = $this->getBrickFieldNameInProductByLevel($level);
         $brickFromProductGetter = "get" . ucfirst($brickFieldName);
@@ -219,7 +219,7 @@ class CategoryBrickMappingService
         }
     }
 
-    private function addBrickToProductByKeyAtLevel(Product $product, string $key, string $level)
+    private function addBrickToProductByKeyAtLevel(PTGEUProduct $product, string $key, string $level)
     {
 
         $brickFieldName = $this->getBrickFieldNameInProductByLevel($level);
@@ -257,12 +257,12 @@ class CategoryBrickMappingService
     /**
      * get the category object at the given SIOP level
      *
-     * @param Product $product
+     * @param PTGEUProduct $product
      * @param int $level :     1|2|3|4|5|6
      * @return null|ProductCategory
      * @throws \Exception
      */
-    private function getCategoryByLevel(Product $product, int $level): ?ProductCategory
+    private function getCategoryByLevel(PTGEUProduct $product, int $level): ?PTGEUProductHierarchy
     {
         $categoryFieldName = $this->getCategoryFieldNameByCategoryLevel($level);
         $categoryGetter = "get" . ucfirst($categoryFieldName);

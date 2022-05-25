@@ -34,4 +34,4 @@ parameters:
     
   # SIOP relation field names in productClass
   # these fields are managed in config to keep the system from performance issue
-  siopRelationFieldsInProductClass: ['SIOPLevel1', 'SIOPLevel2', 'SIOPLevel3', 'SIOPLevel4', 'SIOPLevel5', 'SIOPLevel6', 'SIOPLevel7']
+  siopRelationFieldsInProductClass: ['hierarchyLevel1', 'hierarchyLevel2', 'hierarchyLevel3', 'hierarchyLevel4', 'hierarchyLevel5', 'hierarchyLevel6', 'hierarchyLevel7']

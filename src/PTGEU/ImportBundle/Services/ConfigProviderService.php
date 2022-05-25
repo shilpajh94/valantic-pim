@@ -34,9 +34,9 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
     }
-    public function getMaterialConfig()
+    public function getProductConfig()
     {
-        return $this->getConfigFromYmlFile(PTG_EU_MATERIAL_CONFIG_FILE_PATH);
+        return $this->getConfigFromYmlFile(PTG_EU_PRODUCT_CONFIG_FILE_PATH);
     }
 
     public function getBrickMappingConfig(){
@@ -101,6 +101,12 @@ class ConfigProviderService
     public function getINHFittingCoverPageConfig() {
         return $this->getConfigFromYmlFile(INH_FITTING_COVER_PAGE_FILE_PATH);
     }
+
+    public function getEditableProductAttributesImportConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev

@@ -3,11 +3,8 @@ product_type_to_product_brick_field_mapping:
   skeleton: 'Skeleton'
   fert: 'Fert'
 group_name_to_brick_suffix_mapping:
-  HYD_ACCESSORIES: "Accessories"
-  Belts: "Belts"
-  INH-HYD-HOSE: "Hose"
-  HYD_FITTINGS: "HydFittings"
-  INH_FITTINGS: "INHFittings"
-  Metal: "Metal"
-  PTG: "PTG"
-  Synchronous: "Synchronous"
+  PTGEUCommon: "PTGEUCommon"
+  PTGEUVBelts: "PTGEUVBelts"
+  IPTGEUPolyV: "PTGEUPolyV"
+  PTGEUFlatBelts: "PTGEUFlatBelts"
+  PTGEUMetal: "PTGEUMetal"

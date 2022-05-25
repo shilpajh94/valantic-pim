@@ -35,7 +35,7 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       eanUPC: 'EAN_UPC'
-      stccCode: 'STCC Code'
+      #stccCode: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
@@ -49,53 +49,56 @@ parameters:
   root:
     type: 'dataObject'
     subType:  'object'
-    fullPath: '/PTG_EU/Material'
-    id: 2
+    fullPath: '/PTG_EU/Products'
   
   # Base / Brand info
   base:
-    length: 6
+    length: 12
 
   # Skeleton / Product Specification info
   skeleton:
-    length: 9
+    length: 18
 
   # Variant (SKU) info
   variant:
-    length: 14
+    length: 18
     
   # Product Type
   productType:
-    6:  'base'
-    9:  'skeleton'
-    14: 'fert'
+    12:  'base'
+    18:  'skeleton'
+    18fert: 'fert'
 
   # SIOP Code Level Info
   level:
     1:  
       codeLength: 2
       fullCodeLength: 2
-      key: 'prodHier1Desc'
+      key: 'hierarchyLevel1'
     2:  
-      codeLength: 4
-      fullCodeLength: 6
-      key: 'prodHier2Desc'
+      codeLength: 2
+      fullCodeLength: 4
+      key: 'hierarchyLevel2'
     3:  
-      codeLength: 4
-      fullCodeLength: 10
-      key: 'prodHier3Desc'
+      codeLength: 2
+      fullCodeLength: 6
+      key: 'hierarchyLevel3'
     4:  
       codeLength: 3
-      fullCodeLength: 13
-      key: 'prodHier4Desc'
+      fullCodeLength: 9
+      key: 'hierarchyLevel4'
     5:  
       codeLength: 3
-      fullCodeLength: 16
-      key: 'prodHier5Desc'
+      fullCodeLength: 12
+      key: 'hierarchyLevel5'
     6:  
-      codeLength: 2
+      codeLength: 3
+      fullCodeLength: 15
+      key: 'hierarchyLevel6'
+    7:  
+      codeLength: 3
       fullCodeLength: 18
-      key: 'prodHier6Desc'
+      key: 'hierarchyLevel7'
 
   # List of table which will use while import
   table:
@@ -106,17 +109,10 @@ parameters:
   # Number of level allowed to create into SAP hierarchy for SIOP
   allowedLevel:
     PTG: 4
-  # Mapping product type on siop level 5 & 8. In PTG case only
+  # Mapping product type on siop level 5 & 7. In PTG case only
   # productTypeLevel 
-  #   5:  6 --- 5 is SIOP level and 6 is stand for 6 digit product type
-  #   6:  9 --- 6 is SIOP level and 9 is stand for 9 digit product type
+  #   5:  12 --- 5 is SIOP level and 12 is stand for 12 digit product type
+  #   7:  18 --- 7 is SIOP level and 18 is stand for 18 digit product type
   productTypeLevel:
-    5:  6
-    6:  9
-  
-  # Product level allowed to business unit
-  # Business Unit code 1500 and 3000 are outside purchased product. So, ignore to create base and skeleton
-  levelAllowedForBUCode:
-    1000: ['base', 'skeleton', 'fert']
-    1500: ['fert']
-    3000: ['fert']
+    5:  12 # base 
+    7:  18 # skeleton

@@ -5,7 +5,7 @@ namespace PTGEU\ImportBundle\Model;
 use Pimcore\Db;
 use PTGEU\ImportBundle\Services\ImportConstants;
 
-class MaterialModel
+class ProductModel
 {
     private $tempTable;
     private $masterTable;
@@ -44,8 +44,8 @@ class MaterialModel
     public function getDistributionChainFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAll($sql);
-	$flag = true;
-	if (count($salesData) > 0) {
+	    $flag = true;
+	    if (count($salesData) > 0) {
             foreach ($salesData as $rec) {
                 if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
                     $flag = false;
@@ -61,7 +61,7 @@ class MaterialModel
     public function getFittingFamilyFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; 
         $data = $this->db->fetchAll($sql);
-	$flag = false;
+	    $flag = false;
         if (count($data)>0) {
             $flag = true;
         }
@@ -69,7 +69,7 @@ class MaterialModel
     }
     
     public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_38` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `productType` = 'fert'";
         return $this->db->fetchAll($sql);
     }
 
@@ -105,8 +105,8 @@ class MaterialModel
             $valuesArr[] = $this->db->quote($data['o_key']);
             $valuesArr[] = $this->db->quote($data['path']);
             $valuesArr[] = $this->db->quote("1");
-            $valuesArr[] = $this->db->quote("1");
-            $valuesArr[] = $this->db->quote("Product");
+            $valuesArr[] = $this->db->quote("38");
+            $valuesArr[] = $this->db->quote("PTGEUProduct");
             $valuesArr[] = $this->db->quote(time());
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";
@@ -174,14 +174,7 @@ class MaterialModel
         foreach ($arrData as $data) {
             $newData = $data;
             $id = $data[0];
-            $siopfullcode = $data[5];
-            if (empty($siopfullcode)) {
-                if (!empty($data[17])) {
-                    $siopfullcode = $data[17];
-                } elseif (!empty($data[13])) {
-                    $siopfullcode = $data[13];
-                }
-            }
+            $siopfullcode = $data[6];
             $newData[4] = $siopfullcode;
             $record = addslashes(json_encode($newData, true));
             $hash   = md5($record);
@@ -210,7 +203,7 @@ class MaterialModel
     {
         try {
             $catLength  = 18;
-            $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
+            $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id /*WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) */";
             $delta      = $this->db->fetchAll($sql);
 
             return $delta;
@@ -223,7 +216,7 @@ class MaterialModel
         if (count($dataArray)>0) {
             foreach ($dataArray as $fieldName => $objectIds) {
                 $ids = implode(", ", $objectIds);
-                $sql = "Delete from `object_relations_1` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
+                $sql = "Delete from `object_relations_38` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
                 try {
                     $this->db->query($sql);
                 } catch (\Exception $e) {
@@ -298,8 +291,9 @@ class MaterialModel
     public function insertDataToLogTable($data)
     {
         try {
-            $rowCount = 1;
-            $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            $rowCount   = 1;
+            $sql        = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            $values     = '';
             foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
@@ -322,7 +316,7 @@ class MaterialModel
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_2` ";
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_39` ";
         return $this->db->fetchAll($query);
     }
 
@@ -332,12 +326,12 @@ class MaterialModel
     }
     
     public function getProducts() {
-        $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
+        $query = "SELECT oo_id, o_key, o_path FROM `object_38` ";
         return $this->db->fetchAll($query);
     }
     
     public function getObjectsTableData() {
-        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '1'";
+        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '38'";
         return $this->db->fetchAll($query);
     }
 }

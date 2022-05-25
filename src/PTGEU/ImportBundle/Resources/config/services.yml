@@ -24,10 +24,10 @@ services:
 #            - "%parameter%"
     
     # Commands
-    # this command will execute the import of SAP material
-    PTGEU\ImportBundle\Command\SAPMaterialImportCommand:
+    # this command will execute the import of SAP product
+    PTGEU\ImportBundle\Command\SAPProductImportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:ptg:eu:sap-material-import' }
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-product-import' }
 
 
     # this command will execute the import of SAP plant material
@@ -46,13 +46,18 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-hierarchy-import' }
 
+    # this command will execute the onetime import of product editable attributes
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductEditableAttributesImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-editable-attributes-import' }
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService
         public: true
 
-    import.sap_material_service:
-        class: PTGEU\ImportBundle\Services\MaterialService
+    import.sap_product_service:
+        class: PTGEU\ImportBundle\Services\ProductService
         public: true
 
     # Helpers
@@ -78,4 +83,8 @@ services:
     
     import.category_validator_service:
         class: PTGEU\ImportBundle\Services\Validator\Category
+        public: true
+
+    import.product_helper:
+        class: PTGEU\ImportBundle\Helper\Product
         public: true
