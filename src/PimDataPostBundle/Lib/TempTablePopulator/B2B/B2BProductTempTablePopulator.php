@@ -29,13 +29,14 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
     public function getPimModifiedRecordIds(): array
     {
         $salesMaterialProductIDs = $this->dao->getTodaysSaleMasterModifiedRecords();
-        $materialProductIDs =  $this->helper->getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        // $materialProductIDs =  $this->helper getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        $materialProductIDs =  $this->getAllFertsToBeUpdatedForSalesforce();
 
         $resultSet = [];
 
         if($salesMaterialProductIDs || $materialProductIDs)
         {
-            $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            $resultSet = \array_values(array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs)));
         }
 
         return $resultSet;
@@ -84,10 +85,10 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $allModifiedProductIdsWithProductType = $this->getPimModifiedProductIdsWithProductType();
         $returnValue = [];
         foreach($allModifiedProductIdsWithProductType as $productIdWithProductType){
-            if($productIdWithProductType["productType"] == "base" ){
-                $returnValue[] = array_merge($this->getFertIdsForBaseId($productIdWithProductType["o_id"]), $returnValue);
-            }elseif($productIdWithProductType["productType"] == "skeleton"){
-                $returnValue[] = array_merge($this->getFertIdsForSkeletonId($productIdWithProductType["o_id"]), $returnValue);
+            if($productIdWithProductType["ProductType"] == "base" ){
+                $returnValue = array_merge($this->getFertIdsForBaseId($productIdWithProductType["o_id"]), $returnValue);
+            }else if($productIdWithProductType["ProductType"] == "skeleton"){
+                $returnValue = array_merge($this->getFertIdsForSkeletonId($productIdWithProductType["o_id"]), $returnValue);
             }else{
                 $returnValue[] = $productIdWithProductType["o_id"];
             }
@@ -100,7 +101,7 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $skeletonIds = $this->dao->getChildrenObjectIds($baseId);
         $returnValue = [];
         foreach($skeletonIds as $skeletonId){
-            $returnValue[] = $this->getFertIdsForSkeletonId($skeletonId);
+            $returnValue =  array_merge($this->getFertIdsForSkeletonId($skeletonId), $returnValue );
         }
         return $returnValue;
     }

@@ -222,7 +222,7 @@ class TempTablePopulatorDao
         $query = "SELECT o_id FROM objects";
         $query .= " WHERE o_parentId = :parentId and o_type = 'object' ";
 
-        return $this->db->fetchCol($query);
+        return $this->db->fetchCol($query,["parentId" => $parentId]);
     }
     
 }
