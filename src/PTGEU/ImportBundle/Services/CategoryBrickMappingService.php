@@ -14,6 +14,7 @@ class CategoryBrickMappingService
      * @var \PTGEU\ImportBundle\Services\ConfigProviderService
      */
     private $configProviderService;
+    private $brickMappingConfig;
 
     /**
      * CategoryBrickMappingService constructor.
@@ -21,7 +22,8 @@ class CategoryBrickMappingService
      */
     public function __construct()
     {
-        $this->configProviderService = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+        $this->brickMappingConfig   = \Pimcore::getContainer()->get('import.config_provider_service')->getBrickMappingConfig();
     }
 
     /**
@@ -318,8 +320,7 @@ class CategoryBrickMappingService
      */
     private function getBrickMappingConfigForKey(string $key): array
     {
-        $categoryConfig = $this->configProviderService->getBrickMappingConfig();
-        return $categoryConfig[$key];
+        return $this->brickMappingConfig[$key];
     }
 
 }
