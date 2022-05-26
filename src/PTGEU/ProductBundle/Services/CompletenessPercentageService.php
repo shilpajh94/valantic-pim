@@ -85,41 +85,12 @@ class CompletenessPercentageService
         }
     }
 
-   /*  private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldLocalizedCounter)
-    {
-        $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
-        $emptyFieldLabels = '';
-        foreach ($classDefinition->getFieldDefinition($fieldName)->getFieldDefinitions() as $localizedField) {
-            $localizedFieldName = $localizedField->getName();
-            $localizedFieldTitle = $localizedField->getTitle(); 
-
-            //if (!in_array($localizedFieldName, ["CompletenessPercentage","EmptyFields"]) && !in_array($localizedFieldTitle, ["Completeness Percentage","Empty Fields"]) ) {
-                $totalFields++;
-                $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang);
-                if (!empty($localizedFieldValue)) {  
-                    $count++; 
-                } else {
-                    $emptyFieldLabels .= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$localizedFieldTitle; 
-                }
-           // }
-        }
-        if ($emptyFieldLocalizedCounter >0) {
-            if (empty($emptyAttributesLocalized)) {
-                $emptyAttributesLocalized .= $localizedHeading;
-            }
-            if (!empty($emptyFieldLabels)) {
-                $emptyAttributesLocalized .= $emptyFieldLabels;
-            }
-        }
-    } */
-
-     private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldLocalizedCounter)
+    private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldLocalizedCounter)
     {
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $emptyFieldLabels = '';
         foreach ($classDefinition->getFieldDefinition($fieldName)->getFieldDefinitions() as $localizedField) {
             
-
             //if (!in_array($localizedFieldName, ["CompletenessPercentage","EmptyFields"]) && !in_array($localizedFieldTitle, ["Completeness Percentage","Empty Fields"]) ) {
                 $totalFields++;
                 $localizedFieldName = $localizedField->getName();
@@ -130,7 +101,7 @@ class CompletenessPercentageService
                 } else {
                     $emptyFieldLabels .= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$localizedFieldTitle; 
                 }
-           // }
+        // }
         }
         if ($emptyFieldLocalizedCounter >0) {
             if (empty($emptyAttributesLocalized)) {
