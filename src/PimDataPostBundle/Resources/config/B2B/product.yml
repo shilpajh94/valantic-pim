@@ -533,7 +533,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_InsideDiameterinDecimal__c
-            pim_attribute_type: numric
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -1757,9 +1757,9 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_NumberOfHelixWires__c
-            pim_attribute_type:
+            pim_attribute_type: numeric
             sf_relational_attribute:
-            allowed_object_class_name: numeric
+            allowed_object_class_name:
             is_multilingual_for_sf:
             container_pim_class_or_brick_name: HoseBase
             pim_attribute_for_sf_in_allowed_object_class_name:
