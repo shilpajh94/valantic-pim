@@ -63,7 +63,7 @@ class B2BCategoryDataPoster implements IDataPoster
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
-            for($level = 1; $level <= 6; $level++){
+            for($level = 2; $level <= 4; $level++){
                 $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
                 $categoriesEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreateByLevel($level);
 
@@ -157,10 +157,25 @@ class B2BCategoryDataPoster implements IDataPoster
     private function insertProductIdsInTempTable(B2BCategoryTempTablePopulator $tempTablePopulator, array $ids): void
     {
         $tempTableData = $tempTablePopulator->getTempTableDataForIds($ids);
+        $tempTableData = $this->filterValidCategories($tempTableData);
         $tempTableDataWithHashes = $tempTablePopulator->addHashesToTempTableData($tempTableData);
         $tempTablePopulator->insertDataInTempTable($tempTableDataWithHashes);
     }
 
+    private function filterValidCategories(array $tempTableDataOfCategories): array
+    {
+        $returnValue = [];
+        foreach($tempTableDataOfCategories as $tempTableDataOfSingleCategory){
+            if($this->isCategoryLevelValidForSF($tempTableDataOfSingleCategory["Level"])){
+                $returnValue[] = $tempTableDataOfSingleCategory;
+            }
+        }
+        return $returnValue;
+    }
 
+    private function isCategoryLevelValidForSF(string $level): bool
+    {
+        return in_array(strval($level), ['2','3','4']);
+    }
 
 }

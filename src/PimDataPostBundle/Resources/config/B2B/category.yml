@@ -162,24 +162,24 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        # image:
-        #     pim_attribute_name: image
-        #     pim_table_name: object_2
-        #     sendToSF: true
-        #     temp_master_table_attr: true
-        #     temp_master_table_column_type: int(11) NULL
-        #     sf_relational_attribute: true
-        #     sf_attribute_name: B2B_Category_Image__c
-        #     joinOn:
-        #     addOnJoin:
-        #     pim_attribute_type: image
-        #     allowed_object_class_name:
-        #     is_multilingual_for_sf:
-        #     container_pim_class_or_brick_name: ProductCategory
-        #     pim_attribute_for_sf_in_allowed_object_class_name:
-        #     pim_id_to_sf_id_mapping_model:
-        #     update_product_if_master_updated:
-        #     isLocalisedMaster:
+        image:
+            pim_attribute_name: image
+            pim_table_name: object_2
+            sendToSF: true
+            temp_master_table_attr: true
+            temp_master_table_column_type: int(11) NULL
+            sf_relational_attribute: false
+            sf_attribute_name: B2B_Image_URL__c
+            joinOn:
+            addOnJoin:
+            pim_attribute_type: image
+            allowed_object_class_name:
+            is_multilingual_for_sf:
+            container_pim_class_or_brick_name: ProductCategory
+            pim_attribute_for_sf_in_allowed_object_class_name:
+            pim_id_to_sf_id_mapping_model:
+            update_product_if_master_updated:
+            isLocalisedMaster:
         basicHash:
             pim_attribute_name: basicHash
             pim_table_name:

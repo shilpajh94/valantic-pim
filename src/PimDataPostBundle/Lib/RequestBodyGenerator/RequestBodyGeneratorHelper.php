@@ -74,7 +74,7 @@ class RequestBodyGeneratorHelper
         foreach ($valueArray as $val) {
             $returnArray[] = $this->getSelectTypeValue($val, $config, $language);
         }
-        return $returnArray[0] ? $returnArray[0] : "";
+        return $returnArray;
     }
     
     /**

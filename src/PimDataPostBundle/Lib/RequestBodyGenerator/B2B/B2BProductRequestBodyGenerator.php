@@ -90,14 +90,19 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                             $fnc = "getMultiRelationTypeValue";
                         }
                         if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
-                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
+                            $pimValue = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
+                            if($type === strval(PimFieldType::MULTISELECT())){
+                                $pimValue = implode(";", $pimValue);
+                            }
+                            $returnArray[$attributeConfig['sf_attribute_name']] = $pimValue;
+                            
                         }
+
                     }
                 }
             }
         }
         $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
-        // $returnArray["Type"] = null;
 
         return $returnArray;
     }

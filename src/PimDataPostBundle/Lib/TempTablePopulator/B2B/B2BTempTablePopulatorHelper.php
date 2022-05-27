@@ -12,6 +12,7 @@ class B2BTempTablePopulatorHelper extends TempTablePopulatorHelper
     public function __construct()
     {
         $this->dao = new TempTablePopulatorDao();
+        parent::__construct();
     }
 
     public function truncateTempTable(string $tableName): bool

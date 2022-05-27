@@ -18,4 +18,11 @@ class CategoryRelationChangeProviderDao
         $listing = $listing->setCondition(" businessUnit = 'PTG' AND attributeName = 'SIOPLevel6' ");
         return $listing->load();
     }
+
+    public function getSIOPLevel4Categories(): array
+    {
+        $listing = new B2BProductRelationChange\Listing();
+        $listing = $listing->setCondition(" attributeName = 'SIOPLevel4' ");
+        return $listing->load();
+    }
 }

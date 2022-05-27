@@ -111,8 +111,8 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
     }
     
     public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
-        
-        if($level == 1){
+        // PIM level 2 categories needs to be root level categories in SF
+        if($level == 1 || $level == 2  ){
             return null;
         }
 
