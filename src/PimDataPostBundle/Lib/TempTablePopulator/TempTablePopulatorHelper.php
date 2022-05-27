@@ -24,4 +24,41 @@ class TempTablePopulatorHelper
     {
         return $this->dao->filterIFSPTGProducts($productIds);
     }
+
+    private function getPimModifiedProductIdsWithProductType(string $productTableName): array
+    {
+        return $this->dao->getPimModifiedProductIdsWithProductType($productTableName);
+    }
+
+    public function getAllFertsToBeUpdatedForSalesforce(string $productTableName): array
+    {
+        $allModifiedProductIdsWithProductType = $this->getPimModifiedProductIdsWithProductType($productTableName);
+        $returnValue = [];
+        foreach($allModifiedProductIdsWithProductType as $productIdWithProductType){
+            if($productIdWithProductType["ProductType"] == "base" ){
+                $returnValue = array_merge($this->getFertIdsForBaseId($productIdWithProductType["o_id"]), $returnValue);
+            }else if($productIdWithProductType["ProductType"] == "skeleton"){
+                $returnValue = array_merge($this->getFertIdsForSkeletonId($productIdWithProductType["o_id"]), $returnValue);
+            }else{
+                $returnValue[] = $productIdWithProductType["o_id"];
+            }
+        }
+        return $returnValue;
+    }
+
+    private function getFertIdsForBaseId(int $baseId): array
+    {
+        $skeletonIds = $this->dao->getChildrenObjectIds($baseId);
+        $returnValue = [];
+        foreach($skeletonIds as $skeletonId){
+            $returnValue =  array_merge($this->getFertIdsForSkeletonId($skeletonId), $returnValue );
+        }
+        return $returnValue;
+    }
+
+    private function getFertIdsForSkeletonId(int $skeletonId): array
+    {
+        return $this->dao->getChildrenObjectIds($skeletonId);
+    }
+
 }

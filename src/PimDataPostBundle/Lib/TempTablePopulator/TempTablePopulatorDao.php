@@ -224,5 +224,16 @@ class TempTablePopulatorDao
 
         return $this->db->fetchCol($query,["parentId" => $parentId]);
     }
+
+    public function getPimModifiedProductIdsWithProductType(string $productTableName): array
+    {
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+        
+        $query = "SELECT `o_id`,`productType` FROM {$productTableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+        $resultSet = $this->db->fetchAll($query);
     
+        return ($resultSet) ? $resultSet : [];
+    }
+
 }
