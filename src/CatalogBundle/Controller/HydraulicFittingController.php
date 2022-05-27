@@ -69,7 +69,6 @@ class HydraulicFittingController extends AbstractController
             $objColumnsData = $obj->getColumns();
 
             $this->iconRequired = 'YES';
-            // $this->subHeaderRequired = 'NO';
             $this->columnsData = json_decode($objColumnsData, true);
 
             $this->columnsData['ElbowType']['columnName'] = 'ElbowType';
@@ -79,162 +78,117 @@ class HydraulicFittingController extends AbstractController
 
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
-
             $brandsList = $this->getBrandsList();
 
-            // $attrbuteImgS3Arr = array();
-
             $brandsData = array();
-
             if($productsData)
             {
-
                 foreach ($productsData as $key => $item)
                 {
                     $brandName = $item[$headerKeysIndex['brandName']][0];
-                    // $BrandShortText1 = $item[$headerKeysIndex['BrandShortText1']];
+                    $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
 
-                    if(!empty($brandName))
+                    if(!empty($brandName) && !empty($FittingTableName))
                     {
-                        // $uniqueId = ($brandName);
-                        // $uniqueId = md5($brandName);
-                        $brandsData[$brandName][] = $item;
+                        if(isset($item[$headerKeysIndex['HoseID1InFract']]) && !empty($item[$headerKeysIndex['HoseID1InFract']])) {
+                            $hoseID = $common->fractionToDecimal($item[$headerKeysIndex['HoseID1InFract']]);
+                        } else {
+                            $hoseID = 0;
+                        }
+                        $brandsData[$brandName][$FittingTableName][strval($hoseID)][] = $item;
+                        unset($hoseID);
                     }
-                    // else if(!empty($BrandShortText1))
-                    // {
-                    //     $uniqueId = ($BrandShortText1);
-                    //     // $uniqueId = md5($BrandShortText1);
-                    //     $brandsData[$uniqueId][] = $item;
-                    // }
-                    unset($item);
                 }
+            }
+            unset($productsData);
 
-                unset($productsData);
+            foreach ($brandsData as $brandName => $fittingTables) {
+                foreach ($fittingTables as $fittingTable => $allSortedGroupList) {
+                    ksort($brandsData[$brandName][$fittingTable],SORT_NUMERIC);
+                }
             }
 
             $newBrandArray = array();
             $HydFittingFamilyArr = array();
             if($brandsData)
             {
-                foreach ($brandsData as $brandKey => $brand)
+                foreach ($brandsData as $brandKey => $fittingTables)
                 {
-
-                    $shortDescription = '';
-                    // $BrandShortText1 = '';
-                    $LeftPrintCatalogImageObj = '';
-                    $RightPrintCatalogImageObj = '';
-                    $brandName = '';
-
-                    foreach ($brand as $bkey => $bvalue) {
-
-                        $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
-                        $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
-                        if($FittingTableName && is_array($FittingTableKeys))
+                    foreach ($fittingTables as $FittingTableName => $articlesGroups) 
+                    {
+                        $shortDescription = '';
+                        $LeftPrintCatalogImageObj = '';
+                        $RightPrintCatalogImageObj = '';
+                        foreach ($articlesGroups as $agkey => $articles) 
                         {
-                            if(!$brandName && $bvalue[$headerKeysIndex['brandName']][0]) {
-                                $brandName = $bvalue[$headerKeysIndex['brandName']][0];
-                            }
+                            foreach ($articles as $akey => $bvalue) 
+                            {
+                                $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                                if(is_array($FittingTableKeys))
+                                {
+                                    if($bvalue[$headerKeysIndex['HydFittingFamily']][0]) {
+                                        $HydFittingFamilyArr[$bvalue[$headerKeysIndex['HydFittingFamily']][0]] = $bvalue[$headerKeysIndex['HydFittingFamily']][0];
+                                    }
 
-                            if($bvalue[$headerKeysIndex['HydFittingFamily']][0]) {
-                                $HydFittingFamilyArr[$bvalue[$headerKeysIndex['HydFittingFamily']][0]] = $bvalue[$headerKeysIndex['HydFittingFamily']][0];
-                            }
+                                    if(!$shortDescription && $bvalue[$headerKeysIndex['shortDescription']]) {
+                                        $shortDescription = $bvalue[$headerKeysIndex['shortDescription']];
+                                    }
 
-                            if(!$shortDescription && $bvalue[$headerKeysIndex['shortDescription']]) {
-                                $shortDescription = $bvalue[$headerKeysIndex['shortDescription']];
-                            }
+                                    if(!$LeftPrintCatalogImageObj && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                        $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
+                                    }
 
-                            // if(!$BrandShortText1 && $bvalue[$headerKeysIndex['BrandShortText1']]) {
-                            //     $BrandShortText1 = $bvalue[$headerKeysIndex['BrandShortText1']];
-                            // }
+                                    if(!$RightPrintCatalogImageObj && $bvalue[$headerKeysIndex['RightPrintCatalogImage']]) {
+                                        $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['RightPrintCatalogImage']]);
+                                    }
 
-                            if(!$LeftPrintCatalogImageObj && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
-                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]))
-                                // {
-                                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
-                                    // if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
-                                    // {
-                                    //     $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
-                                    // }
-                                    // unset($LeftPrintCatalogImage);
-                                // }
-                            }
+                                    $articlesData = array();
+                                    $this->subHeaderRequired = 'NO';
 
-                            if(!$RightPrintCatalogImageObj && $bvalue[$headerKeysIndex['RightPrintCatalogImage']]) {
-                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['RightPrintCatalogImage']]))
-                                // {
-                                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['RightPrintCatalogImage']]);
-                                    // if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
-                                    // {
-                                    //     $RightPrintCatalogImageObj = $RightPrintCatalogImage;
-                                    // }
-                                    // unset($RightPrintCatalogImage);
-                                // }
-                            }
+                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
 
-                            if(isset($bvalue[$headerKeysIndex['HoseID1InFract']]) && !empty($bvalue[$headerKeysIndex['HoseID1InFract']])) {
-                                $hoseID = $common->fractionToDecimal($bvalue[$headerKeysIndex['HoseID1InFract']]);
-                            } else {
-                                $hoseID = 0;
-                            }
+                                    // Getting order of the keys
+                                    $orderKeys = array();
+                                    foreach ($columnsDataWithImages as $skey => $svalue) {
+                                        foreach ($svalue as $vkey => $vvalue) {
+                                                $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                                        }
+                                    }
 
-                            //$FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                                    if($bvalue[$headerKeysIndex['DescriptivePartNumber']])
+                                    {
+                                        $partialPartNumberArray = explode('-',$bvalue[$headerKeysIndex['DescriptivePartNumber']]);
+                                        $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
+                                        $bvalue[]= $nomenClatureList[$partialPartNumber];
+                                    }
+                                    else
+                                    {
+                                        $bvalue[]= '';
+                                    }
 
-                            // $columnsDataWithImages = array();
-                            $articlesData = array();
-                            $this->subHeaderRequired = 'NO';
+                                    foreach ($orderKeys as $ckey => $cvalue) {
+                                        $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
+                                    }
 
-                            $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
-
-                            // Getting order of the keys
-                            $orderKeys = array();
-                            foreach ($columnsDataWithImages as $skey => $svalue) {
-                                foreach ($svalue as $vkey => $vvalue) {
-                                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][$agkey][] = $articlesData;
+                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
+                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
+                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['brandName'] = $brandKey;
+                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['shortDescription'] = $shortDescription;
+                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                                 }
                             }
-
-                            if($bvalue[$headerKeysIndex['DescriptivePartNumber']])
-                            {
-                                $partialPartNumberArray = explode('-',$bvalue[$headerKeysIndex['DescriptivePartNumber']]);
-                                $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
-                                $bvalue[]= $nomenClatureList[$partialPartNumber];
-                            }
-                            else
-                            {
-                                $bvalue[]= '';
-                            }
-
-                            foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
-                            }
-
-                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][strval($hoseID)][] = $articlesData;
-                            ksort($newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'],SORT_NUMERIC);
-                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
-                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
-                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['brandName'] = $brandName;
-                            // $newBrandArray[$key][$FittingTableName]['brandData']['HydFittingFamily'] = $HydFittingFamily;
-                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['shortDescription'] = $shortDescription;
-                            // $newBrandArray[$key][$FittingTableName]['brandData']['BrandShortText1'] = $BrandShortText1;
-                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
-                            // $newBrandArray[$key][$FittingTableName]['SortOrder'] = $brandsList[$BrandShortText1];
-                        
-                            unset($hoseID);
                         }
-
                     }
-                    $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandName];
+                    $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
                     unset($brandsData[$brandKey]);
                 }
-                
                 if($newBrandArray)
                     array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
             }
 
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
