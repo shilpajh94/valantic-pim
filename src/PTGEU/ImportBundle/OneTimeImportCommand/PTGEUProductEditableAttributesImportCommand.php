@@ -76,8 +76,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
                     if(!empty($product))
                     {
-                        $productClassBricks = $this->getProductClassBricks($product);
-                        $allObjectBricks    = $productClassBricks;
+                        $allObjectBricks = $this->getProductAssociatedBricks($product);
                         
                         $bricksData = [];
                         foreach ($productData as $fieldCVSKey => $fieldValue) 
@@ -120,7 +119,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                                 else
                                 {
                                     $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
-                                    $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
                                     $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
                                 }
                             }
@@ -210,7 +208,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     /*
      * @param $prodObject
      */
-    private function getProductClassBricks($prodObject)
+    private function getProductAssociatedBricks($prodObject)
     {
         $bricks    = [];
         $classDefinition = ClassDefinition::getByName($prodObject->getClassName());
