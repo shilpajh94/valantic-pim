@@ -56,15 +56,11 @@ class SalesMaterialService
 
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
-          //  p_r($this->filePath);die;
-
 
         $csvImportedData = ImportService::getCSVData($this->filePath);
-        //p_r($csvImportedData);die;
 
         $this->fileColumns = $csvImportedData['header'];
         $excelDataNewArray = $csvImportedData['data'];
-       // p_r($csvImportedData['header']);die;
         unset($csvImportedData);
 
         $this->monitoringItem->getLogger()->info('File Information');
@@ -80,23 +76,16 @@ class SalesMaterialService
         $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
         $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
 
-     /*    p_r($plantFolderId);
-        p_r($salesOrganizationsFolderId);
-        p_r($distributionChannelFolderId);
-        p_r($countryOfOriginFolderId);die; */
-
         $allSuccess = true;
         $applicationLogMessage = '';
         if(count($excelDataNewArray) > 1)
         {
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
             $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
-           // p_r($this->mappingCsvColumn);die;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
            
             $csvRowCount = count($excelDataNewArray);
-           // p_r($csvRowCount);die;//4
             echo "Truncating temp table...".PHP_EOL; 
             $t = new \DateTime();
             $this->tableImportHelper->truncateTempTable();
@@ -105,7 +94,7 @@ class SalesMaterialService
             
             echo "Inserting temp table...".PHP_EOL;
             $time1 = new \DateTime();
-            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
+            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);   
             $timediff1 = $time1->diff(new \DateTime());
             echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
             unset($excelDataNewArray);
@@ -122,14 +111,13 @@ class SalesMaterialService
 
             echo "Getting delta records...".PHP_EOL;
             $t1 = new \DateTime();
-            $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
+            $excelDataNewArray = $this->tableImportHelper->getDelta();        
             $td1 = $t1->diff(new \DateTime());
             echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
             
             $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
-          //  p_r($deltaCount);die;//1
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
             if($deltaCount > 0)
             {
@@ -145,8 +133,7 @@ class SalesMaterialService
                     }
                     
                     $partialData = array_slice($excelDataNewArray, $i, $length);
-                   // array_slice(array, start, length, preserve)
-                   // p_r($partialData);die;
+                  
                     $i = $i+$length;
                     echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
                     $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
@@ -264,7 +251,6 @@ class SalesMaterialService
                 { 
                     if(empty($this->materialArray[$material])) {
                         $materialId = $this->getMaterialObject($material);
-                        //$materialId = '12333';
                         if ($materialId) {
                             $this->materialArray[$material] = $materialId;
                         }
@@ -476,15 +462,14 @@ class SalesMaterialService
                     $level = '';
                     $product = DataObject\PTGEUProduct::getById($objectId);
                     $currentPath = $product->getPath();
-                    $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
-                    $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/Quote/";
+                    $hierarchyLevel3Path = $product->getHierarchyLevel3()[0]->getFullpath();
+                    $siopProductPath = $this->convertCategoryPathToProduct($hierarchyLevel3Path)."/Quote/";
                     if ($siopProductPath == $currentPath) {
                         $flag = true;
                     }
                 }
                 if ($flag) {
                     $product = DataObject\PTGEUProduct::getById($objectId);
-                    p_r($product);die;
                     $parentFolder = $this->getParentObject($product, $level);
                     if ($parentFolder['success']) {
                         $productUpdateArray[] = [
@@ -500,24 +485,24 @@ class SalesMaterialService
         }
     }
     public function getParentObject($object, $level = '') {
-        $currentParent = $object->getParent();
+         $currentParent = $object->getParent();
         if ($level == 3) {
-            $siopLevel3 = $object->getSIOPLevel3()[0];
-            $siopPath = $siopLevel3->getFullpath();
+            $hierarchyLevel3 = $object->getHierarchyLevel3()[0];
+            $siopPath = $hierarchyLevel3->getFullpath();
             $productPath = $this->convertCategoryPathToProduct($siopPath)."/Quote";
             $productFolderId = $this->getFolderByPath($productPath);
             return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
         } else {
             $siopCode = $object->getSiopFullCode();
             if (strlen($siopCode) == 18) {
-                $siopLevel6 = $object->getSIOPLevel6()[0];
-                $siopPath = $siopLevel6->getFullpath();
+                $hierarchyLevel6 = $object->getHierarchyLevel6()[0];
+                $siopPath = $hierarchyLevel6->getFullpath();
                 $productPath = $this->convertCategoryPathToProduct($siopPath);
                 $productFolderId = $this->getFolderByPath($productPath);
                 return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
             } elseif (strlen($siopCode) == 13) {
-                $siopLevel4 = $object->getSIOPLevel4()[0];
-                $siopPath = $siopLevel4->getFullpath();
+                $hierarchyLevel4 = $object->getHierarchyLevel4()[0];
+                $siopPath = $hierarchyLevel4->getFullpath();
                 $productPath = $this->convertCategoryPathToProduct($siopPath);
                 $oldMaterialCode = trim($object->getOldMaterialCode());
                 if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
@@ -690,7 +675,7 @@ class SalesMaterialService
     }
 
     /**
-     * return distribution channel object
+     * return Country of origin object
      */
     public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId){
         
