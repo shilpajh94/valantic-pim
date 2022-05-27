@@ -76,6 +76,10 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
                     if(!empty($product))
                     {
+                        $productClassBricks = $this->getProductClassBricks($product);
+                        $allObjectBricks    = $productClassBricks;
+                        
+                        $bricksData = [];
                         foreach ($productData as $fieldCVSKey => $fieldValue) 
                         { 
                             $fieldCVSKey = trim($fieldCVSKey);
@@ -83,37 +87,78 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                             {
                                 $fieldConfig= $productImportConfig[$fieldCVSKey];
                                 $fieldName  = ucfirst($fieldConfig['fieldName']);
-                                $fieldType = $fieldConfig['fieldType'];
-
-                                if (($fieldType == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
-                                    $colNameArray[]         = $fieldCVSKey;
-                                    $incorrectDataArray[]   = $fieldValue;
-                                }
-
-                                $method = 'set' . $fieldName;
-
-                                if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+                                $fieldType  = $fieldConfig['fieldType'];
+                                $objectType = $fieldConfig['objectType'];
+                                if ($objectType == 'class') 
                                 {
-                                    $fieldValueArr  = explode(',', trim($fieldValue));
-                                    $featureValueArr = [];
-                                    foreach ($fieldValueArr as $feature) {
-                                        $objFeatures = new DataObject\Features\Listing();
-                                        $objFeatures->setCondition('Name = ?', trim($feature));
-                                        foreach ($objFeatures as $featureData) {
-                                            $featureValueArr[] = $featureData->getId();
-                                        }
+                                    if (($fieldType == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
+                                        $colNameArray[]         = $fieldCVSKey;
+                                        $incorrectDataArray[]   = $fieldValue;
                                     }
-                                    $fieldValue = array_map('trim', $featureValueArr);
-                                    $product->$method($fieldValue);
+
+                                    $method = 'set' . $fieldName;
+
+                                    if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+                                    {
+                                        $fieldValueArr  = explode(',', trim($fieldValue));
+                                        $featureValueArr = [];
+                                        foreach ($fieldValueArr as $feature) {
+                                            $objFeatures = new DataObject\Features\Listing();
+                                            $objFeatures->setCondition('Name = ?', trim($feature));
+                                            foreach ($objFeatures as $featureData) {
+                                                $featureValueArr[] = $featureData->getId();
+                                            }
+                                        }
+                                        $fieldValue = array_map('trim', $featureValueArr);
+                                        $product->$method($fieldValue);
+                                    }
+                                    else
+                                    {
+                                        $product->$method($fieldValue, 1);
+                                    }
                                 }
                                 else
                                 {
-                                    $product->$method($fieldValue, 1);
+                                    $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                    $bricksData[$fieldConfig['objectType']][$fieldName]['blockName'] = $fieldConfig['blockName'];
+                                    $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
                                 }
                             }
                             else
                             {
                                 $colNameArray[] = $fieldCVSKey. 'does not exists in configuration file.';
+                            }
+                        }
+                        
+                        if(!empty($allObjectBricks)) 
+                        {
+                            foreach($allObjectBricks as $brickType=>$bricks) 
+                            {
+                                foreach($bricks as $brick) 
+                                {
+                                    if (isset($bricksData[$brick])) 
+                                    {
+                                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                                        $brickObject = new $class($product);
+                                        foreach ($bricksData[$brick] as $fieldKey => $fieldData) 
+                                        {
+                                            $fieldValue = trim($fieldData['fieldValue']);
+
+                                            if (($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
+                                                $colNameArray[] = $fieldKey;
+                                                $incorrectDataArray[] = $fieldValue;
+                                            }
+
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                            $brickObject->$objectBrickFieldMethod($fieldValue, 1);
+                                            $brickObject->setFieldname($brickType);
+                                            $method = 'set' . $brick;
+                                            $bickTypeMethod = 'get' . ucfirst($brickType);
+                                            $product->$bickTypeMethod()->$method($brickObject, 1);
+                                        }
+                                    }
+                                }
                             }
                         }
 
@@ -143,6 +188,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                         $importStatus
                     ));
                 }
+
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
@@ -159,5 +205,33 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         $csvDelimiter = ",";
 
         fputcsv($logHandler, $dataRow, $csvDelimiter);
+    }
+
+    /*
+     * @param $prodObject
+     */
+    private function getProductClassBricks($prodObject)
+    {
+        $bricks    = [];
+        $classDefinition = ClassDefinition::getByName($prodObject->getClassName());
+        foreach ($classDefinition->getFieldDefinitions() as $field) 
+        {
+            $fieldName = $field->getName();
+            $fieldType = $field->getFieldType();
+            if($fieldType == "objectbricks") 
+            {
+                $classBricks = $field->getAllowedTypes();
+                $getType   = 'get'.ucfirst($fieldName);
+                foreach($classBricks as $brickName)
+                {
+                    $getBrickName   = 'get'.ucfirst($brickName);
+                    if(!empty($prodObject->$getType()->$getBrickName()))
+                    {
+                        $bricks[$fieldName][] = $brickName;
+                    }
+                }
+            }
+        }
+        return $bricks;
     }
 }
