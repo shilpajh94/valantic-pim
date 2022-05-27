@@ -2,7 +2,7 @@ parameters:
   mappingCsvColumn: 
     'material': 'SAPMaterialCode'
     'salesOrgCode' : 'SalesOrgCode'
-    'salesOrgName' : 'salesOrgDesc'
+    'salesOrgName' : 'Sales Org Desc'
     'distributionChannelCode' : 'DCCode'
     'distributionChannelName' : 'Dist Channel Desc'
     'deliveringPlantCode' : 'DeliveringPlantCode'

@@ -235,6 +235,7 @@ class SalesMaterialModel
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
             $delta = $this->db->fetchAll($sql);
+           // p_r($delta);die;=$data
 
             return $delta;
         } catch (\Exception $ex) {
