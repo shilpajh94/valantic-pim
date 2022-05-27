@@ -106,3 +106,29 @@ PDF LINK:
     fieldName: pdfLINK
     fieldType: Input
     objectType: class
+
+#Setting of object 
+PAH:
+    fieldName: pah
+    fieldType: Input
+    objectType: PTGEUCommonBase
+Electrical Conductivity:
+    fieldName: electricalConductivity
+    fieldType: Input
+    objectType: PTGEUCommonBase
+Belt/Flank Angle:
+    fieldName: beltFlankAngle
+    fieldType: Number
+    objectType: PTGEUCommonBase
+Fabric Type:
+    fieldName: fabricType
+    fieldType: Input
+    objectType: PTGEUVBeltsBase
+Fabric Color:
+    fieldName: fabricColor
+    fieldType: Input
+    objectType: PTGEUVBeltsBase
+Match Maker L=L:
+    fieldName: matchMakerLL
+    fieldType: Input
+    objectType: PTGEUVBeltsBase
