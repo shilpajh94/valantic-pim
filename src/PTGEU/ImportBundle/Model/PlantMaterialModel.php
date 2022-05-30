@@ -10,9 +10,6 @@ class PlantMaterialModel
     private $tempTable;
     private $masterTable;
     private $logTable;
-    private $fileColumns;
-    private $keyColumns;
-    private $mappingCsvColumn;
     private $db;
 
     /**
@@ -21,19 +18,9 @@ class PlantMaterialModel
     public function __construct()
     {
         $this->db = Db::get();
-        $this->tempTable = 'material_plant_import_temp';
-        $this->masterTable = 'material_plant_import_master';
-        $this->logTable = 'material_plant_import_log';
-    }
-
-    /**
-     * Initilize table name
-     */
-    public function init($table)
-    {
-        $this->fileColumns = $table['fileColumns'];
-        $this->keyColumns = $table['keyColumns'];
-        $this->mappingCsvColumn = $table['mappingCsvColumn'];
+        $this->tempTable = 'ptgeu_material_plant_import_temp';
+        $this->masterTable = 'ptgeu_material_plant_import_master';
+        $this->logTable = 'ptgeu_material_plant_import_log';
     }
 
     public function insertIntoMaterialTable($dataArray, $tableName) {
@@ -92,8 +79,8 @@ class PlantMaterialModel
 	        $valuesArr[] = $this->db->quote($data['o_key']);
 	        $valuesArr[] = $this->db->quote($data['o_path']);
 	        $valuesArr[] = $this->db->quote("1");
-	        $valuesArr[] = $this->db->quote("12");
-	        $valuesArr[] = $this->db->quote("PlantMaterialMaster");
+	        $valuesArr[] = $this->db->quote("40");
+	        $valuesArr[] = $this->db->quote("PTGEUPlantMaterialMaster");
 	        $valuesArr[] = $this->db->quote(time());
 	        $valuesArr[] = $this->db->quote(time());
 	        $values = " (".implode(', ', $valuesArr).") ";
@@ -105,19 +92,6 @@ class PlantMaterialModel
     		print_r($e->getMessage()); die;
     	}
         return $lastId;
-    }
-
-    private function createId($data)
-    {
-        $keyColumnValues = array();
-        foreach($this->keyColumns as $key =>$keyColumn)
-        {
-            $column = $this->mappingCsvColumn[$keyColumn];
-            $keyColumnValues[] = $data[$column];
-        }
-
-        $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
-        return $id;
     }
 
     public function deleteFailedRecordsFromMaster($failedRecords) {
@@ -144,8 +118,7 @@ class PlantMaterialModel
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                // $id = $this->createId($tempData);
-                $id = $tempData['Material'].'$'.$tempData['Plant'].'$'.$tempData['Sales Organization'].'$'.$tempData['Distribution Channel'];
+                $id = $tempData['SAPMaterialCode'].'$'.$tempData['DeliveringPlantCode'].'$'.$tempData['SalesOrgCode'].'$'.$tempData['DCCode'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
@@ -211,7 +184,7 @@ class PlantMaterialModel
     {        
         try {
             $this->db->query("TRUNCATE {$this->masterTable}");
-            $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $sql = "INSERT INTO {$this->masterTable} SELECT * FROM {$this->tempTable};";
             $this->db->query($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();

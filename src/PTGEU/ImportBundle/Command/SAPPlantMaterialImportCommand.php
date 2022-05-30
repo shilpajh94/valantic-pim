@@ -16,7 +16,7 @@ class SAPPlantMaterialImportCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        /*$serviceObj = \Pimcore::getContainer()->get('import.sap_plant_material_import');
-        $serviceObj->import();*/
+        $serviceObj = \Pimcore::getContainer()->get('import.sap_plant_material_import');
+        $serviceObj->import();
     }
 }

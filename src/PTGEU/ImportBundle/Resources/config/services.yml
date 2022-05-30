@@ -56,8 +56,12 @@ services:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService
         public: true
 
-    import.sap_product_service:
-        class: PTGEU\ImportBundle\Services\ProductService
+    # import.sap_material_service:
+    #     class: PTGEU\ImportBundle\Services\MaterialService
+    #     public: true
+
+    import.sap_plant_material_import:
+        class: PTGEU\ImportBundle\Services\PlantMaterialService
         public: true
 
     # Helpers
