@@ -11,7 +11,6 @@ class SalesMaterialModel
     private $masterTable;
     private $logTable;
     private $fileColumns;
-    private $keyColumns;
     private $mappingCsvColumn;
     private $db;
 
@@ -32,7 +31,6 @@ class SalesMaterialModel
     public function init($table)
     {
         $this->fileColumns = $table['fileColumns'];
-        $this->keyColumns = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
 

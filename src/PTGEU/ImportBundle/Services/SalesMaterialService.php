@@ -25,7 +25,6 @@ class SalesMaterialService
     private $tableImportHelper;
     private $common;
     private $fileColumns = array();
-    private $keyColumns = array();
     private $mappingCsvColumn = array();
     private $materialArray = array();
     private $plantArray = array();
@@ -38,8 +37,8 @@ class SalesMaterialService
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
 
-    public function __construct()
-    {
+    public function __construct() {
+    
         $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
@@ -49,7 +48,6 @@ class SalesMaterialService
 
         $this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup'); ///???
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
-        $this->keyColumns = $this->common->getParameter($salesMaterialConfig, 'keyColumns');
     }
 
     public function import() {
@@ -62,6 +60,11 @@ class SalesMaterialService
         $this->fileColumns = $csvImportedData['header'];
         $excelDataNewArray = $csvImportedData['data'];
         unset($csvImportedData);
+
+        $this->importStart($excelDataNewArray);
+    }
+
+    public function importStart($excelDataNewArray) {
 
         $this->monitoringItem->getLogger()->info('File Information');
         $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
@@ -78,11 +81,10 @@ class SalesMaterialService
 
         $allSuccess = true;
         $applicationLogMessage = '';
-        if(count($excelDataNewArray) > 1)
-        {
+        if(count($excelDataNewArray) > 1) {
+        
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
             $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
-            $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
            
             $csvRowCount = count($excelDataNewArray);
@@ -119,10 +121,8 @@ class SalesMaterialService
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-            if($deltaCount > 0)
-            {
+            if($deltaCount > 0) {
                 $j = 1;
-
                 $i = 0;
                 $length = ImportConstants::IMPORT_BATCH_SIZE;
                 while ($i<$deltaCount) {
@@ -138,7 +138,6 @@ class SalesMaterialService
                     echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
                     $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
                     $partialData = null;
-                    $this->processObsleteFlagMaterials();
                     $this->productUpdateArray = [];
                     \Pimcore::collectGarbage();
                     gc_collect_cycles();
@@ -150,16 +149,14 @@ class SalesMaterialService
                 $countMsg .= "\nCreated Records:".$this->createdCount.", ";
                 $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
 
-                if ($this->failedCount > 0) 
-                {
+                if ($this->failedCount > 0) {
                     $allSuccess = false;
                     $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
-                }else
+                } else {
                     $applicationLogMessage = "Sales Material Master Imported successfully.";
-                    
+                }   
                 $applicationLogMessage .= $countMsg;
-            }
-            else{
+            } else {
                 $applicationLogMessage = "No delta records found.";
             }
             
@@ -170,9 +167,7 @@ class SalesMaterialService
             
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
             
-        }
-        else
-        {
+        } else {
             $applicationLogMessage = "No record found in file.";
         }
         
@@ -193,6 +188,7 @@ class SalesMaterialService
     }
 
     public function processSlicedData($data, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
+        
         $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
@@ -223,11 +219,11 @@ class SalesMaterialService
             $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
             
-            $plantName = $rowvalue[$columnPlant];//10
-            $material = $rowvalue[$columnMaterial]; //ZX0820
-            $salesOrg = $rowvalue[$columnSalesOrg];//4
-            $distributionChannel = $rowvalue[$columnDistributionChannel]; //1
-            $countryOfOrigin = $rowvalue[$columnCountryOfOrigin]; //DE
+            $plantName = $rowvalue[$columnPlant];
+            $material = $rowvalue[$columnMaterial];
+            $salesOrg = $rowvalue[$columnSalesOrg];
+            $distributionChannel = $rowvalue[$columnDistributionChannel];
+            $countryOfOrigin = $rowvalue[$columnCountryOfOrigin];
             
             $errorsData = array();
 
@@ -248,7 +244,7 @@ class SalesMaterialService
             } 
             if(!count($errorsData)) {
                 try
-                { 
+                {
                     if(empty($this->materialArray[$material])) {
                         $materialId = $this->getMaterialObject($material);
                         if ($materialId) {
@@ -322,7 +318,7 @@ class SalesMaterialService
                             $this->updatedCount++;
                         }
             
-                        $objId = $this->tableImportHelper->insertInObjects($objectArr); //return lastId
+                        $objId = $this->tableImportHelper->insertInObjects($objectArr);
                         
                         $salesUnit = $rowvalue[$columnSalesUnit];
                         $pricePageFlag = $rowvalue[$columnPricePageFlag];
@@ -389,7 +385,7 @@ class SalesMaterialService
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
                         
                         $errorsData['SUCCESS'] = "Sales Material Code: ".$salesMaterialKey." has been ".$createdOrUpdated.".";
-                    }else{
+                    } else{
                         $errorsData[] = "Material ".$material. " not found in system.";
                         $this->failedIDs[] = $rowvalueRecord['id'];
                     }
@@ -450,135 +446,44 @@ class SalesMaterialService
         unset($data);
     }
 
-    public function processObsleteFlagMaterials() {
-        $productUpdateArray = [];
-            foreach ($this->productUpdateArray as $objectId => $sapNumber) {
-                $flag = false;
-                $salesRecordsFlag = $this->tableImportHelper->getSalesMaterialRecordsByMaterial($objectId);
-                if (!empty($salesRecordsFlag)) {
-                    $level = 3;
-                    $flag = true;
-                } else {
-                    $level = '';
-                    $product = DataObject\PTGEUProduct::getById($objectId);
-                    $currentPath = $product->getPath();
-                    $hierarchyLevel3Path = $product->getHierarchyLevel3()[0]->getFullpath();
-                    $siopProductPath = $this->convertCategoryPathToProduct($hierarchyLevel3Path)."/Quote/";
-                    if ($siopProductPath == $currentPath) {
-                        $flag = true;
-                    }
-                }
-                if ($flag) {
-                    $product = DataObject\PTGEUProduct::getById($objectId);
-                    $parentFolder = $this->getParentObject($product, $level);
-                    if ($parentFolder['success']) {
-                        $productUpdateArray[] = [
-                            'o_id' => $objectId,
-                            'o_parentId' => $parentFolder['parentId'],
-                            'o_path' => $parentFolder['parentPath']."/"
-                        ];
-                    }
-                }
-        }
-        if (!empty($productUpdateArray)) {
-            $this->tableImportHelper->updateProductPath($productUpdateArray);
-        }
-    }
-    public function getParentObject($object, $level = '') {
-         $currentParent = $object->getParent();
-        if ($level == 3) {
-            $hierarchyLevel3 = $object->getHierarchyLevel3()[0];
-            $siopPath = $hierarchyLevel3->getFullpath();
-            $productPath = $this->convertCategoryPathToProduct($siopPath)."/Quote";
-            $productFolderId = $this->getFolderByPath($productPath);
-            return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
-        } else {
-            $siopCode = $object->getSiopFullCode();
-            if (strlen($siopCode) == 18) {
-                $hierarchyLevel6 = $object->getHierarchyLevel6()[0];
-                $siopPath = $hierarchyLevel6->getFullpath();
-                $productPath = $this->convertCategoryPathToProduct($siopPath);
-                $productFolderId = $this->getFolderByPath($productPath);
-                return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
-            } elseif (strlen($siopCode) == 13) {
-                $hierarchyLevel4 = $object->getHierarchyLevel4()[0];
-                $siopPath = $hierarchyLevel4->getFullpath();
-                $productPath = $this->convertCategoryPathToProduct($siopPath);
-                $oldMaterialCode = trim($object->getOldMaterialCode());
-                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                    $productFolderId = $this->getFolderByPath($productPath);
-                    return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
-                } else {
-                    $sixDigitCode = substr($oldMaterialCode, 0, 6);
-                    $nineDigitCode = substr($oldMaterialCode, 0, 9);
-                    $productFullPath = $productPath."/".$sixDigitCode."/".$nineDigitCode;
-                    $productFolderId = $this->getFolderByPath($productFullPath);
-                    return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productFullPath];
-                }
-            }
-        }
-        return ['success' => false, "parentId" => 0];
-    }
-    
-    public function getFolderByPath($folderPath) {
-        $pathExists = \Pimcore\Model\DataObject\Service::pathExists($folderPath);
-        if (empty($pathExists)) {
-            $folder = \Pimcore\Model\DataObject\Service::createFolderByPath($folderPath);
-        } else {
-            $folder = \Pimcore\Model\DataObject\Service::getElementByPath('object', $folderPath);
-        }
-        return $folder->getId();
-    }
-    
-    public function convertCategoryPathToProduct($categoryPath) {
-        $search = '/PTG_EU/Master List/Product Hierarchy';
-        $replace = '/PTG_EU/Products';
-        return str_replace($search, $replace, $categoryPath);
-    }
     public function processDeletedRecords($deletedRecords)
     {
         $deleteCount = 0;
-        if(count($deletedRecords) > 0)
-        {
-            foreach ($deletedRecords as $key => $value) 
-            {
+        if(count($deletedRecords) > 0) {
+            foreach ($deletedRecords as $key => $value) {
                 $keyArray = explode('$',$value['id']);
                 $material = $keyArray[0];
                 $key = str_replace('$','-',$value['id']);
                 $objDelete = DataObject\PTGEUSalesMaterialMaster::getByPath("/".ImportConstants::PTGEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key, true);
 
-                if($objDelete)
-                {
+                if($objDelete) {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtSalesLevel(1);
                     $objDelete->setPublished(false);
                     $objDelete->save();
                 }
             }
-
-            echo "Delete flag updated for {$deleteCount} objects in system.".PHP_EOL;
+        echo "Delete flag updated for {$deleteCount} objects in system.".PHP_EOL;
         }
     }
 
     /**
      * return private or generic brand on the basis of material group
      */
-    public function getPrivateOrGenericMaterial($pricePageFlag){
+    public function getPrivateOrGenericMaterial($pricePageFlag) {
         
         $privateGenericBrand = 'Generic';
-
-        if(in_array($pricePageFlag, $this->privateMaterialGroup))
-        {
+        if(in_array($pricePageFlag, $this->privateMaterialGroup)) {
             $privateGenericBrand = 'Private';
         }
         return $privateGenericBrand;
-        
     }
 
     /**
      * return material object or false
      */
-    public function getMaterialObject($MaterialKey){
+    public function getMaterialObject($MaterialKey) {
+
         $query = "SELECT oo_id, o_key, o_path FROM `object_38` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAll($query);
         
@@ -586,17 +491,16 @@ class SalesMaterialService
             $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
             return $material['oo_id'];
         }
-
         return false;
     }
 
     /**
      * return plant object
      */
-    public function getPlantObject($plantKey, $plantFolderId){
+    public function getPlantObject($plantKey, $plantFolderId) {
+
         $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
-        if(!$objectPlant)
-        {
+        if(!$objectPlant) {
             $objectPlant = new DataObject\Plant();
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
@@ -604,36 +508,19 @@ class SalesMaterialService
             $objectPlant->setPublished(TRUE);   
             $objectPlant->save();  
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
-        }
-        else{
+        } else {
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list");
         }
         return $objectPlant->getId();
-
-    }
-
-    
-
-    public function createKeyForObject($data, $keyColumns, $mappingCsvColumn){
-        $keyColumnValues = array();
-        foreach($keyColumns as $key =>$keyColumn)
-        {
-            $column = $mappingCsvColumn[$keyColumn];
-            $keyColumnValues[] = $data[$column];
-        }
-
-        $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
-        return $id;
     }
 
     /**
      * return distribution channel object
      */
-    public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId){
+    public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId) {
         
         $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
-        if(!$object)
-        {
+        if(!$object) {
             $object = new DataObject\DistributionChannel();
             $object->setKey($distributionChannelKey);
             $object->setCode($distributionChannelKey);
@@ -642,22 +529,20 @@ class SalesMaterialService
             $object->setPublished(TRUE);   
             $object->save(); 
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created");
-        }
-        else{
+        } else {
+        
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list");
         }
         return $object->getId();
-
     }
 
     /**
      * return sales organization object
      */
-    public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId){
+    public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId) {
         
         $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
-        if(!$object)
-        {
+        if(!$object) {
             $object = new DataObject\SalesOrganisation();
             $object->setKey($salesOrgKey);
             $object->setCode($salesOrgKey);
@@ -666,22 +551,19 @@ class SalesMaterialService
             $object->setPublished(TRUE); 
             $object->save();   
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
-        }
-        else{
+        } else {
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
         }
         return $object->getId();
-
     }
 
     /**
      * return Country of origin object
      */
-    public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId){
+    public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId) {
         
         $object = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryOfOriginKey);
-        if(!$object)
-        {
+        if(!$object) {
             $object = new DataObject\Country();
             $object->setKey($countryOfOriginKey);
             $object->setCode($countryOfOriginKey);
@@ -690,12 +572,9 @@ class SalesMaterialService
             $object->setPublished(TRUE);   
             $object->save(); 
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$countryOfOriginKey." not found in master list, distribution channel created");
-        }
-        else{
+        }  else {
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$countryOfOriginKey." found in master list");
         }
         return $object->getId();
-
     }
-    
 }
