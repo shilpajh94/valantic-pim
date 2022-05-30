@@ -126,6 +126,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'source': '<VALUE>'}
         longDescription_de:
             pim_attribute_name: longDescription
             pim_table_name: object_localized_1_de
@@ -144,6 +145,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'source': '<VALUE>'}
         o_published:
             pim_attribute_name: o_published
             pim_table_name: object_1
@@ -198,6 +200,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'source': '<VALUE>'}
         baseUOM:
             pim_attribute_name: baseUOM
             pim_table_name: object_1
@@ -222,7 +225,7 @@ parameters:
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
-            sf_relational_attribute: true
+            sf_relational_attribute: false
             joinOn:
             addOnJoin:
             sf_attribute_name: c_hoseImage1
@@ -240,7 +243,7 @@ parameters:
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
-            sf_relational_attribute: true
+            sf_relational_attribute: false
             joinOn:
             addOnJoin:
             sf_attribute_name: c_hoseImage2
@@ -258,7 +261,7 @@ parameters:
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: INT(11) NULL
-            sf_relational_attribute: true
+            sf_relational_attribute: false
             joinOn:
             addOnJoin:
             sf_attribute_name: c_hoseImage3
@@ -276,7 +279,7 @@ parameters:
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
-            sf_relational_attribute: true
+            sf_relational_attribute: false
             joinOn:
             addOnJoin:
             sf_attribute_name: Document
@@ -306,6 +309,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         californiaProposition65ChemicalName1:
             pim_attribute_name: californiaProposition65ChemicalName1
             pim_table_name: object_1
@@ -324,6 +328,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         BendRadiusMM:
             pim_attribute_name: BendRadiusMM
             pim_table_name: object_brick_query_HoseSkeleton_1
@@ -334,6 +339,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseBandRadiusMM
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -370,6 +376,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseODIN
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -388,6 +395,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseWorkingPressurePSI
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -414,6 +422,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         fitting1Material:
             pim_attribute_name: fitting1Material
             pim_table_name: object_brick_query_HoseFert_1
@@ -432,6 +441,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         fitting1Size:
             pim_attribute_name: fitting1Size
             pim_table_name: object_brick_query_HoseFert_1
@@ -468,6 +478,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         fitting2Material:
             pim_attribute_name: fitting2Material
             pim_table_name: object_brick_query_HoseFert_1
@@ -486,6 +497,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         fitting2Size:
             pim_attribute_name: fitting2Size
             pim_table_name: object_brick_query_HoseFert_1
@@ -522,6 +534,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
+            sf_attribute_format: {'default': '<VALUE>'}
         tubeMaterial:
             pim_attribute_name: tubeMaterial
             pim_table_name: object_brick_query_HoseBase_1
@@ -540,6 +553,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         hoseidDec:
             pim_attribute_name: hoseidDec
             pim_table_name: object_brick_query_HoseSkeleton_1
@@ -550,6 +564,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseIDDec
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -568,6 +583,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseIDMM
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -586,6 +602,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseLengthM
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -612,6 +629,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         hoseOdmm:
             pim_attribute_name: hoseOdmm
             pim_table_name: object_brick_query_HoseSkeleton_1
@@ -622,6 +640,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseODMM
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -640,6 +659,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseMaximumTemperatureC
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -666,6 +686,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         minimumTemperatureC:
             pim_attribute_name: minimumTemperatureC
             pim_table_name: object_1
@@ -676,6 +697,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseMinimumTemperatureC
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -702,6 +724,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         coverCharacteristic:
             pim_attribute_name: coverCharacteristic
             pim_table_name: object_brick_query_HoseBase_1
@@ -720,6 +743,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
+            sf_attribute_format: {'default': '<VALUE>'}
         hoseLengthFT:
             pim_attribute_name: hoseLengthFT
             pim_table_name: object_brick_query_HoseFert_1
@@ -730,6 +754,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseLengthFT
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -748,6 +773,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseMaximumTemperatureF
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -766,6 +792,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseMinimumTemperatureF
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -802,6 +829,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseTotalWeightPerPackage
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -820,6 +848,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseSkeletonVacuumIN
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -838,6 +867,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseWeightLbsPerFTUOM
             pim_attribute_type: input
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -856,6 +886,7 @@ parameters:
             addOnJoin:
             sf_attribute_name: c_hoseVacuumMM
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -868,12 +899,13 @@ parameters:
             pim_attribute_name: workingPressureBAR
             pim_table_name: object_brick_query_HoseSkeleton_1
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
             sf_attribute_name: c_hoseWorkingPressureBAR
             pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:

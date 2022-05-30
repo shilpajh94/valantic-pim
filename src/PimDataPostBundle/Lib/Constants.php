@@ -33,7 +33,6 @@ class Constants
 
     const B2C_CATEGORY_OBJECT_TABLE_NAME = "object_B2CCategory";
 
-
     /**
      * To create a window to capture the pim changes
      * The window starts from timestamp ( UPDATE_WINDOW_END_HOUR - UPDATE_WINDOW_LENGTH_IN_MINUTES )
@@ -46,7 +45,7 @@ class Constants
      */
     const UPDATE_WINDOW_END_HOUR = 12;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 60;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 500;
 
     const INSERT_BATCH_SIZE = 50;
 
@@ -87,6 +86,8 @@ class Constants
     const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
 
     const B2B_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2B_success_key";
+
+    const B2C_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2C_success_key";
 
     const B2C_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2C_script_start_time";
 
