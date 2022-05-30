@@ -132,4 +132,9 @@ class ConfigProviderService
         $returnConfig = $config;
         return $returnConfig;
     }
+
+    public function getUnitValueConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
+    }
 }

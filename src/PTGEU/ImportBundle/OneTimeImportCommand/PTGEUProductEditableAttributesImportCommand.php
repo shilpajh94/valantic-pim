@@ -18,6 +18,7 @@ use Pimcore\Model\DataObject\ClassDefinition;
 
 class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 {
+    private $configProviderService;
     private $t;
     const LOG_FILE_NAME = "PTGEU_Product_Editable_Attributes_Import_Command_Log.csv";
 
@@ -56,8 +57,9 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 
         try {
                 // get editable product attribute config
-                $productImportConfig   = \Pimcore::getContainer()->get('import.config_provider_service')->getEditableProductAttributesImportConfig();
-
+                $this->configProviderService    = \Pimcore::getContainer()->get('import.config_provider_service');
+                $productImportConfig            = $this->configProviderService->getEditableProductAttributesImportConfig();
+                $unitValueConfig                = $this->configProviderService->getUnitValueConfig();
                 // get imported csv data
                 $csvInfo        = ImportService::getCSVData($filePath);
                 $csvHeader      = $csvInfo['header'];
@@ -154,6 +156,18 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                                             $method = 'set' . $brick;
                                             $bickTypeMethod = 'get' . ucfirst($brickType);
                                             $product->$bickTypeMethod()->$method($brickObject, 1);
+                                        }
+
+                                        foreach ($unitValueConfig as $unit => $unitValue) {
+
+                                            $fieldKey = ucfirst($unitValue['fieldName']);
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                            if ($unitValue['objectType'] == $brick) {
+                                                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                            } else {
+                                                continue;
+                                            }
                                         }
                                     }
                                 }
