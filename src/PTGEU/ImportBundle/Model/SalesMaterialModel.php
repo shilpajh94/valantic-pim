@@ -76,6 +76,7 @@ class SalesMaterialModel
 
 
     public function insertInObjects($data) {
+      //  p_r($data);die;
     	try {
 	        $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
 	        $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
@@ -99,7 +100,10 @@ class SalesMaterialModel
 	        $values = " (".implode(', ', $valuesArr).") ";
 	        $query = $sql.$values.$update;
 	        $this->db->query($query);
-	        $lastId = $this->db->lastInsertId();
+	        $lastId = $this->db->lastInsertId(); //11045725objid
+          //  p_r($query);
+            //p_r($lastId);die;
+
 	        $data = $values = $query = null;
     	} catch(\Exception $e) {
     		print_r($e->getMessage()); die;
@@ -168,8 +172,8 @@ class SalesMaterialModel
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                // $id = $this->createId($tempData);
-                $id = $tempData['Material'].'$'.$tempData['Sales Org'].'$'.$tempData['Distribution Channel'];
+                
+                $id = $tempData['SAPMaterialCode'].'$'.$tempData['SalesOrgCode'].'$'.$tempData['DCCode'].'$'.$tempData['DeliveringPlantCode'].'$'.$tempData['CountryofOriginCode'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
@@ -184,7 +188,6 @@ class SalesMaterialModel
                 $rowCount++;
 
             }
-
             if ($values) {
                 $query = $sql.rtrim($values, ',').$update ;
                 $this->db->query($query);

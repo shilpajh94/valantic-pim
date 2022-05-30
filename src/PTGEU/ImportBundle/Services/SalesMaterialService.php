@@ -267,8 +267,8 @@ class SalesMaterialService
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_41` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchRow($query);
         
-                        if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
-                            $plantId = $this->getPlantObject($plantName, $plantFolderId);
+                        if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) { //plantnamefromsheet code
+                            $plantId = $this->getPlantObject($plantName, $plantFolderId); //plantobjectid return
                             if($plantId) {
                                 $this->plantArray[$plantName] = $plantId;
                             }
@@ -279,7 +279,7 @@ class SalesMaterialService
                         }
                         if(!isset($this->salesOrgArray[$salesOrg])) {
                             $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
-                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
+                            $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
                             if($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                             }
@@ -322,7 +322,7 @@ class SalesMaterialService
                             $this->updatedCount++;
                         }
             
-                        $objId = $this->tableImportHelper->insertInObjects($objectArr);
+                        $objId = $this->tableImportHelper->insertInObjects($objectArr); //return lastId
                         
                         $salesUnit = $rowvalue[$columnSalesUnit];
                         $pricePageFlag = $rowvalue[$columnPricePageFlag];
