@@ -49,17 +49,23 @@ class Constants
 
     const INSERT_BATCH_SIZE = 50;
 
-    const FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs";
+    const B2B_FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs/B2B";
 
     const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
 
     const FAILURE_NOTIFICATION_ROLES = ['ApplicationAdmin'];
 
-    const FAILURE_TEMPLATE_NAME = "/Email/Saleforce Integration Failure Email";
+    const B2B_FAILURE_TEMPLATE_NAME = "/Email/B2B Saleforce Integration Failure Email";
 
-    const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
+    const B2B_FAILURE_TEMPLATE_SUBJECT_NAME = "B2B Saleforce Integration Failure Email";
 
     const MAX_HTTP_CONNECTION_RETRIES = 5;
+
+    const B2C_FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs/B2C";
+
+    const B2C_FAILURE_TEMPLATE_NAME = "/Email/B2C Saleforce Integration Failure Email";
+
+    const B2C_FAILURE_TEMPLATE_SUBJECT_NAME = "B2C Saleforce Integration Failure Email";
 
     // in seconds
     const SLEEP_TIME_WITHIN_CONNECTION_RETRIES = 2;
@@ -73,6 +79,8 @@ class Constants
 
     const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
 
+    const B2C_PIM_FAILURE_TEMPLATE = "/Email/B2C Saleforce Integration PIM Failure Email";
+
     const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
 
     const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
@@ -82,4 +90,8 @@ class Constants
     const B2C_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2C_success_key";
 
     const B2C_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2C_script_start_time";
+
+    const IFS_CATEGORIES = ['Industrial Hose' => '041000', 'Hydraulics'=>'041500'];
+
+    const PTG_CATEGORIES = ['PTP' => '043000'];
 }

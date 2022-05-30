@@ -92,7 +92,12 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                             $fnc = "getMultiRelationTypeValue";
                         }
                         if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
-                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
+
+                            $pimValue = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
+                            if($type === strval(PimFieldType::MULTISELECT())){
+                                $pimValue = $pimValue[0];
+                            }
+                            $returnArray[$attributeConfig['sf_attribute_name']] = $pimValue;
                         }
                     }
 

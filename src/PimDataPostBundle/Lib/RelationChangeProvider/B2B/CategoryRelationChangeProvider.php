@@ -19,4 +19,9 @@ class CategoryRelationChangeProvider
     {
         return $this->dao->getPTGSIOPLevel6Categories();
     }
+
+    public function getSIOPLevel4Categories(): array
+    {
+        return $this->dao->getSIOPLevel4Categories();
+    }
 }

@@ -28,7 +28,8 @@ class B2CProductTempTablePopulator extends AbstractB2CTempTablePopulator
 
     public function getPimModifiedRecordIds(): array
     {
-        return $this->helper->getPimModifiedRecordIds(Constants::B2C_PRODUCT_OBJECT_TABLE_NAME);
+        // return $this->helper getPimModifiedRecordIds(Constants::B2C_PRODUCT_OBJECT_TABLE_NAME);
+        return array_values(array_unique($this->helper->getAllFertsToBeUpdatedForSalesforce(Constants::B2C_PRODUCT_OBJECT_TABLE_NAME)));
     }
 
     public function getTempTableDataForIds(array $pimIds): array
@@ -51,4 +52,10 @@ class B2CProductTempTablePopulator extends AbstractB2CTempTablePopulator
     {
         return $this->dao->getExistingTempTableData($o_id);
     }
+
+    // return product ids which are only IFS or PTG
+    public function filterIFSPTGProducts(array $pimIds): array
+    {
+        return $this->helper->filterIFSPTGProducts($pimIds);
+    }   
 }

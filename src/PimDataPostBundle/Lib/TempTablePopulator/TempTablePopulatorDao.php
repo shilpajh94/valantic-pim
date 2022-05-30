@@ -192,5 +192,48 @@ class TempTablePopulatorDao
             }
         }
     }
+
+    public function filterIFSPTGProducts(array $productIds): array
+    {
+        if($productIds)
+        {
+            $ifsCategoriesFullSIOPCode = array_values(Constants::IFS_CATEGORIES);
+            $ptgCategoriesFullSIOPCode = array_values(Constants::PTG_CATEGORIES);
+            $allCategoriesFullSIOPCode = array_merge($ifsCategoriesFullSIOPCode, $ptgCategoriesFullSIOPCode);
+            $allCategoriesFullSIOPCodeString = implode(',', $allCategoriesFullSIOPCode);
+            
+            // Get all the categories id on the basis of SIOP full code
+            $query = "SELECT o_id FROM object_2 WHERE fullCode IN ($allCategoriesFullSIOPCodeString)";
+            $categoryIds = $this->db->fetchCol($query);
+
+            $categoryIdsString = implode(',', $categoryIds);
+            $productIdsString = implode(',', $productIds);
+            
+            // Get all the product ids that are belongs to SIOPLevel2
+            $query = "SELECT o_id FROM object_1 WHERE TRIM(BOTH ',' FROM SIOPLevel2) IN ($categoryIdsString) and o_id IN ($productIdsString)";
+            $resultSet = $this->db->fetchCol($query);
+        }
+        
+        return ($resultSet) ? $resultSet : [];
+    }
+
+    public function getChildrenObjectIds(int $parentId): array
+    {
+        $query = "SELECT o_id FROM objects";
+        $query .= " WHERE o_parentId = :parentId and o_type = 'object' ";
+
+        return $this->db->fetchCol($query,["parentId" => $parentId]);
+    }
+
+    public function getPimModifiedProductIdsWithProductType(string $productTableName): array
+    {
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+        
+        $query = "SELECT `o_id`,`productType` FROM {$productTableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
+        $resultSet = $this->db->fetchAll($query);
     
+        return ($resultSet) ? $resultSet : [];
+    }
+
 }
