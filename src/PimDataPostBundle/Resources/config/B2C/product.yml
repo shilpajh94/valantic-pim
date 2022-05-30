@@ -372,7 +372,7 @@ parameters:
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
             sendToSF: true
             temp_master_table_attr: true
-            temp_master_table_column_type: FLOAT(20,2) NULL
+            temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
             sf_attribute_name: c_hoseODIN
             pim_attribute_type: numeric
