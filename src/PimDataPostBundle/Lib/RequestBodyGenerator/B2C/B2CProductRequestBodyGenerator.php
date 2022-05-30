@@ -101,10 +101,10 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                         $returnArray = array_merge($returnArray, $documentArray);
                     }
 
-                    if(isset($attributeConfig['sf_attrubute_format']) && 
-                    $attributeConfig['sf_attrubute_format']!= null && $attributeConfig['sf_attrubute_format']!='')
+                    if(isset($attributeConfig['sf_attribute_format']) && 
+                    $attributeConfig['sf_attribute_format']!= null && $attributeConfig['sf_attribute_format']!='')
                     {
-                        $returnArray[$attributeConfig['sf_attribute_name']] = str_replace('<VALUE>', $returnArray[$attributeConfig['sf_attribute_name']], $attributeConfig['sf_attrubute_format']);
+                        $returnArray[$attributeConfig['sf_attribute_name']] = str_replace('<VALUE>', $returnArray[$attributeConfig['sf_attribute_name']], $attributeConfig['sf_attribute_format']);
                     }
 
                     if($returnArray[$attributeConfig['sf_attribute_name']]!= null && $returnArray[$attributeConfig['sf_attribute_name']] != ''
