@@ -76,7 +76,6 @@ class SalesMaterialModel
 
 
     public function insertInObjects($data) {
-      //  p_r($data);die;
     	try {
 	        $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
 	        $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
@@ -100,9 +99,7 @@ class SalesMaterialModel
 	        $values = " (".implode(', ', $valuesArr).") ";
 	        $query = $sql.$values.$update;
 	        $this->db->query($query);
-	        $lastId = $this->db->lastInsertId(); //11045725objid
-          //  p_r($query);
-            //p_r($lastId);die;
+	        $lastId = $this->db->lastInsertId();
 
 	        $data = $values = $query = null;
     	} catch(\Exception $e) {
@@ -111,20 +108,6 @@ class SalesMaterialModel
         return $lastId;
     }
 
-    
-    private function createId($data)
-    {
-        $keyColumnValues = array();
-        foreach($this->keyColumns as $key =>$keyColumn)
-        {
-            $column = $this->mappingCsvColumn[$keyColumn];
-            $keyColumnValues[] = $data[$column];
-        }
-
-        $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
-        return $id;
-    }
-    
     public function updateProductPath($dataArray) {
         $rowCount = 1;
         $firstRec = $dataArray[0];
@@ -172,13 +155,12 @@ class SalesMaterialModel
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                
+
                 $id = $tempData['SAPMaterialCode'].'$'.$tempData['SalesOrgCode'].'$'.$tempData['DCCode'].'$'.$tempData['DeliveringPlantCode'].'$'.$tempData['CountryofOriginCode'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
                 $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
-
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',').$update;
@@ -237,10 +219,7 @@ class SalesMaterialModel
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
-            $delta = $this->db->fetchAll($sql);
-           // p_r($delta);die;=$data
-
-            return $delta;
+            return  $delta = $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
