@@ -17,15 +17,15 @@ use Pimcore\Db;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 
-class CreateTableCommand extends AbstractCommand
+class CreateB2BTableCommand extends AbstractCommand
 {
     private $commonHelper;
     private $db;
 
     protected function configure()
     {
-        $this->setName('conti:datapost:create-table')
-            ->setDescription('Create B2B & B2C Temp Master tables.');
+        $this->setName('conti:datapost:create-b2b-table')
+            ->setDescription('Create B2B Temp Master tables.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -41,6 +41,7 @@ class CreateTableCommand extends AbstractCommand
 
         $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
         $categoryAttributes = $B2BCategoryAttributeConfigProvider->getCompleteAttributeConfig();
+
         $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'o_id');
         $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'o_id');
         $this->createTableB2bApiRequestEntities();
@@ -79,7 +80,7 @@ class CreateTableCommand extends AbstractCommand
             }
 
             $fieldsString = implode(', ', $fieldsArray);
-            // Create B2C/B2C temp table
+
             $sql = "CREATE TABLE IF NOT EXISTS {$tableName} (
                 id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 {$fieldsString}
@@ -109,8 +110,8 @@ class CreateTableCommand extends AbstractCommand
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
         $this->db->query($sql);
-        echo "\n ".\PimDataPostBundle\Model\PersistantModel\APIRequestEntity\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity\Dao::TABLE_NAME." - table created.";
+        echo "\n\n".$sql."\n\n";  }
 
     private function createTableB2bEntityEnforce()
     {
@@ -123,7 +124,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n";  }
 
     private function createTableB2bPimToSfCategoryMapping()
     {
@@ -135,7 +136,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BPimToSFCategoryMapping\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n"; }
 
     private function createTableB2bPimToSfProductMapping()
     {
@@ -147,7 +148,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BPimToSFProductMapping\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n"; }
 
     private function createTableB2bProductRelationChange()
     {
@@ -162,7 +163,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BProductRelationChange\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n"; }
 
     private function createTableSalesforceIntegrationPimcoreDeletedAssets()
     {
@@ -174,7 +175,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n"; }
 
     private function createTableSalesforceIntegrationPimcoreFailedRecord()
     {
@@ -189,7 +190,7 @@ class CreateTableCommand extends AbstractCommand
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord\Dao::TABLE_NAME." - table created.";
-    }
+        echo "\n\n".$sql."\n\n"; }
 
 
 

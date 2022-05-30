@@ -29,13 +29,14 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
     public function getPimModifiedRecordIds(): array
     {
         $salesMaterialProductIDs = $this->dao->getTodaysSaleMasterModifiedRecords();
-        $materialProductIDs =  $this->helper->getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        // $materialProductIDs =  $this->helper getPimModifiedRecordIds(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
+        $materialProductIDs =  $this->helper->getAllFertsToBeUpdatedForSalesforce(Constants::B2B_PRODUCT_OBJECT_TABLE_NAME);
 
         $resultSet = [];
 
         if($salesMaterialProductIDs || $materialProductIDs)
         {
-            $resultSet = \array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs));
+            $resultSet = \array_values(array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs)));
         }
 
         return $resultSet;
@@ -67,5 +68,11 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
     {
         return $this->dao->getExistingTempTableData($o_id);
     }
+
+    // return product ids which are only IFS or PTG
+    public function filterIFSPTGProducts(array $pimIds): array
+    {
+        return $this->helper->filterIFSPTGProducts($pimIds);
+    }   
 
 }

@@ -33,9 +33,13 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:datapost:connection-test-command' }
 
-    PimDataPostBundle\Command\CreateTableCommand:
+    PimDataPostBundle\Command\CreateB2CTableCommand:
         tags:
-            - { name: 'console.command', command: 'conti:datapost:create-table' }
+            - { name: 'console.command', command: 'conti:datapost:create-b2c-table' }
+
+    PimDataPostBundle\Command\CreateB2BTableCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:create-b2b-table' }
 
     PimDataPostBundle\Services\UtilService:
         public: true
@@ -43,6 +47,10 @@ services:
     PimDataPostBundle\EventListener\AssetListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.postDelete, method: onPostAssetDelete }
+    
+    PimDataPostBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preAdd, method: onPreAdd }
 
     PimDataPostBundle\Command\PimDataPostCommand:
         tags:
@@ -50,4 +58,8 @@ services:
 
     PimDataPostBundle\Command\InitialLoadCommand\B2BInitialLoadCommand:
         tags:
-            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }            
+            - { name: 'console.command', command: 'conti:datapost:b2b-initial-load-command' }  
+                
+    PimDataPostBundle\Command\InitialLoadCommand\B2CInitialLoadCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:b2c-initial-load-command' }  

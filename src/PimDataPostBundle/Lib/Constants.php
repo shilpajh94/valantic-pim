@@ -20,6 +20,20 @@ class Constants
 
     const B2B_CATEGORY_OBJECT_TABLE_NAME = "object_2";
 
+    // B2C
+    const B2C_PRODUCT_TEMP_TABLE_NAME = "salesforce_integration_b2c_product_temp";
+
+    const B2C_PRODUCT_MASTER_TABLE_NAME = "salesforce_integration_b2c_product_master";
+
+    const B2C_PRODUCT_OBJECT_TABLE_NAME = "object_1";
+
+    const B2C_CATEGORY_TEMP_TABLE_NAME = "salesforce_integration_b2c_category_temp";
+
+    const B2C_CATEGORY_MASTER_TABLE_NAME = "salesforce_integration_b2c_category_master";
+
+    const B2C_CATEGORY_OBJECT_TABLE_NAME = "object_B2CCategory";
+
+
     /**
      * To create a window to capture the pim changes
      * The window starts from timestamp ( UPDATE_WINDOW_END_HOUR - UPDATE_WINDOW_LENGTH_IN_MINUTES )
@@ -30,23 +44,29 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 19;
+    const UPDATE_WINDOW_END_HOUR = 12;
 
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 60;
 
     const INSERT_BATCH_SIZE = 50;
 
-    const FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs";
+    const B2B_FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs/B2B";
 
     const FAILURE_LOG_CSV_HEADERS = ['Object Type' => 'SFObjectType', 'Response Status' => 'responseStatus', 'Response Message' => 'responseMsg', "External Id" => 'externalID', "Pim Id" => 'pimId' , 'Business Unit' => 'businessUnit'];
 
     const FAILURE_NOTIFICATION_ROLES = ['ApplicationAdmin'];
 
-    const FAILURE_TEMPLATE_NAME = "/Email/Saleforce Integration Failure Email";
+    const B2B_FAILURE_TEMPLATE_NAME = "/Email/B2B Saleforce Integration Failure Email";
 
-    const FAILURE_TEMPLATE_SUBJECT_NAME = "Saleforce Integration Failure Email";
+    const B2B_FAILURE_TEMPLATE_SUBJECT_NAME = "B2B Saleforce Integration Failure Email";
 
     const MAX_HTTP_CONNECTION_RETRIES = 5;
+
+    const B2C_FAILURE_LOG_ASSET_FOLDER = "/Internal Assets/Saleforce Integration Failure Logs/B2C";
+
+    const B2C_FAILURE_TEMPLATE_NAME = "/Email/B2C Saleforce Integration Failure Email";
+
+    const B2C_FAILURE_TEMPLATE_SUBJECT_NAME = "B2C Saleforce Integration Failure Email";
 
     // in seconds
     const SLEEP_TIME_WITHIN_CONNECTION_RETRIES = 2;
@@ -60,9 +80,17 @@ class Constants
 
     const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
 
+    const B2C_PIM_FAILURE_TEMPLATE = "/Email/B2C Saleforce Integration PIM Failure Email";
+
     const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
 
     const B2B_FAILURE_IDS_SESSION_KEY = "salesforce_integration_B2B_failure_key";
 
     const B2B_SUCCESS_IDS_SESSION_KEY = "salesforce_integration_B2B_success_key";
+
+    const B2C_SCRIPT_START_TIME_SESSION_KEY = "salesforce_integration_B2C_script_start_time";
+
+    const IFS_CATEGORIES = ['Industrial Hose' => '041000', 'Hydraulics'=>'041500'];
+
+    const PTG_CATEGORIES = ['PTP' => '043000'];
 }

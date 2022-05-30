@@ -74,7 +74,7 @@ class RequestBodyGeneratorHelper
         foreach ($valueArray as $val) {
             $returnArray[] = $this->getSelectTypeValue($val, $config, $language);
         }
-        return $returnArray[0] ? $returnArray[0] : "";
+        return $returnArray;
     }
     
     /**
@@ -86,7 +86,9 @@ class RequestBodyGeneratorHelper
      */
     public function getSelectTypeValue($currentValue, array $config, $language = null) 
     {
+        \Pimcore::setAdminMode();
         if (!empty($language) && $config['isLocalisedMaster']) {
+            \Pimcore::unsetAdminMode();
             return $this->getRelationValue($currentValue, $config, $language); 
         } else {
             $className = $config['container_pim_class_or_brick_name'];
@@ -97,11 +99,13 @@ class RequestBodyGeneratorHelper
                 $options = $fieldDefinition->getOptions();
                 foreach ($options as $option) {
                     if ($currentValue == $option['value']) {
+                        \Pimcore::unsetAdminMode();
                         return $option['key'];
                     }
                 }
             }
         }
+        \Pimcore::unsetAdminMode();
         return null;
     }
     
@@ -149,7 +153,9 @@ class RequestBodyGeneratorHelper
     public function getImageTypeValue($currentValue, array $config, $language = null): string {
         if($currentValue){
             $asset = \Pimcore\Model\Asset\Image::getById($currentValue);
-            return Utils::getAssetFullPathCompatibleToS3($asset);
+            if(isset($asset)){
+                return Utils::getAssetFullPathCompatibleToS3($asset);
+            }
         }
         return '';
     }

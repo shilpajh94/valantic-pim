@@ -34,6 +34,8 @@ class PimFieldType
     
     private const SALES_FORCE_ID ="salesForceId";
 
+    private const B2C_SALES_FORCE_ID ="b2cSalesForceId";
+
     private $pimFieldType;
 
     private function __construct(string $pimFieldType)
@@ -120,5 +122,10 @@ class PimFieldType
     public static function SALES_FORCE_ID(): self
     {
         return new self(self::SALES_FORCE_ID);
+    }
+
+    public static function B2C_SALES_FORCE_ID(): self
+    {
+        return new self(self::B2C_SALES_FORCE_ID);
     }
 }

@@ -50,6 +50,5 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         }
         return $resultSet;
     }
-
     
 }

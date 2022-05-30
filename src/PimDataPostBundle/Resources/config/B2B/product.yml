@@ -75,7 +75,7 @@ parameters:
         industryStandard:
             pim_attribute_name: industryStandard
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
             joinOn:
@@ -126,24 +126,24 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        longDescription:
-            pim_attribute_name: longDescription
-            pim_table_name: object_localized_1_en
-            joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
-            sendToSF: true
-            temp_master_table_attr: true
-            temp_master_table_column_type: TEXT NULL
-            sf_attribute_name: Description
-            addOnJoin:
-            pim_attribute_type: wysiwyg
-            sf_relational_attribute:
-            allowed_object_class_name:
-            is_multilingual_for_sf: true
-            container_pim_class_or_brick_name: Product
-            pim_attribute_for_sf_in_allowed_object_class_name:
-            pim_id_to_sf_id_mapping_model:
-            update_product_if_master_updated:
-            isLocalisedMaster:
+        # longDescription:
+        #     pim_attribute_name: longDescription
+        #     pim_table_name: object_localized_1_en
+        #     joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
+        #     sendToSF: true
+        #     temp_master_table_attr: true
+        #     temp_master_table_column_type: TEXT NULL
+        #     sf_attribute_name: Description
+        #     addOnJoin:
+        #     pim_attribute_type: wysiwyg
+        #     sf_relational_attribute:
+        #     allowed_object_class_name:
+        #     is_multilingual_for_sf: true
+        #     container_pim_class_or_brick_name: Product
+        #     pim_attribute_for_sf_in_allowed_object_class_name:
+        #     pim_id_to_sf_id_mapping_model:
+        #     update_product_if_master_updated:
+        #     isLocalisedMaster:
         # longDescription_de:
         #     pim_attribute_name: longDescription
         #     pim_table_name: object_localized_1_de
@@ -311,7 +311,7 @@ parameters:
         californiaProposition65ChemicalName1:
             pim_attribute_name: californiaProposition65ChemicalName1
             pim_table_name: object_1
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(14) NULL
             joinOn:
@@ -384,7 +384,7 @@ parameters:
             pim_attribute_name: BoltHoleSizeInDec
             pim_table_name: object_brick_query_AccessoriesFert_1
             joinOn: LEFT JOIN object_brick_query_AccessoriesFert_1 ON object_brick_query_AccessoriesFert_1.o_id = object_1.o_id
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
@@ -533,7 +533,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_InsideDiameterinDecimal__c
-            pim_attribute_type: numric
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -838,7 +838,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiameterMmHyd
+            sf_attribute_name: B2B_FlangeDiameterMmHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -856,9 +856,9 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name:
+            sf_attribute_name: B2B_FlangeSizeFraction__c
             pim_attribute_type: input
-            sf_relational_attribute: B2B_FlangeSizeFraction__c
+            sf_relational_attribute: 
             allowed_object_class_name:
             is_multilingual_for_sf:
             container_pim_class_or_brick_name: HydFittingsFert
@@ -1000,7 +1000,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(50) NULL
             addOnJoin:
-            sf_attribute_name: B2B_Material__c
+            sf_attribute_name: B2B_MaterialHydFittings__c
             pim_attribute_type: select
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1032,11 +1032,11 @@ parameters:
             pim_attribute_name: OverallLengthIN
             pim_table_name: object_brick_query_HydFittingsFert_1
             joinOn: LEFT JOIN object_brick_query_HydFittingsFert_1 ON object_brick_query_HydFittingsFert_1.o_id = object_1.o_id
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverallLenghtin__c
+            sf_attribute_name: B2B_OverAllLengthInHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1054,7 +1054,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverallLenghtmm__c
+            sf_attribute_name: B2B_OverAllLengthMmHyd__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1108,8 +1108,8 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: input
-            pim_attribute_type: B2B_ThreadSize1__c
+            sf_attribute_name: B2B_ThreadSize1__c
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -1234,7 +1234,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: B2B_HoseIDFraction__c
+            sf_attribute_name: B2B_Hose_ID_Fraction__c
             pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
@@ -1757,9 +1757,9 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_NumberOfHelixWires__c
-            pim_attribute_type:
+            pim_attribute_type: numeric
             sf_relational_attribute:
-            allowed_object_class_name: numeric
+            allowed_object_class_name:
             is_multilingual_for_sf:
             container_pim_class_or_brick_name: HoseBase
             pim_attribute_for_sf_in_allowed_object_class_name:
@@ -1820,8 +1820,8 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated: true
             isLocalisedMaster: true
-        StandardMetHose:
-            pim_attribute_name: StandardMetHose
+        standardMetHose:
+            pim_attribute_name: standardMetHose
             pim_table_name: object_brick_query_HoseBase_1
             joinOn: LEFT JOIN object_brick_query_HoseBase_1 ON object_brick_query_HoseBase_1.o_id = object_1.o_id
             sendToSF: true
@@ -2494,7 +2494,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_FlangeDiameterInMetal
+            sf_attribute_name: B2B_FlangeDiameterInMetal__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2782,7 +2782,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverAllLengthIn__c
+            sf_attribute_name: B2B_OverAllLengthInMetalFert__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
@@ -2800,7 +2800,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
-            sf_attribute_name: B2B_OverAllLengthMm__c
+            sf_attribute_name: B2B_OverAllLengthMmMetalFert__c
             pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
