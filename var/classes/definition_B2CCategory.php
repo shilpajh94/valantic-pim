@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-24T17:45:58+05:30
+* Generated at: 2022-05-30T14:24:39+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -15,7 +15,6 @@ Fields Summary:
 - pageKeywords [input]
 - pageTitle [input]
 - level [numeric]
-- parentCategoryID [input]
 - pageDescription [textarea]
 - position [input]
 - hoseCategoryImage [image]
@@ -27,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2CCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1653394558,
+   'modificationDate' => 1653900879,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -254,7 +253,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'unique' => false,
                          'showCharCount' => false,
                          'name' => 'pageTitle',
-                         'title' => 'pageTitle',
+                         'title' => 'Page Title',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -323,34 +322,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'parentCategoryID',
-                         'title' => 'Parent Category ID',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                          'fieldtype' => 'textarea',
                          'width' => '',
@@ -376,7 +347,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => NULL,
