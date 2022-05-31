@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-20T11:57:08+02:00
-* Inheritance: no
+* Generated at: 2022-05-31T13:34:04+02:00
+* Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -82,18 +82,28 @@ Fields Summary:
 - fert [objectbricks]
 - salesData [reverseManyToManyObjectRelation]
 - plantData [reverseManyToManyObjectRelation]
-- mainImage [image]
-- fullView [image]
-- technicalDrawing [image]
+- mainImage1 [image]
+- mainImage2 [image]
+- fullView1 [image]
+- fullView2 [image]
+- technicalDrawing1 [image]
 - halfView1 [image]
 - halfView2 [image]
 - halfView3 [image]
+- halfView4 [image]
+- technicalDrawing2 [image]
 - applicationImage1 [image]
 - applicationImage2 [image]
 - applicationImage3 [image]
 - applicationImage4 [image]
 - applicationImage5 [image]
 - applicationImage6 [image]
+- epixImage1 [image]
+- epixImage3 [image]
+- epixImage2 [image]
+- epixImage4 [image]
+- video1 [image]
+- video2 [image]
 - priceData [table]
 */ 
 
@@ -103,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1653040628,
+   'modificationDate' => 1653996843,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -116,7 +126,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'allowInherit' => true,
-   'allowVariants' => false,
+   'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -6692,8 +6702,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'int(11)',
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                                 'name' => 'mainImage',
-                                 'title' => 'Main Image',
+                                 'name' => 'mainImage1',
+                                 'title' => 'Main Image 1',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -6716,8 +6726,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'int(11)',
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                                 'name' => 'fullView',
-                                 'title' => 'Full View',
+                                 'name' => 'mainImage2',
+                                 'title' => 'Main Image 2',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -6740,8 +6750,56 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'int(11)',
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                                 'name' => 'technicalDrawing',
-                                 'title' => 'Technical Drawing',
+                                 'name' => 'fullView1',
+                                 'title' => 'Full View 1',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'fullView2',
+                                 'title' => 'Full View 2',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'technicalDrawing1',
+                                 'title' => 'Technical Drawing 1',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -6787,7 +6845,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'halfView1',
-                                 'title' => 'Half View1',
+                                 'title' => 'Half View 1',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -6811,7 +6869,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'halfView2',
-                                 'title' => 'Half View2',
+                                 'title' => 'Half View 2',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -6835,7 +6893,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'halfView3',
-                                 'title' => 'Half View3',
+                                 'title' => 'Half View 4',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'halfView4',
+                                 'title' => 'Half View 4',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'technicalDrawing2',
+                                 'title' => 'Technical Drawing 2',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -7069,6 +7175,328 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'applicationImage6',
                                  'title' => 'Application Image6',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Epix',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'margin:20px;',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'epixImage1',
+                                 'title' => 'Epix Image 1',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'epixImage3',
+                                 'title' => 'Epix Image 3',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => 'margin:20px;',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'epixImage2',
+                                 'title' => 'Epix Image 2',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'epixImage4',
+                                 'title' => 'Epix Image 4',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                  3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Videos',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'margin:20px;',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'video1',
+                                 'title' => 'Video 1',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 100,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => 'margin:20px;',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'video2',
+                                 'title' => 'Video 2',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,

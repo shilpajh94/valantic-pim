@@ -1,15 +1,15 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-13T07:33:40+02:00
+* Generated at: 2022-05-31T13:27:52+02:00
 * IP: ::1
 
 
 Fields Summary: 
-- refLineDiffHBIN [numeric]
 - refLineDiffHBMM [numeric]
-- refLineDiffHBINUnit [input]
+- refLineDiffHBIN [numeric]
 - refLineDiffHBMMUnit [input]
+- refLineDiffHBINUnit [input]
 */ 
 
 
@@ -119,8 +119,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'refLineDiffHBIN',
-                     'title' => 'Ref.line diff. (hb) (IN)',
+                     'name' => 'refLineDiffHBMM',
+                     'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -150,8 +150,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'refLineDiffHBMM',
-                     'title' => 'Ref.line diff. (hb) (MM)',
+                     'name' => 'refLineDiffHBIN',
+                     'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -200,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'refLineDiffHBINUnit',
+                     'name' => 'refLineDiffHBMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -228,7 +228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'refLineDiffHBMMUnit',
+                     'name' => 'refLineDiffHBINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
