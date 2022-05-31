@@ -26,27 +26,27 @@ ribPitchMM1:
 heightINUnit:
   fieldName: heightINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUCommonFert
 pitchLengthLpLwINUnit:
   fieldName: pitchLengthLpLwINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUCommonFert
 pitchHeightHduINUnit:
   fieldName: pitchHeightHduINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUCommonFert
 refLengthLrINUnit:
   fieldName: refLengthLrINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUCommonFert
 ribPitchINUnit:
   fieldName: ribPitchINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUCommonFert
 
 toothPitchPtMMUnit:
@@ -72,27 +72,27 @@ beltThicknessHsMMUnit:
 toothHeightHtINUnit:
   fieldName: toothHeightHtINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUFlatBeltsFert
 widthINUnit:
   fieldName: widthINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUFlatBeltsFert
 beltThicknessHsINUnit:
   fieldName: beltThicknessHsINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUFlatBeltsFert
 toothPitchPtINUnit:
   fieldName: toothPitchPtINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUFlatBeltsFert
 #refLineDiffHBINUnit:
   #fieldName: refLineDiffHBINUnit
   #fieldType: Input
-  #fieldValue: in
+  #fieldValue: inch
   #objectType: PTGEUFlatBeltsFert
 
 maxBoreSizeMMUnit:
@@ -143,58 +143,58 @@ faceWidthMMUNIT:
 maxBoreSizeINUNit:
   fieldName: maxBoreSizeINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 minBoreSizeUNit:
   fieldName: minBoreSizeUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 keyWayINUnit:
   fieldName: keyWayINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 pitchDiameterINUNit:
   fieldName: pitchDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 outsideDiameterINUNit:
   fieldName: outsideDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 insideDiameterINUNit:
   fieldName: insideDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 flangeDiameterINUNit:
   fieldName: flangeDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 hubDiameterINUNit:
   fieldName: hubDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 pulleyDiameterINUNit:
   fieldName: pulleyDiameterINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 faceWidthINUNit:
   fieldName: faceWidthINUNit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUMetalFert
 
 refLineDiffHBINUnit:
   fieldName: refLineDiffHBINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUPolyVFert
 refLineDiffHBMMUnit:
   fieldName: refLineDiffHBMMUnit
@@ -240,35 +240,35 @@ pitchWidthBDMMUnit:
 effectiveLengthINUnit:
   fieldName: effectiveLengthINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 datumLengthINUnit:
   fieldName: datumLengthINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 outsideLengthINUnit:
   fieldName: outsideLengthINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 insideLengthINUnit:
   fieldName: insideLengthINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 ProfileHeightHINUnit:
   fieldName: ProfileHeightHINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 pitchWidthBDINUnit:
   fieldName: pitchWidthBDINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert
 lowerBeltWidthBiINUnit:
   fieldName: lowerBeltWidthBiINUnit
   fieldType: Input
-  fieldValue: in
+  fieldValue: inch
   objectType: PTGEUVBeltsFert

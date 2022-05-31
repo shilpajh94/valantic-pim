@@ -15,7 +15,7 @@ class Product
     private $prdConfigData;
     private $productType;
     public $siopCodes;
-    private $siopObjects;
+
     public function __construct()
     {
         /* Initiate helper */
@@ -49,7 +49,7 @@ class Product
     {
         if (!empty($targetObject) && !empty($siops)) {
             foreach ($siops as $l => $siop) {
-                $sioLvlName = "setSIOPLevel" . $l;
+                $sioLvlName = "setHierarchyLevel" . $l;
                 if (!empty($siop) && $siop->getId()) {
                     $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
                 }
@@ -60,7 +60,7 @@ class Product
             $level1Id = $this->catHelper->getLevel1ParentId();
             if (!empty($level1Id)) {
                 $catObj = DataObject::getById($level1Id);
-                $targetObject->setSIOPLevel1([$catObj]);
+                $targetObject->setHierarchyLevel1([$catObj]);
             }
         }
     }
@@ -100,7 +100,7 @@ class Product
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
-            $parentPath = $parentLevel ? $this->getParentPath($parentLevel, $buCode, $reader) : $this->root['fullPath'];
+            $parentPath = $parentLevel ? $this->getParentPath($parentLevel, $reader) : $this->root['fullPath'];
             $objectPath = $parentPath . '/' . $objectKey;
             $levels[$i] = array(
                 'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
@@ -123,17 +123,17 @@ class Product
         );
     }
 
-    public function getParentPath($lvl, $buCode, $reader)
+    public function getParentPath($lvl, $reader)
     {
-        $bu = $this->businessUnit[$buCode];
         $path = '';
         if ($lvl == 1) {
             $path = '';
         } else {
             for ($i = 1; $i <= $lvl; $i++) {
-                // $path[] = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'object');
                 if (empty($path))
+                {
                     $path = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                }
                 else {
                     $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
                 }
@@ -141,7 +141,6 @@ class Product
         }
         if (empty($path)) {
             $path = $this->root['fullPath'];
-            //$path = $this->root['fullPath'] . '/' . $bu;
         } else {
             $path = $this->root['fullPath'] . '/' . $path;
         }
@@ -159,6 +158,7 @@ class Product
     public function createCategoryHierarchy($fullCode)
     {
         /** Loading list of siop code */
+        $parentObj = false;
         $this->catHelper->getCategories();
         $code = $fullCode;
         $len = strlen($code);
@@ -173,7 +173,7 @@ class Product
         $extractedPath = $this->extractCategoryPath($fullPath, $bu);
         $prdCatFullPath = $this->root['fullPath'] . '/' . $extractedPath;
         $parentObj = DataObject\Service::createFolderByPath($prdCatFullPath);
-        $obj = "";
+        
         if ($allowedLevel < $topLvl) {
             for ($l = ($allowedLevel + 1); $l <= $topLvl; $l++) {
                 $code = $this->catHelper->extractFullCodeLevelWise($l, $fullCode);
@@ -181,7 +181,6 @@ class Product
             }
         }
         return $parentObj;
-        return false;
     }
     private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
     {
@@ -197,8 +196,8 @@ class Product
                 $prdObj->setParentId($parentObj->getId());
             }
             $productTypeKey = $this->common->getParameterItem($this->prdConfigData, 'productTypeLevel', $siopLevel);
-            $productType = $this->getProductType($productTypeKey);
-            $prdObj->setProductType($productType);
+            $prodType = $this->getProductType($productTypeKey);
+            $prdObj->setProductType($prodType);
             $prdObj->setSiopFullCode($code);
             $this->updateSiop($prdObj);
             $this->setSiop($this->siop, $prdObj);
@@ -244,5 +243,28 @@ class Product
     public function getConfigurationDataByKey($key)
     {
         return $this->common->getParameter($this->prdConfigData, $key);
+    }
+
+    public function isValidCategoryCode($siopCode) {
+        if (strlen($siopCode) == 18) {
+            return true;
+        }
+        return false;
+    }
+
+    public function convertCategoryPathToProduct($categoryPath) {
+        $search = '/Master List/Product Hierarchy';
+        $replace = '/Products';
+        return str_replace($search, $replace, $categoryPath);
+    }
+    
+    public function getFolderByPath($folderPath) {
+        $pathExists = \Pimcore\Model\DataObject\Service::pathExists($folderPath);
+        if (empty($pathExists)) {
+            $folder = \Pimcore\Model\DataObject\Service::createFolderByPath($folderPath);
+        } else {
+            $folder = \Pimcore\Model\DataObject\Service::getElementByPath('object', $folderPath);
+        }
+        return $folder->getId();
     }
 }

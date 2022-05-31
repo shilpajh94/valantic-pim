@@ -99,14 +99,12 @@ class Common
      *  return corresponding value of a key from an array
      */
     public function getFieldValue($fileColumns, $rowvalue, $string){
-        // $value = ($checkNumber == 'NUMBER') ? 0 : '';
         if(!empty($string))
         {
             if(in_array($string, $fileColumns))
             {
                 $index = array_search($string, $fileColumns);
                 $value = $rowvalue[$index];
-                // $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
             }
         }
         return $value;

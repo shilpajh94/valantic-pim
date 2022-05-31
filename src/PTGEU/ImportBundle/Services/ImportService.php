@@ -20,70 +20,16 @@ class ImportService
             self::$startRow = $config['startRow'];
         }
         self::$fileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify(self::$filePath);
-        // $reader = new Xlsx;
+        
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader(self::$fileType);
         $workSheetInfo = $reader->listWorksheetInfo(self::$filePath);
-        /* See Helper Function to explore worksheet
-        https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-files/#helper-methods
-        */
-        /* p_r($workSheetInfo);
-        eg:
-            array:2 [
-            0 => array:5 [
-                "worksheetName" => "IFS"
-                "lastColumnLetter" => "K"
-                "lastColumnIndex" => 10
-                "totalRows" => "73"
-                "totalColumns" => 11
-            ]
-            1 => array:5 [
-                "worksheetName" => "HYD & PTG"
-                "lastColumnLetter" => "D"
-                "lastColumnIndex" => 3
-                "totalRows" => "944"
-                "totalColumns" => 4
-            ]
-            ]
-        */
+       
         $workSheet = array_shift($workSheetInfo);
-
-        /*
-        eg:
-            p_r($workSheet);
-            array:5 [
-            "worksheetName" => "IFS"
-            "lastColumnLetter" => "K"
-            "lastColumnIndex" => 10
-            "totalRows" => "73"
-            "totalColumns" => 11
-            ]
-
-        */
+       
         $reader->setLoadSheetsOnly($workSheet['workSheetName']);
         $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilterService($workSheet));
-
-        /* For Understanding, Exploring features of PHPOffice Spreadsheet */
-        /*
-        $spreadsheet = $reader->load($filePath);
-        $worksheet = $spreadsheet->getActiveSheet();
-        echo "Highest Total Rows: ".$worksheet->getHighestRow();
-        echo "\nHighest Row: ".$worksheet->getHighestDataRow();
-        echo "\nHighest Cols: ".$worksheet->getHighestDataColumn();
-         */
-
-        // p_r($spreadsheet);
-        /* Writing into sheet */
-        /*
-        // Get an object of the current spreadsheet
-        $spreadsheet = $reader->load($filePath);
-        // Set the cell value in the current spreadsheet eg: A1, B1, A2, B2
-        $spreadsheet->getActiveSheet()->setCellValue('L1','Status');
-        // Get an object of the writer by passing current spreadsheet and file type
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, self::$fileType);
-        // Save the updated spreadsheet
-        $writer->save($filePath);
-         */
+      
         if ($flag) {
             self::$spreadsheet = $reader->load(self::$filePath);
             return self::$spreadsheet;
@@ -139,7 +85,6 @@ class ImportService
                         $firstRowData = $rowData;
                     } else {
                         $data[] = $rowData;
-                        $cols = count($rowData);
                     }
                     $count++;
                 }

@@ -16,8 +16,7 @@ class ProductModel
 
     private $db;
     private $common;
-
-
+    
     /**
      * Getting DB connection object
      */
@@ -39,33 +38,6 @@ class ProductModel
         $this->fileColumns  = $table['fileColumns'];
         $this->keyColumns   = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
-    }
-    
-    public function getDistributionChainFlagByMaterial($materialObjId) {
-        $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
-        $salesData = $this->db->fetchAll($sql);
-	    $flag = true;
-	    if (count($salesData) > 0) {
-            foreach ($salesData as $rec) {
-                if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
-                    $flag = false;
-                    break;
-                }
-            }
-        } else {
-            $flag = false;
-        }
-        return $flag;
-    }
-    
-    public function getFittingFamilyFlagByMaterial($materialObjId) {
-        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; 
-        $data = $this->db->fetchAll($sql);
-	    $flag = false;
-        if (count($data)>0) {
-            $flag = true;
-        }
-        return $flag;
     }
     
     public function checkIfArticleExists($articleNumber) {
@@ -204,9 +176,7 @@ class ProductModel
         try {
             $catLength  = 18;
             $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
-            $delta      = $this->db->fetchAll($sql);
-
-            return $delta;
+            return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -220,7 +190,7 @@ class ProductModel
                 try {
                     $this->db->query($sql);
                 } catch (\Exception $e) {
-                    
+                    echo $e->getMessage();
                 }
             }
         }
@@ -268,7 +238,7 @@ class ProductModel
                 }
             }
         }  catch (\Exception $ex) {
-            
+            echo $ex->getMessage();
         }
     }
 

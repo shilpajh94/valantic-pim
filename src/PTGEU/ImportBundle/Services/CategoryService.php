@@ -16,16 +16,11 @@ class CategoryService
     public $inboxFilePath;
     public $archiveDir;
     public $failedDir;
-    private $listingService;
-    private $validatorService;
     private $logFileName;
     private $monitoringItem;
     private $totalSteps;
     public $currentStep;
-    private $currentLevel;
-    private $errors;
     private $reader;
-    private $level;
     public $rowStatus;
     public $instance;
     use ProcessManagerBundle\ExecutionTraitClass;
@@ -52,9 +47,7 @@ class CategoryService
 
             /* Create parent if it does not exist */
         } catch (\Throwable $th) {
-            //throw $th;
             Logger::error($this->logFileName, $th);
-            // echo $th->getMessage();
             die;
         }
     }
@@ -144,26 +137,14 @@ class CategoryService
             ImportService::save();
 
 
-            /* Move imported file from inbox to archive or failed as per status */
-            /*$moveParam = array(
-                'filePath'      => $this->inboxFilePath,
-                'archivePath'   =>  $this->archiveDir,
-                'failedPath'    =>  $this->failedDir,
-                'status'        =>  $success,
-                'fileName'      =>  $this->name
-            );
-            $movedAssetObj = $this->common->moveFile($moveParam);*/
-
-
             /* Set Application Logger Message */
             if ($success) {
                 Logger::log(self::LOGGER_MODULE)->info("Category Imported successfully.");
             } else {
-                //$fileObject = new FileObject($movedAssetObj->getData());
                 Logger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
-            throw $th;
+            echo $th->getMessage();
         }
     }
 
@@ -213,7 +194,7 @@ class CategoryService
             ->setDefaultProcessMessage("Processing Raw code '" . $levelInfo['fullCode'] . "', code: '" . $levelInfo['code'] . "', Full Code: '" . $levelInfo['levelFullCode'] . "'")
             ->save();
 
-        $objKey = $levelInfo['objectKey']; //'description';
+        $objKey = $levelInfo['objectKey'];
 
         $catObj->setKey(\Pimcore\Model\Element\Service::getValidKey($objKey, 'object'));
         /* Updating Object Here */
