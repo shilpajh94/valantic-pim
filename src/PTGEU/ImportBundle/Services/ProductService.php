@@ -32,12 +32,9 @@ class ProductService
     private $categories;
     private $products;
     private $materialGroup;
-    private $baseSIOPMapping;
-    private $baseSIOPArticleMapping;
     private $baseSiopMismatchLog;
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
-    private $weightConversionService;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -62,9 +59,6 @@ class ProductService
         $this->catHelper            = \Pimcore::getContainer()->get('import.category_helper');
         $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
-        $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
-        $this->baseSIOPMapping      = [];
-        $this->baseSIOPArticleMapping = [];
         $this->baseSiopMismatchLog  = [];
     }
 
@@ -310,13 +304,10 @@ class ProductService
     private function getRecordIndexByKey($key) {
         return $this->csvHeader[$this->columnName[$key]];
     }
-    
-    public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) {
-        if ($type == 'base') {
-            $objectIndex = count($levelInfo)-2;
-        } elseif ($type == 'skeleton' || $type == 'fert') {
-            $objectIndex = count($levelInfo);
-        }
+
+    public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) 
+    {
+        $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
@@ -410,7 +401,7 @@ class ProductService
                             $this->updatedArticlesArray[] = $levelArray[0]; 
                         }
                     }
-                    unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
+                    unset($record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
                 } else {
                     $msg = 'Material Group code can not be empty.';
                 }

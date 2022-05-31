@@ -59,7 +59,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 // get editable product attribute config
                 $this->configProviderService    = \Pimcore::getContainer()->get('import.config_provider_service');
                 $productImportConfig            = $this->configProviderService->getEditableProductAttributesImportConfig();
-                $unitValueConfig                = $this->configProviderService->getUnitValueConfig();
+
                 // get imported csv data
                 $csvInfo        = ImportService::getCSVData($filePath);
                 $csvHeader      = $csvInfo['header'];
@@ -70,7 +70,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $incorrectDataArray = [];
                 $importStatus       = "FAILURE";
                 $allObjectBricks    = [];
-                foreach($csvData  as $key => $productData) 
+                foreach($csvData  as $productData) 
                 {
                     $i++;
                     $articleNumber  = $productData[0];
@@ -138,8 +138,8 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                                 {
                                     if (isset($bricksData[$brick])) 
                                     {
-                                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                                        $brickObject = new $class($product);
+                                        $classBrick = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                                        $brickObject = new $classBrick($product);
                                         foreach ($bricksData[$brick] as $fieldKey => $fieldData) 
                                         {
                                             $fieldValue = trim($fieldData['fieldValue']);
@@ -156,18 +156,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                                             $method = 'set' . $brick;
                                             $bickTypeMethod = 'get' . ucfirst($brickType);
                                             $product->$bickTypeMethod()->$method($brickObject, 1);
-                                        }
-
-                                        foreach ($unitValueConfig as $unit => $unitValue) {
-
-                                            $fieldKey = ucfirst($unitValue['fieldName']);
-                                            $objectBrickFieldMethod = 'set' . $fieldKey;
-
-                                            if ($unitValue['objectType'] == $brick) {
-                                                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
-                                            } else {
-                                                continue;
-                                            }
                                         }
                                     }
                                 }
@@ -215,7 +203,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     private function csvLog($logHandler, array $dataRow)
     {
         $csvDelimiter = ",";
-
         fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
 

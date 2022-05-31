@@ -102,7 +102,6 @@ class CategoryService
                     $this->monitoringItem->getLogger()->error($result['message']);
                     $this->rowStatus[$this->currentStep] .= $result['message'];
                 } else {
-                    $len = strlen($this->reader['code']);
                     $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
 
                     if ($levelInfo['status']) {

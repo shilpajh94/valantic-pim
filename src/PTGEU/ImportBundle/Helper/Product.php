@@ -182,6 +182,7 @@ class Product
         }
         return $parentObj;
     }
+
     private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
     {
         $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
@@ -213,6 +214,7 @@ class Product
         }
         return false;
     }
+    
     public function extractCategoryPath($path, $bu)
     {
         if (!empty($path) && !empty($bu)) {
@@ -266,5 +268,15 @@ class Product
             $folder = \Pimcore\Model\DataObject\Service::getElementByPath('object', $folderPath);
         }
         return $folder->getId();
+    }
+    
+    public function getObjectIndex($type, $levelInfo) 
+    {
+        if ($type == 'base') {
+            $objectIndex = count($levelInfo)-2;
+        } elseif ($type == 'skeleton' || $type == 'fert') {
+            $objectIndex = count($levelInfo);
+        }
+        return $objectIndex;
     }
 }
