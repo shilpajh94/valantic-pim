@@ -2216,8 +2216,8 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        EffectiveLengthUOM:
-            pim_attribute_name: EffectiveLengthUOM
+        effectiveLengthUOM:
+            pim_attribute_name: effectiveLengthUOM
             pim_table_name: object_brick_query_BeltsFert_1
             joinOn: LEFT JOIN object_brick_query_BeltsFert_1 ON object_brick_query_BeltsFert_1.o_id = object_1.o_id
             sendToSF: true
