@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-01T16:21:28+05:30
+* Generated at: 2022-06-01T18:40:39+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2CCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654080688,
+   'modificationDate' => 1654089039,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -309,7 +309,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'title' => 'Level',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => 'margin-left: 20px;',
@@ -368,7 +368,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
