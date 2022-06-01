@@ -9,7 +9,7 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: id
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -27,7 +27,7 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: description
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -45,7 +45,7 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: name
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -81,7 +81,7 @@ parameters:
             temp_master_table_column_type: TEXT NULL
             addOnJoin:
             sf_attribute_name: page_description
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -99,7 +99,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(190) NULL
             addOnJoin:
             sf_attribute_name: page_keywords
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -117,7 +117,7 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: page_title
-            pim_attribute_type:
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -135,7 +135,8 @@ parameters:
             joinOn:
             addOnJoin:
             sf_attribute_name: position
-            pim_attribute_type:
+            pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -184,7 +185,7 @@ parameters:
         o_published:
             pim_attribute_name: o_published
             pim_table_name: object_B2CCategory
-            sendToSF: true
+            sendToSF: false
             temp_master_table_attr: true
             temp_master_table_column_type: TINYINT(1) NULL
             salesForceRelationalAttr: true
