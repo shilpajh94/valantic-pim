@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-16T08:55:05+02:00
-* IP: 127.0.0.1
+* Generated at: 2022-05-31T13:25:48+02:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -135,7 +135,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'toothPitchPtMM',
-                     'title' => 'Tooth Pitch (P/t) (MM)',
+                     'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -166,7 +166,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'toothHeightHtMM',
-                     'title' => 'Tooth height (ht) (MM)',
+                     'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -197,7 +197,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'widthMM',
-                     'title' => 'widthMM',
+                     'title' => 'Width',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -228,7 +228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'beltThicknessHsMM',
-                     'title' => 'Belt thickness (hs) (MM)',
+                     'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -446,7 +446,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'toothHeightHtIN',
-                     'title' => 'Tooth height (ht) (MM)',
+                     'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -477,7 +477,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'widthIN',
-                     'title' => 'Width (in)',
+                     'title' => 'Width',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -508,7 +508,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'beltThicknessHsIN',
-                     'title' => 'Belt thickness (hs) (IN)',
+                     'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -539,7 +539,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'toothPitchPtIN',
-                     'title' => 'Pitch Length (in)',
+                     'title' => 'Pitch Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -570,7 +570,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'refLineDiffHBIN',
-                     'title' => 'RefLine DiffHB (IN)',
+                     'title' => 'RefLine DiffHB',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -709,7 +709,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',

@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-16T08:24:40+02:00
-* IP: 127.0.0.1
+* Generated at: 2022-05-31T13:24:55+02:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -139,7 +139,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'heightMM',
-                     'title' => 'Height (mm)',
+                     'title' => 'Height',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -170,7 +170,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'pitchLengthLpLwMM',
-                     'title' => 'Pitch Length (Lp/Lw) (MM)',
+                     'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -201,7 +201,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'pitchHeightHduMM',
-                     'title' => 'Pitch height (hd/u) (MM)',
+                     'title' => 'Pitch height (hd/u)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -232,7 +232,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'refLengthLrMM',
-                     'title' => 'Ref. Length (Lr) (MM)',
+                     'title' => 'Ref. Length (Lr)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -263,7 +263,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'ribPitchMM',
-                     'title' => 'Rib Pitch (s) (MM)',
+                     'title' => 'Rib Pitch (s)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -537,7 +537,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'heightIN',
-                     'title' => 'Height (in)',
+                     'title' => 'Height',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -568,7 +568,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'pitchLengthLpLwIN',
-                     'title' => 'Pitch Length (Lp/Lw) (IN)',
+                     'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -599,7 +599,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 2,
                      'decimalPrecision' => NULL,
                      'name' => 'pitchHeightHduIN',
-                     'title' => 'Pitch height (hd/u) (IN)',
+                     'title' => 'Pitch height (hd/u)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -630,7 +630,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => 1,
                      'decimalPrecision' => NULL,
                      'name' => 'refLengthLrIN',
-                     'title' => 'Ref. Length (Lr) (IN)',
+                     'title' => 'Ref. Length (Lr)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -661,7 +661,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'ribPitchIN',
-                     'title' => 'Rib Pitch (s) (IN)',
+                     'title' => 'Rib Pitch (s)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
