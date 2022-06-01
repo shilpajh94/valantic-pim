@@ -118,7 +118,7 @@ class ProductService
             $this->productModel->truncateTempTable();
             $this->productModel->insertDataInTemp($csvInfo['data']);
             Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-            $this->processDeletedProducts();
+            $this->productModel->processDeletedProducts();
             Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
             Logger::log(self::LOGGER_MODULE)->info("Product import started");
             $this->initiateProductsProcess();
@@ -128,7 +128,7 @@ class ProductService
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                 echo "Object Saving started for completeness.";         
-                $this->saveProducts($this->updatedArticlesArray);
+                $this->productModel->saveProducts($this->updatedArticlesArray);
                 echo "Object Saving completed for completeness.";
             }
 
@@ -174,35 +174,6 @@ class ProductService
             }
         } catch (\Throwable $th) {
             Logger::log(self::LOGGER_MODULE)->error($th);
-        }
-    }
-    
-    public function saveProducts($updatedArticlesArray) {
-        foreach ($updatedArticlesArray as $objectId) {
-            if (!empty($objectId)) {
-                $object = DataObject\PTGEUProduct::getById($objectId, true);
-                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
-                    $object->save();
-                }
-            }
-        }
-    }
-
-    public function processDeletedProducts() {
-        $deletedProducts = $this->productModel->getDeletedProducts();
-        if (!empty($deletedProducts) && count($deletedProducts)>0) {
-            $keysArray = [];
-            foreach ($deletedProducts as $product) {
-                $keysArray[] = $product['id'];
-            }
-            $obj = new DataObject\PTGEUProduct\Listing();
-            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
-            $obj->load();
-            foreach($obj as $product) {
-                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
-                $product->setPublished(false);
-                $product->save();
-            }
         }
     }
     
@@ -378,30 +349,10 @@ class ProductService
                         'description'   =>  $recData[$this->getRecordIndexByKey('description')],
                         'material'  =>  $recData[$this->getRecordIndexByKey('material')]
                     );
-                    
-                    $levelInfo = $this->productHelper->getLevels($record['code'], $record);
-                    if ($levelInfo['status']) {
-                        $folderIndex = count($levelInfo['levels'])-3;
-                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                        $folderPath = $this->categories[$folderCode]['fullPath'];
-                        $folderPath = $this->productHelper->convertCategoryPathToProduct($folderPath);
-                        if (!array_key_exists($folderPath, $this->products)) {
-                            $folderId = $this->productHelper->getFolderByPath($folderPath);
-                            $this->products[$folderPath] = $folderId;
-                        } else {
-                            $folderId = $this->products[$folderPath];
-                        }
-                        $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                        $status = 'Success';
-                        $msg = 'Object Id is: '.$levelArray[0];
 
-                        if (!$errorFlag) {
-                            $this->updatedArticlesArray[] = $levelArray[0]; 
-                        }
-                    }
-                    unset($record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
+                    $result = $this->processLevelInfo($record, $recData, $errorFlag);
+                    $status = $result['status'];
+                    $msg    = $result['msg'];
                 } else {
                     $msg = 'Material Group code can not be empty.';
                 }
@@ -431,6 +382,37 @@ class ProductService
         $this->logArray[] = $logRow; 
         $logRow = null;
         unset($logRow);
+    }
+
+    private function processLevelInfo($record, $recData, $errorFlag) 
+    {
+        $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+        if ($levelInfo['status']) {
+            $folderIndex = count($levelInfo['levels'])-3;
+            $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+            $folderPath = $this->categories[$folderCode]['fullPath'];
+            $folderPath = $this->productHelper->convertCategoryPathToProduct($folderPath);
+            if (!array_key_exists($folderPath, $this->products)) {
+                $folderId = $this->productHelper->getFolderByPath($folderPath);
+                $this->products[$folderPath] = $folderId;
+            } else {
+                $folderId = $this->products[$folderPath];
+            }
+            $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+            $status = 'Success';
+            $msg = 'Object Id is: '.$levelArray[0];
+
+            if (!$errorFlag) {
+                $this->updatedArticlesArray[] = $levelArray[0]; 
+            }
+        }
+        unset($record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
+
+        return ['status' => $status,
+                'msg' => $msg
+            ];
     }
 
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
@@ -645,7 +627,6 @@ class ProductService
                 $materialGroupId = $obj->getId();
                 $this->materialGroup[$materialGroupCode] = $materialGroupId;
                 return $materialGroupId;
-                
             }
         }
         return null;

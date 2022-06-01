@@ -3,6 +3,7 @@
 namespace PTGEU\ImportBundle\Model;
 
 use Pimcore\Db;
+use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportConstants;
 
 class ProductModel
@@ -303,5 +304,34 @@ class ProductModel
     public function getObjectsTableData() {
         $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '38'";
         return $this->db->fetchAll($query);
+    }
+
+    public function processDeletedProducts() {
+        $deletedProducts = $this->getDeletedProducts();
+        if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            $keysArray = [];
+            foreach ($deletedProducts as $product) {
+                $keysArray[] = $product['id'];
+            }
+            $obj = new DataObject\PTGEUProduct\Listing();
+            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+            $obj->load();
+            foreach($obj as $product) {
+                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                $product->setPublished(false);
+                $product->save();
+            }
+        }
+    }
+
+    public function saveProducts($updatedArticlesArray) {
+        foreach ($updatedArticlesArray as $objectId) {
+            if (!empty($objectId)) {
+                $object = DataObject\PTGEUProduct::getById($objectId, true);
+                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
+                    $object->save();
+                }
+            }
+        }
     }
 }
