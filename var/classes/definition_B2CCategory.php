@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-30T14:24:39+05:30
+* Generated at: 2022-06-01T16:21:28+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -16,7 +16,7 @@ Fields Summary:
 - pageTitle [input]
 - level [numeric]
 - pageDescription [textarea]
-- position [input]
+- position [numeric]
 - hoseCategoryImage [image]
 */ 
 
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2CCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1653900879,
+   'modificationDate' => 1654080688,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -348,24 +348,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => '',
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => true,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
                          'name' => 'position',
                          'title' => 'Position',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
