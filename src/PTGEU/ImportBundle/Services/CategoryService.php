@@ -95,30 +95,10 @@ class CategoryService
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
                 $this->monitoringItem->setCurrentStep($this->currentStep)->save();
-                if (!$result['status']) {
-                    $success = false;
-                    $flag = false;
-
-                    $this->monitoringItem->getLogger()->error($result['message']);
-                    $this->rowStatus[$this->currentStep] .= $result['message'];
-                } else {
-                    $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
-
-                    if ($levelInfo['status']) {
-                        $lvl = max(array_keys($levelInfo['levels']));
-                        $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
-                        if (!$this->createCategory($levelInfo['levels'])) {
-                            $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
-                            $flag = false;
-                            $success = false;
-                        }
-                    } else {
-                        /* Validation Error */
-                        $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                        $flag = false;
-                        $success = false;
-                    }
-                }
+                
+                $processedResult= $this->processImport($this->currentStep, $this->reader, $result);
+                $flag           = $processedResult['flag'];
+                $success        = $processedResult['success'];
 
                 if (!$flag) {
                     $failedCnt++;
@@ -147,24 +127,49 @@ class CategoryService
         }
     }
 
+    private function processImport($currentStep, $reader, $result)
+    {
+        if (!$result['status']) {
+            $success = false;
+            $flag = false;
+
+            $this->monitoringItem->getLogger()->error($result['message']);
+            $this->rowStatus[$currentStep] .= $result['message'];
+        } else {
+            $levelInfo = $this->catHelper->getLevels($reader['code'], $reader['description']);
+
+            if ($levelInfo['status']) {
+                $lvl = max(array_keys($levelInfo['levels']));
+                $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
+                if (!$this->createCategory($levelInfo['levels'])) {
+                    $this->monitoringItem->getLogger()->error("Code '" . $reader['code'] . "' failed to process");
+                    $flag = false;
+                    $success = false;
+                }
+            } else {
+                /* Validation Error */
+                $this->monitoringItem->getLogger()->error($levelInfo['message']);
+                $flag = false;
+                $success = false;
+            }
+        }
+
+        return ['flag' => $flag, 'success' => $success];
+    }
+
     public function createCategory($levelInfo)
     {
         foreach ($levelInfo as $info) {
             $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
             if (!empty($obj) && $obj->getId()) {
                 $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
-                if ($this->updateCategory($info)) {
-                    return true;
-                }
+                return $this->updateCategory($info);
             } else {
                 $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                 if (!empty($parentObj)) {
                     /* Create or Update Object */
                     $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
-                    if ($this->updateCategory($info, $parentObj)) {
-                        return true;
-                    }
-                    return false;
+                    return $this->updateCategory($info, $parentObj);
                 } else {
                     $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
                     $key = key($levelInfo);
