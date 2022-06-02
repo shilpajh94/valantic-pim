@@ -241,7 +241,7 @@ class SalesMaterialService
             } 
             if(empty(trim($countryOfOrigin))) {
                 $errorsData[] = 'Country should not be blank.'; 
-            } 
+            }
             if(!count($errorsData)) {
                 try
                 {
