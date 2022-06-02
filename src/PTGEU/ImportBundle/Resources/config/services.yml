@@ -29,7 +29,6 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:sap-product-import' }
 
-
     # this command will execute the import of SAP plant material
     PTGEU\ImportBundle\Command\SAPPlantMaterialImportCommand:
         tags:
@@ -45,6 +44,11 @@ services:
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductHierarchyImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-hierarchy-import' }
+
+    # this command will execute the onetime import of product hierarchy
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductAssetImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-asset-import' }
 
     # this command will execute the onetime import of product editable attributes
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductEditableAttributesImportCommand:
@@ -62,6 +66,10 @@ services:
 
     import.sap_plant_material_import:
         class: PTGEU\ImportBundle\Services\PlantMaterialService
+        public: true
+
+    import.sap_product_asset_service:
+        class: PTGEU\ImportBundle\Services\ProductAssetMappingService
         public: true
 
     # Helpers
