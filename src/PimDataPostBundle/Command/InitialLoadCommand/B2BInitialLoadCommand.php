@@ -25,7 +25,7 @@ class B2BInitialLoadCommand extends AbstractCommand
     {
         $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
 
-        $pageSize = 50000;
+        $pageSize = 25000;
         $pageNumber = trim($input->getArgument('pageNumber'));
 
         if(is_numeric($pageNumber) && ($pageNumber > 0))
