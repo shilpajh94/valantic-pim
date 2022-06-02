@@ -25,7 +25,7 @@ class ConfigProviderService
     }
     public function getSalesMaterialConfig()
     {
-        return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
+        return $this->getConfigFromYmlFile(PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH);
     }
     public function getProductConfig()
     {

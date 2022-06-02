@@ -23,9 +23,9 @@ class ObjectsListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        
         $className = $object->getClassName();
-        if ($className == 'PTGEUProducts') 
+        
+        if ($className == 'PTGEUProduct') 
         {
             $this->percentageCompletionService->completenessPercentage($object);
         }

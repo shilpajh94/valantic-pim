@@ -64,6 +64,10 @@ services:
     import.common_helper:
         class: PTGEU\ImportBundle\Helper\Common
         public: true
+    
+    import.sap_sales_material_import:
+        class: PTGEU\ImportBundle\Services\SalesMaterialService
+        public: true
         
     import.category_helper:
         class: PTGEU\ImportBundle\Helper\Category

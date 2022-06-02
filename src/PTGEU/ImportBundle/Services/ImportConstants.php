@@ -6,13 +6,13 @@ class ImportConstants
 {
     const PTGEU_FOLDER = 'PTG_EU';
     const MASTER_LIST_FOLDER = self::PTGEU_FOLDER . '/Master List';
-    const MASTER_LIST_PLANTS_FOLDER = 'Master List/Plants';
-    const MASTER_LIST_COUNTRY_FOLDER = 'Master List/Countries';
-    const MASTER_LIST_SALES_ORGANIZATIONS_FOLDER = 'Master List/Sales Organizations';
-    const MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER = 'Master List/Distribution Channel';
-    const MATERIAL_MASTER_FOLDER = 'MaterialMaster';
-    const MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER = 'MaterialMaster/PlantMaterialMaster';
-    const MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER = 'MaterialMaster/SalesMaterialMaster';
+    const MASTER_LIST_PLANTS_FOLDER = self::MASTER_LIST_FOLDER .'/Plants';
+    const MASTER_LIST_COUNTRY_FOLDER = self::MASTER_LIST_FOLDER .'/Countries';
+    const MASTER_LIST_SALES_ORGANIZATIONS_FOLDER = self::MASTER_LIST_FOLDER .'/Sales Organizations';
+    const MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER = self::MASTER_LIST_FOLDER .'/Distribution Channel';
+    const PTGEU_MATERIAL_MASTER_FOLDER = self::PTGEU_FOLDER . '/MaterialMaster';
+    const PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER = self::PTGEU_MATERIAL_MASTER_FOLDER .'/PlantMaterialMaster';
+    const PTGEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER = self::PTGEU_MATERIAL_MASTER_FOLDER . '/SalesMaterialMaster';
     const IMPORT_TABLE_ID_SEPARATOR = '$';
     const OBJECT_KEY_SEPARATOR = '-';
     const IMPORT_BATCH_SIZE = 1000;

@@ -20,7 +20,8 @@ class CompletenessPercentageService
 
         $langs = \Pimcore\Tool::getValidLanguages();
         $totalFields = 0;
-
+        $emptyObjectBrickAttributes = '';
+        $emptyObjectBrickAttributesCounter = 0;
         
         foreach ($langs as $lang) {
             $emptyAttributes = "[ NON LOCALIZED ATTRIBUTES ]";
@@ -37,34 +38,34 @@ class CompletenessPercentageService
                 if (!$isInvisible) {
                     if ($fieldType != "localizedfields") {
                         if($fieldType == "objectbricks") {
-                            
-                            $attributesBase = $object->getBase();
-                            $attributesFert = $object->getFert(); 
-
-                            $bricksBase = $attributesBase->getBrickGetters();
-                            $bricksFert = $attributesFert->getBrickGetters();
-                            $attributes = [$attributesBase, $attributesFert];
-
-                            $bricks = array_merge($bricksFert,$bricksBase);
+                            $allowedTypes = $field->getAllowedTypes();
+                            $fieldName = $field->getName();
+                            $getter = "get".ucfirst($fieldName);
+                            $attributes = $object->$getter();
+                      
+                            $bricks = $attributes->getBrickGetters();
 
                             if (!empty($bricks)){
-                                $this->objectbricks($bricks,$lang, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter, $emptyAttributesLocalized, $emptyFieldLocalizedCounter);
+                                //$this->objectbricks($bricks,$lang, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter, $emptyAttributesLocalized, $emptyFieldLocalizedCounter);
+                                $this->objectbricks($bricks, $lang, $attributes, $count, $totalFields, $emptyObjectBrickAttributes, $emptyObjectBrickAttributesCounter, $emptyAttributesLocalized, $emptyFieldLocalizedCounter);
                             }
 
                         }else {
-                            $fieldValue = $object->{'get' . ucfirst($fieldName)}();
-                            if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {  
-                                $fieldValue = $fieldValue->getItems();
-                            }
-                            $totalFields++;
-                            if (!empty($fieldValue)) {
-                                $count++;
-                            } else {
-                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldTitle; 
-                             
-                            }
+                            if ($fieldName != "salesData" && $fieldName != "plantData") {
+                                $fieldValue = $object->{'get' . ucfirst($fieldName)}();
+                                if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {  
+                                    $fieldValue = $fieldValue->getItems();
+                                }
+                                $totalFields++;
+                                if (!empty($fieldValue)) {
+                                    $count++;
+                                } else {
+                                    $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldTitle; 
+                                
+                                }
 
-                        } 
+                            }
+                        }
                     } else {
                         $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributesLocalized , $emptyFieldLocalizedCounter);
                     }
@@ -72,12 +73,14 @@ class CompletenessPercentageService
             }
             $completedPercentage = round((($count/$totalFields)*100),2);
             $object->setCompletenessPercentage($completedPercentage,$lang);
-            $object->setEmptyFields($emptyAttributes.$emptyAttributesLocalized ,$lang);
+            $object->setEmptyFields($emptyAttributes.$emptyObjectBrickAttributes.$emptyAttributesLocalized ,$lang);
             $emptyFieldCounter = 0;
             $emptyFieldLocalizedCounter = 0;
             $count = 0;
             $totalFields = 0;
             $emptyAttributes = '';
+            $emptyObjectBrickAttributes = '';
+            $emptyObjectBrickAttributesCounter = 0;
             $emptyAttributesLocalized  = '';
         }
     }
@@ -86,17 +89,19 @@ class CompletenessPercentageService
     {
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $emptyFieldLabels = '';
-        foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
-            $localizedFieldName = $localizedField->getName();
-            if (!in_array($localizedFieldName, ["CompletenessPercentage","EmptyFields"])) {
+        foreach ($classDefinition->getFieldDefinition($fieldName)->getFieldDefinitions() as $localizedField) {
+            
+            //if (!in_array($localizedFieldName, ["CompletenessPercentage","EmptyFields"]) && !in_array($localizedFieldTitle, ["Completeness Percentage","Empty Fields"]) ) {
                 $totalFields++;
+                $localizedFieldName = $localizedField->getName();
                 $localizedFieldTitle = $localizedField->getTitle(); 
                 $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang);
-                if (!empty($localizedFieldValue)) {   
+                if (!empty($localizedFieldValue)) {  
+                    $count++; 
                 } else {
                     $emptyFieldLabels .= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$localizedFieldTitle; 
                 }
-            }
+        // }
         }
         if ($emptyFieldLocalizedCounter >0) {
             if (empty($emptyAttributesLocalized)) {
@@ -108,18 +113,19 @@ class CompletenessPercentageService
         }
     }
 
-    private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
+    private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyObjectBrickAttributes, &$emptyObjectBrickAttributesCounter, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
     {
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
+        $heading = "\n\n [ CATEGORY SPECIFIC ATTRIBUTES ]";
         $emptyLocalizedFieldLabels = '';
         $skippedField = SkippedFieldUnitList::CompletenessPercentageUnitList();
         foreach ($bricks as $brick) 
-        {
-            
-            foreach($attributes as $obj) {
+        {  
+            //foreach($attributes as $obj) {
+                $obj = $attributes;
                 $allowedBricks = $obj->getBrickGetters();
 
-                if( in_array($brick,$allowedBricks) && method_exists($obj,$brick)) {
+                if( in_array($brick, $allowedBricks) && method_exists($obj,$brick)) {
                    $brickData = $obj->$brick(); 
                     if (!empty($brickData)) {
                        $brickName = $brickData->getType();
@@ -133,20 +139,19 @@ class CompletenessPercentageService
 
                             if ($key=='localizedfields') {
                                 foreach($def->getFieldDefinitions() as $attr) {
-                                $name = $attr->getName();
-                                $attrTitle = $attr->getTitle();
-                                if(in_array($name, $skippedField)) {
-                                    continue;
-                                }
-                                $totalFields++;
-                                $fieldGetter = "get".ucfirst($name);
-                                $value = $brickData->$fieldGetter($lang);
-                                p_r($value);die;
-                                if (!empty($value)) {
-                                    $count++;
-                                } else {
-                                    $emptyLocalizedFieldLabels.= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$brickName.'~'.$attrTitle;
-                                }
+                                    $name = $attr->getName();
+                                    $attrTitle = $attr->getTitle();
+                                    if(in_array($name, $skippedField)) {
+                                        continue;
+                                    }
+                                    $totalFields++;
+                                    $fieldGetter = "get".ucfirst($name);
+                                    $value = $brickData->$fieldGetter($lang);
+                                    if (!empty($value)) {
+                                        $count++;
+                                    } else {
+                                        $emptyLocalizedFieldLabels.= "\n\t ".++$emptyFieldLocalizedCounter. ") ".$brickName.'~'.$attrTitle;
+                                    }
                                 }
                                 if ($emptyFieldLocalizedCounter >0) {
                                     if (empty($emptyAttributesLocalized)) {
@@ -165,13 +170,16 @@ class CompletenessPercentageService
                                 if (!empty($value)) {
                                     $count++; 
                                 } else {
-                                    $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$def->getTitle();
+                                    if (empty($emptyObjectBrickAttributes)) {
+                                        $emptyObjectBrickAttributes .= $heading;    
+                                    }
+                                    $emptyObjectBrickAttributes.= "\n\t ".++$emptyObjectBrickAttributesCounter. ") ".$brickName.'~'.$def->getTitle();
                                 }
                             }
                         }
                     }
                 }
-            }
+            // }
         }
 
     }
