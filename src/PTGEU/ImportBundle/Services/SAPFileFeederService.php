@@ -63,6 +63,7 @@ class SAPFileFeederService
             
 
             $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_p61_MaterialSales_sample1.csv';
+            $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_P61_Material.Plant_sample1_jitendra.csv';
             if($this->validateAllowedFileType()) 
             {
                 return realpath($this->filePath);
