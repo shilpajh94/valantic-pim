@@ -4,21 +4,13 @@ namespace PimDataPostBundle\Command\InitialLoadCommand;
 
 use Pimcore\Console\AbstractCommand;
 use PimDataPostBundle\InitialDataLoad\B2BProductInitialLoadProvider;
-use PimDataPostBundle\Lib\FailureNotificationSender\B2B\B2BFailureNotificationSender;
-use PimDataPostBundle\Lib\Util;
-use PimDataPostBundle\Model\PersistantModel\B2BEntityEnforcedToPush;
+use PimDataPostBundle\Lib\TempTablePopulator\B2B\B2BProductTempTablePopulator;
 use PimDataPostBundle\Model\PersistantModel\B2BPimFailureRecord;
-use PimDataPostBundle\Model\Types\APIOperationType;
 use PimDataPostBundle\Model\Types\B2BSalesForceObjectType;
 use PimDataPostBundle\Model\Types\StatusType;
-use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BCategoryDataPoster;
-use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductCategoryRelationDataPoster;
-use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductDataPoster;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-
-
 
 class B2BInitialLoadCommand extends AbstractCommand
 {
@@ -31,13 +23,18 @@ class B2BInitialLoadCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $pageSize = 10000;
+        $b2bProductTempTablePopulator = new B2BProductTempTablePopulator();
+
+        $pageSize = 50000;
         $pageNumber = trim($input->getArgument('pageNumber'));
 
         if(is_numeric($pageNumber) && ($pageNumber > 0))
         {
             $provider = new B2BProductInitialLoadProvider();
             $allProductIds = $provider->getProductIdsForInitialLoad($pageSize, $pageNumber);
+
+            $allProductIds = $b2bProductTempTablePopulator->filterIFSPTGProducts($allProductIds);
+
             $currTime = time();
 
             foreach($allProductIds as $id)
