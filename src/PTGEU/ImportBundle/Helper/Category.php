@@ -79,13 +79,10 @@ class Category
      */
     public function extractCodeLevelWise($level, $code)
     {
-        $len = strlen($code);
-        $codeLength = $this->codeLength[$level];
-        $levelLength = $this->levelLength[$level];
-
-        $levelCode = substr($code, 0, $levelLength);
-        $len = strlen($levelCode);
-        $from = $len - $codeLength;
+        $levelLength= $this->levelLength[$level];
+        $levelCode  = substr($code, 0, $levelLength);
+        $len        = strlen($levelCode);
+        $from       = $len - $this->codeLength[$level];
         return substr($levelCode, $from, $len);
     }
 
@@ -120,7 +117,9 @@ class Category
 
             foreach ($obj as $o) {
                 if ($o->getId())
+                {
                     return $o;
+                } 
             }
         }
         return false;
@@ -139,38 +138,33 @@ class Category
             unset($fullCode);
         }
        
-        if ($this->siopCodes)
+        if($this->siopCodes)
+        {
             return $this->siopCodes;
+        }
+
         return false;
     }
 
     public function getCategoryIdByFullCode($fullCode)
     {
-        $fcIndex = false;
-        if ($this->siopCodes) {
-            if(array_key_exists($fullCode, $this->siopCodes)) {
-                return $this->siopCodes[$fullCode]['id'];
-            }
+        if($this->siopCodes && array_key_exists($fullCode, $this->siopCodes)) {
+            return $this->siopCodes[$fullCode]['id'];
         }
         return false;
     }
 
     public function getCategoryFullPathByFullCode($fullCode)
-    {
-        $fcIndex = false;        
-        if ($this->siopCodes) {
-            if(array_key_exists($fullCode, $this->siopCodes)) {
-                return $this->siopCodes[$fullCode]['fullPath'];
-            }
+    {      
+        if($this->siopCodes && array_key_exists($fullCode, $this->siopCodes)) {
+            return $this->siopCodes[$fullCode]['fullPath'];
         }
         return false;
     }
 
     public function getObjectByCode($fullCode) {
-        if ($this->siopCodes) {
-            if(array_key_exists($fullCode, $this->siopCodes)) {
-                return $this->siopCodes[$fullCode]['object'];
-            }
+        if($this->siopCodes && array_key_exists($fullCode, $this->siopCodes)) {
+            return $this->siopCodes[$fullCode]['object'];
         }
         return false;
     }

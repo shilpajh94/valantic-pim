@@ -16,16 +16,11 @@ class CategoryService
     public $inboxFilePath;
     public $archiveDir;
     public $failedDir;
-    private $listingService;
-    private $validatorService;
     private $logFileName;
     private $monitoringItem;
     private $totalSteps;
     public $currentStep;
-    private $currentLevel;
-    private $errors;
     private $reader;
-    private $level;
     public $rowStatus;
     public $instance;
     use ProcessManagerBundle\ExecutionTraitClass;
@@ -52,9 +47,7 @@ class CategoryService
 
             /* Create parent if it does not exist */
         } catch (\Throwable $th) {
-            //throw $th;
             Logger::error($this->logFileName, $th);
-            // echo $th->getMessage();
             die;
         }
     }
@@ -102,31 +95,10 @@ class CategoryService
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
                 $this->monitoringItem->setCurrentStep($this->currentStep)->save();
-                if (!$result['status']) {
-                    $success = false;
-                    $flag = false;
-
-                    $this->monitoringItem->getLogger()->error($result['message']);
-                    $this->rowStatus[$this->currentStep] .= $result['message'];
-                } else {
-                    $len = strlen($this->reader['code']);
-                    $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
-
-                    if ($levelInfo['status']) {
-                        $lvl = max(array_keys($levelInfo['levels']));
-                        $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
-                        if (!$this->createCategory($levelInfo['levels'])) {
-                            $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
-                            $flag = false;
-                            $success = false;
-                        }
-                    } else {
-                        /* Validation Error */
-                        $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                        $flag = false;
-                        $success = false;
-                    }
-                }
+                
+                $processedResult= $this->processImport($this->currentStep, $this->reader, $result);
+                $flag           = $processedResult['flag'];
+                $success        = $processedResult['success'];
 
                 if (!$flag) {
                     $failedCnt++;
@@ -144,27 +116,45 @@ class CategoryService
             ImportService::save();
 
 
-            /* Move imported file from inbox to archive or failed as per status */
-            /*$moveParam = array(
-                'filePath'      => $this->inboxFilePath,
-                'archivePath'   =>  $this->archiveDir,
-                'failedPath'    =>  $this->failedDir,
-                'status'        =>  $success,
-                'fileName'      =>  $this->name
-            );
-            $movedAssetObj = $this->common->moveFile($moveParam);*/
-
-
             /* Set Application Logger Message */
             if ($success) {
                 Logger::log(self::LOGGER_MODULE)->info("Category Imported successfully.");
             } else {
-                //$fileObject = new FileObject($movedAssetObj->getData());
                 Logger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
-            throw $th;
+            echo $th->getMessage();
         }
+    }
+
+    private function processImport($currentStep, $reader, $result)
+    {
+        if (!$result['status']) {
+            $success = false;
+            $flag = false;
+
+            $this->monitoringItem->getLogger()->error($result['message']);
+            $this->rowStatus[$currentStep] .= $result['message'];
+        } else {
+            $levelInfo = $this->catHelper->getLevels($reader['code'], $reader['description']);
+
+            if ($levelInfo['status']) {
+                $lvl = max(array_keys($levelInfo['levels']));
+                $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
+                if (!$this->createCategory($levelInfo['levels'])) {
+                    $this->monitoringItem->getLogger()->error("Code '" . $reader['code'] . "' failed to process");
+                    $flag = false;
+                    $success = false;
+                }
+            } else {
+                /* Validation Error */
+                $this->monitoringItem->getLogger()->error($levelInfo['message']);
+                $flag = false;
+                $success = false;
+            }
+        }
+
+        return ['flag' => $flag, 'success' => $success];
     }
 
     public function createCategory($levelInfo)
@@ -173,18 +163,13 @@ class CategoryService
             $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
             if (!empty($obj) && $obj->getId()) {
                 $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
-                if ($this->updateCategory($info)) {
-                    return true;
-                }
+                return $this->updateCategory($info);
             } else {
                 $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                 if (!empty($parentObj)) {
                     /* Create or Update Object */
                     $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
-                    if ($this->updateCategory($info, $parentObj)) {
-                        return true;
-                    }
-                    return false;
+                    return $this->updateCategory($info, $parentObj);
                 } else {
                     $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
                     $key = key($levelInfo);
@@ -213,7 +198,7 @@ class CategoryService
             ->setDefaultProcessMessage("Processing Raw code '" . $levelInfo['fullCode'] . "', code: '" . $levelInfo['code'] . "', Full Code: '" . $levelInfo['levelFullCode'] . "'")
             ->save();
 
-        $objKey = $levelInfo['objectKey']; //'description';
+        $objKey = $levelInfo['objectKey'];
 
         $catObj->setKey(\Pimcore\Model\Element\Service::getValidKey($objKey, 'object'));
         /* Updating Object Here */

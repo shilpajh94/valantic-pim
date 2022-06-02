@@ -29,14 +29,14 @@ class Category
     public function validateSpreadSheet($spreadsheet)
     {
         $activeSheet = $spreadsheet->getActiveSheet()->toArray();
-        $columns = $this->extractColumns($activeSheet);
-        if(count($this->columns)!==count($columns)) {
+        $cols = $this->extractColumns($activeSheet);
+        if(count($this->columns)!==count($cols)) {
             return array(
                 'status'    =>  false,
                 'message'   =>  'Uploaded file column(s) does not match with predefined configuration.'
             );
         }
-        $reader = array_combine($this->columns, $columns);
+        $reader = array_combine($this->columns, $cols);
         return $this->validateRow($reader);
     }
 

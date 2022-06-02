@@ -14,14 +14,7 @@ class ConfigProviderService
      *
      * @return mixed
      */
-    public function getLevelAttributeMappingConfig()
-    {
-        return $this->getConfigFromYmlFile(LEVEL_ATTRIBUTE_MAPPING_FILE_PATH);
-    }
-    public function getCommandConfig()
-    {
-        return $this->getConfigFromYmlFile(COMMAND_CONFIG_FILE_PATH);
-    }
+
     public function getCategoryConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_CATEGORY_CONFIG_FILE_PATH);
@@ -34,18 +27,13 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
     }
-    public function getMaterialConfig()
+    public function getProductConfig()
     {
-        return $this->getConfigFromYmlFile(PTG_EU_MATERIAL_CONFIG_FILE_PATH);
+        return $this->getConfigFromYmlFile(PTG_EU_PRODUCT_CONFIG_FILE_PATH);
     }
 
     public function getBrickMappingConfig(){
         return $this->getConfigFromYmlFile(PTG_EU_BRICK_MAPPING_CONFIG_FILE_PATH);
-    }
-
-
-    public function getMultiselectMasterConfig(){
-        return $this->getConfigFromYmlFile(MULTISELECT_MASTER_IMPORT_CONFIG);
     }
 
     public function getUnitConversionConfig()
@@ -101,6 +89,12 @@ class ConfigProviderService
     public function getINHFittingCoverPageConfig() {
         return $this->getConfigFromYmlFile(INH_FITTING_COVER_PAGE_FILE_PATH);
     }
+
+    public function getEditableProductAttributesImportConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
@@ -114,7 +108,10 @@ class ConfigProviderService
         $cacheKey = Utils::getCacheKeyForFilePath($filePath);
 
         if ($env != "dev") {
-            if ($config = Cache::load($cacheKey)) {
+
+            $con = Cache::load($cacheKey);
+            if ($con) {
+                $config =  $con;
             } else {
                 $config = Utils::getYmlConfig($filePath);
                 Cache::save($config, $cacheKey);
@@ -123,7 +120,11 @@ class ConfigProviderService
             $config = Utils::getYmlConfig($filePath);
             Cache::save($config, $cacheKey);
         }
-        $returnConfig = $config;
-        return $returnConfig;
+        return $config;
+    }
+
+    public function getUnitValueConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
     }
 }

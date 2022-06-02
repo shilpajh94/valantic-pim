@@ -62,11 +62,10 @@ class SAPFileFeederService
             $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);*/
             
 
-            $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_P61_Material.csv';
+            $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_P61_Material_sample1.csv';
             if($this->validateAllowedFileType()) 
             {
-                $sysFilePath = realpath($this->filePath);
-                return $sysFilePath;
+                return realpath($this->filePath);
             } 
             else 
             {
@@ -75,8 +74,7 @@ class SAPFileFeederService
         } 
         catch (Throwable $th) 
         {
-            echo $message = $th->getMessage();
-            die; 
+            echo $th->getMessage();
         }
     }
 
@@ -99,8 +97,7 @@ class SAPFileFeederService
         } 
         catch (\Throwable $th) 
         {
-            throw $th;
-            die;
+            echo $th->getMessage();
         }
     }
 }
