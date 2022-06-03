@@ -12,7 +12,7 @@ parameters:
   # Csv header information
   sheet:
     columnName: 
-      material: 'Material'
+      material: 'SAPMaterialCode'
       language: 'Language'
       description:  'Material Description'
       group:  'Material Group'
@@ -35,11 +35,10 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       eanUPC: 'EAN_UPC'
-      #stccCode: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
-    lastColName: 'AA'
+    lastColName: 'CK'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
