@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-31T13:34:04+02:00
+* Generated at: 2022-06-03T13:36:00+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -113,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1653996843,
+   'modificationDate' => 1654256158,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6893,7 +6893,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'halfView3',
-                                 'title' => 'Half View 4',
+                                 'title' => 'Half View 3',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
