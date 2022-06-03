@@ -121,17 +121,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             {
                                 if($this->image("CPS_productImage")->isEmpty())
                                 {
-                                    echo $this->image("CPS_productImage")->setImage($data['ProductImage']);
+                                    echo $this->image("CPS_productImage", ['height'=>150])->setImage($data['ProductImage']);
                                 }
                                 else{
-                                    echo $this->image("CPS_productImage");
+                                    echo $this->image("CPS_productImage", ['height'=>150]);
                                 }
                             }
                             else
                             {
                                 $CPS_productImageObj =  $this->image("CPS_productImage");
                                 if (!empty($CPS_productImageObj->getId())) { ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_productImageObj, $this->imageWidth); ?>" alt=""  class="features-images mr-0" >
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_productImageObj, $this->imageWidth); ?>" alt=""  class="features-images mr-0" style="max-height:150px; width:auto;">
                                 <?php
                                 }
                             }
@@ -186,17 +186,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         if($this->image("CPS_ApplicationImage")->isEmpty())
                         {
-                            echo $this->image("CPS_ApplicationImage")->setImage($data['ApplicationImage']);
+                            echo $this->image("CPS_ApplicationImage", ['height'=>400])->setImage($data['ApplicationImage']);
                         }
                         else{
-                            echo $this->image("CPS_ApplicationImage");
+                            echo $this->image("CPS_ApplicationImage", ['height'=>400]);
                         }
                     }
                     else
                     {
                         $CPS_ApplicationImageObj =  $this->image("CPS_ApplicationImage");
                         if (!empty($CPS_ApplicationImageObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_ApplicationImageObj, $this->imageWidth); ?>" alt="" >
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height:400px; width:auto;">
                         <?php
                         }
                     }

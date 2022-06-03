@@ -183,10 +183,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                             if($this->image("MPB_productImage")->isEmpty())
                             {
-                                echo $this->image("MPB_productImage")->setImage($data['ProductImage']);
+                                echo $this->image("MPB_productImage", ['height'=>362])->setImage($data['ProductImage']);
                             }
                             else{
-                                echo $this->image("MPB_productImage");
+                                echo $this->image("MPB_productImage", ['height'=>362]);
                             }
                         }
                         else
