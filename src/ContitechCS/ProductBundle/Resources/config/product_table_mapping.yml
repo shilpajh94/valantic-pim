@@ -793,8 +793,6 @@ Common Product Page:
                     Name: Name
                 Name:
                     objectType: class
-                VulcanizedAndFastenerRatinginPIW:
-                    objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch20:
                     objectType: LoadSupport
                 TroughabilityMinimumBeltsWidthinInch35:
@@ -1500,6 +1498,15 @@ Common Product Page:
                     objectType: Material
                 FabricType: 
                     objectType: Material
+                AveragePermanentElongationPercentage:
+                    objectType: BeltData
+                    percentageSymbol: '%'
+                RecommendedFastenerPlate: 
+                    objectType: LoadSupport
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
                 VulcanizedAndFastenerRatinginPIW:
                     objectType: LoadSupport
                 CarcassGaugeinInch:
@@ -1509,18 +1516,9 @@ Common Product Page:
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
                     objectType: BeltData
-                AveragePermanentElongationPercentage:
-                    objectType: BeltData
-                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     objectType: BeltData
                 StepLengthinInch:
-                    objectType: SpliceData
-                RecommendedFastenerPlate: 
-                    objectType: LoadSupport
-                Hinge:
-                    objectType: SpliceData
-                Hinge2:
                     objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
@@ -1532,8 +1530,6 @@ Common Product Page:
                     objectType: class
                 NumberofPlies:
                     objectType: Material
-                FabricType: 
-                    objectType: Material
                 beltRatingNMM: 
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
@@ -1544,18 +1540,9 @@ Common Product Page:
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
                     objectType: BeltData
-                AveragePermanentElongationPercentage:
-                    objectType: BeltData
-                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     objectType: BeltData
                 StepLengthinMM:
-                    objectType: SpliceData
-                RecommendedFastenerPlate: 
-                    objectType: LoadSupport
-                Hinge:
-                    objectType: SpliceData
-                Hinge2:
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
@@ -1751,6 +1738,15 @@ Common Product Page:
                     objectType: Material
                 FabricType: 
                     objectType: Material
+                AveragePermanentElongationPercentage:
+                    objectType: BeltData
+                    percentageSymbol: '%'
+                RecommendedFastenerPlate: 
+                    objectType: LoadSupport
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
                 VulcanizedAndFastenerRatinginPIW:
                     objectType: LoadSupport
                 CarcassGaugeinInch:
@@ -1760,18 +1756,9 @@ Common Product Page:
                     objectType: BeltData
                 CoverWeightPer132inThicknessLBS:
                     objectType: BeltData
-                AveragePermanentElongationPercentage:
-                    objectType: BeltData
-                    percentageSymbol: '%'
                 ElasticModulusinPIW:
                     objectType: BeltData
                 StepLengthinInch:
-                    objectType: SpliceData
-                RecommendedFastenerPlate: 
-                    objectType: LoadSupport
-                Hinge:
-                    objectType: SpliceData
-                Hinge2:
                     objectType: SpliceData
             Metric: 
                 KeysGroupLogic: 
@@ -1785,6 +1772,15 @@ Common Product Page:
                     objectType: Material
                 FabricType: 
                     objectType: Material
+                AveragePermanentElongationPercentage:
+                    objectType: BeltData
+                    percentageSymbol: '%'
+                RecommendedFastenerPlate: 
+                    objectType: LoadSupport
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
                 beltRatingNMM: 
                     objectType: BeltData
                 VulcanizedAndFastenerRatinginNMM:
@@ -1795,18 +1791,9 @@ Common Product Page:
                     objectType: BeltData
                 CoverWeightPer1mmThicknessKGM:
                     objectType: BeltData
-                AveragePermanentElongationPercentage:
-                    objectType: BeltData
-                    percentageSymbol: '%'
                 ElasticModulusinKNMM:
                     objectType: BeltData
                 StepLengthinMM:
-                    objectType: SpliceData
-                RecommendedFastenerPlate: 
-                    objectType: LoadSupport
-                Hinge:
-                    objectType: SpliceData
-                Hinge2:
                     objectType: SpliceData
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
