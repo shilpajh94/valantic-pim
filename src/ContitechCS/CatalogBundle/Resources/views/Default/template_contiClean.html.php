@@ -96,7 +96,7 @@
                 } else {
                     $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
                     if (!empty($CCProdImgSrcObj->getId())) { ?>
-                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  />
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  style="max-height:320px; width:auto;"/>
                         <?php
                     }
                 } ?>
@@ -188,7 +188,7 @@
                     } else {
                         $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
                         if (!empty($CCReportImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" />
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" style="max-height:153px; width:auto;"/>
                             <?php
                         }
                     } ?>
@@ -210,7 +210,7 @@
                     } else {
                         $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
                         if (!empty($CCAppImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:373px; width:auto;"/>
                             <?php
                         }
                     }

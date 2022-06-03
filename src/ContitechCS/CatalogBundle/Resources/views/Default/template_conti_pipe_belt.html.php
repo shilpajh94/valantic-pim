@@ -169,7 +169,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         $CPBParent_ProductImageObj =  $this->image("CPBParent_ProductImage");
                         if (!empty($CPBParent_ProductImageObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBParent_ProductImageObj, $this->imageWidth); ?>" alt="" class="mb-4" >
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBParent_ProductImageObj, $this->imageWidth); ?>" alt="" class="mb-4" style="max-height:385px; width:auto;" >
                         <?php
                         }
                     }
@@ -272,7 +272,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         $CPBChild_ProductImageObj =  $this->image("CPBChild_ProductImage");
                         if (!empty($CPBChild_ProductImageObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBChild_ProductImageObj, $this->imageWidth); ?>" alt="" >
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBChild_ProductImageObj, $this->imageWidth); ?>" alt="" style="max-height:195px; width:auto;" >
                         <?php
                         }
                     }
