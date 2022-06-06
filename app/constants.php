@@ -160,3 +160,5 @@ define("PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", PTG_EU_PRODUCTBUNDLE_CONFIG_
 
 // Global Category Configuraction File Path
 define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+// global brick configuration file path
+define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yml");

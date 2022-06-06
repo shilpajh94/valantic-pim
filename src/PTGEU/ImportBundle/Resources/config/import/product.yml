@@ -38,6 +38,18 @@ parameters:
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
+      profile: 'Profile'
+      ProductName: 'Product Name'
+      Color: 'Color'
+      fabricType: 'Fabric Type'
+      fabricColor: 'Fabric Color'
+      quality: 'Quality'
+      performance: 'Performance'
+      beltAngle: 'Belt/Flank Angle'
+      beltType: 'Belt Type'
+      materialCompound: 'Material / Compound'
+      nominalLength: 'Nominal Length'
+      reinforcement: 'Reinforcement / Cord'
     lastColName: 'CK'
     startRow: 1
     readFrom: 2
