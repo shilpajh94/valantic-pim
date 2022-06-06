@@ -43,9 +43,9 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 12;
+    const UPDATE_WINDOW_END_HOUR = 19;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 500;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 50;
 
     const INSERT_BATCH_SIZE = 50;
 
@@ -79,7 +79,7 @@ class Constants
 
     const B2B_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
 
-    const B2C_PIM_FAILURE_TEMPLATE = "/Email/B2C Saleforce Integration PIM Failure Email";
+    const B2C_PIM_FAILURE_TEMPLATE = "/Email/Saleforce Integration PIM Failure Email";
 
     const B2B_PIM_CATEGORY_ATTRIBUTES = ["SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6"];
 

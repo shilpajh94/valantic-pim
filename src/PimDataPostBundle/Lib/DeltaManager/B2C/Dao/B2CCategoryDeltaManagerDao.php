@@ -70,7 +70,7 @@ class B2CCategoryDeltaManagerDao extends DeltaManagerDao
     {
         $sql="SELECT max(`level`) as maxLevel FROM ".$this->tempMasterTablesMeta->getTempTableName();
         $row = $this->db->fetchCol($sql);
-        return $row[0];
+        return $row[0] ? $row[0] : 0;
     }
 }
 
