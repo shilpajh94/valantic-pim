@@ -20,11 +20,11 @@ parameters:
             isLocalisedMaster:
         description:
             pim_attribute_name: description
-            pim_table_name: object_B2CCategory
+            pim_table_name: object_localized_B2CCategory_en
+            joinOn: LEFT JOIN object_localized_B2CCategory_en ON object_localized_B2CCategory_en.o_id = object_B2CCategory.o_id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: TEXT NULL
-            joinOn:
             addOnJoin:
             sf_attribute_name: description
             pim_attribute_type: input
@@ -38,11 +38,11 @@ parameters:
             isLocalisedMaster:
         displayName:
             pim_attribute_name: displayName
-            pim_table_name: object_B2CCategory
+            pim_table_name: object_localized_B2CCategory_en
+            joinOn: LEFT JOIN object_localized_B2CCategory_en ON object_localized_B2CCategory_en.o_id = object_B2CCategory.o_id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
-            joinOn:
             addOnJoin:
             sf_attribute_name: name
             pim_attribute_type: input
@@ -74,8 +74,8 @@ parameters:
             isLocalisedMaster:
         pageDescription:
             pim_attribute_name: pageDescription
-            pim_table_name: object_B2CCategory
-            joinOn:
+            pim_table_name: object_localized_B2CCategory_en
+            joinOn: LEFT JOIN object_localized_B2CCategory_en ON object_localized_B2CCategory_en.o_id = object_B2CCategory.o_id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: TEXT NULL
@@ -92,8 +92,8 @@ parameters:
             isLocalisedMaster:
         pageKeywords:
             pim_attribute_name: pageKeywords
-            pim_table_name: object_B2CCategory
-            joinOn:
+            pim_table_name: object_localized_B2CCategory_en
+            joinOn: LEFT JOIN object_localized_B2CCategory_en ON object_localized_B2CCategory_en.o_id = object_B2CCategory.o_id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
@@ -110,11 +110,11 @@ parameters:
             isLocalisedMaster:
         pageTitle:
             pim_attribute_name: pageTitle
-            pim_table_name: object_B2CCategory
+            pim_table_name: object_localized_B2CCategory_en
+            joinOn: LEFT JOIN object_localized_B2CCategory_en ON object_localized_B2CCategory_en.o_id = object_B2CCategory.o_id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
-            joinOn:
             addOnJoin:
             sf_attribute_name: page_title
             pim_attribute_type: input
