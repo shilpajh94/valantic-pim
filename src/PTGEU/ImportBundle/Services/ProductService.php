@@ -123,7 +123,7 @@ class ProductService
             Logger::log(self::LOGGER_MODULE)->info("Product import started");
             $this->initiateProductsProcess();
             Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-            $this->productModel->updateMaster();
+            //$this->productModel->updateMaster();
             Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
@@ -681,7 +681,7 @@ class ProductService
         $bricksData = $this->productHelper->processBricksData($rowData);   
         $bricksUnitData = $this->productHelper->processBricksUnitData();
         foreach ($bricks as $brick) {
-            if (in_array($brick, $this->allBricksList)) {
+            if (in_array($brick, $this->allBricksList) && $brick!='PTGEUVBeltsBase') {
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                     $tblName    = $brickPrefix.ucfirst($brick)."_38";
                     $unitData   = array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
