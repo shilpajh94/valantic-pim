@@ -68,8 +68,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $colNameArray       = [];
                 $incorrectDataArray = [];
                 $importStatus       = "FAILURE";
-                $allObjectBricks    = [];
-                $bricksData         = [];
                 foreach($csvData  as $rowData) 
                 {
                     $i++;
@@ -78,18 +76,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
                     if(!empty($product))
                     {
-                        $bricksData     = $this->processProduct($rowData, $product);
-                        
-                        $allObjectBricks= $this->getProductAssociatedBricks($product);
-
-                        if(!empty($allObjectBricks)) 
-                        {
-                            foreach($allObjectBricks as $brickType=>$bricks) 
-                            {
-                                // call function process object brick 
-                                $this->processObjectBricks($brickType, $bricks, $bricksData, $product);
-                            }
-                        }
+                        $this->processProduct($rowData, $product);
 
                         try {
                             $product->save();
@@ -135,41 +122,9 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
 
-    /*
-     * @param $prodObject
-     */
-    private function getProductAssociatedBricks($prodObject)
-    {
-        $bricks    = [];
-        $classDefinition = ClassDefinition::getByName($prodObject->getClassName());
-        foreach ($classDefinition->getFieldDefinitions() as $field) 
-        {
-            $fieldName = $field->getName();
-            $fieldType = $field->getFieldType();
-            if($fieldType == "objectbricks") 
-            {
-                $classBricks = $field->getAllowedTypes();
-                $getType   = 'get'.ucfirst($fieldName);
-                foreach($classBricks as $brickName)
-                {
-                    $getBrickName   = 'get'.ucfirst($brickName);
-                    if(!empty($prodObject->$getType()->$getBrickName()))
-                    {
-                        $bricks[$fieldName][] = $brickName;
-                    }
-                }
-            }
-        }
-        return $bricks;
-    }
-
-
-
     private function processProduct($rowData, $product)
     {
-        $bricksData = [];
-        
-        $productImportConfig            = $this->configProviderService->getEditableProductAttributesImportConfig();
+        $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();
         
         foreach ($rowData as $fieldCSVKey => $fieldValue) 
         { 
@@ -185,18 +140,12 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     // call function process product attributes
                     $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
                 }
-                else
-                {
-                    $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
-                    $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
-                }
             }
             else
             {
                 $colNameArray[] = $fieldCSVKey. 'does not exists in configuration file.';
             }
         }
-        return $bricksData;
     }
 
     private function processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey)
@@ -225,52 +174,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         else
         {
             $product->$method($fieldValue, 1);
-        }
-    }
-
-    private function processObjectBricks($brickType, $bricks, $bricksData, $product)
-    {
-        foreach($bricks as $brick) 
-        {
-            if (isset($bricksData[$brick])) 
-            {
-                $classBrick = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                $brickObject = new $classBrick($product);
-                foreach ($bricksData[$brick] as $fieldKey => $fieldData) 
-                {
-                    $fieldValue = trim($fieldData['fieldValue']);
-
-                    if (($fieldData['fieldType'] == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
-                        $colNameArray[] = $fieldKey;
-                        $incorrectDataArray[] = $fieldValue;
-                    }
-
-                    $objectBrickFieldMethod = 'set' . $fieldKey;
-
-                    $brickObject->$objectBrickFieldMethod($fieldValue, 1);
-                    $brickObject->setFieldname($brickType);
-                    $method = 'set' . $brick;
-                    $bickTypeMethod = 'get' . ucfirst($brickType);
-                    $product->$bickTypeMethod()->$method($brickObject, 1);
-                }
-
-                // call function set brick attributes
-                $this->setBrickAttributeUnit($brickObject, $brick);
-            }
-        }
-    }
-
-    private function setBrickAttributeUnit($brickObject, $brick)
-    {
-        $unitValueConfig = $this->configProviderService->getUnitValueConfig();
-        foreach ($unitValueConfig as $unitValue) {
-
-            $fieldKey = ucfirst($unitValue['fieldName']);
-            $objectBrickFieldMethod = 'set' . $fieldKey;
-        
-            if ($unitValue['objectType'] == $brick) {
-                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
-            } 
         }
     }
 }
