@@ -496,7 +496,10 @@ class ProductService
             'beltAngle' => null,
             'beltType' => null,
             'material' => null,
-            'nominalLength' => null
+            'nominalLength' => null,
+            'maxSpeed' => null,
+            'matchMakerLL' => null,
+            'din' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -510,6 +513,8 @@ class ProductService
             $queryTableData['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
             $queryTableData['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -534,6 +539,7 @@ class ProductService
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $queryTableData['weightUnit'] = $weightUnit;
             $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
+            $queryTableData['din'] = trim($record[$this->getRecordIndexByKey('din')]);
         }
 
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -567,7 +573,10 @@ class ProductService
             'beltAngle' => null,
             'beltType' => null,
             'material' => null,
-            'nominalLength' => null
+            'nominalLength' => null,
+            'maxSpeed' => null,
+            'matchMakerLL' => null,
+            'din' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -581,6 +590,8 @@ class ProductService
             $storeTableDataArray['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
             $storeTableDataArray['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -597,7 +608,8 @@ class ProductService
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $storeTableDataArray['weightUnit'] = $weightUnit; 
-            $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);            
+            $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
+            $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);         
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;

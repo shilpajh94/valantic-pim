@@ -10,10 +10,6 @@ Static Conductive:
     objectType: PTGEUCommonBase
 
 # PTGEUVBeltsBase
-Match Maker L=L:
-    fieldName: matchMakerLL
-    fieldType: Input
-    objectType: PTGEUVBeltsBase
 
 # PTGEUCommonFert
 Height (h?) (mm):

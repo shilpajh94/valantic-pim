@@ -50,6 +50,9 @@ parameters:
       materialCompound: 'Material / Compound'
       nominalLength: 'Nominal Length'
       reinforcement: 'Reinforcement / Cord'
+      maxSpeed: 'Max Speed'
+      matchMakerLL: 'Match Maker L=L'
+      din: 'DIN'
     lastColName: 'CK'
     startRow: 1
     readFrom: 2
