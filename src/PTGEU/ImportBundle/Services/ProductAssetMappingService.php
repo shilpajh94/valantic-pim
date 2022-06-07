@@ -4,16 +4,18 @@ namespace PTGEU\ImportBundle\Services;
 
 use Exception;
 use PTGEU\ImportBundle\Services\ImportService;
-use PTGEU\ImportBundle\Constants;
 use \Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\PTGEUProduct;
 class ProductAssetMappingService
 {   
     private $db;
+
+    private $assetConfigData;
    
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
+        $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
     public function import($filePath)
@@ -87,7 +89,7 @@ class ProductAssetMappingService
     private function checkProductExist(string $productName): bool
     {
         try {
-        $sql="SELECT `hierarchyLevel5` FROM ".Constants::PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
+        $sql="SELECT `hierarchyLevel5` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
         $resultArray = $this->db->fetchAll($sql);
         if(empty($resultArray))
         {
@@ -102,7 +104,7 @@ class ProductAssetMappingService
 
     private function getProductHierarchyRow(string $productName): array
     {
-        $sql="SELECT `o_path`,`o_key`,`o_id` FROM ".Constants::PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
+        $sql="SELECT `o_path`,`o_key`,`o_id` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
         $result = $this->db->fetchAll($sql);
         return $result[0];
     }
@@ -147,95 +149,22 @@ class ProductAssetMappingService
     private function savePTGEUProductColumn(PTGEUProduct $productObject, Asset $assetObject, string $columnName): void
     {
         $columnName = str_replace(" ","",$columnName);
-        switch ($columnName) {
-            case 'MainImage':
-            case 'MainImage1':
-                $productObject->setMainImage1($assetObject);
-                $productObject->save();
-                break;
-            case 'MainImage2':
-                $productObject->setMainImage2($assetObject);
-                $productObject->save();
-                break;
-            case 'FullView':
-            case 'FullView1':
-                $productObject->setFullView1($assetObject);
-                $productObject->save();
-                break;
-            case 'FullView2':
-                $productObject->setFullView2($assetObject);
-                $productObject->save();
-                break;
-            case 'HalfView':
-            case 'HalfView1':
-                $productObject->setHalfView1($assetObject);
-                $productObject->save();
-                break;
-            case 'HalfView2':
-                $productObject->setHalfView2($assetObject);
-                $productObject->save();
-                break;
-            case 'HalfView3':
-                $productObject->setHalfView3($assetObject);
-                $productObject->save();
-                break;
-            case 'HalfView4':
-                $productObject->setHalfView4($assetObject);
-                $productObject->save();
-                break;
-            case 'TechnicalDrawing':
-            case 'TechnicalDrawing1':
-                $productObject->setTechnicalDrawing1($assetObject);
-                $productObject->save();
-                break;
-            case 'TechnicalDrawing2':
-                $productObject->setTechnicalDrawing2($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage1':
-                $productObject->setApplicationImage1($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage2':
-                $productObject->setApplicationImage2($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage3':
-                $productObject->setApplicationImage3($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage4':
-                $productObject->setApplicationImage4($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage5':
-                $productObject->setApplicationImage5($assetObject);
-                $productObject->save();
-                break;
-            case 'ApplicationImage6':
-                $productObject->setApplicationImage6($assetObject);
-                $productObject->save();
-                break;
-            case 'EpixImage1':
-                $productObject->setEpixImage1($assetObject);
-                $productObject->save();
-                break;
-            case 'EpixImage2':
-                $productObject->setEpixImage2($assetObject);
-                $productObject->save();
-                break;
-            case 'EpixImage3':
-                $productObject->setEpixImage3($assetObject);
-                $productObject->save();
-                break;
-            case 'EpixImage4':
-                $productObject->setEpixImage4($assetObject);
-                $productObject->save();
-                break;
-            default:
-                echo "Error case : Invalid Column";
-                exit;
+        $pimColumnName = $this->getPimColumnName($columnName);
+        if($pimColumnName != '')
+        {
+            $fn = "set".$pimColumnName;
+            $productObject->$fn($assetObject);
+            $productObject->save();
         }
+    }
+
+    private function getPimColumnName(string $columnName)
+    {
+        if(isset($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']))
+        {
+            return ucfirst($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']);
+        }
+        return '';
     }
 
 }

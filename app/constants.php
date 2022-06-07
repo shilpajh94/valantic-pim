@@ -155,8 +155,12 @@ define("PTG_EU_BRICK_MAPPING_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIREC
 // Global Category Configuraction File Path
 define('PTG_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yml");
 define("PTG_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/editable_product_attribute.yml");
+define('PTG_EU_ASSET_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/assets.yml");
 
 define("PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_values_config.yml");
 
 // Global Category Configuraction File Path
 define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+
+// PTG-EU Product Object Table
+define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
