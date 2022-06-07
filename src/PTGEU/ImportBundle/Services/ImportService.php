@@ -74,7 +74,7 @@ class ImportService
             $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
             $data = [];
             $count = 0;
-
+            $dialect->delimiter = ',';
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
                 while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {

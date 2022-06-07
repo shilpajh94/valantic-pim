@@ -164,3 +164,5 @@ define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRE
 
 // PTG-EU Product Object Table
 define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
+// global brick configuration file path
+define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yml");
