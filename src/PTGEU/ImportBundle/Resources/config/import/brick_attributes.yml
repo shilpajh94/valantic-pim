@@ -4,24 +4,12 @@ PAH:
     fieldName: pah
     fieldType: Input
     objectType: PTGEUCommonBase
-#Electrical Conductivity:
-    # fieldName: electricalConductivity
-    # fieldType: Input
-    # objectType: PTGEUCommonBase
-Belt/Flank Angle:
-    fieldName: beltFlankAngle
-    fieldType: Number
+Static Conductive:
+    fieldName: electricalConductivity
+    fieldType: Input
     objectType: PTGEUCommonBase
 
 # PTGEUVBeltsBase
-Fabric Type:
-    fieldName: fabricType
-    fieldType: Input
-    objectType: PTGEUVBeltsBase
-Fabric Color:
-    fieldName: fabricColor
-    fieldType: Input
-    objectType: PTGEUVBeltsBase
 Match Maker L=L:
     fieldName: matchMakerLL
     fieldType: Input
@@ -52,10 +40,6 @@ Ribs:
     fieldName: ribs
     fieldType: Number
     objectType: PTGEUCommonFert
-Din:
-    fieldName: din
-    fieldType: Input
-    objectType: PTGEUCommonFert
 Height (h?) (in):
     fieldName: heightIN
     fieldType: Number
@@ -76,10 +60,6 @@ Rib Pitch (s) (In):
     fieldName: ribPitchIN
     fieldType: Number
     objectType: PTGEUCommonFert
-#Nominal Length:
-    # fieldName: nominalLength
-    # fieldType: Number
-    # objectType: PTGEUCommonFert
 
 # PTGEUVBeltsFert
 Effective Length (Le) (mm):

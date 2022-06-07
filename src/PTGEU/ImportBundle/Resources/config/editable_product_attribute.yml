@@ -107,6 +107,10 @@ PDF LINK:
     fieldName: pdfLINK
     fieldType: Input
     objectType: class
+Match Maker L=L:
+    fieldName: matchMakerLL
+    fieldType: Input
+    objectType: class
 
 #Setting object bricks attributes
 # PTGEUCommonBase
@@ -114,24 +118,12 @@ PAH:
     fieldName: pah
     fieldType: Input
     objectType: PTGEUCommonBase
-Electrical Conductivity:
+Static Conductive:
     fieldName: electricalConductivity
     fieldType: Input
     objectType: PTGEUCommonBase
-Belt/Flank Angle:
-    fieldName: beltFlankAngle
-    fieldType: Number
-    objectType: PTGEUCommonBase
 
 # PTGEUVBeltsBase
-Fabric Type:
-    fieldName: fabricType
-    fieldType: Input
-    objectType: PTGEUVBeltsBase
-Fabric Color:
-    fieldName: fabricColor
-    fieldType: Input
-    objectType: PTGEUVBeltsBase
 Match Maker L=L:
     fieldName: matchMakerLL
     fieldType: Input
@@ -162,10 +154,6 @@ Ribs:
     fieldName: ribs
     fieldType: Number
     objectType: PTGEUCommonFert
-Din (brick):
-    fieldName: din
-    fieldType: Input
-    objectType: PTGEUCommonFert
 Height (in):
     fieldName: heightIN
     fieldType: Number
@@ -184,10 +172,6 @@ Ref. Length (Lr) (IN):
     objectType: PTGEUCommonFert
 Rib Pitch (s) (IN):
     fieldName: ribPitchIN
-    fieldType: Number
-    objectType: PTGEUCommonFert
-Nominal Length:
-    fieldName: nominalLength
     fieldType: Number
     objectType: PTGEUCommonFert
 
