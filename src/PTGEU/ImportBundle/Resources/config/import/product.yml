@@ -12,7 +12,7 @@ parameters:
   # Csv header information
   sheet:
     columnName: 
-      material: 'Material'
+      material: 'SAPMaterialCode'
       language: 'Language'
       description:  'Material Description'
       group:  'Material Group'
@@ -35,11 +35,25 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       eanUPC: 'EAN_UPC'
-      #stccCode: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
-    lastColName: 'AA'
+      profile: 'Profile'
+      ProductName: 'Product Name'
+      Color: 'Color'
+      fabricType: 'Fabric Type'
+      fabricColor: 'Fabric Color'
+      quality: 'Quality'
+      performance: 'Performance'
+      beltAngle: 'Belt/Flank Angle'
+      beltType: 'Belt Type'
+      materialCompound: 'Material / Compound'
+      nominalLength: 'Nominal Length'
+      reinforcement: 'Reinforcement / Cord'
+      maxSpeed: 'Max Speed'
+      matchMakerLL: 'Match Maker L=L'
+      din: 'DIN'
+    lastColName: 'CK'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']

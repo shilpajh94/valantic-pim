@@ -23,6 +23,12 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(PTG_EU_PLANT_MATERIAL_CONFIG_FILE_PATH);
     }
+
+    public function getAssetConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_ASSET_CONFIG_FILE_PATH);
+    }
+
     public function getSalesMaterialConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH);
@@ -126,5 +132,10 @@ class ConfigProviderService
     public function getUnitValueConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
+    }
+
+    public function getBrickAttributesConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH);
     }
 }

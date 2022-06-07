@@ -15,22 +15,23 @@ class Product
     private $prdConfigData;
     private $productType;
     public $siopCodes;
+    private $configProviderService;
 
     public function __construct()
     {
         /* Initiate helper */
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
-        $this->catHelper = \Pimcore::getContainer()->get('import.category_helper');
-        /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
-        $this->prdConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getProductConfig();
-        $this->root = $this->common->getParameter($this->prdConfigData, 'root');
-        $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
-        $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
-        $this->validCategories = $this->common->getParameter($this->catConfigData, 'validCategories');
-        $this->businessUnit = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->productType = $this->common->getParameter($this->prdConfigData, 'productType');
-        $this->level = $this->common->getParameter($this->prdConfigData, 'level');
+        $this->common           = \Pimcore::getContainer()->get('import.common_helper');
+        $this->catHelper        = \Pimcore::getContainer()->get('import.category_helper');
+        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
+        $this->catConfigData    = $this->configProviderService->getCategoryConfig();
+        $this->prdConfigData    = $this->configProviderService->getProductConfig();
+        $this->root             = $this->common->getParameter($this->prdConfigData, 'root');
+        $this->codeLength       = $this->common->getParameter($this->catConfigData, 'codeLength');
+        $this->levelLength      = $this->common->getParameter($this->catConfigData, 'levelLength');
+        $this->validCategories  = $this->common->getParameter($this->catConfigData, 'validCategories');
+        $this->businessUnit     = $this->common->getParameter($this->catConfigData, 'businessUnit');
+        $this->productType      = $this->common->getParameter($this->prdConfigData, 'productType');
+        $this->level            = $this->common->getParameter($this->prdConfigData, 'level');
     }
 
     /**
@@ -278,5 +279,36 @@ class Product
             $objectIndex = count($levelInfo);
         }
         return $objectIndex;
+    }
+
+    public function processBricksData($rowData)
+    {
+        $bricksData = [];
+        $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
+        foreach ($rowData as $fieldCSVKey => $fieldValue) 
+        { 
+            $fieldCSVKey = trim($fieldCSVKey);
+            if(isset($brickAttributesConfigData[$fieldCSVKey])) 
+            {
+                $fieldConfig= $brickAttributesConfigData[$fieldCSVKey];
+                $fieldName  = $fieldConfig['fieldName'];
+                $objectType = $fieldConfig['objectType'];
+                if ($objectType != 'class') 
+                {
+                    $bricksData[$fieldConfig['objectType']][$fieldName] = $fieldValue;
+                }
+            }
+        }
+        return $bricksData;
+    }
+
+    public function processBricksUnitData()
+    {
+        $bricksUnits     = [];
+        $unitValueConfig = $this->configProviderService->getUnitValueConfig();
+        foreach ($unitValueConfig as $unitValue) {
+                $bricksUnits[$unitValue['objectType']][$unitValue['fieldName']] = $unitValue['fieldValue'];
+        }
+        return $bricksUnits;
     }
 }

@@ -1,0 +1,46 @@
+parameters:
+    Attribute:  
+        MainImage:
+            db_column_name: mainImage1
+        MainImage1:
+            db_column_name: mainImage1
+        MainImage2:
+            db_column_name: mainImage2
+        FullView:
+            db_column_name: fullView1
+        FullView1:
+            db_column_name: fullView1
+        FullView2:
+            db_column_name: fullView2
+        HalfView:
+            db_column_name: halfView1
+        HalfView1:
+            db_column_name: halfView1
+        HalfView2:
+            db_column_name: halfView2
+        HalfView3:
+            db_column_name: halfView3
+        HalfView4:
+            db_column_name: halfView4
+        TechnicalDrawing:
+            db_column_name: technicalDrawing1
+        TechnicalDrawing1:
+            db_column_name: technicalDrawing1
+        TechnicalDrawing2:
+            db_column_name: technicalDrawing2
+        ApplicationImage:
+            db_column_name: applicationImage1
+        ApplicationImage1:
+            db_column_name: applicationImage1
+        ApplicationImage2:
+            db_column_name: applicationImage2
+        ApplicationImage3:
+            db_column_name: applicationImage3
+        ApplicationImage4:
+            db_column_name: applicationImage4
+        ApplicationImage5:
+            db_column_name: applicationImage5
+        ApplicationImage6:
+            db_column_name: applicationImage6
+        
+            

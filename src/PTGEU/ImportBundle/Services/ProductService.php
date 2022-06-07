@@ -20,7 +20,7 @@ class ProductService
     public $configuredData; // We will pull the data from configured class for this variable
     private $logFileName;
     private $productModel;
-    private $catHelper;
+    private $configProviderService;
     private $materialConfigData;
     private $common;
     private $columnName;
@@ -52,11 +52,11 @@ class ProductService
         $this->logFileName          = 'PTGEU_Material' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('import.common_helper');
         $this->productModel         = new ProductModel;
+        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
         $this->productHelper        = \Pimcore::getContainer()->get('import.product_helper');
-        $this->materialConfigData   = \Pimcore::getContainer()->get('import.config_provider_service')->getProductConfig();
-        $this->catConfigData        = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+        $this->materialConfigData   = $this->configProviderService->getProductConfig();
+        $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->catHelper            = \Pimcore::getContainer()->get('import.category_helper');
         $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
@@ -325,7 +325,7 @@ class ProductService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-                $this->setBricksData($objId, $bricksList, $type);
+                $this->setBricksData($objId, $bricksList, $type, $record);
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
@@ -420,21 +420,36 @@ class ProductService
         foreach ($this->langArr as $lang) {
             $sapDescription     = null;
             $industryStandard   = null;
+            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
+            $reinforcementValueArr  = explode('|', $reinforcementValue);
+            $reinforcementArr = [];
+            foreach ($reinforcementValueArr as $reinforcement) {
+                $objReinforcement = new DataObject\MultiselectMaster\Listing();
+                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
+                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
+                foreach ($objReinforcement as $reinforcementData) {
+                    $reinforcementArr[] = $reinforcementData->getId();
+                }
+            }
+            $reinforcements = implode(',', $reinforcementArr);
+
             if ($lang == 'en' && strtolower($productType) == 'fert') {
-                $sapDescription     = $record['2'];
-                $industryStandard   = $record['19'];
+                $sapDescription     = trim($record[$this->getRecordIndexByKey('description')]);
+                $industryStandard   = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             }
             $this->localisedDataTableDataArray[] = [
                 'ooo_id' => $objId,
                 'language' => $lang,
                 'sapDescription' => $sapDescription,
-                'industryStandard' => $industryStandard
+                'industryStandard' => $industryStandard,
+                'reinforcement' => $reinforcements
             ];
             $this->localisedQueryTableDataArray[$lang][] = [
                 'ooo_id' => $objId,
                 'language' => $lang,
                 'sapDescription' => $sapDescription,
-                'industryStandard' => $industryStandard
+                'industryStandard' => $industryStandard,
+                'reinforcement' => $reinforcements
             ];
         }
     }
@@ -450,7 +465,7 @@ class ProductService
                 $siopData[$index] = null;
             }
         }
-        $siopFullCode = trim($record['6']);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -470,37 +485,68 @@ class ProductService
             'eanUpc' => null,
             'grossWeight' => null,
             'netWeight' => null,
-            'weightUnit' => null
+            'weightUnit' => null,
+            'profile' => null,
+            'ProductName' => null,
+            'Color' => null,
+            'fabricType' => null,
+            'fabricColor' => null,
+            'quality' => null,
+            'performance' => null,
+            'beltAngle' => null,
+            'beltType' => null,
+            'material' => null,
+            'nominalLength' => null,
+            'maxSpeed' => null,
+            'matchMakerLL' => null,
+            'din' => null
         ];
+        
+        if (strtolower($productType) == 'base') {
+            $queryTableData['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
+            $queryTableData['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
+            $queryTableData['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+            $queryTableData['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
+            $queryTableData['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
+            $queryTableData['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
+            $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+            $queryTableData['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
+            $queryTableData['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
+            $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
 
-        if (strtolower($productType) == 'fert') {
-            $queryTableData['articleNumber'] = trim($record['0']);
-            $queryTableData['oldMaterialCode'] = trim($record['4']);
-            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
-            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            if (!empty(trim($record[$this->getRecordIndexByKey('eanUPC')]))) {
-                $queryTableData['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            } else {
-                $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            }
-            
-            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
-            $queryTableData['grossWeight'] = $grossWeight;
-            $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $queryTableData['weightUnit'] = $weightUnit;
-
-            $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
+            $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
+            $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if(!empty($materialGrpId)) {
                 $queryTableData['materialGroup__id'] = $materialGrpId;
                 $queryTableData['materialGroup__type'] = 'object';
             }
         }
+
+        if (strtolower($productType) == 'skeleton') {
+            $queryTableData['profile'] = trim($record[$this->getRecordIndexByKey('profile')]);
+            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+        }
+
+        if (strtolower($productType) == 'fert') {
+            $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
+            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $queryTableData['grossWeight'] = $grossWeight;
+            $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            $queryTableData['weightUnit'] = $weightUnit;
+            $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
+            $queryTableData['din'] = trim($record[$this->getRecordIndexByKey('din')]);
+        }
+
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'PTGEU') {
-        $siopFullCode = trim($record['6']);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -516,25 +562,56 @@ class ProductService
             'eanUpc' => null,
             'grossWeight' => null,
             'netWeight' => null,
-            'weightUnit' => null
+            'weightUnit' => null,
+            'profile' => null,
+            'ProductName' => null,
+            'Color' => null,
+            'fabricType' => null,
+            'fabricColor' => null,
+            'quality' => null,
+            'performance' => null,
+            'beltAngle' => null,
+            'beltType' => null,
+            'material' => null,
+            'nominalLength' => null,
+            'maxSpeed' => null,
+            'matchMakerLL' => null,
+            'din' => null
         ];
-        if (strtolower($productType) == 'fert') {
-            $storeTableDataArray['articleNumber'] = trim($record['0']);
-            $storeTableDataArray['oldMaterialCode'] = trim($record['4']);
+
+        if (strtolower($productType) == 'base') {
+            $storeTableDataArray['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
+            $storeTableDataArray['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
+            $storeTableDataArray['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+            $storeTableDataArray['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
+            $storeTableDataArray['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
+            $storeTableDataArray['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
+            $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+            $storeTableDataArray['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
+            $storeTableDataArray['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
+            $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
+        }
+
+        if (strtolower($productType) == 'skeleton') {
+            $storeTableDataArray['profile'] = trim($record[$this->getRecordIndexByKey('profile')]);
+            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            if (!empty(trim($record[$this->getRecordIndexByKey('eanUPC')]))) {
-                $storeTableDataArray['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            } else {
-                $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            }
+        }
 
+        if (strtolower($productType) == 'fert') {
+            $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $storeTableDataArray['weightUnit'] = $weightUnit;            
+            $storeTableDataArray['weightUnit'] = $weightUnit; 
+            $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
+            $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);         
         }
+
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
 
@@ -556,7 +633,7 @@ class ProductService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record['5']);
+            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
                 $this->relationTableDataArray[] = [
@@ -585,7 +662,7 @@ class ProductService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record['5']);
+            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
                 $this->dependencyTableDataArray[] = [
@@ -598,15 +675,18 @@ class ProductService
         }
     }
     
-    public function setBricksData($objId, $bricks, $type) {        
+    public function setBricksData($objId, $bricks, $type, $record) { 
+        $csvHeader  = array_flip($this->csvHeader);   
+        $rowData    = array_combine($csvHeader, $record); 
+        $bricksData = $this->productHelper->processBricksData($rowData);   
+        $bricksUnitData = $this->productHelper->processBricksUnitData();
         foreach ($bricks as $brick) {
             if (in_array($brick, $this->allBricksList)) {
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
-                    $tblName = $brickPrefix.ucfirst($brick)."_38";
-                    $this->bricksDataArray[$tblName][] = [
-                        'o_id' => $objId,
-                        'fieldname' => ucfirst($type)
-                    ];
+                    $tblName    = $brickPrefix.ucfirst($brick)."_38";
+                    $unitData   = array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
+                    $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData[$brick], $unitData);
+                    $this->bricksDataArray[$tblName][] = $tableData;
                 }
             }
         }
