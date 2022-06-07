@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-31T13:24:55+02:00
+* Generated at: 2022-06-07T08:32:14+02:00
 * IP: ::1
 
 
@@ -12,7 +12,6 @@ Fields Summary:
 - refLengthLrMM [numeric]
 - ribPitchMM [numeric]
 - ribs [numeric]
-- din [input]
 - heightMMUnit [input]
 - pitchLengthLpLwMMUnit [input]
 - pitchHeightHduMMUnit [input]
@@ -23,7 +22,6 @@ Fields Summary:
 - pitchHeightHduIN [numeric]
 - refLengthLrIN [numeric]
 - ribPitchIN [numeric]
-- nominalLength [numeric]
 - heightINUnit [input]
 - pitchLengthLpLwINUnit [input]
 - pitchHeightHduINUnit [input]
@@ -295,34 +293,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'ribs',
                      'title' => 'Ribs',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'din',
-                     'title' => 'Din',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -662,37 +632,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'ribPitchIN',
                      'title' => 'Rib Pitch (s)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:40px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'nominalLength',
-                     'title' => 'Nominal Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
