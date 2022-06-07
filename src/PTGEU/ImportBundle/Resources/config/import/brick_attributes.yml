@@ -24,10 +24,10 @@ Pitch height (hd/u) (mm):
     fieldName: pitchHeightHduMM
     fieldType: Number
     objectType: PTGEUCommonFert
-#Ref. Length (Lr) (MM):
-    # fieldName: refLengthLrMM
-    # fieldType: Number
-    # objectType: PTGEUCommonFert
+Ref. Length (Lr) (mm):
+    fieldName: refLengthLrMM
+    fieldType: Number
+    objectType: PTGEUCommonFert
 Rib Pitch (s) (mm):
     fieldName: ribPitchMM
     fieldType: Number
@@ -48,10 +48,10 @@ Pitch height (hd/u) (In):
     fieldName: heightIN
     fieldType: Number
     objectType: PTGEUCommonFert
-#Ref. Length (Lr) (IN):
-    # fieldName: refLengthLrIN
-    # fieldType: Number
-    # objectType: PTGEUCommonFert
+Ref. Length (Lr) (In):
+    fieldName: refLengthLrIN
+    fieldType: Number
+    objectType: PTGEUCommonFert
 Rib Pitch (s) (In):
     fieldName: ribPitchIN
     fieldType: Number
@@ -174,14 +174,14 @@ Belt thickness (hs) (In):
     # objectType: PTGEUFlatBeltsFert
 
 # PTGEUPolyVFert
-#Ref.line diff. (hb) (IN):
-    # fieldName: refLineDiffHBIN
-    # fieldType: Number
-    # objectType: PTGEUPolyVFert
-#Ref.line diff. (hb) (MM):
-    # fieldName: refLineDiffHBMM
-    # fieldType: Number
-    # objectType: PTGEUPolyVFert
+Ref. line diff. (hb) (In):
+    fieldName: refLineDiffHBIN
+    fieldType: Number
+    objectType: PTGEUPolyVFert
+Ref. line diff. (hb) (mm):
+    fieldName: refLineDiffHBMM
+    fieldType: Number
+    objectType: PTGEUPolyVFert
 
 # PTGEUMetalFert
 #Max Bore Size:
