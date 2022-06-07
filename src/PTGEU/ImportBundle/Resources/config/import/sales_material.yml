@@ -16,4 +16,3 @@ parameters:
     'privateBrand': 'MaterialGroup5'
     'salesUnit': 'Sales Unit'
     'deleteFlagAtDistributionChainLevel' : 'Dist Chain Status'
-  keyColumns: ['material','salesOrgCode','distributionChannelCode','deliveringPlantCode','countryOfOriginCode'] 
