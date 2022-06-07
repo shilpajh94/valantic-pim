@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-07T08:52:58+02:00
+* Generated at: 2022-06-07T09:47:54+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -114,7 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654584776,
+   'modificationDate' => 1654588072,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -4108,7 +4108,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => 'Match Maker L=L',
                                  'tooltip' => '',
                                  'mandatory' => false,
-                                 'noteditable' => false,
+                                 'noteditable' => true,
                                  'index' => false,
                                  'locked' => false,
                                  'style' => '',
