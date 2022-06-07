@@ -23,6 +23,12 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(PTG_EU_PLANT_MATERIAL_CONFIG_FILE_PATH);
     }
+
+    public function getAssetConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_ASSET_CONFIG_FILE_PATH);
+    }
+
     public function getSalesMaterialConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH);
