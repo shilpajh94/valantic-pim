@@ -106,7 +106,8 @@ class CreateTableCommand extends AbstractCommand
             `responseTimestamp` int UNSIGNED DEFAULT NULL,
             `creationDate` int UNSIGNED DEFAULT NULL,
             `businessUnit` varchar(55) DEFAULT NULL,
-             PRIMARY KEY (`id`)
+            INDEX (referenceId),
+            PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
         $this->db->query($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\APIRequestEntity\Dao::TABLE_NAME." - table created.";
