@@ -133,3 +133,5 @@ define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
 define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
 
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
+
+define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PimDataPostBundle/Resources/config");

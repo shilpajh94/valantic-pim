@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-28T09:03:27+05:30
+* Generated at: 2022-06-08T18:40:19+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -14,6 +14,7 @@ Fields Summary:
 - Level [numeric]
 - nomenclatureHierarchy [booleanSelect]
 - SortOrder [numeric]
+- ShowInMenu [checkbox]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
@@ -34,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622172806,
+   'modificationDate' => 1654693819,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -335,6 +336,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'fieldtype' => 'checkbox',
+                         'defaultValue' => 0,
+                         'queryColumnType' => 'tinyint(1)',
+                         'columnType' => 'tinyint(1)',
+                         'phpdocType' => 'boolean',
+                         'name' => 'ShowInMenu',
+                         'title' => 'B2B Show In Menu',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -428,35 +452,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           1 => 
                           array (
+                            'key' => 'CONVEYOR-BELT-SOLUTION',
+                            'value' => 'CONVEYOR-BELT-SOLUTION',
+                          ),
+                          2 => 
+                          array (
                             'key' => 'Belts',
                             'value' => 'Belts',
                           ),
-                          2 => 
+                          3 => 
                           array (
                             'key' => 'INH-HYD-HOSE',
                             'value' => 'INH-HYD-HOSE',
                           ),
-                          3 => 
+                          4 => 
                           array (
                             'key' => 'HYD_FITTINGS',
                             'value' => 'HYD_FITTINGS',
                           ),
-                          4 => 
+                          5 => 
                           array (
                             'key' => 'INH_FITTINGS',
                             'value' => 'INH_FITTINGS',
                           ),
-                          5 => 
+                          6 => 
                           array (
                             'key' => 'Metal',
                             'value' => 'Metal',
                           ),
-                          6 => 
+                          7 => 
                           array (
                             'key' => 'PTG',
                             'value' => 'PTG',
                           ),
-                          7 => 
+                          8 => 
                           array (
                             'key' => 'Synchronous',
                             'value' => 'Synchronous',
