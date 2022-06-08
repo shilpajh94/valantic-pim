@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-07T10:44:07+02:00
+* Generated at: 2022-06-08T10:17:00+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -114,7 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654591445,
+   'modificationDate' => 1654676218,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -7580,7 +7580,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'table',
                  'width' => '',
                  'height' => '',
-                 'cols' => 7,
+                 'cols' => 8,
                  'colsFixed' => true,
                  'rows' => '',
                  'rowsFixed' => false,
@@ -7622,6 +7622,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'key' => '6',
                     'label' => 'Rate Unit',
+                  ),
+                  7 => 
+                  array (
+                    'key' => 7,
+                    'label' => 'Condition Type',
                   ),
                 ),
                  'queryColumnType' => 'longtext',
