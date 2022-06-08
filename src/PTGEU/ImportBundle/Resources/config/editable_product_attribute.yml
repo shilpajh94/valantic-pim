@@ -1,19 +1,11 @@
 #Setting class attributes
-Material:
+SAP Code / Material Number:
     fieldName: articleNumber
     fieldType: Input
     objectType: class
-Shelf Life:
-    fieldName: shelfLife
-    fieldType: Input
-    objectType: class
-Catalog Flag:
-    fieldName: catalogFlag
-    fieldType: Input
-    objectType: class
-Specification Construction:
-    fieldName: specificationConstruction
-    fieldType: Input
+New Item Flag for Catalog:
+    fieldName: newItemFlagForCatalog
+    fieldType: Boolean Select
     objectType: class
 Printed Catalog Flag:
     fieldName: printedCatalogFlag
@@ -23,33 +15,9 @@ Virtual Catalog Flag:
     fieldName: virtualCatalogFlag
     fieldType: Boolean Select
     objectType: class
-Features & Benefits Bullet Points:
-    fieldName: FeaturesBenefitsBulletPoint
-    fieldType: Multiselection
-    objectType: class
-Min Temp (F):
-    fieldName: minimumTemperatureF
-    fieldType: Number
-    objectType: class
-Max temp (F):
-    fieldName: maximumTemperatureF
-    fieldType: Number
-    objectType: class
-Temperature Range (F):
-    fieldName: rangeTemperatureF
-    fieldType: Input
-    objectType: class
-Min Temp (C):
-    fieldName: minimumTemperatureC
-    fieldType: Number
-    objectType: class
-Max temp (C):
-    fieldName: maximumTemperatureC
-    fieldType: Number
-    objectType: class
-Temperature Range (C):
-    fieldName: rangeTemperatureC
-    fieldType: Input
+Marketing / Long Description:
+    fieldName: longDescription
+    fieldType: WYSIWYG
     objectType: class
 Marketing / Short Description:
     fieldName: shortDescription
@@ -59,55 +27,120 @@ Web Description:
     fieldName: webDiscription
     fieldType: Input
     objectType: class
-Category Description Catalog:
-    fieldName: CategoryDescriptionCatalog
-    fieldType: Textarea
-    objectType: class
-Marketing / Long Description:
-    fieldName: longDescription
-    fieldType: WYSIWYG
-    objectType: class
 Search Keywords:
     fieldName: searchKeywords
     fieldType: Input
     objectType: class
-Legal Text:
+Reach:
+    fieldName: reach
+    fieldType: Input
+    objectType: class
+Rohs:
+    fieldName: rohs
+    fieldType: Input
+    objectType: class
+Shelf Life:
+    fieldName: shelfLife
+    fieldType: Input
+    objectType: class
+Legal Text (Term & Conditions):
     fieldName: legalText
     fieldType: Textarea
     objectType: class
-DIN:
-    fieldName: din
+Catalog Flag:
+    fieldName: catalogFlag
     fieldType: Input
     objectType: class
-Max Speed:
-    fieldName: maxSpeed
+Category Description Catalog:
+    fieldName: CategoryDescriptionCatalog
+    fieldType: Textarea
+    objectType: class
+Features & Benefits Bullet Point 1:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 2:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 3:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 4:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 5:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 6:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 7:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 8:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 9:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Features & Benefits Bullet Point 10:
+    fieldName: FeaturesBenefitsBulletPoint
+    fieldType: Multiselection
+    objectType: class
+Specification Construction:
+    fieldName: specificationConstruction
     fieldType: Input
     objectType: class
-CAD File:
-    fieldName: cadFile
-    fieldType: Boolean Select
-    objectType: class
-PDF Drawing:
-    fieldName: pdfDrawing
-    fieldType: Select
-    objectType: class
-CAD LINK:
-    fieldName: cadLINK
-    fieldType: Input
-    objectType: class
-New Item Flag for Catalog:
-    fieldName: newItemFlagForCatalog
-    fieldType: Boolean Select
-    objectType: class
-VTL Status:
-    fieldName: vtlStatus
-    fieldType: Number
-    objectType: class
-PDF LINK:
-    fieldName: pdfLINK
-    fieldType: Input
-    objectType: class
-Match Maker L=L:
-    fieldName: matchMakerLL
-    fieldType: Input
-    objectType: class
+
+# Min Temp (F):
+#     fieldName: minimumTemperatureF
+#     fieldType: Number
+#     objectType: class
+# Max temp (F):
+#     fieldName: maximumTemperatureF
+#     fieldType: Number
+#     objectType: class
+# Temperature Range (F):
+#     fieldName: rangeTemperatureF
+#     fieldType: Input
+#     objectType: class
+# Min Temp (C):
+#     fieldName: minimumTemperatureC
+#     fieldType: Number
+#     objectType: class
+# Max temp (C):
+#     fieldName: maximumTemperatureC
+#     fieldType: Number
+#     objectType: class
+# Temperature Range (C):
+#     fieldName: rangeTemperatureC
+#     fieldType: Input
+#     objectType: class
+# CAD File:
+#     fieldName: cadFile
+#     fieldType: Boolean Select
+#     objectType: class
+# PDF Drawing:
+#     fieldName: pdfDrawing
+#     fieldType: Select
+#     objectType: class
+# CAD LINK:
+#     fieldName: cadLINK
+#     fieldType: Input
+#     objectType: class
+# VTL Status:
+#     fieldName: vtlStatus
+#     fieldType: Number
+#     objectType: class
+# PDF LINK:
+#     fieldName: pdfLINK
+#     fieldType: Input
+#     objectType: class

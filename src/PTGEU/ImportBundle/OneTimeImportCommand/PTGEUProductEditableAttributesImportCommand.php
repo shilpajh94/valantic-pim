@@ -20,6 +20,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 {
     private $configProviderService;
     private $t;
+    private $featurePoints;
     const LOG_FILE_NAME = "PTGEU_Product_Editable_Attributes_Import_Command_Log.csv";
 
     protected function configure()
@@ -67,7 +68,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $i = 1;
                 $colNameArray       = [];
                 $incorrectDataArray = [];
-                $importStatus       = "FAILURE";
                 foreach($csvData  as $rowData) 
                 {
                     $i++;
@@ -77,6 +77,9 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     if(!empty($product))
                     {
                         $this->processProduct($rowData, $product);
+
+                        // unset features points var once row processed
+                        unset($this->featurePoints);
 
                         try {
                             $product->save();
@@ -89,6 +92,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     }
                     else
                     {
+                        $importStatus = "FAILURE";
                         $comment = 'Material number does not exists.';
                     }
 
@@ -124,19 +128,23 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 
     private function processProduct($rowData, $product)
     {
-        $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();
-        
+        $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();       
         foreach ($rowData as $fieldCSVKey => $fieldValue) 
         { 
             $fieldCSVKey = trim($fieldCSVKey);
             if(isset($productImportConfig[$fieldCSVKey])) 
             {
                 $fieldConfig= $productImportConfig[$fieldCSVKey];
-                $fieldName  = ucfirst($fieldConfig['fieldName']);
+                $fieldName  = $fieldConfig['fieldName'];
                 $fieldType  = $fieldConfig['fieldType'];
                 $objectType = $fieldConfig['objectType'];
                 if ($objectType == 'class') 
                 {
+                    if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+                    {
+                        $this->featurePoints[] = trim($fieldValue);
+                    }
+
                     // call function process product attributes
                     $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
                 }
@@ -155,15 +163,15 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $incorrectDataArray[]   = $fieldValue;
         }
 
-        $method = 'set' . $fieldName;
-
-        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+        $method = 'set' . ucfirst($fieldName);
+        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
         {
-            $fieldValueArr  = explode(',', trim($fieldValue));
             $featureValueArr = [];
-            foreach ($fieldValueArr as $feature) {
+            $featuresBenefitsBulletPoint = array_filter($this->featurePoints);
+            foreach($featuresBenefitsBulletPoint as $feature)
+            {
                 $objFeatures = new DataObject\Features\Listing();
-                $objFeatures->setCondition('Name = ?', trim($feature));
+                $objFeatures->setCondition("Name = ?", $feature);
                 foreach ($objFeatures as $featureData) {
                     $featureValueArr[] = $featureData->getId();
                 }
@@ -171,9 +179,26 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $fieldValue = array_map('trim', $featureValueArr);
             $product->$method($fieldValue);
         }
+        elseif($fieldType=='Boolean Select')
+        {
+            $booleanValue = $this->getBooleanValue($fieldValue);
+            $product->$method($booleanValue, 1);
+        }
         else
         {
             $product->$method($fieldValue, 1);
+        }
+    }
+
+    private function getBooleanValue($data)
+    {
+        switch ($data) {
+            case 'Y':
+                return 1;
+            case 'N':
+                return 0;
+            default:
+                return '';
         }
     }
 }

@@ -123,7 +123,7 @@ class ProductService
             Logger::log(self::LOGGER_MODULE)->info("Product import started");
             $this->initiateProductsProcess();
             Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-            //$this->productModel->updateMaster();
+            $this->productModel->updateMaster();
             Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
