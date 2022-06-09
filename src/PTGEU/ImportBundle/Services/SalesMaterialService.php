@@ -61,11 +61,6 @@ class SalesMaterialService
         $excelDataNewArray = $csvImportedData['data'];
         unset($csvImportedData);
 
-        $this->importStart($excelDataNewArray);
-    }
-
-    public function importStart($excelDataNewArray) {
-
         $this->monitoringItem->getLogger()->info('File Information');
         $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
 
@@ -79,8 +74,15 @@ class SalesMaterialService
         $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
         $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
 
+
+        $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+    
+    }
+
+    public function importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
+
         $allSuccess = true;
-        $applicationLogMessage = '';
+        //$applicationLogMessage = '';
         if(count($excelDataNewArray) > 1) {
         
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
@@ -122,40 +124,7 @@ class SalesMaterialService
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
             if($deltaCount > 0) {
-                $j = 1;
-                $i = 0;
-                $length = ImportConstants::IMPORT_BATCH_SIZE;
-                while ($i<$deltaCount) {
-                    $offset = $i;
-                    $diff = $deltaCount-$i;
-                    if ($diff < $length) {
-                        $length = $diff;
-                    }
-                    
-                    $partialData = array_slice($excelDataNewArray, $i, $length);
-                  
-                    $i = $i+$length;
-                    echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
-                    $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-                    $partialData = null;
-                    $this->productUpdateArray = [];
-                    \Pimcore::collectGarbage();
-                    gc_collect_cycles();
-                    $j++;
-                }
-                $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
-                $countMsg .= "\nSuccess Records:".$this->successCount.", ";
-                $countMsg .= "\nFailed Records:".$this->failedCount.", ";
-                $countMsg .= "\nCreated Records:".$this->createdCount.", ";
-                $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
-
-                if ($this->failedCount > 0) {
-                    $allSuccess = false;
-                    $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
-                } else {
-                    $applicationLogMessage = "Sales Material Master Imported successfully.";
-                }   
-                $applicationLogMessage .= $countMsg;
+                $this->countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
             } else {
                 $applicationLogMessage = "No delta records found.";
             }
@@ -173,13 +142,57 @@ class SalesMaterialService
         
         echo $applicationLogMessage;
 
-        if ($this->failedCount > 0) 
-        {
+        if ($this->failedCount > 0) {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
-        }
-        else{
+        } else {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage); 
         }
+
+        $this->importFinished($applicationLogMessage, $time);
+
+    }
+
+    public function countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
+
+        $j = 1;
+        $i = 0;
+        $applicationLogMessage = '';
+        $length = ImportConstants::IMPORT_BATCH_SIZE;
+        while ($i<$deltaCount) {
+            $offset = $i;
+            $diff = $deltaCount-$i;
+            if ($diff < $length) {
+                $length = $diff;
+            }
+            
+            $partialData = array_slice($excelDataNewArray, $i, $length);
+            
+            $i = $i+$length;
+            echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
+            $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+            $partialData = null;
+            $this->productUpdateArray = [];
+            \Pimcore::collectGarbage();
+            gc_collect_cycles();
+            $j++;
+        }
+        $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
+        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
+        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
+        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
+        $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
+
+        if ($this->failedCount > 0) {
+            $allSuccess = false;
+            $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
+        } else {
+            $applicationLogMessage = "Sales Material Master Imported successfully.";
+        }   
+        $applicationLogMessage .= $countMsg;
+    }
+
+    public function importFinished($applicationLogMessage, $time) {
+
         $this->monitoringItem->getLogger()->info($applicationLogMessage);
         $this->monitoringItem->setMessage('Finished')->setCompleted();
         $timediff = $time->diff(new \DateTime());
@@ -206,7 +219,7 @@ class SalesMaterialService
         $columnCountryOfOrigin = $this->mappingCsvColumn['countryOfOriginCode'];
         $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
-        $columnPrivateBrand = $this->mappingCsvColumn['privateBrand'];  ///???
+        $columnPrivateBrand = $this->mappingCsvColumn['privateBrand'];  ///????
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
         $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
@@ -418,6 +431,12 @@ class SalesMaterialService
             $data[$rowCount]['statusCode'] = $statusCode;
         }
 
+        $this->setVariablesToEmpty($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $time2, $createdUpdatedCount, $dataCount, $data );
+       
+    }
+
+    public function setVariablesToEmpty($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $time2, $createdUpdatedCount, $dataCount, $data ) {
+       
         if(count($queryTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($queryTableDataArray, 'object_query_41');
         }
@@ -443,7 +462,7 @@ class SalesMaterialService
         unset($storeTableDataArray);
         unset($relationTableDataArray);
         unset($dependencyTableDataArray);
-        unset($data);
+        unset($data); 
     }
 
     public function processDeletedRecords($deletedRecords)
