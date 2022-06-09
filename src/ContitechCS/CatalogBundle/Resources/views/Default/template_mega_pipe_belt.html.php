@@ -183,17 +183,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                             if($this->image("MPB_productImage")->isEmpty())
                             {
-                                echo $this->image("MPB_productImage")->setImage($data['ProductImage']);
+                                echo $this->image("MPB_productImage", ['height'=>362])->setImage($data['ProductImage']);
                             }
                             else{
-                                echo $this->image("MPB_productImage");
+                                echo $this->image("MPB_productImage", ['height'=>362]);
                             }
                         }
                         else
                         {
                             $MPB_productImageObj =  $this->image("MPB_productImage");
                             if (!empty($MPB_productImageObj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($MPB_productImageObj, $this->imageWidth); ?>" class="w-100"  alt="">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($MPB_productImageObj, $this->imageWidth); ?>" class="w-100"  alt="" style="max-height:362px; width:auto;">
                                 <?php
                             }
                         }

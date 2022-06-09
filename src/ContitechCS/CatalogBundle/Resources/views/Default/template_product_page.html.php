@@ -217,14 +217,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php if ($this->editmode) { ?>
                             <div class="media-img">
                                 <?php
-                                    echo $this->image("PP_ConveyorBeltsComponents_Image");
+                                    echo $this->image("PP_ConveyorBeltsComponents_Image",["height" => 280]);
                                 ?>
                             </div>
                         <?php } else { 
                             $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
                             if (!empty($componentImage->getId())) { ?>
                                 <div class="media-img">
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt=""/>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt="" style="max-height:280px; width:auto"/>
                                 </div>
                             <?php }
                         } ?>
@@ -239,6 +239,64 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 </div>
                 
+                <h2>
+                    <span class="orange">
+                        <?php if($this->input("ContiA_MoreInfoHeading")->isEmpty()): ?>
+                                <?= $this->input("ContiA_MoreInfoHeading")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiA_MoreInfoHeading"); ?>
+                        <?php endif; ?>
+                    </span> 
+                    <span class="light-black">
+                        <?= $this->input("ContiA_MoreInfo", ['placeholder'=>'Belt Information']) ?>
+                    </span>
+                </h2>
+
+                <div class="media-body">
+                    <strong>
+                        <?= $this->input("ContiA_BeltSpecsLabel", ['placeholder'=>'Belt Specs']) ?>
+                    </strong>
+
+                    <br />
+                    <?= $this->input("ContiA_BeltSpecsDescription", ['placeholder'=>'Belt Specs Description']) ?>
+                </div>
+
+                <div class="media" style="margin: 5px 0px;">
+                    <?= $this->image("ContiA_feature1", ["width" => 40, "height" => 40]); ?>
+                    
+                    <div class="media-body">
+                        <strong>
+                            <?= $this->input("ContiA_Feature1Label", ['placeholder'=>'Abrasion-resistant compound specs']) ?>
+                        </strong> 
+
+                        <br />
+                        <?= $this->input("ContiA_Feature1Desc", ['placeholder'=>'Feature 1 Desc']) ?>
+                    </div>
+                </div>
+
+                <div class="media" style="margin: 5px 0px;">
+
+                    <?= $this->image("ContiA_feature2", ["width" => 40, "height" => 40]); ?>
+
+                    <div class="media-body">
+                        <strong>
+                            <?= $this->input("ContiA_Feature2Label", ['placeholder'=>'Flame-retardant compound specs']) ?>
+                        </strong> 
+                        
+                        <br />
+                        <?= $this->input("ContiA_Feature2Desc", ['placeholder'=>'Feature 2 Desc']) ?>
+                    </div>
+                </div>
+
+                <div class="media-body">
+                    <strong>
+                        <?= $this->input("ContiA_AvailabilityLabel", ['placeholder'=>'CONTI®Alert Availability']) ?>
+                    </strong>
+                    
+                    <br />
+
+                    <?= $this->input("ContiA_AvailabilityDesc", ['placeholder'=>'CONTI®Alert Availability Description']) ?>
+                </div>
                 <div class="labels">
                     <table width="100%">
                         <tr>
@@ -255,14 +313,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if ($this->editmode) { ?>
                 <div class="full-image-sec">
                     <?php
-                        echo $this->image("PP_BannerImage");
+                        echo $this->image("PP_BannerImage",["height" => 390]);
                     ?>
                 </div>
                 <?php } else { 
                     $bannerImage =  $this->image("PP_BannerImage");
                     if (!empty($bannerImage->getId())) { ?>
                         <div class="full-image-sec">
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt=""/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt="" style="max-height:390px; width:auto;"/>
                         </div>
                     <?php }
                 } ?>
@@ -283,7 +341,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h2>
                     <div class="media">
                         <?php 
-                                echo $this->image("PPSS_Image");
+                                echo $this->image("PPSS_Image",["height" => 235]);
                         ?>
 
                         <div class="media-body">
@@ -493,6 +551,93 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 <?php } ?>
                 
+                <?php if(!$this->input("ContiA_MoreInfoHeading")->isEmpty() || !$this->input("ContiA_MoreInfo")->isEmpty()): ?>
+                <h2>
+                    <span class="orange">
+                            <?= $this->input("ContiA_MoreInfoHeading") ?>
+                    </span> 
+                    <span class="light-black">
+                            <?= $this->input("ContiA_MoreInfo") ?>
+                    </span>
+                </h2>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_BeltSpecsLabel")->isEmpty() || !$this->input("ContiA_BeltSpecsDescription")->isEmpty()): ?>
+                <p>
+                    <b>
+                        <?= $this->input("ContiA_BeltSpecsLabel") ?>
+                    </b>
+
+                    <br />
+
+                    <?= $this->input("ContiA_BeltSpecsDescription") ?>
+                </p>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_Feature1Label")->isEmpty() || !$this->input("ContiA_Feature1Desc")->isEmpty()): ?>
+            
+                    <div class="media" style="margin: 5px 0px;">
+                        <?php
+                        
+                            $ContiA_feature1Obj =  $this->image("ContiA_feature1");
+                            if (!empty($ContiA_feature1Obj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
+                            <?php
+                            }
+                        ?>
+                        
+                        <div class="media-body">
+                            <p>
+                                <b>
+                                    <?= $this->input("ContiA_Feature1Label") ?>
+                                </b> 
+                                
+                                <br />
+                                
+                                <?= $this->input("ContiA_Feature1Desc") ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_Feature2Label")->isEmpty() || !$this->input("ContiA_Feature2Desc")->isEmpty()): ?>
+            
+                    <div class="media" style="margin: 5px 0px;">
+
+                        <?php
+                            $ContiA_feature2Obj =  $this->image("ContiA_feature2");
+                            if (!empty($ContiA_feature2Obj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
+                            <?php
+                            }
+                        ?>
+
+                        <div class="media-body">
+                            <p>
+                                <b>
+                                    <?= $this->input("ContiA_Feature2Label") ?>
+                                </b> 
+                                
+                                <br />
+                                
+                                <?= $this->input("ContiA_Feature2Desc") ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_AvailabilityLabel")->isEmpty() || !$this->input("ContiA_AvailabilityDesc")->isEmpty()): ?>
+                <p>
+                    <b>
+                        <?= $this->input("ContiA_AvailabilityLabel") ?>
+                    </b>
+                    
+                    <br />
+
+                    <?= $this->input("ContiA_AvailabilityDesc") ?>
+                </p>
+                <?php endif;?>
+
                 <?php if(!($this->input("PP_CostPerTon")->isEmpty() || $this->input("PP_TensionRange")->isEmpty())): ?>
                     <div class="labels">
                         <table width="100%">
@@ -555,7 +700,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     if($ppssImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                                    <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                    <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" style="max-height:235px; width:auto"/>
                                     <?php
                                     }
                                 ?>

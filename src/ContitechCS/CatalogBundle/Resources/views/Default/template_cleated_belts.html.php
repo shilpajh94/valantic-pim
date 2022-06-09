@@ -234,10 +234,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php
                 if($this->image("CB_BeltRollDiameters")->isEmpty())
                 {
-                    echo $this->image("CB_BeltRollDiameters")->setImage($data['BeltRollDiameters']);
+                    echo $this->image("CB_BeltRollDiameters",["height" => 525])->setImage($data['BeltRollDiameters']);
                 }
                 else{
-                    echo $this->image("CB_BeltRollDiameters");
+                    echo $this->image("CB_BeltRollDiameters",["height" => 525]);
                 }
                 ?>
             <?php else:?>
@@ -254,7 +254,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
                     </span>
                 </h2>
-                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_BeltRollDiametersObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_BeltRollDiametersObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4" style="max-height:525px; width:auto;"/>
                 <?php
                 }
                 ?>
@@ -285,10 +285,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php
                     if($this->image("CB_AngleOfInclination")->isEmpty())
                     {
-                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination'])->setImage($data['AngleOfInclination']);
+                        echo $this->image("CB_AngleOfInclination",["height" => 450])->setImage($data['AngleOfInclination']);
                     }
                     else{
-                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination']);
+                        echo $this->image("CB_AngleOfInclination",["height" => 450]);
                     }
                 ?>
 
@@ -310,7 +310,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Angles of Inclination</div>
                 <?php endif;?>
-                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_AngleOfInclinationObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_AngleOfInclinationObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4" style="max-height:450px; width:auto;"/>
                 <?php
                 }
                 ?>
