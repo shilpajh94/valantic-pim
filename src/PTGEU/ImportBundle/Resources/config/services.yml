@@ -33,7 +33,6 @@ services:
     PTGEU\ImportBundle\Command\SAPPlantMaterialImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:sap-plant-material-import' }
-
     
     # this command will execute the import of SAP sales material
     PTGEU\ImportBundle\Command\SAPSalesMaterialImportCommand:
@@ -54,6 +53,11 @@ services:
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductEditableAttributesImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-editable-attributes-import' }
+
+    # this command will execute the SAP price import
+    PTGEU\ImportBundle\Command\SAPPriceImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-price-import' }
 
     # Services
     import.sap_file_feeder_service:
@@ -103,4 +107,8 @@ services:
 
     import.product_helper:
         class: PTGEU\ImportBundle\Helper\Product
+        public: true
+
+    import.sap_price_service:
+        class: PTGEU\ImportBundle\Services\PriceService
         public: true
