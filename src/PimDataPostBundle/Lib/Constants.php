@@ -69,4 +69,17 @@ class Constants
     const IFS_CATEGORIES = ['Industrial Hose' => '041000', 'Hydraulics'=>'041500'];
 
     const PTG_CATEGORIES = ['PTP' => '043000'];
+
+    const B2B_API_REQUEST_ENTITIES_TABLE = \PimDataPostBundle\Model\PersistantModel\B2BAPIRequestEntity\Dao::TABLE_NAME;
+
+    const B2B_API_REQUEST_ARCHIVE_FOLDER = "/Internal Assets/Saleforce Integration Archives/B2B";
+
+    const B2B_API_REQUEST_ARCHIVE_CSV_LOG_HEADERS = ['ID' => 'id', 'Body' => 'body', 'SFObjectType' => 'SFObjectType', "Response Status" => 'responseStatus', "Reponse Msg" => 'responseMsg' , 'Operation Type' => 'operationType', "External ID" => "externalID", "PIM ID" => "pimId", "Response Time Stamp" =>"responseTimestamp", "Created Date Time Stamp" => "creationDate"];
+
+    const B2C_API_REQUEST_ENTITIES_TABLE = "salesforce_integration_b2c_api_request_entities";
+
+    const B2C_API_REQUEST_ARCHIVE_FOLDER = "/Internal Assets/Saleforce Integration Archives/B2C";
+
+    const B2C_API_REQUEST_ARCHIVE_CSV_LOG_HEADERS = ['ID' => 'id', 'Body' => 'body', 'SFObjectType' => 'SFObjectType', "Response Status" => 'responseStatus', "Reponse Msg" => 'responseMsg' , 'Operation Type' => 'operationType', "External ID" => "externalID", "PIM ID" => "pimId", "Response Time Stamp" =>"responseTimestamp", "Created Date Time Stamp" => "creationDate"];
+
 }
