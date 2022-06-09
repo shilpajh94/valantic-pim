@@ -219,7 +219,7 @@ class SalesMaterialService
         $columnCountryOfOrigin = $this->mappingCsvColumn['countryOfOriginCode'];
         $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
-        $columnPrivateBrand = $this->mappingCsvColumn['privateBrand'];  ///???
+        $columnPrivateBrand = $this->mappingCsvColumn['privateBrand'];  ///????
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
         $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
