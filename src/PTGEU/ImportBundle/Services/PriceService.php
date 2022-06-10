@@ -12,6 +12,7 @@ use PTGEU\ImportBundle\Model\PriceModel;
 class PriceService 
 {
     private $filePath;
+    private $logArray;
     private $products = [];    
 
     public function __construct() 
@@ -125,7 +126,6 @@ class PriceService
                 $uniqueKeyArr[] = $priceData[2]; // Plant
                 $uniqueKeyArr[] = $priceData[3]; // End Date
                 $uniqueKeyArr[] = $priceData[4]; // Start Date
-                $uniqueKeyArr[] = $priceData[5]; // Condition Type
                 $uniqueKey = implode('_', $uniqueKeyArr);
                 $priceDataArray = [
                     $uniqueKey,
@@ -163,7 +163,7 @@ class PriceService
         }
         
         if(!empty($this->logArray)) {
-            $this->priceModel->insertDataIntoTable($this->logArray, 'material_list_price_import_log');
+            $this->priceModel->insertDataIntoTable($this->logArray, 'ptgeu_material_list_price_import_log');
         }
     }
 }
