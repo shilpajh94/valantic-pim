@@ -5,6 +5,7 @@ namespace PTGEU\ImportBundle\Services;
 use Exception;
 use Throwable;
 use AppBundle\Lib\SFTPConnection;
+use TypeError;
 
 class SAPFileFeederService
 {
@@ -69,7 +70,7 @@ class SAPFileFeederService
             } 
             else 
             {
-                throw new Exception(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
+                throw new TypeError(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
             }
         } 
         catch (Throwable $th) 
