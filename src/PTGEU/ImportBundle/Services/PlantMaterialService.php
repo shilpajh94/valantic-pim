@@ -28,6 +28,7 @@ class PlantMaterialService
     private $plantArray = array();
     private $salesOrgArray = array();
     private $distributionChannelArray = array();
+    private $countryArray = array();
     private $failedIDs = [];
 
 
@@ -200,6 +201,7 @@ class PlantMaterialService
         $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
         $columnPlant = $this->mappingCsvColumn['plant'];
         $columnMaterial = $this->mappingCsvColumn['Material'];
+        $columnCountryOfOrigin = $this->mappingCsvColumn['countryOfOrigin'];
         $columnMinOrderQty = $this->mappingCsvColumn['minOrderQuantity'];
         $columnOrderQtyInc = $this->mappingCsvColumn['orderingQuantityIncrements'];
         $columnDeliveryUnitUOM = $this->mappingCsvColumn['deliveryUnitUOM'];
@@ -207,7 +209,6 @@ class PlantMaterialService
         $columnEPIXFlag = $this->mappingCsvColumn['epixFlag'];
         $columnConversionDenominator = $this->mappingCsvColumn['conversionDenominator'];
         $columnConversionNumerator = $this->mappingCsvColumn['conversionNumerator'];
-        $columnLanguageID = $this->mappingCsvColumn['LanguageID'];
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
         $columnStockIndicatorDescription = $this->mappingCsvColumn['Stock Indicator - Description'];
         $columnMrpController = $this->mappingCsvColumn['MRP Controller'];
@@ -224,6 +225,7 @@ class PlantMaterialService
             $material = $rowvalue[$columnMaterial];
             $salesOrg = $rowvalue[$columnSalesOrg];
             $distributionChannel = $rowvalue[$columnDistributionChannel];
+            $countryName =  $rowvalue[$columnCountryOfOrigin];
 
             $errorsData = array();
 
@@ -288,6 +290,17 @@ class PlantMaterialService
                         }
                         $distributionChannelCode = $this->distributionChannelArray[$distributionChannel];
 
+                        if(!empty(trim($countryName)) && !isset($this->countryArray[$countryName]))
+                        {
+                            $countryId = $this->getCountryObject($countryName, $countryFolderId);
+                            if($countryId)
+                            $this->countryArray[$countryName] = $countryId;
+                        }
+
+                        $countryObjId = '';
+                        if(isset($this->countryArray[$countryName]))
+                            $countryObjId = $this->countryArray[$countryName];
+
                         $createdOrUpdated = 'Updated';
                         if(!$objectMaterial){
                             $createdOrUpdated = 'Created';
@@ -330,6 +343,8 @@ class PlantMaterialService
                             'Material' => ",".$materialObjId.",",
                             'Plant__id' => $plantObjId,
                             'Plant__type' => 'object',
+                            'CountryOfOrigin__id' => $countryObjId,
+                            'CountryOfOrigin__type' => 'object',
                             'MinOrderQuantity' => $minOrderQty,
                             'deliveryUnitUOM' => $deliveryUnitUOM,
                             'baseUOM' => $baseUOM,
@@ -363,12 +378,18 @@ class PlantMaterialService
                             'OrderingQuantityIncrements' => $orderQtyInc
                         ];
                        
+                        if($countryObjId)
+                            $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
+
                         if($plantObjId)
                             $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
 
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
+
+                        if($countryObjId)
+                            $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
 
                         if($plantObjId)
                             $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
