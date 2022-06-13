@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     "ItemCount" => [
@@ -146,12 +146,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608288402,
         "creationDate" => 1606361037,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ItemCount"
     ],
     "NewProducts" => [
@@ -299,12 +305,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608104456,
         "creationDate" => 1606362991,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "NewProducts"
     ],
     "BrandProducts" => [
@@ -462,12 +474,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608102702,
         "creationDate" => 1606812138,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "BrandProducts"
     ],
     "ProductsWithNoImage" => [
@@ -759,12 +777,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103299,
         "creationDate" => 1606817832,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ProductsWithNoImage"
     ],
     "DataCompleteness" => [
@@ -922,12 +946,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103142,
         "creationDate" => 1606822831,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "DataCompleteness"
     ],
     "ProductAttributeIncomplete" => [
@@ -1075,12 +1105,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103230,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ProductAttributeIncomplete"
     ],
     "WorkflowPendingProducts" => [
@@ -1257,12 +1293,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615715453,
         "creationDate" => 1606838413,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "WorkflowPendingProducts"
     ],
     "ChartBrandProduct" => [
@@ -1319,12 +1361,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1614075082,
         "creationDate" => 1606812138,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartBrandProduct"
     ],
     "ChartProductsWithNoImage" => [
@@ -1381,12 +1429,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Main Image",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1614075246,
         "creationDate" => 1606817832,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartProductsWithNoImage"
     ],
     "ChartNewProducts" => [
@@ -1459,8 +1513,12 @@ return [
         "modificationDate" => 1615487332,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartNewProducts"
     ],
     "ChartDataCompleteness" => [
@@ -1517,12 +1575,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615438796,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartDataCompleteness"
     ],
     "ChartSKUsUnderReview" => [
@@ -1569,12 +1633,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615441276,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartSKUsUnderReview"
     ],
     "ChartProductAtrributrIncomplete" => [
@@ -1647,8 +1717,12 @@ return [
         "modificationDate" => 1615436789,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartProductAtrributrIncomplete"
     ],
     "IndustrialHoseChartBrandProduct" => [
@@ -1702,12 +1776,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807442,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartBrandProduct"
     ],
     "HydraulicHoseChartBrandProduct" => [
@@ -1761,12 +1841,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807118,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartBrandProduct"
     ],
     "HydraulicFittingsChartBrandProduct" => [
@@ -1820,12 +1906,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807090,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartBrandProduct"
     ],
     "PTGChartBrandProduct" => [
@@ -1888,12 +1980,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "SIOP Level 4 -- Band",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1629875608,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartBrandProduct"
     ],
     "IndustrialHoseChartNewProducts" => [
@@ -1946,8 +2044,12 @@ return [
         "modificationDate" => 1620810328,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartNewProducts"
     ],
     "HydraulicHoseChartNewProduct" => [
@@ -2000,8 +2102,12 @@ return [
         "modificationDate" => 1620807567,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartNewProduct"
     ],
     "PTGChartNewProducts" => [
@@ -2054,8 +2160,12 @@ return [
         "modificationDate" => 1620807641,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartNewProducts"
     ],
     "IndustrialHoseChartDataCompleteness" => [
@@ -2112,12 +2222,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1623916067,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness"
     ],
     "HydraulicHoseChartDataCompleteness" => [
@@ -2174,12 +2290,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808055,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness"
     ],
     "PTGChartDataCompleteness" => [
@@ -2236,12 +2358,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808147,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness"
     ],
     "IndustrialHoseChartSKUsUnderReview" => [
@@ -2288,12 +2416,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808419,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartSKUsUnderReview"
     ],
     "HydrualicHoseChartSKUsUnderReview" => [
@@ -2340,12 +2474,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808538,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydrualicHoseChartSKUsUnderReview"
     ],
     "PTGChartSKUsUnderReview" => [
@@ -2392,12 +2532,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808598,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartSKUsUnderReview"
     ],
     "IndustrialHoseChartProductAttributeIncomplete" => [
@@ -2470,8 +2616,12 @@ return [
         "modificationDate" => 1620808864,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductAttributeIncomplete"
     ],
     "HydraulicHoseChartProductAttributeIncomplete" => [
@@ -2544,8 +2694,12 @@ return [
         "modificationDate" => 1620809052,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductAttributeIncomplete"
     ],
     "PTGChartProductAttributeIncomplete" => [
@@ -2618,8 +2772,12 @@ return [
         "modificationDate" => 1620809115,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductAttributeIncomplete"
     ],
     "HydraulicFittingsChartNewProducts" => [
@@ -2672,8 +2830,12 @@ return [
         "modificationDate" => 1620807816,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartNewProducts"
     ],
     "HydraulicFittingsChartDataCompleteness" => [
@@ -2730,12 +2892,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808313,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness"
     ],
     "HydraulicFittingsChartSKUsUnderReview" => [
@@ -2782,12 +2950,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808742,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartSKUsUnderReview"
     ],
     "HydraulicFittingsChartProductAttributeIncomplete" => [
@@ -2860,8 +3034,12 @@ return [
         "modificationDate" => 1620809370,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductAttributeIncomplete"
     ],
     "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -2940,8 +3118,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3020,8 +3202,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3101,8 +3287,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3172,8 +3362,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3243,8 +3437,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-BrandFilter" => [
@@ -3314,8 +3512,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3394,8 +3596,12 @@ return [
         "modificationDate" => 1629893476,
         "creationDate" => 1629891069,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3474,8 +3680,12 @@ return [
         "modificationDate" => 1629893494,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3555,8 +3765,12 @@ return [
         "modificationDate" => 1629893512,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3626,8 +3840,12 @@ return [
         "modificationDate" => 1629893535,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3697,8 +3915,12 @@ return [
         "modificationDate" => 1629893556,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-BrandFilter" => [
@@ -3768,8 +3990,12 @@ return [
         "modificationDate" => 1629893578,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3848,8 +4074,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-BrandFilter" => [
@@ -3928,8 +4158,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4009,8 +4243,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4080,8 +4318,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4151,8 +4393,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-BrandFilter" => [
@@ -4222,8 +4468,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -4302,8 +4552,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "PTGChartProductsWithNoImage-BrandFilter" => [
@@ -4382,8 +4636,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4463,8 +4721,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "PTGChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4534,8 +4796,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-PrintedCatalogFilter"
     ],
     "PTGChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4605,8 +4871,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-VirtualCatalogFilter"
     ],
     "PTGChartDataCompleteness-BrandFilter" => [
@@ -4676,8 +4946,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-BrandFilter"
     ],
     "CS_NewProductsLastOneWeek" => [
@@ -4749,11 +5023,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1644510029,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -4840,11 +5118,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1644510151,
         "creationDate" => 1632124921,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5111,11 +5393,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192223,
         "creationDate" => 1632215120,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5346,11 +5632,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192180,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5370,7 +5660,9 @@ return [
                 "type" => "sql"
             ]
         ],
-        "columnConfiguration" => [],
+        "columnConfiguration" => [
+
+        ],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
         "groupIconClass" => "",
@@ -5381,11 +5673,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192129,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5463,11 +5759,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192091,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5639,12 +5939,319 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1643097180,
         "creationDate" => 1606822831,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "DataCompletenessEmptyAttributes"
+    ],
+    "ProductCompleteness" => [
+        "name" => "ProductCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT o1.`oo_id` as `Id`, o1.`o_key` as `Name`, `CompletenessPercentage` as `Completeness Percentage`,`EmptyFields`as `Empty Fields`, FROM_UNIXTIME(`o_modificationDate`)as`Modification Date`",
+                "from" => "FROM object_localized_38_en o1",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1189-1"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1189-5"
+            ],
+            [
+                "name" => "Completeness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1189-2"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1189-3"
+            ],
+            [
+                "name" => "Modification Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1189-4"
+            ]
+        ],
+        "niceName" => "ProductCompleteness",
+        "group" => "PTG_EUP",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1654688217,
+        "creationDate" => 1654674916,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ProductCompleteness"
+    ],
+    "MissingAssetsOnProducts" => [
+        "name" => "MissingAssetsOnProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "select  \no1.`oo_id` as ID, o1.`productName`,\n IF(o1.`mainImage1` IS NOT NULL, \"True\", \"False\") AS `Main Image1`,\n IF(o1.`mainImage2` IS NOT NULL, \"True\", \"False\") AS `Main Image2`,\n IF(o1.`epixImage1` IS NOT NULL, \"True\", \"False\") AS `Epix Image1`,\n IF(o1.`epixImage2` IS NOT NULL, \"True\", \"False\") AS `Epix Image2`,\n IF(o1.`epixImage3` IS NOT NULL, \"True\", \"False\") AS `Epix Image3`,\n IF(o1.`epixImage4` IS NOT NULL, \"True\", \"False\") AS `Epix Image4`,\n IF(o1.`halfView1` IS NOT NULL, \"True\", \"False\") AS `Half View1`,\n IF(o1.`halfView2` IS NOT NULL, \"True\", \"False\") AS `Half View2`,\n IF(o1.`halfView3` IS NOT NULL, \"True\", \"False\") AS `Half View3`,\n IF(o1.`halfView4` IS NOT NULL, \"True\", \"False\") AS `Half View4`,\n IF(o1.`technicalDrawing1` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing1`,\n IF(o1.`technicalDrawing2` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing2`,\n IF(o1.`applicationImage1` IS NOT NULL, \"True\", \"False\") AS `Application Image1`,\n IF(o1.`applicationImage2` IS NOT NULL, \"True\", \"False\") AS `Application Image2`,\n IF(o1.`applicationImage3` IS NOT NULL, \"True\", \"False\") AS `Application Image3`,\n IF(o1.`applicationImage4` IS NOT NULL, \"True\", \"False\") AS `Application Image4`,\n IF(o1.`applicationImage5` IS NOT NULL, \"True\", \"False\") AS `Application Image5`,\n IF(o1.`applicationImage6` IS NOT NULL, \"True\", \"False\") AS `Application Image6`\n FROM object_38 o1 \n inner join object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')  \n WHERE o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = '') AND\n        (\n            o1.`mainImage1` IS NULL ||\n            o1.`mainImage2` IS NULL ||\n            o1.`epixImage1` IS NULL ||\n            o1.`epixImage2` IS NULL ||\n            o1.`epixImage3` IS NULL ||\n            o1.`epixImage4` IS NULL ||\n            o1.`halfView1` IS NULL ||\n            o1.`halfView2` IS NULL ||\n            o1.`halfView3` IS NULL ||\n            o1.`halfView4` IS NULL ||\n            o1.`technicalDrawing1` IS NULL ||\n            o1.`technicalDrawing2` IS NULL ||\n            o1.`applicationImage1` IS NULL ||\n            o1.`applicationImage2` IS NULL ||\n            o1.`applicationImage3` IS NULL ||\n            o1.`applicationImage4` IS NULL ||\n            o1.`applicationImage5` IS NULL ||\n            o1.`applicationImage6` IS NULL \n        )",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "ID",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-1"
+            ],
+            [
+                "name" => "ProductName",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-2"
+            ],
+            [
+                "name" => "Main Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-3"
+            ],
+            [
+                "name" => "Main Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-4"
+            ],
+            [
+                "name" => "Epix Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-5"
+            ],
+            [
+                "name" => "Epix Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-6"
+            ],
+            [
+                "name" => "Epix Image3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-7"
+            ],
+            [
+                "name" => "Epix Image4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-8"
+            ],
+            [
+                "name" => "Half View1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-9"
+            ],
+            [
+                "name" => "Half View2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-10"
+            ],
+            [
+                "name" => "Half View3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-11"
+            ],
+            [
+                "name" => "Half View4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-12"
+            ],
+            [
+                "name" => "Technical Drawing1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-13"
+            ],
+            [
+                "name" => "Technical Drawing2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-14"
+            ],
+            [
+                "name" => "Application Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-15"
+            ],
+            [
+                "name" => "Application Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-16"
+            ],
+            [
+                "name" => "Application Image3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-17"
+            ],
+            [
+                "name" => "Application Image4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-18"
+            ],
+            [
+                "name" => "Application Image5",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-19"
+            ],
+            [
+                "name" => "Application Image6",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1423-20"
+            ]
+        ],
+        "niceName" => "MissingAssetsOnProducts",
+        "group" => "PTG_EUP",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1654696500,
+        "creationDate" => 1654688457,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "MissingAssetsOnProducts"
     ]
 ];
