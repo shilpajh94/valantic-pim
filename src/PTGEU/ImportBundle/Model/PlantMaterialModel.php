@@ -105,7 +105,7 @@ class PlantMaterialModel
                 }
             }
         }  catch (\Exception $ex) {
-            
+            echo $ex->getMessage();
         }
     }
     
@@ -152,9 +152,7 @@ class PlantMaterialModel
     {
         try {
             $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-            $delta = $this->db->fetchAll($sql);
-
-            return $delta;
+            return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -169,9 +167,7 @@ class PlantMaterialModel
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
-            $delta = $this->db->fetchAll($sql);
-
-            return $delta;
+            return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -211,7 +207,8 @@ class PlantMaterialModel
         try {
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
-            foreach ($data as $dataKey => $dataValue) {
+            $values = '';
+            foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
