@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-10T14:18:41+02:00
+* Generated at: 2022-06-14T12:40:01+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -64,7 +64,7 @@ Fields Summary:
 - eanUpc [input]
 - profile [input]
 - manufacturer [input]
-- manufacturerPartNumber [input]
+- manufacturerPartNumber [numeric]
 - oldMaterialCode [input]
 - netWeight [numeric]
 - weightUnit [select]
@@ -114,7 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654863517,
+   'modificationDate' => 1655203199,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3369,7 +3369,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'fieldtype' => 'textarea',
                                              'width' => 250,
                                              'height' => 100,
-                                             'maxLength' => NULL,
+                                             'maxLength' => 50,
                                              'showCharCount' => false,
                                              'excludeFromSearchIndex' => false,
                                              'queryColumnType' => 'longtext',
@@ -4082,7 +4082,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'textarea',
                                  'width' => 250,
                                  'height' => 100,
-                                 'maxLength' => NULL,
+                                 'maxLength' => 10,
                                  'showCharCount' => false,
                                  'excludeFromSearchIndex' => false,
                                  'queryColumnType' => 'longtext',
@@ -5089,7 +5089,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'fieldtype' => 'textarea',
                                          'width' => 250,
                                          'height' => 100,
-                                         'maxLength' => NULL,
+                                         'maxLength' => 50,
                                          'showCharCount' => false,
                                          'excludeFromSearchIndex' => false,
                                          'queryColumnType' => 'longtext',
@@ -5706,24 +5706,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 250,
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => 10,
                          'name' => 'manufacturerPartNumber',
                          'title' => 'Manufacturer Part Number',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => true,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -5901,7 +5904,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
                                  'unique' => false,
-                                 'decimalSize' => NULL,
+                                 'decimalSize' => 3,
                                  'decimalPrecision' => NULL,
                                  'name' => 'netWeight',
                                  'title' => 'Net Weight',
@@ -6059,7 +6062,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
                                  'unique' => false,
-                                 'decimalSize' => NULL,
+                                 'decimalSize' => 3,
                                  'decimalPrecision' => NULL,
                                  'name' => 'grossWeight',
                                  'title' => 'Gross Weight',
@@ -6417,7 +6420,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'maxValue' => NULL,
                                  'unique' => false,
                                  'decimalSize' => NULL,
-                                 'decimalPrecision' => NULL,
+                                 'decimalPrecision' => 2,
                                  'name' => 'vtlStatus',
                                  'title' => 'VTL Status',
                                  'tooltip' => '',
