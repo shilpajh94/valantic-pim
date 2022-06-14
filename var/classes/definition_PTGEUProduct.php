@@ -114,11 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-<<<<<<< HEAD
    'modificationDate' => 1655203199,
-=======
-   'modificationDate' => 1655197239,
->>>>>>> bf5bbc120fe2ad560ae8b6e7860f9ca07bd3e0c8
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
