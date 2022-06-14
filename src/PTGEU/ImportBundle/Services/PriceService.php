@@ -123,9 +123,10 @@ class PriceService
             foreach ($dataArray as $priceData) {
                 $uniqueKeyArr = [];
                 $uniqueKeyArr[] = $priceData[1]; // Sales Organization
-                $uniqueKeyArr[] = $priceData[2]; // Plant
+                $uniqueKeyArr[] = $priceData[2]; // Distribution Channel
                 $uniqueKeyArr[] = $priceData[3]; // End Date
                 $uniqueKeyArr[] = $priceData[4]; // Start Date
+                $uniqueKeyArr[] = $priceData[6]; // Rate
                 $uniqueKey = implode('_', $uniqueKeyArr);
                 $priceDataArray = [
                     $uniqueKey,
