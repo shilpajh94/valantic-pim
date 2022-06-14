@@ -406,7 +406,7 @@ class ImportDefinitionController extends ResourceController
         $buConfig       = $this->getBusinessUnitClassFromConfig();
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
-        if ($className == 'Product') {
+        if ($className == 'Product' || $className == 'PTGEUProduct') {
             foreach ($importLevels as $importType) {
                 $importTypeArray = array();
                 $importTypeArray['name'] = $importType;
@@ -479,9 +479,10 @@ class ImportDefinitionController extends ResourceController
     public function getRoleFromConfg()
     {
         $getAllRoles = $this->getBusinessUnitRolesFromConfig();
-        $rolesIFPTG = array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
+        $rolesIFSPTG = array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
         $rolesCBS = array("CBS" => $getAllRoles['config']['CBS']['Roles']);
-        return array_merge($rolesCBS, $rolesIFPTG);
+        $rolesPTGEU = array("PTG_EU" => $getAllRoles['config']['PTG_EU']['Roles']);
+        return array_merge($rolesCBS, $rolesIFSPTG, $rolesPTGEU);
     }
 
     public function getClassesAccordingToRoles()
@@ -491,6 +492,8 @@ class ImportDefinitionController extends ResourceController
         foreach ($roles as $key => $val) {
             if ($key == 'CBS') {
                 $class = $getClass['config']['CBS']['Class'];
+            } else if ($key == 'PTG_EU') {
+                $class = $getClass['config']['PTG_EU']['Class'];
             } else {
                 $class = $getClass['config']['IFSPTG_US']['Class'];
             }

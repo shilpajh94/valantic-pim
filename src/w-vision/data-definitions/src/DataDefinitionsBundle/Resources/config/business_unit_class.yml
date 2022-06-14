@@ -23,3 +23,18 @@ config:
           [
               "Path"
           ]
+    PTG_EU:
+        Class:
+          [
+              PTGEUProduct: "PTG EU",
+          ]
+        PRODUCT_TYPE:
+          [
+              "Base",
+              "Skeleton",
+              "Fert"
+          ]
+        PrimaryKey:
+          [
+              "articleNumber"
+          ]
