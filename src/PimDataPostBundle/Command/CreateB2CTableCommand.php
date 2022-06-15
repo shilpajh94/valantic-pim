@@ -105,6 +105,7 @@ class CreateB2CTableCommand extends AbstractCommand
             `responseTimestamp` int UNSIGNED DEFAULT NULL,
             `creationDate` int UNSIGNED DEFAULT NULL,
             `businessUnit` varchar(55) DEFAULT NULL,
+             INDEX (`externalID`),
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
         $this->db->query($sql);

@@ -13,7 +13,7 @@ class B2CHTTPResponseHandlerHelper
     {
         $scriptStartTime = Util::getB2CScriptStartTime();
         $listing = new B2CAPIRequestEntity\Listing();
-        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ?", [$externalID, $scriptStartTime]);
+        $listing->setCondition("externalID = ? AND responseStatus IS NULL AND creationDate >= ?", [$listing->quote($externalID), $scriptStartTime]);
         $listing = $listing->load();
         foreach($listing as $rowObject)
         {
