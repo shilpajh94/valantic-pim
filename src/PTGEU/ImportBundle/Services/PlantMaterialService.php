@@ -188,7 +188,7 @@ class PlantMaterialService
         echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
         \Pimcore::collectGarbage();
 
-    }
+    }    
 
     public function processSlicedData($data) {
 	    $time2 = new \DateTime();
@@ -225,40 +225,13 @@ class PlantMaterialService
                     
                     if($materialObjId)
                     {
-                        if(empty(trim($plantName)))
-                        {
-                            $plantMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
-                        }
-                        else
-                        {
-                            $plantMaterialKey = $material.'-'.$plantName.'-'.$salesOrg.'-'.$distributionChannel;
-                        }
+                        $processedRowData = $this->processRowData($plantName, $material, $salesOrg, $distributionChannel);
 
-                        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_40` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
-                        $objectMaterial = $this->db->fetchRow($query);
-
+                        $createdOrUpdated   = $processedRowData['createdOrUpdated'];
+                        $plantMaterialKey   = $processedRowData['plantMaterialKey'];
+                        $objectArr          = $processedRowData['objectArr'];
                         
-                        $createdOrUpdated = 'Updated';
-                        if(!$objectMaterial){
-                            $createdOrUpdated = 'Created';
-                            $objectArr = [
-                                'o_parentId' => $materialFolderId,
-                                'o_key' => $plantMaterialKey,
-                                'o_path' => "/".ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
-                            ];
-                            $this->createdCount++;
-                        }
-                        else{
-                            $objectArr = [
-                                'o_parentId' => $objectMaterial['o_parentId'],
-                                'o_key' => $objectMaterial['o_key'],
-                                'o_path' => $objectMaterial['o_path'],
-                            ];
-                            $this->updatedCount++;
-                        }
-
-                        $objId = $this->tableImportHelper->insertInObjects($objectArr);
+                        $objId              = $this->tableImportHelper->insertInObjects($objectArr);
 
                         $prepareTableData = $this->prepareTableDataArray($objId, $materialObjId, $rowvalue);
                         $queryTableDataArray[] = $prepareTableData['queryTableData'];
@@ -276,7 +249,6 @@ class PlantMaterialService
                     }
                 }
                 catch (\Exception $e) {
-
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
@@ -305,25 +277,7 @@ class PlantMaterialService
             $data[$rowCount]['statusCode'] = $statusCode;
         }
 
-        if(count($queryTableDataArray))
-        {
-            $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_40');
-        }
-            
-        if(count($storeTableDataArray))
-        {
-            $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_40');
-        }
-            
-        if(count($relationTableDataArray))
-        {
-            $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_40');
-        }
-            
-        if(count($dependencyTableDataArray))
-        {
-            $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');
-        }
+        $this->insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray);
             
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
@@ -334,11 +288,7 @@ class PlantMaterialService
         echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
 
         echo "Unset the temporary variable ...".PHP_EOL;
-        unset($queryTableDataArray);
-        unset($storeTableDataArray);
-        unset($relationTableDataArray);
-        unset($dependencyTableDataArray);
-        unset($data);
+        unset($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $data);
     }
 
     public function processDeletedRecords($deletedRecords)
@@ -640,7 +590,7 @@ class PlantMaterialService
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
         }
         else{
-            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list");
+            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
         }
         return $objectPlant->getId();
 
@@ -660,10 +610,10 @@ class PlantMaterialService
             $object->setParentId($this->distributionChannelFolderId);
             $object->setPublished(TRUE);
             $object->save();
-            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created");
+            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created.");
         }
         else{
-            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list");
+            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
         }
         return $object->getId();
 
@@ -712,5 +662,68 @@ class PlantMaterialService
         }
         return $objectCountry->getId();
 
+    }
+
+    // function to process row data
+    private function processRowData($plantName, $material, $salesOrg, $distributionChannel)
+    {
+        if(empty(trim($plantName)))
+        {
+            $plantMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
+        }
+        else
+        {
+            $plantMaterialKey = $material.'-'.$plantName.'-'.$salesOrg.'-'.$distributionChannel;
+        }
+
+        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
+        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_40` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
+        $objectMaterial = $this->db->fetchRow($query);
+
+        
+        $createdOrUpdated = 'Updated';
+        if(!$objectMaterial){
+            $createdOrUpdated = 'Created';
+            $objectArr = [
+                'o_parentId' => $materialFolderId,
+                'o_key' => $plantMaterialKey,
+                'o_path' => "/".ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
+            ];
+            $this->createdCount++;
+        }
+        else{
+            $objectArr = [
+                'o_parentId' => $objectMaterial['o_parentId'],
+                'o_key' => $objectMaterial['o_key'],
+                'o_path' => $objectMaterial['o_path'],
+            ];
+            $this->updatedCount++;
+        }
+
+        return ['plantMaterialKey' => $plantMaterialKey, 'createdOrUpdated' => $createdOrUpdated, 'objectArr' => $objectArr];
+    }
+
+    // function to insert data in database
+    private function insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray)
+    {
+        if(count($queryTableDataArray))
+        {
+            $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_40');
+        }
+            
+        if(count($storeTableDataArray))
+        {
+            $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_40');
+        }
+            
+        if(count($relationTableDataArray))
+        {
+            $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_40');
+        }
+            
+        if(count($dependencyTableDataArray))
+        {
+            $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');
+        }
     }
 }

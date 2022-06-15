@@ -425,7 +425,7 @@ class ProductService
             }
             $reinforcements = implode(',', $reinforcementArr);
 
-            if ($lang == 'en' && strtolower($productType) == 'fert') {
+            if ($lang == 'en' && strtolower($productType) == 'base') {
                 $sapDescription     = trim($record[$this->getRecordIndexByKey('description')]);
                 $industryStandard   = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             }
