@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-08T19:02:03+05:30
+* Generated at: 2022-06-15T13:22:38+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -60,6 +60,7 @@ Fields Summary:
 - fittingCategory [manyToManyObjectRelation]
 - fittingSubCategory [manyToManyObjectRelation]
 - Skeleton [objectbricks]
+- B2CCategory [manyToManyObjectRelation]
 - printedCatalogFlag [booleanSelect]
 - B2CStoreFlag [booleanSelect]
 - virtualCatalogFlag [booleanSelect]
@@ -161,7 +162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654695118,
+   'modificationDate' => 1655279554,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -19317,6 +19318,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => '',
+                         'height' => '',
+                         'maxItems' => 1,
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'id,displayName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'B2CCategory',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'B2CCategory',
+                         'title' => 'B2C Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
                          'labelWidth' => 150,
@@ -19574,7 +19612,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'locked' => false,
                       )),
-                      1 => 
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
                          'labelWidth' => 150,
@@ -19716,7 +19754,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'locked' => false,
                       )),
-                      2 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'fieldtype' => 'objectbricks',
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
@@ -20562,7 +20600,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => true,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -36372,17 +36410,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Document',
