@@ -100,30 +100,6 @@ Specification Construction:
     fieldType: Input
     objectType: class
 
-# Min Temp (F):
-#     fieldName: minimumTemperatureF
-#     fieldType: Number
-#     objectType: class
-# Max temp (F):
-#     fieldName: maximumTemperatureF
-#     fieldType: Number
-#     objectType: class
-# Temperature Range (F):
-#     fieldName: rangeTemperatureF
-#     fieldType: Input
-#     objectType: class
-# Min Temp (C):
-#     fieldName: minimumTemperatureC
-#     fieldType: Number
-#     objectType: class
-# Max temp (C):
-#     fieldName: maximumTemperatureC
-#     fieldType: Number
-#     objectType: class
-# Temperature Range (C):
-#     fieldName: rangeTemperatureC
-#     fieldType: Input
-#     objectType: class
 # CAD File:
 #     fieldName: cadFile
 #     fieldType: Boolean Select

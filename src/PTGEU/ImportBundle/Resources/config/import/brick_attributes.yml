@@ -45,7 +45,7 @@ Pitch Length (Lp/Lw) (in):
     fieldType: Number
     objectType: PTGEUCommonFert
 Pitch height (hd/u) (In):
-    fieldName: heightIN
+    fieldName: pitchHeightHduIN
     fieldType: Number
     objectType: PTGEUCommonFert
 Ref. Length (Lr) (In):
@@ -200,7 +200,7 @@ Ref. line diff. (hb) (mm):
     # fieldName: pitchDiameterMM
     # fieldType: Number
     # objectType: PTGEUMetalFert
-#Outside Diameter (mm):
+Min. outside pulley dia.\n[mm]:
     # fieldName: outsideDiameterMM
     # fieldType: Number
     # objectType: PTGEUMetalFert
@@ -216,10 +216,10 @@ Ref. line diff. (hb) (mm):
     # fieldName: hubDiameterMM
     # fieldType: Number
     # objectType: PTGEUMetalFert
-#Pulley Diameter (mm):
-    # fieldName: pulleyDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
+Min. pulley dia.\n[mm]:
+    fieldName: pulleyDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
 #Face Width (mm):
     # fieldName: faceWidthMM
     # fieldType: Number

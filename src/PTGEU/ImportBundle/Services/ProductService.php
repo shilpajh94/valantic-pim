@@ -491,11 +491,15 @@ class ProductService
             'nominalLength' => null,
             'maxSpeed' => null,
             'matchMakerLL' => null,
-            'din' => null
+            'din' => null,
+            'heatAndOilResistant' => null,
+            'minimumTemperatureC' => null,
+            'minimumTemperatureF' => null,
+            'maximumTemperatureC' => null,
+            'maximumTemperatureF' => null
         ];
         
         if (strtolower($productType) == 'base') {
-            $queryTableData['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $queryTableData['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
             $queryTableData['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
             $queryTableData['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
@@ -507,6 +511,11 @@ class ProductService
             $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
             $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
+            $queryTableData['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
+            $queryTableData['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $queryTableData['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -524,6 +533,7 @@ class ProductService
         }
 
         if (strtolower($productType) == 'fert') {
+            $queryTableData['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
@@ -568,11 +578,15 @@ class ProductService
             'nominalLength' => null,
             'maxSpeed' => null,
             'matchMakerLL' => null,
-            'din' => null
+            'din' => null,
+            'heatAndOilResistant' => null,
+            'minimumTemperatureC' => null,
+            'minimumTemperatureF' => null,
+            'maximumTemperatureC' => null,
+            'maximumTemperatureF' => null
         ];
 
         if (strtolower($productType) == 'base') {
-            $storeTableDataArray['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $storeTableDataArray['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
             $storeTableDataArray['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
             $storeTableDataArray['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
@@ -584,6 +598,11 @@ class ProductService
             $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
             $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
+            $storeTableDataArray['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
+            $storeTableDataArray['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $storeTableDataArray['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -594,6 +613,7 @@ class ProductService
         }
 
         if (strtolower($productType) == 'fert') {
+            $storeTableDataArray['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
@@ -692,7 +712,7 @@ class ProductService
                 $obj = new \Pimcore\Model\DataObject\MaterialGroup();
                 $obj->setCode($materialGroupCode);
                 $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
-                $parentFolder = $this->productHelper->getFolderByPath('/Master List/Material Group');
+                $parentFolder = $this->productHelper->getFolderByPath('PTG_EU/Master List/Material Group');
                 $obj->setPublished(true);
                 $obj->setParentId($parentFolder);
                 $obj->save();

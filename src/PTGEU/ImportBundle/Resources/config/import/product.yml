@@ -31,6 +31,8 @@ parameters:
       prodHier5Desc:  'Prod Hier 5 Desc'
       prodHier6:  'Prod Hier 6'
       prodHier6Desc:  'Prod Hier 6 Desc'
+      prodHier7:  'Prod Hier 7'
+      prodHier7Desc:  'Prod Hier 7 Desc'
       industryStandard: 'Industry Standard #'
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
@@ -53,7 +55,12 @@ parameters:
       maxSpeed: 'Max Speed'
       matchMakerLL: 'Match Maker L=L'
       din: 'DIN'
-    lastColName: 'CK'
+      heatAndOilResistant: 'Heat & Oil Resistant'
+      minimumTemperatureC: 'Min Temp C (-)'
+      minimumTemperatureF: 'Min. Temp. F (-)'
+      maximumTemperatureC: 'Max Temp C (+)'
+      maximumTemperatureF: 'Max. Temp. F (+)'
+    lastColName: 'CQ'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']

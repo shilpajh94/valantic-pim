@@ -80,7 +80,7 @@ class ImportService
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim(str_replace("°","",$value)));
                         }
                         $firstRowData = $rowData;
                     } else {
