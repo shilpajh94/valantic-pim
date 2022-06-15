@@ -64,7 +64,7 @@ Fields Summary:
 - eanUpc [input]
 - profile [input]
 - manufacturer [input]
-- manufacturerPartNumber [input]
+- manufacturerPartNumber [numeric]
 - articleNumber [input]
 - oldMaterialCode [input]
 - netWeight [numeric]
@@ -5710,24 +5710,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 250,
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 10,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => 10,
                          'name' => 'manufacturerPartNumber',
                          'title' => 'Manufacturer Part Number',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => true,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
