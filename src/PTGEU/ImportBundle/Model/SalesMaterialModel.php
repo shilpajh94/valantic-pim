@@ -13,6 +13,7 @@ class SalesMaterialModel
     private $fileColumns;
     private $mappingCsvColumn;
     private $db;
+    const ON_DUPLICATE_KEY_UPDATE = " ON DUPLICATE KEY UPDATE ";
 
     /**
      * Getting DB connection object
@@ -50,7 +51,7 @@ class SalesMaterialModel
     		$valColumns[] = $key;
     	}
     	$sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
-    	$update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+    	$update = self::ON_DUPLICATE_KEY_UPDATE.implode(",", $updateColumns);
     	$values = '';
     	foreach ($dataArray as $data) {
     		$valueArray = [];
@@ -84,7 +85,7 @@ class SalesMaterialModel
 	        $update[] = " `o_classId` = VALUES(`o_classId`) ";
 	        $update[] = " `o_className` = VALUES(`o_className`) ";
 	        $update[] = " `o_modificationDate` = VALUES(`o_modificationDate`) ";
-	        $update = " ON DUPLICATE KEY UPDATE ".implode(", ", $update);
+	        $update   = self::ON_DUPLICATE_KEY_UPDATE.implode(", ", $update);
 	        $valuesArr[] = $this->db->quote($data['o_parentId']);
 	        $valuesArr[] = $this->db->quote("object");
 	        $valuesArr[] = $this->db->quote($data['o_key']);
@@ -122,7 +123,7 @@ class SalesMaterialModel
             $valColumns[] = $key;
         }
         $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
-        $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+        $update = self::ON_DUPLICATE_KEY_UPDATE.implode(",", $updateColumns);
         $values = '';
         foreach ($dataArray as $data) {
             $valueArray = [];
@@ -150,7 +151,7 @@ class SalesMaterialModel
             $rowCount = 1;
             $sql      = "INSERT INTO {$this->tempTable} (id, record, hash) VALUES";
             $values   = '';
-            $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
+            $update   = self::ON_DUPLICATE_KEY_UPDATE."`id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
 
@@ -186,9 +187,7 @@ class SalesMaterialModel
     {
         try {
             $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-            $delta = $this->db->fetchAll($sql);
-
-            return $delta;
+            return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -205,7 +204,7 @@ class SalesMaterialModel
                 }
             }
         }  catch (\Exception $ex) {
-            
+            echo $ex->getMessage();
         }
     }
     /**
@@ -217,7 +216,7 @@ class SalesMaterialModel
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
-            return  $delta = $this->db->fetchAll($sql);
+            return  $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -270,7 +269,8 @@ class SalesMaterialModel
         try {
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
-            foreach ($data as $dataKey => $dataValue) {
+            $values = '';
+            foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
