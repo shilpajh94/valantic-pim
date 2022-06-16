@@ -118,7 +118,11 @@ class ProductModel
             foreach ($dataArray as $data) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
+                        if (is_null($data[$key])) {
+                            $valueArray[] = "NULL";      
+                        } else {
                             $valueArray[] = $this->db->quote($data[$key]);
+                        }
                     }
                 $values .= '('.implode(",", $valueArray).'),';
                 // inserting records in batch
