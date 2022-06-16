@@ -410,38 +410,20 @@ class ProductService
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         
         foreach ($this->langArr as $lang) {
-            $sapDescription     = null;
-            $industryStandard   = null;
-            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
-            $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $reinforcementArr = [];
-            foreach ($reinforcementValueArr as $reinforcement) {
-                $objReinforcement = new DataObject\MultiselectMaster\Listing();
-                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
-                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
-                foreach ($objReinforcement as $reinforcementData) {
-                    $reinforcementArr[] = $reinforcementData->getId();
-                }
-            }
-            $reinforcements = implode(',', $reinforcementArr);
+            $sapDescription     = null;           
 
             if ($lang == 'en' && strtolower($productType) == 'base') {
                 $sapDescription     = trim($record[$this->getRecordIndexByKey('description')]);
-                $industryStandard   = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             }
             $this->localisedDataTableDataArray[] = [
                 'ooo_id' => $objId,
                 'language' => $lang,
-                'sapDescription' => $sapDescription,
-                'industryStandard' => $industryStandard,
-                'reinforcement' => $reinforcements
+                'sapDescription' => $sapDescription
             ];
             $this->localisedQueryTableDataArray[$lang][] = [
                 'ooo_id' => $objId,
                 'language' => $lang,
-                'sapDescription' => $sapDescription,
-                'industryStandard' => $industryStandard,
-                'reinforcement' => $reinforcements
+                'sapDescription' => $sapDescription
             ];
         }
     }
@@ -496,7 +478,9 @@ class ProductService
             'minimumTemperatureC' => null,
             'minimumTemperatureF' => null,
             'maximumTemperatureC' => null,
-            'maximumTemperatureF' => null
+            'maximumTemperatureF' => null,
+            'industryStandard' => null,
+            'reinforcement' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -516,6 +500,7 @@ class ProductService
             $queryTableData['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
+            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -523,6 +508,20 @@ class ProductService
                 $queryTableData['materialGroup__id'] = $materialGrpId;
                 $queryTableData['materialGroup__type'] = 'object';
             }
+
+            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
+            $reinforcementValueArr  = explode('|', $reinforcementValue);
+            $reinforcementArr = [];
+            foreach ($reinforcementValueArr as $reinforcement) {
+                $objReinforcement = new DataObject\MultiselectMaster\Listing();
+                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
+                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
+                foreach ($objReinforcement as $reinforcementData) {
+                    $reinforcementArr[] = $reinforcementData->getId();
+                }
+            }
+            $reinforcements = implode(',', $reinforcementArr);
+            $queryTableData['reinforcement'] = $reinforcements;
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -583,7 +582,9 @@ class ProductService
             'minimumTemperatureC' => null,
             'minimumTemperatureF' => null,
             'maximumTemperatureC' => null,
-            'maximumTemperatureF' => null
+            'maximumTemperatureF' => null,
+            'industryStandard' => null,
+            'reinforcement' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -603,6 +604,21 @@ class ProductService
             $storeTableDataArray['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
+            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+
+            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
+            $reinforcementValueArr  = explode('|', $reinforcementValue);
+            $reinforcementArr = [];
+            foreach ($reinforcementValueArr as $reinforcement) {
+                $objReinforcement = new DataObject\MultiselectMaster\Listing();
+                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
+                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
+                foreach ($objReinforcement as $reinforcementData) {
+                    $reinforcementArr[] = $reinforcementData->getId();
+                }
+            }
+            $reinforcements = implode(',', $reinforcementArr);
+            $storeTableDataArray['reinforcement'] = $reinforcements;
         }
 
         if (strtolower($productType) == 'skeleton') {
