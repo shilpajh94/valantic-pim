@@ -140,18 +140,17 @@ class ProductModel
 
     public function insertDataInTemp($arrData)
     {
-        $rowCount = 1;
-        $sql      = "INSERT INTO {$this->tempTable} (id, record, siopfullcode, hash) VALUES";
-        $values   = '';
-        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
+        $rowCount   = 1;
+        $sql        = "INSERT INTO {$this->tempTable} (id, record, siopfullcode, hash) VALUES";
+        $values     = '';
+        $update     = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
         foreach ($arrData as $data) {
-            $newData = $data;
-            $id = $data[0];
+            $newData= $data;
+            $id     = $data[0];
             $siopfullcode = $data[6];
-            $newData[4] = $siopfullcode;
             $record = addslashes(json_encode($newData, true));
             $hash   = md5($record);
-            $values .= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
+            $values.= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
