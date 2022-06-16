@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-31T13:25:48+02:00
-* IP: ::1
+* Generated at: 2022-06-16T09:06:01+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -15,15 +15,15 @@ Fields Summary:
 - toothHeightHtMMUnit [input]
 - widthMMUnit [input]
 - beltThicknessHsMMUnit [input]
+- toothPitchPtIN [numeric]
 - toothHeightHtIN [numeric]
 - widthIN [numeric]
 - beltThicknessHsIN [numeric]
-- toothPitchPtIN [numeric]
 - refLineDiffHBIN [numeric]
+- toothPitchPtINUnit [input]
 - toothHeightHtINUnit [input]
 - widthINUnit [input]
 - beltThicknessHsINUnit [input]
-- toothPitchPtINUnit [input]
 - refLineDiffHBINUnit [input]
 */ 
 
@@ -163,8 +163,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'toothHeightHtMM',
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
@@ -443,8 +443,39 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
-                     'decimalSize' => NULL,
+                     'decimalSize' => 2,
                      'decimalPrecision' => NULL,
+                     'name' => 'toothPitchPtIN',
+                     'title' => 'Tooth Pitch (P/t)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:40px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'toothHeightHtIN',
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
@@ -461,7 +492,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  1 => 
+                  2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -492,7 +523,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  2 => 
+                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -509,37 +540,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'beltThicknessHsIN',
                      'title' => 'Belt thickness (hs)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:40px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
-                     'name' => 'toothPitchPtIN',
-                     'title' => 'Pitch Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -619,7 +619,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'toothHeightHtINUnit',
+                     'name' => 'toothPitchPtINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -647,7 +647,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'widthINUnit',
+                     'name' => 'toothHeightHtINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -675,7 +675,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'beltThicknessHsINUnit',
+                     'name' => 'widthINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -703,7 +703,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'toothPitchPtINUnit',
+                     'name' => 'beltThicknessHsINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
