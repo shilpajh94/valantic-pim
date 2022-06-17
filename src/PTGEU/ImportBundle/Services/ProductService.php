@@ -412,7 +412,7 @@ class ProductService
         foreach ($this->langArr as $lang) {
             $sapDescription     = null;           
 
-            if ($lang == 'en' && strtolower($productType) == 'base') {
+            if ($lang == 'en' && strtolower($productType) == 'fert') {
                 $sapDescription     = trim($record[$this->getRecordIndexByKey('description')]);
             }
             $this->localisedDataTableDataArray[] = [
