@@ -408,7 +408,11 @@ final class Importer implements ImporterInterface
             if($definition->getClass() == 'Product'){
                 $primaryKey = $row['SAP Code / Material Number'];
 
-            }elseif($definition->getClass() == 'CSProducts'){
+            }
+            elseif($definition->getClass() == 'PTGEUProduct'){
+                $primaryKey = $row['SAPMaterialCode'];
+            }
+            elseif($definition->getClass() == 'CSProducts'){
                 $region = '';
                 if($row['Region']){
                     $regionArray = explode("|",$row['Region']);
@@ -439,7 +443,7 @@ final class Importer implements ImporterInterface
                 }
                 else{
 
-                    if($definition->getClass() == 'Product'){
+                    if($definition->getClass() == 'Product' || $definition->getClass() == 'PTGEUProduct'){
                         $failedReason = 'Sap Number does not exist';
                         $status = 'Failure';
                     }
@@ -818,7 +822,7 @@ final class Importer implements ImporterInterface
         }
 
         $obj = $loader->load($class, $data, $definition, $params);
-        if($class == 'Product' && $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
+        if(($class == 'Product' || $class == 'PTGEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
             throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
         }else{
             if($definition->importLevel == 'Skeleton'){
@@ -880,5 +884,4 @@ final class Importer implements ImporterInterface
         return $placeholderHelper->replacePlaceholders($definition->getKey(), $data);
     }
 }
-
 

@@ -27,19 +27,22 @@ class PrimaryKeyLoader implements LoaderInterface
      */
     public function load(string $class, $data, DataDefinitionInterface $definition, $params): ?Concrete
     {
-
         $this->db = \Pimcore\Db::get();
         $classObject = '\Pimcore\Model\DataObject\\'.ucfirst($class);
         $classList = '\Pimcore\Model\DataObject\\'.ucfirst($class).'\Listing';
 
         $list = new $classList();
 
-        if ($list instanceof Listing && $class != 'CSProducts' && !empty($data['SAP Code / Material Number'])) {
+        if ($list instanceof Listing && $class != 'CSProducts' && (!empty($data['SAP Code / Material Number']) || !empty($data['SAPMaterialCode']) )) {
             $condition = [];
             $conditionValues = [];
             $condition[] = '`articleNumber` = ?';
-            $conditionValues[] = $data['SAP Code / Material Number'];
-
+            if($class == 'PTGEUProduct'){
+                $conditionValues[] = $data['SAPMaterialCode'];
+            }
+            elseif($class == 'Product'){
+                $conditionValues[] = $data['SAP Code / Material Number'];
+            }
             if (\count($condition) === 0) {
                 throw new \InvalidArgumentException('No primary identifier defined!');
             }
@@ -53,7 +56,6 @@ class PrimaryKeyLoader implements LoaderInterface
             ]);
             $list->load();
             $objectData = $list->getObjects();
-
             if (\count($objectData) > 1) {
                 throw new \InvalidArgumentException('Object with the same primary key was found multiple times');
             }
@@ -132,5 +134,4 @@ class PrimaryKeyLoader implements LoaderInterface
         return null;
     }
 }
-
 
