@@ -25,22 +25,20 @@ class ProductAssetMappingService
             $csvFilePath = str_replace("%20", " ", $csvFilePath);
             $csvInfo = ImportService::getCSVData($csvFilePath);
             foreach($csvInfo['data'] as $rowData)
-            { 
+            {
                 if($rowData[0]!='' && is_dir($rowData[0]) && $this->checkProductExist($rowData[1]))
                 {
                     $dataRow = $this->getProductHierarchyRow($rowData[1]);
                     $assetHierarchyPath = $this->getAssetHierarchyPathByProductPath($dataRow);
-                    $productObject = PTGEUProduct::getById($dataRow['o_id'], true);
-                    $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $productObject);
+                    $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $dataRow['ProductName']);
                     $innerFolder = $this->getChildFolderInAssetDirectory($rowData[0]); 
                     foreach($innerFolder as $folder)
                     {
                         $rowData[0] = $rowData[0]."/".$folder;
                         $assetHierarchyPath = $assetHierarchyPath."/".$folder;
-                        $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $productObject);
-                    }
+                        $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $dataRow['ProductName']);
+                    }  
                 }
-            
             }
         }
     }
@@ -49,7 +47,7 @@ class ProductAssetMappingService
     {
         $fullPathArray = explode("/",$dataRow['o_path']);
         $dataRow['o_path'] = "/".$fullPathArray[3]."/".$fullPathArray[4]."/".$fullPathArray[5]."/".$fullPathArray[6]."/";
-        return $dataRow['o_path'].$dataRow['o_key'];
+        return $dataRow['o_path'].$dataRow['ProductName'];
     }
 
     private function getChildFolderInAssetDirectory(string $assetDirectoryPath): array
@@ -66,22 +64,24 @@ class ProductAssetMappingService
         return $childFolder;
     }
 
-    private function createAssetAndMapAssetToProduct(string $assetDirectoryPath, string $assetHierarchyPath, PTGEUProduct $productObject): void
+    private function createAssetAndMapAssetToProduct(string $assetDirectoryPath, string $assetHierarchyPath, string $productName): void
     {
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $folderData = scanDir($assetDirectoryPath);
         foreach($folderData as $fileName)
         {
+            
             if($fileName != '. ' && $fileName != '..' && $fileName[0] != '.' && pathinfo($assetDirectoryPath.'/'.$fileName, PATHINFO_EXTENSION))
             {
                 $assetObject = $this->checkIfAssetFileExists($assetHierarchyPath.'/'.$fileName); 
                 if(!$assetObject)
                 {
                     $content = file_get_contents($assetDirectoryPath.'/'.$fileName);
-                    $assetObject = $this->saveAsset($fileName, $assetFolderId, $content, $assetHierarchyPath.'/'.$fileName);  
+                    $assetObject = $this->saveAsset($fileName, $assetFolderId, $content, $assetHierarchyPath.'/'.$fileName); 
                 }
                 $assetColumnName = $this->getColumnNameByFileName($fileName);
-                $this->savePTGEUProductColumn($productObject, $assetObject, $assetColumnName); 
+                
+                $this->savePTGEUProductColumn($productName, $assetObject, $assetColumnName); 
             }
         }
     }
@@ -89,7 +89,7 @@ class ProductAssetMappingService
     private function checkProductExist(string $productName): bool
     {
         try {
-        $sql="SELECT `hierarchyLevel5` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
+        $sql="SELECT `hierarchyLevel5` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  ProductName = '".$productName."'";
         $resultArray = $this->db->fetchAll($sql);
         if(empty($resultArray))
         {
@@ -104,7 +104,7 @@ class ProductAssetMappingService
 
     private function getProductHierarchyRow(string $productName): array
     {
-        $sql="SELECT `o_path`,`o_key`,`o_id` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
+        $sql="SELECT `o_path`,`ProductName`,`o_id` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  ProductName = '".$productName."'";
         $result = $this->db->fetchAll($sql);
         return $result[0];
     }
@@ -128,7 +128,14 @@ class ProductAssetMappingService
             $assetObj->setParentId($parentId);
             $assetObj->setFilename($name);
         }
+        $filename = pathinfo($name, PATHINFO_FILENAME);
         $assetObj->setData($data);
+        $assetObj->addMetadata("alt", "input", $filename, "");
+        $assetObj->addMetadata("title", "input", $filename, "");
+        $assetObj->addMetadata("description", "input", "", "");
+        $assetObj->addMetadata("copyright", "input", "", "");
+        $assetObj->addMetadata("tags", "input", "", "");
+
         $assetObj->save();
         return $assetObj;
     }
@@ -146,15 +153,21 @@ class ProductAssetMappingService
         return $columnName[0]; 
     }
 
-    private function savePTGEUProductColumn(PTGEUProduct $productObject, Asset $assetObject, string $columnName): void
+    private function savePTGEUProductColumn(string $productName, Asset $assetObject, string $columnName): void
     {
         $columnName = str_replace(" ","",$columnName);
         $pimColumnName = $this->getPimColumnName($columnName);
         if($pimColumnName != '')
         {
-            $fn = "set".$pimColumnName;
-            $productObject->$fn($assetObject);
-            $productObject->save();
+            $allProductObject = new PTGEUProduct\Listing();
+            $allProductObject->setCondition("ProductName = ?", [$productName]);
+            $allProductObject->load();
+            foreach($allProductObject as $productObject)
+            { 
+                $fn = "set".$pimColumnName;
+                $productObject->$fn($assetObject);
+                $productObject->save();
+            }
         }
     }
 
