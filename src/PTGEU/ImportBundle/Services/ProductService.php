@@ -660,7 +660,7 @@ class ProductService
                 'position' => 0
             ];
         }
-        if (strtolower($productType) == 'fert') {
+        if (strtolower($productType) == 'base') {
             $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
@@ -689,7 +689,7 @@ class ProductService
                 'targettype' => 'object'
             ];
         }
-        if (strtolower($productType) == 'fert') {
+        if (strtolower($productType) == 'base') {
             $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
