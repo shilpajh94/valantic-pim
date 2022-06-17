@@ -480,7 +480,12 @@ class ProductService
             'maximumTemperatureC' => null,
             'maximumTemperatureF' => null,
             'industryStandard' => null,
-            'reinforcement' => null
+            'reinforcement' => null,
+            'staticConductive' => null,
+            'beltHardness' => null,
+            'beltTolerance' => null,
+            'minPulleyDia' => null,
+            'minOutsidePulleyDia' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -501,6 +506,11 @@ class ProductService
             $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $queryTableData['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
+            $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $queryTableData['minPulleyDia'] = trim($record['61']);
+            $queryTableData['minOutsidePulleyDia'] = trim($record['62']);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -584,7 +594,12 @@ class ProductService
             'maximumTemperatureC' => null,
             'maximumTemperatureF' => null,
             'industryStandard' => null,
-            'reinforcement' => null
+            'reinforcement' => null,
+            'staticConductive' => null,
+            'beltHardness' => null,
+            'beltTolerance' => null,
+            'minPulleyDia' => null,
+            'minOutsidePulleyDia' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -605,6 +620,11 @@ class ProductService
             $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $storeTableDataArray['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
+            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $storeTableDataArray['minPulleyDia'] = trim($record['61']);
+            $storeTableDataArray['minOutsidePulleyDia'] = trim($record['62']);
 
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
