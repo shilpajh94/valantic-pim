@@ -5958,8 +5958,8 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o1.`oo_id` as `Id`, o1.`o_key` as `Name`, `CompletenessPercentage` as `Completeness Percentage`,`EmptyFields`as `Empty Fields`, FROM_UNIXTIME(`o_modificationDate`)as`Modification Date`",
-                "from" => "FROM object_localized_38_en o1",
+                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nen.`EmptyFields`as `Empty Fields`, \nen.CompletenessPercentage \"COMPLETED (%)\",\no1.`ProductType` AS `Product Type`,\n\no1.`o_id`\nFrom\nobject_38 o1 \nLEFT JOIN `object_localized_query_38_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\n\nWHERE\n    (o1.`o_published` =1) AND (en.`CompletenessPercentage`  != \"\")",
+                "from" => "",
                 "where" => "",
                 "groupby" => "",
                 "type" => "sql"
@@ -5967,31 +5967,58 @@ return [
         ],
         "columnConfiguration" => [
             [
-                "name" => "Id",
+                "name" => "o_id",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1189-1"
+                "id" => "extModel753-13"
             ],
             [
-                "name" => "Name",
+                "name" => "Key",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1189-5"
+                "id" => "extModel753-6"
             ],
             [
-                "name" => "Completeness Percentage",
+                "name" => "Article Number",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1189-2"
+                "id" => "extModel753-7"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel753-8"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel753-12"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel753-9"
             ],
             [
                 "name" => "Empty Fields",
@@ -6000,16 +6027,25 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1189-3"
+                "id" => "extModel753-4"
             ],
             [
-                "name" => "Modification Date",
+                "name" => "COMPLETED (%)",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1189-4"
+                "id" => "extModel753-11"
+            ],
+            [
+                "name" => "Path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel753-10"
             ]
         ],
         "niceName" => "ProductCompleteness",
@@ -6025,7 +6061,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1654688217,
+        "modificationDate" => 1655439271,
         "creationDate" => 1654674916,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
