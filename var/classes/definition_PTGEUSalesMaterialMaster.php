@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-17T16:04:51+02:00
+* Generated at: 2022-06-17T14:41:33+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -31,7 +31,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655474691,
+   'modificationDate' => 1655469693,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -471,18 +471,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'Empty',
-                        'value' => 0,
+                        'key' => 'Epix Material',
+                        'value' => '001',
                       ),
                       1 => 
                       array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
+                        'key' => 'Chem Do Not Forecast',
+                        'value' => '002',
                       ),
                     ),
                      'width' => 350,
@@ -493,7 +488,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Epix Flag / B2B Flag',
                      'tooltip' => 'Material Group 1 is Apex/B2B flag.',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => NULL,
                      'style' => 'margin-left: 20px;',
@@ -536,7 +531,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Price Page Flag',
                      'tooltip' => 'Material Group 2 is a price page flag. ',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => NULL,
                      'style' => 'margin-left: 20px;',
