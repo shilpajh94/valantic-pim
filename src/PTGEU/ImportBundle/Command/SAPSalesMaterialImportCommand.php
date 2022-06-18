@@ -16,8 +16,6 @@ class SAPSalesMaterialImportCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        /*$serviceObj = \Pimcore::getContainer()->get('import.sap_sales_material_import');
-        $serviceObj->import();*/
         $serviceObj = \Pimcore::getContainer()->get('import.sap_sales_material_import');
         $serviceObj->import();
     }

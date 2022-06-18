@@ -208,7 +208,7 @@ class SalesMaterialService
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
         $columnPrivateBrand = $this->mappingCsvColumn['privateBrand'];  ///???
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
-        $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
+        $columnDeletionFlag = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
         $columnSalesText1= $this->mappingCsvColumn['salesText1'];
         $columnSalesText2= $this->mappingCsvColumn['salesText2'];
@@ -321,8 +321,8 @@ class SalesMaterialService
                         $objId = $this->tableImportHelper->insertInObjects($objectArr);
                         
                         $salesUnit = $rowvalue[$columnSalesUnit];
-                        $pricePageFlag = $rowvalue[$columnPricePageFlag];
-                        $epixFlag = $rowvalue[$columnEpixFlag];
+                        $pricePageFlag = $rowvalue[$columnPricePageFlag]=='X' ? True : False;
+                        $epixFlag = $rowvalue[$columnEpixFlag]=='X' ? True : False;
                         $deletionFlag = $rowvalue[$columnDeletionFlag];
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $salesText1 = $rowvalue[$columnSalesText1];

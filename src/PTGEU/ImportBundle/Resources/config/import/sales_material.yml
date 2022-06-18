@@ -10,7 +10,7 @@ parameters:
     'countryOfOriginName':  'CountryofOriginname'
     'epixFlag' : 'EPIXFlag'
     'pricePageFlag': 'PricePageFlag'
-    'deletionFlag': 'Deletionflag'
+    'deletedFlagAtDistributionChainLevel': 'Deletionflag'
     'salesText1': 'Salestext1'
     'salesText2': 'Salestext2'
     'privateBrand': 'MaterialGroup5'

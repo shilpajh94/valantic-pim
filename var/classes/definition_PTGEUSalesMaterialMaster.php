@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-13T07:59:38+02:00
+* Generated at: 2022-06-17T16:04:51+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -17,8 +17,8 @@ Fields Summary:
 - salesUOM [input]
 - salesText1 [textarea]
 - deletedFlagAtDistributionChainLevel [numeric]
-- epixFlag [select]
-- pricePageFlag [select]
+- epixFlag [booleanSelect]
+- pricePageFlag [booleanSelect]
 - salesStatus [select]
 - privateBrand [select]
 - deletedFlagAtSalesLevel [booleanSelect]
@@ -31,7 +31,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1652421578,
+   'modificationDate' => 1655474691,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -399,7 +399,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -462,39 +462,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
                      'options' => 
                     array (
                       0 => 
                       array (
-                        'key' => 'Epix Material',
-                        'value' => '001',
-                        'id' => 'extModel3133-1',
+                        'key' => 'Empty',
+                        'value' => 0,
                       ),
                       1 => 
                       array (
-                        'key' => 'Chem Do Not Forecast',
-                        'value' => '002',
-                        'id' => 'extModel3133-2',
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
                       ),
                     ),
                      'width' => 350,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
                      'name' => 'epixFlag',
                      'title' => 'Epix Flag / B2B Flag',
                      'tooltip' => 'Material Group 1 is Apex/B2B flag.',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -502,50 +503,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
                      'options' => 
                     array (
                       0 => 
                       array (
-                        'key' => 'Price Page Item',
-                        'value' => '001',
+                        'key' => 'Empty',
+                        'value' => 0,
                       ),
                       1 => 
                       array (
-                        'key' => 'Not on Price Pages - No List Price',
-                        'value' => '002',
+                        'key' => 'Yes',
+                        'value' => 1,
                       ),
                       2 => 
                       array (
-                        'key' => 'Not in Price Pages - But has a List Price',
-                        'value' => '003',
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'PBL',
-                        'value' => '004',
+                        'key' => 'No',
+                        'value' => -1,
                       ),
                     ),
                      'width' => 350,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
                      'name' => 'pricePageFlag',
                      'title' => 'Price Page Flag',
                      'tooltip' => 'Material Group 2 is a price page flag. ',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -553,7 +546,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -687,7 +679,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
