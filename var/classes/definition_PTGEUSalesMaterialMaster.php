@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-13T07:59:38+02:00
+* Generated at: 2022-06-17T14:41:33+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -31,7 +31,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1652421578,
+   'modificationDate' => 1655469693,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -399,7 +399,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -470,13 +470,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       array (
                         'key' => 'Epix Material',
                         'value' => '001',
-                        'id' => 'extModel3133-1',
                       ),
                       1 => 
                       array (
                         'key' => 'Chem Do Not Forecast',
                         'value' => '002',
-                        'id' => 'extModel3133-2',
                       ),
                     ),
                      'width' => 350,
@@ -492,7 +490,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Epix Flag / B2B Flag',
                      'tooltip' => 'Material Group 1 is Apex/B2B flag.',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -543,7 +541,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Price Page Flag',
                      'tooltip' => 'Material Group 2 is a price page flag. ',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -687,7 +685,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
