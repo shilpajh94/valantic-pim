@@ -25,6 +25,7 @@ services:
     PTGEU\ProductBundle\Workflow\PTGEUProductEnrichmentListener:
         tags:
             - { name: kernel.event_listener, event: workflow.ptg_eu_product_enrichment.completed, method: ptgEuWorkflowNotification }
+            - { name: kernel.event_listener, event: workflow.ptg_eu_product_enrichment.transition, method: ptgEuWorkflowActions }
     
     PTGEU\ProductBundle\EventListeners\ObjectsListener:
         tags:
@@ -34,4 +35,6 @@ services:
         class: PTGEU\ProductBundle\Services\CompletenessPercentageService
         public: true
         autowire: true
-
+    PTGEU\ProductBundle\Services\PTGEUMandatoryValidationService:
+        class: PTGEU\ProductBundle\Services\PTGEUMandatoryValidationService
+        public: true

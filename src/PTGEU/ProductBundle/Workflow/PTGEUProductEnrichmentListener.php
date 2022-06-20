@@ -3,7 +3,9 @@
 namespace PTGEU\ProductBundle\Workflow;
 
 use Pimcore\Model\Document;
+use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Event\CompletedEvent as Event;
+use Pimcore\Model\Element\ValidationException;
 use Pimcore\Model\DataObject;
 
 class PTGEUProductEnrichmentListener 
@@ -11,8 +13,10 @@ class PTGEUProductEnrichmentListener
     private $config;
     public function __construct() {
 
+        $this->validationService = \Pimcore::getContainer()->get('PTGEU\ProductBundle\Services\PTGEUMandatoryValidationService');
         $wfConfigData = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getPTGEUWorkflowConfig()['parameters'];
         $this->config = isset($wfConfigData['completed']) ? $wfConfigData['completed'] : false;
+        $this->transitionConfig = isset($wfConfigData['transition']) ? $wfConfigData['transition'] : false;
         
     }
 
@@ -47,7 +51,6 @@ class PTGEUProductEnrichmentListener
                 'ccEmails' => $ccEmails,
                 'params' => [
                     'deeplink' => $deepLink,
-                   // 'productName' => $product->getName(),
                     'actionRemark' => $actionRemark
                 ]
             ];
@@ -151,5 +154,83 @@ class PTGEUProductEnrichmentListener
         }
         
         return false;
+    }
+
+     public function checkIfChildPublished($product, $transitionName) {
+        $list = new DataObject\PTGEUProduct\Listing();
+        $list->setIgnoreLocalizedFields(true);
+        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`o_published` = 1) ');
+        if (count($list)>0) {
+            return ['success' => false, 'msg' => 'Not able to archive/pause as all childs are not archived/paused.'];
+        } else {
+            return ['success' => true];
+        }
+    }
+    
+    public function checkForMandatoryValidation($product, $transitionName) {
+        $success = true;
+        $msg = '';
+        try {
+                $reqAttributesByUser = [];
+                if($transitionName != "published") {
+                    $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
+                    $reqAttributesByUser = \PTGEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
+                }
+                $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
+        } catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+    
+    public function checkIfParentUnPublished($product, $transitionName) {
+        $success = true;
+        $msg = '';
+        try {
+            $this->validationService->checkForParentUnpublishValidation($product);
+        }  catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+    
+    
+    public function ptgEuWorkflowActions(TransitionEvent $event) {
+        $transition = $event->getTransition();
+        $transitionName = $transition->getName();
+        $product = $event->getSubject();
+        if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
+            $transitionConfig = $this->transitionConfig[$transitionName];
+            if (!empty($transitionConfig)) {
+                $this->transitionCondition($transitionConfig, $product,$transitionName);
+                $this->transitionAction($transitionConfig, $product);
+            }
+        }
+    }
+
+    public function transitionCondition($transitionConfig, $product,$transitionName) {
+        if (!empty($transitionConfig['condition'])) {
+            $validationMethods = $transitionConfig['condition']['methods'];
+            foreach ($validationMethods as $method) {
+                $response = $this->$method($product, $transitionName);
+                if (empty($response['success'])) {
+                    throw new ValidationException($response['msg']);
+                }
+            }
+        }
+    }
+
+    public function transitionAction($transitionConfig, $product) {
+        if (!empty($transitionConfig['action'])) {
+            \Pimcore\Model\Version::disable(); 
+                foreach($transitionConfig['action'] as $key => $value) {
+                    $setter = "set".ucfirst($key);
+                    $product->$setter($value);
+                }
+                $product->save(false);
+            \Pimcore\Model\Version::enable();
+        }
     }
 }
