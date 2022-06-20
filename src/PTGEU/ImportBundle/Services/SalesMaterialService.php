@@ -243,7 +243,7 @@ class SalesMaterialService
         $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
-        $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
+        $columnDeletionFlag = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
         $columnSalesText1= $this->mappingCsvColumn['salesText1'];
         $columnSalesText2= $this->mappingCsvColumn['salesText2'];
@@ -340,8 +340,8 @@ class SalesMaterialService
                         $objId              = $resultRowData['objId'];
 
                         $salesUnit = $rowvalue[$columnSalesUnit];
-                        $pricePageFlag = $rowvalue[$columnPricePageFlag];
-                        $epixFlag = $rowvalue[$columnEpixFlag];
+                        $pricePageFlag = $rowvalue[$columnPricePageFlag]=='X' ? True : False;
+                        $epixFlag = $rowvalue[$columnEpixFlag]=='X' ? True : False;
                         $deletionFlag = $rowvalue[$columnDeletionFlag];
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $salesText1 = $rowvalue[$columnSalesText1];
