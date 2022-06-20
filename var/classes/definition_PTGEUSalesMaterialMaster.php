@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-17T14:41:33+02:00
+* Generated at: 2022-06-20T11:30:13+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -31,7 +31,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655469693,
+   'modificationDate' => 1655717413,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -466,18 +466,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
                      'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
+                     'emptyLabel' => 'No',
                      'options' => 
                     array (
                       0 => 
                       array (
-                        'key' => 'Epix Material',
-                        'value' => '001',
+                        'key' => 'No',
+                        'value' => 0,
                       ),
                       1 => 
                       array (
-                        'key' => 'Chem Do Not Forecast',
-                        'value' => '002',
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
                       ),
                     ),
                      'width' => 350,
@@ -490,7 +495,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -504,12 +509,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
                      'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
+                     'emptyLabel' => 'No',
                      'options' => 
                     array (
                       0 => 
                       array (
-                        'key' => 'Empty',
+                        'key' => 'No',
                         'value' => 0,
                       ),
                       1 => 
@@ -533,7 +538,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
