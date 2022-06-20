@@ -337,7 +337,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
-            sf_attribute_name: c_hoseBandRadiusMM
+            sf_attribute_name: c_hoseBendRadiusMM
             pim_attribute_type: numeric
             sf_attribute_type: numeric
             sf_relational_attribute:
@@ -810,7 +810,8 @@ parameters:
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:
             sf_attribute_name: c_hoseBendRadiusIN
-            pim_attribute_type: true
+            pim_attribute_type: numeric
+            sf_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -899,7 +900,7 @@ parameters:
             pim_attribute_name: workingPressureBAR
             pim_table_name: object_brick_query_HoseSkeleton_1
             joinOn: LEFT JOIN object_brick_query_HoseSkeleton_1 ON object_brick_query_HoseSkeleton_1.o_id = object_1.o_id
-            sendToSF: false
+            sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(20) NULL
             addOnJoin:

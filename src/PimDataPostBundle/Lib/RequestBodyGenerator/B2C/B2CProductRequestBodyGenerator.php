@@ -122,7 +122,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
             }
         }
         $returnArray["online_flag"] = $tempTableData["B2CStoreFlag"] && $tempTableData["o_published"];
-        $returnArray["searchable"] =  $returnArray["onlineFlag"];
+        $returnArray["searchable"] =  $returnArray["online_flag"];
         $returnArray["owning_catalog_id"] = (new B2CProductHelper())->getCatalogId();
         unset($returnArray["Document"]);
         return $returnArray;
