@@ -74,6 +74,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     $articleNumber  = $rowData[0];
                     $rowData        = array_combine($csvHeader, $rowData);
                     $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
+                    
                     if(!empty($product))
                     {
                         $this->processProduct($rowData, $product);
@@ -183,6 +184,10 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         {
             $booleanValue = $this->getBooleanValue($fieldValue);
             $product->$method($booleanValue, 1);
+        }
+        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='searchKeywords' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
+        {
+            $product->$method($fieldValue, 'en');
         }
         else
         {
