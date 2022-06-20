@@ -14,48 +14,48 @@ class PTGEUMandatoryValidationService {
 
     public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
         
-        $config = $this->getConfigFromYmlFile(PTGEU_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH); //whole config
+        $config = $this->getConfigFromYmlFile(PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH);
        
-        $product->setGetInheritedValues(true); //all info
-        $className = $product->getClassName();  //PTGEUProduct
-        $arr = array('Please fill all mandatory fields');
-        $attributeNameArray = [];
-        $count = 0;
-        foreach ($config as $cnf) {
-            $fieldName = $cnf[$count++];
+        if (!empty($config)) {
+            $product->setGetInheritedValues(true);
+            $className = $product->getClassName();
+            $arr = array('Please fill all mandatory fields');
+            $attributeNameArray = [];
+            foreach ($config['MandatoryAttribures'] as $fieldName) {
 
-                $method = "get$fieldName";  //getshelfLife
+                $method = "get$fieldName"; 
                 $class = DataObject\ClassDefinition::getByName($className);
                 $fieldTitle = $class->getFieldDefinition($fieldName);
 
                 if ($fieldTitle) {
-                    $fieldTitle = $fieldTitle->getTitle(); //Shelf Life
+                    $fieldTitle = $fieldTitle->getTitle(); 
                 } else {
                     $fieldTitle = $fieldName;
                 }
                 $value = $product->$method();
                 if (empty($value)) {
-                    $arr[$fieldName] = "$fieldTitle in Base Data"; //Shelf Life
-                    $attributeNameArray[] = $fieldName;  //ShelfLife
-                }
+                    $arr[$fieldName] = "$fieldTitle in Brand Data";
+                    $attributeNameArray[] = $fieldName; 
             
-        }
-
-        if (count($arr) > 1) {
-            if (!empty($reqAttributesByUser) && count($reqAttributesByUser)>0) {
-                $newArray = array('Please fill all mandatory fields');
-                foreach ($attributeNameArray as $attribute) {
-                    if (array_key_exists($attribute, $reqAttributesByUser['all']) && array_key_exists($attribute, $reqAttributesByUser['byRole'])) {
-                        $newArray[] = $arr[$attribute];
-                    }
                 }
-                if (count($newArray)>1) {
-                    $msg = join("<br />- ", $newArray);
+            }
+  
+            if (count($arr) > 1) {
+                if (!empty($reqAttributesByUser)) {
+                    $newArray = array('Please fill all mandatory fields');
+                    foreach ($attributeNameArray as $attribute) {
+                        if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttribures'])) {
+                            $newArray[] = $arr[$attribute];
+                        }
+                    }
+                    if (count($newArray)>1) {
+                        $msg = join("<br />- ", $newArray);
+                        throw new ValidationException($msg, 1234);
+                    }
+                } else {
+                    $msg = join("<br />- ", $arr);
                     throw new ValidationException($msg, 1234);
                 }
-            } else {
-                $msg = join("<br />- ", $arr);
-                throw new ValidationException($msg, 1234);
             }
         }
     }
