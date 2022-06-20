@@ -10,8 +10,6 @@ use Pimcore\Model\User;
 
 class PTGEUMandatoryValidationService {
 
-   
-
     public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
         
         $config = $this->getConfigFromYmlFile(PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH);
@@ -36,27 +34,30 @@ class PTGEUMandatoryValidationService {
                 if (empty($value)) {
                     $arr[$fieldName] = "$fieldTitle in Brand Data";
                     $attributeNameArray[] = $fieldName; 
-            
                 }
             }
-  
             if (count($arr) > 1) {
-                if (!empty($reqAttributesByUser)) {
-                    $newArray = array('Please fill all mandatory fields');
-                    foreach ($attributeNameArray as $attribute) {
-                        if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttribures'])) {
-                            $newArray[] = $arr[$attribute];
-                        }
-                    }
-                    if (count($newArray)>1) {
-                        $msg = join("<br />- ", $newArray);
-                        throw new ValidationException($msg, 1234);
-                    }
-                } else {
-                    $msg = join("<br />- ", $arr);
-                    throw new ValidationException($msg, 1234);
-                }
+                $this->attributesValidation($reqAttributesByUser, $attributeNameArray, $arr);
             }
+        }
+    }
+
+    public function attributesValidation($reqAttributesByUser, $attributeNameArray, $arr) {
+
+    if (!empty($reqAttributesByUser)) {
+        $newArray = array('Please fill all mandatory fields');
+        foreach ($attributeNameArray as $attribute) {
+            if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttribures'])) {
+                $newArray[] = $arr[$attribute];
+            }
+        }
+        if (count($newArray)>1) {
+            $msg = join("<br />- ", $newArray);
+            throw new ValidationException($msg, 1234);
+        }
+        } else {
+            $msg = join("<br />- ", $arr);
+            throw new ValidationException($msg, 1234);
         }
     }
 
@@ -97,6 +98,4 @@ class PTGEUMandatoryValidationService {
         }
         return $config;
     }
-    
-
 }

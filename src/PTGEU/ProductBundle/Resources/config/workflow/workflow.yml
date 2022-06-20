@@ -54,7 +54,12 @@ parameters:
             condition:
                 methods:
                     - checkForMandatoryValidation
-                
+
+        send_to_pm_for_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation 
+                       
         published:
             action: 
                 published: true

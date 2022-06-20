@@ -51,7 +51,6 @@ class PTGEUProductEnrichmentListener
                 'ccEmails' => $ccEmails,
                 'params' => [
                     'deeplink' => $deepLink,
-                    'productName' => $product->getName(),
                     'actionRemark' => $actionRemark
                 ]
             ];
@@ -205,25 +204,33 @@ class PTGEUProductEnrichmentListener
         if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
             $transitionConfig = $this->transitionConfig[$transitionName];
             if (!empty($transitionConfig)) {
-                if (!empty($transitionConfig['condition'])) {
-                    $validationMethods = $transitionConfig['condition']['methods'];
-                    foreach ($validationMethods as $method) {
-                        $response = $this->$method($product, $transitionName);
-                        if (empty($response['success'])) {
-                            throw new ValidationException($response['msg']);
-                        }
-                    }
-                }
-                if (!empty($transitionConfig['action'])) {
-                    \Pimcore\Model\Version::disable(); 
-                        foreach($transitionConfig['action'] as $key => $value) {
-                            $setter = "set".ucfirst($key);
-                            $product->$setter($value);
-                        }
-                        $product->save(false);
-                    \Pimcore\Model\Version::enable();
+                $this->transitionCondition($transitionConfig, $product,$transitionName);
+                $this->transitionAction($transitionConfig, $product);
+            }
+        }
+    }
+
+    public function transitionCondition($transitionConfig, $product,$transitionName) {
+        if (!empty($transitionConfig['condition'])) {
+            $validationMethods = $transitionConfig['condition']['methods'];
+            foreach ($validationMethods as $method) {
+                $response = $this->$method($product, $transitionName);
+                if (empty($response['success'])) {
+                    throw new ValidationException($response['msg']);
                 }
             }
+        }
+    }
+
+    public function transitionAction($transitionConfig, $product) {
+        if (!empty($transitionConfig['action'])) {
+            \Pimcore\Model\Version::disable(); 
+                foreach($transitionConfig['action'] as $key => $value) {
+                    $setter = "set".ucfirst($key);
+                    $product->$setter($value);
+                }
+                $product->save(false);
+            \Pimcore\Model\Version::enable();
         }
     }
 }
