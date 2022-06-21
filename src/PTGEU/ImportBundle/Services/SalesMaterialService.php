@@ -46,7 +46,7 @@ class SalesMaterialService
         $this->tableImportHelper = new SalesMaterialModel;
         $salesMaterialConfig = \Pimcore::getContainer()->get('import.config_provider_service')->getSalesMaterialConfig();
 
-        $this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup'); ///???
+        //$this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup'); ///???
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
     }
 
@@ -243,7 +243,7 @@ class SalesMaterialService
         $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
-        $columnDeletionFlag = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
+        $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
         $columnSalesText1= $this->mappingCsvColumn['salesText1'];
         $columnSalesText2= $this->mappingCsvColumn['salesText2'];
@@ -340,8 +340,8 @@ class SalesMaterialService
                         $objId              = $resultRowData['objId'];
 
                         $salesUnit = $rowvalue[$columnSalesUnit];
-                        $pricePageFlag = $rowvalue[$columnPricePageFlag]=='X' ? True : False;
-                        $epixFlag = $rowvalue[$columnEpixFlag]=='X' ? True : False;
+                        $pricePageFlag = $rowvalue[$columnPricePageFlag];
+                        $epixFlag = $rowvalue[$columnEpixFlag];
                         $deletionFlag = $rowvalue[$columnDeletionFlag];
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $salesText1 = $rowvalue[$columnSalesText1];
@@ -362,7 +362,6 @@ class SalesMaterialService
                             'DeliveringPlant__type' => 'object',
                             'CountryOfOrigin__id' => $countryOfOriginCode,
                             'CountryOfOrigin__type' => 'object',
-                            'SalesStatus' => '',
                             'salesText1' => $salesText1,
                             'salesText2' => $salesText2,
                             'epixFlag' => $epixFlag,
@@ -376,7 +375,6 @@ class SalesMaterialService
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
                             'SalesUOM' => $salesUnit,
-                            'SalesStatus'	=> '',
                             'epixFlag' => $epixFlag,
                             'salesText1' => $salesText1,
                             'salesText2' => $salesText2,
