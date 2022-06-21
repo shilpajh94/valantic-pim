@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-20T06:54:21+02:00
+* Generated at: 2022-06-21T13:40:16+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComPTGEU',
    'description' => '',
    'creationDate' => 1655376843,
-   'modificationDate' => 1655700861,
+   'modificationDate' => 1655811616,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -403,7 +403,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
-                                     'invisible' => false,
+                                     'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
@@ -439,7 +439,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
-                                     'invisible' => false,
+                                     'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
@@ -2510,14 +2510,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'title' => 'Legal Text (Term & Conditions)',
                                          'tooltip' => '',
                                          'mandatory' => false,
-                                         'noteditable' => false,
+                                         'noteditable' => true,
                                          'index' => false,
                                          'locked' => false,
                                          'style' => 'margin-left:20px;',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
                                          'relationType' => false,
-                                         'invisible' => true,
+                                         'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
                                       )),
