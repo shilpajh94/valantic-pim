@@ -89,11 +89,6 @@ toothPitchPtINUnit:
   fieldType: Input
   fieldValue: inch
   objectType: PTGEUFlatBeltsFert
-refLineDiffHBINUnitFlatBeltsFert:
-  fieldName: refLineDiffHBINUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: PTGEUFlatBeltsFert
 
 maxBoreSizeMMUnit:
   fieldName: maxBoreSizeMMUnit
