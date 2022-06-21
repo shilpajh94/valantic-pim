@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-31T13:27:52+02:00
+* Generated at: 2022-06-21T10:30:12+02:00
 * IP: ::1
 
 
@@ -118,7 +118,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'refLineDiffHBMM',
                      'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',
@@ -149,7 +149,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'refLineDiffHBIN',
                      'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',

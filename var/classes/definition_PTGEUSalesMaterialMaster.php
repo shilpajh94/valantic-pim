@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-13T07:59:38+02:00
+* Generated at: 2022-06-21T10:39:47+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -19,7 +19,6 @@ Fields Summary:
 - deletedFlagAtDistributionChainLevel [numeric]
 - epixFlag [select]
 - pricePageFlag [select]
-- salesStatus [select]
 - privateBrand [select]
 - deletedFlagAtSalesLevel [booleanSelect]
 - salesText2 [textarea]
@@ -31,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1652421578,
+   'modificationDate' => 1655800787,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -399,7 +398,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -560,37 +559,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
-                    ),
-                     'width' => 350,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
-                     'name' => 'salesStatus',
-                     'title' => 'Sales Status',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
                       0 => 
                       array (
                         'key' => 'Private',
@@ -622,12 +590,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
-                     'invisible' => true,
+                     'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
@@ -670,7 +638,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 350,
@@ -687,7 +655,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
