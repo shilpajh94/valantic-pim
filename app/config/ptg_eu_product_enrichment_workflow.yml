@@ -69,7 +69,7 @@ pimcore:
                         - published
                         - in_editor_edit
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMIPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
                     options:
                         label: 'Send to MarCom for Review'
                         notes:
@@ -82,7 +82,7 @@ pimcore:
                         - in_review
                         - published
                     to: in_editor_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU") or has_role("ROLE_MARCOMPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU") or has_role("ROLE_MARCOMPTGEU"))
                     options:
                         label: 'Send to Editor for fixes'
                         notes:
@@ -115,16 +115,6 @@ pimcore:
                 approved:
                     from:
                         - in_review
-                    to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
-                    options:
-                        label: 'Published'
-                        notes:
-                            commentEnabled: true
-                            commentRequired: false
-                        changePublishedState: force_published
-                published:
-                    from:
                         - published
                     to: published
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
@@ -134,6 +124,17 @@ pimcore:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: force_published
+                # published:
+                #     from:
+                #         - published
+                #     to: published
+                #     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
+                #     options:
+                #         label: 'Published'
+                #         notes:
+                #             commentEnabled: true
+                #             commentRequired: false
+                #         changePublishedState: force_published
 
 
               

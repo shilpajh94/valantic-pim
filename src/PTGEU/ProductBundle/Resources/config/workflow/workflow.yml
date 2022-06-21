@@ -60,7 +60,7 @@ parameters:
                 methods:
                     - checkForMandatoryValidation 
                        
-        published:
+        approved:
             action: 
                 published: true
             condition:

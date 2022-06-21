@@ -172,7 +172,7 @@ class PTGEUProductEnrichmentListener
         $msg = '';
         try {
                 $reqAttributesByUser = [];
-                if($transitionName != "published") {
+                if($transitionName != "approved") {
                     $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
                     $reqAttributesByUser = \PTGEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
                 }
