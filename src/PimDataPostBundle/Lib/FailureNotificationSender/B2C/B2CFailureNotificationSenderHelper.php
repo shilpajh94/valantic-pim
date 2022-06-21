@@ -1,0 +1,63 @@
+<?php
+
+namespace PimDataPostBundle\Lib\FailureNotificationSender\B2C;
+
+use PimDataPostBundle\Lib\Constants;
+use PimDataPostBundle\Lib\Util;
+use PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity;
+
+class B2CFailureNotificationSenderHelper
+{
+    public function getSfFailureRecords(): array
+    {
+        $scriptStartTime = Util::getB2CScriptStartTime();
+        $list = new B2CAPIRequestEntity\Listing();
+        $list->setCondition("responseStatus NOT IN (200, 201, 204) AND responseTimestamp >=  {$scriptStartTime}");
+        $list->load();
+        
+        $failedRecords = [];
+        $failedRecords[] = array_keys(Constants::FAILURE_LOG_CSV_HEADERS);
+        foreach($list as $obj){
+            $data = [];
+            foreach (Constants::FAILURE_LOG_CSV_HEADERS as $fieldKey) {
+                $method = "get". \ucfirst($fieldKey);
+                $data[] = strval($obj->$method());
+            }
+            
+            $failedRecords[] = $data;
+        }
+        return $failedRecords;
+    }
+
+    public function getUsersEmailByRolesNameList(): array
+    {
+        $userEmailIds = [];
+
+        $userRoleNames = Constants::FAILURE_NOTIFICATION_ROLES;
+        $userRoleNamesString = implode("','", $userRoleNames);
+        $list = new \Pimcore\Model\User\Role\Listing;
+        $list->setCondition("name IN ('{$userRoleNamesString}')");
+        $list->load();
+
+        $userRoleIdsList = [];
+
+        foreach ($list as $role) 
+        {
+            $userRoleIdsList[] = $role->getId();
+        }
+
+        $users = new \Pimcore\Model\DataObject\Users\Listing();
+
+        foreach ($userRoleIdsList as $value) {
+            $users->setCondition("userType LIKE ".$users->quote('%,'.$value.',%'));
+        }
+        
+        $users->load();
+        
+        foreach ($users as $user) {
+            $userEmailIds[] = $user->getEmail();
+        }
+
+        return $userEmailIds;
+    }
+}

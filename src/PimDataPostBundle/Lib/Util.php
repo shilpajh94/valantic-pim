@@ -18,7 +18,7 @@ use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Services\TokenAuthService;
 use PimDataPostBundle\Model\Types\ImageTransformationSize;
 
-class Util
+Class Util
 {
     public static function isTokenValid(AuthToken $token): bool
     {
@@ -109,6 +109,7 @@ class Util
         return $session->get($key);
     }
 
+
     public static function getAssetPublicPath(Asset $asset, ImageTransformationSize $imageTransformationSize = null): string
     {
         $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
@@ -143,10 +144,29 @@ class Util
         );
     }
 
+    public static function getB2CRequestHeader(bool $forceNewToken = false): array
+    {
+        $b2cAuthToken = self::getService(TokenAuthService::class)->getB2CAuthToken($forceNewToken);
+        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
+        return array(
+            'Content-Type' => 'application/json',
+            'Authorization' => $authHeader
+        );
+    }
+
+
     public static function refreshB2BRequestHeader(Request $request): Request
     {
         $b2bAuthToken = self::getService(TokenAuthService::class)->getB2BAuthToken(true);
         $authHeader="Bearer ".$b2bAuthToken->getTokenString();
+        $request = $request->withHeader("Authorization", $authHeader);
+        return $request;
+    }
+
+    public static function refreshB2CRequestHeader(Request $request): Request
+    {
+        $b2cAuthToken = self::getService(TokenAuthService::class)->getB2CAuthToken(true);
+        $authHeader="Bearer ".$b2cAuthToken->getTokenString();
         $request = $request->withHeader("Authorization", $authHeader);
         return $request;
     }
@@ -184,4 +204,36 @@ class Util
         $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
         return $session->get($key) === null ? [] : $session->get($key);
     }
+
+    public static function getB2CSuccessIds(): array
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
+        return $session->get($key) === null ? [] : $session->get($key);
+    }
+
+    public static function addB2CSuccessId(string $failureId): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
+
+        $existingFailureIds = self::getB2BSuccessIds();
+        $existingFailureIds[] = $failureId;
+        $session->set($key, $existingFailureIds);
+    }
+
+    public static function setB2CScriptStartTime(int $timestampt): void
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
+        $session->set($key,$timestampt);
+    }
+
+    public static function getB2CScriptStartTime(): int
+    {
+        $session = self::getService('session');
+        $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
+        return $session->get($key);
+    }
+
 }

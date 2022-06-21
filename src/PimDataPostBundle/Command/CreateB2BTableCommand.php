@@ -17,15 +17,15 @@ use Pimcore\Db;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 
-class CreateTableCommand extends AbstractCommand
+class CreateB2BTableCommand extends AbstractCommand
 {
     private $commonHelper;
     private $db;
 
     protected function configure()
     {
-        $this->setName('conti:datapost:create-table')
-            ->setDescription('Create B2B & B2C Temp Master tables.');
+        $this->setName('conti:datapost:create-b2b-table')
+            ->setDescription('Create B2B Temp Master tables.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

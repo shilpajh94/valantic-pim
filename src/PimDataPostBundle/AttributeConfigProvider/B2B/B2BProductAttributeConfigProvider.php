@@ -52,7 +52,8 @@ class B2BProductAttributeConfigProvider extends AbstractB2BAttributeConfigProvid
     public function getMediaAttributeConfig(): array
     {
         return $this->b2bAttributeConfigProviderHelper
-        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_media_type_attribute",true);
+                        ->getConfigForKeyValue($this->getCompleteAttributeConfig(),"sf_media_type_attribute",true);
     }
+
 
 }

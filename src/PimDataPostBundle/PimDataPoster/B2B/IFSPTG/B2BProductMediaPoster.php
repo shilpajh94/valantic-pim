@@ -284,12 +284,4 @@ class B2BProductMediaPoster implements IDataPoster
         return $relationObjects;
     }
 
-    private function removeEntriesFromPimDeletedAssets()
-    {
-        $list = new PimcoreDeletedAssets\Listing();
-        foreach($list as $obj){
-            $obj->delete();
-        }
-    }
-
 }
