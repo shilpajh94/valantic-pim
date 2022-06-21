@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-17T09:52:57+02:00
+* Generated at: 2022-06-21T13:40:00+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorPTGEU',
    'description' => '',
    'creationDate' => 1655378062,
-   'modificationDate' => 1655452377,
+   'modificationDate' => 1655811600,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -403,7 +403,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
-                                     'invisible' => false,
+                                     'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
@@ -439,7 +439,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
-                                     'invisible' => false,
+                                     'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
