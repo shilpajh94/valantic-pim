@@ -45,6 +45,11 @@ parameters:
                 roles:
                     - ProductManagerPTGEU
     transition: 
+        send_to_editor:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
         send_to_marcom_for_review:
             condition:
                 methods:

@@ -62,16 +62,25 @@ pimcore:
                             delete: false
                             unpublish: false
                             condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+    #             in_editor_edit_after_publish:
+    #                 label: In Editor Edit
+    #                 color: #377ea9
+    #                 permissions:
+    #                     -
+    # #                          objectLayout: 1
+    #                         save: true
+    #                         publish: false
+    #                         delete: false
+    #                         unpublish: false
+    #                         condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
             transitions:
-                send_to_marcom_for_review:
+                send_to_editor:
                     from:
                         - open
-                        - published
-                        # - in_editor_edit
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_EDITORPTGEU"))
                     options:
-                        label: 'Send to MarCom for Review'
+                        label: 'Send to Marcom'
                         notes:
                             commentEnabled: true
                             commentRequired: true
@@ -90,10 +99,8 @@ pimcore:
                 send_to_editor_for_fixes:
                     from:
                         - in_marcom_edit
-                        - in_review
-                        - published
                     to: in_editor_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU") or has_role("ROLE_MARCOMPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_MARCOMPTGEU"))
                     options:
                         label: 'Send to Editor for fixes'
                         notes:
@@ -114,7 +121,6 @@ pimcore:
                 send_to_pm_for_review:
                     from:
                         - in_marcom_edit
-                        - published
                     to: in_review
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_MARCOMPTGEU"))
                     options:
@@ -126,7 +132,7 @@ pimcore:
                 approved:
                     from:
                         - in_review
-                        - published
+                        # - published
                     to: published
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
                     options:
@@ -135,17 +141,4 @@ pimcore:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: force_published
-                # published:
-                #     from:
-                #         - published
-                #     to: published
-                #     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
-                #     options:
-                #         label: 'Published'
-                #         notes:
-                #             commentEnabled: true
-                #             commentRequired: false
-                #         changePublishedState: force_published
-
-
               
