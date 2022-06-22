@@ -4,6 +4,7 @@ namespace PimDataPostBundle\Command\InitialLoadCommand;
 
 use Pimcore\Console\AbstractCommand;
 use PimDataPostBundle\InitialDataLoad\B2CProductInitialLoadProvider;
+use PimDataPostBundle\Lib\TempTablePopulator\B2C\B2CProductTempTablePopulator;
 use PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord;
 use PimDataPostBundle\Model\Types\B2CSalesForceObjectType;
 use PimDataPostBundle\Model\Types\StatusType;
@@ -22,6 +23,8 @@ class B2CInitialLoadCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $b2cProductTempTablePopulator = new B2CProductTempTablePopulator();
+
         $pageSize = 10000;
         $pageNumber = trim($input->getArgument('pageNumber'));
 
@@ -29,6 +32,9 @@ class B2CInitialLoadCommand extends AbstractCommand
         {
             $provider = new B2CProductInitialLoadProvider();
             $allProductIds = $provider->getProductIdsForInitialLoad($pageSize, $pageNumber);
+
+            $allProductIds = $b2cProductTempTablePopulator->filterIFSPTGProducts($allProductIds);
+
             $currTime = time();
             
             foreach($allProductIds as $id)
