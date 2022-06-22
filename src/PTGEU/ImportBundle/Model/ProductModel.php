@@ -234,10 +234,10 @@ class ProductModel
     public function removeArticlesFromMaster($articles) {
         try {
             if (!empty($articles) && count($articles)>0) {
-                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN ('";
                 $artNoArray = array_keys($articles);
                 if (count($artNoArray)>0) {
-                    $query = $sql.implode(", ", $artNoArray)." )";
+                    $query = $sql.implode("', '", $artNoArray)."')";
                     $this->db->query($query);
                 }
             }
@@ -326,15 +326,15 @@ class ProductModel
             }
         }
     }
-
-    public function saveProducts($updatedArticlesArray) {
-        foreach ($updatedArticlesArray as $objectId) {
-            if (!empty($objectId)) {
-                $object = DataObject\PTGEUProduct::getById($objectId, true);
-                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
-                    $object->save();
-                }
-            }
+    
+    public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
+    {
+        $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
+        $resultArray = $this->db->fetchAll($sql);
+        if(!empty($resultArray))
+        {
+            return true; 
         }
+        return false; 
     }
 }

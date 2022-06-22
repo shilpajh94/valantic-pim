@@ -120,7 +120,7 @@ class ProductService
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                 echo "Object Saving started for completeness.";         
-                $this->productModel->saveProducts($this->updatedArticlesArray);
+                $this->saveProducts($this->updatedArticlesArray);
                 echo "Object Saving completed for completeness.";
             }
 
@@ -331,22 +331,32 @@ class ProductService
         $recData =  (array) json_decode($row['record']);
         $status = 'Failed';
         $errorFlag = false;
+        $prodHier5 = $recData[$this->getRecordIndexByKey('prodHier5')];
+        $prodHier7 = $recData[$this->getRecordIndexByKey('prodHier7')];
+
         if (array_key_exists($siopCode, $this->categories)) {
             
             if ($this->productHelper->isValidCategoryCode($siopCode)) {
-                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
-                    echo $recData['0'].PHP_EOL;
-                    $record = array(
-                        'code'  =>  $siopCode,
-                        'description'   =>  $recData[$this->getRecordIndexByKey('description')],
-                        'material'  =>  $recData[$this->getRecordIndexByKey('material')]
-                    );
 
-                    $result = $this->processLevelInfo($record, $recData, $errorFlag);
-                    $status = $result['status'];
-                    $msg    = $result['msg'];
-                } else {
-                    $msg = 'Material Group code can not be empty.';
+                if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
+                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                        echo $recData['0'].PHP_EOL;
+                        $record = array(
+                            'code'  =>  $siopCode,
+                            'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                            'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+                        );
+
+                        $result = $this->processLevelInfo($record, $recData, $errorFlag);
+                        $status = $result['status'];
+                        $msg    = $result['msg'];
+                    } else {
+                        $msg = 'Material Group code can not be empty.';
+                    }
+                }
+                else
+                {
+                    $msg = '5th or 7th level hierarchy does not exists.'; 
                 }
             } else {
                 $msg = 'Siop Category code and its length does not match.';
@@ -758,5 +768,16 @@ class ProductService
             }
         }
         return null;
+    }
+
+    public function saveProducts($updatedArticlesArray) {
+        foreach ($updatedArticlesArray as $objectId) {
+            if (!empty($objectId)) {
+                $object = DataObject\PTGEUProduct::getById($objectId, true);
+                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
+                    $object->save();
+                }
+            }
+        }
     }
 }

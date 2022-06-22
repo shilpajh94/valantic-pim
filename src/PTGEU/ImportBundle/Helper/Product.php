@@ -312,20 +312,4 @@ class Product
         }
         return $bricksUnits;
     }
-    
-    public function checkHierarchyExistAtLevel($hierarchyName, $level=5): bool
-    {
-        try {
-            $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  o_key = '".$hierarchyName."'";
-            $resultArray = $this->db->fetchAll($sql);
-            if(empty($resultArray))
-            {
-                return false;
-            }
-        } catch(Exception $e){
-            echo "Error in ".$hierarchyName." :-".$e->getMessage();
-            return false;
-        }
-        return true;
-    }
 }
