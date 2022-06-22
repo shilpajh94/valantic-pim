@@ -82,6 +82,9 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
             if (!empty($config[$key])) {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
+                    if($key === "oldMaterialCode" && trim($value) === "N/A" ){
+                        $value = null;
+                    }
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {
                         $type = $config[$key]['pim_attribute_type'];
