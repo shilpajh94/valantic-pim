@@ -330,7 +330,7 @@ class SalesMaterialService
                             $countryOfOriginDesc = $rowvalue[$columnCountryOfOriginDesc]; 
                             $countryOfOriginId = $this->getCountryOfOriginObject($countryOfOrigin, $countryOfOriginDesc, $countryOfOriginFolderId);
                             if($countryOfOriginId) {
-                                $this->countryOfOriginArray[$countryOfOrigin] = $distributionChannelId;
+                                $this->countryOfOriginArray[$countryOfOrigin] = $countryOfOriginId;
                             }
                         }
                         $countryOfOriginCode = $this->countryOfOriginArray[$countryOfOrigin];
