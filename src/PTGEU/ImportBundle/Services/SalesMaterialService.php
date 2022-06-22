@@ -32,13 +32,11 @@ class SalesMaterialService
     private $countryOfOriginArray = array();
     private $distributionChannelArray = array();
     private $productUpdateArray = array();
-    private $privateMaterialGroup = array();
     private $failedIDs = [];
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
 
     public function __construct() {
-    
         $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
@@ -50,7 +48,6 @@ class SalesMaterialService
     }
 
     public function import() {
-
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
 
@@ -73,13 +70,10 @@ class SalesMaterialService
         $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
         $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
 
-
         $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-    
     }
 
     public function importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
-
         if(count($excelDataNewArray) > 1) {
         
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
@@ -146,11 +140,9 @@ class SalesMaterialService
         }
 
         $this->importFinished($applicationLogMessage, $time);
-
     }
 
     public function countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
-
         $j = 1;
         $i = 0;
         $applicationLogMessage = '';
@@ -189,7 +181,6 @@ class SalesMaterialService
     }
 
     public function importFinished($applicationLogMessage, $time) {
-
         $this->monitoringItem->getLogger()->info($applicationLogMessage);
         $this->monitoringItem->setMessage('Finished')->setCompleted();
         $timediff = $time->diff(new \DateTime());
@@ -197,8 +188,7 @@ class SalesMaterialService
         \Pimcore::collectGarbage();
     }
 
-    private function processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material)
-    {
+    private function processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material) {
         $createdOrUpdated = 'Updated';
         if(!$objectMaterial){      
             $createdOrUpdated = 'Created'; 
@@ -223,7 +213,6 @@ class SalesMaterialService
     }
     
     public function processSlicedData($data, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
-        
         $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
@@ -347,7 +336,7 @@ class SalesMaterialService
                         $salesText1 = $rowvalue[$columnSalesText1];
                         $salesText2 = $rowvalue[$columnSalesText2];
                         $materialGroup5Value = $rowvalue[$columnPrivateBrand];
-                        $privateOrGenericBrand = $this->getAllBrand($materialGroup5Value);
+                        $privateOrGenericBrand = $this->getBrandId($materialGroup5Value);
                         
                         $this->productUpdateArray[$materialId] = $material;
 
@@ -464,8 +453,7 @@ class SalesMaterialService
         }
     }
 
-    public function processDeletedRecords($deletedRecords)
-    {
+    public function processDeletedRecords($deletedRecords) {
         $deleteCount = 0;
         if(count($deletedRecords) > 0) {
             foreach ($deletedRecords as $key => $value) {
@@ -489,7 +477,6 @@ class SalesMaterialService
      * return material object or false
      */
     public function getMaterialObject($MaterialKey) {
-
         $query = "SELECT oo_id, o_key, o_path FROM `object_38` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAll($query);
         
@@ -504,7 +491,6 @@ class SalesMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey, $plantFolderId) {
-
         $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
         if(!$objectPlant) {
             $objectPlant = new DataObject\Plant();
@@ -524,7 +510,6 @@ class SalesMaterialService
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId) {
-        
         $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
         if(!$object) {
             $object = new DataObject\DistributionChannel();
@@ -546,7 +531,6 @@ class SalesMaterialService
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId) {
-        
         $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
         if(!$object) {
             $object = new DataObject\SalesOrganisation();
@@ -567,7 +551,6 @@ class SalesMaterialService
      * return Country of origin object
      */
     public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId) {
-        
         $object = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryOfOriginKey);
         if(!$object) {
             $object = new DataObject\Country();
@@ -584,12 +567,11 @@ class SalesMaterialService
         return $object->getId();
     }
 
-    public function getAllBrand($materialGroup5Value) {
-
-    $brandList = new \Pimcore\Model\DataObject\Brand\Listing();
-    $brandList->setCondition("brandCode = ?",$materialGroup5Value);
-        foreach ($brandList as $seg) {
-            return $seg->getId();
+    public function getBrandId($materialGroup5Value) {
+        $brandList = new \Pimcore\Model\DataObject\Brand\Listing();
+        $brandList->setCondition("brandCode = ?",$materialGroup5Value);
+        foreach ($brandList as $brand) {
+            return $brand->getId();
         }
     }
 }
