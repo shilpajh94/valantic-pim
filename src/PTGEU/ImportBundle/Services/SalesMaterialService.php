@@ -46,7 +46,6 @@ class SalesMaterialService
         $this->tableImportHelper = new SalesMaterialModel;
         $salesMaterialConfig = \Pimcore::getContainer()->get('import.config_provider_service')->getSalesMaterialConfig();
 
-        //$this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup'); ///???
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
     }
 
@@ -247,6 +246,7 @@ class SalesMaterialService
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
         $columnSalesText1= $this->mappingCsvColumn['salesText1'];
         $columnSalesText2= $this->mappingCsvColumn['salesText2'];
+        $columnPrivateBrand= $this->mappingCsvColumn['privateBrand'];
         $columnDistChainStatus = $this->mappingCsvColumn['deleteFlagAtDistributionChainLevel'];
         
 	    $dataCount = count($data);
@@ -346,7 +346,8 @@ class SalesMaterialService
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $salesText1 = $rowvalue[$columnSalesText1];
                         $salesText2 = $rowvalue[$columnSalesText2];
-                        $privateOrGenericBrand = $this->getPrivateOrGenericMaterial($pricePageFlag); //???
+                        $materialGroup5Value = $rowvalue[$columnPrivateBrand];
+                        $privateOrGenericBrand = $this->getAllBrand($materialGroup5Value);
                         
                         $this->productUpdateArray[$materialId] = $material;
 
@@ -485,18 +486,6 @@ class SalesMaterialService
     }
 
     /**
-     * return private or generic brand on the basis of material group
-     */
-    public function getPrivateOrGenericMaterial($pricePageFlag) {
-        
-        $privateGenericBrand = 'Generic';
-        if(in_array($pricePageFlag, $this->privateMaterialGroup)) {
-            $privateGenericBrand = 'Private';
-        }
-        return $privateGenericBrand;
-    }
-
-    /**
      * return material object or false
      */
     public function getMaterialObject($MaterialKey) {
@@ -593,5 +582,14 @@ class SalesMaterialService
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$countryOfOriginKey." found in master list");
         }
         return $object->getId();
+    }
+
+    public function getAllBrand($materialGroup5Value) {
+
+    $brandList = new \Pimcore\Model\DataObject\Brand\Listing();
+    $brandList->setCondition("brandCode = ?",$materialGroup5Value);
+        foreach ($brandList as $seg) {
+            return $seg->getId();
+        }
     }
 }
