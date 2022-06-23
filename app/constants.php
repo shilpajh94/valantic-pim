@@ -166,3 +166,7 @@ define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRE
 define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
 // global brick configuration file path
 define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yml");
+
+// define constants used in PTGEU - CatalogBundle config
+define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/CatalogBundle/Resources/config");
+define('PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog.yml");

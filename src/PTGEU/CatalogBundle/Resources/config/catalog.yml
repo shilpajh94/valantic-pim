@@ -1,0 +1,168 @@
+parameters:
+    PTG Product Page:
+        Default Dynamic Table Attribute: Synchronous Belts
+        Common Attribute: 
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            ProfileDimensionImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Profile Dimension Image
+                parent: 
+                    name: Product
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Long Description
+                parent: 
+                    name: Product
+            material:
+                fieldLevel: objectBrick
+                fieldType: Multiselection
+                fieldLabel: Material
+                parent: 
+                    name: PTGBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            VirtualCatalogReinforcement:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Virtual Catalog Reinforcement
+                parent: 
+                    name: Product
+            reinforcement:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Reinforcement
+                parent: 
+                    name: Product
+                    class: 
+                        name : MultiselectMaster
+                        fieldName: Name
+            temperatureRangeFAndC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Temperature Range (°F & C°)
+                parent:
+                    name: Product
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Features ID
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: id
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: ID
+                parent:
+                    name: Product
+        # Write dynamic table header config below
+        Dynamic Table Attribute:
+            Synchronous Belts:
+                articleNumber:
+                    columnName: articleNumber
+                    fieldLevel: class
+                    fieldType: Input
+                    groupName: articleNumber
+                    parent:
+                        name: Product
+                toothPitchPtMM: 
+                    columnName: toothPitchPtMM
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    numberOfDecimalPoints: 0
+                    groupName: toothPitchPtMM
+                    unitName: mm
+                    parent:
+                        name: PTGEUFlatBeltsFert
+                pitchLengthLpLwMM:
+                    columnName: pitchLengthLpLwMM
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    numberOfDecimalPoints: 0
+                    groupName: pitchLengthLpLw
+                    unitName: mm
+                    parent:
+                        name: PTGEUFlatBeltsFert
+                pitchLengthLpLwIN:
+                    columnName: pitchLengthLpLwIN
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    numberOfDecimalPoints: 2
+                    groupName: pitchLengthLpLw
+                    unitName: in
+                    parent:
+                        name: PTGEUFlatBeltsFert
+                numberOfTeethZ:
+                    columnName: numberOfTeethZ
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    groupName: numberOfTeethZ
+                    parent:
+                        name: PTGEUFlatBeltsFert
+                widthMM:
+                    columnName: widthMM
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    numberOfDecimalPoints: 0
+                    groupName: widthMM
+                    unitName: mm
+                    parent:
+                        name: PTGEUFlatBeltsFert
+                netWeight:
+                    columnName: netWeight
+                    fieldLevel: class
+                    fieldType: Input
+                    numberOfDecimalPoints: 2
+                    groupName: netWeight
+                    parent:
+                        name: Product
+                weightUnit:
+                    columnName: weightUnit
+                    fieldLevel: class
+                    fieldType: Input
+                    groupName: weightUnit
+                    parent:
+                        name: Product
+            Banded Belts:
+                industryStandard:
+                    fieldLevel: class
+                    fieldType: Input
+                    fieldLabel: Industry Standard
+                    parent: 
+                        name: Product
+                outsideLengthIN:
+                    fieldLevel: objectBrick
+                    fieldType: Input
+                    groupName: outsideLength
+                    unitName: in
+                    numberOfDecimalPoints: 2
+                    fieldLabel: Outside Length (in)
+                    parent:
+                        name: BeltsFert
+                netWeight:
+                    fieldLevel: class
+                    fieldType: Input
+                    fieldLabel: Net Weight
+                    numberOfDecimalPoints: 2
+                    parent:
+                        name: Product
+                weightUnit:
+                    fieldLevel: class
+                    fieldType: Input
+                    fieldLabel: Weight Unit
+                    numberOfDecimalPoints: 2
+                    parent:
+                        name: Product
+
+
+                
