@@ -120,7 +120,7 @@ class ProductService
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                 echo "Object Saving started for completeness.";         
-                $this->productModel->saveProducts($this->updatedArticlesArray);
+                $this->saveProducts($this->updatedArticlesArray);
                 echo "Object Saving completed for completeness.";
             }
 
@@ -331,22 +331,32 @@ class ProductService
         $recData =  (array) json_decode($row['record']);
         $status = 'Failed';
         $errorFlag = false;
+        $prodHier5 = $recData[$this->getRecordIndexByKey('prodHier5')];
+        $prodHier7 = $recData[$this->getRecordIndexByKey('prodHier7')];
+
         if (array_key_exists($siopCode, $this->categories)) {
             
             if ($this->productHelper->isValidCategoryCode($siopCode)) {
-                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
-                    echo $recData['0'].PHP_EOL;
-                    $record = array(
-                        'code'  =>  $siopCode,
-                        'description'   =>  $recData[$this->getRecordIndexByKey('description')],
-                        'material'  =>  $recData[$this->getRecordIndexByKey('material')]
-                    );
 
-                    $result = $this->processLevelInfo($record, $recData, $errorFlag);
-                    $status = $result['status'];
-                    $msg    = $result['msg'];
-                } else {
-                    $msg = 'Material Group code can not be empty.';
+                if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
+                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                        echo $recData['0'].PHP_EOL;
+                        $record = array(
+                            'code'  =>  $siopCode,
+                            'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                            'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+                        );
+
+                        $result = $this->processLevelInfo($record, $recData, $errorFlag);
+                        $status = $result['status'];
+                        $msg    = $result['msg'];
+                    } else {
+                        $msg = 'Material Group code can not be empty.';
+                    }
+                }
+                else
+                {
+                    $msg = '5th or 7th level hierarchy does not exists.'; 
                 }
             } else {
                 $msg = 'Siop Category code and its length does not match.';
@@ -412,7 +422,7 @@ class ProductService
         foreach ($this->langArr as $lang) {
             $sapDescription     = null;           
 
-            if ($lang == 'en' && strtolower($productType) == 'base') {
+            if ($lang == 'en' && strtolower($productType) == 'fert') {
                 $sapDescription     = trim($record[$this->getRecordIndexByKey('description')]);
             }
             $this->localisedDataTableDataArray[] = [
@@ -480,7 +490,12 @@ class ProductService
             'maximumTemperatureC' => null,
             'maximumTemperatureF' => null,
             'industryStandard' => null,
-            'reinforcement' => null
+            'reinforcement' => null,
+            'staticConductive' => null,
+            'beltHardness' => null,
+            'beltTolerance' => null,
+            'minPulleyDia' => null,
+            'minOutsidePulleyDia' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -501,6 +516,11 @@ class ProductService
             $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $queryTableData['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
+            $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $queryTableData['minPulleyDia'] = trim($record['61']);
+            $queryTableData['minOutsidePulleyDia'] = trim($record['62']);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -584,7 +604,12 @@ class ProductService
             'maximumTemperatureC' => null,
             'maximumTemperatureF' => null,
             'industryStandard' => null,
-            'reinforcement' => null
+            'reinforcement' => null,
+            'staticConductive' => null,
+            'beltHardness' => null,
+            'beltTolerance' => null,
+            'minPulleyDia' => null,
+            'minOutsidePulleyDia' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -605,6 +630,11 @@ class ProductService
             $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $storeTableDataArray['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
+            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $storeTableDataArray['minPulleyDia'] = trim($record['61']);
+            $storeTableDataArray['minOutsidePulleyDia'] = trim($record['62']);
 
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
@@ -660,7 +690,7 @@ class ProductService
                 'position' => 0
             ];
         }
-        if (strtolower($productType) == 'fert') {
+        if (strtolower($productType) == 'base') {
             $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
@@ -689,7 +719,7 @@ class ProductService
                 'targettype' => 'object'
             ];
         }
-        if (strtolower($productType) == 'fert') {
+        if (strtolower($productType) == 'base') {
             $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
@@ -738,5 +768,16 @@ class ProductService
             }
         }
         return null;
+    }
+
+    public function saveProducts($updatedArticlesArray) {
+        foreach ($updatedArticlesArray as $objectId) {
+            if (!empty($objectId)) {
+                $object = DataObject\PTGEUProduct::getById($objectId, true);
+                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
+                    $object->save();
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-16T09:06:01+02:00
-* IP: 127.0.0.1
+* Generated at: 2022-06-21T10:24:54+02:00
+* IP: ::1
 
 
 Fields Summary: 
@@ -19,12 +19,10 @@ Fields Summary:
 - toothHeightHtIN [numeric]
 - widthIN [numeric]
 - beltThicknessHsIN [numeric]
-- refLineDiffHBIN [numeric]
 - toothPitchPtINUnit [input]
 - toothHeightHtINUnit [input]
 - widthINUnit [input]
 - beltThicknessHsINUnit [input]
-- refLineDiffHBINUnit [input]
 */ 
 
 
@@ -133,7 +131,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'toothPitchPtMM',
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
@@ -190,12 +188,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'widthMM',
                      'title' => 'Width',
                      'tooltip' => '',
@@ -226,7 +224,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'beltThicknessHsMM',
                      'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
@@ -257,7 +255,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'numberOfTeethZ',
                      'title' => 'Number of Teeth (Z)',
                      'tooltip' => '',
@@ -439,12 +437,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'toothPitchPtIN',
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
@@ -470,7 +468,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -501,12 +499,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'widthIN',
                      'title' => 'Width',
                      'tooltip' => '',
@@ -537,40 +535,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'beltThicknessHsIN',
                      'title' => 'Belt thickness (hs)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:40px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => 2,
-                     'decimalPrecision' => NULL,
-                     'name' => 'refLineDiffHBIN',
-                     'title' => 'RefLine DiffHB',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -704,34 +671,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'beltThicknessHsINUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'refLineDiffHBINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,

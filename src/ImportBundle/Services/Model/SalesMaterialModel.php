@@ -380,7 +380,6 @@ class SalesMaterialModel
                             'SalesUOM' => $salesUnit,
                             'DeliveringPlant__id' => $plantObjId,
                             'DeliveringPlant__type' => 'object',
-                            'SalesStatus' => '',
                             'epixFlag' => $epixFlag,
                             'pricePageFlag' => $pricePageFlag,
                             'privateBrand' => $privateOrGenericBrand,

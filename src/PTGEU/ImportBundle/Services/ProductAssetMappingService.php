@@ -18,38 +18,91 @@ class ProductAssetMappingService
         $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
-    public function import($filePath)
+    public function import($filePath, $downloadOrMapping)
     {
         if (is_file($filePath)) {
             $csvFilePath = $filePath;
             $csvFilePath = str_replace("%20", " ", $csvFilePath);
             $csvInfo = ImportService::getCSVData($csvFilePath);
-            foreach($csvInfo['data'] as $rowData)
-            { 
-                if($rowData[0]!='' && is_dir($rowData[0]) && $this->checkProductExist($rowData[1]))
+
+            if ($downloadOrMapping == 'D') {
+                foreach($csvInfo['data'] as $rowData)
                 {
-                    $dataRow = $this->getProductHierarchyRow($rowData[1]);
-                    $assetHierarchyPath = $this->getAssetHierarchyPathByProductPath($dataRow);
-                    $productObject = PTGEUProduct::getById($dataRow['o_id'], true);
-                    $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $productObject);
-                    $innerFolder = $this->getChildFolderInAssetDirectory($rowData[0]); 
-                    foreach($innerFolder as $folder)
+                    if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4]!= '')
                     {
-                        $rowData[0] = $rowData[0]."/".$folder;
-                        $assetHierarchyPath = $assetHierarchyPath."/".$folder;
-                        $this->createAssetAndMapAssetToProduct($rowData[0], $assetHierarchyPath, $productObject);
+                        $this->createAsset($rowData[0], $rowData[4]);
+                        $innerFolder = $this->getChildFolderInAssetDirectory($rowData[0]);
+                        foreach($innerFolder as $folder)
+                        {
+                            $rowData[0] = $rowData[0]."/".$folder;
+                            $assetHierarchyPath = $this->resetPathSlash($rowData[4])."/".$folder;
+                            $this->createAsset($rowData[0], $assetHierarchyPath);
+                        }   
                     }
                 }
-            
+
+            }
+            if ($downloadOrMapping == 'M') {
+                foreach($csvInfo['data'] as $rowData)
+                {
+                    if($rowData[4]!= '')
+                    {
+                        $getImagesDataByPath = $this->getImagesDataByPath($rowData[4]);
+                        foreach($getImagesDataByPath as $assetObject)
+                        {
+                            $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
+                            $this->savePTGEUProductColumn($rowData[1], $assetObject, $assetColumnName);
+                        }
+                        $getFolderDataByPath = $this->getFolderDataByPath($rowData[4]);
+                        foreach($getFolderDataByPath as $assetFolderObject)
+                        {
+                            $getImagesDataByPath = $this->getImagesDataByPath($rowData[4].$assetFolderObject->getFilename()."/");
+                            foreach($getImagesDataByPath as $assetObject)
+                            {
+                                $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
+                                $this->savePTGEUProductColumn($rowData[1], $assetObject, $assetColumnName);
+                            }
+                        }   
+                    }
+                }
+
             }
         }
     }
 
-    private function getAssetHierarchyPathByProductPath(array $dataRow): string
+    private function getColumnNameByFileName(string $fileName): string
     {
-        $fullPathArray = explode("/",$dataRow['o_path']);
-        $dataRow['o_path'] = "/".$fullPathArray[3]."/".$fullPathArray[4]."/".$fullPathArray[5]."/".$fullPathArray[6]."/";
-        return $dataRow['o_path'].$dataRow['o_key'];
+        $fileNameArr = explode("_", $fileName); 
+        $columnName = $fileNameArr[count($fileNameArr)-1];
+        $columnName = explode(".", $columnName);
+        return $columnName[0]; 
+    }
+
+    private function savePTGEUProductColumn(string $productName, Asset $assetObject, string $columnName): void
+    {
+        $columnName = str_replace(" ","",$columnName);
+        $pimColumnName = $this->getPimColumnName($columnName);
+        if($pimColumnName != '')
+        {
+            $allProductObject = new PTGEUProduct\Listing();
+            $allProductObject->setCondition("ProductName = ?", [$productName]);
+            $allProductObject->load();
+            foreach($allProductObject as $productObject)
+            { 
+                $fn = "set".$pimColumnName;
+                $productObject->$fn($assetObject);
+                $productObject->save();
+            }
+        }
+    }
+
+    private function getPimColumnName(string $columnName)
+    {
+        if(isset($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']))
+        {
+            return ucfirst($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']);
+        }
+        return '';
     }
 
     private function getChildFolderInAssetDirectory(string $assetDirectoryPath): array
@@ -66,7 +119,7 @@ class ProductAssetMappingService
         return $childFolder;
     }
 
-    private function createAssetAndMapAssetToProduct(string $assetDirectoryPath, string $assetHierarchyPath, PTGEUProduct $productObject): void
+    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath): void
     {
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $folderData = scanDir($assetDirectoryPath);
@@ -74,39 +127,26 @@ class ProductAssetMappingService
         {
             if($fileName != '. ' && $fileName != '..' && $fileName[0] != '.' && pathinfo($assetDirectoryPath.'/'.$fileName, PATHINFO_EXTENSION))
             {
-                $assetObject = $this->checkIfAssetFileExists($assetHierarchyPath.'/'.$fileName); 
+                $assetObject = $this->checkIfAssetFileExists($fileName, $assetHierarchyPath); 
                 if(!$assetObject)
                 {
                     $content = file_get_contents($assetDirectoryPath.'/'.$fileName);
-                    $assetObject = $this->saveAsset($fileName, $assetFolderId, $content, $assetHierarchyPath.'/'.$fileName);  
+                    $this->saveAsset($fileName, $assetFolderId, $content); 
                 }
-                $assetColumnName = $this->getColumnNameByFileName($fileName);
-                $this->savePTGEUProductColumn($productObject, $assetObject, $assetColumnName); 
             }
         }
     }
 
-    private function checkProductExist(string $productName): bool
+    private function resetPathSlash($path)
     {
-        try {
-        $sql="SELECT `hierarchyLevel5` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
-        $resultArray = $this->db->fetchAll($sql);
-        if(empty($resultArray))
+        if($path[0] != '/')
         {
-            return false;
+            $path = "/".$path;
         }
-        } catch(Exception $e){
-            echo "Error in ".$productName." :-".$e->getMessage();
-            return false;
+        if($path[strlen($path)-1] != '/'){
+            $path = $path."/";
         }
-        return true;
-    }
-
-    private function getProductHierarchyRow(string $productName): array
-    {
-        $sql="SELECT `o_path`,`o_key`,`o_id` FROM ".PTGEU_OBJECT_TABLE_NAME . " WHERE  o_key = '".$productName."'";
-        $result = $this->db->fetchAll($sql);
-        return $result[0];
+        return $path;
     }
 
     private function getFolderByPath(string $folderPath): string
@@ -120,51 +160,49 @@ class ProductAssetMappingService
         return $folder->getId();
     }
 
-    private function saveAsset(string $name, string $parentId, string $data, string $fullPath): Asset
+    private function checkIfAssetFileExists(string $fileName, string $assetHierarchyFilePath): ? bool
     {
-        $assetObj = Asset::getByPath($fullPath);
-        if (empty($assetObj)) {
-            $assetObj = new Asset();
-            $assetObj->setParentId($parentId);
-            $assetObj->setFilename($name);
-        }
+        $assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
+        $getAsset = new Asset\Listing();
+        $getAsset->setCondition("filename = ? AND path = ?", [$fileName, $assetHierarchyFilePath]);
+        if(empty($getAsset->load()))
+        {
+            return false;
+        } 
+        return true;
+   
+    }
+
+    private function getImagesDataByPath(string $assetHierarchyFilePath): ? array
+    {
+        $assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
+        $getAsset = new Asset\Listing();
+        $getAsset->setCondition("path = ? AND type = 'image'", [$assetHierarchyFilePath]);
+        return $getAsset->load();
+    }
+
+    private function getFolderDataByPath(string $assetHierarchyFilePath): ? array
+    {
+        $assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
+        $getAsset = new Asset\Listing();
+        $getAsset->setCondition("path = ? AND type = 'folder'", [$assetHierarchyFilePath]);
+        return $getAsset->load();
+    }
+
+    private function saveAsset(string $name, string $parentId, string $data): void
+    {
+        $assetObj = new Asset();
+        $assetObj->setParentId($parentId);
+        $assetObj->setFilename($name);
+        $filename = pathinfo($name, PATHINFO_FILENAME);
         $assetObj->setData($data);
-        $assetObj->save();
-        return $assetObj;
+        $assetObj->addMetadata("alt", "input", $filename, "");
+        $assetObj->addMetadata("title", "input", $filename, "");
+        $assetObj->addMetadata("description", "input", "", "");
+        $assetObj->addMetadata("copyright", "input", "", "");
+        $assetObj->addMetadata("tags", "input", "", "");
+        $assetObj->save();  
     }
 
-    private function checkIfAssetFileExists(string $assetHierarchyFilePath): ? Asset
-    {
-        return Asset::getByPath($assetHierarchyFilePath);
-    }
-
-    private function getColumnNameByFileName(string $fileName): string
-    {
-        $fileNameArr = explode("_", $fileName); 
-        $columnName = $fileNameArr[count($fileNameArr)-1];
-        $columnName = explode(".", $columnName);
-        return $columnName[0]; 
-    }
-
-    private function savePTGEUProductColumn(PTGEUProduct $productObject, Asset $assetObject, string $columnName): void
-    {
-        $columnName = str_replace(" ","",$columnName);
-        $pimColumnName = $this->getPimColumnName($columnName);
-        if($pimColumnName != '')
-        {
-            $fn = "set".$pimColumnName;
-            $productObject->$fn($assetObject);
-            $productObject->save();
-        }
-    }
-
-    private function getPimColumnName(string $columnName)
-    {
-        if(isset($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']))
-        {
-            return ucfirst($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']);
-        }
-        return '';
-    }
 
 }

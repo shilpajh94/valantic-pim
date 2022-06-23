@@ -44,3 +44,31 @@ parameters:
                     # - RnDUser
                 roles:
                     - ProductManagerPTGEU
+    transition: 
+        send_to_marcom_for_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_marcom:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        # send_to_editor_for_fixes:
+        #     condition:
+        #         methods:
+        #             - checkForMandatoryValidation
+
+        # send_to_pm_for_review:
+        #     condition:
+        #         methods:
+        #             - checkForMandatoryValidation 
+                       
+        approved:
+            action: 
+                published: true
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+                    - checkIfParentUnPublished

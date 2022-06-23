@@ -60,6 +60,11 @@ parameters:
       minimumTemperatureF: 'Min. Temp. F (-)'
       maximumTemperatureC: 'Max Temp C (+)'
       maximumTemperatureF: 'Max. Temp. F (+)'
+      staticConductive: 'Static Conductive'
+      beltHardness: 'Belt Hardness'
+      beltTolerance: 'Belt Tolerance'
+      minPulleyDia: 'Min. pulley dia.\n[mm]'
+      minOutsidePulleyDia: 'Min. outside pulley dia.\n[mm]'
     lastColName: 'CQ'
     startRow: 1
     readFrom: 2
