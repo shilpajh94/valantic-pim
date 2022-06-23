@@ -58,11 +58,11 @@ class CategoryService
         try {
 
             $spreadsheet    = ImportService::load($this->filePath);
-            $vaidateResult  = $this->instance->validateSpreadSheet($spreadsheet);
+            $validateResult  = $this->instance->validateSpreadSheet($spreadsheet);
             
-            if (!$vaidateResult['status']) {
-                $this->monitoringItem->setMessage($vaidateResult['message'])->save();
-                $this->monitoringItem->getLogger()->error($vaidateResult['message']);
+            if (!$validateResult['status']) {
+                $this->monitoringItem->setMessage($validateResult['message'])->save();
+                $this->monitoringItem->getLogger()->error($validateResult['message']);
                 $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
                 die;
             }

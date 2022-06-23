@@ -4,7 +4,7 @@ namespace PTGEU\ImportBundle\Services;
 
 class ImportConstants
 {
-    const PTGEU_FOLDER = 'PTG_EU';
+    const PTGEU_FOLDER = 'Contitech_PTGEU';
     const MASTER_LIST_FOLDER = self::PTGEU_FOLDER . '/Master List';
     const MASTER_LIST_PLANTS_FOLDER = self::MASTER_LIST_FOLDER .'/Plants';
     const MASTER_LIST_COUNTRY_FOLDER = self::MASTER_LIST_FOLDER .'/Countries';

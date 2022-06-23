@@ -758,7 +758,7 @@ class ProductService
                 $obj = new \Pimcore\Model\DataObject\MaterialGroup();
                 $obj->setCode($materialGroupCode);
                 $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
-                $parentFolder = $this->productHelper->getFolderByPath('PTG_EU/Master List/Material Group');
+                $parentFolder = $this->productHelper->getFolderByPath('Contitech_PTGEU/Master List/Material Group');
                 $obj->setPublished(true);
                 $obj->setParentId($parentFolder);
                 $obj->save();
