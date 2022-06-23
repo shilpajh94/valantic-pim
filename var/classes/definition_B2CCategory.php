@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-13T10:50:48+05:30
+* Generated at: 2022-06-23T13:09:39+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -10,7 +10,6 @@
 
 Fields Summary: 
 - level [numeric]
-- position [numeric]
 - onlineFlag [checkbox]
 - localizedfields [localizedfields]
 -- displayName [input]
@@ -27,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2CCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655097648,
+   'modificationDate' => 1655969979,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -156,37 +155,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => true,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'position',
-                         'title' => 'Position',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
                          'index' => false,
                          'locked' => false,
                          'style' => 'margin-left: 10px;',
