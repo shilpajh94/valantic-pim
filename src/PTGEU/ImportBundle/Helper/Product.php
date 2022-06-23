@@ -3,6 +3,7 @@
 namespace PTGEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Exception;
 
 class Product
 {
