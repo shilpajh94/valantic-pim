@@ -29,7 +29,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
         echo "\n execution started. \n";
 
         $this->proceesAPIRequestEntityTableArchival(ShopType::B2B(), $numberOfDays);
-        // $this->proceesAPIRequestEntityTableArchival(ShopType::B2C(), $numberOfDays);
+        $this->proceesAPIRequestEntityTableArchival(ShopType::B2C(), $numberOfDays);
 
         echo "\n execution completed. \n";
     }
