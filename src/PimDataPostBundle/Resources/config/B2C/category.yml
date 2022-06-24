@@ -132,15 +132,14 @@ parameters:
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: int(11) NULL
-            salesForceRelationalAttr: true
             joinOn:
             addOnJoin:
-            sf_attribute_name:
-            pim_attribute_type:
+            sf_attribute_name: image
+            pim_attribute_type: image
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name:
+            container_pim_class_or_brick_name: B2CCategory
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
