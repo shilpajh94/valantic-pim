@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-22T14:40:24+02:00
+* Generated at: 2022-06-24T09:19:35+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -30,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655901624,
+   'modificationDate' => 1656055175,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -464,7 +464,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
+                     'noLabel' => 'Empty',
                      'emptyLabel' => 'No',
                      'options' => 
                     array (
@@ -480,7 +480,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       ),
                       2 => 
                       array (
-                        'key' => 'No',
+                        'key' => 'Empty',
                         'value' => -1,
                       ),
                     ),
@@ -507,7 +507,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
+                     'noLabel' => 'Empty',
                      'emptyLabel' => 'No',
                      'options' => 
                     array (
@@ -523,7 +523,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       ),
                       2 => 
                       array (
-                        'key' => 'No',
+                        'key' => 'Empty',
                         'value' => -1,
                       ),
                     ),

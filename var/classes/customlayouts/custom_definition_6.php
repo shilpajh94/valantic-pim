@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T13:40:16+02:00
+* Generated at: 2022-06-24T12:45:12+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComPTGEU',
    'description' => '',
    'creationDate' => 1655376843,
-   'modificationDate' => 1655811616,
+   'modificationDate' => 1656067512,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -202,8 +202,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
-                                     'decimalSize' => 1,
-                                     'decimalPrecision' => NULL,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => 3,
                                      'name' => 'shelfLife',
                                      'title' => 'Shelf Life',
                                      'tooltip' => '',
