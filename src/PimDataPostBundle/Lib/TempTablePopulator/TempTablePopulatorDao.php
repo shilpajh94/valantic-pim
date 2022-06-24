@@ -236,4 +236,15 @@ class TempTablePopulatorDao
         return ($resultSet) ? $resultSet : [];
     }
 
+    public function getAllImmediateChildrenData(array $parentIds)
+    {
+        if(empty($parentIds)){
+            return [];
+        }
+        $query = "SELECT o_id, o_type, o_className FROM objects";
+        $query .= " WHERE o_parentId IN (" . implode(",", $parentIds) . ")";
+
+        return $this->db->fetchAll($query);
+    }
+
 }

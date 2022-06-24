@@ -49,6 +49,7 @@ class B2CCategoryDataPoster implements IDataPoster
              * -> then the active flag will NOT be turned to true here
              */
             $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = $tempTablePopulator->getPimModifiedRecordIdsWhichAreAlsoPresentInMaster();
+            $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = array_merge($pimModifiedRecordIdsWhichAreAlsoPresentInMaster, $tempTablePopulator->getAllChildrenObjectsRecursively($pimModifiedRecordIdsWhichAreAlsoPresentInMaster));
             $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
             $categoryIdsForFailureEntry = $categoryIdsToBeAddedInTempTable;
     

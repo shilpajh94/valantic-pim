@@ -61,4 +61,22 @@ class TempTablePopulatorHelper
         return $this->dao->getChildrenObjectIds($skeletonId);
     }
 
+    public function getAllChildrenObjectsRecursively(array $parentIds, string $className)
+    {
+        $allChildren = [];
+        $currentParents = $parentIds;
+
+        while(!empty($currentParents)){
+            $currentChildren = $this->dao->getAllImmediateChildrenData($currentParents);
+            foreach($currentChildren as $children){
+                if( $children["o_type"] === "object" && $children['o_className'] === $className ){
+                    $allChildren[] = $children["o_id"];
+                }
+            }
+            $currentParents = array_column($currentChildren,"o_id");
+        }
+        return $allChildren;
+    }
+
+
 }
