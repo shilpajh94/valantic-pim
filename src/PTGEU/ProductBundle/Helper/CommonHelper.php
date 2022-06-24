@@ -19,7 +19,6 @@ class CommonHelper {
     public static function getEditableFieldsByUser(User $user) {
 
         $roles = $user->getRoles();
-        $attributeList = [];
         $allAttributeList = [];
         if (!empty($roles) && count($roles)>0) {
             $rolesList = new User\Role\Listing();
@@ -34,7 +33,6 @@ class CommonHelper {
                 }
             }
         }
-        
         return ['MandatoryAttribures' => $allAttributeList];
     }
     
