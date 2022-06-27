@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-24T12:45:12+02:00
+* Generated at: 2022-06-27T10:01:03+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComPTGEU',
    'description' => '',
    'creationDate' => 1655376843,
-   'modificationDate' => 1656067512,
+   'modificationDate' => 1656316863,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',

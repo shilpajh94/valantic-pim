@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-23T08:32:34+02:00
+* Generated at: 2022-06-27T10:04:43+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagerPTGEU',
    'description' => '',
    'creationDate' => 1655375162,
-   'modificationDate' => 1655965954,
+   'modificationDate' => 1656317083,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -2730,13 +2730,19 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 100,
                                  'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
                                  'name' => 'Color',
                                  'title' => 'Color',
                                  'tooltip' => '',
@@ -2752,9 +2758,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                               )),
                               4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -3093,9 +3096,12 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'textarea',
                                  'width' => 250,
+                                 'height' => '',
+                                 'maxLength' => NULL,
                                  'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'phpdocType' => 'string',
@@ -3113,11 +3119,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'defaultValue' => NULL,
-                                 'columnLength' => 190,
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'locked' => false,
@@ -4231,7 +4232,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'PTGEUProductHierarchy',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel1',
                          'title' => 'Product Hierarchy Level 1',
@@ -4299,7 +4306,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'PTGEUProductHierarchy',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel3',
                          'title' => 'Product Hierarchy Level 3',
@@ -4330,7 +4343,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 'PTGEUProductHierarchy',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel4',
                          'title' => 'Product Hierarchy Level 4',
@@ -4495,7 +4514,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => '',
