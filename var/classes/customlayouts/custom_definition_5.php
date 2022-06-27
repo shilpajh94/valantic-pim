@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-20T06:51:04+02:00
+* Generated at: 2022-06-23T08:32:34+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagerPTGEU',
    'description' => '',
    'creationDate' => 1655375162,
-   'modificationDate' => 1655700664,
+   'modificationDate' => 1655965954,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -2679,7 +2679,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 10,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
@@ -2707,7 +2707,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 10,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
@@ -2730,29 +2730,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'fieldtype' => 'select',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Orange',
-                                    'value' => 'Orange',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Black',
-                                    'value' => 'Black',
-                                  ),
-                                ),
+                                 'fieldtype' => 'input',
                                  'width' => 250,
-                                 'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 190,
+                                 'columnLength' => 100,
                                  'phpdocType' => 'string',
-                                 'dynamicOptions' => false,
                                  'name' => 'Color',
                                  'title' => 'Color',
                                  'tooltip' => '',
@@ -2768,6 +2752,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
                               )),
                               4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -2776,7 +2763,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 2,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
@@ -2804,7 +2791,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 3,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
@@ -3024,7 +3011,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 20,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
@@ -3106,14 +3093,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'fieldtype' => 'textarea',
+                                 'fieldtype' => 'input',
                                  'width' => 250,
-                                 'height' => 100,
-                                 'maxLength' => 10,
                                  'showCharCount' => false,
-                                 'excludeFromSearchIndex' => false,
-                                 'queryColumnType' => 'longtext',
-                                 'columnType' => 'longtext',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
                                  'phpdocType' => 'string',
                                  'name' => 'sapDescriptionLanguage',
                                  'title' => 'SAP Description Language',
@@ -3129,6 +3113,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'locked' => false,
@@ -5043,7 +5032,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 2,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,

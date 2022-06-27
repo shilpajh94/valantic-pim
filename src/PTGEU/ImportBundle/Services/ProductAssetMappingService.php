@@ -35,7 +35,7 @@ class ProductAssetMappingService
                         foreach($innerFolder as $folder)
                         {
                             $rowData[0] = $rowData[0]."/".$folder;
-                            $assetHierarchyPath = $this->resetPathSlash($rowData[4])."/".$folder;
+                            $assetHierarchyPath = $this->resetPathSlash($rowData[4]).$folder;
                             $this->createAsset($rowData[0], $assetHierarchyPath);
                         }   
                     }
@@ -119,7 +119,7 @@ class ProductAssetMappingService
         return $childFolder;
     }
 
-    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath): void
+    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath)
     {
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $folderData = scanDir($assetDirectoryPath);
