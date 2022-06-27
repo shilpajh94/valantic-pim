@@ -202,10 +202,10 @@ return [
 
         [
             'treetype' => 'asset',
-            'name' => 'External Assets',
+            'name' => 'Product Assets',
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
-            'id' => 'ptgeu_asset_products',
-            'rootfolder' => '/PTG_EU',
+            'id' => 'contitech_ptgeu_asset_products',
+            'rootfolder' => '/Contitech_PTGEU/Products',
             'showroot' => true,
             'position' => 'left',
             'sort' => '5',
@@ -242,13 +242,60 @@ return [
                 ]
             ]
         ],
+
+
+        [
+            'treetype' => 'asset',
+            'name' => 'Catalog Images',
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
+            'id' => 'contitech_ptgeu_catalog_images',
+            'rootfolder' => '/Contitech_PTGEU/Catalog Images',
+            'showroot' => true,
+            'position' => 'left',
+            'sort' => '5',
+            'expanded' => false,
+            'treeContextMenu' => [
+                'asset' => [
+                    'items' => [
+                        'add' => [
+//                            "hidden" => 1,                                    // hide "Add asset" menu (including subentries)
+                            'items' => [
+//                                'upload' => 0,                                  // hide "Upload"
+//                                "uploadCompatibility" => 0,                     // hide "Upload Compatibility Mode"
+//                                "uploadZip" => 0,                               // hide "Upload ZIP Archive"
+//                                "importFromServer" => 0,                        // don't show "Import from Server"
+//                                'uploadFromUrl' => 0                            // hide "Upload From URL"
+                            ]
+                        ],
+                        'addFolder' => 0,                                       // show (!) "Add Folder" (shown by default anyway)
+                        'rename' => 0,                                          // hide "Rename"
+//                        "copy" => 0,                                            // hide "Copy"
+//                        "cut" => 0,                                             // hide "Cut"
+                        'paste' => 0,                                           // hide "Paste"
+                        'pasteCut' => 0,                                        // hide "Paste cut element"
+                        'delete' => 0,                                          // hide "Delete"
+                        'searchAndMove' => 0,                                   // hide "Search And Move"
+                        'lock' => 0,                                            // hide "Lock"
+                        'unlock' => 0,                                          // hide "Unlock"
+                        'lockAndPropagate' => 0,                                // hide "Lock and propagate"
+                        'unlockAndPropagate' => 0,                              // hide "Unlock and propagate"
+                        'reload' => [                                           // show reload (shown by default anyway)
+                            'hidden' => false
+                        ]
+                    ]
+                ]
+            ]
+        ],
+
+
+
         [
             'treetype' => 'object',
-            'name' => 'Products Data',
+            'name' => 'Product Objects',
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
-            'id' => 'ptgeu_dataobject_products_data',
-            'rootfolder' => '/PTG_EU/Products',
+            'id' => 'contitech_ptgeu_product_objects',
+            'rootfolder' => '/Contitech_PTGEU/Products',
             'showroot' => true,
             'classes' => '',
             'position' => 'left',
@@ -260,22 +307,51 @@ return [
                     'items' => [
                         'publish' => 0,                                         // hide "Publish"
                         'unpublish' => 0,                                       // hide "Unpublish"
-                        //'delete' => 0,  
+                        'delete' => 0,  
                         'searchAndMove' => 0, 
                         'unlock' => 0,            
-                        'unlockAndPropagete' => 0
+                        'unlockAndPropagete' => 0,
                     ]
                 ]
             ]
         ],
 
         [
+            'treetype' => 'object',
+            'name' => 'Catalog Objects',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
+            'id' => 'contitech_ptgeu_catalog_objects',
+            'rootfolder' => '/Contitech_PTGEU/Catalog Objects',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0,
+                    ]
+                ]
+            ]
+        ],
+
+
+
+        [
             'treetype' => 'document',
-            'name' => 'Email Templates',
+            'name' => 'Catalog',
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/email.svg',
-            'id' => 'ptgeu_workflow_templates_cms',
-            'rootfolder' => '/PTG_EU/WorkflowEmailTemplates',
+            'id' => 'contitech_ptgeu_catalog_cms',
+            'rootfolder' => '/Contitech_PTGEU/Catalog',
             'showroot' => true,
             'classes' => '',
             'position' => 'left',
