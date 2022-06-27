@@ -72,11 +72,11 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 {
                     $i++;
                     $articleNumber  = $rowData[0];
-                    $rowData        = array_combine($csvHeader, $rowData);
                     $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
                     
                     if(!empty($product))
                     {
+                        $rowData    = array_combine($csvHeader, $rowData);
                         $this->processProduct($rowData, $product);
 
                         // unset features points var once row processed
@@ -167,17 +167,8 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         $method = 'set' . ucfirst($fieldName);
         if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
         {
-            $featureValueArr = [];
-            $featuresBenefitsBulletPoint = array_filter($this->featurePoints);
-            foreach($featuresBenefitsBulletPoint as $feature)
-            {
-                $objFeatures = new DataObject\Features\Listing();
-                $objFeatures->setCondition("Name = ?", $feature);
-                foreach ($objFeatures as $featureData) {
-                    $featureValueArr[] = $featureData->getId();
-                }
-            }
-            $fieldValue = array_map('trim', $featureValueArr);
+            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
+            $fieldValue     = array_map('trim', $featureValueArr);
             $product->$method($fieldValue);
         }
         elseif($fieldType=='Boolean Select')
@@ -205,5 +196,26 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             default:
                 return '';
         }
+    }
+
+    private function getProcessedFeaturePoints($featurePoints)
+    {
+        $featureValueArr = [];
+        $featuresBenefitsBulletPoint = array_filter($featurePoints);
+        if(!empty($featuresBenefitsBulletPoint)) 
+        {           
+            foreach($featuresBenefitsBulletPoint as $feature)
+            {
+                $objFeatures = new DataObject\Features\Listing();
+                $objFeatures->setCondition("Name = ?", $feature);
+                if(!empty($objFeatures)) 
+                {
+                    foreach ($objFeatures as $featureData) {
+                        $featureValueArr[] = $featureData->getId();
+                    }
+                }
+            }
+        }
+        return $featureValueArr;
     }
 }

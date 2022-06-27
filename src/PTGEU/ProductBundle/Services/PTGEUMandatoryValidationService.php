@@ -23,8 +23,7 @@ class PTGEUMandatoryValidationService {
 
                 $method = "get$fieldName"; 
                 $class = DataObject\ClassDefinition::getByName($className);
-                $fieldTitle = $class->getFieldDefinition($fieldName);
-
+                $fieldTitle = $class->getFieldDefinition("localizedfields")->getFieldDefinition($fieldName);
                 if ($fieldTitle) {
                     $fieldTitle = $fieldTitle->getTitle(); 
                 } else {
@@ -64,7 +63,7 @@ class PTGEUMandatoryValidationService {
      
     public function checkForParentUnpublishValidation($product) {
         $parent = $product->getParent();
-        while($parent->getFullPath() != '/PTG_EU/Products') {
+        while($parent->getFullPath() != '/Contitech_PTGEU/Products') {
             if ($parent->getType() != 'folder' && $parent->isPublished() == 0) {
                 throw new \Pimcore\Model\Element\ValidationException("Cannot publish product if parent product is unpublished");
             }

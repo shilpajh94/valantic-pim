@@ -101,7 +101,7 @@ services:
         class:  PTGEU\ImportBundle\Services\CategoryService
         public: true
     
-    import.category_validator_service:
+    import.ptgeu_category_validator_service:
         class: PTGEU\ImportBundle\Services\Validator\Category
         public: true
 
