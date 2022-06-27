@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-27T09:59:16+02:00
+* Generated at: 2022-06-27T11:14:01+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorPTGEU',
    'description' => '',
    'creationDate' => 1655378062,
-   'modificationDate' => 1656316756,
+   'modificationDate' => 1656321241,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -208,7 +208,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'title' => 'Shelf Life',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => '',
@@ -2258,7 +2258,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'title' => 'Features & Benefits Bullet Points',
                                      'tooltip' => 'Max 10 allowed',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'margin-left:20px;',

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-27T10:04:43+02:00
+* Generated at: 2022-06-27T11:13:00+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagerPTGEU',
    'description' => '',
    'creationDate' => 1655375162,
-   'modificationDate' => 1656317083,
+   'modificationDate' => 1656321180,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -4234,10 +4234,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel1',
@@ -4308,10 +4304,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel3',
@@ -4345,10 +4337,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel4',
