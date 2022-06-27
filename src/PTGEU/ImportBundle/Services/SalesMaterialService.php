@@ -491,29 +491,37 @@ class SalesMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey, $plantFolderId) {
-        $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
-        if(!$objectPlant) {
+        $objectPlant = new DataObject\Plant\Listing();
+        $objectPlant->setCondition("Plant = ?", [$plantKey]);
+        $objectPlant->load();
+
+        if(empty($objectPlant)) {
             $objectPlant = new DataObject\Plant();
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
             $objectPlant->setPublished(TRUE);   
             $objectPlant->save();  
+
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
+
+            return $objectPlant->getId();
         } else {
+            foreach ($objectPlant as $objPlant) {
+                return $objPlant->getId();
+            }
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
         }
-        return $objectPlant->getId();
     }
 
     /**
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId) {
-        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
+        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey."-".$distributionChannelDesc);
         if(!$object) {
             $object = new DataObject\DistributionChannel();
-            $object->setKey($distributionChannelKey);
+            $object->setKey($distributionChannelKey."-".$distributionChannelDesc);
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
             $object->setParentId($distributionChannelFolderId);
@@ -531,10 +539,10 @@ class SalesMaterialService
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId) {
-        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
+        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey."-".$salesOrgDesc);
         if(!$object) {
             $object = new DataObject\SalesOrganisation();
-            $object->setKey($salesOrgKey);
+            $object->setKey($salesOrgKey."-".$salesOrgDesc);
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);
@@ -551,10 +559,10 @@ class SalesMaterialService
      * return Country of origin object
      */
     public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId) {
-        $object = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryOfOriginKey);
+        $object = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryOfOriginKey."-".$countryOfOriginDesc);
         if(!$object) {
             $object = new DataObject\Country();
-            $object->setKey($countryOfOriginKey);
+            $object->setKey($countryOfOriginKey."-".$countryOfOriginDesc);
             $object->setCode($countryOfOriginKey);
             $object->setName($countryOfOriginDesc);
             $object->setParentId($countryOfOriginFolderId);
