@@ -284,5 +284,109 @@ return [
                 'id' => 'cs_dataobject_master_data',
             ]
         ]
-    ]
+    ],
+
+    'PTGEU_ApplicationAdmin' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'ptgeu_workflow_templates_cms',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'ptgeu_asset_products',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'ptgeu_dataobject_products_data',
+            ]
+            
+        ]
+    ],
+
+    'PTGEU_ProductManager' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'ptgeu_asset_products',
+            ],
+           
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'ptgeu_dataobject_products_data',
+            ],
+            
+        ]
+    ],
+
+    'PTGEU_MarCom' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'ptgeu_asset_products',
+            ],
+           
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'ptgeu_dataobject_products_data',
+            ],
+            
+        ]
+    ],
+
+    'PTGEU_Editor' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'ptgeu_asset_products',
+            ],
+           
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'ptgeu_dataobject_products_data',
+            ],
+            
+        ]
+    ],
 ];
