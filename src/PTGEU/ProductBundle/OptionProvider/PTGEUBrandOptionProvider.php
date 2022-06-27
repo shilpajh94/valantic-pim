@@ -41,7 +41,7 @@ class PTGEUBrandOptionProvider implements SelectOptionsProviderInterface
     public function getOptions($context, $fieldDefinition)
     {
         $brandListPTGEU = new DataObject\Brand\Listing();
-        $brandListPTGEU->setCondition("o_path = ?", "/PTG_EU/Master List/Brands/" );
+        $brandListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Brands/" );
         $brandListPTGEU = $brandListPTGEU->load();
 
         foreach ($brandListPTGEU as $brand) {

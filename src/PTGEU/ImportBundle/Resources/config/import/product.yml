@@ -75,7 +75,7 @@ parameters:
   root:
     type: 'dataObject'
     subType:  'object'
-    fullPath: '/PTG_EU/Products'
+    fullPath: '/Contitech_PTGEU/Products'
   
   # Base / Brand info
   base:

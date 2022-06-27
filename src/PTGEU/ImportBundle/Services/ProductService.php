@@ -119,9 +119,9 @@ class ProductService
             Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                echo "Object Saving started for completeness.";         
+                echo "Object Saving started for completeness.".PHP_EOL;         
                 $this->saveProducts($this->updatedArticlesArray);
-                echo "Object Saving completed for completeness.";
+                echo "Object Saving completed for completeness.".PHP_EOL;
             }
 
             if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
@@ -190,7 +190,7 @@ class ProductService
             $partialData = null;
             unset($partialData);
             $i = $i+$length;
-            echo "Record Processed: ".$i;
+            echo "Record Processed: ".$i.". ";
             $b = time();
             echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
             \Pimcore::collectGarbage();
@@ -758,7 +758,7 @@ class ProductService
                 $obj = new \Pimcore\Model\DataObject\MaterialGroup();
                 $obj->setCode($materialGroupCode);
                 $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
-                $parentFolder = $this->productHelper->getFolderByPath('PTG_EU/Master List/Material Group');
+                $parentFolder = $this->productHelper->getFolderByPath('Contitech_PTGEU/Master List/Material Group');
                 $obj->setPublished(true);
                 $obj->setParentId($parentFolder);
                 $obj->save();
@@ -771,11 +771,14 @@ class ProductService
     }
 
     public function saveProducts($updatedArticlesArray) {
-        foreach ($updatedArticlesArray as $objectId) {
-            if (!empty($objectId)) {
-                $object = DataObject\PTGEUProduct::getById($objectId, true);
-                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
-                    $object->save();
+        if(is_array($updatedArticlesArray))
+        {
+            foreach ($updatedArticlesArray as $objectId) {
+                if (!empty($objectId)) {
+                    $object = DataObject\PTGEUProduct::getById($objectId, true);
+                    if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
+                        $object->save();
+                    }
                 }
             }
         }

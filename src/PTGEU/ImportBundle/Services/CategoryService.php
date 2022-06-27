@@ -5,7 +5,6 @@ namespace PTGEU\ImportBundle\Services;
 use Pimcore\Model\DataObject;
 use Pimcore\Log\FileObject;
 use AppBundle\Logger\AppLogger as Logger;
-use Elements\Bundle\ProcessManagerBundle;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Services\ImportConstants;
 
@@ -17,13 +16,11 @@ class CategoryService
     public $archiveDir;
     public $failedDir;
     private $logFileName;
-    private $monitoringItem;
     private $totalSteps;
     public $currentStep;
     private $reader;
     public $rowStatus;
     public $instance;
-    use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     private $fileLastCol;
     private $common;
@@ -33,16 +30,13 @@ class CategoryService
     public function __construct()
     {
         try {
-            $this->logFileName  = 'PTGEU-Category-' . date('Ymdhis');
-            $this->name         = 'PTGEU-Product-Hierarchy' . '-' . date('Y-m-d-his');
-            /* Initilize monitoring item and set the number of steps will take to complete the task */
-            $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+            $this->logFileName  = 'PTGEU-Product-Hierarchy' . '-' . date('Y-m-d-his');
             $this->common = \Pimcore::getContainer()->get('import.common_helper');
             /* Load category configuration file */
             $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
             /* Initiating global category helper */
             $this->catHelper = \Pimcore::getContainer()->get('import.category_helper');
-            $this->instance = \Pimcore::getContainer()->get('import.category_validator_service');
+            $this->instance = \Pimcore::getContainer()->get('import.ptgeu_category_validator_service');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
 
             /* Create parent if it does not exist */
@@ -58,12 +52,9 @@ class CategoryService
         try {
 
             $spreadsheet    = ImportService::load($this->filePath);
-            $vaidateResult  = $this->instance->validateSpreadSheet($spreadsheet);
-            
-            if (!$vaidateResult['status']) {
-                $this->monitoringItem->setMessage($vaidateResult['message'])->save();
-                $this->monitoringItem->getLogger()->error($vaidateResult['message']);
-                $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
+            $validateResult  = $this->instance->validateSpreadSheet($spreadsheet);
+            if (!$validateResult['status']) {
+                Logger::error($this->logFileName, $validateResult['message']);
                 die;
             }
 
@@ -73,13 +64,6 @@ class CategoryService
             $failedCnt = 0;
             $success = true;
             $this->totalSteps = $totalRow;
-
-            $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
-            $this->monitoringItem->setMessage('File Information')->save();
-            $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
-
-            /* Setting Parent Information in log */
-            $this->monitoringItem->setMessage('Object and Parent Stats')->save();
 
             $sheetColumns = $this->common->getParameterItem($this->catConfigData, 'sheet', 'columnName');
             foreach ($activeSheet as $rowCnt => $reader) {
@@ -94,7 +78,6 @@ class CategoryService
                 /* Validate each row's column value */
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
-                $this->monitoringItem->setCurrentStep($this->currentStep)->save();
                 
                 $processedResult= $this->processImport($this->currentStep, $this->reader, $result);
                 $flag           = $processedResult['flag'];
@@ -110,9 +93,7 @@ class CategoryService
                 }
             }
 
-            $this->monitoringItem->setWorkloadCompleted()->save();
             \Pimcore::collectGarbage();
-            $this->monitoringItem->setMessage('Job finished')->setCompleted();
             ImportService::save();
 
 
@@ -123,7 +104,8 @@ class CategoryService
                 Logger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
-            echo $th->getMessage();
+            Logger::error($this->logFileName, $th->getMessage());
+            die;
         }
     }
 
@@ -132,8 +114,6 @@ class CategoryService
         if (!$result['status']) {
             $success = false;
             $flag = false;
-
-            $this->monitoringItem->getLogger()->error($result['message']);
             $this->rowStatus[$currentStep] .= $result['message'];
         } else {
             $levelInfo = $this->catHelper->getLevels($reader['code'], $reader['description']);
@@ -142,13 +122,11 @@ class CategoryService
                 $lvl = max(array_keys($levelInfo['levels']));
                 $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
                 if (!$this->createCategory($levelInfo['levels'])) {
-                    $this->monitoringItem->getLogger()->error("Code '" . $reader['code'] . "' failed to process");
                     $flag = false;
                     $success = false;
                 }
             } else {
                 /* Validation Error */
-                $this->monitoringItem->getLogger()->error($levelInfo['message']);
                 $flag = false;
                 $success = false;
             }
@@ -186,17 +164,10 @@ class CategoryService
         $catObj = $this->catHelper->getObjectByFullCode($levelInfo['levelFullCode'], $levelInfo['bu']);
 
         if (empty($catObj)) {
-            $this->monitoringItem->setMessage('New Category Insertion ')->save();
             $catObj = new DataObject\PTGEUProductHierarchy();
         } else {
-            $this->monitoringItem->setMessage('Updating ' . $levelInfo['fullCode'] . ' ' . $catObj->getId())->save();
             $catObj = DataObject::getById($catObj->getId());
         }
-        /* Setting current processing workload outof total workload */
-        $this->monitoringItem->setCurrentWorkload($this->currentStep)
-            ->setTotalWorkload($this->totalSteps)
-            ->setDefaultProcessMessage("Processing Raw code '" . $levelInfo['fullCode'] . "', code: '" . $levelInfo['code'] . "', Full Code: '" . $levelInfo['levelFullCode'] . "'")
-            ->save();
 
         $objKey = $levelInfo['objectKey'];
 
@@ -242,7 +213,6 @@ class CategoryService
         $catObj->setPublished(1);
         $catObj->save();
         if (empty($catObj)) {
-            $this->monitoringItem->getLogger()->error("Code '" . $levelInfo['code'] . "' and level " . $levelInfo['level'] . " could not processed ");
             return false;
         }
         return $catObj->getId();

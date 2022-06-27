@@ -17,6 +17,7 @@ class Category
     public $businessUnit;
     public $rowCnt;
     private $catConfigData;
+    
     public function __construct()
     {
         $this->rowCnt = 0;
@@ -26,6 +27,7 @@ class Category
         $this->catHelper = \Pimcore::getContainer()->get('import.category_helper');
         $this->columns = $this->common->getParameterItem($this->catConfigData, 'sheet','columnName');
     }
+
     public function validateSpreadSheet($spreadsheet)
     {
         $activeSheet = $spreadsheet->getActiveSheet()->toArray();
@@ -42,7 +44,7 @@ class Category
 
     public function validateRow($reader)
     {
-        $flag = true;
+        $flag  = true;
         if (array_key_exists('code', $reader)) {
             if (!$this->catHelper->getLevels($reader['code'])['status']) {
                 $flag = false;
