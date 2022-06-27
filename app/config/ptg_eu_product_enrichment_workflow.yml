@@ -100,7 +100,7 @@ pimcore:
                     from:
                         - open
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_EDITORPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_EDITORPTGEU"))
                     options:
                         label: 'Send to Marcom'
                         notes:
@@ -111,7 +111,7 @@ pimcore:
                     from:
                         - in_editor_edit
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_EDITORPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_EDITORPTGEU"))
                     options:
                         label: 'Send to MarCom'
                         notes:
@@ -133,7 +133,7 @@ pimcore:
                     from:
                         - in_review
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMIPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
                     options:
                         label: 'Send to MarCom for Fixes'
                         notes:
@@ -188,24 +188,24 @@ pimcore:
                     from:
                         - published
                     to: in_pm_review_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_EDITORPTGEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_EDITORPTGEU") or has_role("ROLE_MARCOMPTGEU"))
                     options:
                         label: 'Send to PM for Review'
                         notes:
                             commentEnabled: true
                             commentRequired: false
                         changePublishedState: force_published
-                in_pm_review_after_marcom_edit:
-                    from:
-                        - published
-                    to: in_pm_review_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_MARCOMPTGEU"))
-                    options:
-                        label: 'Send to PM for Review'
-                        notes:
-                            commentEnabled: true
-                            commentRequired: false
-                        changePublishedState: force_published
+                # in_pm_review_after_marcom_edit:
+                #     from:
+                #         - published
+                #     to: in_pm_review_after_publish
+                #     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_MARCOMPTGEU"))
+                #     options:
+                #         label: 'Send to PM for Review'
+                #         notes:
+                #             commentEnabled: true
+                #             commentRequired: false
+                #         changePublishedState: force_published
                 in_editor_edit_after_marcom_review:
                     from:
                         - in_marcom_edit_after_publish
