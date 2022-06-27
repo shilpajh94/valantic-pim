@@ -154,6 +154,7 @@ pimcore:
                 approved:
                     from:
                         - in_review
+                        - published
                     to: published
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
                     options:
@@ -275,6 +276,7 @@ pimcore:
                 in_pm_review:
                     from:
                         - in_pm_review_after_publish
+                        - published
                     to: published
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINPTGEU") or has_role("ROLE_PRODUCTMANAGERPTGEU"))
                     options:
