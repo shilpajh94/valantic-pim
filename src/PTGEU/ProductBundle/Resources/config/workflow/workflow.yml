@@ -1,6 +1,20 @@
 parameters:
     host: 'https://pim.conti.de'
     completed:
+        send_to_editor:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - EditorPTGEU
+        send_to_marcom:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComPTGEU
+                roles:
+                    - MarComPTGEU
         send_to_marcom_for_review:
             templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
             notificationTo: 
@@ -8,7 +22,6 @@ parameters:
                     # - ProductOwner
                 roles:
                     - MarComPTGEU
-                    # - EditorPTGEU
         send_to_editor_for_fixes:
             templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
             notificationTo: 
@@ -37,11 +50,81 @@ parameters:
                     # - ProductManagerPTGEU
                 roles:
                     - ProductManagerPTGEU
-        published:
+        # published:
+        #     templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+        #     notificationTo: 
+        #         users:
+        #             # - RnDUser
+        #         roles:
+        #             - ProductManagerPTGEU
+        in_editor_edit_after_publish:
             templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
             notificationTo: 
                 users:
-                    # - RnDUser
+                    # - ProductManagerPTGEU
+                roles:
+                    - EditorPTGEU
+        in_marcom_edit_after_publish:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComPTGEU
+                roles:
+                    - MarComPTGEU
+        in_pm_review_after_editor_edit:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - ProductManagerPTGEU
+        in_editor_edit_after_marcom_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - EditorPTGEU
+        in_pm_review_after_marcom:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - ProductManagerPTGEU
+        in_marcom_edit_after_editor_fixes:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComPTGEU
+                roles:
+                    - MarComPTGEU
+        in_pm_review_after_editor:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - ProductManagerPTGEU
+        in_marcom_edit_after_pm_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComPTGEU
+                roles:
+                    - MarComPTGEU
+        in_editor_edit_after_pm_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
+                roles:
+                    - EditorPTGEU
+        in_pm_review:
+            templatePath: '/PTGEU/WorkflowEmailTemplates/Sent for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagerPTGEU
                 roles:
                     - ProductManagerPTGEU
     transition: 
