@@ -6,14 +6,27 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
+use CatalogBundle\Helper\CatalogTemplatingHelper;
+use Pimcore\Db;
 
 class DefaultController extends AbstractController
 {
     private $featuresList = [];
     private $s3srcArr = [];
+    private $attrbuteImgS3Arr = [];
+    
     private $columnsData = [];
+    private $attributeImages = [];
     private $iconRequired = 'NO';
     private $subHeaderRequired = 'NO';
+    private $catalogTemplatingHelper;
+    private $db;
+
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
+        $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
+        /* Initilize monitoring item and set the number of steps will take to complete the task */
+    }
 
     /**
      * @Route("/ptgeu_catalog")
@@ -99,41 +112,104 @@ class DefaultController extends AbstractController
 
     public function templatePtgEuProductPageAction(Request $request)
     {
-        $productObjectLevel5 = $this->getDocumentTag('relation', 'ptg_eu_product_page')->getElement();
-        if($productObjectLevel5)
+        
+        $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_page')->getElement();
+        if($catalogCategoryTableObject)
         {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
             $catalogConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getCatalogConfig();
             $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
+            
+            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
 
-            $tableHeaderAtrributes = array();
+            
+            // die;
+            // $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            // 
+            // $priceListTableConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPriceListTableConfig();
 
-            foreach ($ptgProductPageConfig as $key => $attribute) {
-                if($attribute['tableHeaderAtrribute'])
-                {
-                    $tableHeaderAtrributes[$key] = $attribute;
+            // $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
+            // $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
+
+            $catalogObj = DataObject\PTGEUCatalog::getById($catalogCategoryTableObject->getParentId());
+            // $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+
+            $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $distributionChannel = $catalogObj->getDistributionChannel();
+            $salesOrganisation = $catalogObj->getSalesOrganisation();
+            $Currency = $catalogObj->getCurrency();
+            $ValidFromDate = $catalogObj->getValidFromDate();
+
+            $attributeTable = $catalogCategoryTableObject->getAttributeTable();
+            // echo $catalogCategoryTableObject->getAttributeHeaderTableIcon();
+            $this->iconRequired = ($catalogCategoryTableObject->getAttributeHeaderTableIcon()) ? 'YES' : 'NO';   //  it returns if Yes = true, No = false or Empty = null
+            $objColumnsData = $catalogCategoryTableObject->getColumns();
+            $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
+            $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+            
+            $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
+            $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
+            $fifthLevelEntries->setLimit(1);
+
+            foreach ($fifthLevelEntries as $entry) {
+                $fifthLevelProduct = $entry;
+            }
+            // p_r($sixSevenLevelCategoryObj);
+
+            $seventhLevelProductList = [];
+
+            foreach ($sixSevenLevelCategoryObj as $categoryId) {
+
+                $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
+                $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
+                $seventhLevelEntries->setLimit(1);
+
+                foreach ($seventhLevelEntries as $entry) {
+                    $seventhLevelProductList[] = $entry->getId();
                 }
             }
 
-            $this->columnsData = $tableHeaderAtrributes;
+            $this->columnsData = json_decode($objColumnsData, true);
+            // p_r("dfg");
+            // if($IsPriceCatalog)
+            // {
+            //     $this->columnsData['listPrice']['columnName'] = 'listPrice';
+            //     $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+            //     $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
+            // }
+            // p_r("dfg");
+            
+            
+            // p_r($groupData);
+            // $tableHeaderAtrributes = array();
+
+            // foreach ($ptgProductPageConfig as $key => $attribute) {
+            //     if($attribute['tableHeaderAtrribute'])
+            //     {
+            //         $tableHeaderAtrributes[$key] = $attribute;
+            //     }
+            // }
+
+            // $this->columnsData = $tableHeaderAtrributes;
 
             $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
-            // p_r($this->columnsData);
-            // p_r($columnsDataWithImages);
-            // die;
+            // p_r("dfg");
             $reinforcement = array();
 
             $groupData = array();
             $this->subHeaderRequired = 'YES';
-            $this->iconRequired = 'YES';
             $groupData['subHeaderRequired'] = $this->subHeaderRequired;
             $groupData['iconRequired'] = $this->iconRequired;
-            $groupData['material'] = $productObjectLevel5->getMaterial();
+            $groupData['material'] = $fifthLevelProduct->getMaterial();
 
-            if($productObjectLevel5->getReinforcement())
+            if($fifthLevelProduct->getReinforcement())
             {
-                $reinforcement = $productObjectLevel5->getReinforcement();
+                $reinforcement = $fifthLevelProduct->getReinforcement();
             }
+            // p_r($groupData);
 
             $reinforcement = implode(', ', $reinforcement);
                     
@@ -142,67 +218,71 @@ class DefaultController extends AbstractController
             $this->featuresList = $this->getFeaturesList('en');
             
             $safetyFeatures = array();
-            foreach ($productObjectLevel5->getFeaturesBenefitsBulletPoint() as $feature) {
+            foreach ($fifthLevelProduct->getFeaturesBenefitsBulletPoint() as $feature) {
                 array_push($safetyFeatures,$feature);
             }
-
+            
             $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
-
+            
+            // die;
             $groupData['safetyFeatures'] = $safetyFeaturesList;
-            $groupData['mainImageObj'] = $productObjectLevel5->getMainImage1();
-            $groupData['ProfileDimensionImageObj'] = $productObjectLevel5->getTechnicalDrawing1();
-            $groupData['longDescription'] = $productObjectLevel5->getLongDescription();
-            $groupData['temperatureRange'] = $productObjectLevel5->getRangeTemperatureF()."(".$productObjectLevel5->getRangeTemperatureF().")";
+            $groupData['mainImageObj'] = $fifthLevelProduct->getMainImage1();
+            $groupData['ProfileDimensionImageObj'] = $fifthLevelProduct->getTechnicalDrawing1();
+            $groupData['longDescription'] = $fifthLevelProduct->getLongDescription();
+            $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureF().")";
             
             
-            $groupData['brandName'] = $productObjectLevel5->getProductName();
-
-            $productObjectLevel6List = $productObjectLevel5->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-
+            $groupData['brandName'] = $fifthLevelProduct->getProductName();
+            
+            
+            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+            // p_r($productObjectLevel6List);
+            // die;
             $articleData = [];
             foreach ($productObjectLevel6List as $productObjectLevel6) {
-                $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                foreach ($productObjectLevel7List as $article) {
+                if((count($sixSevenLevelCategoryObj)== 0) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                {
+                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                    foreach ($productObjectLevel7List as $article) {
 
-                    if($article->getPrintedCatalogFlag() === true)
-                    {
-                        $data['articleNumber'] = $article->getArticleNumber();
-                        $data['widthMM'] = '';
-                        $data['toothPitchPtMM'] = '';
-                        $data['numberOfTeethZ'] = '';
+                        if($article->getPrintedCatalogFlag() === true)
+                        {
+                            $data['articleNumber'] = $article->getArticleNumber();
+                            $data['widthMM'] = '1';
+                            $data['toothPitchPtMM'] = '2';
+                            $data['numberOfTeethZ'] = '3';
 
-                        // p_r($article->getArticleNumber());die;
+                            // p_r($article->getArticleNumber());die;
 
-                        // if(method_exists($article->getBricks(), 'getPTGEUFlatBeltsFert'))
-                        // {
-                        //     $data['widthMM'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getWidthMM();
-                        //     $data['toothPitchPtMM'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getToothPitchPtMM();
-                        //     $data['numberOfTeethZ'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getNumberOfTeethZ();
-                        // }
+                            // if(method_exists($article->getBricks(), 'getPTGEUFlatBeltsFert'))
+                            // {
+                            //     $data['widthMM'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getWidthMM();
+                            //     $data['toothPitchPtMM'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getToothPitchPtMM();
+                            //     $data['numberOfTeethZ'] = $article->getBricks()->getPTGEUFlatBeltsFert()->getNumberOfTeethZ();
+                            // }
 
-                        $data['pitchLengthLpLwMM'] = '';
-                        $data['pitchLengthLpLwIN'] = '';
-                        
-                        // if(method_exists($article->getBricks(), 'getPTGEUCommonFert'))
-                        // {
-                            // $data['pitchLengthLpLwMM'] = $article->getBricks()->getPTGEUCommonFert()->getPitchLengthLpLwMM();
-                            // $data['pitchLengthLpLwIN'] = $article->getBricks()->getPTGEUCommonFert()->getPitchLengthLpLwIN();
-                        // }
+                            $data['pitchLengthLpLwMM'] = '4';
+                            $data['pitchLengthLpLwIN'] = '5';
+                            
+                            // if(method_exists($article->getBricks(), 'getPTGEUCommonFert'))
+                            // {
+                                // $data['pitchLengthLpLwMM'] = $article->getBricks()->getPTGEUCommonFert()->getPitchLengthLpLwMM();
+                                // $data['pitchLengthLpLwIN'] = $article->getBricks()->getPTGEUCommonFert()->getPitchLengthLpLwIN();
+                            // }
 
-                        
-                        $data['netWeight'] = $article->getNetWeight();
-                        $data['weightUnit'] = $article->getWeightUnit();
-                        $articleData[$article->getProfile()][] = $data;
-                        // p_r($articleData);
-                        // die;
+                            
+                            $data['netWeight'] = $article->getNetWeight();
+                            $data['weightUnit'] = $article->getWeightUnit();
+                            $articleData[$article->getProfile()][] = $data;
+                        }
                     }
                 }
             }
+                        // p_r($articleData);productObjectLevel5
             // p_r($articleData);
             // die;
 
-
-            $brandsDataArr = array();
+            // $brandsDataArr = array();
     //             if($brandsData)
     //             {
     //                 foreach ($brandsData as $bkey => $bvalue) {
@@ -225,7 +305,13 @@ class DefaultController extends AbstractController
     //             unset($brandsData);
             $groupData['data'] = $articleData;
             $groupData['columnsDataWithImages'] = $columnsDataWithImages;
-            
+            // p_r($columnsDataWithImages);
+
+            $footer_logo_src = $CatalogImagesPTGFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+            $this->view['footer_class'] = '';
+            $this->view['footer_logo_src'] = $footer_logo_src;
+    //             $this->view['containerRequest'] = $containerRequest;
             $this->view['groupData'] = $groupData;
             // die;
     //         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
@@ -260,12 +346,12 @@ class DefaultController extends AbstractController
     //         $this->iconRequired = 'YES';
     //         $this->columnsData = json_decode($objColumnsData, true);
 
-    //         if($IsPriceCatalog)
-    //         {
-    //             $this->columnsData['listPrice']['columnName'] = 'listPrice';
-    //             $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
-    //             $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
-    //         }
+            if($IsPriceCatalog)
+            {
+                $this->columnsData['listPrice']['columnName'] = 'listPrice';
+                $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
+            }
             
     //         $this->get('translator')->setLocale($CatalogLanguage);
 
@@ -278,15 +364,19 @@ class DefaultController extends AbstractController
     //         //unset($this->attributeImages);
 
     //         // Getting order of the keys
-    //         $orderKeys = array();
-    //         foreach ($columnsDataWithImages as $skey => $svalue) {
-    //             foreach ($svalue as $vkey => $vvalue) {
-    //                 if($vvalue['columnName'] == 'listPrice')
-    //                     $orderKeys[$vvalue['columnName']] = count($headerKeysIndex);
-    //                 else
-    //                     $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
-    //             }
-    //         }
+            // $orderKeys = array();
+            // foreach ($columnsDataWithImages as $skey => $svalue) {
+            //     foreach ($svalue as $vkey => $vvalue) {
+            //         if($vvalue['columnName'] == 'listPrice')
+            //         {
+            //             $orderKeys[$vvalue['columnName']] = count($headerKeysIndex);
+            //         }
+            //         else
+            //         {
+            //             $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+            //         }
+            //     }
+            // }
 
     //         $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
     //         $materialList = $this->getMaterialList('PTG~material', $CatalogLanguage);
@@ -422,19 +512,21 @@ class DefaultController extends AbstractController
     //             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
     //             $this->view['footer_logo_src'] = $footer_logo_src;
     //             $this->view['containerRequest'] = $containerRequest;
-    //         }
+    //         }*/
         }
     }
 
-    private function getFiveSortedFeaturesWithIconList($safetyFeatures){
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures){
+        
         $safetyFeatures = array_unique($safetyFeatures);
 
         $safetyFeaturesList  = array();
         $safetyFeaturesListWithImage = array();
         $safetyFeaturesListWithOutImage = array();
+
         if($safetyFeatures)
         {
-            foreach ($safetyFeatures as $fvalue) {
+            foreach ($safetyFeatures as $fkey => $fvalue) {
                 if($this->featuresList[$fvalue]['icon'])
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
@@ -449,6 +541,7 @@ class DefaultController extends AbstractController
                 }
             }
         }
+
         if($safetyFeaturesListWithImage)
         {
             array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
@@ -457,7 +550,7 @@ class DefaultController extends AbstractController
         if($safetyFeaturesListWithOutImage)
         {
             array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
-        }   
+        }
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
         
@@ -465,9 +558,10 @@ class DefaultController extends AbstractController
         {
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
         }
-    
+
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
+        
         return $safetyFeaturesList;
     }
 
@@ -495,7 +589,7 @@ class DefaultController extends AbstractController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 
@@ -573,7 +667,7 @@ class DefaultController extends AbstractController
                     if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                     {
                         $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                        // $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
                         $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
                         $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
                     }

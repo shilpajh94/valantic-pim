@@ -1,0 +1,23 @@
+parameters:
+  attributeImages: 
+    'DescriptivePartNumber': '/PTGEU/CatalogImages/Icons/DescriptivePartNumber.png'
+    'descriptive': '/PTGEU/CatalogImages/Icons/descriptive.png'
+    'articleNumber': '/PTGEU/CatalogImages/Icons/articleNumber.png'
+    'grossWeight': '/PTGEU/CatalogImages/Icons/grossWeight.png'
+    'industryStandard': '/PTGEU/CatalogImages/Icons/industryStandard.png'
+    'netWeight': '/PTGEU/CatalogImages/Icons/netWeight.png'
+    'weightUnit': '/PTGEU/CatalogImages/Icons/weightUnit.png'
+    'widthmm': '/PTGEU/CatalogImages/Icons/widthmm.png'
+    'toothPitchPtMM': '/PTGEU/CatalogImages/Icons/pitchMM.png'
+    'numberOfTeeth': '/PTGEU/CatalogImages/Icons/numberOfTeeth.png'
+    'GroovesPerTooth': '/PTGEU/CatalogImages/Icons/GroovesPerTooth.png'
+    'listPrice': '/PTGEU/CatalogImages/Icons/listPrice.png'
+    'weightKg': '/PTGEU/CatalogImages/Icons/weightKg.png'
+    'pitchLength': '/PTGEU/CatalogImages/Icons/pitchLength.png'
+    'width': '/PTGEU/CatalogImages/Icons/width.png'
+    'outsideLength': '/PTGEU/CatalogImages/Icons/outsideLength.png'
+    'insideLength': '/PTGEU/CatalogImages/Icons/insideLength.png'
+    'pulleyDiameter': '/PTGEU/CatalogImages/Icons/pulleyDiameter.png'
+    'Pitch': '/PTGEU/CatalogImages/Icons/Pitch.png'
+  CatalogImagesPTGFooter: 
+    'Orange': '/PTGEU/CatalogImages/Footer/Continental_Logo_Master_yellow.png'

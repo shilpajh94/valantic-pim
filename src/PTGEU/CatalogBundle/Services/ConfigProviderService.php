@@ -28,10 +28,10 @@ class ConfigProviderService
     //     return $this->getConfigFromYmlFile(CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH);
     // }
 
-    // public function getAttributeImagesConfig()
-    // {
-    //     return $this->getConfigFromYmlFile(ATTRIBUTE_IMAGES_FILE_PATH);
-    // }
+    public function getAttributeImagesConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH);
+    }
 
     /**
      * get yml config for the given file

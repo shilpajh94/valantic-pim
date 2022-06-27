@@ -10,7 +10,7 @@ if (!isset($this->parentContainer)) {
                 "subtypes" => [
                 "object" => ["object"]
                 ],
-                "classes" => ["PTGEUProduct"],
+                "classes" => ["PTGEUCatalogCategoryAndTable"],
         ]);
         ?>
 <?php endif; ?>
