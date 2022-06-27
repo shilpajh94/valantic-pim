@@ -23,8 +23,7 @@ class PTGEUMandatoryValidationService {
 
                 $method = "get$fieldName"; 
                 $class = DataObject\ClassDefinition::getByName($className);
-                $fieldTitle = $class->getFieldDefinition($fieldName);
-
+                $fieldTitle = $class->getFieldDefinition("localizedfields")->getFieldDefinition($fieldName);
                 if ($fieldTitle) {
                     $fieldTitle = $fieldTitle->getTitle(); 
                 } else {
