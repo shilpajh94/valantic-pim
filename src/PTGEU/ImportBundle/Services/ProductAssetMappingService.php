@@ -18,7 +18,7 @@ class ProductAssetMappingService
         $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
-    public function import($filePath, $downloadOrMapping)
+    public function import(string $filePath, string $downloadOrMapping)
     {
         if (is_file($filePath)) {
             $csvFilePath = $filePath;
@@ -96,7 +96,7 @@ class ProductAssetMappingService
         }
     }
 
-    private function getPimColumnName(string $columnName)
+    private function getPimColumnName(string $columnName): string
     {
         if(isset($this->assetConfigData['parameters']['Attribute'][$columnName]['db_column_name']))
         {
@@ -119,7 +119,7 @@ class ProductAssetMappingService
         return $childFolder;
     }
 
-    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath)
+    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath): void
     {
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $folderData = scanDir($assetDirectoryPath);
@@ -137,7 +137,7 @@ class ProductAssetMappingService
         }
     }
 
-    private function resetPathSlash($path)
+    private function resetPathSlash(string $path): string
     {
         if($path[0] != '/')
         {
