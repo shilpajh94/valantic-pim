@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-09T11:37:46+02:00
+* Generated at: 2022-06-28T08:57:13+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,17 +9,17 @@
 
 
 Fields Summary: 
-- ProductRange [input]
-- SearchKeywords [textarea]
+- code [input]
+- description [wysiwyg]
 */ 
 
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
-   'id' => 'PTGEUSearchKeywordsMaster',
-   'name' => 'PTGEUSearchKeywordsMaster',
+   'id' => 'PTGEUMaterialGroup',
+   'name' => 'PTGEUMaterialGroup',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654767466,
+   'modificationDate' => 1656399432,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -59,10 +59,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'labelWidth' => 100,
          'layout' => NULL,
          'border' => false,
-         'name' => 'Layout',
+         'name' => 'MaterialGroup',
          'type' => NULL,
          'region' => NULL,
-         'title' => '',
+         'title' => 'Material Group',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -75,7 +75,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
-             'width' => 300,
+             'width' => 350,
              'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
@@ -84,35 +84,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'regex' => '',
              'unique' => false,
              'showCharCount' => false,
-             'name' => 'ProductRange',
-             'title' => 'Product Range',
+             'name' => 'code',
+             'title' => 'Code',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => 'padding:10px 10px 10px 10px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
              'defaultValueGenerator' => '',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-             'fieldtype' => 'textarea',
-             'width' => 300,
-             'height' => 200,
-             'maxLength' => NULL,
-             'showCharCount' => false,
-             'excludeFromSearchIndex' => false,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+             'fieldtype' => 'wysiwyg',
+             'width' => 600,
+             'height' => 100,
              'queryColumnType' => 'longtext',
              'columnType' => 'longtext',
              'phpdocType' => 'string',
-             'name' => 'SearchKeywords',
-             'title' => 'Search Keywords',
+             'toolbarConfig' => '',
+             'excludeFromSearchIndex' => false,
+             'name' => 'description',
+             'title' => 'Description',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -123,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'datatype' => 'data',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
+             'visibleGridView' => true,
              'visibleSearch' => false,
           )),
         ),
@@ -136,7 +135,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'PTGEU',
+   'group' => 'PTGEU_Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 
