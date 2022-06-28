@@ -578,8 +578,10 @@ class PlantMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey){
-        $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
-        if(!$objectPlant)
+        $objectPlant = new DataObject\Plant\Listing();
+        $objectPlant->setCondition("Plant = ?", [$plantKey]);
+        $objectPlant->load();
+        if(empty($objectPlant))
         {
             $objectPlant = new DataObject\Plant();
             $objectPlant->setKey($plantKey);
@@ -588,20 +590,25 @@ class PlantMaterialService
             $objectPlant->setPublished(TRUE);
             $objectPlant->save();
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
+
+            return $objectPlant->getId();
         }
         else{
+            foreach ($objectPlant as $objPlant) {
+                return $objPlant->getId();
+            }
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
         }
-        return $objectPlant->getId();
-
     }
 
     /**
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey){
-        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
-        if(!$object)
+        $object = new DataObject\DistributionChannel\Listing();
+        $object->setCondition("code = ?", [$distributionChannelKey]);
+        $object->load();
+        if(empty($object))
         {
             $object = new DataObject\DistributionChannel();
             $object->setKey($distributionChannelKey);
@@ -611,20 +618,25 @@ class PlantMaterialService
             $object->setPublished(TRUE);
             $object->save();
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created.");
+        
+            return $object->getId();
         }
         else{
+            foreach ($object as $obj) {
+                return $obj->getId();
+            }
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
         }
-        return $object->getId();
-
     }
 
     /**
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey){
-        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
-        if(!$object)
+        $object = new DataObject\SalesOrganisation\Listing();
+        $object->setCondition("code = ?", [$salesOrgKey]);
+        $object->load();
+        if(empty($object))
         {
             $object = new DataObject\SalesOrganisation();
             $object->setKey($salesOrgKey);
@@ -634,33 +646,43 @@ class PlantMaterialService
             $object->setPublished(TRUE);
             $object->save();
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
+
+            return $object->getId();
         }
         else{
+            foreach ($object as $obj) {
+                return $obj->getId();
+            }
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
         }
-        return $object->getId();
 
     }
-        /**
+     /**
      * return country object
      */
     public function getCountryObject($countryKey){
-        $objectCountry = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryKey);
-        if(!$objectCountry)
+        $object = new DataObject\Country\Listing();
+        $object->setCondition("code = ?", [$countryKey]);
+        $object->load();
+        if(empty($object))
         {
-            $objectCountry = new DataObject\Country();
-            $objectCountry->setKey($countryKey);
-            $objectCountry->setCode($countryKey);
-            $objectCountry->setName($countryKey);
-            $objectCountry->setParentId($this->countryFolderId);
-            $objectCountry->setPublished(TRUE);
-            $objectCountry->save();
+            $object = new DataObject\Country();
+            $object->setKey($countryKey);
+            $object->setCode($countryKey);
+            $object->setName($countryKey);
+            $object->setParentId($this->countryFolderId);
+            $object->setPublished(TRUE);
+            $object->save();
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created");
+
+            return $object->getId();
         }
         else{
+            foreach ($object as $obj) {
+                return $obj->getId();
+            }
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
         }
-        return $objectCountry->getId();
 
     }
 
