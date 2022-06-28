@@ -101,7 +101,6 @@ class B2BProductMediaPoster implements IDataPoster
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::UPDATE());
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::CREATE());
 
-            $this->removeEntriesFromPimDeletedAssets();
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductMediaPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
