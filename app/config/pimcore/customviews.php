@@ -205,7 +205,7 @@ return [
             'name' => 'Product Assets',
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
             'id' => 'contitech_ptgeu_asset_products',
-            'rootfolder' => '/Contitech_PTGEU/Products',
+            'rootfolder' => '/Contitech_PTGEU/Product Assets',
             'showroot' => true,
             'position' => 'left',
             'sort' => '5',
