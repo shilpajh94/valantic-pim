@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-28T11:02:14+02:00
+* Generated at: 2022-06-28T12:00:04+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -36,7 +36,6 @@ Fields Summary:
 - maxSpeed [input]
 - matchMakerLL [input]
 - heatAndOilResistant [input]
-- industryStandard [input]
 - beltHardness [numeric]
 - minPulleyDia [numeric]
 - minOutsidePulleyDia [numeric]
@@ -65,17 +64,18 @@ Fields Summary:
 - hierarchyLevel6 [manyToManyObjectRelation]
 - hierarchyLevel7 [manyToManyObjectRelation]
 - base [objectbricks]
-- eanUpc [input]
 - profile [input]
 - manufacturer [input]
 - manufacturerPartNumber [numeric]
 - articleNumber [input]
+- eanUpc [input]
 - netWeight [numeric]
 - weightUnit [select]
 - listPrice [numeric]
 - nominalLength [input]
 - sapDescriptionLanguage [input]
 - oldMaterialCode [input]
+- industryStandard [input]
 - grossWeight [numeric]
 - din [input]
 - Currency [select]
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656406931,
+   'modificationDate' => 1656410402,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3116,34 +3116,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               7 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 30,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'industryStandard',
-                                 'title' => 'Industry Standard #',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 250,
@@ -3174,7 +3146,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              9 => 
+                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 250,
@@ -3205,7 +3177,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              10 => 
+                              9 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 250,
@@ -4888,34 +4860,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
-                         'columnLength' => 14,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'eanUpc',
-                         'title' => 'EAN / UPC',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
                          'columnLength' => 30,
                          'phpdocType' => 'string',
                          'regex' => '',
@@ -5174,6 +5118,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 14,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'eanUpc',
+                                 'title' => 'EAN / UPC',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 220,
@@ -5204,7 +5176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              2 => 
+                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
@@ -5250,7 +5222,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 220,
@@ -5281,7 +5253,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              4 => 
+                              5 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -5309,7 +5281,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              5 => 
+                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 250,
@@ -5388,6 +5360,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 30,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'industryStandard',
+                                 'title' => 'Industry Standard #',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 220,
@@ -5418,7 +5418,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              2 => 
+                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -5446,7 +5446,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
@@ -5482,7 +5482,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              4 => 
+                              5 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
