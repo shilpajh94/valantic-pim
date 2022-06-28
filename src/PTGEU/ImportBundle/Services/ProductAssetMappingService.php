@@ -18,7 +18,7 @@ class ProductAssetMappingService
         $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
-    public function import(string $filePath, string $downloadOrMapping)
+    public function import(string $filePath, string $downloadOrMapping): void
     {
         if (is_file($filePath)) {
             $csvFilePath = $filePath;
