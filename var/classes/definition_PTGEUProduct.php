@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-27T14:30:10+02:00
+* Generated at: 2022-06-28T11:02:14+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -48,7 +48,6 @@ Fields Summary:
 - beltAngle [numeric]
 - beltType [input]
 - staticConductive [input]
-- sapDescriptionLanguage [input]
 - beltTolerance [input]
 - reinforcement [multiselect]
 - minimumTemperatureF [numeric]
@@ -75,6 +74,7 @@ Fields Summary:
 - weightUnit [select]
 - listPrice [numeric]
 - nominalLength [input]
+- sapDescriptionLanguage [input]
 - oldMaterialCode [input]
 - grossWeight [numeric]
 - din [input]
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656333007,
+   'modificationDate' => 1656406931,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3527,34 +3527,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'regex' => '',
                                  'unique' => false,
                                  'showCharCount' => false,
-                                 'name' => 'sapDescriptionLanguage',
-                                 'title' => 'SAP Description Language',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => 'margin-left:20px;',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              9 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'beltTolerance',
                                  'title' => 'Belt Tolerance',
                                  'tooltip' => '',
@@ -3571,7 +3543,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              10 => 
+                              9 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'fieldtype' => 'multiselect',
                                  'options' => 
@@ -5329,6 +5301,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'index' => false,
                                  'locked' => false,
                                  'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'sapDescriptionLanguage',
+                                 'title' => 'SAP Description Language',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
