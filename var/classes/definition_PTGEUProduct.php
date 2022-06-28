@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T09:15:13+02:00
+* Generated at: 2022-06-27T14:30:10+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655795692,
+   'modificationDate' => 1656333007,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3538,7 +3538,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
-                                 'invisible' => true,
+                                 'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
