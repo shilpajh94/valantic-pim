@@ -47,4 +47,10 @@ class B2BCategoryTempTablePopulator extends AbstractB2BTempTablePopulator
     {
         $this->helper->insertDataInTempTable($insertTempData, Constants::B2B_CATEGORY_TEMP_TABLE_NAME);
     }
+
+    public function getAllChildrenObjectsRecursively(array $parentIds)
+    {
+        return $this->helper->getAllChildrenObjectsRecursively($parentIds, "ProductCategory");
+    }
+    
 }
