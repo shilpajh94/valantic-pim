@@ -8,13 +8,11 @@ use \Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\PTGEUProduct;
 class ProductAssetMappingService
 {   
-    private $db;
-
+    
     private $assetConfigData;
    
     public function __construct()
     {
-        $this->db = \Pimcore\Db::get();
         $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
