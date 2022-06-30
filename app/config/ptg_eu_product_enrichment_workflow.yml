@@ -96,7 +96,7 @@ pimcore:
                             unpublish: false
                             condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
             transitions:
-                send_to_editor:
+                send_to_marcom:
                     from:
                         - open
                     to: in_marcom_edit
@@ -107,7 +107,7 @@ pimcore:
                             commentEnabled: true
                             commentRequired: true
                         changePublishedState: save_version
-                send_to_marcom:
+                send_to_marcom_again:
                     from:
                         - in_editor_edit
                     to: in_marcom_edit
