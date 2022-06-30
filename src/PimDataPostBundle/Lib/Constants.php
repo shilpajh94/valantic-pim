@@ -43,9 +43,9 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 19;
+    const UPDATE_WINDOW_END_HOUR = 2;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 50;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
     const INSERT_BATCH_SIZE = 50;
 

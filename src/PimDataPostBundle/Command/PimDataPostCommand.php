@@ -48,28 +48,29 @@ class PimDataPostCommand extends AbstractCommand
         $notificationSender->SendFailureNotification();
 
         /**
-         * posting data for B2B shop
+         * posting data for B2C shop
          */
-        $b2cscriptStartTime = time();
-        Util::setB2CScriptStartTime($b2cscriptStartTime);
-        p_r($b2cscriptStartTime);
+        // $b2cscriptStartTime = time();
+        // Util::setB2CScriptStartTime($b2cscriptStartTime);
+        // p_r($b2cscriptStartTime);
 
-        $executor = new B2CProductDataPoster();
-        $executor->postData();
+        // $executor = new B2CProductDataPoster();
+        // $executor->postData();
 
-        $executor = new B2CCategoryDataPoster();
-        $executor->postData();
+        // $executor = new B2CCategoryDataPoster();
+        // $executor->postData();
 
-        $executor = new B2CProductCategoryRelationDataPoster();
-        $executor->postData();
+        // $executor = new B2CProductCategoryRelationDataPoster();
+        // $executor->postData();
+
+        // $scriptEndTime = time();
+        // p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
+
+
+        // $notificationSender = new B2CFailureNotificationSender();
+        // $notificationSender->SendFailureNotification();
 
         $this->removeEntriesFromPimDeletedAssets();
-        
-        $scriptEndTime = time();
-        p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
-
-        $notificationSender = new B2CFailureNotificationSender();
-        $notificationSender->SendFailureNotification();
 
         if(Util::isPIMFailureFlagSet()){
             $notificationSender->sendPIMFailureNotification();
