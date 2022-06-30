@@ -71,9 +71,13 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
                     }
 
                     if($displayFieldCode)
+                    {
                         $allAvailablelArray[] = array("key" => $name." (".$code.")", "value" => $value);
+                    }
                     else
+                    {
                         $allAvailablelArray[] = array("key" => $name, "value" => $value);
+                    }
                 }
             }
         }

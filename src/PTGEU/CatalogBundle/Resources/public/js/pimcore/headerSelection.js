@@ -116,9 +116,13 @@ pimcore.plugin.headerSelection = Class.create({
             let header = {
                 "columnName": data[i],
                 "columnLabel": completeHeaderData.fieldLabel,
+                "fieldType": completeHeaderData.fieldType,
                 "groupName": completeHeaderData.groupName,
                 "unitName": completeHeaderData.unitName,
                 "columnWidth": completeHeaderData.columnWidth,
+                "fieldLevel": completeHeaderData.fieldLevel,
+                "objectBrickType": completeHeaderData.objectBrickType,
+                "objectBrickName": completeHeaderData.objectBrickName,
             };
             returnData[data[i]] = header;
         }

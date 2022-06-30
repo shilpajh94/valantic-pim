@@ -9,28 +9,19 @@ use Pimcore\Cache;
 class ConfigProviderService
 {
 
-    /**
-     * get level - attribute mapping
-     *
-     * @return mixed
-     */
-
     public function getCatalogConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH);
     }
-    //  public function getCatalogTableConfig()
-    // {
-    //     return $this->getConfigFromYmlFile(CATALOG_TABLE_CONFIG_FILE_PATH);
-    // }
-    //  public function getCatalogTableDynamicColumnConfig()
-    // {
-    //     return $this->getConfigFromYmlFile(CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH);
-    // }
-
+    
     public function getAttributeImagesConfig()
     {
         return $this->getConfigFromYmlFile(PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH);
+    }
+
+    public function getPriceListTableConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH);
     }
 
     /**

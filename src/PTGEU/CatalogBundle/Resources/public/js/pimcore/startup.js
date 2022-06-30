@@ -17,6 +17,61 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
        
         let objectClassName = object.data.general.o_className;
 
+        if (object.data.general.o_className == 'PTGEUCatalog') {
+            var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
+            var DistributionChannelCompObj = object.edit.dataFields.DistributionChannel.component;
+            var IsPriceCatalogCompObj = object.edit.dataFields.IsPriceCatalog.component;
+            var CurrencyCompObj = object.edit.dataFields.Currency.component;
+            var ValidFromDateCompObj = object.edit.dataFields.ValidFromDate.component;
+            if(IsPriceCatalogCompObj.value == '1')
+            {
+                SalesOrganisationCompObj.show();
+                SalesOrganisationCompObj.enable();
+                DistributionChannelCompObj.show();
+                DistributionChannelCompObj.enable();
+                CurrencyCompObj.show();
+                CurrencyCompObj.enable();
+                ValidFromDateCompObj.show();
+                ValidFromDateCompObj.enable();
+            }
+            else{
+                SalesOrganisationCompObj.hide();
+                SalesOrganisationCompObj.disable();
+                DistributionChannelCompObj.hide();
+                DistributionChannelCompObj.disable();
+                CurrencyCompObj.hide();
+                CurrencyCompObj.disable();
+                ValidFromDateCompObj.hide();
+                ValidFromDateCompObj.disable();
+            }
+
+            IsPriceCatalogCompObj.addListener('change', function (prVal, chVal) {
+                
+                if(chVal == '1')
+                {
+                    SalesOrganisationCompObj.show();
+                    SalesOrganisationCompObj.enable();
+                    DistributionChannelCompObj.show();
+                    DistributionChannelCompObj.enable();
+                    CurrencyCompObj.show();
+                    CurrencyCompObj.enable();
+                    ValidFromDateCompObj.show();
+                    ValidFromDateCompObj.enable();
+                }
+                else{
+                    SalesOrganisationCompObj.hide();
+                    SalesOrganisationCompObj.disable();
+                    DistributionChannelCompObj.hide();
+                    DistributionChannelCompObj.disable();
+                    CurrencyCompObj.hide();
+                    CurrencyCompObj.disable();
+                    ValidFromDateCompObj.hide();
+                    ValidFromDateCompObj.disable();
+                }
+
+            });
+        }
+
         if (objectClassName == 'PTGEUCatalogCategoryAndTable') {
             var colComp = Ext.getCmp(object.edit.dataFields.Columns.component.id);
             colComp.hide();

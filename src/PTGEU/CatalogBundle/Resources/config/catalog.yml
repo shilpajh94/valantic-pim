@@ -73,8 +73,6 @@ parameters:
                     fieldLevel: class
                     fieldType: Input
                     groupName: articleNumber
-                    parent:
-                        name: Product
                 toothPitchPtMM: 
                     columnName: toothPitchPtMM
                     fieldLevel: objectBrick
@@ -82,8 +80,8 @@ parameters:
                     numberOfDecimalPoints: 0
                     groupName: toothPitchPtMM
                     unitName: mm
-                    parent:
-                        name: PTGEUFlatBeltsFert
+                    objectBrickType: fert
+                    objectBrickName: PTGEUFlatBeltsFert
                 pitchLengthLpLwMM:
                     columnName: pitchLengthLpLwMM
                     fieldLevel: objectBrick
@@ -91,8 +89,8 @@ parameters:
                     numberOfDecimalPoints: 0
                     groupName: pitchLengthLpLw
                     unitName: mm
-                    parent:
-                        name: PTGEUFlatBeltsFert
+                    objectBrickType: fert
+                    objectBrickName: PTGEUCommonFert
                 pitchLengthLpLwIN:
                     columnName: pitchLengthLpLwIN
                     fieldLevel: objectBrick
@@ -100,15 +98,15 @@ parameters:
                     numberOfDecimalPoints: 2
                     groupName: pitchLengthLpLw
                     unitName: in
-                    parent:
-                        name: PTGEUFlatBeltsFert
+                    objectBrickType: fert
+                    objectBrickName: PTGEUCommonFert
                 numberOfTeethZ:
                     columnName: numberOfTeethZ
                     fieldLevel: objectBrick
                     fieldType: Input
                     groupName: numberOfTeethZ
-                    parent:
-                        name: PTGEUFlatBeltsFert
+                    objectBrickType: fert
+                    objectBrickName: PTGEUFlatBeltsFert
                 widthMM:
                     columnName: widthMM
                     fieldLevel: objectBrick
@@ -116,8 +114,8 @@ parameters:
                     numberOfDecimalPoints: 0
                     groupName: widthMM
                     unitName: mm
-                    parent:
-                        name: PTGEUFlatBeltsFert
+                    objectBrickType: fert
+                    objectBrickName: PTGEUFlatBeltsFert
                 netWeight:
                     columnName: netWeight
                     fieldLevel: class

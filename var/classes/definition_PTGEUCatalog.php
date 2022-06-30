@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-23T10:01:46+02:00
+* Generated at: 2022-06-29T11:02:08+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,10 +9,10 @@
 
 
 Fields Summary: 
-- ValidFromDate [date]
-- Currency [select]
 - CatalogLanguage [language]
 - IsPriceCatalog [booleanSelect]
+- ValidFromDate [date]
+- Currency [select]
 - DistributionChannel [select]
 - SalesOrganisation [select]
 */ 
@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUCatalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655971305,
+   'modificationDate' => 1656493327,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -77,66 +77,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
-             'fieldtype' => 'date',
-             'queryColumnType' => 'bigint(20)',
-             'columnType' => 'bigint(20)',
-             'phpdocType' => '\\Carbon\\Carbon',
-             'defaultValue' => NULL,
-             'useCurrentDate' => false,
-             'name' => 'ValidFromDate',
-             'title' => 'Valid From Date',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'USD',
-                'value' => 'USD',
-              ),
-            ),
-             'width' => '',
-             'defaultValue' => '',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'dynamicOptions' => false,
-             'name' => 'Currency',
-             'title' => 'Currency',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
              'fieldtype' => 'language',
              'onlySystemLanguages' => true,
@@ -173,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          3 => 
+          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
              'fieldtype' => 'booleanSelect',
              'yesLabel' => 'Yes',
@@ -216,6 +156,71 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+             'fieldtype' => 'date',
+             'queryColumnType' => 'bigint(20)',
+             'columnType' => 'bigint(20)',
+             'phpdocType' => '\\Carbon\\Carbon',
+             'defaultValue' => NULL,
+             'useCurrentDate' => false,
+             'name' => 'ValidFromDate',
+             'title' => 'Valid From Date',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'USD',
+                'value' => 'USD',
+              ),
+              1 => 
+              array (
+                'key' => 'EUR',
+                'value' => 'EUR',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'dynamicOptions' => false,
+             'name' => 'Currency',
+             'title' => 'Currency',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
           4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
@@ -224,13 +229,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               array (
                 'key' => '1 (1)',
-                'value' => 10973613,
+                'value' => '1',
               ),
             ),
              'width' => '',
              'defaultValue' => '',
              'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
-             'optionsProviderData' => 'DistributionChannel|name+code|id',
+             'optionsProviderData' => 'DistributionChannel|name+code|code',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -259,14 +264,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
+                'key' => '104 (104)',
+                'value' => '104',
+              ),
+              1 => 
+              array (
+                'key' => '204 (204)',
+                'value' => '204',
+              ),
+              2 => 
+              array (
                 'key' => '4 (4)',
-                'value' => 10973612,
+                'value' => '4',
               ),
             ),
              'width' => '',
              'defaultValue' => '',
              'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
-             'optionsProviderData' => 'SalesOrganisation|name+code|id',
+             'optionsProviderData' => 'SalesOrganisation|name+code|code',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
