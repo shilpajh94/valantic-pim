@@ -2,14 +2,14 @@ parameters:
     host: 'https://pim.conti.de'
     completed:
         send_to_marcom:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment To Marcom'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
                     - MarComPTGEMEAAPAC
         send_to_marcom_again:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment To Marcom'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
                     # - MarComPTGEMEAAPAC
@@ -58,7 +58,7 @@ parameters:
         #         roles:
         #             - ProductManagementPTGEMEAAPAC
         in_editor_edit_after_publish:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send to Editor for Fixes'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send to Editor'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -93,7 +93,7 @@ parameters:
                 roles:
                     - ProductManagementPTGEMEAAPAC
         in_marcom_edit_after_editor_fixes:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment To Marcom'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
                     # - MarComPTGEMEAAPAC
