@@ -14,6 +14,6 @@ class DefaultController extends FrontendController
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world from ptgeu_product');
+       // return new Response('Hello world from ptgeu_product');
     }
 }

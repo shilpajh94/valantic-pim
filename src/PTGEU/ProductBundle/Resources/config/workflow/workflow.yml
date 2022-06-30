@@ -37,7 +37,7 @@ parameters:
                 roles:
                     - MarComPTGEMEAAPAC
         send_to_pm_for_review:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -49,9 +49,7 @@ parameters:
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
-                    - ProductManagementPTGEMEAAPAC
-                    - MarComPTGEMEAAPAC
-                    - EditorPTGEMEAAPAC
+                    # - ProductManagementPTGEMEAAPAC
         # published:
         #     templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Fixes'
         #     notificationTo: 
@@ -74,7 +72,7 @@ parameters:
                 roles:
                     - MarComPTGEMEAAPAC
         in_pm_review_after_editor_edit:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -88,7 +86,7 @@ parameters:
                 roles:
                     - EditorPTGEMEAAPAC
         in_pm_review_after_marcom:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -102,7 +100,7 @@ parameters:
                 roles:
                     - MarComPTGEMEAAPAC
         in_pm_review_after_editor:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -128,9 +126,7 @@ parameters:
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
-                    - ProductManagementPTGEMEAAPAC
-                    - MarComPTGEMEAAPAC
-                    - EditorPTGEMEAAPAC
+                    # - ProductManagementPTGEMEAAPAC
     transition: 
         send_to_marcom:
             condition:
