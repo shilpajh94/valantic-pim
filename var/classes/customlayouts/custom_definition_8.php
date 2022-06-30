@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-28T12:00:08+02:00
+* Generated at: 2022-06-30T09:29:49+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -11,8 +11,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => '8',
    'name' => 'ReadOnlyPTGEU',
    'description' => '',
-   'creationDate' => 1656410144,
-   'modificationDate' => 1656410408,
+   'creationDate' => 1656568995,
+   'modificationDate' => 1656574189,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -807,6 +807,88 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Base',
+                                        'value' => 'base',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Skeleton',
+                                        'value' => 'skeleton',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Fert',
+                                        'value' => 'fert',
+                                      ),
+                                    ),
+                                     'width' => 250,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'productType',
+                                     'title' => 'ProductType',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'PTGEU',
+                                        'value' => 'PTGEU',
+                                      ),
+                                    ),
+                                     'width' => 250,
+                                     'defaultValue' => 'PTGEU',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'businessUnit',
+                                     'title' => 'Business Unit',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
@@ -2168,7 +2250,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       ),
                                     ),
                                      'width' => 250,
-                                     'height' => 120,
+                                     'height' => '',
                                      'maxItems' => 10,
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
@@ -2181,7 +2263,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'title' => 'Features & Benefits Bullet Points',
                                      'tooltip' => 'Max 10 allowed',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'margin-left:20px;',
@@ -2191,88 +2273,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
-                                  )),
-                                  1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Base',
-                                        'value' => 'base',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Skeleton',
-                                        'value' => 'skeleton',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Fert',
-                                        'value' => 'fert',
-                                      ),
-                                    ),
-                                     'width' => 250,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
-                                     'name' => 'productType',
-                                     'title' => 'ProductType',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => true,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'PTGEU',
-                                        'value' => 'PTGEU',
-                                      ),
-                                    ),
-                                     'width' => 250,
-                                     'defaultValue' => 'PTGEU',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
-                                     'name' => 'businessUnit',
-                                     'title' => 'Business Unit',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => true,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,

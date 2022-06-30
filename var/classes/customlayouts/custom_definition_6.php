@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-27T10:01:03+02:00
+* Generated at: 2022-06-30T09:31:10+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComPTGEU',
    'description' => '',
    'creationDate' => 1655376843,
-   'modificationDate' => 1656316863,
+   'modificationDate' => 1656574270,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -369,88 +369,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'key' => 'Base',
-                                        'value' => 'base',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Skeleton',
-                                        'value' => 'skeleton',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Fert',
-                                        'value' => 'fert',
-                                      ),
-                                    ),
-                                     'width' => 100,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
-                                     'name' => 'productType',
-                                     'title' => 'ProductType',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => true,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  6 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'PTGEU',
-                                        'value' => 'PTGEU',
-                                      ),
-                                    ),
-                                     'width' => 100,
-                                     'defaultValue' => 'PTGEU',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
-                                     'name' => 'businessUnit',
-                                     'title' => 'Business Unit',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => true,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  7 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
                                         'key' => 'Cadmium (Cd): < 100 ppm',
                                         'value' => 'Cadmium (Cd): < 100 ppm',
                                       ),
@@ -525,7 +443,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  8 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
@@ -2025,227 +1943,232 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       ),
                                       226 => 
                                       array (
+                                        'key' => 'Static Pressure Rating',
+                                        'value' => 12472320,
+                                      ),
+                                      227 => 
+                                      array (
                                         'key' => 'Static Wire',
                                         'value' => 3168,
                                       ),
-                                      227 => 
+                                      228 => 
                                       array (
                                         'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
                                         'value' => 759973,
                                       ),
-                                      228 => 
+                                      229 => 
                                       array (
                                         'key' => 'Static Wire Option Available',
                                         'value' => 3169,
                                       ),
-                                      229 => 
+                                      230 => 
                                       array (
                                         'key' => 'Suitable for drinking  water',
                                         'value' => 759974,
                                       ),
-                                      230 => 
+                                      231 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Cover',
                                         'value' => 3170,
                                       ),
-                                      231 => 
+                                      232 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube',
                                         'value' => 3171,
                                       ),
-                                      232 => 
+                                      233 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube & Cover',
                                         'value' => 3172,
                                       ),
-                                      233 => 
+                                      234 => 
                                       array (
                                         'key' => 'Superior Bend Radius',
                                         'value' => 759975,
                                       ),
-                                      234 => 
+                                      235 => 
                                       array (
                                         'key' => 'Superior Cold Weather Flexibility',
                                         'value' => 759976,
                                       ),
-                                      235 => 
+                                      236 => 
                                       array (
                                         'key' => 'Superior Cover Adhesion',
                                         'value' => 3173,
                                       ),
-                                      236 => 
+                                      237 => 
                                       array (
                                         'key' => 'Superior Crush-Resistance',
                                         'value' => 759977,
                                       ),
-                                      237 => 
+                                      238 => 
                                       array (
                                         'key' => 'Superior Durability',
                                         'value' => 759978,
                                       ),
-                                      238 => 
+                                      239 => 
                                       array (
                                         'key' => 'Superior efficiency for improved performance',
                                         'value' => 760057,
                                       ),
-                                      239 => 
+                                      240 => 
                                       array (
                                         'key' => 'Superior Fitting Retention',
                                         'value' => 3174,
                                       ),
-                                      240 => 
+                                      241 => 
                                       array (
                                         'key' => 'Superior Kink Resistance',
                                         'value' => 759979,
                                       ),
-                                      241 => 
+                                      242 => 
                                       array (
                                         'key' => 'Superior Oil Resistance In The Tube',
                                         'value' => 759980,
                                       ),
-                                      242 => 
+                                      243 => 
                                       array (
                                         'key' => 'Superior Oil Resistance On The Cover',
                                         'value' => 759981,
                                       ),
-                                      243 => 
+                                      244 => 
                                       array (
                                         'key' => 'Superior Oil Resistance Tube And Cover',
                                         'value' => 759982,
                                       ),
-                                      244 => 
+                                      245 => 
                                       array (
                                         'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
                                         'value' => 759983,
                                       ),
-                                      245 => 
+                                      246 => 
                                       array (
                                         'key' => 'Survivor Compound Available',
                                         'value' => 3194,
                                       ),
-                                      246 => 
+                                      247 => 
                                       array (
                                         'key' => 'Tapered Nozzle Available',
                                         'value' => 3175,
                                       ),
-                                      247 => 
+                                      248 => 
                                       array (
                                         'key' => 'Taste & Odorless Tube',
                                         'value' => 3176,
                                       ),
-                                      248 => 
+                                      249 => 
                                       array (
                                         'key' => 'Tolerates misalignment',
                                         'value' => 760058,
                                       ),
-                                      249 => 
+                                      250 => 
                                       array (
                                         'key' => 'Transmit power from both sides',
                                         'value' => 760059,
                                       ),
-                                      250 => 
+                                      251 => 
                                       array (
                                         'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
                                         'value' => 760060,
                                       ),
-                                      251 => 
+                                      252 => 
                                       array (
                                         'key' => 'Twist Resistant',
                                         'value' => 3177,
                                       ),
-                                      252 => 
+                                      253 => 
                                       array (
                                         'key' => 'U.S. Coast Guard Certified',
                                         'value' => 3178,
                                       ),
-                                      253 => 
+                                      254 => 
                                       array (
                                         'key' => 'UL / CUL 330 Certified ',
                                         'value' => 759987,
                                       ),
-                                      254 => 
+                                      255 => 
                                       array (
                                         'key' => 'UL / CUL Certified',
                                         'value' => 3195,
                                       ),
-                                      255 => 
+                                      256 => 
                                       array (
                                         'key' => 'UL 330A Approved',
                                         'value' => 3179,
                                       ),
-                                      256 => 
+                                      257 => 
                                       array (
                                         'key' => 'UL 330B Approved',
                                         'value' => 3180,
                                       ),
-                                      257 => 
+                                      258 => 
                                       array (
                                         'key' => 'UL 94Hb Approved',
                                         'value' => 759984,
                                       ),
-                                      258 => 
+                                      259 => 
                                       array (
                                         'key' => 'UL Certified',
                                         'value' => 759985,
                                       ),
-                                      259 => 
+                                      260 => 
                                       array (
                                         'key' => 'Ultra-Low Permeation',
                                         'value' => 3181,
                                       ),
-                                      260 => 
+                                      261 => 
                                       array (
                                         'key' => 'Uniform cross section means less drive wear',
                                         'value' => 760061,
                                       ),
-                                      261 => 
+                                      262 => 
                                       array (
                                         'key' => 'Universal Fuel Compatibility',
                                         'value' => 3182,
                                       ),
-                                      262 => 
+                                      263 => 
                                       array (
                                         'key' => 'Universal tooth profile drops into existing sprockets',
                                         'value' => 760062,
                                       ),
-                                      263 => 
+                                      264 => 
                                       array (
                                         'key' => 'Universal tooth profile fits into existing RPP sprockets',
                                         'value' => 760063,
                                       ),
-                                      264 => 
+                                      265 => 
                                       array (
                                         'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
                                         'value' => 760064,
                                       ),
-                                      265 => 
+                                      266 => 
                                       array (
                                         'key' => 'USDA / FDA Certified',
                                         'value' => 759986,
                                       ),
-                                      266 => 
+                                      267 => 
                                       array (
                                         'key' => 'Vacuum Rated',
                                         'value' => 3183,
                                       ),
-                                      267 => 
+                                      268 => 
                                       array (
                                         'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
                                         'value' => 3184,
                                       ),
-                                      268 => 
+                                      269 => 
                                       array (
                                         'key' => 'Visibility of Flow',
                                         'value' => 3185,
                                       ),
-                                      269 => 
+                                      270 => 
                                       array (
                                         'key' => 'Withstand high loading forces',
                                         'value' => 760065,
                                       ),
                                     ),
                                      'width' => 250,
-                                     'height' => 120,
+                                     'height' => '',
                                      'maxItems' => 10,
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
@@ -2268,6 +2191,88 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Base',
+                                        'value' => 'base',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Skeleton',
+                                        'value' => 'skeleton',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Fert',
+                                        'value' => 'fert',
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'productType',
+                                     'title' => 'ProductType',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 45px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  2 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'PTGEU',
+                                        'value' => 'PTGEU',
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'defaultValue' => 'PTGEU',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'businessUnit',
+                                     'title' => 'Business Unit',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
