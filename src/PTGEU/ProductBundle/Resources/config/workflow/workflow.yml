@@ -49,7 +49,7 @@ parameters:
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
-                    # - ProductManagementPTGEMEAAPAC
+                     - ProductManagementPTGEMEAAPAC
         # published:
         #     templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Fixes'
         #     notificationTo: 
@@ -58,7 +58,7 @@ parameters:
         #         roles:
         #             - ProductManagementPTGEMEAAPAC
         in_editor_edit_after_publish:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send to Editor'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment to Editor'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
@@ -126,7 +126,7 @@ parameters:
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
-                    # - ProductManagementPTGEMEAAPAC
+                     - ProductManagementPTGEMEAAPAC
     transition: 
         send_to_marcom:
             condition:
