@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T10:25:37+02:00
+* Generated at: 2022-06-30T09:35:59+02:00
 * IP: ::1
 
 
@@ -12,6 +12,7 @@ Fields Summary:
 - refLengthLrMM [numeric]
 - ribPitchMM [numeric]
 - ribs [numeric]
+- pah [input]
 - heightMMUnit [input]
 - pitchLengthLpLwMMUnit [input]
 - pitchHeightHduMMUnit [input]
@@ -293,6 +294,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => 3,
                      'name' => 'ribs',
                      'title' => 'Ribs',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 30,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'pah',
+                     'title' => 'PAH',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
