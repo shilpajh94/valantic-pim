@@ -291,7 +291,7 @@ return [
 
         [
             'treetype' => 'object',
-            'name' => 'Product',
+            'name' => 'Products',
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
             'id' => 'contitech_ptgeu_product_objects',
