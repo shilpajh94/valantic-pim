@@ -1,12 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-07T08:50:43+02:00
+* Generated at: 2022-06-30T09:36:08+02:00
 * IP: ::1
 
 
 Fields Summary: 
-- pah [input]
 - electricalConductivity [input]
 */ 
 
@@ -65,34 +64,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => 300,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 30,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'pah',
-             'title' => 'PAH',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,
