@@ -18,9 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class InvokeLambdaCommand extends Command
 {
-    const LAMBDA_FUNCTION_NAME = "";
-    const LAMBDA_FUNCTION_REGION = "";
-
     /**
      * Function to set the command configurations
      *
@@ -115,6 +112,7 @@ class InvokeLambdaCommand extends Command
 
     private function invokeLambdaAndGetResponse(string $s3Key)
     {
+
         $lambdaClient = $this->getLambdaClient();
 
         $payload = json_encode([
@@ -133,7 +131,7 @@ class InvokeLambdaCommand extends Command
         ]);
 
         return $lambdaClient->invoke([
-            "FunctionName" => self::LAMBDA_FUNCTION_NAME,
+            "FunctionName" => IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME,
             "Payload" => $payload
         ]);
     }
@@ -153,8 +151,9 @@ class InvokeLambdaCommand extends Command
         $query .= " on pimcore_s3_path_mapping.pimcore_object_id = assets.id";
         $query .= " where type = 'image'";
 
-        // $result = $db->fetchAll($query);
+        $result = $db->fetchAll($query);
 
+        /*
         $result = [
             [
                 "pimcore_object_id" => 10816,
@@ -167,7 +166,7 @@ class InvokeLambdaCommand extends Command
                 "s3_path" => "/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png"
             ]
         ];
-
+        */
         return $result;
     }
 
@@ -184,14 +183,14 @@ class InvokeLambdaCommand extends Command
 
             $s3ConfigSettings = [
                 'version' => 'latest',
-                'region' => self::LAMBDA_FUNCTION_REGION,
+                'region' => IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION,
             ];
 
         }elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc"){
 
             $s3ConfigSettings = [
                 'version' => 'latest',
-                'region' => self::LAMBDA_FUNCTION_REGION,
+                'region' => IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION,
                 'credentials' => [
                     'key' => S3_KEY,
                     'secret' => S3_SECRET
