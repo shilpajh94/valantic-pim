@@ -741,10 +741,12 @@ class ProductService
         foreach ($bricks as $brick) {
             if (in_array($brick, $this->allBricksList) && $brick!='PTGEUVBeltsBase') {
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
-                    $tblName    = $brickPrefix.ucfirst($brick)."_38";
-                    $unitData   = array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
-                    $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData[$brick], $unitData);
-                    $this->bricksDataArray[$tblName][] = $tableData;
+                    $tblName    = $brickPrefix.ucfirst($brick)."_38";                    
+                    if(array_key_exists($brick, $bricksData) && array_key_exists($brick, $bricksUnitData))
+                    {
+                        $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData[$brick], $bricksUnitData[$brick]);
+                        $this->bricksDataArray[$tblName][] = $tableData;
+                    }
                 }
             }
         }
