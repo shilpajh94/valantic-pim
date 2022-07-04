@@ -35,7 +35,7 @@ Ribs:
 PAH:
     fieldName: pah
     fieldType: Input
-    objectType: PTGEUCommonBase
+    objectType: PTGEUCommonFert
 Height (h?) (in):
     fieldName: heightIN
     fieldType: Number
