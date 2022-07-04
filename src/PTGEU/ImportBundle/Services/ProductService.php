@@ -41,7 +41,7 @@ class ProductService
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'PTGEU_Material' . date('Ymdhis');
+        $this->logFileName          = 'ptgeu_material' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('import.common_helper');
         $this->productModel         = new ProductModel;
         $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
@@ -505,22 +505,15 @@ class ProductService
             $queryTableData['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $queryTableData['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
             $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $queryTableData['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
             $queryTableData['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-            $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
-            $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $queryTableData['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $queryTableData['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $queryTableData['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
-            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $queryTableData['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
-            $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
-            $queryTableData['minPulleyDia'] = trim($record['61']);
-            $queryTableData['minOutsidePulleyDia'] = trim($record['62']);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGrpId      = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
@@ -546,9 +539,10 @@ class ProductService
 
         if (strtolower($productType) == 'skeleton') {
             $queryTableData['profile'] = trim($record[$this->getRecordIndexByKey('profile')]);
-            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
-            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $queryTableData['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
+            $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $queryTableData['minPulleyDia'] = trim($record['61']);
+            $queryTableData['minOutsidePulleyDia'] = trim($record['62']);
         }
 
         if (strtolower($productType) == 'fert') {
@@ -561,6 +555,12 @@ class ProductService
             $queryTableData['weightUnit'] = $weightUnit;
             $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
             $queryTableData['din'] = trim($record[$this->getRecordIndexByKey('din')]);
+            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
+            $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
         }
 
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -619,22 +619,15 @@ class ProductService
             $storeTableDataArray['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $storeTableDataArray['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
             $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $storeTableDataArray['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
             $storeTableDataArray['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-            $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
-            $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $storeTableDataArray['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $storeTableDataArray['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $storeTableDataArray['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
-            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $storeTableDataArray['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
-            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
-            $storeTableDataArray['minPulleyDia'] = trim($record['61']);
-            $storeTableDataArray['minOutsidePulleyDia'] = trim($record['62']);
 
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
@@ -653,9 +646,10 @@ class ProductService
 
         if (strtolower($productType) == 'skeleton') {
             $storeTableDataArray['profile'] = trim($record[$this->getRecordIndexByKey('profile')]);
-            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
-            $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
-            $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $storeTableDataArray['beltAngle'] = trim($record[$this->getRecordIndexByKey('beltAngle')]);
+            $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
+            $storeTableDataArray['minPulleyDia'] = trim($record['61']);
+            $storeTableDataArray['minOutsidePulleyDia'] = trim($record['62']);
         }
 
         if (strtolower($productType) == 'fert') {
@@ -667,7 +661,13 @@ class ProductService
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $storeTableDataArray['weightUnit'] = $weightUnit; 
             $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
-            $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);         
+            $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);
+            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]); 
+            $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
+            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);        
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;
