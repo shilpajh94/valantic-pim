@@ -41,7 +41,7 @@ class ProductService
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'ptgeu_material' . date('Ymdhis');
+        $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('import.common_helper');
         $this->productModel         = new ProductModel;
         $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
@@ -495,7 +495,8 @@ class ProductService
             'beltHardness' => null,
             'beltTolerance' => null,
             'minPulleyDia' => null,
-            'minOutsidePulleyDia' => null
+            'minOutsidePulleyDia' => null,
+            'sapDescriptionLanguage' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -561,6 +562,7 @@ class ProductService
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $queryTableData['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);
         }
 
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -609,7 +611,8 @@ class ProductService
             'beltHardness' => null,
             'beltTolerance' => null,
             'minPulleyDia' => null,
-            'minOutsidePulleyDia' => null
+            'minOutsidePulleyDia' => null,
+            'sapDescriptionLanguage' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -667,7 +670,8 @@ class ProductService
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
-            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);        
+            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $storeTableDataArray['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);        
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;
@@ -734,19 +738,17 @@ class ProductService
     }
     
     public function setBricksData($objId, $bricks, $type, $record) { 
-        $csvHeader  = array_flip($this->csvHeader);   
-        $rowData    = array_combine($csvHeader, $record); 
-        $bricksData = $this->productHelper->processBricksData($rowData);   
+        $csvHeader      = array_flip($this->csvHeader);   
+        $rowData        = array_combine($csvHeader, $record);   
         $bricksUnitData = $this->productHelper->processBricksUnitData();
         foreach ($bricks as $brick) {
+            $bricksData     = $this->productHelper->processBricksData($rowData, $brick); 
             if (in_array($brick, $this->allBricksList) && $brick!='PTGEUVBeltsBase') {
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
-                    $tblName    = $brickPrefix.ucfirst($brick)."_38";                    
-                    if(array_key_exists($brick, $bricksData) && array_key_exists($brick, $bricksUnitData))
-                    {
-                        $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData[$brick], $bricksUnitData[$brick]);
-                        $this->bricksDataArray[$tblName][] = $tableData;
-                    }
+                    $tblName    = $brickPrefix.ucfirst($brick)."_38";  
+                    $unitData   = $this->productHelper->checkBrickUnitData($bricksUnitData, $brick);
+                    $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData, $unitData);
+                    $this->bricksDataArray[$tblName][] = $tableData;
                 }
             }
         }

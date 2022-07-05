@@ -147,23 +147,23 @@ Width (bo?) (mm):
 Tooth Pitch (P/t) (in):
     fieldName: toothPitchPtIN
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 Belt thickness (hs) (mm):
     fieldName: beltThicknessHsMM
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 Belt thickness (hs) (In):
     fieldName: beltThicknessHsIN
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 Tooth height (ht) (mm):
     fieldName: toothHeightHtMM
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 Tooth height (ht) (In):
     fieldName: toothHeightHtIN
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 
 # PTGEUFlatBeltsFert
 Number of teeth (z):
@@ -182,139 +182,139 @@ Ref. line diff. (hb) (mm):
     objectType: PTGEUPolyVFert
 
 # PTGEUMetalFert
-#Max Bore Size:
-    # fieldName: maxBoreSizeMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Min Bore Size (MM):
-    # fieldName: minBoreSizeMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Key Way (mm):
-    # fieldName: keyWayMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Pitch Diameter (mm):
-    # fieldName: pitchDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-Min. outside pulley dia.\n[mm]:
-    # fieldName: outsideDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Inside Diameter (mm):
-    # fieldName: insideDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Flange Diameter (mm):
-    # fieldName: flangeDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Hub Diameter (mm):
-    # fieldName: hubDiameterMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-Min. pulley dia.\n[mm]:
+Max Bore Size:
+    fieldName: maxBoreSizeMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Min Bore Size (MM):
+    fieldName: minBoreSizeMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Key Way (mm):
+    fieldName: keyWayMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Pitch Diameter (mm):
+    fieldName: pitchDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Outside Diameter:
+    fieldName: outsideDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Inside Diameter (mm):
+    fieldName: insideDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Flange Diameter (mm):
+    fieldName: flangeDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Hub Diameter (mm):
+    fieldName: hubDiameterMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Pulley Diameter [mm]:
     fieldName: pulleyDiameterMM
     fieldType: Number
     objectType: PTGEUMetalFert
-#Face Width (mm):
-    # fieldName: faceWidthMM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#For Belt Width:
-    # fieldName: forBeltWidth
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Number of Grooves:
-    # fieldName: numberOfGrooves
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Number of Teeth:
-    # fieldName: numberOfTeeth
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Standards:
-    # fieldName: standards
-    # fieldType: Textarea
-    # objectType: PTGEUMetalFert
-#RawMaterial:
-    # fieldName: rawMaterial
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Max Bore Size (in):
-    # fieldName: maxBoreSizeIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Min Bore Size (in):
-    # fieldName: minBoreSizeIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Key Way (In):
-    # fieldName: keyWayIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Pitch Diameter (in):
-    # fieldName: pitchDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Outside Diameter (in):
-    # fieldName: outsideDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Inside Diameter (in):
-    # fieldName: insideDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Flange Diameter (in):
-    # fieldName: flangeDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Hub Diameter (in):
-    # fieldName: hubDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Pulley Diameter (in):
-    # fieldName: pulleyDiameterIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Face Width (in):
-    # fieldName: faceWidthIN
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#For Belt Profile:
-    # fieldName: forBeltProfile
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#For Belt Width (UoM):
-    # fieldName: forBeltWidthUOM
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Surface Finish:
-    # fieldName: surfaceFinish
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Set Screw / Set Screw Type:
-    # fieldName: setScrewType
-    # fieldType: Select
-    # objectType: PTGEUMetalFert
-#Number of Ribs:
-    # fieldName: numberOfRibs
-    # fieldType: Number
-    # objectType: PTGEUMetalFert
-#Flange Material:
-    # fieldName: flangeMaterial
-    # fieldType: Input
-    # objectType: PTGEUMetalFert
-#Flange:
-    # fieldName: flange
-    # fieldType: Select
-    # objectType: PTGEUMetalFert
-#Bore Type:
-    # fieldName: boreType
-    # fieldType: Input
-    # objectType: PTGEUMetalFert
-#Balancing:
-    # fieldName: balancing
-    # fieldType: Textarea
-    # objectType: PTGEUMetalFert
+Face Width (mm):
+    fieldName: faceWidthMM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+For Belt Width:
+    fieldName: forBeltWidth
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Number of Grooves:
+    fieldName: numberOfGrooves
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Number of Teeth:
+    fieldName: numberOfTeeth
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Standards:
+    fieldName: standards
+    fieldType: Textarea
+    objectType: PTGEUMetalFert
+RawMaterial:
+    fieldName: rawMaterial
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Max Bore Size (in):
+    fieldName: maxBoreSizeIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Min Bore Size (in):
+    fieldName: minBoreSizeIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Key Way (In):
+    fieldName: keyWayIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Pitch Diameter (in):
+    fieldName: pitchDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Outside Diameter (in):
+    fieldName: outsideDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Inside Diameter (in):
+    fieldName: insideDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Flange Diameter (in):
+    fieldName: flangeDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Hub Diameter (in):
+    fieldName: hubDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Pulley Diameter (in):
+    fieldName: pulleyDiameterIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Face Width (in):
+    fieldName: faceWidthIN
+    fieldType: Number
+    objectType: PTGEUMetalFert
+For Belt Profile:
+    fieldName: forBeltProfile
+    fieldType: Number
+    objectType: PTGEUMetalFert
+For Belt Width (UoM):
+    fieldName: forBeltWidthUOM
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Surface Finish:
+    fieldName: surfaceFinish
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Set Screw / Set Screw Type:
+    fieldName: setScrewType
+    fieldType: Select
+    objectType: PTGEUMetalFert
+Number of Ribs:
+    fieldName: numberOfRibs
+    fieldType: Number
+    objectType: PTGEUMetalFert
+Flange Material:
+    fieldName: flangeMaterial
+    fieldType: Input
+    objectType: PTGEUMetalFert
+Flange:
+    fieldName: flange
+    fieldType: Select
+    objectType: PTGEUMetalFert
+Bore Type:
+    fieldName: boreType
+    fieldType: Input
+    objectType: PTGEUMetalFert
+Balancing:
+    fieldName: balancing
+    fieldType: Textarea
+    objectType: PTGEUMetalFert
