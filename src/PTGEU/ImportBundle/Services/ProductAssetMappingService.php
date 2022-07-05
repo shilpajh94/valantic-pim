@@ -75,8 +75,6 @@ class ProductAssetMappingService
                                 $this->savePTGEUProductColumn($rowData, $assetObject, $assetColumnName);
                             }
                         }   
-                    } else {
-                        $this->insertLog($rowData, 'Mapping', 'Failed', 'Hierarchy path doesn`t defined !!', '');
                     }
                 }
 
@@ -99,7 +97,7 @@ class ProductAssetMappingService
         $pimColumnName = $this->getPimColumnName($columnName);
         if($pimColumnName != '')
         {
-            
+            echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new PTGEUProduct\Listing();
             $allProductObject->setCondition("ProductName = ?", [$productName]);
             $allProductObject->load();
@@ -109,9 +107,10 @@ class ProductAssetMappingService
                     $fn = "set".$pimColumnName;
                     $productObject->$fn($assetObject);
                     $productObject->save();
-                    $this->insertLog($rowData, 'Mapping', 'Success', 'Mapped with productId '.$productObject->oo_id, $assetObject->getFilename());
+                    $this->insertLog($rowData, 'Mapping', 'Success', 'Mapped with productId '.$productObject->getId(), $assetObject->getFilename());
                 } catch (Exception $exception){
                     $this->insertLog($rowData, 'Mapping', 'Failed', $exception->getMessage().'|| Unable to map with '.$productObject->oo_id, $assetObject->getFilename());
+                    echo "Mapping failed - ".$assetObject->getFilename()." to ".$productName." due to ".$exception->getMessage()."\n";
                 }
             }
             
@@ -154,20 +153,21 @@ class ProductAssetMappingService
             if($fileName != '. ' && $fileName != '..' && $fileName[0] != '.' && pathinfo($assetDirectoryPath.'/'.$fileName, PATHINFO_EXTENSION))
             {
                 $assetObject = $this->checkIfAssetFileExists($fileName, $assetHierarchyPath); 
+                echo "Downloading ".$fileName." from ".$rowData[0]."\n";
                 if(!$assetObject)
                 {
                     $content = file_get_contents($assetDirectoryPath.'/'.$fileName);
                     try{
                         $this->saveAsset($fileName, $assetFolderId, $content);
                         $this->insertLog($rowData, 'Download', 'Success', '', $fileName);
-                        echo "Download ".$fileName." from ".$rowData[0];
+                        echo "Download ".$fileName." from ".$rowData[0]."\n";
                     } catch (Exception $exception)
                     {
                         $this->insertLog($rowData, 'Download', 'Failed', $exception->getMessage(), $fileName);
-                        echo "Download failed ".$fileName." from ".$rowData[0];
+                        echo "Download failed ".$fileName." from ".$rowData[0]." due to ".$exception->getMessage()."\n";
                     }
                 } else{
-                    echo "Download failed ".$fileName." from ".$rowData[0]." due to duplicate asset";
+                    echo "Download failed ".$fileName." from ".$rowData[0]." due to duplicate asset. \n";
                     $this->insertLog($rowData, 'Download', 'Failed', 'Duplicate !! Already exist in pimcore', $fileName);
                 }
             }
@@ -243,19 +243,13 @@ class ProductAssetMappingService
 
     private function createAssetLog(array $rowData, string $type): void
     {
-        if($rowData[0]!='' && !is_dir($rowData[0]))
+        if($rowData[0]!='' && !is_dir($rowData[0]) && $rowData[4] != '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Asset folder path doesn`t exist !!', '');
-        } else if($rowData[0] == '')
+        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4] == '')
         {
-            $this->insertLog($rowData, $type, 'Failed', 'Asset folder path doesn`t defined !!', '');
-        }else if($rowData[4] == '' && $rowData[0] == '')
-        {
-            $this->insertLog($rowData, $type, 'Failed', 'Hierarchy and Asset folder path doesn`t defined !!', '');
-        } else if($rowData[4] == '')
-        {
-            $this->insertLog($rowData, $type, 'Failed', 'Hierarchy doesn`t defined !!', '');
-        }
+            $this->insertLog($rowData, $type, 'Failed', 'Hierarchy path doesn`t defined !!', '');
+        } 
     }
 
     private function insertLog(array $rowData, string $type, string $statusCode, string $statusMessage, string $imageName): void
