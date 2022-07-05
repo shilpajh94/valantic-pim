@@ -1,10 +1,6 @@
 #Setting object bricks attributes
 # PTGEUCommonBase
-PAH:
-    fieldName: pah
-    fieldType: Input
-    objectType: PTGEUCommonBase
-Electrical Conductivity::
+Electrical Conductivity:
     fieldName: electricalConductivity
     fieldType: Input
     objectType: PTGEUCommonBase
@@ -35,6 +31,10 @@ Rib Pitch (s) (mm):
 Ribs:
     fieldName: ribs
     fieldType: Number
+    objectType: PTGEUCommonFert
+PAH:
+    fieldName: pah
+    fieldType: Input
     objectType: PTGEUCommonFert
 Height (h?) (in):
     fieldName: heightIN
@@ -131,41 +131,43 @@ RMA Code:
     fieldType: Input
     objectType: PTGEUVBeltsFert
 
-# PTGEUFlatBeltsFert
+#PTGEUFlatBeltsSkeleton
 Tooth Pitch (P/t) (mm):
     fieldName: toothPitchPtMM
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
-Tooth height (ht) (mm):
-    fieldName: toothHeightHtMM
+    objectType: PTGEUFlatBeltsSkeleton
+Width (bo?) (in):
+    fieldName: widthIN
     fieldType: Number
-    objectType: PTGEUFlatBeltsFert
+    objectType: PTGEUFlatBeltsSkeleton
 Width (bo?) (mm):
     fieldName: widthMM
+    fieldType: Number
+    objectType: PTGEUFlatBeltsSkeleton
+Tooth Pitch (P/t) (in):
+    fieldName: toothPitchPtIN
     fieldType: Number
     objectType: PTGEUFlatBeltsFert
 Belt thickness (hs) (mm):
     fieldName: beltThicknessHsMM
     fieldType: Number
     objectType: PTGEUFlatBeltsFert
-Number of teeth (z):
-    fieldName: numberOfTeethZ
+Belt thickness (hs) (In):
+    fieldName: beltThicknessHsIN
+    fieldType: Number
+    objectType: PTGEUFlatBeltsFert
+Tooth height (ht) (mm):
+    fieldName: toothHeightHtMM
     fieldType: Number
     objectType: PTGEUFlatBeltsFert
 Tooth height (ht) (In):
     fieldName: toothHeightHtIN
     fieldType: Number
     objectType: PTGEUFlatBeltsFert
-Width (bo?) (in):
-    fieldName: widthIN
-    fieldType: Number
-    objectType: PTGEUFlatBeltsFert
-Belt thickness (hs) (In):
-    fieldName: beltThicknessHsIN
-    fieldType: Number
-    objectType: PTGEUFlatBeltsFert
-Tooth Pitch (P/t) (in):
-    fieldName: toothPitchPtIN
+
+# PTGEUFlatBeltsFert
+Number of teeth (z):
+    fieldName: numberOfTeethZ
     fieldType: Number
     objectType: PTGEUFlatBeltsFert
 
