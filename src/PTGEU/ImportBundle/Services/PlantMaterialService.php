@@ -399,18 +399,18 @@ class PlantMaterialService
 
         if($countryObjId)
         {
-            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
+            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'countryOfOrigin', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
             
         if($plantObjId)
         {
-            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
+            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'plant', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
             
-        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
-        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
+        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId, 'type' => 'object', 'fieldname' => 'salesOrganization', 'ownertype' => 'object' ];
+        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId, 'type' => 'object', 'fieldname' => 'distributionChannel', 'ownertype' => 'object' ];
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
         $data['objectRelationsTableData'] = $relationTableData;
 
