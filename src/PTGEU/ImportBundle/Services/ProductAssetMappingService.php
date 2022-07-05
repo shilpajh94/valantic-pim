@@ -6,13 +6,21 @@ use Exception;
 use PTGEU\ImportBundle\Services\ImportService;
 use \Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\PTGEUProduct;
+use PTGEU\ImportBundle\Model\ProductModel;
+use Pimcore\Db;
+
 class ProductAssetMappingService
 {   
-    
+    private $db;
+
     private $assetConfigData;
+
+    private $productModel;
    
     public function __construct()
     {
+        $this->db = Db::get();
+        $this->productModel    = new ProductModel;
         $this->assetConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getAssetConfig();
     }
 
@@ -28,14 +36,16 @@ class ProductAssetMappingService
                 {
                     if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4]!= '')
                     {
-                        $this->createAsset($rowData[0], $rowData[4]);
+                        $this->createAsset($rowData, $rowData[4]);
                         $innerFolder = $this->getChildFolderInAssetDirectory($rowData[0]);
                         foreach($innerFolder as $folder)
                         {
                             $rowData[0] = $rowData[0]."/".$folder;
                             $assetHierarchyPath = $this->resetPathSlash($rowData[4]).$folder;
-                            $this->createAsset($rowData[0], $assetHierarchyPath);
+                            $this->createAsset($rowData, $assetHierarchyPath);
                         }   
+                    } else {
+                        $this->createAssetLog($rowData, 'Download');
                     }
                 }
 
@@ -46,10 +56,14 @@ class ProductAssetMappingService
                     if($rowData[4]!= '')
                     {
                         $getImagesDataByPath = $this->getImagesDataByPath($rowData[4]);
+                        if(count($getImagesDataByPath) == 0)
+                        {
+                            $this->insertLog($rowData, 'Mapping', 'Failed', 'Hierarchy path doesn`t exist or haven`t assets in pimcore !!', '');
+                        }
                         foreach($getImagesDataByPath as $assetObject)
                         {
                             $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
-                            $this->savePTGEUProductColumn($rowData[1], $assetObject, $assetColumnName);
+                            $this->savePTGEUProductColumn($rowData, $assetObject, $assetColumnName);
                         }
                         $getFolderDataByPath = $this->getFolderDataByPath($rowData[4]);
                         foreach($getFolderDataByPath as $assetFolderObject)
@@ -58,7 +72,7 @@ class ProductAssetMappingService
                             foreach($getImagesDataByPath as $assetObject)
                             {
                                 $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
-                                $this->savePTGEUProductColumn($rowData[1], $assetObject, $assetColumnName);
+                                $this->savePTGEUProductColumn($rowData, $assetObject, $assetColumnName);
                             }
                         }   
                     }
@@ -76,21 +90,32 @@ class ProductAssetMappingService
         return $columnName[0]; 
     }
 
-    private function savePTGEUProductColumn(string $productName, Asset $assetObject, string $columnName): void
+    private function savePTGEUProductColumn(array $rowData, Asset $assetObject, string $columnName): void
     {
+        $productName = $rowData[1];
         $columnName = str_replace(" ","",$columnName);
         $pimColumnName = $this->getPimColumnName($columnName);
         if($pimColumnName != '')
         {
+            echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new PTGEUProduct\Listing();
             $allProductObject->setCondition("ProductName = ?", [$productName]);
             $allProductObject->load();
             foreach($allProductObject as $productObject)
             { 
-                $fn = "set".$pimColumnName;
-                $productObject->$fn($assetObject);
-                $productObject->save();
+                try{
+                    $fn = "set".$pimColumnName;
+                    $productObject->$fn($assetObject);
+                    $productObject->save();
+                    $this->insertLog($rowData, 'Mapping', 'Success', 'Mapped with productId '.$productObject->getId(), $assetObject->getFilename());
+                } catch (Exception $exception){
+                    $this->insertLog($rowData, 'Mapping', 'Failed', $exception->getMessage().'|| Unable to map with '.$productObject->oo_id, $assetObject->getFilename());
+                    echo "Mapping failed - ".$assetObject->getFilename()." to ".$productName." due to ".$exception->getMessage()."\n";
+                }
             }
+            
+        } else {
+            $this->insertLog($rowData, 'Mapping', 'Failed', 'Invalid Column Name', $assetObject->getFilename());
         }
     }
 
@@ -117,8 +142,10 @@ class ProductAssetMappingService
         return $childFolder;
     }
 
-    private function createAsset(string $assetDirectoryPath, string $assetHierarchyPath): void
+    private function createAsset(array $rowData, string $assetHierarchyPath): void
     {
+        echo "Processing ".$rowData[0]."\n";
+        $assetDirectoryPath = $rowData[0];
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $folderData = scanDir($assetDirectoryPath);
         foreach($folderData as $fileName)
@@ -126,10 +153,22 @@ class ProductAssetMappingService
             if($fileName != '. ' && $fileName != '..' && $fileName[0] != '.' && pathinfo($assetDirectoryPath.'/'.$fileName, PATHINFO_EXTENSION))
             {
                 $assetObject = $this->checkIfAssetFileExists($fileName, $assetHierarchyPath); 
+                echo "Downloading ".$fileName." from ".$rowData[0]."\n";
                 if(!$assetObject)
                 {
                     $content = file_get_contents($assetDirectoryPath.'/'.$fileName);
-                    $this->saveAsset($fileName, $assetFolderId, $content); 
+                    try{
+                        $this->saveAsset($fileName, $assetFolderId, $content);
+                        $this->insertLog($rowData, 'Download', 'Success', '', $fileName);
+                        echo "Download ".$fileName." from ".$rowData[0]."\n";
+                    } catch (Exception $exception)
+                    {
+                        $this->insertLog($rowData, 'Download', 'Failed', $exception->getMessage(), $fileName);
+                        echo "Download failed ".$fileName." from ".$rowData[0]." due to ".$exception->getMessage()."\n";
+                    }
+                } else{
+                    echo "Download failed ".$fileName." from ".$rowData[0]." due to duplicate asset. \n";
+                    $this->insertLog($rowData, 'Download', 'Failed', 'Duplicate !! Already exist in pimcore', $fileName);
                 }
             }
         }
@@ -200,6 +239,25 @@ class ProductAssetMappingService
         $assetObj->addMetadata("copyright", "input", "", "");
         $assetObj->addMetadata("tags", "input", "", "");
         $assetObj->save();  
+    }
+
+    private function createAssetLog(array $rowData, string $type): void
+    {
+        if($rowData[0]!='' && !is_dir($rowData[0]) && $rowData[4] != '')
+        {
+            $this->insertLog($rowData, $type, 'Failed', 'Asset folder path doesn`t exist !!', '');
+        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4] == '')
+        {
+            $this->insertLog($rowData, $type, 'Failed', 'Hierarchy path doesn`t defined !!', '');
+        } 
+    }
+
+    private function insertLog(array $rowData, string $type, string $statusCode, string $statusMessage, string $imageName): void
+    {
+        $sql = "INSERT INTO `ptgeu_asset_import_log` ";
+        $sql .= "(`productName`, `statusCode`, `statusMessage`, `type`, `folderPath`, `hierarchyPath`, `imageName`)";
+        $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[4]."', '".$imageName."' )";
+        $this->db->query($sql);
     }
 
 
