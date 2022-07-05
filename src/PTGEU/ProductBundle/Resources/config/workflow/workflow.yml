@@ -1,5 +1,5 @@
 parameters:
-    host: 'https://pim.conti.de'
+    host: 'https://stage.pim.conti.de'
     completed:
         send_to_marcom:
             templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
