@@ -41,7 +41,7 @@ class ProductService
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'ptgeu_material_' . date('Ymdhis');
+        $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('import.common_helper');
         $this->productModel         = new ProductModel;
         $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
@@ -495,7 +495,8 @@ class ProductService
             'beltHardness' => null,
             'beltTolerance' => null,
             'minPulleyDia' => null,
-            'minOutsidePulleyDia' => null
+            'minOutsidePulleyDia' => null,
+            'sapDescriptionLanguage' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -561,6 +562,7 @@ class ProductService
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $queryTableData['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);
         }
 
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -609,7 +611,8 @@ class ProductService
             'beltHardness' => null,
             'beltTolerance' => null,
             'minPulleyDia' => null,
-            'minOutsidePulleyDia' => null
+            'minOutsidePulleyDia' => null,
+            'sapDescriptionLanguage' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -667,7 +670,8 @@ class ProductService
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
-            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);        
+            $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
+            $storeTableDataArray['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);        
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;

@@ -21,7 +21,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     private $configProviderService;
     private $t;
     private $featurePoints;
-    const LOG_FILE_NAME = "PTGEU_Product_Editable_Attributes_Import_Command_Log.csv";
+    const LOG_FILE_NAME = "ptgeu-editable-product-attributes-log.csv";
 
     protected function configure()
     {
