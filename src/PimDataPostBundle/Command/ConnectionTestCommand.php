@@ -66,6 +66,7 @@ class ConnectionTestCommand extends AbstractCommand
     private function getRequestUrl(): string
     {    
         $b2bProductHelper = new B2BProductHelper();
+        p_r($b2bProductHelper->getApiHost().$b2bProductHelper->getCompositeGraphApiUrl());
         return $b2bProductHelper->getApiHost().$b2bProductHelper->getCompositeGraphApiUrl();
     }
     

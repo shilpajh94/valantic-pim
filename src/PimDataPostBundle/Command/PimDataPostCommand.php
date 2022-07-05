@@ -25,50 +25,50 @@ class PimDataPostCommand extends AbstractCommand
         /**
          * posting data for B2B shop
          */
-        $scriptStartTime = time();
-        Util::setB2BScriptStartTime($scriptStartTime);
-        p_r($scriptStartTime);
+        // $scriptStartTime = time();
+        // Util::setB2BScriptStartTime($scriptStartTime);
+        // p_r($scriptStartTime);
 
-        $executor = new B2BProductDataPoster();
-        $executor->postData();
-
-        $executor = new B2BCategoryDataPoster();
-        $executor->postData();
-
-        $executor = new B2BProductCategoryRelationDataPoster();
-        $executor->postData();
-
-        $executor = new B2BProductMediaPoster();
-        $executor->postData();
-
-        $scriptEndTime = time();
-        p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
-
-        $notificationSender = new B2BFailureNotificationSender();
-        $notificationSender->SendFailureNotification();
-
-        /**
-         * posting data for B2C shop
-         */
-        // $b2cscriptStartTime = time();
-        // Util::setB2CScriptStartTime($b2cscriptStartTime);
-        // p_r($b2cscriptStartTime);
-
-        // $executor = new B2CProductDataPoster();
+        // $executor = new B2BProductDataPoster();
         // $executor->postData();
 
-        // $executor = new B2CCategoryDataPoster();
+        // $executor = new B2BCategoryDataPoster();
         // $executor->postData();
 
-        // $executor = new B2CProductCategoryRelationDataPoster();
+        // $executor = new B2BProductCategoryRelationDataPoster();
+        // $executor->postData();
+
+        // $executor = new B2BProductMediaPoster();
         // $executor->postData();
 
         // $scriptEndTime = time();
         // p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
 
-
-        // $notificationSender = new B2CFailureNotificationSender();
+        // $notificationSender = new B2BFailureNotificationSender();
         // $notificationSender->SendFailureNotification();
+
+        /**
+         * posting data for B2C shop
+         */
+        $b2cscriptStartTime = time();
+        Util::setB2CScriptStartTime($b2cscriptStartTime);
+        p_r($b2cscriptStartTime);
+
+        $executor = new B2CProductDataPoster();
+        $executor->postData();
+
+        $executor = new B2CCategoryDataPoster();
+        $executor->postData();
+
+        $executor = new B2CProductCategoryRelationDataPoster();
+        $executor->postData();
+
+        $scriptEndTime = time();
+        p_r("total time: " .( $scriptEndTime - $b2cscriptStartTime ) . "s");
+
+
+        $notificationSender = new B2CFailureNotificationSender();
+        $notificationSender->SendFailureNotification();
 
         $this->removeEntriesFromPimDeletedAssets();
 

@@ -33,6 +33,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:datapost:connection-test-command' }
 
+    PimDataPostBundle\Command\B2CConnectionTestCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:b2c_connection-test-command' }            
+
     PimDataPostBundle\Command\CreateB2CTableCommand:
         tags:
             - { name: 'console.command', command: 'conti:datapost:create-b2c-table' }
