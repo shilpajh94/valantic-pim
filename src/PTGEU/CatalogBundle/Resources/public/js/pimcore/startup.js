@@ -72,7 +72,7 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
             });
         }
 
-        if (objectClassName == 'PTGEUCatalogCategoryAndTable') {
+        if (objectClassName == 'PTGEUCatalogCategory') {
             var colComp = Ext.getCmp(object.edit.dataFields.Columns.component.id);
             colComp.hide();
             
@@ -84,17 +84,17 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 this.listProductTable(object, eve.value);
              }.bind(this));
 
-            if((object.data.data.attributeTable !== null && trim(object.data.data.attributeTable) !== "")){
-                let headerSelection = new pimcore.plugin.headerSelection();
-                headerSelection.attachHeader(object, type,{'value': object.data.data.attributeTable});
-            }
+            // if((object.data.data.attributeTable !== null && trim(object.data.data.attributeTable) !== "")){
+            let headerSelection = new pimcore.plugin.headerSelection();
+            headerSelection.attachHeader(object);
+            // }
 
-            object.edit.dataFields.attributeTable.component.on('select', function(event){
-                {
-                    let headerSelection = new pimcore.plugin.headerSelection();
-                    headerSelection.attachHeader(object, type,event);
-                }
-            });
+            // object.edit.dataFields.attributeTable.component.on('select', function(event){
+            //     {
+            //         let headerSelection = new pimcore.plugin.headerSelection();
+            //         headerSelection.attachHeader(object, type,event);
+            //     }
+            // });
         }
     },
 

@@ -80,29 +80,29 @@ class DefaultController extends AbstractController
      * @Route("/ptgeu_catalog/get-available-headers")
      */
     public function getAvailableHeaders(Request $request) {
-        $table = $request->get('table');
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
         $catalogConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getCatalogConfig();
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
         
         $columns = array();
         $arr = [];
-        if ($table) {
+        $defaultColumns = [];
 
-            $tableColumns = $ptgProductPageConfig['Dynamic Table Attribute'][$table];
-            if ($tableColumns !== null) {
-                if (!empty($tableColumns) && count($tableColumns) > 0) {
-                    foreach ($tableColumns as $key => $column) {
-                        $fieldLabel = $column['fieldLabel'];
-                        $columns[] = array($key, $key);
+        $tableColumns = $ptgProductPageConfig['Dynamic Table Attribute'];
+        if ($tableColumns !== null) {
+            if (!empty($tableColumns) && count($tableColumns) > 0) {
+                foreach ($tableColumns as $key => $column) {
+                    $fieldLabel = $column['fieldLabel'];
+                    $columns[] = array($key, $key);
+                    if($column['defaultColumn'])
+                    {
+                        $defaultColumns[] = $key;
                     }
                 }
-                $arr = array('storeData' => $columns, 'completeData' => $tableColumns, 'success' => true);
-            } else {
-                $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
             }
+            $arr = array('storeData' => $columns, 'completeData' => $tableColumns, 'defaultColumns'=> $defaultColumns,'success' => true);
         } else {
-            $arr = array('storeData' => [], 'completeData' => [], 'success' => false);
+            $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
         }
 
         echo json_encode($arr);
@@ -119,6 +119,11 @@ class DefaultController extends AbstractController
             $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
             $priceListTableConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getPriceListTableConfig();
 
+            $catalogConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getCatalogConfig();
+            $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
+            $DynamicTableAttribute = $ptgProductPageConfig['Dynamic Table Attribute'];
+            $tableSortingFields = $ptgProductPageConfig['Table Sorting Fields'];
+
             $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
             $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
@@ -131,163 +136,285 @@ class DefaultController extends AbstractController
             $salesOrganisation = $catalogObj->getSalesOrganisation();
             $Currency = $catalogObj->getCurrency();
             $ValidFromDate = $catalogObj->getValidFromDate();
-
-            // $attributeTable = $catalogCategoryTableObject->getAttributeTable();
-            // echo $catalogCategoryTableObject->getAttributeHeaderTableIcon();
-            $this->iconRequired = ($catalogCategoryTableObject->getAttributeHeaderTableIcon()) ? 'YES' : 'NO';   //  it returns if Yes = true, No = false or Empty = null
             $objColumnsData = $catalogCategoryTableObject->getColumns();
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
             
-            $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
-            $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
-            $fifthLevelEntries->setLimit(1);
-
-            foreach ($fifthLevelEntries as $entry) {
-                $fifthLevelProduct = $entry;
-            }
-
-            $seventhLevelProductList = [];
-            foreach ($sixSevenLevelCategoryObj as $categoryId) {
-
-                $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
-                $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
-                $seventhLevelEntries->setLimit(1);
-
-                foreach ($seventhLevelEntries as $entry) {
-                    $seventhLevelProductList[] = $entry->getId();
-                }
-            }
-
-            $this->columnsData = json_decode($objColumnsData, true);
-            if($IsPriceCatalog)
+            if($fifthLevelCategoryObj)
             {
-                $this->columnsData['listPrice']['columnName'] = 'listPrice';
-                $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
-                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
-            }
-            
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog();
+                $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
+                $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
+                $fifthLevelEntries->setLimit(1);
 
-            $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                    $orderKeys[] = $vkey;
+                foreach ($fifthLevelEntries as $entry) {
+                    $fifthLevelProduct = $entry;
                 }
             }
-
-            $orderFieldNameList = [];
-            if($this->columnsData)
-            {
-                foreach ($orderKeys as $fieldName) {
-
-                    $orderFieldNameList[$fieldName] = $this->columnsData[$fieldName];
-                }
-            }
-
-            $reinforcement = array();
 
             $groupData = array();
-            $this->subHeaderRequired = 'YES';
-            $groupData['subHeaderRequired'] = $this->subHeaderRequired;
-            $groupData['iconRequired'] = $this->iconRequired;
-            $groupData['material'] = $fifthLevelProduct->getMaterial();
-
-            if($fifthLevelProduct->getReinforcement())
+            if($fifthLevelProduct)
             {
-                $reinforcement = $fifthLevelProduct->getReinforcement();
-            }
+                $seventhLevelProductList = [];
 
-            $reinforcement = implode(', ', $reinforcement);
-                    
-            $groupData['reinforcement'] = $reinforcement;
-
-            $this->featuresList = $this->getFeaturesList('en');
-            
-            $safetyFeatures = array();
-
-            if($fifthLevelProduct->getFeaturesBenefitsBulletPoint())
-            {
-                foreach ($fifthLevelProduct->getFeaturesBenefitsBulletPoint() as $feature) {
-                    array_push($safetyFeatures,$feature);
-                }
-            }
-
-            $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
-            
-            $groupData['safetyFeatures'] = $safetyFeaturesList;
-            $groupData['mainImageObj'] = $fifthLevelProduct->getMainImage1();
-            $groupData['ProfileDimensionImageObj'] = $fifthLevelProduct->getTechnicalDrawing1();
-            $groupData['longDescription'] = $fifthLevelProduct->getLongDescription();
-            $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureF().")";
-            $groupData['brandName'] = $fifthLevelProduct->getProductName();
-            
-            
-            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-
-            $articleData = [];
-            foreach ($productObjectLevel6List as $productObjectLevel6) {
-                if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                if($sixSevenLevelCategoryObj)
                 {
-                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                    foreach ($productObjectLevel7List as $article) {
-                        if($article->getPrintedCatalogFlag() === true)
-                        {
-                            foreach ($orderFieldNameList as $fieldName => $fields) {
-                                if(($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
-                                {
-                                    $method = "get".ucfirst($fieldName);
-                                    $data[$fieldName] = $article->$method();
-                                }
-                                else if(($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
-                                {
-                                    $fertMethod = "get".ucfirst($fields['objectBrickType']);
-                                    $fertNameMethod = "get".$fields['objectBrickName'];
-                                    $method = "get".ucfirst($fieldName);
-                                    $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
-                                }
-                            }
+                    foreach ($sixSevenLevelCategoryObj as $categoryId) {
 
-                            if($IsPriceCatalog)
+                        $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
+                        $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
+                        $seventhLevelEntries->setLimit(1);
+
+                        foreach ($seventhLevelEntries as $entry) {
+                            $seventhLevelProductList[] = $entry->getId();
+                        }
+                    }
+                }
+
+                $this->columnsData = json_decode($objColumnsData, true);
+                if($IsPriceCatalog)
+                {
+                    $this->columnsData['listPrice']['columnName'] = 'listPrice';
+                    $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+                    $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
+                }
+                
+                $columnsDataWithImages = $this->getColumnHeadersForCatalog();
+
+                $orderKeys = array();
+                foreach ($columnsDataWithImages as $skey => $svalue) {
+                    foreach ($svalue as $vkey => $vvalue) {
+                        $orderKeys[] = $vkey;
+                    }
+                }
+
+                $orderFieldNameList = [];
+
+                
+                $tableSortingFieldsStatus = [];
+
+                $needRemoveSortedField = false;
+
+                if($this->columnsData)
+                {
+                    foreach ($orderKeys as $fieldName) {
+
+                        $orderFieldNameList[$fieldName] = $this->columnsData[$fieldName];
+
+                    }
+
+                    if($orderFieldNameList)
+                    {
+                        foreach ($tableSortingFields as $fieldName) {
+
+                            if(isset($orderFieldNameList[$fieldName]))
                             {
-                                $priceData = $article->getPriceData();
-                                $listPrice = '';
-                                if($priceData)
-                                {
-                                    foreach ($priceData as $rvalue) 
-                                    {
-                                        if(($rvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($rvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($rvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
-                                        {
-                                            $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity Start Date']]);
-                                            $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity End Date']]);
+                                $tableSortingFieldsStatus[$fieldName] = true;
+                            }
+                            else{
+                                $tableSortingFieldsStatus[$fieldName] = false;
+                                $needRemoveSortedField = true;
+                            }
+                        }
+                    }
+                }
 
-                                            if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
-                                                $listPrice = $rvalue[$priceListTableColumn['Rate']];
-                                                break;
+                $reinforcement = array();
+                $this->subHeaderRequired = 'YES';
+                $this->iconRequired = 'YES';
+                $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                $groupData['iconRequired'] = $this->iconRequired;
+                $groupData['material'] = $fifthLevelProduct->getMaterial();
+                $groupData['heatAndOilResistant'] = $fifthLevelProduct->getHeatAndOilResistant();
+
+                if($fifthLevelProduct->getReinforcement())
+                {
+                    $reinforcement = $fifthLevelProduct->getReinforcement();
+                }
+
+                $reinforcement = implode(', ', $reinforcement);
+                        
+                $groupData['reinforcement'] = $reinforcement;
+
+                $this->featuresList = $this->getFeaturesList('en');
+                
+                $safetyFeatures = array();
+
+                if($fifthLevelProduct->getFeaturesBenefitsBulletPoint())
+                {
+                    foreach ($fifthLevelProduct->getFeaturesBenefitsBulletPoint() as $feature) {
+                        array_push($safetyFeatures,$feature);
+                    }
+                }
+
+                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+                
+                $groupData['safetyFeatures'] = $safetyFeaturesList;
+                $groupData['mainImageObj'] = $fifthLevelProduct->getMainImage1();
+                $groupData['ProfileDimensionImageObj'] = $fifthLevelProduct->getTechnicalDrawing1();
+                $groupData['longDescription'] = $fifthLevelProduct->getLongDescription();
+                $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureC().")";
+                $groupData['brandName'] = $fifthLevelProduct->getProductName();
+                
+                $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+
+                $articleData = [];
+                foreach ($productObjectLevel6List as $productObjectLevel6) {
+                    
+                    if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                    {
+                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        foreach ($productObjectLevel7List as $article) {
+                            if($article->getPrintedCatalogFlag() === true)
+                            {
+                                foreach ($orderFieldNameList as $fieldName => $fields) {
+                                    if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    {
+                                        $method = "get".ucfirst($fieldName);
+                                        $data[$fieldName] = $article->$method();
+                                    }
+                                    else if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    {
+                                        $fertMethod = "get".ucfirst($fields['objectBrickType']);
+                                        $fertNameMethod = "get".$fields['objectBrickName'];
+                                        $method = "get".ucfirst($fieldName);
+                                        $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                    }
+                                    else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    {
+                                        $method = "get".ucfirst($fieldName);
+                                        $data[$fieldName] = $fifthLevelProduct->$method();
+                                    }
+                                    else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    {
+                                        $method = "get".ucfirst($fieldName);
+                                        $data[$fieldName] = $productObjectLevel6->$method();
+                                    }
+                                }
+
+                                if($tableSortingFieldsStatus)
+                                {
+                                    foreach ($tableSortingFieldsStatus as $fieldName => $tableShowStatus) {
+                                        if(!$tableShowStatus)
+                                        {
+                                            $fieldConfig = $DynamicTableAttribute[$fieldName];
+
+                                            if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            {
+                                                $method = "get".ucfirst($fieldName);
+                                                $data[$fieldName] = $article->$method();
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'objectBrick') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            {
+                                                $fertMethod = "get".ucfirst($fieldConfig['objectBrickType']);
+                                                $fertNameMethod = "get".$fieldConfig['objectBrickName'];
+                                                $method = "get".ucfirst($fieldName);
+                                                $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            {
+                                                $method = "get".ucfirst($fieldName);
+                                                $data[$fieldName] = $fifthLevelProduct->$method();
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            {
+                                                $method = "get".ucfirst($fieldName);
+                                                $data[$fieldName] = $productObjectLevel6->$method();
                                             }
                                         }
                                     }
                                 }
 
-                                $data['listPrice'] = $listPrice;
+                                if($IsPriceCatalog)
+                                {
+                                    $priceData = $article->getPriceData();
+                                    $listPrice = '';
+                                    if($priceData)
+                                    {
+                                        foreach ($priceData as $rvalue) 
+                                        {
+                                            if(($rvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($rvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($rvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
+                                            {
+                                                $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity Start Date']]);
+                                                $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity End Date']]);
+
+                                                if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
+                                                    $listPrice = $rvalue[$priceListTableColumn['Rate']];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    $data['listPrice'] = $listPrice;
+                                }
+                                $articleData[$article->getProfile()][] = $data;
                             }
-                            $articleData[$article->getProfile()][] = $data;
                         }
                     }
                 }
-            }
 
-            $groupData['data'] = $articleData;
-            $groupData['columnsDataWithImages'] = $columnsDataWithImages;
-            $footer_logo_src = $CatalogImagesPTGFooter['Orange'];
-            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-            $this->view['footer_class'] = '';
-            $this->view['footer_logo_src'] = $footer_logo_src;
+                if($tableSortingFields)
+                {
+                    foreach ($articleData as $profile => $articlesList) {
+                        
+                        if(count($tableSortingFields) == 1)
+                        {
+                            $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
+                            array_multisort($firstSortingColumn, SORT_ASC, $articleData[$profile]);
+
+                            if($needRemoveSortedField)
+                            {
+                                $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
+                            }
+                        }
+                        else if(count($tableSortingFields) == 2)
+                        {
+                            $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
+                            $secondSortingColumn = array_column($articleData[$profile], $tableSortingFields[1]);
+
+                            array_multisort($firstSortingColumn, SORT_ASC, $secondSortingColumn, SORT_ASC,$articleData[$profile]);
+                            
+                            if($needRemoveSortedField)
+                            {
+                                $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
+                            }
+                        }
+                    }
+                }
+
+                $groupData['data'] = $articleData;
+                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+
+                $footer_logo_src = $CatalogImagesPTGFooter['Orange'];
+                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+                
+                $this->view['footer_class'] = '';
+                $this->view['footer_logo_src'] = $footer_logo_src;
+            }
+            
             $this->view['containerRequest'] = $containerRequest;    
             $this->view['groupData'] = $groupData;
         }
     }
 
+    public function removeSortingColumn($tableSortingFieldsStatus, $articlesList){
+
+        $removeFieldList = [];
+        foreach ($tableSortingFieldsStatus as $fieldName => $status) {
+            if(!$status)
+            {
+                $removeFieldList[] = $fieldName;
+            }
+        }
+
+        foreach ($articlesList as $key => $articleData) {
+
+            foreach ($removeFieldList as $fieldName) {
+                unset($articlesList[$key][$fieldName]);
+            }
+        }
+        return $articlesList;
+    }
     public function getFiveSortedFeaturesWithIconList($safetyFeatures){
         
         $safetyFeatures = array_unique($safetyFeatures);

@@ -10,12 +10,12 @@ pimcore.registerNS("pimcore.plugin.headerSelection");
 
 pimcore.plugin.headerSelection = Class.create({
 
-    attachHeader: function (object, type, e= null) {
+    attachHeader: function (object) {
        
-        var headerFieldIndex = 2;
+        var headerFieldIndex = 1;
         var objectClassName = object.data.general.o_className;
 
-        if (objectClassName == 'PTGEUCatalogCategoryAndTable') {
+        if (objectClassName == 'PTGEUCatalogCategory') {
             var headerDataFieldName = 'Columns';
             var dataFields = object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;
@@ -25,9 +25,6 @@ pimcore.plugin.headerSelection = Class.create({
             Ext.Ajax.request({
                 url: '/ptgeu_catalog/get-available-headers',
                 async: false,
-                params: {
-                    table: e.value
-                },
                 success: function (response) {
 
                     headerData = JSON.parse(response.responseText);
@@ -39,6 +36,8 @@ pimcore.plugin.headerSelection = Class.create({
 
             var storeData = headerData.storeData;
             var completeData = headerData.completeData;
+            var defaultColumns = headerData.defaultColumns;
+            
            
             var my_array_store = Ext.create('Ext.data.ArrayStore', {
                 fields: ['some_value', 'some_text'],
@@ -51,6 +50,11 @@ pimcore.plugin.headerSelection = Class.create({
             });
 
             let itemSelectorValues = this.getValuesForItemSelector(headerDataComponent);
+
+            if(!itemSelectorValues.length)
+            {
+                itemSelectorValues = defaultColumns;
+            }
             var head = headerFieldSet.items.find(k=> (k.name == 'header-selector'));
             if(head == undefined)
             {
@@ -68,22 +72,18 @@ pimcore.plugin.headerSelection = Class.create({
                     toTitle: 'Selected',
                     listeners: {
                         change: function (field, newValue, oldValue, eOpts) {
-                            let selectedHeaders = my_item_selector_instance.getValue();
-
-                            // setting selected headers in selectedHeadersField
-                            let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
-                            formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
-                            headerDataComponent.setValue(formatedSelectedHeaders);
-
+                            this.setDefaultColumnsSetting(headerDataComponent, my_item_selector_instance, completeData);
                         }.bind(this)
                     }
                 });
                 headerFieldSet.insert(0, my_item_selector_instance);
+                this.setDefaultColumnsSetting(headerDataComponent, my_item_selector_instance, completeData);
             }
             else
             {
                 head.setStore(my_array_store);
-                head.setValue(this.getValuesForItemSelector(headerDataComponent));
+                // head.setValue(this.getValuesForItemSelector(headerDataComponent));
+                head.setValue(itemSelectorValues);
             }
         }
 
@@ -121,6 +121,7 @@ pimcore.plugin.headerSelection = Class.create({
                 "unitName": completeHeaderData.unitName,
                 "columnWidth": completeHeaderData.columnWidth,
                 "fieldLevel": completeHeaderData.fieldLevel,
+                "objectLevel": completeHeaderData.objectLevel,
                 "objectBrickType": completeHeaderData.objectBrickType,
                 "objectBrickName": completeHeaderData.objectBrickName,
             };
@@ -128,5 +129,13 @@ pimcore.plugin.headerSelection = Class.create({
         }
         return returnData;
     },
+    setDefaultColumnsSetting: function (headerDataComponent, my_item_selector_instance, completeData) {
+        let selectedHeaders = my_item_selector_instance.getValue();
+
+        // setting selected headers in selectedHeadersField
+        let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
+        formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
+        headerDataComponent.setValue(formatedSelectedHeaders);
+    }
 
 });
