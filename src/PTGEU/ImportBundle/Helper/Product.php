@@ -312,4 +312,9 @@ class Product
         }
         return $bricksUnits;
     }
+
+    public function checkBrickUnitData($bricksUnitData, $brick)
+    {
+        return array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
+    }
 }
