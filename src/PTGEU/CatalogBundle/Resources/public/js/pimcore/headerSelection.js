@@ -82,7 +82,6 @@ pimcore.plugin.headerSelection = Class.create({
             else
             {
                 head.setStore(my_array_store);
-                // head.setValue(this.getValuesForItemSelector(headerDataComponent));
                 head.setValue(itemSelectorValues);
             }
         }
@@ -101,8 +100,7 @@ pimcore.plugin.headerSelection = Class.create({
         let returnData = [];
         for (var key in savedData) {
             if (savedData.hasOwnProperty(key)) {
-                let value = savedData[key];
-                returnData.push(value.columnName);
+                returnData.push(key);
             }
         }
         return returnData;
@@ -114,8 +112,7 @@ pimcore.plugin.headerSelection = Class.create({
           
             var completeHeaderData = completeData[data[i]];
             let header = {
-                "columnName": data[i],
-                "columnLabel": completeHeaderData.fieldLabel,
+                "columnLabel": completeHeaderData.columnLabel,
                 "fieldType": completeHeaderData.fieldType,
                 "groupName": completeHeaderData.groupName,
                 "unitName": completeHeaderData.unitName,

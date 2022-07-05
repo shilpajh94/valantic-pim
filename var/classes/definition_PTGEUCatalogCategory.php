@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-05T11:27:09+02:00
+* Generated at: 2022-07-05T14:09:19+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUCatalogCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657013225,
+   'modificationDate' => 1657022959,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

@@ -77,24 +77,14 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
             colComp.hide();
             
             let fifthLevelCategory = object.edit.dataFields.fifthLevelCategory.component.getValue();
-
             this.listProductTable(object, fifthLevelCategory);
 
              object.edit.dataFields.fifthLevelCategory.component.on('select', function(eve){
                 this.listProductTable(object, eve.value);
              }.bind(this));
 
-            // if((object.data.data.attributeTable !== null && trim(object.data.data.attributeTable) !== "")){
             let headerSelection = new pimcore.plugin.headerSelection();
             headerSelection.attachHeader(object);
-            // }
-
-            // object.edit.dataFields.attributeTable.component.on('select', function(event){
-            //     {
-            //         let headerSelection = new pimcore.plugin.headerSelection();
-            //         headerSelection.attachHeader(object, type,event);
-            //     }
-            // });
         }
     },
 

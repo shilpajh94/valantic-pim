@@ -1,6 +1,6 @@
 parameters:
     PTG Product Page:
-        Table Sorting Fields: [pitchLengthLpLwMM, netWeight]
+        Table Sorting Fields: [pitchLengthLpLwMM]
         Common Attribute: 
             mainImage:
                 fieldLevel: class
@@ -70,26 +70,30 @@ parameters:
             #     objectBrickName: PTGEUFlatBeltsFert
             PAH:
                 columnName: PAH
+                columnLabel: PAH
                 fieldLevel: objectBrick
                 objectLevel: fert
                 fieldType: Input
                 groupName: PAH
                 objectBrickType: base
                 objectBrickName: PTGEUCommonBase
-            BeltType:
-                columnName: BeltType
+            beltType:
+                columnName: beltType
+                columnLabel: Belt Type
                 fieldLevel: class
                 objectLevel: base
                 fieldType: Input
-                groupName: BeltType
+                groupName: beltType
             Profile:
                 columnName: Profile
+                columnLabel: Profile
                 fieldLevel: class
                 objectLevel: skeleton
                 fieldType: Input
                 groupName: Profile
             pitchLengthLpLwMM:
                 columnName: pitchLengthLpLwMM
+                columnLabel: Pitch Length (Lp/Lw)
                 fieldLevel: objectBrick
                 objectLevel: fert
                 fieldType: Input
@@ -100,6 +104,7 @@ parameters:
                 defaultColumn: true
             pitchLengthLpLwIN:
                 columnName: pitchLengthLpLwIN
+                columnLabel: Pitch Length (Lp/Lw)
                 fieldLevel: objectBrick
                 objectLevel: fert
                 fieldType: Input
@@ -184,6 +189,7 @@ parameters:
             #     defaultColumn: true
             numberOfTeethZ:
                 columnName: numberOfTeethZ
+                columnLabel: Number of Teeth (Z)
                 fieldLevel: objectBrick
                 objectLevel: fert
                 fieldType: Input
@@ -201,6 +207,7 @@ parameters:
             #     objectBrickName: PTGEUFlatBeltsFert
             netWeight:
                 columnName: netWeight
+                columnLabel: Net Weight
                 fieldLevel: class
                 objectLevel: fert
                 fieldType: Input
@@ -208,6 +215,7 @@ parameters:
                 defaultColumn: true
             weightUnit:
                 columnName: weightUnit
+                columnLabel: Weight Unit
                 fieldLevel: class
                 objectLevel: fert
                 fieldType: Input
@@ -215,19 +223,22 @@ parameters:
                 defaultColumn: true
             nominalLength:
                 columnName: nominalLength
+                columnLabel: Nominal Length
                 fieldLevel: class
                 objectLevel: fert
                 fieldType: Input
                 groupName: nominalLength
                 defaultColumn: true
-            color: 
-                columnName: color
+            Color: 
+                columnName: Color
+                columnLabel: Color
                 fieldLevel: class
                 objectLevel: base
                 fieldType: Input
-                groupName: color
+                groupName: Color
             ribs:
                 columnName: ribs
+                columnLabel: ribs
                 fieldLevel: objectBrick
                 objectLevel: fert
                 fieldType: Input
@@ -236,6 +247,7 @@ parameters:
                 objectBrickName: PTGEUCommonFert
             beltAngle:
                 columnName: beltAngle
+                columnLabel: Belt Angle
                 fieldLevel: class
                 objectLevel: skeleton
                 fieldType: Input

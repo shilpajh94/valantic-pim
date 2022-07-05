@@ -92,8 +92,8 @@ class DefaultController extends AbstractController
         if ($tableColumns !== null) {
             if (!empty($tableColumns) && count($tableColumns) > 0) {
                 foreach ($tableColumns as $key => $column) {
-                    $fieldLabel = $column['fieldLabel'];
-                    $columns[] = array($key, $key);
+                    $columnLabel = $column['columnLabel'];
+                    $columns[] = array($key, $columnLabel." (".$key.")");
                     if($column['defaultColumn'])
                     {
                         $defaultColumns[] = $key;
@@ -140,7 +140,8 @@ class DefaultController extends AbstractController
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
             
-            if($fifthLevelCategoryObj)
+            $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
+            if($PTGEUProductHierarchy)
             {
                 $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
                 $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
@@ -173,11 +174,11 @@ class DefaultController extends AbstractController
                 $this->columnsData = json_decode($objColumnsData, true);
                 if($IsPriceCatalog)
                 {
-                    $this->columnsData['listPrice']['columnName'] = 'listPrice';
                     $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
                     $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
                 }
                 
+                $this->iconRequired = 'YES';
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog();
 
                 $orderKeys = array();
@@ -220,7 +221,6 @@ class DefaultController extends AbstractController
 
                 $reinforcement = array();
                 $this->subHeaderRequired = 'YES';
-                $this->iconRequired = 'YES';
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
                 $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $fifthLevelProduct->getMaterial();
@@ -361,7 +361,6 @@ class DefaultController extends AbstractController
                         {
                             $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
                             array_multisort($firstSortingColumn, SORT_ASC, $articleData[$profile]);
-
                             if($needRemoveSortedField)
                             {
                                 $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
@@ -425,7 +424,7 @@ class DefaultController extends AbstractController
 
         if($safetyFeatures)
         {
-            foreach ($safetyFeatures as $fkey => $fvalue) {
+            foreach ($safetyFeatures as $fvalue) {
                 if($this->featuresList[$fvalue]['icon'])
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
@@ -501,7 +500,7 @@ class DefaultController extends AbstractController
         {
             foreach ($this->columnsData as $key => $value) {
 
-                $groupColumnName = $value['columnName'];
+                $groupColumnName = $key;
                 if(isset($value['groupName']) && $value['groupName'])
                 {
                     $groupColumnName = $value['groupName'];
@@ -511,7 +510,7 @@ class DefaultController extends AbstractController
                 $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
 
-                if($value['columnName'] == 'listPrice')
+                if($key == 'listPrice')
                 {
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 }
@@ -520,7 +519,7 @@ class DefaultController extends AbstractController
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
                 }
 
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $key;
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 if ($this->iconRequired == 'YES')
                 {
