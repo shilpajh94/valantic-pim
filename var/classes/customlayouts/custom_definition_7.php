@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-30T09:31:00+02:00
+* Generated at: 2022-07-05T08:02:13+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorPTGEU',
    'description' => '',
    'creationDate' => 1655378062,
-   'modificationDate' => 1656574260,
+   'modificationDate' => 1657000933,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -202,8 +202,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
-                                     'decimalSize' => 1,
-                                     'decimalPrecision' => NULL,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => 3,
                                      'name' => 'shelfLife',
                                      'title' => 'Shelf Life',
                                      'tooltip' => '',
@@ -221,34 +221,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 250,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'catalogFlag',
-                                     'title' => 'Catalog Flag',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 250,
@@ -276,7 +248,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  3 => 
+                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Y',
@@ -319,50 +291,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                                     'fieldtype' => 'booleanSelect',
-                                     'yesLabel' => 'Y',
-                                     'noLabel' => 'N',
-                                     'emptyLabel' => 'Empty',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Empty',
-                                        'value' => 0,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Y',
-                                        'value' => 1,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'N',
-                                        'value' => -1,
-                                      ),
-                                    ),
-                                     'width' => 250,
-                                     'queryColumnType' => 'tinyint(1) null',
-                                     'columnType' => 'tinyint(1) null',
-                                     'phpdocType' => 'boolean',
-                                     'name' => 'virtualCatalogFlag',
-                                     'title' => 'Virtual Catalog Flag',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
-                                  5 => 
+                                  3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
@@ -443,7 +372,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  6 => 
+                                  4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
@@ -783,6 +712,49 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
+                                  )),
+                                  5 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 250,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
+                                     'phpdocType' => 'boolean',
+                                     'name' => 'virtualCatalogFlag',
+                                     'title' => 'Virtual Catalog Flag',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
                                   )),
                                 ),
                                  'locked' => false,
@@ -2213,7 +2185,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                         'value' => 'fert',
                                       ),
                                     ),
-                                     'width' => 100,
+                                     'width' => 250,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -2229,7 +2201,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 45px;',
+                                     'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -2249,7 +2221,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                         'value' => 'PTGEU',
                                       ),
                                     ),
-                                     'width' => 100,
+                                     'width' => 250,
                                      'defaultValue' => 'PTGEU',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -2265,7 +2237,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => '',
+                                     'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -2399,32 +2371,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      2 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                         'fieldtype' => 'textarea',
-                                         'width' => 250,
-                                         'height' => 100,
-                                         'maxLength' => NULL,
-                                         'showCharCount' => false,
-                                         'excludeFromSearchIndex' => false,
-                                         'queryColumnType' => 'longtext',
-                                         'columnType' => 'longtext',
-                                         'phpdocType' => 'string',
-                                         'name' => 'CategoryDescriptionCatalog',
-                                         'title' => 'Category Description Catalog',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => true,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
                                     ),
                                      'locked' => false,
                                   )),
@@ -2473,34 +2419,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'visibleSearch' => false,
                                       )),
                                       1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 250,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'searchKeywords',
-                                         'title' => 'Search Keywords',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => true,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => 'margin-left:20px;',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                          'fieldtype' => 'textarea',
                                          'width' => 250,
@@ -2678,17 +2596,50 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'EPDM',
+                                    'value' => 'EPDM',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'HNBR',
+                                    'value' => 'HNBR',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'PU',
+                                    'value' => 'PU',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'CR',
+                                    'value' => 'CR',
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'PBD',
+                                    'value' => 'PBD',
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'NR / SBR',
+                                    'value' => 'NR / SBR',
+                                  ),
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
+                                 'dynamicOptions' => false,
                                  'name' => 'material',
                                  'title' => 'Material / Compound ',
                                  'tooltip' => '',
@@ -2708,7 +2659,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => NULL,
+                                 'width' => 250,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -2734,7 +2685,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 250,
                                  'defaultValue' => NULL,
@@ -2742,6 +2693,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'columnType' => 'varchar',
                                  'columnLength' => 100,
                                  'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
                                  'name' => 'Color',
                                  'title' => 'Color',
                                  'tooltip' => '',
@@ -2757,67 +2711,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                               )),
                               4 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'maxSpeed',
-                                 'title' => 'Max Speed',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'matchMakerLL',
-                                 'title' => 'Match Maker L=L',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 250,
@@ -2844,6 +2739,653 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                              )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'beltHardness',
+                                 'title' => 'Belt Hardness',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                 'fieldtype' => 'multiselect',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Fabric',
+                                    'value' => 1829543,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Polyester',
+                                    'value' => 1829547,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Steel Wire',
+                                    'value' => 2881,
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Synthetic Yarn',
+                                    'value' => 2882,
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Synthetic Yarn With Static Wire',
+                                    'value' => 2884,
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Textile',
+                                    'value' => 2883,
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => '1 Layer, Braided, Textile and 1 Layer, Braided, Steel Wire',
+                                    'value' => 10778364,
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => '1 Or 2 Steel Wire Braids',
+                                    'value' => 1829541,
+                                  ),
+                                  8 => 
+                                  array (
+                                    'key' => '2 Layer, Braided Synthetic Yarn With Static Wire',
+                                    'value' => 2886,
+                                  ),
+                                  9 => 
+                                  array (
+                                    'key' => '2 Layer, Braided, Steel Wire',
+                                    'value' => 1829536,
+                                  ),
+                                  10 => 
+                                  array (
+                                    'key' => '2 Layers, Braided Synthetic Yarn',
+                                    'value' => 2885,
+                                  ),
+                                  11 => 
+                                  array (
+                                    'key' => '2 Layers, Braided, Steel Wire',
+                                    'value' => 2887,
+                                  ),
+                                  12 => 
+                                  array (
+                                    'key' => '2 Layers, Braided, Textile',
+                                    'value' => 2888,
+                                  ),
+                                  13 => 
+                                  array (
+                                    'key' => '2 Layers, Spiral, Polyester',
+                                    'value' => 1829546,
+                                  ),
+                                  14 => 
+                                  array (
+                                    'key' => '2 Layers, Spiral-Plied, Synthetic Fabric, One Nylon Breaker',
+                                    'value' => 12528747,
+                                  ),
+                                  15 => 
+                                  array (
+                                    'key' => '2 Layers, Textile Braid, Static Wire',
+                                    'value' => 7558073,
+                                  ),
+                                  16 => 
+                                  array (
+                                    'key' => '304 Stainless Steel Wire Braid',
+                                    'value' => 1829539,
+                                  ),
+                                  17 => 
+                                  array (
+                                    'key' => '4 Layers, Spiral, Steel Wire',
+                                    'value' => 1829540,
+                                  ),
+                                  18 => 
+                                  array (
+                                    'key' => '4 Layers, Spiral, Synthetic Fabric',
+                                    'value' => 12406204,
+                                  ),
+                                  19 => 
+                                  array (
+                                    'key' => '4 Layers, Spiral, Textile',
+                                    'value' => 2889,
+                                  ),
+                                  20 => 
+                                  array (
+                                    'key' => '4 Layers, Spiral-Plied Fabric, One Nylon Breaker',
+                                    'value' => 12528746,
+                                  ),
+                                  21 => 
+                                  array (
+                                    'key' => '4 ply Poly Synthetic Fabrics',
+                                    'value' => 7610884,
+                                  ),
+                                  22 => 
+                                  array (
+                                    'key' => '6 Fabric Plies W/ Boot Straps',
+                                    'value' => 2890,
+                                  ),
+                                  23 => 
+                                  array (
+                                    'key' => '6 Layers, Spiral, Steel Wire',
+                                    'value' => 1829545,
+                                  ),
+                                  24 => 
+                                  array (
+                                    'key' => 'Aramid',
+                                    'value' => 2891,
+                                  ),
+                                  25 => 
+                                  array (
+                                    'key' => 'Aramid Fibers',
+                                    'value' => 1829551,
+                                  ),
+                                  26 => 
+                                  array (
+                                    'key' => 'Braided Flexsten® Synthetic Yarn',
+                                    'value' => 2892,
+                                  ),
+                                  27 => 
+                                  array (
+                                    'key' => 'Braided Steel Wire',
+                                    'value' => 7610880,
+                                  ),
+                                  28 => 
+                                  array (
+                                    'key' => 'Braided Synthetic Fibers',
+                                    'value' => 2893,
+                                  ),
+                                  29 => 
+                                  array (
+                                    'key' => 'Braided Synthetic Fibers, Wire Helix',
+                                    'value' => 2894,
+                                  ),
+                                  30 => 
+                                  array (
+                                    'key' => 'Braided Synthetic Yarn',
+                                    'value' => 2895,
+                                  ),
+                                  31 => 
+                                  array (
+                                    'key' => 'Braided Synthetic Yarn, Antistatic Wire',
+                                    'value' => 12530042,
+                                  ),
+                                  32 => 
+                                  array (
+                                    'key' => 'Braided Textile, Braided Steel',
+                                    'value' => 1829544,
+                                  ),
+                                  33 => 
+                                  array (
+                                    'key' => 'Braided Synthetic Fibers; Galvanized Wire',
+                                    'value' => 7493991,
+                                  ),
+                                  34 => 
+                                  array (
+                                    'key' => 'Brass coated High Tensile Steel Wire Braid',
+                                    'value' => 3913766,
+                                  ),
+                                  35 => 
+                                  array (
+                                    'key' => 'Brass CTD Steel Aramid Breaker',
+                                    'value' => 2896,
+                                  ),
+                                  36 => 
+                                  array (
+                                    'key' => 'Carbon',
+                                    'value' => 1829534,
+                                  ),
+                                  37 => 
+                                  array (
+                                    'key' => 'Cotton',
+                                    'value' => 2897,
+                                  ),
+                                  38 => 
+                                  array (
+                                    'key' => 'Fabric Plies, Wire Helix',
+                                    'value' => 2898,
+                                  ),
+                                  39 => 
+                                  array (
+                                    'key' => 'Fabric With Antistatic Wire',
+                                    'value' => 2899,
+                                  ),
+                                  40 => 
+                                  array (
+                                    'key' => 'Fiberglass',
+                                    'value' => 1829532,
+                                  ),
+                                  41 => 
+                                  array (
+                                    'key' => 'Glass',
+                                    'value' => 2900,
+                                  ),
+                                  42 => 
+                                  array (
+                                    'key' => 'Kevlar',
+                                    'value' => 2901,
+                                  ),
+                                  43 => 
+                                  array (
+                                    'key' => 'Nylon',
+                                    'value' => 1829533,
+                                  ),
+                                  44 => 
+                                  array (
+                                    'key' => 'Nylon®',
+                                    'value' => 2902,
+                                  ),
+                                  45 => 
+                                  array (
+                                    'key' => 'Pliovic Helix',
+                                    'value' => 2903,
+                                  ),
+                                  46 => 
+                                  array (
+                                    'key' => 'Polyester',
+                                    'value' => 2905,
+                                  ),
+                                  47 => 
+                                  array (
+                                    'key' => 'Polyester Braid',
+                                    'value' => 2906,
+                                  ),
+                                  48 => 
+                                  array (
+                                    'key' => 'Polyester Spiral Nylon Barrier',
+                                    'value' => 2907,
+                                  ),
+                                  49 => 
+                                  array (
+                                    'key' => 'Polyester Synthetic Yarn',
+                                    'value' => 2908,
+                                  ),
+                                  50 => 
+                                  array (
+                                    'key' => 'Polyester Yarn',
+                                    'value' => 1829537,
+                                  ),
+                                  51 => 
+                                  array (
+                                    'key' => 'Polyethylene Helix',
+                                    'value' => 2909,
+                                  ),
+                                  52 => 
+                                  array (
+                                    'key' => 'PVA',
+                                    'value' => 2910,
+                                  ),
+                                  53 => 
+                                  array (
+                                    'key' => 'PVC Helix, Static Wire',
+                                    'value' => 2904,
+                                  ),
+                                  54 => 
+                                  array (
+                                    'key' => 'Rayon',
+                                    'value' => 2911,
+                                  ),
+                                  55 => 
+                                  array (
+                                    'key' => 'Rigid High-Density PVC Helix',
+                                    'value' => 5550460,
+                                  ),
+                                  56 => 
+                                  array (
+                                    'key' => 'Spiral Aramid Yarn',
+                                    'value' => 2912,
+                                  ),
+                                  57 => 
+                                  array (
+                                    'key' => 'Spiral Flexten® Synthetic Yarn',
+                                    'value' => 2913,
+                                  ),
+                                  58 => 
+                                  array (
+                                    'key' => 'Spiral Steel Wire',
+                                    'value' => 1829548,
+                                  ),
+                                  59 => 
+                                  array (
+                                    'key' => 'Spiral Synthetic Cord',
+                                    'value' => 5679578,
+                                  ),
+                                  60 => 
+                                  array (
+                                    'key' => 'Spiral Synthetic Yarn',
+                                    'value' => 2914,
+                                  ),
+                                  61 => 
+                                  array (
+                                    'key' => 'Spiral Synthetic Yarn, Copper Static Wire',
+                                    'value' => 7563315,
+                                  ),
+                                  62 => 
+                                  array (
+                                    'key' => 'Spiral Synthetic Yarn, Stainless Static Wire',
+                                    'value' => 7563316,
+                                  ),
+                                  63 => 
+                                  array (
+                                    'key' => 'Spiral Textile Reinforcement',
+                                    'value' => 2915,
+                                  ),
+                                  64 => 
+                                  array (
+                                    'key' => 'Spiral wire between plies of synthetic fabric',
+                                    'value' => 7610886,
+                                  ),
+                                  65 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Aramid Fibers, Wire Helix',
+                                    'value' => 2916,
+                                  ),
+                                  66 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabric & Grounding Wire',
+                                    'value' => 7610885,
+                                  ),
+                                  67 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabric with Double Galvanized Wire',
+                                    'value' => 11973767,
+                                  ),
+                                  68 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabric, Double Helix Wire, Antistatic Wire',
+                                    'value' => 7610827,
+                                  ),
+                                  69 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabric, Wire Helix',
+                                    'value' => 2917,
+                                  ),
+                                  70 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabric; Monofilament Helix',
+                                    'value' => 7493990,
+                                  ),
+                                  71 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Fabrics',
+                                    'value' => 7610881,
+                                  ),
+                                  72 => 
+                                  array (
+                                    'key' => 'Spiral-Plied fabrics with double wire helix',
+                                    'value' => 7610882,
+                                  ),
+                                  73 => 
+                                  array (
+                                    'key' => 'Spiral-Plied fabrics with dual steel helix wire',
+                                    'value' => 7610883,
+                                  ),
+                                  74 => 
+                                  array (
+                                    'key' => 'Spiral-Plied fabrics, double helix wire, & longitu',
+                                    'value' => 7610888,
+                                  ),
+                                  75 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Steel Wire',
+                                    'value' => 2918,
+                                  ),
+                                  76 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric',
+                                    'value' => 2919,
+                                  ),
+                                  77 => 
+                                  array (
+                                    'key' => 'Spiral-plied Synthetic Fabric with 2 Anti-Static Wires',
+                                    'value' => 5550459,
+                                  ),
+                                  78 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric With Antistatic Wire',
+                                    'value' => 2920,
+                                  ),
+                                  79 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric With Double Wire Helix',
+                                    'value' => 2921,
+                                  ),
+                                  80 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix',
+                                    'value' => 2922,
+                                  ),
+                                  81 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix & Antistatic Wire',
+                                    'value' => 2923,
+                                  ),
+                                  82 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric, Double Wire Helix',
+                                    'value' => 2924,
+                                  ),
+                                  83 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric, Galvanized Helix',
+                                    'value' => 2925,
+                                  ),
+                                  84 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Fabric, Wire Helix',
+                                    'value' => 2926,
+                                  ),
+                                  85 => 
+                                  array (
+                                    'key' => 'Spiral-Plied Synthetic Yarn',
+                                    'value' => 2927,
+                                  ),
+                                  86 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric',
+                                    'value' => 2928,
+                                  ),
+                                  87 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric Breaker',
+                                    'value' => 2932,
+                                  ),
+                                  88 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric Nylon Breaker',
+                                    'value' => 2929,
+                                  ),
+                                  89 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric Plies',
+                                    'value' => 2930,
+                                  ),
+                                  90 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric Plies, Outer PVC Helix',
+                                    'value' => 11973768,
+                                  ),
+                                  91 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, 2 Galvanized Helix',
+                                    'value' => 1829542,
+                                  ),
+                                  92 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, 2 Static Wires',
+                                    'value' => 7610828,
+                                  ),
+                                  93 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, 2 Wire Helix',
+                                    'value' => 2931,
+                                  ),
+                                  94 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, Galvanized Helix',
+                                    'value' => 2938,
+                                  ),
+                                  95 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, Grounding Wires',
+                                    'value' => 2933,
+                                  ),
+                                  96 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, Static Wire',
+                                    'value' => 2934,
+                                  ),
+                                  97 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, Wire Helix',
+                                    'value' => 2935,
+                                  ),
+                                  98 => 
+                                  array (
+                                    'key' => 'Synthetic Fabrics, 2 Galvanized Helix Wires',
+                                    'value' => 2936,
+                                  ),
+                                  99 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers',
+                                    'value' => 2939,
+                                  ),
+                                  100 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers with Steel Wire Braid',
+                                    'value' => 10705763,
+                                  ),
+                                  101 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers, Helix Wire',
+                                    'value' => 1829550,
+                                  ),
+                                  102 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers, Plastic Helix',
+                                    'value' => 2940,
+                                  ),
+                                  103 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers, Steel Helix',
+                                    'value' => 2941,
+                                  ),
+                                  104 => 
+                                  array (
+                                    'key' => 'Synthetic Fibers, Wire Helix',
+                                    'value' => 1829549,
+                                  ),
+                                  105 => 
+                                  array (
+                                    'key' => 'Synthetic Plies, 2 Wire Helix',
+                                    'value' => 2942,
+                                  ),
+                                  106 => 
+                                  array (
+                                    'key' => 'Synthetic Textile Fabric',
+                                    'value' => 2943,
+                                  ),
+                                  107 => 
+                                  array (
+                                    'key' => 'Synthetic Yarn',
+                                    'value' => 2944,
+                                  ),
+                                  108 => 
+                                  array (
+                                    'key' => 'Synthetic Yarn, Static Wire',
+                                    'value' => 2945,
+                                  ),
+                                  109 => 
+                                  array (
+                                    'key' => 'Textile Braid',
+                                    'value' => 2946,
+                                  ),
+                                  110 => 
+                                  array (
+                                    'key' => 'Textile Braid, Steel Helix',
+                                    'value' => 2947,
+                                  ),
+                                  111 => 
+                                  array (
+                                    'key' => 'Textile Spiral Reinforced',
+                                    'value' => 7610887,
+                                  ),
+                                  112 => 
+                                  array (
+                                    'key' => 'Thermoplastic Alloyed Blend of Polyurethane and PVC',
+                                    'value' => 10706729,
+                                  ),
+                                  113 => 
+                                  array (
+                                    'key' => 'Through-The-Weave Fabric',
+                                    'value' => 2948,
+                                  ),
+                                  114 => 
+                                  array (
+                                    'key' => 'Vinyl Helix',
+                                    'value' => 2949,
+                                  ),
+                                  115 => 
+                                  array (
+                                    'key' => 'Wire Braid',
+                                    'value' => 1829535,
+                                  ),
+                                  116 => 
+                                  array (
+                                    'key' => 'Wire Helix',
+                                    'value' => 2950,
+                                  ),
+                                ),
+                                 'width' => 250,
+                                 'height' => '',
+                                 'maxItems' => 1,
+                                 'renderType' => 'tags',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                                 'optionsProviderData' => 'ProductClass',
+                                 'queryColumnType' => 'text',
+                                 'columnType' => 'text',
+                                 'phpdocType' => 'array',
+                                 'dynamicOptions' => false,
+                                 'name' => 'reinforcement',
+                                 'title' => 'Reinforcement / Cord',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
                               )),
                             ),
                              'locked' => false,
@@ -3038,37 +3580,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                 'fieldtype' => 'numeric',
-                                 'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'double',
-                                 'columnType' => 'double',
-                                 'phpdocType' => 'float',
-                                 'integer' => false,
-                                 'unsigned' => false,
-                                 'minValue' => NULL,
-                                 'maxValue' => NULL,
-                                 'unique' => false,
-                                 'decimalSize' => 3,
-                                 'decimalPrecision' => NULL,
-                                 'name' => 'beltAngle',
-                                 'title' => 'Belt Angle',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => 'margin-left:20px;',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 250,
@@ -3096,16 +3607,20 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              7 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 250,
-                                 'showCharCount' => false,
+                                 'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
+                                 'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'name' => 'sapDescriptionLanguage',
-                                 'title' => 'SAP Description Language',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'staticConductive',
+                                 'title' => 'Static Conductive',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -3118,10 +3633,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'defaultValue' => NULL,
-                                 'columnLength' => 190,
-                                 'regex' => '',
-                                 'unique' => false,
                                  'defaultValueGenerator' => '',
                               )),
                             ),
@@ -3310,8 +3821,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
-                                     'decimalSize' => 3,
-                                     'decimalPrecision' => NULL,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => 3,
                                      'name' => 'minimumTemperatureC',
                                      'title' => 'Min Temp °C',
                                      'tooltip' => '',
@@ -3341,8 +3852,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
-                                     'decimalSize' => 3,
-                                     'decimalPrecision' => NULL,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => 3,
                                      'name' => 'maximumTemperatureC',
                                      'title' => 'Max temp °C',
                                      'tooltip' => '',
@@ -3395,780 +3906,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           )),
                         ),
                          'locked' => false,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                         'fieldtype' => 'localizedfields',
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
-                         'childs' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                             'fieldtype' => 'fieldcontainer',
-                             'labelWidth' => 100,
-                             'layout' => 'hbox',
-                             'fieldLabel' => '',
-                             'name' => 'Field Container',
-                             'type' => NULL,
-                             'region' => NULL,
-                             'title' => '',
-                             'width' => NULL,
-                             'height' => NULL,
-                             'collapsible' => false,
-                             'collapsed' => false,
-                             'bodyStyle' => '',
-                             'datatype' => 'layout',
-                             'permissions' => NULL,
-                             'childs' => 
-                            array (
-                              0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                 'fieldtype' => 'fieldcontainer',
-                                 'labelWidth' => 250,
-                                 'layout' => 'hbox',
-                                 'fieldLabel' => '',
-                                 'name' => 'Field Container',
-                                 'type' => NULL,
-                                 'region' => NULL,
-                                 'title' => '',
-                                 'width' => NULL,
-                                 'height' => NULL,
-                                 'collapsible' => false,
-                                 'collapsed' => false,
-                                 'bodyStyle' => '',
-                                 'datatype' => 'layout',
-                                 'permissions' => NULL,
-                                 'childs' => 
-                                array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'fieldtype' => 'fieldcontainer',
-                                     'labelWidth' => 150,
-                                     'layout' => 'vbox',
-                                     'fieldLabel' => '',
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => '',
-                                     'width' => NULL,
-                                     'height' => NULL,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'permissions' => NULL,
-                                     'childs' => 
-                                    array (
-                                      0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 250,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 30,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'industryStandard',
-                                         'title' => 'Industry Standard #',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => true,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                         'fieldtype' => 'multiselect',
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Fabric',
-                                            'value' => 1829543,
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Polyester',
-                                            'value' => 1829547,
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Steel Wire',
-                                            'value' => 2881,
-                                          ),
-                                          3 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Synthetic Yarn',
-                                            'value' => 2882,
-                                          ),
-                                          4 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Synthetic Yarn With Static Wire',
-                                            'value' => 2884,
-                                          ),
-                                          5 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Textile',
-                                            'value' => 2883,
-                                          ),
-                                          6 => 
-                                          array (
-                                            'key' => '1 Layer, Braided, Textile and 1 Layer, Braided, Steel Wire',
-                                            'value' => 10778364,
-                                          ),
-                                          7 => 
-                                          array (
-                                            'key' => '1 Or 2 Steel Wire Braids',
-                                            'value' => 1829541,
-                                          ),
-                                          8 => 
-                                          array (
-                                            'key' => '2 Layer, Braided Synthetic Yarn With Static Wire',
-                                            'value' => 2886,
-                                          ),
-                                          9 => 
-                                          array (
-                                            'key' => '2 Layer, Braided, Steel Wire',
-                                            'value' => 1829536,
-                                          ),
-                                          10 => 
-                                          array (
-                                            'key' => '2 Layers, Braided Synthetic Yarn',
-                                            'value' => 2885,
-                                          ),
-                                          11 => 
-                                          array (
-                                            'key' => '2 Layers, Braided, Steel Wire',
-                                            'value' => 2887,
-                                          ),
-                                          12 => 
-                                          array (
-                                            'key' => '2 Layers, Braided, Textile',
-                                            'value' => 2888,
-                                          ),
-                                          13 => 
-                                          array (
-                                            'key' => '2 Layers, Spiral, Polyester',
-                                            'value' => 1829546,
-                                          ),
-                                          14 => 
-                                          array (
-                                            'key' => '2 Layers, Textile Braid, Static Wire',
-                                            'value' => 7558073,
-                                          ),
-                                          15 => 
-                                          array (
-                                            'key' => '304 Stainless Steel Wire Braid',
-                                            'value' => 1829539,
-                                          ),
-                                          16 => 
-                                          array (
-                                            'key' => '4 Layers, Spiral, Steel Wire',
-                                            'value' => 1829540,
-                                          ),
-                                          17 => 
-                                          array (
-                                            'key' => '4 Layers, Spiral, Textile',
-                                            'value' => 2889,
-                                          ),
-                                          18 => 
-                                          array (
-                                            'key' => '4 ply Poly Synthetic Fabrics',
-                                            'value' => 7610884,
-                                          ),
-                                          19 => 
-                                          array (
-                                            'key' => '6 Fabric Plies W/ Boot Straps',
-                                            'value' => 2890,
-                                          ),
-                                          20 => 
-                                          array (
-                                            'key' => '6 Layers, Spiral, Steel Wire',
-                                            'value' => 1829545,
-                                          ),
-                                          21 => 
-                                          array (
-                                            'key' => 'Aramid',
-                                            'value' => 2891,
-                                          ),
-                                          22 => 
-                                          array (
-                                            'key' => 'Aramid Fibers',
-                                            'value' => 1829551,
-                                          ),
-                                          23 => 
-                                          array (
-                                            'key' => 'Braided Flexsten® Synthetic Yarn',
-                                            'value' => 2892,
-                                          ),
-                                          24 => 
-                                          array (
-                                            'key' => 'Braided Steel Wire',
-                                            'value' => 7610880,
-                                          ),
-                                          25 => 
-                                          array (
-                                            'key' => 'Braided Synthetic Fibers',
-                                            'value' => 2893,
-                                          ),
-                                          26 => 
-                                          array (
-                                            'key' => 'Braided Synthetic Fibers, Wire Helix',
-                                            'value' => 2894,
-                                          ),
-                                          27 => 
-                                          array (
-                                            'key' => 'Braided Synthetic Yarn',
-                                            'value' => 2895,
-                                          ),
-                                          28 => 
-                                          array (
-                                            'key' => 'Braided Textile, Braided Steel',
-                                            'value' => 1829544,
-                                          ),
-                                          29 => 
-                                          array (
-                                            'key' => 'Braided Synthetic Fibers; Galvanized Wire',
-                                            'value' => 7493991,
-                                          ),
-                                          30 => 
-                                          array (
-                                            'key' => 'Brass coated High Tensile Steel Wire Braid',
-                                            'value' => 3913766,
-                                          ),
-                                          31 => 
-                                          array (
-                                            'key' => 'Brass CTD Steel Aramid Breaker',
-                                            'value' => 2896,
-                                          ),
-                                          32 => 
-                                          array (
-                                            'key' => 'Carbon',
-                                            'value' => 1829534,
-                                          ),
-                                          33 => 
-                                          array (
-                                            'key' => 'Cotton',
-                                            'value' => 2897,
-                                          ),
-                                          34 => 
-                                          array (
-                                            'key' => 'Fabric Plies, Wire Helix',
-                                            'value' => 2898,
-                                          ),
-                                          35 => 
-                                          array (
-                                            'key' => 'Fabric With Antistatic Wire',
-                                            'value' => 2899,
-                                          ),
-                                          36 => 
-                                          array (
-                                            'key' => 'Fiberglass',
-                                            'value' => 1829532,
-                                          ),
-                                          37 => 
-                                          array (
-                                            'key' => 'Glass',
-                                            'value' => 2900,
-                                          ),
-                                          38 => 
-                                          array (
-                                            'key' => 'Kevlar',
-                                            'value' => 2901,
-                                          ),
-                                          39 => 
-                                          array (
-                                            'key' => 'Nylon',
-                                            'value' => 1829533,
-                                          ),
-                                          40 => 
-                                          array (
-                                            'key' => 'Nylon®',
-                                            'value' => 2902,
-                                          ),
-                                          41 => 
-                                          array (
-                                            'key' => 'Pliovic Helix',
-                                            'value' => 2903,
-                                          ),
-                                          42 => 
-                                          array (
-                                            'key' => 'Polyester',
-                                            'value' => 2905,
-                                          ),
-                                          43 => 
-                                          array (
-                                            'key' => 'Polyester Braid',
-                                            'value' => 2906,
-                                          ),
-                                          44 => 
-                                          array (
-                                            'key' => 'Polyester Spiral Nylon Barrier',
-                                            'value' => 2907,
-                                          ),
-                                          45 => 
-                                          array (
-                                            'key' => 'Polyester Synthetic Yarn',
-                                            'value' => 2908,
-                                          ),
-                                          46 => 
-                                          array (
-                                            'key' => 'Polyester Yarn',
-                                            'value' => 1829537,
-                                          ),
-                                          47 => 
-                                          array (
-                                            'key' => 'Polyethylene Helix',
-                                            'value' => 2909,
-                                          ),
-                                          48 => 
-                                          array (
-                                            'key' => 'PVA',
-                                            'value' => 2910,
-                                          ),
-                                          49 => 
-                                          array (
-                                            'key' => 'PVC Helix, Static Wire',
-                                            'value' => 2904,
-                                          ),
-                                          50 => 
-                                          array (
-                                            'key' => 'Rayon',
-                                            'value' => 2911,
-                                          ),
-                                          51 => 
-                                          array (
-                                            'key' => 'Rigid High-Density PVC Helix',
-                                            'value' => 5550460,
-                                          ),
-                                          52 => 
-                                          array (
-                                            'key' => 'Spiral Aramid Yarn',
-                                            'value' => 2912,
-                                          ),
-                                          53 => 
-                                          array (
-                                            'key' => 'Spiral Flexten® Synthetic Yarn',
-                                            'value' => 2913,
-                                          ),
-                                          54 => 
-                                          array (
-                                            'key' => 'Spiral Steel Wire',
-                                            'value' => 1829548,
-                                          ),
-                                          55 => 
-                                          array (
-                                            'key' => 'Spiral Synthetic Cord',
-                                            'value' => 5679578,
-                                          ),
-                                          56 => 
-                                          array (
-                                            'key' => 'Spiral Synthetic Yarn',
-                                            'value' => 2914,
-                                          ),
-                                          57 => 
-                                          array (
-                                            'key' => 'Spiral Synthetic Yarn, Copper Static Wire',
-                                            'value' => 7563315,
-                                          ),
-                                          58 => 
-                                          array (
-                                            'key' => 'Spiral Synthetic Yarn, Stainless Static Wire',
-                                            'value' => 7563316,
-                                          ),
-                                          59 => 
-                                          array (
-                                            'key' => 'Spiral Textile Reinforcement',
-                                            'value' => 2915,
-                                          ),
-                                          60 => 
-                                          array (
-                                            'key' => 'Spiral wire between plies of synthetic fabric',
-                                            'value' => 7610886,
-                                          ),
-                                          61 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Aramid Fibers, Wire Helix',
-                                            'value' => 2916,
-                                          ),
-                                          62 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Fabric & Grounding Wire',
-                                            'value' => 7610885,
-                                          ),
-                                          63 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Fabric, Double Helix Wire, Antistatic Wire',
-                                            'value' => 7610827,
-                                          ),
-                                          64 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Fabric, Wire Helix',
-                                            'value' => 2917,
-                                          ),
-                                          65 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Fabric; Monofilament Helix',
-                                            'value' => 7493990,
-                                          ),
-                                          66 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Fabrics',
-                                            'value' => 7610881,
-                                          ),
-                                          67 => 
-                                          array (
-                                            'key' => 'Spiral-Plied fabrics with double wire helix',
-                                            'value' => 7610882,
-                                          ),
-                                          68 => 
-                                          array (
-                                            'key' => 'Spiral-Plied fabrics with dual steel helix wire',
-                                            'value' => 7610883,
-                                          ),
-                                          69 => 
-                                          array (
-                                            'key' => 'Spiral-Plied fabrics, double helix wire, & longitu',
-                                            'value' => 7610888,
-                                          ),
-                                          70 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Steel Wire',
-                                            'value' => 2918,
-                                          ),
-                                          71 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric',
-                                            'value' => 2919,
-                                          ),
-                                          72 => 
-                                          array (
-                                            'key' => 'Spiral-plied Synthetic Fabric with 2 Anti-Static Wires',
-                                            'value' => 5550459,
-                                          ),
-                                          73 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric With Antistatic Wire',
-                                            'value' => 2920,
-                                          ),
-                                          74 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric With Double Wire Helix',
-                                            'value' => 2921,
-                                          ),
-                                          75 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix',
-                                            'value' => 2922,
-                                          ),
-                                          76 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix & Antistatic Wire',
-                                            'value' => 2923,
-                                          ),
-                                          77 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric, Double Wire Helix',
-                                            'value' => 2924,
-                                          ),
-                                          78 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric, Galvanized Helix',
-                                            'value' => 2925,
-                                          ),
-                                          79 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Fabric, Wire Helix',
-                                            'value' => 2926,
-                                          ),
-                                          80 => 
-                                          array (
-                                            'key' => 'Spiral-Plied Synthetic Yarn',
-                                            'value' => 2927,
-                                          ),
-                                          81 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric',
-                                            'value' => 2928,
-                                          ),
-                                          82 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric Breaker',
-                                            'value' => 2932,
-                                          ),
-                                          83 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric Nylon Breaker',
-                                            'value' => 2929,
-                                          ),
-                                          84 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric Plies',
-                                            'value' => 2930,
-                                          ),
-                                          85 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, 2 Galvanized Helix',
-                                            'value' => 1829542,
-                                          ),
-                                          86 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, 2 Static Wires',
-                                            'value' => 7610828,
-                                          ),
-                                          87 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, 2 Wire Helix',
-                                            'value' => 2931,
-                                          ),
-                                          88 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, 2 Wire Helix',
-                                            'value' => 2937,
-                                          ),
-                                          89 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, Galvanized Helix',
-                                            'value' => 2938,
-                                          ),
-                                          90 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, Grounding Wires',
-                                            'value' => 2933,
-                                          ),
-                                          91 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, Static Wire',
-                                            'value' => 2934,
-                                          ),
-                                          92 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, Wire Helix',
-                                            'value' => 2935,
-                                          ),
-                                          93 => 
-                                          array (
-                                            'key' => 'Synthetic Fabric, Wire Helix',
-                                            'value' => 1829538,
-                                          ),
-                                          94 => 
-                                          array (
-                                            'key' => 'Synthetic Fabrics, 2 Galvanized Helix Wires',
-                                            'value' => 2936,
-                                          ),
-                                          95 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers',
-                                            'value' => 2939,
-                                          ),
-                                          96 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers with Steel Wire Braid',
-                                            'value' => 10705763,
-                                          ),
-                                          97 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers, Helix Wire',
-                                            'value' => 1829550,
-                                          ),
-                                          98 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers, Plastic Helix',
-                                            'value' => 2940,
-                                          ),
-                                          99 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers, Steel Helix',
-                                            'value' => 2941,
-                                          ),
-                                          100 => 
-                                          array (
-                                            'key' => 'Synthetic Fibers, Wire Helix',
-                                            'value' => 1829549,
-                                          ),
-                                          101 => 
-                                          array (
-                                            'key' => 'Synthetic Plies, 2 Wire Helix',
-                                            'value' => 2942,
-                                          ),
-                                          102 => 
-                                          array (
-                                            'key' => 'Synthetic Textile Fabric',
-                                            'value' => 2943,
-                                          ),
-                                          103 => 
-                                          array (
-                                            'key' => 'Synthetic Yarn',
-                                            'value' => 2944,
-                                          ),
-                                          104 => 
-                                          array (
-                                            'key' => 'Synthetic Yarn, Static Wire',
-                                            'value' => 2945,
-                                          ),
-                                          105 => 
-                                          array (
-                                            'key' => 'Textile Braid',
-                                            'value' => 2946,
-                                          ),
-                                          106 => 
-                                          array (
-                                            'key' => 'Textile Braid, Steel Helix',
-                                            'value' => 2947,
-                                          ),
-                                          107 => 
-                                          array (
-                                            'key' => 'Textile Spiral Reinforced',
-                                            'value' => 7610887,
-                                          ),
-                                          108 => 
-                                          array (
-                                            'key' => 'Thermoplastic Alloyed Blend of Polyurethane and PVC',
-                                            'value' => 10706729,
-                                          ),
-                                          109 => 
-                                          array (
-                                            'key' => 'Through-The-Weave Fabric',
-                                            'value' => 2948,
-                                          ),
-                                          110 => 
-                                          array (
-                                            'key' => 'Vinyl Helix',
-                                            'value' => 2949,
-                                          ),
-                                          111 => 
-                                          array (
-                                            'key' => 'Wire Braid',
-                                            'value' => 1829535,
-                                          ),
-                                          112 => 
-                                          array (
-                                            'key' => 'Wire Helix',
-                                            'value' => 2950,
-                                          ),
-                                        ),
-                                         'width' => 250,
-                                         'height' => '',
-                                         'maxItems' => 1,
-                                         'renderType' => 'tags',
-                                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                                         'optionsProviderData' => 'ProductClass',
-                                         'queryColumnType' => 'text',
-                                         'columnType' => 'text',
-                                         'phpdocType' => 'array',
-                                         'dynamicOptions' => false,
-                                         'name' => 'reinforcement',
-                                         'title' => 'Reinforcement / Cord',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => true,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
-                                    ),
-                                     'locked' => false,
-                                  )),
-                                  1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'fieldtype' => 'fieldcontainer',
-                                     'labelWidth' => 150,
-                                     'layout' => 'vbox',
-                                     'fieldLabel' => '',
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => '',
-                                     'width' => NULL,
-                                     'height' => NULL,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'permissions' => NULL,
-                                     'childs' => 
-                                    array (
-                                      0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                         'fieldtype' => 'textarea',
-                                         'width' => 250,
-                                         'height' => 100,
-                                         'maxLength' => 50,
-                                         'showCharCount' => false,
-                                         'excludeFromSearchIndex' => false,
-                                         'queryColumnType' => 'longtext',
-                                         'columnType' => 'longtext',
-                                         'phpdocType' => 'string',
-                                         'name' => 'sapDescription',
-                                         'title' => 'SAP Description',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => true,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => 'margin-left:20px;',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
-                                    ),
-                                     'locked' => false,
-                                  )),
-                                ),
-                                 'locked' => false,
-                              )),
-                            ),
-                             'locked' => false,
-                          )),
-                        ),
-                         'name' => 'localizedfields',
-                         'region' => NULL,
-                         'layout' => NULL,
-                         'title' => '',
-                         'width' => '',
-                         'height' => '',
-                         'maxTabs' => NULL,
-                         'labelWidth' => NULL,
-                         'border' => true,
-                         'provideSplitView' => false,
-                         'tabPosition' => NULL,
-                         'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
-                        array (
-                        ),
-                         'fieldDefinitionsCache' => NULL,
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => NULL,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => true,
                       )),
                     ),
                      'locked' => false,
@@ -4310,13 +4047,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'PTGEUProductHierarchy',
-                          ),
-                        ),
+                         'classes' => 'PTGEUProductHierarchy',
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel3',
                          'title' => 'Product Hierarchy Level 3',
@@ -4347,13 +4078,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'PTGEUProductHierarchy',
-                          ),
-                        ),
+                         'classes' => 'PTGEUProductHierarchy',
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel4',
                          'title' => 'Product Hierarchy Level 4',
@@ -4384,13 +4109,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'PTGEUProductHierarchy',
-                          ),
-                        ),
+                         'classes' => 'PTGEUProductHierarchy',
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel5',
                          'title' => 'Product Hierarchy Level 5',
@@ -4421,13 +4140,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'PTGEUProductHierarchy',
-                          ),
-                        ),
+                         'classes' => 'PTGEUProductHierarchy',
                          'pathFormatterClass' => '',
                          'name' => 'hierarchyLevel6',
                          'title' => 'Product Hierarchy Level 6',
@@ -4560,35 +4273,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'fieldtype' => 'text',
-                 'html' => 'Imported From SAP​​',
-                 'renderingClass' => '',
-                 'renderingData' => '',
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                 'fieldtype' => 'tabpanel',
                  'border' => false,
+                 'tabPosition' => NULL,
                  'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => 'color:black;padding: 10px !important; background-color: #28a050 !important;border-color: #bce8f1 !important',
-                 'datatype' => 'layout',
-                 'permissions' => NULL,
-                 'childs' => 
-                array (
-                ),
-                 'locked' => false,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 100,
-                 'layout' => 'hbox',
-                 'fieldLabel' => '',
-                 'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
@@ -4602,15 +4291,15 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 175,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Imported From SAP',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => '',
+                     'title' => 'Imported From SAP​',
                      'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
@@ -4621,144 +4310,272 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 14,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'eanUpc',
-                         'title' => 'EAN / UPC',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                         'fieldtype' => 'text',
+                         'html' => 'Imported From SAP​​',
+                         'renderingClass' => '',
+                         'renderingData' => '',
+                         'border' => false,
+                         'name' => 'Layout',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'color:black;padding: 10px !important; background-color: #28a050 !important;border-color: #bce8f1 !important',
+                         'datatype' => 'layout',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
+                         'childs' => 
+                        array (
+                        ),
+                         'locked' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 30,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'profile',
-                         'title' => 'Profile',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 175,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 30,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'profile',
+                                 'title' => 'Profile',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'beltAngle',
+                                 'title' => 'Belt Angle',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'maxSpeed',
+                                 'title' => 'Max Speed',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'minPulleyDia',
+                                 'title' => 'Min. pulley dia',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'minOutsidePulleyDia',
+                                 'title' => 'Min. outside pulley dia',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 175,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Category Specific Data',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => '',
+                     'title' => 'Category Specific Data',
                      'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
-                     'bodyStyle' => 'margin-left: 20px;',
+                     'bodyStyle' => '',
                      'datatype' => 'layout',
                      'permissions' => NULL,
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'manufacturer',
-                         'title' => 'Manufacturer',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                         'fieldtype' => 'objectbricks',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
+                         'allowedTypes' => 
+                        array (
+                          0 => 'PTGEUFlatBeltsSkeleton',
+                        ),
+                         'maxItems' => '',
+                         'border' => false,
+                         'name' => 'skeleton',
+                         'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => true,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 20px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 250,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => 10,
-                         'name' => 'manufacturerPartNumber',
-                         'title' => 'Manufacturer Part Number',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                 ),
                  'locked' => false,
@@ -4849,7 +4666,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'fieldtype' => 'fieldcontainer',
-                         'labelWidth' => 100,
+                         'labelWidth' => 150,
                          'layout' => 'hbox',
                          'fieldLabel' => '',
                          'name' => 'Field Container',
@@ -4868,7 +4685,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'fieldtype' => 'fieldcontainer',
-                             'labelWidth' => 100,
+                             'labelWidth' => 150,
                              'layout' => 'vbox',
                              'fieldLabel' => '',
                              'name' => 'Field Container',
@@ -4887,7 +4704,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 250,
+                                 'width' => 220,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -4919,13 +4736,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 190,
+                                 'columnLength' => 14,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
                                  'showCharCount' => false,
-                                 'name' => 'oldMaterialCode',
-                                 'title' => 'Old Material Code',
+                                 'name' => 'eanUpc',
+                                 'title' => 'EAN / UPC',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -4949,11 +4766,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'columnType' => 'double',
                                  'phpdocType' => 'float',
                                  'integer' => false,
-                                 'unsigned' => true,
+                                 'unsigned' => false,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
                                  'unique' => false,
-                                 'decimalSize' => 10,
+                                 'decimalSize' => NULL,
                                  'decimalPrecision' => 3,
                                  'name' => 'netWeight',
                                  'title' => 'Net Weight',
@@ -5031,7 +4848,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'maxValue' => NULL,
                                  'unique' => false,
                                  'decimalSize' => NULL,
-                                 'decimalPrecision' => NULL,
+                                 'decimalPrecision' => 3,
                                  'name' => 'listPrice',
                                  'title' => 'List Price',
                                  'tooltip' => '',
@@ -5043,7 +4860,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
-                                 'invisible' => false,
+                                 'invisible' => true,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
@@ -5062,6 +4879,93 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'showCharCount' => false,
                                  'name' => 'nominalLength',
                                  'title' => 'Nominal Length',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'sapDescriptionLanguage',
+                                 'title' => 'SAP Description Language',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              7 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'manufacturer',
+                                 'title' => 'Manufacturer',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              8 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'manufacturerPartNumber',
+                                 'title' => 'Manufacturer Part Number',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -5099,22 +5003,19 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'childs' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                 'fieldtype' => 'numeric',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
                                  'width' => 220,
                                  'defaultValue' => NULL,
-                                 'queryColumnType' => 'double',
-                                 'columnType' => 'double',
-                                 'phpdocType' => 'float',
-                                 'integer' => false,
-                                 'unsigned' => true,
-                                 'minValue' => NULL,
-                                 'maxValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
                                  'unique' => false,
-                                 'decimalSize' => 10,
-                                 'decimalPrecision' => 3,
-                                 'name' => 'grossWeight',
-                                 'title' => 'Gross Weight',
+                                 'showCharCount' => false,
+                                 'name' => 'oldMaterialCode',
+                                 'title' => 'Old Material Code',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -5136,13 +5037,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 3,
+                                 'columnLength' => 30,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
                                  'showCharCount' => false,
-                                 'name' => 'alternativeUnitOfMeasureForStockkeepingUnit',
-                                 'title' => 'Alternative Unit of Measure for Stockkeeping Unit',
+                                 'name' => 'industryStandard',
+                                 'title' => 'Industry Standard #',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -5158,6 +5059,65 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'beltTolerance',
+                                 'title' => 'Belt Tolerance',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'fieldtype' => 'numeric',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'double',
+                                 'columnType' => 'double',
+                                 'phpdocType' => 'float',
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
+                                 'name' => 'grossWeight',
+                                 'title' => 'Gross Weight',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -5185,7 +5145,35 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'matchMakerLL',
+                                 'title' => 'Match Maker L=L',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
@@ -5221,6 +5209,34 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
+                              7 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 3,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'alternativeUnitOfMeasureForStockkeepingUnit',
+                                 'title' => 'Alternative Unit of Measure for Stockkeeping Unit',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
                             ),
                              'locked' => false,
                           )),
@@ -5228,6 +5244,90 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'locked' => false,
                       )),
                       2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                             'fieldtype' => 'localizedfields',
+                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'fieldtype' => 'textarea',
+                                 'width' => 250,
+                                 'height' => 100,
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'queryColumnType' => 'longtext',
+                                 'columnType' => 'longtext',
+                                 'phpdocType' => 'string',
+                                 'name' => 'sapDescription',
+                                 'title' => 'SAP Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'name' => 'localizedfields',
+                             'region' => NULL,
+                             'layout' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'maxTabs' => NULL,
+                             'labelWidth' => NULL,
+                             'border' => true,
+                             'provideSplitView' => false,
+                             'tabPosition' => NULL,
+                             'hideLabelsWhenTabsReached' => NULL,
+                             'referencedFields' => 
+                            array (
+                            ),
+                             'fieldDefinitionsCache' => NULL,
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => NULL,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => true,
+                             'visibleSearch' => true,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'fieldtype' => 'text',
                          'html' => 'Enriched in PIM​',
@@ -5250,7 +5350,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         ),
                          'locked' => false,
                       )),
-                      3 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'fieldtype' => 'fieldcontainer',
                          'labelWidth' => 100,
@@ -5402,6 +5502,63 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                ),
+                                 'width' => 220,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
+                                 'name' => 'searchKeywords',
+                                 'title' => 'Search Keywords',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'fieldtype' => 'textarea',
+                                 'width' => 220,
+                                 'height' => 80,
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'queryColumnType' => 'longtext',
+                                 'columnType' => 'longtext',
+                                 'phpdocType' => 'string',
+                                 'name' => 'CategoryDescriptionCatalog',
+                                 'title' => 'Category Description Catalog',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
                             ),
                              'locked' => false,
                           )),
@@ -5480,8 +5637,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
                                  'unique' => false,
-                                 'decimalSize' => 2,
-                                 'decimalPrecision' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => 3,
                                  'name' => 'vtlStatus',
                                  'title' => 'VTL Status / Distribution Chain Level',
                                  'tooltip' => '',
@@ -5512,6 +5669,34 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'showCharCount' => false,
                                  'name' => 'pdfLINK',
                                  'title' => 'PDF LINK',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left: 20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'catalogFlag',
+                                 'title' => 'Catalog Flag',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,

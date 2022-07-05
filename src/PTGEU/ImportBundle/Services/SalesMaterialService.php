@@ -246,6 +246,7 @@ class SalesMaterialService
             $plantName = $rowvalue[$columnPlant];
             $material = $rowvalue[$columnMaterial];
             $salesOrg = $rowvalue[$columnSalesOrg];
+            //p_r($salesOrg);die;
             $distributionChannel = $rowvalue[$columnDistributionChannel];
             $countryOfOrigin = $rowvalue[$columnCountryOfOrigin];
             
@@ -299,12 +300,15 @@ class SalesMaterialService
                         }
                         if(!isset($this->salesOrgArray[$salesOrg])) {
                             $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
+
                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
+                           // p_r($salesOrgId);exit;
                             if($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                             }
                         }
                         $salesOrgCode = $this->salesOrgArray[$salesOrg];
+
 
                         if(!isset($this->distributionChannelArray[$distributionChannel])) {
                             $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc]; 
@@ -491,19 +495,19 @@ class SalesMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey, $plantFolderId) {
-        $objectPlant = new DataObject\Plant\Listing();
+        $objectPlant = new DataObject\PTGEUPlant\Listing();
         $objectPlant->setCondition("Plant = ?", [$plantKey]);
         $objectPlant->load();
         if(empty($objectPlant)) {
-            $objectPlant = new DataObject\Plant();
-            $objectPlant->setKey($plantKey);
-            $objectPlant->setPlant($plantKey);
-            $objectPlant->setParentId($plantFolderId);
-            $objectPlant->setPublished(TRUE);   
-            $objectPlant->save();  
+            $objectPlantNew = new DataObject\PTGEUPlant();
+            $objectPlantNew->setKey($plantKey);
+            $objectPlantNew->setPlant($plantKey);
+            $objectPlantNew->setParentId($plantFolderId);
+            $objectPlantNew->setPublished(TRUE);   
+            $objectPlantNew->save();  
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
 
-            return $objectPlant->getId();
+            return $objectPlantNew->getId();
         } else {
             foreach ($objectPlant as $objPlant) {
                 return $objPlant->getId();
@@ -516,20 +520,20 @@ class SalesMaterialService
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId) {
-        $object = new DataObject\DistributionChannel\Listing();
-        $object->setCondition("code = ?", [$distributionChannelKey]);
+        $object = new DataObject\PTGEUDistributionChannel\Listing();
+        $object->setCondition("distributionCode = ?", [$distributionChannelKey]);
         $object->load();
         if(empty($object)) {
-            $object = new DataObject\DistributionChannel();
-            $object->setKey($distributionChannelKey."-".$distributionChannelDesc);
-            $object->setCode($distributionChannelKey);
-            $object->setName($distributionChannelDesc);
-            $object->setParentId($distributionChannelFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $objectNew = new DataObject\PTGEUDistributionChannel();
+            $objectNew->setKey($distributionChannelKey."-".$distributionChannelDesc);
+            $objectNew->setDistributionCode($distributionChannelKey);
+            $objectNew->setName($distributionChannelDesc);
+            $objectNew->setParentId($distributionChannelFolderId);
+            $objectNew->setPublished(TRUE);   
+            $objectNew->save(); 
             $this->monitoringItem->getLogger()->info("Distribution Channel : ".$distributionChannelKey." not found in master list, distribution channel created");
 
-            return $object->getId();
+            return $objectNew->getId();
         } else {
             foreach ($object as $obj) {
                 return $obj->getId();
@@ -543,20 +547,20 @@ class SalesMaterialService
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId) {
-        $object = new DataObject\SalesOrganisation\Listing();
-        $object->setCondition("code = ?", [$salesOrgKey]);
+        $object = new DataObject\PTGEUSalesOrg\Listing();
+        $object->setCondition("salesOrgCode= ?", [$salesOrgKey]);
         $object->load();
         if(empty($object)) {
-            $object = new DataObject\SalesOrganisation();
-            $object->setKey($salesOrgKey."-".$salesOrgDesc);
-            $object->setCode($salesOrgKey);
-            $object->setName($salesOrgDesc);
-            $object->setParentId($salesOrganizationsFolderId);
-            $object->setPublished(TRUE); 
-            $object->save();   
+            $objectNew = new DataObject\PTGEUSalesOrg();
+            $objectNew->setKey($salesOrgKey."-".$salesOrgDesc);
+            $objectNew->setSalesOrgCode($salesOrgKey);
+            $objectNew->setSalesOrgName($salesOrgDesc);
+            $objectNew->setParentId($salesOrganizationsFolderId);
+            $objectNew->setPublished(TRUE); 
+            $objectNew->save();   
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
 
-            return $object->getId();
+            return $objectNew->getId();
         } else {
             foreach ($object as $obj) {
                 return $obj->getId();
@@ -569,14 +573,14 @@ class SalesMaterialService
      * return Country of origin object
      */
     public function getCountryOfOriginObject($countryOfOriginKey, $countryOfOriginDesc, $countryOfOriginFolderId) {
-        $object = new DataObject\Country\Listing();
-        $object->setCondition("name = ?", [$countryOfOriginDesc]);
+        $object = new DataObject\PTGEUCountryOfOrigin\Listing();
+        $object->setCondition("countryName = ?", [$countryOfOriginDesc]);
         $object->load();
         if(empty($object)) {
-            $object = new DataObject\Country();
+            $object = new DataObject\PTGEUCountryOfOrigin();
             $object->setKey($countryOfOriginDesc);
-            $object->setCode($countryOfOriginKey);
-            $object->setName($countryOfOriginDesc);
+            $object->setCountryCode($countryOfOriginKey);
+            $object->setCountryName($countryOfOriginDesc);
             $object->setParentId($countryOfOriginFolderId);
             $object->setPublished(TRUE);   
             $object->save(); 
@@ -592,7 +596,7 @@ class SalesMaterialService
     }
 
     public function getBrandId($materialGroup5Value) {
-        $brandList = new \Pimcore\Model\DataObject\Brand\Listing();
+        $brandList = new \Pimcore\Model\DataObject\PTGEUBrand\Listing();
         $brandList->setCondition("brandCode = ?",$materialGroup5Value);
         foreach ($brandList as $brand) {
             return $brand->getId();

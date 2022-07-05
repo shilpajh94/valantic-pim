@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-30T09:29:49+02:00
+* Generated at: 2022-07-05T07:10:43+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ReadOnlyPTGEU',
    'description' => '',
    'creationDate' => 1656568995,
-   'modificationDate' => 1656574189,
+   'modificationDate' => 1656997843,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -2025,225 +2025,220 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       ),
                                       226 => 
                                       array (
-                                        'key' => 'Static Pressure Rating',
-                                        'value' => 12472320,
-                                      ),
-                                      227 => 
-                                      array (
                                         'key' => 'Static Wire',
                                         'value' => 3168,
                                       ),
-                                      228 => 
+                                      227 => 
                                       array (
                                         'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
                                         'value' => 759973,
                                       ),
-                                      229 => 
+                                      228 => 
                                       array (
                                         'key' => 'Static Wire Option Available',
                                         'value' => 3169,
                                       ),
-                                      230 => 
+                                      229 => 
                                       array (
                                         'key' => 'Suitable for drinking  water',
                                         'value' => 759974,
                                       ),
-                                      231 => 
+                                      230 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Cover',
                                         'value' => 3170,
                                       ),
-                                      232 => 
+                                      231 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube',
                                         'value' => 3171,
                                       ),
-                                      233 => 
+                                      232 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube & Cover',
                                         'value' => 3172,
                                       ),
-                                      234 => 
+                                      233 => 
                                       array (
                                         'key' => 'Superior Bend Radius',
                                         'value' => 759975,
                                       ),
-                                      235 => 
+                                      234 => 
                                       array (
                                         'key' => 'Superior Cold Weather Flexibility',
                                         'value' => 759976,
                                       ),
-                                      236 => 
+                                      235 => 
                                       array (
                                         'key' => 'Superior Cover Adhesion',
                                         'value' => 3173,
                                       ),
-                                      237 => 
+                                      236 => 
                                       array (
                                         'key' => 'Superior Crush-Resistance',
                                         'value' => 759977,
                                       ),
-                                      238 => 
+                                      237 => 
                                       array (
                                         'key' => 'Superior Durability',
                                         'value' => 759978,
                                       ),
-                                      239 => 
+                                      238 => 
                                       array (
                                         'key' => 'Superior efficiency for improved performance',
                                         'value' => 760057,
                                       ),
-                                      240 => 
+                                      239 => 
                                       array (
                                         'key' => 'Superior Fitting Retention',
                                         'value' => 3174,
                                       ),
-                                      241 => 
+                                      240 => 
                                       array (
                                         'key' => 'Superior Kink Resistance',
                                         'value' => 759979,
                                       ),
-                                      242 => 
+                                      241 => 
                                       array (
                                         'key' => 'Superior Oil Resistance In The Tube',
                                         'value' => 759980,
                                       ),
-                                      243 => 
+                                      242 => 
                                       array (
                                         'key' => 'Superior Oil Resistance On The Cover',
                                         'value' => 759981,
                                       ),
-                                      244 => 
+                                      243 => 
                                       array (
                                         'key' => 'Superior Oil Resistance Tube And Cover',
                                         'value' => 759982,
                                       ),
-                                      245 => 
+                                      244 => 
                                       array (
                                         'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
                                         'value' => 759983,
                                       ),
-                                      246 => 
+                                      245 => 
                                       array (
                                         'key' => 'Survivor Compound Available',
                                         'value' => 3194,
                                       ),
-                                      247 => 
+                                      246 => 
                                       array (
                                         'key' => 'Tapered Nozzle Available',
                                         'value' => 3175,
                                       ),
-                                      248 => 
+                                      247 => 
                                       array (
                                         'key' => 'Taste & Odorless Tube',
                                         'value' => 3176,
                                       ),
-                                      249 => 
+                                      248 => 
                                       array (
                                         'key' => 'Tolerates misalignment',
                                         'value' => 760058,
                                       ),
-                                      250 => 
+                                      249 => 
                                       array (
                                         'key' => 'Transmit power from both sides',
                                         'value' => 760059,
                                       ),
-                                      251 => 
+                                      250 => 
                                       array (
                                         'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
                                         'value' => 760060,
                                       ),
-                                      252 => 
+                                      251 => 
                                       array (
                                         'key' => 'Twist Resistant',
                                         'value' => 3177,
                                       ),
-                                      253 => 
+                                      252 => 
                                       array (
                                         'key' => 'U.S. Coast Guard Certified',
                                         'value' => 3178,
                                       ),
-                                      254 => 
+                                      253 => 
                                       array (
                                         'key' => 'UL / CUL 330 Certified ',
                                         'value' => 759987,
                                       ),
-                                      255 => 
+                                      254 => 
                                       array (
                                         'key' => 'UL / CUL Certified',
                                         'value' => 3195,
                                       ),
-                                      256 => 
+                                      255 => 
                                       array (
                                         'key' => 'UL 330A Approved',
                                         'value' => 3179,
                                       ),
-                                      257 => 
+                                      256 => 
                                       array (
                                         'key' => 'UL 330B Approved',
                                         'value' => 3180,
                                       ),
-                                      258 => 
+                                      257 => 
                                       array (
                                         'key' => 'UL 94Hb Approved',
                                         'value' => 759984,
                                       ),
-                                      259 => 
+                                      258 => 
                                       array (
                                         'key' => 'UL Certified',
                                         'value' => 759985,
                                       ),
-                                      260 => 
+                                      259 => 
                                       array (
                                         'key' => 'Ultra-Low Permeation',
                                         'value' => 3181,
                                       ),
-                                      261 => 
+                                      260 => 
                                       array (
                                         'key' => 'Uniform cross section means less drive wear',
                                         'value' => 760061,
                                       ),
-                                      262 => 
+                                      261 => 
                                       array (
                                         'key' => 'Universal Fuel Compatibility',
                                         'value' => 3182,
                                       ),
-                                      263 => 
+                                      262 => 
                                       array (
                                         'key' => 'Universal tooth profile drops into existing sprockets',
                                         'value' => 760062,
                                       ),
-                                      264 => 
+                                      263 => 
                                       array (
                                         'key' => 'Universal tooth profile fits into existing RPP sprockets',
                                         'value' => 760063,
                                       ),
-                                      265 => 
+                                      264 => 
                                       array (
                                         'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
                                         'value' => 760064,
                                       ),
-                                      266 => 
+                                      265 => 
                                       array (
                                         'key' => 'USDA / FDA Certified',
                                         'value' => 759986,
                                       ),
-                                      267 => 
+                                      266 => 
                                       array (
                                         'key' => 'Vacuum Rated',
                                         'value' => 3183,
                                       ),
-                                      268 => 
+                                      267 => 
                                       array (
                                         'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
                                         'value' => 3184,
                                       ),
-                                      269 => 
+                                      268 => 
                                       array (
                                         'key' => 'Visibility of Flow',
                                         'value' => 3185,
                                       ),
-                                      270 => 
+                                      269 => 
                                       array (
                                         'key' => 'Withstand high loading forces',
                                         'value' => 760065,
@@ -2474,16 +2469,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       )),
                                       1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 250,
-                                         'defaultValue' => NULL,
+                                         'fieldtype' => 'select',
+                                         'width' => 220,
+                                         'defaultValue' => '',
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
                                          'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
                                          'name' => 'searchKeywords',
                                          'title' => 'Search Keywords',
                                          'tooltip' => '',
@@ -2491,7 +2483,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'noteditable' => true,
                                          'index' => false,
                                          'locked' => false,
-                                         'style' => 'margin-left:20px;',
+                                         'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
                                          'relationType' => false,
@@ -2499,6 +2491,12 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
+                                         'options' => 
+                                        array (
+                                        ),
+                                         'optionsProviderClass' => '',
+                                         'optionsProviderData' => '',
+                                         'dynamicOptions' => false,
                                       )),
                                       2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2679,16 +2677,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'select',
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'material',
                                  'title' => 'Material / Compound ',
                                  'tooltip' => '',
@@ -2704,6 +2699,42 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'EPDM',
+                                    'value' => 'EPDM',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'HNBR',
+                                    'value' => 'HNBR',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'PU',
+                                    'value' => 'PU',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'CR',
+                                    'value' => 'CR',
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'PBD',
+                                    'value' => 'PBD',
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'NR / SBR',
+                                    'value' => 'NR / SBR',
+                                  ),
+                                ),
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'dynamicOptions' => false,
                               )),
                               2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -3378,515 +3409,495 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   ),
                                   14 => 
                                   array (
-                                    'key' => '2 Layers, Spiral-Plied, Synthetic Fabric, One Nylon Breaker',
-                                    'value' => 12528747,
-                                  ),
-                                  15 => 
-                                  array (
                                     'key' => '2 Layers, Textile Braid, Static Wire',
                                     'value' => 7558073,
                                   ),
-                                  16 => 
+                                  15 => 
                                   array (
                                     'key' => '304 Stainless Steel Wire Braid',
                                     'value' => 1829539,
                                   ),
-                                  17 => 
+                                  16 => 
                                   array (
                                     'key' => '4 Layers, Spiral, Steel Wire',
                                     'value' => 1829540,
                                   ),
-                                  18 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral, Synthetic Fabric',
-                                    'value' => 12406204,
-                                  ),
-                                  19 => 
+                                  17 => 
                                   array (
                                     'key' => '4 Layers, Spiral, Textile',
                                     'value' => 2889,
                                   ),
-                                  20 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral-Plied Fabric, One Nylon Breaker',
-                                    'value' => 12528746,
-                                  ),
-                                  21 => 
+                                  18 => 
                                   array (
                                     'key' => '4 ply Poly Synthetic Fabrics',
                                     'value' => 7610884,
                                   ),
-                                  22 => 
+                                  19 => 
                                   array (
                                     'key' => '6 Fabric Plies W/ Boot Straps',
                                     'value' => 2890,
                                   ),
-                                  23 => 
+                                  20 => 
                                   array (
                                     'key' => '6 Layers, Spiral, Steel Wire',
                                     'value' => 1829545,
                                   ),
-                                  24 => 
+                                  21 => 
                                   array (
                                     'key' => 'Aramid',
                                     'value' => 2891,
                                   ),
-                                  25 => 
+                                  22 => 
                                   array (
                                     'key' => 'Aramid Fibers',
                                     'value' => 1829551,
                                   ),
-                                  26 => 
+                                  23 => 
                                   array (
                                     'key' => 'Braided Flexsten® Synthetic Yarn',
                                     'value' => 2892,
                                   ),
-                                  27 => 
+                                  24 => 
                                   array (
                                     'key' => 'Braided Steel Wire',
                                     'value' => 7610880,
                                   ),
-                                  28 => 
+                                  25 => 
                                   array (
                                     'key' => 'Braided Synthetic Fibers',
                                     'value' => 2893,
                                   ),
-                                  29 => 
+                                  26 => 
                                   array (
                                     'key' => 'Braided Synthetic Fibers, Wire Helix',
                                     'value' => 2894,
                                   ),
-                                  30 => 
+                                  27 => 
                                   array (
                                     'key' => 'Braided Synthetic Yarn',
                                     'value' => 2895,
                                   ),
-                                  31 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Yarn, Antistatic Wire',
-                                    'value' => 12530042,
-                                  ),
-                                  32 => 
+                                  28 => 
                                   array (
                                     'key' => 'Braided Textile, Braided Steel',
                                     'value' => 1829544,
                                   ),
-                                  33 => 
+                                  29 => 
                                   array (
                                     'key' => 'Braided Synthetic Fibers; Galvanized Wire',
                                     'value' => 7493991,
                                   ),
-                                  34 => 
+                                  30 => 
                                   array (
                                     'key' => 'Brass coated High Tensile Steel Wire Braid',
                                     'value' => 3913766,
                                   ),
-                                  35 => 
+                                  31 => 
                                   array (
                                     'key' => 'Brass CTD Steel Aramid Breaker',
                                     'value' => 2896,
                                   ),
-                                  36 => 
+                                  32 => 
                                   array (
                                     'key' => 'Carbon',
                                     'value' => 1829534,
                                   ),
-                                  37 => 
+                                  33 => 
                                   array (
                                     'key' => 'Cotton',
                                     'value' => 2897,
                                   ),
-                                  38 => 
+                                  34 => 
                                   array (
                                     'key' => 'Fabric Plies, Wire Helix',
                                     'value' => 2898,
                                   ),
-                                  39 => 
+                                  35 => 
                                   array (
                                     'key' => 'Fabric With Antistatic Wire',
                                     'value' => 2899,
                                   ),
-                                  40 => 
+                                  36 => 
                                   array (
                                     'key' => 'Fiberglass',
                                     'value' => 1829532,
                                   ),
-                                  41 => 
+                                  37 => 
                                   array (
                                     'key' => 'Glass',
                                     'value' => 2900,
                                   ),
-                                  42 => 
+                                  38 => 
                                   array (
                                     'key' => 'Kevlar',
                                     'value' => 2901,
                                   ),
-                                  43 => 
+                                  39 => 
                                   array (
                                     'key' => 'Nylon',
                                     'value' => 1829533,
                                   ),
-                                  44 => 
+                                  40 => 
                                   array (
                                     'key' => 'Nylon®',
                                     'value' => 2902,
                                   ),
-                                  45 => 
+                                  41 => 
                                   array (
                                     'key' => 'Pliovic Helix',
                                     'value' => 2903,
                                   ),
-                                  46 => 
+                                  42 => 
                                   array (
                                     'key' => 'Polyester',
                                     'value' => 2905,
                                   ),
-                                  47 => 
+                                  43 => 
                                   array (
                                     'key' => 'Polyester Braid',
                                     'value' => 2906,
                                   ),
-                                  48 => 
+                                  44 => 
                                   array (
                                     'key' => 'Polyester Spiral Nylon Barrier',
                                     'value' => 2907,
                                   ),
-                                  49 => 
+                                  45 => 
                                   array (
                                     'key' => 'Polyester Synthetic Yarn',
                                     'value' => 2908,
                                   ),
-                                  50 => 
+                                  46 => 
                                   array (
                                     'key' => 'Polyester Yarn',
                                     'value' => 1829537,
                                   ),
-                                  51 => 
+                                  47 => 
                                   array (
                                     'key' => 'Polyethylene Helix',
                                     'value' => 2909,
                                   ),
-                                  52 => 
+                                  48 => 
                                   array (
                                     'key' => 'PVA',
                                     'value' => 2910,
                                   ),
-                                  53 => 
+                                  49 => 
                                   array (
                                     'key' => 'PVC Helix, Static Wire',
                                     'value' => 2904,
                                   ),
-                                  54 => 
+                                  50 => 
                                   array (
                                     'key' => 'Rayon',
                                     'value' => 2911,
                                   ),
-                                  55 => 
+                                  51 => 
                                   array (
                                     'key' => 'Rigid High-Density PVC Helix',
                                     'value' => 5550460,
                                   ),
-                                  56 => 
+                                  52 => 
                                   array (
                                     'key' => 'Spiral Aramid Yarn',
                                     'value' => 2912,
                                   ),
-                                  57 => 
+                                  53 => 
                                   array (
                                     'key' => 'Spiral Flexten® Synthetic Yarn',
                                     'value' => 2913,
                                   ),
-                                  58 => 
+                                  54 => 
                                   array (
                                     'key' => 'Spiral Steel Wire',
                                     'value' => 1829548,
                                   ),
-                                  59 => 
+                                  55 => 
                                   array (
                                     'key' => 'Spiral Synthetic Cord',
                                     'value' => 5679578,
                                   ),
-                                  60 => 
+                                  56 => 
                                   array (
                                     'key' => 'Spiral Synthetic Yarn',
                                     'value' => 2914,
                                   ),
-                                  61 => 
+                                  57 => 
                                   array (
                                     'key' => 'Spiral Synthetic Yarn, Copper Static Wire',
                                     'value' => 7563315,
                                   ),
-                                  62 => 
+                                  58 => 
                                   array (
                                     'key' => 'Spiral Synthetic Yarn, Stainless Static Wire',
                                     'value' => 7563316,
                                   ),
-                                  63 => 
+                                  59 => 
                                   array (
                                     'key' => 'Spiral Textile Reinforcement',
                                     'value' => 2915,
                                   ),
-                                  64 => 
+                                  60 => 
                                   array (
                                     'key' => 'Spiral wire between plies of synthetic fabric',
                                     'value' => 7610886,
                                   ),
-                                  65 => 
+                                  61 => 
                                   array (
                                     'key' => 'Spiral-Plied Aramid Fibers, Wire Helix',
                                     'value' => 2916,
                                   ),
-                                  66 => 
+                                  62 => 
                                   array (
                                     'key' => 'Spiral-Plied Fabric & Grounding Wire',
                                     'value' => 7610885,
                                   ),
-                                  67 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric with Double Galvanized Wire',
-                                    'value' => 11973767,
-                                  ),
-                                  68 => 
+                                  63 => 
                                   array (
                                     'key' => 'Spiral-Plied Fabric, Double Helix Wire, Antistatic Wire',
                                     'value' => 7610827,
                                   ),
-                                  69 => 
+                                  64 => 
                                   array (
                                     'key' => 'Spiral-Plied Fabric, Wire Helix',
                                     'value' => 2917,
                                   ),
-                                  70 => 
+                                  65 => 
                                   array (
                                     'key' => 'Spiral-Plied Fabric; Monofilament Helix',
                                     'value' => 7493990,
                                   ),
-                                  71 => 
+                                  66 => 
                                   array (
                                     'key' => 'Spiral-Plied Fabrics',
                                     'value' => 7610881,
                                   ),
-                                  72 => 
+                                  67 => 
                                   array (
                                     'key' => 'Spiral-Plied fabrics with double wire helix',
                                     'value' => 7610882,
                                   ),
-                                  73 => 
+                                  68 => 
                                   array (
                                     'key' => 'Spiral-Plied fabrics with dual steel helix wire',
                                     'value' => 7610883,
                                   ),
-                                  74 => 
+                                  69 => 
                                   array (
                                     'key' => 'Spiral-Plied fabrics, double helix wire, & longitu',
                                     'value' => 7610888,
                                   ),
-                                  75 => 
+                                  70 => 
                                   array (
                                     'key' => 'Spiral-Plied Steel Wire',
                                     'value' => 2918,
                                   ),
-                                  76 => 
+                                  71 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric',
                                     'value' => 2919,
                                   ),
-                                  77 => 
+                                  72 => 
                                   array (
                                     'key' => 'Spiral-plied Synthetic Fabric with 2 Anti-Static Wires',
                                     'value' => 5550459,
                                   ),
-                                  78 => 
+                                  73 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric With Antistatic Wire',
                                     'value' => 2920,
                                   ),
-                                  79 => 
+                                  74 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric With Double Wire Helix',
                                     'value' => 2921,
                                   ),
-                                  80 => 
+                                  75 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix',
                                     'value' => 2922,
                                   ),
-                                  81 => 
+                                  76 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix & Antistatic Wire',
                                     'value' => 2923,
                                   ),
-                                  82 => 
+                                  77 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric, Double Wire Helix',
                                     'value' => 2924,
                                   ),
-                                  83 => 
+                                  78 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric, Galvanized Helix',
                                     'value' => 2925,
                                   ),
-                                  84 => 
+                                  79 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Fabric, Wire Helix',
                                     'value' => 2926,
                                   ),
-                                  85 => 
+                                  80 => 
                                   array (
                                     'key' => 'Spiral-Plied Synthetic Yarn',
                                     'value' => 2927,
                                   ),
-                                  86 => 
+                                  81 => 
                                   array (
                                     'key' => 'Synthetic Fabric',
                                     'value' => 2928,
                                   ),
-                                  87 => 
+                                  82 => 
                                   array (
                                     'key' => 'Synthetic Fabric Breaker',
                                     'value' => 2932,
                                   ),
-                                  88 => 
+                                  83 => 
                                   array (
                                     'key' => 'Synthetic Fabric Nylon Breaker',
                                     'value' => 2929,
                                   ),
-                                  89 => 
+                                  84 => 
                                   array (
                                     'key' => 'Synthetic Fabric Plies',
                                     'value' => 2930,
                                   ),
-                                  90 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric Plies, Outer PVC Helix',
-                                    'value' => 11973768,
-                                  ),
-                                  91 => 
+                                  85 => 
                                   array (
                                     'key' => 'Synthetic Fabric, 2 Galvanized Helix',
                                     'value' => 1829542,
                                   ),
-                                  92 => 
+                                  86 => 
                                   array (
                                     'key' => 'Synthetic Fabric, 2 Static Wires',
                                     'value' => 7610828,
                                   ),
-                                  93 => 
+                                  87 => 
                                   array (
                                     'key' => 'Synthetic Fabric, 2 Wire Helix',
                                     'value' => 2931,
                                   ),
-                                  94 => 
+                                  88 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, 2 Wire Helix',
+                                    'value' => 2937,
+                                  ),
+                                  89 => 
                                   array (
                                     'key' => 'Synthetic Fabric, Galvanized Helix',
                                     'value' => 2938,
                                   ),
-                                  95 => 
+                                  90 => 
                                   array (
                                     'key' => 'Synthetic Fabric, Grounding Wires',
                                     'value' => 2933,
                                   ),
-                                  96 => 
+                                  91 => 
                                   array (
                                     'key' => 'Synthetic Fabric, Static Wire',
                                     'value' => 2934,
                                   ),
-                                  97 => 
+                                  92 => 
                                   array (
                                     'key' => 'Synthetic Fabric, Wire Helix',
                                     'value' => 2935,
                                   ),
-                                  98 => 
+                                  93 => 
+                                  array (
+                                    'key' => 'Synthetic Fabric, Wire Helix',
+                                    'value' => 1829538,
+                                  ),
+                                  94 => 
                                   array (
                                     'key' => 'Synthetic Fabrics, 2 Galvanized Helix Wires',
                                     'value' => 2936,
                                   ),
-                                  99 => 
+                                  95 => 
                                   array (
                                     'key' => 'Synthetic Fibers',
                                     'value' => 2939,
                                   ),
-                                  100 => 
+                                  96 => 
                                   array (
                                     'key' => 'Synthetic Fibers with Steel Wire Braid',
                                     'value' => 10705763,
                                   ),
-                                  101 => 
+                                  97 => 
                                   array (
                                     'key' => 'Synthetic Fibers, Helix Wire',
                                     'value' => 1829550,
                                   ),
-                                  102 => 
+                                  98 => 
                                   array (
                                     'key' => 'Synthetic Fibers, Plastic Helix',
                                     'value' => 2940,
                                   ),
-                                  103 => 
+                                  99 => 
                                   array (
                                     'key' => 'Synthetic Fibers, Steel Helix',
                                     'value' => 2941,
                                   ),
-                                  104 => 
+                                  100 => 
                                   array (
                                     'key' => 'Synthetic Fibers, Wire Helix',
                                     'value' => 1829549,
                                   ),
-                                  105 => 
+                                  101 => 
                                   array (
                                     'key' => 'Synthetic Plies, 2 Wire Helix',
                                     'value' => 2942,
                                   ),
-                                  106 => 
+                                  102 => 
                                   array (
                                     'key' => 'Synthetic Textile Fabric',
                                     'value' => 2943,
                                   ),
-                                  107 => 
+                                  103 => 
                                   array (
                                     'key' => 'Synthetic Yarn',
                                     'value' => 2944,
                                   ),
-                                  108 => 
+                                  104 => 
                                   array (
                                     'key' => 'Synthetic Yarn, Static Wire',
                                     'value' => 2945,
                                   ),
-                                  109 => 
+                                  105 => 
                                   array (
                                     'key' => 'Textile Braid',
                                     'value' => 2946,
                                   ),
-                                  110 => 
+                                  106 => 
                                   array (
                                     'key' => 'Textile Braid, Steel Helix',
                                     'value' => 2947,
                                   ),
-                                  111 => 
+                                  107 => 
                                   array (
                                     'key' => 'Textile Spiral Reinforced',
                                     'value' => 7610887,
                                   ),
-                                  112 => 
+                                  108 => 
                                   array (
                                     'key' => 'Thermoplastic Alloyed Blend of Polyurethane and PVC',
                                     'value' => 10706729,
                                   ),
-                                  113 => 
+                                  109 => 
                                   array (
                                     'key' => 'Through-The-Weave Fabric',
                                     'value' => 2948,
                                   ),
-                                  114 => 
+                                  110 => 
                                   array (
                                     'key' => 'Vinyl Helix',
                                     'value' => 2949,
                                   ),
-                                  115 => 
+                                  111 => 
                                   array (
                                     'key' => 'Wire Braid',
                                     'value' => 1829535,
                                   ),
-                                  116 => 
+                                  112 => 
                                   array (
                                     'key' => 'Wire Helix',
                                     'value' => 2950,

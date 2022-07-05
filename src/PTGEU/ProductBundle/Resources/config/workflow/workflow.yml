@@ -44,12 +44,14 @@ parameters:
                 roles:
                     - ProductManagementPTGEMEAAPAC
         approved:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Notification for Publish Product'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
-                     - ProductManagementPTGEMEAAPAC
+                    - ProductManagementPTGEMEAAPAC
+                    - EditorPTGEMEAAPAC
+                    - MarComPTGEMEAAPAC
         # published:
         #     templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for Fixes'
         #     notificationTo: 
@@ -72,12 +74,14 @@ parameters:
                 roles:
                     - MarComPTGEMEAAPAC
         in_pm_review_after_editor_edit:
-            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Sent for PM Review'
+            templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Notification for Publish Product'
             notificationTo: 
                 users:
                     # - ProductManagementPTGEMEAAPAC
                 roles:
                     - ProductManagementPTGEMEAAPAC
+                    - EditorPTGEMEAAPAC
+                    - MarComPTGEMEAAPAC
         in_editor_edit_after_marcom_review:
             templatePath: '/Contitech_PTGEU/WorkflowEmailTemplates/Send to Editor for Fixes'
             notificationTo: 
