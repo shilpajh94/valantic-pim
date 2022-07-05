@@ -1,11 +1,7 @@
-#Setting class attributes
+#Base Level Editable Attributes
 SAP Code / Material Number:
     fieldName: articleNumber
     fieldType: Input
-    objectType: class
-New Item Flag for Catalog:
-    fieldName: newItemFlagForCatalog
-    fieldType: Boolean Select
     objectType: class
 Printed Catalog Flag:
     fieldName: printedCatalogFlag
@@ -27,10 +23,6 @@ Web Description:
     fieldName: webDiscription
     fieldType: Input
     objectType: class
-Search Keywords:
-    fieldName: searchKeywords
-    fieldType: Input
-    objectType: class
 Reach:
     fieldName: reach
     fieldType: Input
@@ -45,14 +37,6 @@ Shelf Life:
     objectType: class
 Legal Text (Term & Conditions):
     fieldName: legalText
-    fieldType: Textarea
-    objectType: class
-Catalog Flag:
-    fieldName: catalogFlag
-    fieldType: Input
-    objectType: class
-Category Description Catalog:
-    fieldName: CategoryDescriptionCatalog
     fieldType: Textarea
     objectType: class
 Features & Benefits Bullet Point 1:
@@ -95,28 +79,53 @@ Features & Benefits Bullet Point 10:
     fieldName: FeaturesBenefitsBulletPoint
     fieldType: Multiselection
     objectType: class
+ProductType:
+    fieldName: productType
+    fieldType: Select
+    objectType: class
+Business Unit:
+    fieldName: businessUnit
+    fieldType: Select
+    objectType: class
 Specification Construction:
     fieldName: specificationConstruction
     fieldType: Input
     objectType: class
 
-# CAD File:
-#     fieldName: cadFile
-#     fieldType: Boolean Select
-#     objectType: class
-# PDF Drawing:
-#     fieldName: pdfDrawing
-#     fieldType: Select
-#     objectType: class
-# CAD LINK:
-#     fieldName: cadLINK
-#     fieldType: Input
-#     objectType: class
-# VTL Status:
-#     fieldName: vtlStatus
-#     fieldType: Number
-#     objectType: class
-# PDF LINK:
-#     fieldName: pdfLINK
-#     fieldType: Input
-#     objectType: class
+#Fert Level Editable Attributes
+CAD LINK:
+    fieldName: cadLINK
+    fieldType: Input
+    objectType: class
+CAD File:
+    fieldName: cadFile
+    fieldType: Boolean Select
+    objectType: class
+PDF Drawing:
+    fieldName: pdfDrawing
+    fieldType: Select
+    objectType: class
+Search Keywords:
+    fieldName: searchKeywords
+    fieldType: Input
+    objectType: class
+Category Description Catalog:
+    fieldName: CategoryDescriptionCatalog
+    fieldType: Textarea
+    objectType: class
+New Item Flag for Catalog:
+    fieldName: newItemFlagForCatalog
+    fieldType: Boolean Select
+    objectType: class
+VTL Status:
+    fieldName: vtlStatus
+    fieldType: Number
+    objectType: class
+PDF LINK:
+    fieldName: pdfLINK
+    fieldType: Input
+    objectType: class
+Catalog Flag:
+    fieldName: catalogFlag
+    fieldType: Input
+    objectType: class

@@ -103,6 +103,11 @@ minBoreSizeMMUNit:
   fieldType: Input
   fieldValue: mm
   objectType: PTGEUMetalFert
+keyWayMMUNit:
+  fieldName: keyWayMMUNit
+  fieldType: Input
+  fieldValue: mm
+  objectType: PTGEUMetalFert
 pitchDiameterMMUNit:
   fieldName: pitchDiameterMMUNit
   fieldType: Input
