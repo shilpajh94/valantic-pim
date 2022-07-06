@@ -5953,8 +5953,8 @@ return [
         ],
         "id" => "DataCompletenessEmptyAttributes"
     ],
-    "ProductCompleteness" => [
-        "name" => "ProductCompleteness",
+    "PTGEU_ProductCompleteness" => [
+        "name" => "PTGEU_ProductCompleteness",
         "sql" => "",
         "dataSourceConfig" => [
             [
@@ -6048,7 +6048,7 @@ return [
                 "id" => "extModel312-9"
             ]
         ],
-        "niceName" => "ProductCompleteness",
+        "niceName" => "PTGEU - Product Completeness",
         "group" => "PTG_EU",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -6061,7 +6061,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1656505973,
+        "modificationDate" => 1657003110,
         "creationDate" => 1654674916,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -6070,10 +6070,10 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "ProductCompleteness"
+        "id" => "PTGEU_ProductCompleteness"
     ],
-    "MissingAssetsOnProducts" => [
-        "name" => "MissingAssetsOnProducts",
+    "PTGEU_MissingAssetsOnProducts" => [
+        "name" => "PTGEU_MissingAssetsOnProducts",
         "sql" => "",
         "dataSourceConfig" => [
             [
@@ -6266,7 +6266,7 @@ return [
                 "id" => "extModel312-20"
             ]
         ],
-        "niceName" => "MissingAssetsOnProducts",
+        "niceName" => "PTGEU - Missing Assets On Products",
         "group" => "PTG_EU",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -6279,7 +6279,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1656506000,
+        "modificationDate" => 1657003093,
         "creationDate" => 1654688457,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -6288,10 +6288,49 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "MissingAssetsOnProducts"
+        "id" => "PTGEU_MissingAssetsOnProducts"
     ],
-    "TranslationsMissingReport" => [
-        "name" => "TranslationsMissingReport",
+    "PTGEU_PendingWorkFlowReport" => [
+        "name" => "PTGEU_PendingWorkFlowReport",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nn.title AS `Last Action Note`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\nCASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_pm_review_after_publish' THEN 'In Product Manger Review' \nEND as `Status`,\no1.`o_id` as  `ID`\n\n\nFROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nLEFT JOIN object_38 o1 ON o1.oo_id = n.cid \nINNER JOIN object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')\nJOIN element_workflow_state wf ON wf.cid = n.cid \n\nLEFT JOIN `object_localized_query_1_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \n\nWHERE\n    (o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = ''))  \n    AND\n    (wf.`place` != 'published')\nORDER BY\n  (o1.`o_creationDate`) DESC",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+
+        ],
+        "niceName" => "PTGEU - Pending Work Flow Report",
+        "group" => "PTG_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1657003074,
+        "creationDate" => 1656506280,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGEU_PendingWorkFlowReport"
+    ],
+    "PTGEU_TranslationsMissingReport" => [
+        "name" => "PTGEU_TranslationsMissingReport",
         "sql" => "",
         "dataSourceConfig" => [
             [
@@ -6952,7 +6991,7 @@ return [
                 "id" => "extModel312-72"
             ]
         ],
-        "niceName" => "TranslationsMissingReport",
+        "niceName" => "PTGEU -  Translations Missing Report",
         "group" => "PTG_EU",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -6965,7 +7004,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1656506012,
+        "modificationDate" => 1657003054,
         "creationDate" => 1655290783,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -6974,143 +7013,6 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "TranslationsMissingReport"
-    ],
-    "PendingWorkFlowReport" => [
-        "name" => "PendingWorkFlowReport",
-        "sql" => "",
-        "dataSourceConfig" => [
-            [
-                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nn.title AS `Last Action Note`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\nCASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_pm_review_after_publish' THEN 'In Product Manger Review' \nEND as `Status`,\no1.`o_id` as  `ID`\n\n\nFROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nLEFT JOIN object_38 o1 ON o1.oo_id = n.cid \nINNER JOIN object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')\nJOIN element_workflow_state wf ON wf.cid = n.cid \n\nLEFT JOIN `object_localized_query_1_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \n\nWHERE\n    (o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = ''))  \n    AND\n    (wf.`place` != 'published')\nORDER BY\n  (o1.`o_creationDate`) DESC",
-                "from" => "",
-                "where" => "",
-                "groupby" => "",
-                "type" => "sql"
-            ]
-        ],
-        "columnConfiguration" => [
-            [
-                "name" => "ID",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-11"
-            ],
-            [
-                "name" => "Key",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-1"
-            ],
-            [
-                "name" => "Article Number",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-2"
-            ],
-            [
-                "name" => "SIOP Full Code",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-3"
-            ],
-            [
-                "name" => "Path",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-4"
-            ],
-            [
-                "name" => "Product Type",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-5"
-            ],
-            [
-                "name" => "SAP Description",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-6"
-            ],
-            [
-                "name" => "Last Action Note",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-7"
-            ],
-            [
-                "name" => "Pending Since",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-8"
-            ],
-            [
-                "name" => "Status",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-9"
-            ],
-            [
-                "name" => "Last Action Date",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-10"
-            ]
-        ],
-        "niceName" => "",
-        "group" => "PTG_EU",
-        "groupIconClass" => "",
-        "iconClass" => "",
-        "menuShortcut" => FALSE,
-        "reportClass" => "",
-        "chartType" => NULL,
-        "pieColumn" => NULL,
-        "pieLabelColumn" => NULL,
-        "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1656510674,
-        "creationDate" => 1656506280,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-
-        ],
-        "id" => "PendingWorkFlowReport"
+        "id" => "PTGEU_TranslationsMissingReport"
     ]
 ];

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-05T13:31:07+02:00
+* Generated at: 2022-07-06T11:54:14+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -30,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657020667,
+   'modificationDate' => 1657101254,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -209,7 +209,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'classes' => 'PTGEUSalesOrg',
                       ),
                     ),
-                     'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
+                     'pathFormatterClass' => '',
                      'name' => 'salesOrganization',
                      'title' => 'Sales Organization',
                      'tooltip' => '',
@@ -252,7 +252,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'classes' => 'PTGEUDistributionChannel',
                       ),
                     ),
-                     'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
+                     'pathFormatterClass' => '',
                      'name' => 'distributionChannel',
                      'title' => 'Distribution Channel',
                      'tooltip' => '',
