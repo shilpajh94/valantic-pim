@@ -759,7 +759,7 @@ class ProductService
             if (!empty($this->materialGroup[$materialGroupCode])) {
                 return $this->materialGroup[$materialGroupCode];
             } else {
-                $obj = new \Pimcore\Model\DataObject\MaterialGroup();
+                $obj = new \Pimcore\Model\DataObject\PTGEUMaterialGroup();
                 $obj->setCode($materialGroupCode);
                 $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
                 $parentFolder = $this->productHelper->getFolderByPath('Contitech_PTGEU/Master List/Material Group');

@@ -295,7 +295,7 @@ class ProductModel
     }
 
     public function getMaterialGroupData() {
-        $query = "SELECT oo_id, code FROM `object_21` ";
+        $query = "SELECT oo_id, code FROM `object_PTGEUMaterialGroup` ";
         return $this->db->fetchAll($query);
     }
     
