@@ -1,0 +1,16 @@
+config:
+    IFSPTG_US:
+        Roles:
+            [
+                "ProductManager"
+            ]        
+    CBS:       
+        Roles:
+            [
+                "ProductManagerCS"    
+            ]
+    PTG_EU:       
+        Roles:
+            [
+                "ApplicationAdmin"    
+            ]
