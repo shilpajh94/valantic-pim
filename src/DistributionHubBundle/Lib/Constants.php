@@ -97,4 +97,8 @@ class Constants
             'type' => 'system',
             'label' => 'modificationDate',
             'position' => 5]];
+    
+    //Business Unit Specific Class and Roles Config
+    const DHUB_BU_CLASSESS = PIMCORE_PROJECT_ROOT .'/src/DistributionHubBundle/Resources/config/business_unit_classes.yml';
+    const DHUB_BU_ROLES = PIMCORE_PROJECT_ROOT .'/src/DistributionHubBundle/Resources/config/business_unit_roles.yml';
 }

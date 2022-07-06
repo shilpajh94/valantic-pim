@@ -2,42 +2,12 @@ config:
     IFSPTG_US:
         Class:
           [
-              Product: "IFS/PTG",              
-          ]
-        PRODUCT_TYPE:
-          [
-              "Base",
-              "Skeleton",
-              "Fert"
-          ]
-        PrimaryKey:
-          [
-              "articleNumber"
-          ]
-    CBS:
-        Class:
-          [
-              CSProducts: "Conveyor Solution",
-          ]
-        PrimaryKey:
-          [
-              "Path"
+              "Product",              
           ]
     PTG_EU:
         Class:
           [
-              PTGEUProduct: "PTGEU Product",
-              PTGEUPlantMaterialMaster: "PTGEU Plant Material Master",
-              PTGEUProductHierarchy: "PTGEU Product Hierarchy",
-              PTGEUSalesMaterialMaster: "PTGEU Sales Material Master",
-          ]
-        PRODUCT_TYPE:
-          [
-              "Base",
-              "Skeleton",
-              "Fert"
-          ]
-        PrimaryKey:
-          [
-              "articleNumber"
+              "PTGEUProduct",
+              "PTGEUPlantMaterialMaster",
+              "PTGEUSalesMaterialMaster",
           ]

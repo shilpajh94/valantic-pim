@@ -3,14 +3,9 @@ config:
         Roles:
             [
                 "ProductManager"
-            ]        
-    CBS:       
-        Roles:
-            [
-                "ProductManagerCS"    
-            ]
+            ]  
     PTG_EU:       
         Roles:
             [
-                "ApplicationAdmin"    
+                "ApplicationAdminPTGEMEAAPAC"    
             ]
