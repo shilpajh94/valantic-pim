@@ -578,12 +578,12 @@ class PlantMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey){
-        $objectPlant = new DataObject\Plant\Listing();
+        $objectPlant = new DataObject\PTGEUPlant\Listing();
         $objectPlant->setCondition("Plant = ?", [$plantKey]);
         $objectPlant->load();
         if(empty($objectPlant))
         {
-            $objectPlant = new DataObject\Plant();
+            $objectPlant = new DataObject\PTGEUPlant();
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($this->plantFolderId);
@@ -605,14 +605,14 @@ class PlantMaterialService
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey){
-        $object = new DataObject\DistributionChannel\Listing();
-        $object->setCondition("code = ?", [$distributionChannelKey]);
+        $object = new DataObject\PTGEUDistributionChannel\Listing();
+        $object->setCondition("distributionCode = ?", [$distributionChannelKey]);
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\DistributionChannel();
+            $object = new DataObject\PTGEUDistributionChannel();
             $object->setKey($distributionChannelKey);
-            $object->setCode($distributionChannelKey);
+            $object->setDistributionCode($distributionChannelKey);
             $object->setName($distributionChannelKey);
             $object->setParentId($this->distributionChannelFolderId);
             $object->setPublished(TRUE);
@@ -633,15 +633,15 @@ class PlantMaterialService
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey){
-        $object = new DataObject\SalesOrganisation\Listing();
-        $object->setCondition("code = ?", [$salesOrgKey]);
+        $object = new DataObject\PTGEUSalesOrg\Listing();
+        $object->setCondition("salesOrgCode = ?", [$salesOrgKey]);
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\SalesOrganisation();
+            $object = new DataObject\PTGEUSalesOrg();
             $object->setKey($salesOrgKey);
-            $object->setCode($salesOrgKey);
-            $object->setName($salesOrgKey);
+            $object->setSalesOrgCode($salesOrgKey);
+            $object->setSalesOrgName($salesOrgKey);
             $object->setParentId($this->salesOrganizationsFolderId);
             $object->setPublished(TRUE);
             $object->save();
@@ -661,15 +661,15 @@ class PlantMaterialService
      * return country object
      */
     public function getCountryObject($countryKey){
-        $object = new DataObject\Country\Listing();
-        $object->setCondition("code = ?", [$countryKey]);
+        $object = new DataObject\PTGEUCountryOfOrigin\Listing();
+        $object->setCondition("countryCode = ?", [$countryKey]);
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\Country();
+            $object = new DataObject\PTGEUCountryOfOrigin();
             $object->setKey($countryKey);
-            $object->setCode($countryKey);
-            $object->setName($countryKey);
+            $object->setcountryCode($countryKey);
+            $object->setCountryName($countryKey);
             $object->setParentId($this->countryFolderId);
             $object->setPublished(TRUE);
             $object->save();
