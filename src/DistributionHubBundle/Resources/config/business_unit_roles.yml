@@ -2,10 +2,16 @@ config:
     IFSPTG_US:
         Roles:
             [
-                "ProductManager"
+                "ApplicationAdmin",
+                "ProductManager",
+                "Editor"
             ]  
     PTG_EU:       
         Roles:
             [
-                "ApplicationAdminPTGEMEAAPAC"    
+                "ApplicationAdminPTGEMEAAPAC",
+                "ProductManagementPTGEMEAAPAC",
+                "MarComPTGEMEAAPAC",
+                "EditorPTGEMEAAPAC",
+                "ApplicationAdminPTGEMEAAPAC"
             ]
