@@ -6334,7 +6334,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n\tobject_localized_38_en.oo_id As 'Pimcore Id',\n\tobject_localized_38_en.ProductName,\n\tobject_localized_38_en.shortDescription As 'Short Description',\n    object_localized_38_en.longDescription As 'Long Description',\n    object_localized_38_en.CategoryDescriptionCatalog As 'Category Description Catalog',\n    object_localized_38_en.webDiscription As 'Web Description',\n    object_localized_38_en.searchKeywords As 'Search Keywords',\n    object_localized_38_en.legalText As 'Legal Text',\n    object_localized_38_en.sapDescription As 'SAP Description',\n\tobject_localized_38_de.shortDescription As 'Short Description (de)',\n    object_localized_38_de.longDescription As 'Long Description (de)',\n    object_localized_38_de.CategoryDescriptionCatalog As 'Category Description Catalog (de)',\n    object_localized_38_de.webDiscription As 'Web Description (de)',\n    object_localized_38_de.searchKeywords As 'Search Keywords (de)',\n    object_localized_38_de.legalText As 'Legal Text (de)',\n    object_localized_38_de.sapDescription As 'SAP Description (de)',\n    object_localized_38_ro.shortDescription As 'Short Description (ro)',\n    object_localized_38_ro.longDescription As 'Long Description (ro)',\n    object_localized_38_ro.CategoryDescriptionCatalog As 'Category Description Catalog (ro)',\n    object_localized_38_ro.webDiscription As 'Web Description (ro)',\n    object_localized_38_ro.searchKeywords As 'Search Keywords (ro)',\n    object_localized_38_ro.legalText As 'Legal Text (ro)',\n    object_localized_38_ro.sapDescription As 'SAP Description (ro)',\n    object_localized_38_en_US.shortDescription As 'Short Description (en US)',\n    object_localized_38_en_US.longDescription As 'Long Description (en US)',\n    object_localized_38_en_US.CategoryDescriptionCatalog As 'Category Description Catalog (en US)',\n    object_localized_38_en_US.webDiscription As 'Web Description (en US)',\n    object_localized_38_en_US.searchKeywords As 'Search Keywords (en US)',\n    object_localized_38_en_US.legalText As 'Legal Text (en US)',\n    object_localized_38_en_US.sapDescription As 'SAP Description (en US)',\n    object_localized_38_it.shortDescription As 'Short Description (it)',\n    object_localized_38_it.longDescription As 'Long Description (it)',\n    object_localized_38_it.CategoryDescriptionCatalog As 'Category Description Catalog (it)',\n    object_localized_38_it.webDiscription As 'Web Description (it)',\n    object_localized_38_it.searchKeywords As 'Search Keywords (it)',\n    object_localized_38_it.legalText As 'Legal Text (it)',\n    object_localized_38_it.sapDescription As 'SAP Description (it)',\n    object_localized_38_fr.shortDescription As 'Short Description (fr)',\n    object_localized_38_fr.longDescription As 'Long Description (fr)',\n    object_localized_38_fr.CategoryDescriptionCatalog As 'Category Description Catalog (fr)',\n    object_localized_38_fr.webDiscription As 'Web Description (fr)',\n    object_localized_38_fr.searchKeywords As 'Search Keywords (fr)',\n    object_localized_38_fr.legalText As 'Legal Text (fr)',\n    object_localized_38_fr.sapDescription As 'SAP Description (fr)',\n    object_localized_38_es.shortDescription As 'Short Description (es)',\n    object_localized_38_es.longDescription As 'Long Description (es)',\n    object_localized_38_es.CategoryDescriptionCatalog As 'Category Description Catalog (es)',\n    object_localized_38_es.webDiscription As 'Web Description (es)',\n    object_localized_38_es.searchKeywords As 'Search Keywords (es)',\n    object_localized_38_es.legalText As 'Legal Text (es)',\n    object_localized_38_es.sapDescription As 'SAP Description (es)',\n    object_localized_38_ru.shortDescription As 'Short Description (ru)',\n    object_localized_38_ru.longDescription As 'Long Description (ru)',\n    object_localized_38_ru.CategoryDescriptionCatalog As 'Category Description Catalog (ru)',\n    object_localized_38_ru.webDiscription As 'Web Description (ru)',\n    object_localized_38_ru.searchKeywords As 'Search Keywords (ru)',\n    object_localized_38_ru.legalText As 'Legal Text (ru)',\n    object_localized_38_ru.sapDescription As 'SAP Description (ru)',\n    object_localized_38_zh.shortDescription As 'Short Description (zh)',\n    object_localized_38_zh.longDescription As 'Long Description (zh)',\n    object_localized_38_zh.CategoryDescriptionCatalog As 'Category Description Catalog (zh)',\n    object_localized_38_zh.webDiscription As 'Web Description (zh)',\n    object_localized_38_zh.searchKeywords As 'Search Keywords (zh)',\n    object_localized_38_zh.legalText As 'Legal Text (zh)',\n    object_localized_38_zh.sapDescription As 'SAP Description (zh)',\n    object_localized_38_pl.shortDescription As 'Short Description (pl)',\n    object_localized_38_pl.longDescription As 'Long Description (pl)',\n    object_localized_38_pl.CategoryDescriptionCatalog As 'Category Description Catalog (pl)',\n    object_localized_38_pl.webDiscription As 'Web Description (pl)',\n    object_localized_38_pl.searchKeywords As 'Search Keywords (pl)',\n    object_localized_38_pl.legalText As 'Legal Text (pl)',\n    object_localized_38_pl.sapDescription As 'SAP Description (pl)'\n\n    FROM object_localized_38_en\n    INNER JOIN object_39 ON object_localized_38_en.`hierarchyLevel5` = CONCAT(',', object_39.oo_id, ',') \n    INNER JOIN object_localized_38_de ON object_localized_38_en.oo_id = object_localized_38_de.oo_id\n    INNER JOIN object_localized_38_ro ON object_localized_38_en.oo_id = object_localized_38_ro.oo_id\n    INNER JOIN object_localized_38_en_US ON object_localized_38_en.oo_id = object_localized_38_en_US.oo_id\n    INNER JOIN object_localized_38_it ON object_localized_38_en.oo_id = object_localized_38_it.oo_id\n    INNER JOIN object_localized_38_fr ON object_localized_38_en.oo_id = object_localized_38_fr.oo_id\n    INNER JOIN object_localized_38_es ON object_localized_38_en.oo_id = object_localized_38_es.oo_id\n    INNER JOIN object_localized_38_ru ON object_localized_38_en.oo_id = object_localized_38_ru.oo_id\n    INNER JOIN object_localized_38_zh ON object_localized_38_en.oo_id = object_localized_38_zh.oo_id\n    INNER JOIN object_localized_38_pl ON object_localized_38_en.oo_id = object_localized_38_pl.oo_id\n    \n    WHERE\n    (object_39.`Level` = 5 AND (object_localized_38_en.`hierarchyLevel6` IS NULL || object_localized_38_en.`hierarchyLevel6` = ''))\n    AND\n    (\n\tobject_localized_38_en.shortDescription is null OR\n\tobject_localized_38_en.longDescription is null OR\n    object_localized_38_en.CategoryDescriptionCatalog is null OR\n    object_localized_38_en.webDiscription is null OR\n\tobject_localized_38_en.searchKeywords is null OR\n    object_localized_38_en.legalText is null OR\n    object_localized_38_en.sapDescription is null OR\n    object_localized_38_de.shortDescription is null OR\n\tobject_localized_38_de.longDescription is null OR\n    object_localized_38_de.CategoryDescriptionCatalog is null OR\n    object_localized_38_de.webDiscription is null OR\n\tobject_localized_38_de.searchKeywords is null OR\n    object_localized_38_de.legalText is null OR\n    object_localized_38_de.sapDescription is null OR\n    object_localized_38_ro.shortDescription is null OR\n\tobject_localized_38_ro.longDescription is null OR\n    object_localized_38_ro.CategoryDescriptionCatalog is null OR\n    object_localized_38_ro.webDiscription is null OR\n\tobject_localized_38_ro.searchKeywords is null OR\n    object_localized_38_ro.legalText is null OR\n    object_localized_38_ro.sapDescription is null OR\n    object_localized_38_en_US.shortDescription is null OR\n\tobject_localized_38_en_US.longDescription is null OR\n    object_localized_38_en_US.CategoryDescriptionCatalog is null OR\n    object_localized_38_en_US.webDiscription is null OR\n\tobject_localized_38_en_US.searchKeywords is null OR\n    object_localized_38_en_US.legalText is null OR\n    object_localized_38_en_US.sapDescription is null OR\n    object_localized_38_it.shortDescription is null OR\n\tobject_localized_38_it.longDescription is null OR\n    object_localized_38_it.CategoryDescriptionCatalog is null OR\n    object_localized_38_it.webDiscription is null OR\n\tobject_localized_38_it.searchKeywords is null OR\n    object_localized_38_it.legalText is null OR\n    object_localized_38_it.sapDescription is null OR\n    object_localized_38_fr.shortDescription is null OR\n\tobject_localized_38_fr.longDescription is null OR\n    object_localized_38_fr.CategoryDescriptionCatalog is null OR\n    object_localized_38_fr.webDiscription is null OR\n\tobject_localized_38_fr.searchKeywords is null OR\n    object_localized_38_fr.legalText is null OR\n    object_localized_38_fr.sapDescription is null OR\n    object_localized_38_es.shortDescription is null OR\n\tobject_localized_38_es.longDescription is null OR\n    object_localized_38_es.CategoryDescriptionCatalog is null OR\n    object_localized_38_es.webDiscription is null OR\n\tobject_localized_38_es.searchKeywords is null OR\n    object_localized_38_es.legalText is null OR\n    object_localized_38_es.sapDescription is null OR\n    object_localized_38_ru.shortDescription is null OR\n\tobject_localized_38_ru.longDescription is null OR\n    object_localized_38_ru.CategoryDescriptionCatalog is null OR\n    object_localized_38_ru.webDiscription is null OR\n\tobject_localized_38_ru.searchKeywords is null OR\n    object_localized_38_ru.legalText is null OR\n    object_localized_38_ru.sapDescription is null OR\n    object_localized_38_zh.shortDescription is null OR\n\tobject_localized_38_zh.longDescription is null OR\n    object_localized_38_zh.CategoryDescriptionCatalog is null OR\n    object_localized_38_zh.webDiscription is null OR\n\tobject_localized_38_zh.searchKeywords is null OR\n    object_localized_38_zh.legalText is null OR\n    object_localized_38_zh.sapDescription is null OR\n    object_localized_38_pl.shortDescription is null OR\n\tobject_localized_38_pl.longDescription is null OR\n    object_localized_38_pl.CategoryDescriptionCatalog is null OR\n    object_localized_38_pl.webDiscription is null OR\n\tobject_localized_38_pl.searchKeywords is null OR\n    object_localized_38_pl.legalText is null OR\n    object_localized_38_pl.sapDescription is null \n    )\n    ",
+                "sql" => "SELECT \n\tobject_localized_38_en.oo_id As 'Pimcore Id',\n\tobject_localized_38_en.ProductName,\n\tobject_localized_38_en.shortDescription As 'Short Description',\n    object_localized_38_en.longDescription As 'Long Description',\n    object_localized_38_en.CategoryDescriptionCatalog As 'Category Description Catalog',\n    object_localized_38_en.webDiscription As 'Web Description',\n    object_localized_38_en.searchKeywords As 'Search Keywords',\n    object_localized_38_en.legalText As 'Legal Text',\n    object_localized_38_en.sapDescription As 'SAP Description',\n\tobject_localized_38_de.shortDescription As 'Short Description (de)',\n    object_localized_38_de.longDescription As 'Long Description (de)',\n    object_localized_38_de.CategoryDescriptionCatalog As 'Category Description Catalog (de)',\n    object_localized_38_de.webDiscription As 'Web Description (de)',\n    object_localized_38_de.searchKeywords As 'Search Keywords (de)',\n    object_localized_38_de.legalText As 'Legal Text (de)',\n    object_localized_38_de.sapDescription As 'SAP Description (de)',\n    object_localized_38_ro_RO.shortDescription As 'Short Description (ro)',\n    object_localized_38_ro_RO.longDescription As 'Long Description (ro)',\n    object_localized_38_ro_RO.CategoryDescriptionCatalog As 'Category Description Catalog (ro)',\n    object_localized_38_ro_RO.webDiscription As 'Web Description (ro)',\n    object_localized_38_ro_RO.searchKeywords As 'Search Keywords (ro)',\n    object_localized_38_ro_RO.legalText As 'Legal Text (ro)',\n    object_localized_38_ro_RO.sapDescription As 'SAP Description (ro)',\n    object_localized_38_en_GB.shortDescription As 'Short Description (en UK)',\n    object_localized_38_en_GB.longDescription As 'Long Description (en UK)',\n    object_localized_38_en_GB.CategoryDescriptionCatalog As 'Category Description Catalog (en UK)',\n    object_localized_38_en_GB.webDiscription As 'Web Description (en UK)',\n    object_localized_38_en_GB.searchKeywords As 'Search Keywords (en UK)',\n    object_localized_38_en_GB.legalText As 'Legal Text (en UK)',\n    object_localized_38_en_GB.sapDescription As 'SAP Description (en UK)',\n    object_localized_38_it.shortDescription As 'Short Description (it)',\n    object_localized_38_it.longDescription As 'Long Description (it)',\n    object_localized_38_it.CategoryDescriptionCatalog As 'Category Description Catalog (it)',\n    object_localized_38_it.webDiscription As 'Web Description (it)',\n    object_localized_38_it.searchKeywords As 'Search Keywords (it)',\n    object_localized_38_it.legalText As 'Legal Text (it)',\n    object_localized_38_it.sapDescription As 'SAP Description (it)',\n    object_localized_38_fr.shortDescription As 'Short Description (fr)',\n    object_localized_38_fr.longDescription As 'Long Description (fr)',\n    object_localized_38_fr.CategoryDescriptionCatalog As 'Category Description Catalog (fr)',\n    object_localized_38_fr.webDiscription As 'Web Description (fr)',\n    object_localized_38_fr.searchKeywords As 'Search Keywords (fr)',\n    object_localized_38_fr.legalText As 'Legal Text (fr)',\n    object_localized_38_fr.sapDescription As 'SAP Description (fr)',\n    object_localized_38_es.shortDescription As 'Short Description (es)',\n    object_localized_38_es.longDescription As 'Long Description (es)',\n    object_localized_38_es.CategoryDescriptionCatalog As 'Category Description Catalog (es)',\n    object_localized_38_es.webDiscription As 'Web Description (es)',\n    object_localized_38_es.searchKeywords As 'Search Keywords (es)',\n    object_localized_38_es.legalText As 'Legal Text (es)',\n    object_localized_38_es.sapDescription As 'SAP Description (es)',\n    object_localized_38_ru_RU.shortDescription As 'Short Description (ru)',\n    object_localized_38_ru_RU.longDescription As 'Long Description (ru)',\n    object_localized_38_ru_RU.CategoryDescriptionCatalog As 'Category Description Catalog (ru)',\n    object_localized_38_ru_RU.webDiscription As 'Web Description (ru)',\n    object_localized_38_ru_RU.searchKeywords As 'Search Keywords (ru)',\n    object_localized_38_ru_RU.legalText As 'Legal Text (ru)',\n    object_localized_38_ru_RU.sapDescription As 'SAP Description (ru)',\n    object_localized_38_zh.shortDescription As 'Short Description (zh)',\n    object_localized_38_zh.longDescription As 'Long Description (zh)',\n    object_localized_38_zh.CategoryDescriptionCatalog As 'Category Description Catalog (zh)',\n    object_localized_38_zh.webDiscription As 'Web Description (zh)',\n    object_localized_38_zh.searchKeywords As 'Search Keywords (zh)',\n    object_localized_38_zh.legalText As 'Legal Text (zh)',\n    object_localized_38_zh.sapDescription As 'SAP Description (zh)',\n    object_localized_38_pl_PL.shortDescription As 'Short Description (pl)',\n    object_localized_38_pl_PL.longDescription As 'Long Description (pl)',\n    object_localized_38_pl_PL.CategoryDescriptionCatalog As 'Category Description Catalog (pl)',\n    object_localized_38_pl_PL.webDiscription As 'Web Description (pl)',\n    object_localized_38_pl_PL.searchKeywords As 'Search Keywords (pl)',\n    object_localized_38_pl_PL.legalText As 'Legal Text (pl)',\n    object_localized_38_pl_PL.sapDescription As 'SAP Description (pl)'\n\n    FROM object_localized_38_en\n    INNER JOIN object_39 ON object_localized_38_en.`hierarchyLevel5` = CONCAT(',', object_39.oo_id, ',') \n    INNER JOIN object_localized_38_de ON object_localized_38_en.oo_id = object_localized_38_de.oo_id\n    INNER JOIN object_localized_38_ro_RO ON object_localized_38_en.oo_id = object_localized_38_ro_RO.oo_id\n    INNER JOIN object_localized_38_en_GB ON object_localized_38_en.oo_id = object_localized_38_en_GB.oo_id\n    INNER JOIN object_localized_38_it ON object_localized_38_en.oo_id = object_localized_38_it.oo_id\n    INNER JOIN object_localized_38_fr ON object_localized_38_en.oo_id = object_localized_38_fr.oo_id\n    INNER JOIN object_localized_38_es ON object_localized_38_en.oo_id = object_localized_38_es.oo_id\n    INNER JOIN object_localized_38_ru_RU ON object_localized_38_en.oo_id = object_localized_38_ru_RU.oo_id\n    INNER JOIN object_localized_38_zh ON object_localized_38_en.oo_id = object_localized_38_zh.oo_id\n    INNER JOIN object_localized_38_pl_PL ON object_localized_38_en.oo_id = object_localized_38_pl_PL.oo_id\n    \n    WHERE\n    (object_39.`Level` = 5 AND (object_localized_38_en.`hierarchyLevel6` IS NULL || object_localized_38_en.`hierarchyLevel6` = ''))\n    AND\n    (\n\tobject_localized_38_en.shortDescription is null OR\n\tobject_localized_38_en.longDescription is null OR\n    object_localized_38_en.CategoryDescriptionCatalog is null OR\n    object_localized_38_en.webDiscription is null OR\n\tobject_localized_38_en.searchKeywords is null OR\n    object_localized_38_en.legalText is null OR\n    object_localized_38_en.sapDescription is null OR\n    object_localized_38_de.shortDescription is null OR\n\tobject_localized_38_de.longDescription is null OR\n    object_localized_38_de.CategoryDescriptionCatalog is null OR\n    object_localized_38_de.webDiscription is null OR\n\tobject_localized_38_de.searchKeywords is null OR\n    object_localized_38_de.legalText is null OR\n    object_localized_38_de.sapDescription is null OR\n    object_localized_38_ro_RO.shortDescription is null OR\n\tobject_localized_38_ro_RO.longDescription is null OR\n    object_localized_38_ro_RO.CategoryDescriptionCatalog is null OR\n    object_localized_38_ro_RO.webDiscription is null OR\n\tobject_localized_38_ro_RO.searchKeywords is null OR\n    object_localized_38_ro_RO.legalText is null OR\n    object_localized_38_ro_RO.sapDescription is null OR\n    object_localized_38_en_GB.shortDescription is null OR\n\tobject_localized_38_en_GB.longDescription is null OR\n    object_localized_38_en_GB.CategoryDescriptionCatalog is null OR\n    object_localized_38_en_GB.webDiscription is null OR\n\tobject_localized_38_en_GB.searchKeywords is null OR\n    object_localized_38_en_GB.legalText is null OR\n    object_localized_38_en_GB.sapDescription is null OR\n    object_localized_38_it.shortDescription is null OR\n\tobject_localized_38_it.longDescription is null OR\n    object_localized_38_it.CategoryDescriptionCatalog is null OR\n    object_localized_38_it.webDiscription is null OR\n\tobject_localized_38_it.searchKeywords is null OR\n    object_localized_38_it.legalText is null OR\n    object_localized_38_it.sapDescription is null OR\n    object_localized_38_fr.shortDescription is null OR\n\tobject_localized_38_fr.longDescription is null OR\n    object_localized_38_fr.CategoryDescriptionCatalog is null OR\n    object_localized_38_fr.webDiscription is null OR\n\tobject_localized_38_fr.searchKeywords is null OR\n    object_localized_38_fr.legalText is null OR\n    object_localized_38_fr.sapDescription is null OR\n    object_localized_38_es.shortDescription is null OR\n\tobject_localized_38_es.longDescription is null OR\n    object_localized_38_es.CategoryDescriptionCatalog is null OR\n    object_localized_38_es.webDiscription is null OR\n\tobject_localized_38_es.searchKeywords is null OR\n    object_localized_38_es.legalText is null OR\n    object_localized_38_es.sapDescription is null OR\n    object_localized_38_ru_RU.shortDescription is null OR\n\tobject_localized_38_ru_RU.longDescription is null OR\n    object_localized_38_ru_RU.CategoryDescriptionCatalog is null OR\n    object_localized_38_ru_RU.webDiscription is null OR\n\tobject_localized_38_ru_RU.searchKeywords is null OR\n    object_localized_38_ru_RU.legalText is null OR\n    object_localized_38_ru_RU.sapDescription is null OR\n    object_localized_38_zh.shortDescription is null OR\n\tobject_localized_38_zh.longDescription is null OR\n    object_localized_38_zh.CategoryDescriptionCatalog is null OR\n    object_localized_38_zh.webDiscription is null OR\n\tobject_localized_38_zh.searchKeywords is null OR\n    object_localized_38_zh.legalText is null OR\n    object_localized_38_zh.sapDescription is null OR\n    object_localized_38_pl_PL.shortDescription is null OR\n\tobject_localized_38_pl_PL.longDescription is null OR\n    object_localized_38_pl_PL.CategoryDescriptionCatalog is null OR\n    object_localized_38_pl_PL.webDiscription is null OR\n\tobject_localized_38_pl_PL.searchKeywords is null OR\n    object_localized_38_pl_PL.legalText is null OR\n    object_localized_38_pl_PL.sapDescription is null \n    )\n    ",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -6349,7 +6349,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-1"
+                "id" => "extModel778-1"
             ],
             [
                 "name" => "ProductName",
@@ -6358,7 +6358,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-2"
+                "id" => "extModel778-2"
             ],
             [
                 "name" => "Short Description",
@@ -6367,7 +6367,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-3"
+                "id" => "extModel778-3"
             ],
             [
                 "name" => "Long Description",
@@ -6376,7 +6376,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-4"
+                "id" => "extModel778-4"
             ],
             [
                 "name" => "Category Description Catalog",
@@ -6385,7 +6385,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-5"
+                "id" => "extModel778-5"
             ],
             [
                 "name" => "Web Description",
@@ -6394,7 +6394,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-6"
+                "id" => "extModel778-6"
             ],
             [
                 "name" => "Search Keywords",
@@ -6403,7 +6403,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-7"
+                "id" => "extModel778-7"
             ],
             [
                 "name" => "Legal Text",
@@ -6412,7 +6412,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-8"
+                "id" => "extModel778-8"
             ],
             [
                 "name" => "SAP Description",
@@ -6421,7 +6421,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-9"
+                "id" => "extModel778-9"
             ],
             [
                 "name" => "Short Description (de)",
@@ -6430,7 +6430,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-10"
+                "id" => "extModel778-10"
             ],
             [
                 "name" => "Long Description (de)",
@@ -6439,7 +6439,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-11"
+                "id" => "extModel778-11"
             ],
             [
                 "name" => "Category Description Catalog (de)",
@@ -6448,7 +6448,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-12"
+                "id" => "extModel778-12"
             ],
             [
                 "name" => "Web Description (de)",
@@ -6457,7 +6457,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-13"
+                "id" => "extModel778-13"
             ],
             [
                 "name" => "Search Keywords (de)",
@@ -6466,7 +6466,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-14"
+                "id" => "extModel778-14"
             ],
             [
                 "name" => "Legal Text (de)",
@@ -6475,7 +6475,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-15"
+                "id" => "extModel778-15"
             ],
             [
                 "name" => "SAP Description (de)",
@@ -6484,7 +6484,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-16"
+                "id" => "extModel778-16"
             ],
             [
                 "name" => "Short Description (ro)",
@@ -6493,7 +6493,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-17"
+                "id" => "extModel778-17"
             ],
             [
                 "name" => "Long Description (ro)",
@@ -6502,7 +6502,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-18"
+                "id" => "extModel778-18"
             ],
             [
                 "name" => "Category Description Catalog (ro)",
@@ -6511,7 +6511,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-19"
+                "id" => "extModel778-19"
             ],
             [
                 "name" => "Web Description (ro)",
@@ -6520,7 +6520,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-20"
+                "id" => "extModel778-20"
             ],
             [
                 "name" => "Search Keywords (ro)",
@@ -6529,7 +6529,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-21"
+                "id" => "extModel778-21"
             ],
             [
                 "name" => "Legal Text (ro)",
@@ -6538,7 +6538,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-22"
+                "id" => "extModel778-22"
             ],
             [
                 "name" => "SAP Description (ro)",
@@ -6547,16 +6547,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-23"
-            ],
-            [
-                "name" => "Short Description (en US)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-24"
+                "id" => "extModel778-23"
             ],
             [
                 "name" => "Long Description (en US)",
@@ -6565,16 +6556,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-25"
-            ],
-            [
-                "name" => "Category Description Catalog (en US)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-26"
+                "id" => "extModel778-25"
             ],
             [
                 "name" => "Web Description (en US)",
@@ -6583,16 +6565,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-27"
-            ],
-            [
-                "name" => "Search Keywords (en US)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-28"
+                "id" => "extModel778-27"
             ],
             [
                 "name" => "Legal Text (en US)",
@@ -6601,16 +6574,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-29"
-            ],
-            [
-                "name" => "SAP Description (en US)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel312-30"
+                "id" => "extModel778-29"
             ],
             [
                 "name" => "Short Description (it)",
@@ -6619,7 +6583,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-31"
+                "id" => "extModel778-31"
             ],
             [
                 "name" => "Long Description (it)",
@@ -6628,7 +6592,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-32"
+                "id" => "extModel778-32"
             ],
             [
                 "name" => "Category Description Catalog (it)",
@@ -6637,7 +6601,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-33"
+                "id" => "extModel778-33"
             ],
             [
                 "name" => "Web Description (it)",
@@ -6646,7 +6610,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-34"
+                "id" => "extModel778-34"
             ],
             [
                 "name" => "Search Keywords (it)",
@@ -6655,7 +6619,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-35"
+                "id" => "extModel778-35"
             ],
             [
                 "name" => "Legal Text (it)",
@@ -6664,7 +6628,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-36"
+                "id" => "extModel778-36"
             ],
             [
                 "name" => "SAP Description (it)",
@@ -6673,7 +6637,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-37"
+                "id" => "extModel778-37"
             ],
             [
                 "name" => "Short Description (fr)",
@@ -6682,7 +6646,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-38"
+                "id" => "extModel778-38"
             ],
             [
                 "name" => "Long Description (fr)",
@@ -6691,7 +6655,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-39"
+                "id" => "extModel778-39"
             ],
             [
                 "name" => "Category Description Catalog (fr)",
@@ -6700,7 +6664,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-40"
+                "id" => "extModel778-40"
             ],
             [
                 "name" => "Web Description (fr)",
@@ -6709,7 +6673,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-41"
+                "id" => "extModel778-41"
             ],
             [
                 "name" => "Search Keywords (fr)",
@@ -6718,7 +6682,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-42"
+                "id" => "extModel778-42"
             ],
             [
                 "name" => "Legal Text (fr)",
@@ -6727,7 +6691,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-43"
+                "id" => "extModel778-43"
             ],
             [
                 "name" => "SAP Description (fr)",
@@ -6736,7 +6700,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-44"
+                "id" => "extModel778-44"
             ],
             [
                 "name" => "Short Description (es)",
@@ -6745,7 +6709,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-45"
+                "id" => "extModel778-45"
             ],
             [
                 "name" => "Long Description (es)",
@@ -6754,7 +6718,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-46"
+                "id" => "extModel778-46"
             ],
             [
                 "name" => "Category Description Catalog (es)",
@@ -6763,7 +6727,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-47"
+                "id" => "extModel778-47"
             ],
             [
                 "name" => "Web Description (es)",
@@ -6772,7 +6736,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-48"
+                "id" => "extModel778-48"
             ],
             [
                 "name" => "Search Keywords (es)",
@@ -6781,7 +6745,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-49"
+                "id" => "extModel778-49"
             ],
             [
                 "name" => "Legal Text (es)",
@@ -6790,7 +6754,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-50"
+                "id" => "extModel778-50"
             ],
             [
                 "name" => "SAP Description (es)",
@@ -6799,7 +6763,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-51"
+                "id" => "extModel778-51"
             ],
             [
                 "name" => "Short Description (ru)",
@@ -6808,7 +6772,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-52"
+                "id" => "extModel778-52"
             ],
             [
                 "name" => "Long Description (ru)",
@@ -6817,7 +6781,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-53"
+                "id" => "extModel778-53"
             ],
             [
                 "name" => "Category Description Catalog (ru)",
@@ -6826,7 +6790,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-54"
+                "id" => "extModel778-54"
             ],
             [
                 "name" => "Web Description (ru)",
@@ -6835,7 +6799,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-55"
+                "id" => "extModel778-55"
             ],
             [
                 "name" => "Search Keywords (ru)",
@@ -6844,7 +6808,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-56"
+                "id" => "extModel778-56"
             ],
             [
                 "name" => "Legal Text (ru)",
@@ -6853,7 +6817,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-57"
+                "id" => "extModel778-57"
             ],
             [
                 "name" => "SAP Description (ru)",
@@ -6862,7 +6826,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-58"
+                "id" => "extModel778-58"
             ],
             [
                 "name" => "Short Description (zh)",
@@ -6871,7 +6835,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-59"
+                "id" => "extModel778-59"
             ],
             [
                 "name" => "Long Description (zh)",
@@ -6880,7 +6844,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-60"
+                "id" => "extModel778-60"
             ],
             [
                 "name" => "Category Description Catalog (zh)",
@@ -6889,7 +6853,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-61"
+                "id" => "extModel778-61"
             ],
             [
                 "name" => "Web Description (zh)",
@@ -6898,7 +6862,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-62"
+                "id" => "extModel778-62"
             ],
             [
                 "name" => "Search Keywords (zh)",
@@ -6907,7 +6871,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-63"
+                "id" => "extModel778-63"
             ],
             [
                 "name" => "Legal Text (zh)",
@@ -6916,7 +6880,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-64"
+                "id" => "extModel778-64"
             ],
             [
                 "name" => "SAP Description (zh)",
@@ -6925,7 +6889,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-65"
+                "id" => "extModel778-65"
             ],
             [
                 "name" => "Short Description (pl)",
@@ -6934,7 +6898,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-66"
+                "id" => "extModel778-66"
             ],
             [
                 "name" => "Long Description (pl)",
@@ -6943,7 +6907,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-67"
+                "id" => "extModel778-67"
             ],
             [
                 "name" => "Category Description Catalog (pl)",
@@ -6952,7 +6916,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-68"
+                "id" => "extModel778-68"
             ],
             [
                 "name" => "Web Description (pl)",
@@ -6961,7 +6925,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-69"
+                "id" => "extModel778-69"
             ],
             [
                 "name" => "Search Keywords (pl)",
@@ -6970,7 +6934,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-70"
+                "id" => "extModel778-70"
             ],
             [
                 "name" => "Legal Text (pl)",
@@ -6979,7 +6943,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-71"
+                "id" => "extModel778-71"
             ],
             [
                 "name" => "SAP Description (pl)",
@@ -6988,7 +6952,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel312-72"
+                "id" => "extModel778-72"
             ]
         ],
         "niceName" => "PTGEU -  Translations Missing Report",
@@ -7004,7 +6968,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1657003054,
+        "modificationDate" => 1657105663,
         "creationDate" => 1655290783,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
