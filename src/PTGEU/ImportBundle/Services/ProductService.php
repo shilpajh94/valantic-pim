@@ -758,18 +758,7 @@ class ProductService
         if (!empty($materialGroupCode)) {
             if (!empty($this->materialGroup[$materialGroupCode])) {
                 return $this->materialGroup[$materialGroupCode];
-            } else {
-                $obj = new \Pimcore\Model\DataObject\PTGEUMaterialGroup();
-                $obj->setCode($materialGroupCode);
-                $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
-                $parentFolder = $this->productHelper->getFolderByPath('Contitech_PTGEU/Master List/Material Group');
-                $obj->setPublished(true);
-                $obj->setParentId($parentFolder);
-                $obj->save();
-                $materialGroupId = $obj->getId();
-                $this->materialGroup[$materialGroupCode] = $materialGroupId;
-                return $materialGroupId;
-            }
+            } 
         }
         return null;
     }
