@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-04T11:46:59+02:00
+* Generated at: 2022-07-07T13:31:11+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656928016,
+   'modificationDate' => 1657193468,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3733,7 +3733,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'MaterialGroup',
+                                    'classes' => 'PTGEUMaterialGroup',
                                   ),
                                 ),
                                  'pathFormatterClass' => '',
@@ -3776,7 +3776,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'Country',
+                                    'classes' => 'PTGEUCountryOfOrigin',
                                   ),
                                 ),
                                  'pathFormatterClass' => '',
