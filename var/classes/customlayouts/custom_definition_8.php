@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-05T07:10:43+02:00
+* Generated at: 2022-07-08T12:46:25+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ReadOnlyPTGEU',
    'description' => '',
    'creationDate' => 1656568995,
-   'modificationDate' => 1656997843,
+   'modificationDate' => 1657277185,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '38',
@@ -2649,16 +2649,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                             array (
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'select',
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'performance',
                                  'title' => 'Performance',
                                  'tooltip' => '',
@@ -2674,6 +2671,27 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'High',
+                                    'value' => 'High',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Advance',
+                                    'value' => 'Advance',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Standard',
+                                    'value' => 'Standard',
+                                  ),
+                                ),
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'dynamicOptions' => false,
                               )),
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -2766,16 +2784,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'select',
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 100,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'Color',
                                  'title' => 'Color',
                                  'tooltip' => '',
@@ -2791,6 +2806,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Grey',
+                                    'value' => 'Grey',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Black',
+                                    'value' => 'Black',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Blue',
+                                    'value' => 'Blue',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Yellow',
+                                    'value' => 'Yellow',
+                                  ),
+                                ),
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'dynamicOptions' => false,
                               )),
                               4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -3250,16 +3291,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               )),
                               7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                                 'fieldtype' => 'select',
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'staticConductive',
                                  'title' => 'Static Conductive',
                                  'tooltip' => '',
@@ -3275,6 +3313,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => ' Yes acc. ISO 1813',
+                                    'value' => ' Yes acc. ISO 1813',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Yes acc. ISO 9563',
+                                    'value' => 'Yes acc. ISO 9563',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 'Yes',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'No',
+                                    'value' => 'No',
+                                  ),
+                                ),
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                                 'dynamicOptions' => false,
                               )),
                               8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
