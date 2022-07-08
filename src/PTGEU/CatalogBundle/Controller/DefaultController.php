@@ -109,6 +109,10 @@ class DefaultController extends AbstractController
         die;
     }
 
+    public function templatePtgEuProductDetailsAction(Request $request)
+    {
+        
+    }
     public function templatePtgEuProductPageAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
