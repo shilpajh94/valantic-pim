@@ -6,9 +6,9 @@ class ImportConstants
 {
     const PTGEU_FOLDER = 'Contitech_PTGEU';
     const MASTER_LIST_FOLDER = self::PTGEU_FOLDER . '/Master List';
-    const MASTER_LIST_PLANTS_FOLDER = self::MASTER_LIST_FOLDER .'/Plants';
-    const MASTER_LIST_COUNTRY_FOLDER = self::MASTER_LIST_FOLDER .'/Countries';
-    const MASTER_LIST_SALES_ORGANIZATIONS_FOLDER = self::MASTER_LIST_FOLDER .'/Sales Organizations';
+    const MASTER_LIST_PLANTS_FOLDER = self::MASTER_LIST_FOLDER .'/Delivering Plant';
+    const MASTER_LIST_COUNTRY_FOLDER = self::MASTER_LIST_FOLDER .'/Country of Origin';
+    const MASTER_LIST_SALES_ORGANIZATIONS_FOLDER = self::MASTER_LIST_FOLDER .'/Sales Organization';
     const MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER = self::MASTER_LIST_FOLDER .'/Distribution Channel';
     const PTGEU_MATERIAL_MASTER_FOLDER = self::PTGEU_FOLDER . '/MaterialMaster';
     const PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER = self::PTGEU_MATERIAL_MASTER_FOLDER .'/PlantMaterialMaster';

@@ -30,7 +30,7 @@ class CategoryService
     public function __construct()
     {
         try {
-            $this->logFileName  = 'PTGEU-Product-Hierarchy' . '-' . date('Y-m-d-his');
+            $this->logFileName  = 'ptgeu-product-hierarchy-log-'.date('Y-m-d-his');
             $this->common = \Pimcore::getContainer()->get('import.common_helper');
             /* Load category configuration file */
             $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();

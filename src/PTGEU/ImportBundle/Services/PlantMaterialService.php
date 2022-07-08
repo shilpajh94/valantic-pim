@@ -399,18 +399,18 @@ class PlantMaterialService
 
         if($countryObjId)
         {
-            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
+            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'countryOfOrigin', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
             
         if($plantObjId)
         {
-            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
+            $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'plant', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
             
-        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
-        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
+        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId, 'type' => 'object', 'fieldname' => 'salesOrganization', 'ownertype' => 'object' ];
+        $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId, 'type' => 'object', 'fieldname' => 'distributionChannel', 'ownertype' => 'object' ];
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
         $data['objectRelationsTableData'] = $relationTableData;
 
@@ -578,89 +578,84 @@ class PlantMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey){
-        $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
-        if(!$objectPlant)
+        $objectPlant = new DataObject\PTGEUPlant\Listing();
+        $objectPlant->setCondition("Plant = ?", [$plantKey]);
+        $objectPlant->load();
+        if(empty($objectPlant))
         {
-            $objectPlant = new DataObject\Plant();
-            $objectPlant->setKey($plantKey);
-            $objectPlant->setPlant($plantKey);
-            $objectPlant->setParentId($this->plantFolderId);
-            $objectPlant->setPublished(TRUE);
-            $objectPlant->save();
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
+            return '';
         }
         else{
-            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
+            foreach ($objectPlant as $objPlant) {
+                $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
+                return $objPlant->getId();
+            }
+         
         }
-        return $objectPlant->getId();
-
     }
 
     /**
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey){
-        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
-        if(!$object)
+        $object = new DataObject\PTGEUDistributionChannel\Listing();
+        $object->setCondition("distributionCode = ?", [$distributionChannelKey]);
+        $object->load();
+        if(empty($object))
         {
-            $object = new DataObject\DistributionChannel();
-            $object->setKey($distributionChannelKey);
-            $object->setCode($distributionChannelKey);
-            $object->setName($distributionChannelKey);
-            $object->setParentId($this->distributionChannelFolderId);
-            $object->setPublished(TRUE);
-            $object->save();
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created.");
+            return '';
         }
         else{
-            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
+            foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
+                return $obj->getId();
+            }
+          
         }
-        return $object->getId();
-
     }
 
     /**
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey){
-        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
-        if(!$object)
+        $object = new DataObject\PTGEUSalesOrg\Listing();
+        $object->setCondition("salesOrgCode = ?", [$salesOrgKey]);
+        $object->load();
+        if(empty($object))
         {
-            $object = new DataObject\SalesOrganisation();
-            $object->setKey($salesOrgKey);
-            $object->setCode($salesOrgKey);
-            $object->setName($salesOrgKey);
-            $object->setParentId($this->salesOrganizationsFolderId);
-            $object->setPublished(TRUE);
-            $object->save();
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
+            return '';
         }
         else{
-            $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
+            foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
+                return $obj->getId();
+            }
+            
         }
-        return $object->getId();
 
     }
-        /**
+     /**
      * return country object
      */
     public function getCountryObject($countryKey){
-        $objectCountry = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryKey);
-        if(!$objectCountry)
+        $object = new DataObject\PTGEUCountryOfOrigin\Listing();
+        $object->setCondition("countryCode = ?", [$countryKey]);
+        $object->load();
+        if(empty($object))
         {
-            $objectCountry = new DataObject\Country();
-            $objectCountry->setKey($countryKey);
-            $objectCountry->setCode($countryKey);
-            $objectCountry->setName($countryKey);
-            $objectCountry->setParentId($this->countryFolderId);
-            $objectCountry->setPublished(TRUE);
-            $objectCountry->save();
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created");
+            return '';
         }
         else{
-            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
+            foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
+                return $obj->getId();
+            }
+
         }
-        return $objectCountry->getId();
 
     }
 

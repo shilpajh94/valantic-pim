@@ -1,0 +1,17 @@
+config:
+    IFSPTG_US:
+        Roles:
+            [
+                "ApplicationAdmin",
+                "ProductManager",
+                "Editor"
+            ]  
+    PTG_EU:       
+        Roles:
+            [
+                "ApplicationAdminPTGEMEAAPAC",
+                "ProductManagementPTGEMEAAPAC",
+                "MarComPTGEMEAAPAC",
+                "EditorPTGEMEAAPAC",
+                "ApplicationAdminPTGEMEAAPAC"
+            ]

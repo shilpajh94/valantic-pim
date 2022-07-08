@@ -63,7 +63,7 @@ class SAPFileFeederService
             $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);*/
             
 
-            $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_p61_MaterialSales_sample.csv';
+            $this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_p61_MaterialSales_sample1.csv';
             if($this->validateAllowedFileType()) 
             {
                 return realpath($this->filePath);

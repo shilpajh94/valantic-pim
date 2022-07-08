@@ -1,3 +1,4 @@
+#PTGEUCommonFert
 heightMMUnit:
   fieldName: heightMMUnit
   fieldType: Input
@@ -49,47 +50,49 @@ ribPitchINUnit:
   fieldValue: inch
   objectType: PTGEUCommonFert
 
+#PTGEUFlatBeltsSkeleton
 toothPitchPtMMUnit:
   fieldName: toothPitchPtMMUnit
   fieldType: Input
   fieldValue: mm
-  objectType: PTGEUFlatBeltsFert
+  objectType: PTGEUFlatBeltsSkeleton
 toothHeightHtMMUnit:
   fieldName: toothHeightHtMMUnit
   fieldType: Input
   fieldValue: mm
-  objectType: PTGEUFlatBeltsFert
+  objectType: PTGEUFlatBeltsSkeleton
 widthMMUnit:
   fieldName: widthMMUnit
   fieldType: Input
   fieldValue: mm
-  objectType: PTGEUFlatBeltsFert
+  objectType: PTGEUFlatBeltsSkeleton
 beltThicknessHsMMUnit:
   fieldName: beltThicknessHsMMUnit
   fieldType: Input
   fieldValue: mm
-  objectType: PTGEUFlatBeltsFert
-toothHeightHtINUnit:
-  fieldName: toothHeightHtINUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: PTGEUFlatBeltsFert
-widthINUnit:
-  fieldName: widthINUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: PTGEUFlatBeltsFert
-beltThicknessHsINUnit:
-  fieldName: beltThicknessHsINUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: PTGEUFlatBeltsFert
+  objectType: PTGEUFlatBeltsSkeleton
 toothPitchPtINUnit:
   fieldName: toothPitchPtINUnit
   fieldType: Input
   fieldValue: inch
-  objectType: PTGEUFlatBeltsFert
+  objectType: PTGEUFlatBeltsSkeleton
+toothHeightHtINUnit:
+  fieldName: toothHeightHtINUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: PTGEUFlatBeltsSkeleton
+widthINUnit:
+  fieldName: widthINUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: PTGEUFlatBeltsSkeleton
+beltThicknessHsINUnit:
+  fieldName: beltThicknessHsINUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: PTGEUFlatBeltsSkeleton
 
+#PTGEUMetalFert
 maxBoreSizeMMUnit:
   fieldName: maxBoreSizeMMUnit
   fieldType: Input
@@ -97,6 +100,11 @@ maxBoreSizeMMUnit:
   objectType: PTGEUMetalFert
 minBoreSizeMMUNit:
   fieldName: minBoreSizeMMUNit
+  fieldType: Input
+  fieldValue: mm
+  objectType: PTGEUMetalFert
+keyWayMMUNit:
+  fieldName: keyWayMMUNit
   fieldType: Input
   fieldValue: mm
   objectType: PTGEUMetalFert
@@ -186,6 +194,7 @@ faceWidthINUNit:
   fieldValue: inch
   objectType: PTGEUMetalFert
 
+#PTGEUPolyVFert
 refLineDiffHBINUnit:
   fieldName: refLineDiffHBINUnit
   fieldType: Input
@@ -197,6 +206,7 @@ refLineDiffHBMMUnit:
   fieldValue: mm
   objectType: PTGEUPolyVFert
 
+#PTGEUVBeltsFert
 effectiveLengthMMUnit:
   fieldName: effectiveLengthMMUnit
   fieldType: Input

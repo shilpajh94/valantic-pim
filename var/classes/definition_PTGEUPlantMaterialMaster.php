@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T09:17:49+02:00
+* Generated at: 2022-07-05T13:32:06+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655795869,
+   'modificationDate' => 1657020726,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -213,7 +213,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'Plant',
+                        'classes' => 'PTGEUPlant',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -256,7 +256,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'Country',
+                        'classes' => 'PTGEUCountryOfOrigin',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -585,7 +585,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'SalesOrganisation',
+                        'classes' => 'PTGEUSalesOrg',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -628,7 +628,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'DistributionChannel',
+                        'classes' => 'PTGEUDistributionChannel',
                       ),
                     ),
                      'pathFormatterClass' => '',

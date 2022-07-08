@@ -282,22 +282,19 @@ class Product
         return $objectIndex;
     }
 
-    public function processBricksData($rowData)
+    public function processBricksData($rowData, $brick)
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
-        foreach ($rowData as $fieldCSVKey => $fieldValue) 
+        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
         { 
-            $fieldCSVKey = trim($fieldCSVKey);
-            if(isset($brickAttributesConfigData[$fieldCSVKey])) 
+            $fieldName  = $brickAttributeConfig['fieldName'];
+            $objectType = $brickAttributeConfig['objectType'];
+            $attributeLabel  = trim($attributeLabel);
+            if($objectType==$brick)
             {
-                $fieldConfig= $brickAttributesConfigData[$fieldCSVKey];
-                $fieldName  = $fieldConfig['fieldName'];
-                $objectType = $fieldConfig['objectType'];
-                if ($objectType != 'class') 
-                {
-                    $bricksData[$fieldConfig['objectType']][$fieldName] = $fieldValue;
-                }
+                $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
+                $bricksData[$fieldName] = $fieldValue;
             }
         }
         return $bricksData;
@@ -311,5 +308,10 @@ class Product
                 $bricksUnits[$unitValue['objectType']][$unitValue['fieldName']] = $unitValue['fieldValue'];
         }
         return $bricksUnits;
+    }
+
+    public function checkBrickUnitData($bricksUnitData, $brick)
+    {
+        return array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
     }
 }
