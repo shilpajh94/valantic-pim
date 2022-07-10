@@ -43,168 +43,6 @@ parameters:
                 fieldType: Relation
         # Write dynamic table header config below
         Dynamic Table Attribute:
-            # industryStandard:
-            #     columnName: industryStandard
-            #     fieldLevel: class
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: industryStandard
-            #     defaultColumn: true
-            # toothPitchPtMM: 
-            #     columnName: toothPitchPtMM
-            #     fieldLevel: objectBrick
-            #     objectLevel: skeleton
-            #     fieldType: Input
-            #     groupName: toothPitchPt
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUFlatBeltsFert
-            # toothPitchPtIN: 
-            #     columnName: toothPitchPtIN
-            #     fieldLevel: objectBrick
-            #     objectLevel: skeleton
-            #     fieldType: Input
-            #     groupName: toothPitchPt
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUFlatBeltsFert
-            PAH:
-                columnName: PAH
-                columnLabel: PAH
-                fieldLevel: objectBrick
-                objectLevel: fert
-                fieldType: Input
-                groupName: PAH
-                objectBrickType: base
-                objectBrickName: PTGEUCommonBase
-            beltType:
-                columnName: beltType
-                columnLabel: Belt Type
-                fieldLevel: class
-                objectLevel: base
-                fieldType: Input
-                groupName: beltType
-            Profile:
-                columnName: Profile
-                columnLabel: Profile
-                fieldLevel: class
-                objectLevel: skeleton
-                fieldType: Input
-                groupName: Profile
-            pitchLengthLpLwMM:
-                columnName: pitchLengthLpLwMM
-                columnLabel: Pitch Length (Lp/Lw)
-                fieldLevel: objectBrick
-                objectLevel: fert
-                fieldType: Input
-                groupName: pitchLengthLpLw
-                unitName: mm
-                objectBrickType: fert
-                objectBrickName: PTGEUCommonFert
-                defaultColumn: true
-            pitchLengthLpLwIN:
-                columnName: pitchLengthLpLwIN
-                columnLabel: Pitch Length (Lp/Lw)
-                fieldLevel: objectBrick
-                objectLevel: fert
-                fieldType: Input
-                groupName: pitchLengthLpLw
-                unitName: in
-                objectBrickType: fert
-                objectBrickName: PTGEUCommonFert
-            # DatumLengthIN:
-            #     columnName: DatumLengthIN
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: DatumLength
-            #     unitName: in
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            # DatumLengthMM:
-            #     columnName: DatumLengthMM
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: DatumLength
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            #     defaultColumn: true
-            # outSideLengthIN:
-            #     columnName: outSideLengthIN
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: outSideLength
-            #     unitName: in
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            # outSideLengthMM:
-            #     columnName: outSideLengthMM
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: outSideLength
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            # inSideLengthIN:
-            #     columnName: inSideLengthIN
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: inSideLength
-            #     unitName: in
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            # inSideLengthMM:
-            #     columnName: inSideLengthMM
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: inSideLength
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            #     defaultColumn: true
-            # refLengthIN:
-            #     columnName: refLengthIN
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: refLength
-            #     unitName: in
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            # refLengthMM:
-            #     columnName: refLengthMM
-            #     fieldLevel: objectBrick
-            #     objectLevel: fert
-            #     fieldType: Input
-            #     groupName: refLength
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUCommonFert
-            #     defaultColumn: true
-            numberOfTeethZ:
-                columnName: numberOfTeethZ
-                columnLabel: Number of Teeth (Z)
-                fieldLevel: objectBrick
-                objectLevel: fert
-                fieldType: Input
-                groupName: numberOfTeethZ
-                objectBrickType: fert
-                objectBrickName: PTGEUFlatBeltsFert
-                defaultColumn: true
-            # widthMM:
-            #     columnName: widthMM
-            #     fieldLevel: objectBrick
-            #     fieldType: Input
-            #     groupName: widthMM
-            #     unitName: mm
-            #     objectBrickType: fert
-            #     objectBrickName: PTGEUFlatBeltsFert
             netWeight:
                 columnName: netWeight
                 columnLabel: Net Weight
@@ -221,6 +59,58 @@ parameters:
                 fieldType: Input
                 groupName: weightUnit
                 defaultColumn: true
+            industryStandard:
+                columnName: industryStandard
+                fieldLevel: class
+                columnLabel: Industry Standard
+                objectLevel: fert
+                fieldType: Input
+                groupName: industryStandard
+                defaultColumn: true
+            toothPitchPtIN: 
+                columnName: toothPitchPtIN
+                fieldLevel: objectBrick
+                columnLabel: Tooth Pitch (P/t)
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothPitchPt
+                unitName: in
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+            toothPitchPtMM: 
+                columnName: toothPitchPtMM
+                fieldLevel: objectBrick
+                columnLabel: Tooth Pitch (P/t)
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothPitchPt
+                unitName: mm
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+                defaultColumn: true
+            pah:
+                columnName: pah
+                columnLabel: PAH
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: pah
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+            beltType:
+                columnName: beltType
+                columnLabel: Belt Type
+                fieldLevel: class
+                objectLevel: base
+                fieldType: Input
+                groupName: beltType
+            profile:
+                columnName: profile
+                columnLabel: Profile
+                fieldLevel: class
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: Profile
             nominalLength:
                 columnName: nominalLength
                 columnLabel: Nominal Length
@@ -228,6 +118,177 @@ parameters:
                 objectLevel: fert
                 fieldType: Input
                 groupName: nominalLength
+                defaultColumn: true
+            effectiveLengthIN:
+                columnName: effectiveLengthIN
+                columnLabel: Effective Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: effectiveLength
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+            effectiveLengthMM:
+                columnName: effectiveLengthMM
+                columnLabel: Effective Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: effectiveLength
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            pitchLengthLpLwIN:
+                columnName: pitchLengthLpLwIN
+                columnLabel: Pitch Length (Lp/Lw)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: pitchLengthLpLw
+                unitName: in
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+            pitchLengthLpLwMM:
+                columnName: pitchLengthLpLwMM
+                columnLabel: Pitch Length (Lp/Lw)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: pitchLengthLpLw
+                unitName: mm
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            datumLengthIN:
+                columnName: datumLengthIN
+                fieldLevel: objectBrick
+                columnLabel: Datum Length
+                objectLevel: fert
+                fieldType: Input
+                groupName: datumLength
+                unitName: in
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+            datumLengthMM:
+                columnName: datumLengthMM
+                fieldLevel: objectBrick
+                columnLabel: Datum Length
+                objectLevel: fert
+                fieldType: Input
+                groupName: datumLength
+                unitName: mm
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            outsideLengthIN:
+                columnName: outsideLengthIN
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: outsideLength
+                unitName: in
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+            outsideLengthMM:
+                columnName: outsideLengthMM
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: outsideLength
+                unitName: mm
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+            insideLengthIN:
+                columnName: insideLengthIN
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: insideLength
+                unitName: in
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+            insideLengthMM:
+                columnName: insideLengthMM
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: insideLength
+                unitName: mm
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            refLengthLrIN:
+                columnName: refLengthLrIN
+                columnLabel: Ref. Length (Lr)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: refLengthLr
+                unitName: in
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+            refLengthLrMM:
+                columnName: refLengthLrMM
+                columnLabel: Ref. Length (Lr)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: refLengthLr
+                unitName: mm
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            toothHeightHtIN: 
+                columnName: toothHeightHtIN
+                fieldLevel: objectBrick
+                columnLabel: Tooth height (ht)
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothHeightHt
+                unitName: in
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+            toothHeightHtMM: 
+                columnName: toothHeightHtMM
+                fieldLevel: objectBrick
+                columnLabel: Tooth height (ht)
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothHeightHt
+                unitName: mm
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+                defaultColumn: true
+            widthIN: 
+                columnName: widthIN
+                fieldLevel: objectBrick
+                columnLabel: Tooth Width
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothWidth
+                unitName: in
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+            widthMM: 
+                columnName: widthMM
+                fieldLevel: objectBrick
+                columnLabel: Tooth Width
+                objectLevel: skeleton
+                fieldType: Input
+                groupName: toothWidth
+                unitName: mm
+                objectBrickType: skeleton
+                objectBrickName: PTGEUFlatBeltSkeleton
+                defaultColumn: true
+            numberOfTeethZ:
+                columnName: numberOfTeethZ
+                columnLabel: Number of Teeth (Z)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Input
+                groupName: numberOfTeethZ
+                objectBrickType: fert
+                objectBrickName: PTGEUFlatBeltsFert
                 defaultColumn: true
             Color: 
                 columnName: Color
@@ -252,9 +313,3 @@ parameters:
                 objectLevel: skeleton
                 fieldType: Input
                 groupName: beltAngle
-            # effectiveLengthIN:
-            # effectiveLengthMM:
-            # heightIN:
-            # heightMM:
-            # widthIN:
-            # widthMM:
