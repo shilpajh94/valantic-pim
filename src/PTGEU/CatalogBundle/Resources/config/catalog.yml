@@ -76,7 +76,7 @@ parameters:
                 groupName: toothPitchPt
                 unitName: in
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
             toothPitchPtMM: 
                 columnName: toothPitchPtMM
                 fieldLevel: objectBrick
@@ -86,7 +86,7 @@ parameters:
                 groupName: toothPitchPt
                 unitName: mm
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
                 defaultColumn: true
             pah:
                 columnName: pah
@@ -183,6 +183,7 @@ parameters:
             outsideLengthIN:
                 columnName: outsideLengthIN
                 fieldLevel: objectBrick
+                columnLabel: Outside Length
                 objectLevel: fert
                 fieldType: Input
                 groupName: outsideLength
@@ -192,6 +193,7 @@ parameters:
             outsideLengthMM:
                 columnName: outsideLengthMM
                 fieldLevel: objectBrick
+                columnLabel: Outside Length
                 objectLevel: fert
                 fieldType: Input
                 groupName: outsideLength
@@ -201,6 +203,7 @@ parameters:
             insideLengthIN:
                 columnName: insideLengthIN
                 fieldLevel: objectBrick
+                columnLabel: Inside Length
                 objectLevel: fert
                 fieldType: Input
                 groupName: insideLength
@@ -210,6 +213,7 @@ parameters:
             insideLengthMM:
                 columnName: insideLengthMM
                 fieldLevel: objectBrick
+                columnLabel: Inside Length
                 objectLevel: fert
                 fieldType: Input
                 groupName: insideLength
@@ -247,7 +251,7 @@ parameters:
                 groupName: toothHeightHt
                 unitName: in
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
             toothHeightHtMM: 
                 columnName: toothHeightHtMM
                 fieldLevel: objectBrick
@@ -257,7 +261,7 @@ parameters:
                 groupName: toothHeightHt
                 unitName: mm
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
                 defaultColumn: true
             widthIN: 
                 columnName: widthIN
@@ -268,7 +272,7 @@ parameters:
                 groupName: toothWidth
                 unitName: in
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
             widthMM: 
                 columnName: widthMM
                 fieldLevel: objectBrick
@@ -278,7 +282,7 @@ parameters:
                 groupName: toothWidth
                 unitName: mm
                 objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltSkeleton
+                objectBrickName: PTGEUFlatBeltsSkeleton
                 defaultColumn: true
             numberOfTeethZ:
                 columnName: numberOfTeethZ

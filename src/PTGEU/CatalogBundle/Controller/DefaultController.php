@@ -135,7 +135,6 @@ class DefaultController extends AbstractController
 
             $catalogObj = DataObject\PTGEUCatalog::getById($catalogCategoryTableObject->getParentId());
             $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
-            // $CatalogLanguage = $catalogObj->getCatalogLanguage();
             $distributionChannel = $catalogObj->getDistributionChannel();
             $salesOrganisation = $catalogObj->getSalesOrganisation();
             $Currency = $catalogObj->getCurrency();
@@ -143,6 +142,8 @@ class DefaultController extends AbstractController
             $objColumnsData = $catalogCategoryTableObject->getColumns();
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+
+            $reinforcementList = $this->getReinforcementList('en');
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
             if($PTGEUProductHierarchy)
@@ -186,7 +187,7 @@ class DefaultController extends AbstractController
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog();
 
                 $orderKeys = array();
-                foreach ($columnsDataWithImages as $skey => $svalue) {
+                foreach ($columnsDataWithImages as $svalue) {
                     foreach ($svalue as $vkey => $vvalue) {
                         $orderKeys[] = $vkey;
                     }
@@ -229,13 +230,19 @@ class DefaultController extends AbstractController
                 $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $fifthLevelProduct->getMaterial();
                 $groupData['heatAndOilResistant'] = $fifthLevelProduct->getHeatAndOilResistant();
+                $groupData['performance'] = $fifthLevelProduct->getPerformance();
+                $groupData['electricalConductivy'] = $fifthLevelProduct->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
 
+                $reinforcementListSelected = [];
                 if($fifthLevelProduct->getReinforcement())
                 {
                     $reinforcement = $fifthLevelProduct->getReinforcement();
+                    foreach ($reinforcement as $reinforcementId) {
+                        $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
+                    }
                 }
 
-                $reinforcement = implode(', ', $reinforcement);
+                $reinforcement = implode(', ', $reinforcementListSelected);
                         
                 $groupData['reinforcement'] = $reinforcement;
 
@@ -256,11 +263,25 @@ class DefaultController extends AbstractController
                 $groupData['mainImageObj'] = $fifthLevelProduct->getMainImage1();
                 $groupData['ProfileDimensionImageObj'] = $fifthLevelProduct->getTechnicalDrawing1();
                 $groupData['longDescription'] = $fifthLevelProduct->getLongDescription();
-                $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureC().")";
+
+                if($fifthLevelProduct->getRangeTemperatureF() && $fifthLevelProduct->getRangeTemperatureC())
+                {
+                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureC().")";
+                }
+                else if($fifthLevelProduct->getRangeTemperatureF())
+                {
+                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF();
+                }
+                else if($fifthLevelProduct->getRangeTemperatureC())
+                {
+                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureC();
+                }
+                
                 $groupData['brandName'] = $fifthLevelProduct->getProductName();
                 
                 $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
+                $notApplicableFields = [];
                 $articleData = [];
                 foreach ($productObjectLevel6List as $productObjectLevel6) {
                     
@@ -276,13 +297,6 @@ class DefaultController extends AbstractController
                                         $method = "get".ucfirst($fieldName);
                                         $data[$fieldName] = $article->$method();
                                     }
-                                    else if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
-                                    {
-                                        $fertMethod = "get".ucfirst($fields['objectBrickType']);
-                                        $fertNameMethod = "get".$fields['objectBrickName'];
-                                        $method = "get".ucfirst($fieldName);
-                                        $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
-                                    }
                                     else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
                                     {
                                         $method = "get".ucfirst($fieldName);
@@ -292,6 +306,21 @@ class DefaultController extends AbstractController
                                     {
                                         $method = "get".ucfirst($fieldName);
                                         $data[$fieldName] = $productObjectLevel6->$method();
+                                    }
+                                    else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    {
+                                        $fertMethod = "get".ucfirst($fields['objectBrickType']);
+                                        $fertNameMethod = "get".$fields['objectBrickName'];
+                                        $method = "get".ucfirst($fieldName);
+                                        if($article->$fertMethod()->$fertNameMethod())
+                                        {
+                                            $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                        }
+                                        else
+                                        {
+                                            $notApplicableFields[$fields['groupName']]= $fieldName;
+                                        }
+                                        
                                     }
                                 }
 
@@ -307,13 +336,6 @@ class DefaultController extends AbstractController
                                                 $method = "get".ucfirst($fieldName);
                                                 $data[$fieldName] = $article->$method();
                                             }
-                                            else if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'objectBrick') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
-                                            {
-                                                $fertMethod = "get".ucfirst($fieldConfig['objectBrickType']);
-                                                $fertNameMethod = "get".$fieldConfig['objectBrickName'];
-                                                $method = "get".ucfirst($fieldName);
-                                                $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
-                                            }
                                             else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
                                             {
                                                 $method = "get".ucfirst($fieldName);
@@ -323,6 +345,22 @@ class DefaultController extends AbstractController
                                             {
                                                 $method = "get".ucfirst($fieldName);
                                                 $data[$fieldName] = $productObjectLevel6->$method();
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            {
+                                                $fertMethod = "get".ucfirst($fieldConfig['objectBrickType']);
+                                                $fertNameMethod = "get".$fieldConfig['objectBrickName'];
+                                                $method = "get".ucfirst($fieldName);
+                                                
+                                                if($article->$fertMethod()->$fertNameMethod())
+                                                {
+                                                    $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                                }
+                                                else
+                                                {
+                                                    
+                                                    $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
+                                                }
                                             }
                                         }
                                     }
@@ -382,6 +420,13 @@ class DefaultController extends AbstractController
                                 $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
                             }
                         }
+                    }
+                }
+
+                if($notApplicableFields)
+                {
+                    foreach ($notApplicableFields as $fieldKey => $fieldName) {
+                        unset($columnsDataWithImages[$fieldKey]);
                     }
                 }
 
@@ -543,5 +588,18 @@ class DefaultController extends AbstractController
         }
 
         return $columnsDataWithImages;
+    }
+
+    private function getReinforcementList() :array
+    {
+        $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
+        $list->setCondition(" masterType = :masterType ",["masterType" => "ProductClass~reinforcement"]);
+        $list->load();
+
+        $returnValue = [];
+        foreach($list as $object){
+            $returnValue[$object->getId()] = $object->getName();
+        }
+        return $returnValue;
     }
 }
