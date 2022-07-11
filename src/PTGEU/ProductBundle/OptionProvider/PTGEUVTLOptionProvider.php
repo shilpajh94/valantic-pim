@@ -41,11 +41,11 @@ class PTGEUVTLOptionProvider implements SelectOptionsProviderInterface
     public function getOptions($context, $fieldDefinition)
     {
         $UVTLListPTGEU = new DataObject\PTGEUVTL\Listing();
-        $UVTLListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Brands/" );
+        $UVTLListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/VTL/" );
         $UVTLListPTGEU = $UVTLListPTGEU->load();
 
         foreach ($UVTLListPTGEU as $UVTL) {
-            $result[] = array('key' => $UVTL->getvtlStatus(), 'value' => $UVTL->getId());
+            $result[] = array('key' => $UVTL->getDescription(), 'value' => $UVTL->getId());
         }
         return $result;
     }

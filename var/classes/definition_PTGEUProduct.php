@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-08T13:36:52+02:00
+* Generated at: 2022-07-11T16:14:29+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657280205,
+   'modificationDate' => 1657536264,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2035,220 +2035,225 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       226 => 
                                       array (
+                                        'key' => 'Static Pressure Rating',
+                                        'value' => 12472320,
+                                      ),
+                                      227 => 
+                                      array (
                                         'key' => 'Static Wire',
                                         'value' => 3168,
                                       ),
-                                      227 => 
+                                      228 => 
                                       array (
                                         'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
                                         'value' => 759973,
                                       ),
-                                      228 => 
+                                      229 => 
                                       array (
                                         'key' => 'Static Wire Option Available',
                                         'value' => 3169,
                                       ),
-                                      229 => 
+                                      230 => 
                                       array (
                                         'key' => 'Suitable for drinking  water',
                                         'value' => 759974,
                                       ),
-                                      230 => 
+                                      231 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Cover',
                                         'value' => 3170,
                                       ),
-                                      231 => 
+                                      232 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube',
                                         'value' => 3171,
                                       ),
-                                      232 => 
+                                      233 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube & Cover',
                                         'value' => 3172,
                                       ),
-                                      233 => 
+                                      234 => 
                                       array (
                                         'key' => 'Superior Bend Radius',
                                         'value' => 759975,
                                       ),
-                                      234 => 
+                                      235 => 
                                       array (
                                         'key' => 'Superior Cold Weather Flexibility',
                                         'value' => 759976,
                                       ),
-                                      235 => 
+                                      236 => 
                                       array (
                                         'key' => 'Superior Cover Adhesion',
                                         'value' => 3173,
                                       ),
-                                      236 => 
+                                      237 => 
                                       array (
                                         'key' => 'Superior Crush-Resistance',
                                         'value' => 759977,
                                       ),
-                                      237 => 
+                                      238 => 
                                       array (
                                         'key' => 'Superior Durability',
                                         'value' => 759978,
                                       ),
-                                      238 => 
+                                      239 => 
                                       array (
                                         'key' => 'Superior efficiency for improved performance',
                                         'value' => 760057,
                                       ),
-                                      239 => 
+                                      240 => 
                                       array (
                                         'key' => 'Superior Fitting Retention',
                                         'value' => 3174,
                                       ),
-                                      240 => 
+                                      241 => 
                                       array (
                                         'key' => 'Superior Kink Resistance',
                                         'value' => 759979,
                                       ),
-                                      241 => 
+                                      242 => 
                                       array (
                                         'key' => 'Superior Oil Resistance In The Tube',
                                         'value' => 759980,
                                       ),
-                                      242 => 
+                                      243 => 
                                       array (
                                         'key' => 'Superior Oil Resistance On The Cover',
                                         'value' => 759981,
                                       ),
-                                      243 => 
+                                      244 => 
                                       array (
                                         'key' => 'Superior Oil Resistance Tube And Cover',
                                         'value' => 759982,
                                       ),
-                                      244 => 
+                                      245 => 
                                       array (
                                         'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
                                         'value' => 759983,
                                       ),
-                                      245 => 
+                                      246 => 
                                       array (
                                         'key' => 'Survivor Compound Available',
                                         'value' => 3194,
                                       ),
-                                      246 => 
+                                      247 => 
                                       array (
                                         'key' => 'Tapered Nozzle Available',
                                         'value' => 3175,
                                       ),
-                                      247 => 
+                                      248 => 
                                       array (
                                         'key' => 'Taste & Odorless Tube',
                                         'value' => 3176,
                                       ),
-                                      248 => 
+                                      249 => 
                                       array (
                                         'key' => 'Tolerates misalignment',
                                         'value' => 760058,
                                       ),
-                                      249 => 
+                                      250 => 
                                       array (
                                         'key' => 'Transmit power from both sides',
                                         'value' => 760059,
                                       ),
-                                      250 => 
+                                      251 => 
                                       array (
                                         'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
                                         'value' => 760060,
                                       ),
-                                      251 => 
+                                      252 => 
                                       array (
                                         'key' => 'Twist Resistant',
                                         'value' => 3177,
                                       ),
-                                      252 => 
+                                      253 => 
                                       array (
                                         'key' => 'U.S. Coast Guard Certified',
                                         'value' => 3178,
                                       ),
-                                      253 => 
+                                      254 => 
                                       array (
                                         'key' => 'UL / CUL 330 Certified ',
                                         'value' => 759987,
                                       ),
-                                      254 => 
+                                      255 => 
                                       array (
                                         'key' => 'UL / CUL Certified',
                                         'value' => 3195,
                                       ),
-                                      255 => 
+                                      256 => 
                                       array (
                                         'key' => 'UL 330A Approved',
                                         'value' => 3179,
                                       ),
-                                      256 => 
+                                      257 => 
                                       array (
                                         'key' => 'UL 330B Approved',
                                         'value' => 3180,
                                       ),
-                                      257 => 
+                                      258 => 
                                       array (
                                         'key' => 'UL 94Hb Approved',
                                         'value' => 759984,
                                       ),
-                                      258 => 
+                                      259 => 
                                       array (
                                         'key' => 'UL Certified',
                                         'value' => 759985,
                                       ),
-                                      259 => 
+                                      260 => 
                                       array (
                                         'key' => 'Ultra-Low Permeation',
                                         'value' => 3181,
                                       ),
-                                      260 => 
+                                      261 => 
                                       array (
                                         'key' => 'Uniform cross section means less drive wear',
                                         'value' => 760061,
                                       ),
-                                      261 => 
+                                      262 => 
                                       array (
                                         'key' => 'Universal Fuel Compatibility',
                                         'value' => 3182,
                                       ),
-                                      262 => 
+                                      263 => 
                                       array (
                                         'key' => 'Universal tooth profile drops into existing sprockets',
                                         'value' => 760062,
                                       ),
-                                      263 => 
+                                      264 => 
                                       array (
                                         'key' => 'Universal tooth profile fits into existing RPP sprockets',
                                         'value' => 760063,
                                       ),
-                                      264 => 
+                                      265 => 
                                       array (
                                         'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
                                         'value' => 760064,
                                       ),
-                                      265 => 
+                                      266 => 
                                       array (
                                         'key' => 'USDA / FDA Certified',
                                         'value' => 759986,
                                       ),
-                                      266 => 
+                                      267 => 
                                       array (
                                         'key' => 'Vacuum Rated',
                                         'value' => 3183,
                                       ),
-                                      267 => 
+                                      268 => 
                                       array (
                                         'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
                                         'value' => 3184,
                                       ),
-                                      268 => 
+                                      269 => 
                                       array (
                                         'key' => 'Visibility of Flow',
                                         'value' => 3185,
                                       ),
-                                      269 => 
+                                      270 => 
                                       array (
                                         'key' => 'Withstand high loading forces',
                                         'value' => 760065,
@@ -3224,7 +3229,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'MaterialGroup',
+                                    'classes' => 'PTGEUMaterialGroup',
                                   ),
                                 ),
                                  'pathFormatterClass' => '',
@@ -3346,11 +3351,106 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Banded Belt - Classical',
+                                    'value' => 13095627,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Banded Belt - Narrow',
+                                    'value' => 13095628,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Dual Poly V Belts',
+                                    'value' => 13095639,
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Dual Timing Belts',
+                                    'value' => 13095638,
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'Dual V Belts',
+                                    'value' => 13095640,
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Flat Belts',
+                                    'value' => 13095636,
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Flat Belts - PU',
+                                    'value' => 13095635,
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'Metal Parts',
+                                    'value' => 13095637,
+                                  ),
+                                  8 => 
+                                  array (
+                                    'key' => 'Open ended Belts - PU',
+                                    'value' => 13095643,
+                                  ),
+                                  9 => 
+                                  array (
+                                    'key' => 'Open ended Belts - Rubber',
+                                    'value' => 13095642,
+                                  ),
+                                  10 => 
+                                  array (
+                                    'key' => 'Poly V Belt',
+                                    'value' => 13095626,
+                                  ),
+                                  11 => 
+                                  array (
+                                    'key' => 'Single',
+                                    'value' => 13098859,
+                                  ),
+                                  12 => 
+                                  array (
+                                    'key' => 'Single Classical - Raw Edge',
+                                    'value' => 13095632,
+                                  ),
+                                  13 => 
+                                  array (
+                                    'key' => 'Single Classical - Wrapped',
+                                    'value' => 13095631,
+                                  ),
+                                  14 => 
+                                  array (
+                                    'key' => 'Single Narrow - Raw Edge',
+                                    'value' => 13095633,
+                                  ),
+                                  15 => 
+                                  array (
+                                    'key' => 'Single Narrow - Wrapped',
+                                    'value' => 13095634,
+                                  ),
+                                  16 => 
+                                  array (
+                                    'key' => 'Timing Belts - PU',
+                                    'value' => 13095630,
+                                  ),
+                                  17 => 
+                                  array (
+                                    'key' => 'Timing Belts - Rubber',
+                                    'value' => 13095629,
+                                  ),
+                                  18 => 
+                                  array (
+                                    'key' => 'VSB',
+                                    'value' => 13095641,
+                                  ),
                                 ),
                                  'width' => 250,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUBeltType|beltType',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
@@ -3362,7 +3462,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => true,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => 'margin-left:20px;',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
@@ -5319,11 +5419,211 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, falcon, GTR',
+                                    'value' => 13095867,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'flat, PU, polyflat',
+                                    'value' => 13095868,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, silent, silentsync, HOT',
+                                    'value' => 13095869,
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, standard, synchrobelt',
+                                    'value' => 13095870,
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, PU, synchrochain, SCC',
+                                    'value' => 13095871,
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor',
+                                    'value' => 13095872,
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, CXA',
+                                    'value' => 13095873,
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, CXP',
+                                    'value' => 13095874,
+                                  ),
+                                  8 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, carbon',
+                                    'value' => 13095875,
+                                  ),
+                                  9 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, PU, drive, synchrodrive',
+                                    'value' => 13095876,
+                                  ),
+                                  10 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, PU, flex, synchroflex',
+                                    'value' => 13095877,
+                                  ),
+                                  11 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, PU, flex, synchroflex, GEN III',
+                                    'value' => 13095878,
+                                  ),
+                                  12 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, force, synchroforce, CXP',
+                                    'value' => 13095879,
+                                  ),
+                                  13 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, force, synchroforce, CXA',
+                                    'value' => 13095880,
+                                  ),
+                                  14 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, force, carbon, synchroforce',
+                                    'value' => 13095881,
+                                  ),
+                                  15 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, force, extreme, synchroforce',
+                                    'value' => 13095882,
+                                  ),
+                                  16 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, open end, line, synchroline',
+                                    'value' => 13095883,
+                                  ),
+                                  17 => 
+                                  array (
+                                    'key' => 'Synchronous, Positive Drive, timing, open end, line, synchroline, CXP',
+                                    'value' => 13095884,
+                                  ),
+                                  18 => 
+                                  array (
+                                    'key' => 'hybrid, special, synchrorib',
+                                    'value' => 13095885,
+                                  ),
+                                  19 => 
+                                  array (
+                                    'key' => 'hybrid, special, synchrorib, CXP',
+                                    'value' => 13095886,
+                                  ),
+                                  20 => 
+                                  array (
+                                    'key' => 'hybrid, special, synchrorib, CXA',
+                                    'value' => 13095887,
+                                  ),
+                                  21 => 
+                                  array (
+                                    'key' => 'double sided, twin, synchrotwin',
+                                    'value' => 13095888,
+                                  ),
+                                  22 => 
+                                  array (
+                                    'key' => 'double sided, twin, synchrotwin, CXP',
+                                    'value' => 13095889,
+                                  ),
+                                  23 => 
+                                  array (
+                                    'key' => 'double sided, twin, synchrotwin, CXA',
+                                    'value' => 13095890,
+                                  ),
+                                  24 => 
+                                  array (
+                                    'key' => 'friction, V-belt, V, standard ',
+                                    'value' => 13095891,
+                                  ),
+                                  25 => 
+                                  array (
+                                    'key' => 'friction, V-belt, V, advance',
+                                    'value' => 13095892,
+                                  ),
+                                  26 => 
+                                  array (
+                                    'key' => 'friction, V-belt, V, double sided, dual',
+                                    'value' => 13095893,
+                                  ),
+                                  27 => 
+                                  array (
+                                    'key' => 'friction, raw edge, V-belt, V, FO, standard',
+                                    'value' => 13095894,
+                                  ),
+                                  28 => 
+                                  array (
+                                    'key' => 'friction, raw edge, V-belt, V, FO, pioneer',
+                                    'value' => 13095895,
+                                  ),
+                                  29 => 
+                                  array (
+                                    'key' => 'banded, V-belt, V, multi, multibelt, standard',
+                                    'value' => 13095896,
+                                  ),
+                                  30 => 
+                                  array (
+                                    'key' => 'banded, V-belt, V, multi, multibelt, advance',
+                                    'value' => 13095897,
+                                  ),
+                                  31 => 
+                                  array (
+                                    'key' => 'banded, V-belt, V, multi, multibelt, power, ZAR',
+                                    'value' => 13095898,
+                                  ),
+                                  32 => 
+                                  array (
+                                    'key' => 'banded, raw edge, V-belt, V, multi, multibelt, FO, standard',
+                                    'value' => 13095899,
+                                  ),
+                                  33 => 
+                                  array (
+                                    'key' => 'banded, raw edge, V-belt, V, multi, multibelt, FO, advance',
+                                    'value' => 13095900,
+                                  ),
+                                  34 => 
+                                  array (
+                                    'key' => 'poly-V, multi, multirib ',
+                                    'value' => 13095901,
+                                  ),
+                                  35 => 
+                                  array (
+                                    'key' => 'poly-V, multi, multirib, power, ZAR',
+                                    'value' => 13095902,
+                                  ),
+                                  36 => 
+                                  array (
+                                    'key' => 'poly-V, multi, multirib, elast',
+                                    'value' => 13095903,
+                                  ),
+                                  37 => 
+                                  array (
+                                    'key' => 'poly-V, multi, multirib, double sided, dual',
+                                    'value' => 13095904,
+                                  ),
+                                  38 => 
+                                  array (
+                                    'key' => 'V-belt, V, power, ZAR',
+                                    'value' => 13095905,
+                                  ),
+                                  39 => 
+                                  array (
+                                    'key' => 'variable speed, variator, varispeed, VSB, advance',
+                                    'value' => 13095906,
+                                  ),
                                 ),
                                  'width' => 220,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
+                                 'optionsProviderData' => 'Search Keywords|Id',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
@@ -5441,11 +5741,51 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Stock article',
+                                    'value' => 13095907,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Overall block',
+                                    'value' => 13095908,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Matchcode stock art.',
+                                    'value' => 13095909,
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Remaining quantity',
+                                    'value' => 13095910,
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'On Demand Priv.Brand',
+                                    'value' => 13095911,
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Stock art.Priv.Brand',
+                                    'value' => 13095912,
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Matchcode China MTO',
+                                    'value' => 13095913,
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'Remaining quant. MTO',
+                                    'value' => 13095914,
+                                  ),
                                 ),
                                  'width' => 220,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
+                                 'optionsProviderData' => 'Description|Id',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
@@ -5457,7 +5797,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => 'margin-left: 20px;',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
