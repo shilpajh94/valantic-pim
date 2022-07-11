@@ -21,7 +21,7 @@ if($groupData){
 <article class="template">
         <div id="pageHeader"></div>
         <span  class="pageName">
-                <?= $groupData['siop3Category']; ?>
+                <?= $groupData['siop5Category']; ?>
         </span>
         <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
@@ -91,7 +91,7 @@ if($groupData){
                                                 }
                                                 else
                                                 {
-                                                        echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop3Category']);
+                                                        echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop5Category']);
                                                 }
                                                         
 
@@ -103,7 +103,7 @@ if($groupData){
                                                 }
                                                 else
                                                 {
-                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop4Category']);
+                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop6siop7Category']);
                                                 }
                                                         
                                         }else{
@@ -149,7 +149,7 @@ if($groupData){
                                                         }
                                                         else
                                                         {
-                                                                echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop3Category']);
+                                                                echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop5Category']);
                                                         }
                                                                 
 
@@ -161,7 +161,7 @@ if($groupData){
                                                         }
                                                         else
                                                         {
-                                                                echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop4Category']);
+                                                                echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop6siop7Category']);
                                                         }
                                                                 
                                                 }else{

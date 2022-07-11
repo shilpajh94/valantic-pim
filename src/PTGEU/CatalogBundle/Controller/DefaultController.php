@@ -142,12 +142,15 @@ class DefaultController extends AbstractController
             $objColumnsData = $catalogCategoryTableObject->getColumns();
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+            
 
-            $reinforcementList = $this->getReinforcementList('en');
+            $reinforcementList = $this->getReinforcementList();
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
+            $siop5Category = '';
+            $siop6siop7Category = '';
             if($PTGEUProductHierarchy)
-            {
+            {   $siop5Category = $PTGEUProductHierarchy->getDescription();
                 $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
                 $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
                 $fifthLevelEntries->setLimit(1);
@@ -158,6 +161,8 @@ class DefaultController extends AbstractController
             }
 
             $groupData = array();
+            $groupData['siop5Category'] = $siop5Category;
+            
             if($fifthLevelProduct)
             {
                 $seventhLevelProductList = [];
@@ -395,10 +400,11 @@ class DefaultController extends AbstractController
                     }
                 }
 
+                
                 if($tableSortingFields)
                 {
                     foreach ($articleData as $profile => $articlesList) {
-                        
+                        $siop6siop7Category = $profile;
                         if(count($tableSortingFields) == 1)
                         {
                             $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
@@ -432,6 +438,7 @@ class DefaultController extends AbstractController
 
                 $groupData['data'] = $articleData;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                $groupData['siop6siop7Category'] = $siop6siop7Category;
 
                 $footer_logo_src = $CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
