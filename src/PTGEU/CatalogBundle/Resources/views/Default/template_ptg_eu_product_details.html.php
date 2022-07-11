@@ -4,15 +4,114 @@ if (!isset($this->parentContainer)) {
 }
 ?>
 
+<?php if($this->editmode): ?>
+        <?= $this->relation("ptg_eu_product_page", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["PTGEUCatalogCategory"],
+        ]);
+        ?>
+<?php endif; ?>
+
 <div class="wrapper">
 	
 		<div class="top-section">
-			<div class="logo"><img src="/static/ptgeu/images/continental_logo1.jpg"/></div>
+				<?php
+				if($this->editmode){
+					if(!$this->image("PTGEU_Product_Logo")->isEmpty())
+					{
+						echo $this->image("PTGEU_Product_Logo");
+					}
+					else
+					{
+						echo $this->image("PTGEU_Product_Logo")->setImage($groupData['productLogo']);
+					}
+				}
+				else
+				{
+					$imgSrcObj1 = $this->image("PTGEU_Product_Logo");
+
+					if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+					{
+					?>
+						<div class="logo">
+						<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
+						</div>
+					<?php
+					}
+				}
+				?>
+			
 			<div class="img-wrapper">
-				<div class="set1"><img src="/static/ptgeu/images/banner.jpg"/></div>
+				<div class="set1">
+				<?php
+				if($this->editmode){
+						if(!$this->image("PTGEU_Product_MainImage")->isEmpty())
+						{
+								echo $this->image("PTGEU_Product_MainImage");
+						}
+						else
+						{
+								echo $this->image("PTGEU_Product_MainImage")->setImage($groupData['mainImageObj']);
+						}
+								
+				}else{
+						$imgSrcObj1 = $this->image("PTGEU_Product_MainImage");
+
+						if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+						{
+						?>
+						<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
+						<?php
+						}
+				}
+				?>
+				</div>
+				<div class="set1">
+				<?php
+				if($this->editmode){
+						if(!$this->image("PTGEU_Product_TechnicalImage")->isEmpty())
+						{
+								echo $this->image("PTGEU_Product_TechnicalImage");
+						}
+						else
+						{
+								echo $this->image("PTGEU_Product_TechnicalImage")->setImage($groupData['technicalImageObj']);
+						}
+								
+				}else{
+						$imgSrcObj1 = $this->image("PTGEU_Product_TechnicalImage");
+
+						if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+						{
+						?>
+						<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="technical image"/>
+						<?php
+						}
+				}
+				?>
+				</div>
 				<section class="">
-					<h1 class="heading">Lorem ipsum</h1>
-					<h4>Technical Data</h4>
+					<h1 class="heading">
+					<?php
+						if($this->editmode){
+								if(!$this->input("PTG_Footer_BrandName")->isEmpty())
+								{
+										echo $this->input("PTG_Footer_BrandName");
+								}
+								else
+								{
+										echo $this->input("PTG_Footer_BrandName")->setDataFromResource($groupData['brandName']);
+								}
+										
+						}else{
+								echo $this->input("PTG_Footer_BrandName");
+						}
+						?>
+					</h1>
+					<h4><?= $this->translate('Technical_Data'); ?></h4>
 
 					<table class="table1" cellspacing="5" cellpadding ="5">
 						<tr>
@@ -75,10 +174,12 @@ if (!isset($this->parentContainer)) {
 						</tr>
 					</table>
 
-					<h4 class="mt-4">Schematic code</h4>
+					<h4 class="mt-4"><?= $this->translate('Schematic_belt_marking_and_production_code'); ?></h4>
 					<div class="highlight">
-					<span><img src="/static/ptgeu/images/6a.jpg" width="100" /></span>
-					<span>multibelt SPA</span>
+					<span>
+						<img src="<?= $branding_logo_src; ?>" width="100"  alt="branding image">
+					</span>
+					<span><?= $groupData['brandName']; ?></span>
 					<span>3000.00</span>
 					<span>LD</span>
 					<span>Made in <br/>XXX</span>
@@ -92,18 +193,47 @@ if (!isset($this->parentContainer)) {
 		</div>
 		
 	<div class="footer mt-4" >
-			<p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available</p>
-
+			<p>
+				<?= $this->textarea("PTGEU_disclaimer"); ?>
+			</p>
 			<hr/>
 			<div class="flex mt-4">
-			<span class="mr-4"><img src="/static/ptgeu/images/barcode.gif" /></span>
-			<div>
-				<h5>Loren ipsum</h5>
-				<p class="mb-0">n publishing and graphic design</p>
-				<p class="mb-0">n publishing and graphic </p>
-				<p class="mb-0">n publishing</p>
 
-			</div>
+				<?php
+					if($this->editmode){
+						?>
+							<span class="mr-4">
+								<?php
+							echo $this->image("PTGEU_Barcode",["width" => 100, "height" => 100]);
+							?>
+							</span>
+							<?php
+					}else{
+							$imgSrcObj1 = $this->image("PTGEU_Barcode");
+
+							if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+							{
+							?>
+							<span class="mr-4">
+							<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="PTG Barcode Image"/>
+							</span>
+							<?php
+							}
+					} 
+				?>
+
+				<?php
+					if($this->editmode)
+					{
+						echo $this->wysiwyg("PTGEU_ContactInfo", ["width" => 400, "height" => 100]);
+					}
+					else
+					{
+						echo $this->wysiwyg("PTGEU_ContactInfo");
+					}
+				?>
+				
+				
 			</div>
 			
 	</div>

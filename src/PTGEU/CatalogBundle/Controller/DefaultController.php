@@ -111,7 +111,8 @@ class DefaultController extends AbstractController
 
     public function templatePtgEuProductDetailsAction(Request $request)
     {
-        
+        $groupData['brandName'] = "test brand name";
+        $this->view['groupData'] = $groupData;
     }
     public function templatePtgEuProductPageAction(Request $request)
     {
