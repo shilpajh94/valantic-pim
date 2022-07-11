@@ -268,7 +268,7 @@ if($groupData){
                         }else{
                                 $imgSrcObj1 = $this->image("HHPP_Image_Left");
 
-                                if($imgSrcObj1)
+                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
                                 {
                                 ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="400" height="200" alt="product image"/>
@@ -290,7 +290,7 @@ if($groupData){
                         }else{
                                 $imgSrcObj2 = $this->image("Drawing_Picture");
 
-                                if($imgSrcObj2)
+                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
                                 {
                                 ?>
                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>"width="400" height="200" alt="technical drawring"/>
