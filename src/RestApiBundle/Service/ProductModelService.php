@@ -96,7 +96,8 @@ class ProductModelService
         if(empty($products)){ return $finalProductArray; }
 
         foreach($products as $key=>$value){
-
+            
+            $finalProductArrayTemp = [];
             // Using strlen as callback to preserve 0 Zero for unpublished records
             // Removing Null, Empty and False value
             $value  =   array_filter($value, 'strlen');
@@ -109,7 +110,7 @@ class ProductModelService
             $nineDigit      =   substr($value['oldMaterialCode'],0,9);
 
             // Set Base(6Digit) data only if it is not set.
-            if(!isset($finalProductArray[$sixDigit]['6digit']) || empty($finalProductArray[$sixDigit]['6digit'])){
+            //if(!isset($finalProductArray[$sixDigit]['6digit']) || empty($finalProductArray[$sixDigit]['6digit'])){
 
                 $sixDigitData['6digit'] =   $sixDigit;
                 $siopData = $this->getSoipDetails($sixDigitData);
@@ -148,14 +149,14 @@ class ProductModelService
                 unset($resultArrBase['certificationImage']);
                 unset($resultArrBase['document']);
                 unset($resultArrBase['Document']);
-                $finalProductArray[$sixDigit] = $resultArrBase;
+                $finalProductArrayTemp = $resultArrBase;
                 // To display the 6 Digit code with "sixDigitVirtualCatalogDescription" field
                 if(isset($resultArrBase['sixDigitVirtualCatalogDescription']) && $resultArrBase['sixDigitVirtualCatalogDescription'] != '') {
-                    $finalProductArray[$sixDigit]['sixDigitVirtualCatalogDescription'] = $sixDigitData['6digit']."-".$resultArrBase['sixDigitVirtualCatalogDescription'];
+                    $finalProductArrayTemp['sixDigitVirtualCatalogDescription'] = $sixDigitData['6digit']."-".$resultArrBase['sixDigitVirtualCatalogDescription'];
                 }
-            }
+           // }
             // Set Skeleton(9Digit) data only if it is not set.
-            if(!isset($finalProductArray[$sixDigit]['9digit'][$nineDigit]) || empty($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
+           // if(!isset($finalProductArray[$sixDigit]['9digit'][$nineDigit]) || empty($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
 
                 // Get Skeleton Object Bricks Data.
                 $skeletonObjectBrickData    =   array();
@@ -174,13 +175,15 @@ class ProductModelService
                 unset($resultArrSkeleton['frontView']);
                 unset($resultArrSkeleton['sideView']);
                 unset($resultArrSkeleton['cutView']);
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit;
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]= $resultArrSkeleton;
-            }
+                // $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit;
+                // $finalProductArray[$sixDigit]['9digit'][$nineDigit]= $resultArrSkeleton;
+
+                $finalProductArrayTemp = array_merge($finalProductArrayTemp, $resultArrSkeleton);
+            //}
 
             // Set Options(14Digit) data.
             
-            if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
+            //if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
                 // Get Fert Object Bricks Data.
                 $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
                 $resultArrFert1['sap_id']    =   $value['articleNumber'];
@@ -197,15 +200,17 @@ class ProductModelService
                 unset($resultArrFert['cutView']);
                 unset($resultArrFert['articleNumber']);
                 unset($resultArrFert['oldMaterialCode']);
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['options'][]=$resultArrFert;
-            }
+                // $finalProductArray[$sixDigit]['9digit'][$nineDigit]['options'][]=$resultArrFert;
+
+                $finalProductArrayTemp = array_merge($finalProductArrayTemp, $resultArrFert);
+            // }
             // Set Images.
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            $images = $this->getImagesData($finalProductArrayTemp['images'],$imageDataArray,$value['oldMaterialCode']);
             if(count($images) > 0){
-                $finalProductArray[$sixDigit]['images'] = $images;
+                $finalProductArrayTemp['images'] = $images;
             }
             // To get the base alt image & document URL
             if(
@@ -213,7 +218,7 @@ class ProductModelService
                 !empty($certificationImageID) && 
                 ($propertyAssetData = $this->getPropertyAssetData($certificationImageID) )
             ) {
-                    $finalProductArray[$sixDigit]['CertificationImage'] = $propertyAssetData;
+                    $finalProductArrayTemp['CertificationImage'] = $propertyAssetData;
             }
 
             if(
@@ -221,8 +226,10 @@ class ProductModelService
                 !empty($certificationDocumentID) && 
                 ( $propertyAssetData = $this->getPropertyAssetData($certificationDocumentID) ) 
             ) {
-                    $finalProductArray[$sixDigit]['CertificationDocument'] = $propertyAssetData;
+                    $finalProductArrayTemp['CertificationDocument'] = $propertyAssetData;
             }
+
+            $finalProductArray[] = $finalProductArrayTemp;
 
         }
         
@@ -485,7 +492,7 @@ class ProductModelService
         $i=0;
         foreach($productData as $key=>$value){
             $formattedArray[$i] =$value;
-            $formattedArray[$i]['9digit'] =array_values($value['9digit']);
+            // $formattedArray[$i]['9digit'] =array_values($value['9digit']);
             if(is_array($value['images'])){
                 $formattedArray[$i]['images'] =array_values($value['images']);
             }
