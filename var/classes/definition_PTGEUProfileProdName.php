@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-28T09:16:53+02:00
+* Generated at: 2022-07-08T08:42:17+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProfileProdName',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656400613,
+   'modificationDate' => 1657262537,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -59,7 +59,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Sales Organisation',
+         'title' => 'Profile Product Name',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -150,7 +150,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
         ),
          'locked' => false,
-         'icon' => NULL,
+         'icon' => '',
       )),
     ),
      'locked' => false,
