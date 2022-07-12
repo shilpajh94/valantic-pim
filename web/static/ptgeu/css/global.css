@@ -480,6 +480,8 @@ section:first-child{
 font-size: 18px;
 }
 
+.nowrap{ flex-wrap: nowrap}
+.flex-column{flex-direction: column;}
 .orange {
   color: #ffa500;
 }
@@ -1058,8 +1060,7 @@ footer h5 span{
 }
 
 footer p b{
-    
-    display:block;
+    display: block;
     margin-bottom:0.2em;
     
 }

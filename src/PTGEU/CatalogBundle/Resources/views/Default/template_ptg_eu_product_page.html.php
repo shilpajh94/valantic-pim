@@ -235,7 +235,7 @@ if($groupData){
                         ?>
                 </h1>
 
-                <aside class="row justify-between">
+                <aside class="row justify-between nowrap">
                         <div class="col-8">
                                 <?php
                                 if($this->editmode){
@@ -253,7 +253,7 @@ if($groupData){
                                 }
                                 ?>
                         </div>
-
+<div class="col-4 d-flex flex-column">
                         <?php
                         if($this->editmode){
                                 if(!$this->image("HHPP_Image_Left")->isEmpty())
@@ -298,6 +298,7 @@ if($groupData){
                                 }
                         }
                         ?>
+</div>
                 </aside>
         </header>
 
@@ -447,3 +448,4 @@ if($groupData){
 <?php } ?>
 
 <?php } ?>
+
