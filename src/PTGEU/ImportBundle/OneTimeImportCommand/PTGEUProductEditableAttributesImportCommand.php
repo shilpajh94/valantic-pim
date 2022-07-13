@@ -176,7 +176,19 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $booleanValue = $this->getBooleanValue($fieldValue);
             $product->$method($booleanValue, 1);
         }
-        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='searchKeywords' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
+        elseif($fieldName=='searchKeywords' && $fieldType == 'Select')
+        {
+            $searchKeywordObject = $this->getSearchKeyWordsObject($fieldValue);
+            if($searchKeywordObject !='')
+                $product->$method($searchKeywordObject);
+        }
+        elseif($fieldName=='vtlStatus' && $fieldType == 'Select')
+        {
+            $vtlObject = $this->getVtlStatus($fieldValue);
+            if($vtlObject !='')
+                $product->$method($vtlObject);
+        }
+        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
         {
             $product->$method($fieldValue, 'en');
         }
@@ -217,5 +229,35 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             }
         }
         return $featureValueArr;
+    }
+
+    private function getSearchKeyWordsObject(string $value)
+    {
+
+        $objSearchKeywords = new DataObject\PTGEUSearchKeywords\Listing();
+        $objSearchKeywords->setCondition("SearchKeywords = ?", $value);
+        if(!empty($objSearchKeywords))
+        {
+            foreach ($objSearchKeywords as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
+
+    }
+
+    private function getVtlStatus(string $value)
+    {
+
+        $objVtl = new DataObject\PTGEUVTL\Listing();
+        $objVtl->setCondition("description = ?", $value);
+        if(!empty($objVtl))
+        {
+            foreach ($objVtl as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
+
     }
 }
