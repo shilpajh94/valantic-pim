@@ -19,14 +19,14 @@ if (!isset($this->parentContainer)) {
 if($groupData){
 ?>
 <article class="template">
-        <div id="pageHeader"></div>
+        <!--<div id="pageHeader"></div>-->
         <span  class="pageName">
                 <?= $groupData['siop5Category']; ?>
         </span>
         <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
                         </span>
                         <div class="flex aligned ">
                                 <p>
@@ -211,7 +211,7 @@ if($groupData){
                         </div>
 
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
                         </span>
                 </footer>
         </div>
@@ -235,7 +235,7 @@ if($groupData){
                         ?>
                 </h1>
 
-                <aside class="row justify-between nowrap">
+                <aside class="row justify-between ">
                         <div class="col-8">
                                 <?php
                                 if($this->editmode){
@@ -258,11 +258,11 @@ if($groupData){
                         if($this->editmode){
                                 if(!$this->image("HHPP_Image_Left")->isEmpty())
                                 {
-                                        echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200]);
+                                        echo $this->image("HHPP_Image_Left", ["width" => 200, "height" => 200]);
                                 }
                                 else
                                 {
-                                        echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
+                                        echo $this->image("HHPP_Image_Left", ["width" => 200, "height" => 200])->setImage($groupData['mainImageObj']);
                                 }
                                         
                         }else{
@@ -271,7 +271,7 @@ if($groupData){
                                 if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
                                 {
                                 ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="400" height="200" alt="product image"/>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="200" height="200" alt="product image"/>
                                 <?php
                                 }
                         }
@@ -281,11 +281,11 @@ if($groupData){
                         if($this->editmode){
                                 if(!$this->image("Drawing_Picture")->isEmpty())
                                 {
-                                        echo $this->image("Drawing_Picture",["width" => 400, "height" => 200]);
+                                        echo $this->image("Drawing_Picture",["width" => 200, "height" => 200]);
                                 }
                                 else
                                 {
-                                        echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                 }
                         }else{
                                 $imgSrcObj2 = $this->image("Drawing_Picture");
@@ -293,7 +293,7 @@ if($groupData){
                                 if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
                                 {
                                 ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>"width="400" height="200" alt="technical drawring"/>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>"width="200" height="200" alt="technical drawring"/>
                                 <?php
                                 }
                         }

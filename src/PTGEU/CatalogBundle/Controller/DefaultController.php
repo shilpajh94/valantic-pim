@@ -112,6 +112,9 @@ class DefaultController extends AbstractController
     public function templatePtgEuProductDetailsAction(Request $request)
     {
         $groupData['brandName'] = "test brand name";
+        $groupData['profile'] = "SPA";
+        $beltDesignlist = ['Polymer base: Polychlorophene','Tension member: Polyster','Fabric: Cotton'];
+        $groupData['beltDesign'] = "SPA";
         $this->view['groupData'] = $groupData;
     }
     public function templatePtgEuProductPageAction(Request $request)

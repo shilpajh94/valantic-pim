@@ -132,7 +132,7 @@ if (!isset($this->parentContainer)) {
 						<tr>
 							<th>Properties</th>
 							<td></td>
-							<td>lorem ipsum lopredj sdaksdjka</td>
+							<td>lorem ipsum <br/> lopredj <br/>sdaksdjka</td>
 						</tr>
 						<tr>
 							<th >nominal Length</th>
