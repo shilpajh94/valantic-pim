@@ -155,7 +155,16 @@ if (!isset($this->parentContainer)) {
 								<tr>
 									<th><?= $this->translate('PTGEU_Belt_design'); ?></th>
 									<td></td>
-									<td><?= $groupData['beltDesign']; ?></td>
+									<td>
+										<?php
+											$beltDesignCombine = [];
+											foreach ($groupData['beltDesign'] as $key => $value) {
+												$key = $this->translate($key);
+												$beltDesignCombine[] = "$key: $value";
+											}
+											echo implode('<br/>', $beltDesignCombine);
+										?>
+									</td>
 								</tr>
 								<?php } ?>
 
@@ -219,7 +228,16 @@ if (!isset($this->parentContainer)) {
 								<tr>
 									<th><?= $this->translate('PTGEU_Properties'); ?></th>
 									<td></td>
-									<td><?= $groupData['properties']; ?></td>
+									<td>
+										<?php
+											$propertiesCombine = [];
+											foreach ($groupData['properties'] as $key => $value) {
+												$key = $this->translate($key);
+												$propertiesCombine[] = "$key $value";
+											}
+											echo implode('<br/>', $propertiesCombine);
+										?>
+									</td>
 								</tr>
 								<?php } ?>
 

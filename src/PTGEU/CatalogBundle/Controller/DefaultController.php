@@ -120,6 +120,10 @@ class DefaultController extends AbstractController
             $branding_logo_src = $this->getS3ImageSrc($branding_logo_src);
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+            $reinforcementList = $this->getReinforcementList();
+
+            $reinforcementListSelected = [];
+                
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
 
@@ -164,20 +168,45 @@ class DefaultController extends AbstractController
                     $profile = $productObjectLevel6->getProfile();
                     $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
 
-                    $beltDesignlist = ['Polymer base: Polychlorophene','Tension member: Polyster','Fabric: Cotton'];
-                    $beltDesignlistContent = implode("<br/>", $beltDesignlist);
+                    $material = $productObjectLevel6->getMaterial();
+                    $reinforcement = $productObjectLevel6->getReinforcement();
+
+                    if($reinforcement)
+                    {
+                        foreach ($reinforcement as $reinforcementId) {
+                            $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
+                        }
+                    }
+
+                    $reinforcement = implode(', ', $reinforcementListSelected);
+                    $fabricType = $productObjectLevel6->getFabricType();
+
+                    $beltDesignlistContent = array(
+                        'PTGEU_Material' => $material,
+                        'PTGEU_Reinforcement' => $reinforcement,
+                        'PTGEU_FabricType' => $fabricType
+                    );
+
                     $groupData['beltDesign'] = $beltDesignlistContent;
 
                     $groupData['upperRibWidth'] = "=12.7 ()";
                     $groupData['beltHeight'] = "=13 ()";
-                    $groupData['flankAngle'] = "= ()";
-                    $groupData['hardness'] = "86 (+5)";
-                    $groupData['weightPerMLength'] = "1.95x10-1";
-                    $groupData['minDiameter'] = "100";
-                    $groupData['minBlackIdlerDiameter'] = "160";
+                    $groupData['flankAngle'] = $productObjectLevel6->getBeltAngle(); 
+                    $groupData['hardness'] = $productObjectLevel6->getBeltHardness();
+                    $groupData['weightPerMLength'] = $productObjectLevel6->getNetWeight();
+                    $groupData['minDiameter'] = $productObjectLevel6->getMinPulleyDia();
+                    $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
 
-                    $propertieslist = ['Temprature resistant from -40C up to +80C','Electronic conductive to ISO 1813','Conditionally registant to Oil'];
-                    $propertieslistContent = implode("<br/>", $propertieslist);
+                    $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
+                    $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+                    $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
+
+                    $propertieslistContent = array(
+                        'PTGEU_HeatAndOilResistant' => $heatAndOilResistant,
+                        'PTGEU_ElectricalConductivity' => $electricalConductivity,
+                        'PTGEU_RangeTemperatureC' => $rangeTemperatureC
+                    );
+
                     $groupData['properties'] = $propertieslistContent;
 
                     $groupData['nominalLength'] = array(
