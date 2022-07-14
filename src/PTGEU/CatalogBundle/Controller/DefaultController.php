@@ -109,10 +109,119 @@ class DefaultController extends AbstractController
         die;
     }
 
-    public function templatePtgEuProductDetailsAction(Request $request)
+    public function templatePtgEuProductProfileAction(Request $request)
     {
-        $groupData['brandName'] = "test brand name";
-        $this->view['groupData'] = $groupData;
+        $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
+        if($catalogCategoryTableObject)
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
+            $branding_logo_src = $commonHelper->getParameter($attributeImagesConfig, 'BrandingLogoWhite');
+            $branding_logo_src = $this->getS3ImageSrc($branding_logo_src);
+            $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
+            $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+            
+            $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
+
+            if($PTGEUProductHierarchy)
+            {   
+                $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
+                $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
+                $fifthLevelEntries->setLimit(1);
+
+                foreach ($fifthLevelEntries as $entry) {
+                    $fifthLevelProduct = $entry;
+                }
+            }
+
+            if($fifthLevelProduct)
+            {
+                $seventhLevelProductList = [];
+
+                if($sixSevenLevelCategoryObj)
+                {
+                    foreach ($sixSevenLevelCategoryObj as $categoryId) {
+
+                        $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
+                        $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
+                        $seventhLevelEntries->setLimit(1);
+
+                        foreach ($seventhLevelEntries as $entry) {
+                            $seventhLevelProductList[] = $entry->getId();
+                        }
+                    }
+                }
+            }
+
+            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+
+            $profile = [];
+            foreach ($productObjectLevel6List as $productObjectLevel6) {
+                
+                if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                {
+                    $groupData = [];
+                    $profile = $productObjectLevel6->getProfile();
+                    $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
+
+                    $beltDesignlist = ['Polymer base: Polychlorophene','Tension member: Polyster','Fabric: Cotton'];
+                    $beltDesignlistContent = implode("<br/>", $beltDesignlist);
+                    $groupData['beltDesign'] = $beltDesignlistContent;
+
+                    $groupData['upperRibWidth'] = "=12.7 ()";
+                    $groupData['beltHeight'] = "=13 ()";
+                    $groupData['flankAngle'] = "= ()";
+                    $groupData['hardness'] = "86 (+5)";
+                    $groupData['weightPerMLength'] = "1.95x10-1";
+                    $groupData['minDiameter'] = "100";
+                    $groupData['minBlackIdlerDiameter'] = "160";
+
+                    $propertieslist = ['Temprature resistant from -40C up to +80C','Electronic conductive to ISO 1813','Conditionally registant to Oil'];
+                    $propertieslistContent = implode("<br/>", $propertieslist);
+                    $groupData['properties'] = $propertieslistContent;
+
+                    $groupData['nominalLength'] = array(
+                        array(
+                            'datumLength' => '1900 < Ld < 5000',
+                            'lengthTolerance' => '+2',
+                            'setTolerance' => '4',
+                        ),
+                        array(
+                            'datumLength' => '5000 < Ld < 8000',
+                            'lengthTolerance' => '+4',
+                            'setTolerance' => '8',
+                        ),
+                        array(
+                            'datumLength' => '8000 < Ld < 10000',
+                            'lengthTolerance' => '+6',
+                            'setTolerance' => '16',
+                        ),
+                        array(
+                            'datumLength' => '10000 < Ld < 12000',
+                            'lengthTolerance' => '+8',
+                            'setTolerance' => '20',
+                        ),
+                        array(
+                            'datumLength' => '12000 < Ld < 16000',
+                            'lengthTolerance' => '+16',
+                            'setTolerance' => '22',
+                        ),
+                        array(
+                            'datumLength' => '18000 < Ld < 20000',
+                            'lengthTolerance' => '20',
+                            'setTolerance' => '24',
+                        )
+
+                    );
+                
+                    
+                    $groupData['branding_logo_src'] = $branding_logo_src;
+                    $profileData[$profile] = $groupData;
+                }
+            }
+            
+            $this->view['profileData'] = $profileData;
+        }
     }
     public function templatePtgEuProductPageAction(Request $request)
     {
@@ -162,7 +271,7 @@ class DefaultController extends AbstractController
             }
 
             $groupData = array();
-            $groupData['siop5Category'] = $siop5Category;
+            
             
             if($fifthLevelProduct)
             {
@@ -440,6 +549,7 @@ class DefaultController extends AbstractController
                 $groupData['data'] = $articleData;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['siop6siop7Category'] = $siop6siop7Category;
+                $groupData['siop5Category'] = $siop5Category;
 
                 $footer_logo_src = $CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);

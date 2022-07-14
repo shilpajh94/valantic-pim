@@ -23,3 +23,4 @@ parameters:
     'listPrice': '/Contitech_PTGEU/CatalogImages/Icons/listPrice.png'
   CatalogImagesPTGFooter: 
     'Orange': '/Contitech_PTGEU/CatalogImages/Footer/Continental_Logo_Master_yellow.png'
+  BrandingLogoWhite: '/Contitech_PTGEU/CatalogImages/Footer/Continental_Branding_Logo_White.png'
