@@ -327,7 +327,6 @@ if (!isset($this->parentContainer)) {
 							}
 						?>
 						
-						
 					</div>
 					
 			</div>

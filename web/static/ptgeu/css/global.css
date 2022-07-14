@@ -569,7 +569,7 @@ header.content.white{
 header  h1{
     color: #f79c0e;
     font-size:3em;
-    padding:1.5em 0.5em 0.5em 0.5em ;
+    padding:0em 0.5em 0.5em 0.5em ;
 }
 
 header  h2{
@@ -686,6 +686,11 @@ article figure.reverse p{
 .table{
   width: 100%;
   text-align: center;
+padding-bottom: 100px;
+position: relative;
+    top: 20px;
+    margin-top: 30px;
+    table-layout: fixed;
 }
 
 
@@ -715,7 +720,7 @@ article figure.reverse p{
 
 
 .table1{
-    width: 70%;
+    width: 70% !important;
   text-align: left;
   /*border-collapse: unset;*/
   border-bottom: 1px solid #000;
@@ -951,10 +956,11 @@ section.content article h5{
 }
 
 menu{
-    margin:1em 0 2em 0;
+    margin:0.5em 0 1em 0;
     text-transform: uppercase;
     text-align: center;
     width:100%;
+align-items: flex-start;
 
 }
 menu h3{
@@ -966,24 +972,24 @@ menu h3{
     margin-bottom: 0;
 }
 menu figure{
-    display:flex;
+    display: flex;
     justify-content: space-around;
 }
 menu figure img {
  margin:0.5em;
 }
 
-menu.flex > *{
-    flex:1;
+menu > *{
     margin:0;
     text-align: left;
     font-size: 1.1em;;
-    
+    width: 45%;;
+
 }
 
 menu .specs{
     /*flex-grow:2;*/
-    margin-right:2em;
+   /* margin-right:2em;*/
 }
 menu .specs  p{
     /*padding-bottom:1em;*/
@@ -991,16 +997,17 @@ menu .specs  p{
     text-transform: none;
 }
 menu .specs  p span{
-    display:block;
+    display: block;
     color: #f79c0e;
     font-weight: bold;
 }
 
-menu .specs  p b{
-    display:block;
+menu .specs  p b,
+menu .specs  p strong{
+    display: block;
 }
 
-menu.flex > * > div{
+menu > * > div{
     border-left: 2px solid #939597;;
     padding:1em;
     text-transform: none;
@@ -1009,16 +1016,22 @@ menu.flex > * > div{
 menu .feature .flex{
     align-items: center;
     font-weight: bold;
-    padding-bottom:1em;
+    padding-bottom: 10px;
+margin-bottom: 0;
 }
 
 menu .feature > div{
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
 menu .feature .flex > *{
     margin:0;
+}
+
+menu .feature img{
+max-width: 25px;
+margin-right: 5px !important;
 }
 
 .spec-requirement{
