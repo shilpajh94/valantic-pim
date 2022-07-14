@@ -91,18 +91,8 @@ max-height: 30px;
     position: running(footer1);
 }
 
-
 .footer-logo{
     string-set: logo self;
-}
-
-
-#pageHeader {
-    position: relative;
-}
-#pageHeader:after {
-    content: counter(page);
-    font-family: 'ContinentalStagSansLCG-Light';
 }
 
 .pageName{
@@ -110,6 +100,10 @@ max-height: 30px;
     font-size: 10px;
     font-family: 'ContinentalStagSansLCG-Book';
     letter-spacing: 0.05em;
+}
+.pageName{ opacity: 0; height: 0;}
+.page-break-before-always{
+  page-break-before: always;
 }
 
 @page {

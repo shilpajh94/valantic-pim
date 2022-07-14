@@ -19,7 +19,6 @@ if (!isset($this->parentContainer)) {
 if($groupData){
 ?>
 <article class="template">
-        <!--<div id="pageHeader"></div>-->
         <span  class="pageName">
                 <?= $groupData['siop5Category']; ?>
         </span>
@@ -253,7 +252,7 @@ if($groupData){
                                 }
                                 ?>
                         </div>
-<div class="col-4 d-flex flex-column">
+                        <div class="col-4 d-flex flex-column">
                         <?php
                         if($this->editmode){
                                 if(!$this->image("HHPP_Image_Left")->isEmpty())
@@ -298,7 +297,7 @@ if($groupData){
                                 }
                         }
                         ?>
-</div>
+                        </div>
                 </aside>
         </header>
 
@@ -362,7 +361,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table width="100%" class="table">
+                        <table width="100%" class="table page-break-before-always">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
@@ -444,7 +443,7 @@ if($groupData){
 </article>
 
 <?php if (!$containerRequest){ ?>
-        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+        <!-- <script type="text/javascript" src="/static/js/tableContinueLable.js"></script> -->
 <?php } ?>
 
 <?php } ?>

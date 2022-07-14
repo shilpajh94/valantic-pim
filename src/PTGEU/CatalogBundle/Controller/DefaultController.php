@@ -118,6 +118,8 @@ class DefaultController extends AbstractController
             $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
             $branding_logo_src = $commonHelper->getParameter($attributeImagesConfig, 'BrandingLogoWhite');
             $branding_logo_src = $this->getS3ImageSrc($branding_logo_src);
+            $product_qr_code_src = $commonHelper->getParameter($attributeImagesConfig, 'ProductQRCodeSrc');
+            $product_qr_code_src = $this->getS3ImageSrc($product_qr_code_src);
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
             $reinforcementList = $this->getReinforcementList();
@@ -198,7 +200,11 @@ class DefaultController extends AbstractController
                     $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
 
                     $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
-                    $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+
+                    if($productObjectLevel6->getBase()->getPTGEUCommonBase())
+                    {
+                        $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+                    }
                     $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
 
                     $propertieslistContent = array(
@@ -245,6 +251,8 @@ class DefaultController extends AbstractController
                 
                     
                     $groupData['branding_logo_src'] = $branding_logo_src;
+                    $groupData['product_qr_code_src'] = $product_qr_code_src;
+                    
                     $profileData[$profile] = $groupData;
                 }
             }
