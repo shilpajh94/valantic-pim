@@ -12,7 +12,7 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
+use \Pimcore\Model\DataObject;
 
 class PTGEUDeleteCommand extends AbstractCommand
 {
@@ -39,22 +39,12 @@ class PTGEUDeleteCommand extends AbstractCommand
 
     public function delete()
     {
-        $list = new \Pimcore\Model\DataObject\PTGEUPlantMaterialMaster\Listing();
-        $list = $list->load();
-        foreach($list as $key){
-            print_r($key);
+        $getObjectData = new DataObject\Listing;
+        $getObjectData->setCondition("o_path = ?", ['/Contitech_PTGEU/MaterialMaster/PlantMaterialMaster/']);
+        foreach($getObjectData->load() as $data)
+        {
+            echo $data->getId()." is deleting .. \n";
+            $data->delete();
         }
-        die;
-        // $list->setCondition();
-        // $obj = DataObject\PTGEUPlantMaterialMaster::getByPath("/Contitech_PTGEU/MaterialMaster/PlantMaterialMaster");
-
-        // if ($obj) {
-        //     $obj = new DataObject\CSApplications();
-        //     $obj->setKey($validKey);
-        //     $obj->setParentID($parentFolderID);
-        
-        //     $obj->delete();
-        
-        // }
     }
 }
