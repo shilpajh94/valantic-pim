@@ -12,8 +12,9 @@
   top: -30px;
   left: 5%;
   max-width: 300px;
+z-index: 10;
 }
-
+.img-wrapper.relative{ top:0px;}
 .img-wrapper img{
   max-width: 100%;
   height: auto;

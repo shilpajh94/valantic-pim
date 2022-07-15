@@ -121,7 +121,7 @@ body {
   font-size: 12px;
   font-weight: normal;
   font-family: 'ContinentalStagSansLCG-Light';
-  color: #000000;
+  color: cmyk(0%, 0%, 0%, 100%);
   overflow: visible;
   letter-spacing: 0.5px;
 
@@ -486,7 +486,7 @@ font-size: 18px;
   color: #ffa500;
 }
 .black {
-  color: #000000 !important;
+  color: cmyk(90%, 72%, 72%, 100%) !important;
 }
 .orange-bg {
   background: #ffa500;
@@ -494,10 +494,10 @@ font-size: 18px;
   -webkit-print-color-adjust: exact;
 }
 .conti-grey {
-  color: #737373 !important;
+  color: cmyk(1%, 1%, 0%, 21%) !important;
 }
 .grey-bg {
-  background: #e6e7e8;
+  background: cmyk(1%, 1%, 0%, 21%);
   }
 
 ul, ul li, li{
@@ -691,6 +691,8 @@ position: relative;
     top: 20px;
     margin-top: 30px;
     table-layout: fixed;
+font-size: 11px;
+
 }
 
 
@@ -717,7 +719,7 @@ position: relative;
     background-color: #e9e8e8;
 
 }
-
+.table img{height: 20px; width: 20px;}
 
 .table1{
     width: 70% !important;
@@ -1015,7 +1017,7 @@ menu > * > div{
 
 menu .feature .flex{
     align-items: center;
-    font-weight: bold;
+    
     padding-bottom: 10px;
 margin-bottom: 0;
 }
@@ -1030,7 +1032,7 @@ menu .feature .flex > *{
 }
 
 menu .feature img{
-max-width: 25px;
+max-width: 30px;
 margin-right: 5px !important;
 }
 
@@ -1051,7 +1053,7 @@ footer{
 }
 
 footer .logo{
- background-color: #000;
+ background-color: cmyk(0%, 0%, 0%, 100%);
  padding:1em;
  margin:0;
  display: flex;
@@ -1091,4 +1093,10 @@ footer .aligned{
 
 footer .flex > * {
     margin: 0.5em;
+}
+.abs{
+position: absolute;
+    top: 35px;
+    right: 4px;
+    max-width: 100px;
 }

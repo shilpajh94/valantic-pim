@@ -377,11 +377,11 @@ if($groupData){
                                                                         }
                                                                                 
                                                                 ?>
-                                                                <td colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
+                                                                <th colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
                                                                 <?php if($firstArray['columnIcon']): ?>
                                                                 <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" alt="icon image"/>
                                                                 <?php endif; ?>
-                                                                </td>
+                                                                </th>
                                                         <?php endforeach; ?>
                                                 </tr>
                                         <?php endif; ?>
@@ -397,7 +397,7 @@ if($groupData){
                                                                         $columnWidth = "width=".$first2Array['columnWidth'];
                                                                 }
                                                         ?>
-                                                        <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
+                                                        <th colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></th>
                                                 <?php endforeach; ?>
                                         </tr>
 
@@ -406,9 +406,9 @@ if($groupData){
                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c3data): ?>
                                                                 <?php  foreach($c3data as $c3key => $c3value): ?>
                                                                         <?php if($c3value['unitName']): ?>
-                                                                                <td><?= $c3value['unitName'] ?></td>
+                                                                                <th><?= $c3value['unitName'] ?></th>
                                                                         <?php else: ?>
-                                                                                <td></td>
+                                                                                <th></th>
                                                                         <?php endif; ?>
                                                                 <?php endforeach; ?>
                                                         <?php endforeach; ?>
