@@ -39,21 +39,17 @@ class SAPFileFeederService
             $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
 
             $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH'));
+
             $fileName       = array_pop($filePathInfo);
             $ftpFilePath    = implode("/", $filePathInfo);
-          //  p_r($ftpFilePath);die;///vsftpd/rohit.sriwastva/bw"
-
             $fileNameArray  = explode(".", $fileName);
             $fileNamePrefix = $fileNameArray[0];
             $ext            = $fileNameArray[1];
             $fileName       = $fileNamePrefix."_".date("mdY").".".$ext;
-            //p_r($fileName);die;
-          //  p_r($ftpFilePath."/".$fileName);
 
             if(!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
             {
                 $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
-           // p_r($fileName);die; //PIM_MaterialSales_07172022.csv
 
                 if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
                 {
@@ -63,7 +59,6 @@ class SAPFileFeederService
             }
 
             $tmpFilePath    = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
-           // p_r($tmpFilePath);die;
 
             $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
@@ -72,7 +67,6 @@ class SAPFileFeederService
             
             $this->filePath = $tmpFilePath;
 
-            //$this->filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_p61_MaterialSales_sample.csv';
             if($this->validateAllowedFileType()) 
             {
                 return realpath($this->filePath);

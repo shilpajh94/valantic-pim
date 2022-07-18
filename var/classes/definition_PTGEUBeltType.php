@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-08T08:57:56+02:00
+* Generated at: 2022-07-11T17:12:50+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUBeltType',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657263476,
+   'modificationDate' => 1657539770,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

@@ -99,7 +99,7 @@ class ProductService
     public function import()
     {
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
-        $this->filePath = $sapFileFeeder->execFileFeeder('material');
+        $this->filePath = $sapFileFeeder->execFileFeeder('product');
 
         $csvInfo = ImportService::getCSVData($this->filePath);
         $this->csvHeader = array_flip($csvInfo['header']);
@@ -438,6 +438,20 @@ class ProductService
         }
     }
 
+    public function getBeltTypeId($beltType) {    
+        if(empty($beltType))
+        {
+            return null;
+        }        
+        
+        $beltTypeList = new \Pimcore\Model\DataObject\PTGEUBeltType\Listing();
+        $beltTypeList->setCondition("beltType = ". $beltTypeList->quote(trim($beltType)));
+        
+        foreach ($beltTypeList as $belt) {
+            return $belt->getId();
+        }
+    }
+
     public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'PTGEU') {
         $siopData = [];
         for ($k=1; $k<=7; $k++) {
@@ -506,7 +520,6 @@ class ProductService
             $queryTableData['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $queryTableData['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
             $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $queryTableData['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $queryTableData['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $queryTableData['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
@@ -525,17 +538,11 @@ class ProductService
 
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $reinforcementArr = [];
-            foreach ($reinforcementValueArr as $reinforcement) {
-                $objReinforcement = new DataObject\MultiselectMaster\Listing();
-                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
-                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
-                foreach ($objReinforcement as $reinforcementData) {
-                    $reinforcementArr[] = $reinforcementData->getId();
-                }
-            }
-            $reinforcements = implode(',', $reinforcementArr);
+            $reinforcements         = implode(',', $reinforcementValueArr);
             $queryTableData['reinforcement'] = $reinforcements;
+
+            $beltType                   = trim($record[$this->getRecordIndexByKey('beltType')]);
+            $queryTableData['beltType'] = $this->getBeltTypeId($beltType); 
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -564,7 +571,7 @@ class ProductService
             $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
             $queryTableData['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);
         }
-
+        
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
 
@@ -622,7 +629,6 @@ class ProductService
             $storeTableDataArray['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $storeTableDataArray['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
             $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $storeTableDataArray['beltType'] = trim($record[$this->getRecordIndexByKey('beltType')]);
             $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $storeTableDataArray['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $storeTableDataArray['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
@@ -634,17 +640,11 @@ class ProductService
 
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $reinforcementArr = [];
-            foreach ($reinforcementValueArr as $reinforcement) {
-                $objReinforcement = new DataObject\MultiselectMaster\Listing();
-                $objReinforcement->addConditionParam('masterType = ?', 'ProductClass~reinforcement', "AND");
-                $objReinforcement->setCondition('name = ?', trim($reinforcement), "AND");
-                foreach ($objReinforcement as $reinforcementData) {
-                    $reinforcementArr[] = $reinforcementData->getId();
-                }
-            }
-            $reinforcements = implode(',', $reinforcementArr);
+            $reinforcements         = implode(',', $reinforcementValueArr);
             $storeTableDataArray['reinforcement'] = $reinforcements;
+
+            $beltType                       = trim($record[$this->getRecordIndexByKey('beltType')]);
+            $storeTableDataArray['beltType']= $this->getBeltTypeId($beltType);
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -758,18 +758,7 @@ class ProductService
         if (!empty($materialGroupCode)) {
             if (!empty($this->materialGroup[$materialGroupCode])) {
                 return $this->materialGroup[$materialGroupCode];
-            } else {
-                $obj = new \Pimcore\Model\DataObject\PTGEUMaterialGroup();
-                $obj->setCode($materialGroupCode);
-                $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
-                $parentFolder = $this->productHelper->getFolderByPath('Contitech_PTGEU/Master List/Material Group');
-                $obj->setPublished(true);
-                $obj->setParentId($parentFolder);
-                $obj->save();
-                $materialGroupId = $obj->getId();
-                $this->materialGroup[$materialGroupCode] = $materialGroupId;
-                return $materialGroupId;
-            }
+            } 
         }
         return null;
     }

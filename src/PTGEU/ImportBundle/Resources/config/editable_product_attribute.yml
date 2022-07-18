@@ -107,7 +107,7 @@ PDF Drawing:
     objectType: class
 Search Keywords:
     fieldName: searchKeywords
-    fieldType: Input
+    fieldType: Select
     objectType: class
 Category Description Catalog:
     fieldName: CategoryDescriptionCatalog
@@ -119,7 +119,7 @@ New Item Flag for Catalog:
     objectType: class
 VTL Status:
     fieldName: vtlStatus
-    fieldType: Number
+    fieldType: Select
     objectType: class
 PDF LINK:
     fieldName: pdfLINK

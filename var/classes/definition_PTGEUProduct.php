@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-08T13:36:52+02:00
+* Generated at: 2022-07-13T11:03:39+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -12,8 +12,8 @@ Fields Summary:
 - shelfLife [numeric]
 - specificationConstruction [input]
 - printedCatalogFlag [booleanSelect]
-- rohs [select]
-- reach [select]
+- rohs [input]
+- reach [input]
 - virtualCatalogFlag [booleanSelect]
 - FeaturesBenefitsBulletPoint [multiselect]
 - productType [select]
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657280205,
+   'modificationDate' => 1657703016,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -412,77 +412,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Cadmium (Cd): < 100 ppm',
-                                        'value' => 'Cadmium (Cd): < 100 ppm',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Lead (Pb): < 1000 ppm',
-                                        'value' => 'Lead (Pb): < 1000 ppm',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Mercury (Hg): < 1000 ppm',
-                                        'value' => 'Mercury (Hg): < 1000 ppm',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                                        'value' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                                        'value' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                                        'value' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                                        'value' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                                        'value' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                                        'value' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                                        'value' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                                      ),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
                                      'width' => 250,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
                                      'name' => 'rohs',
                                      'title' => 'Rohs',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -493,337 +440,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => '1-methyl-2-pyrrolidone (NMP)',
-                                        'value' => '1-methyl-2-pyrrolidone -NMP-',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => '1,1-Dichloroethene',
-                                        'value' => '1-1-Dichloroethene',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => '1,1,1,2-Tetrachloroethane',
-                                        'value' => '1-1-1-2-Tetrachloroethane',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => '1,1,2-Trichloroethane',
-                                        'value' => '1-1-2-Trichloroethane',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => '1,1,2,2-Tetrachloroethane',
-                                        'value' => '1-1-2-2-Tetrachloroethane',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => '1,4-Dichlorobenzene',
-                                        'value' => '1-4-Dichlorobenzene',
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
-                                        'value' => '2--2-butoxyethoxy-ethanol -DEGBE-',
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
-                                        'value' => '2--2-methoxyethoxy-ethanol -DEGME-',
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => '2-naphthylamine and salts',
-                                        'value' => '2-naphthylamine and salts',
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => '4-Aminobiphenyl xenylamine and salts',
-                                        'value' => '4-Aminobiphenyl xenylamine and salts',
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => '4-Nitrobiphenyl',
-                                        'value' => '4-Nitrobiphenyl',
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Acrylamide',
-                                        'value' => 'Acrylamide',
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
-                                        'value' => 'Ammonium and compounds- nitrates- polysulphides- sulphide- hydrogen sulphides- inorganic salts',
-                                      ),
-                                      13 => 
-                                      array (
-                                        'key' => 'Arsenic and compounds',
-                                        'value' => 'Arsenic and compounds',
-                                      ),
-                                      14 => 
-                                      array (
-                                        'key' => 'Asbestos fibers',
-                                        'value' => 'Asbestos fibers',
-                                      ),
-                                      15 => 
-                                      array (
-                                        'key' => 'Azocolourants and Azodyes',
-                                        'value' => 'Azocolourants and Azodyes',
-                                      ),
-                                      16 => 
-                                      array (
-                                        'key' => 'Benzene',
-                                        'value' => 'Benzene',
-                                      ),
-                                      17 => 
-                                      array (
-                                        'key' => 'Benzidine and salts',
-                                        'value' => 'Benzidine and salts',
-                                      ),
-                                      18 => 
-                                      array (
-                                        'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
-                                        'value' => 'Bis-pentabromophenyl-ether -decaBDE-',
-                                      ),
-                                      19 => 
-                                      array (
-                                        'key' => 'Bisphenol A',
-                                        'value' => 'Bisphenol A',
-                                      ),
-                                      20 => 
-                                      array (
-                                        'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
-                                        'value' => 'Bromoacetic acid esters- Butyl bromoacetate- Propyl bromoacetate- Ethyl bromoacetate- Methyl bromoacetate',
-                                      ),
-                                      21 => 
-                                      array (
-                                        'key' => 'Cadmium and compounds',
-                                        'value' => 'Cadmium and compounds',
-                                      ),
-                                      22 => 
-                                      array (
-                                        'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
-                                        'value' => 'Chloroethene and Chloroethylene -Vinyl chloride-',
-                                      ),
-                                      23 => 
-                                      array (
-                                        'key' => 'Chloroform',
-                                        'value' => 'Chloroform',
-                                      ),
-                                      24 => 
-                                      array (
-                                        'key' => 'Chromium VI and compounds',
-                                        'value' => 'Chromium VI and compounds',
-                                      ),
-                                      25 => 
-                                      array (
-                                        'key' => 'CMR substances in textiles',
-                                        'value' => 'CMR substances in textiles',
-                                      ),
-                                      26 => 
-                                      array (
-                                        'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
-                                        'value' => 'Coal tars- low-temp oils- alkalines- acids- extracts- phenols- distillates; anthracene- creosote- naphthalene oils',
-                                      ),
-                                      27 => 
-                                      array (
-                                        'key' => 'Cyclohexane',
-                                        'value' => 'Cyclohexane',
-                                      ),
-                                      28 => 
-                                      array (
-                                        'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
-                                        'value' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane - Dibutyltin hydrogen borate C8H19BO3Sn -DBB-',
-                                      ),
-                                      29 => 
-                                      array (
-                                        'key' => 'Dichloromethane',
-                                        'value' => 'Dichloromethane',
-                                      ),
-                                      30 => 
-                                      array (
-                                        'key' => 'Dimethylfumarate (DMF)',
-                                        'value' => 'Dimethylfumarate -DMF-',
-                                      ),
-                                      31 => 
-                                      array (
-                                        'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
-                                        'value' => 'Diphenylether- octabromo derivative C12H2Br8O',
-                                      ),
-                                      32 => 
-                                      array (
-                                        'key' => 'Directive 1999/45/EC dangerous liquids',
-                                        'value' => 'Directive 1999-45-EC dangerous liquids',
-                                      ),
-                                      33 => 
-                                      array (
-                                        'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
-                                        'value' => 'EC 1272-2008 Annex VI Part 3 carcinogens- mutagens- and reprotoxins per category 1A- 1B -Table 3.1- or 1- 2 -Table 3.2-',
-                                      ),
-                                      34 => 
-                                      array (
-                                        'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
-                                        'value' => 'Flammable gases -Cat 1-2-- liquids -Cat 1-2-3-- solids -Cat 1-2- that in water emit flamable gases -Cat 1-2-3- of pyrophoric liquids- solids -Cat 1-',
-                                      ),
-                                      35 => 
-                                      array (
-                                        'key' => 'Hexachloroethane',
-                                        'value' => 'Hexachloroethane',
-                                      ),
-                                      36 => 
-                                      array (
-                                        'key' => 'Lead and compounds',
-                                        'value' => 'Lead and compounds',
-                                      ),
-                                      37 => 
-                                      array (
-                                        'key' => 'Mercury and compounds',
-                                        'value' => 'Mercury and compounds',
-                                      ),
-                                      38 => 
-                                      array (
-                                        'key' => 'Methanol',
-                                        'value' => 'Methanol',
-                                      ),
-                                      39 => 
-                                      array (
-                                        'key' => 'Methylenediphenyl diisocyanate (MDI)',
-                                        'value' => 'Methylenediphenyl diisocyanate -MDI-',
-                                      ),
-                                      40 => 
-                                      array (
-                                        'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141)',
-                                        'value' => 'Monomethyl -tetrachlorodiphenyl methane -Ugilec 141-',
-                                      ),
-                                      41 => 
-                                      array (
-                                        'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
-                                        'value' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene- mixture of isomers -DBBT-',
-                                      ),
-                                      42 => 
-                                      array (
-                                        'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21)',
-                                        'value' => 'Monomethyl-dichloro-diphenyl methane -Ugilec 121-21-',
-                                      ),
-                                      43 => 
-                                      array (
-                                        'key' => 'Nickel and compounds',
-                                        'value' => 'Nickel and compounds',
-                                      ),
-                                      44 => 
-                                      array (
-                                        'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates',
-                                        'value' => 'Nonylphenol C6H4-OH-C9H19 and Nonylphenol ethoxylates',
-                                      ),
-                                      45 => 
-                                      array (
-                                        'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
-                                        'value' => 'Nonylphenol ethoxylates -NPE- -C2H4O-nC15H24O',
-                                      ),
-                                      46 => 
-                                      array (
-                                        'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
-                                        'value' => 'Octamethylcyclotetrasiloxane -D4-- Decamethylcyclopentasiloxane -D5-',
-                                      ),
-                                      47 => 
-                                      array (
-                                        'key' => 'Organostannic compounds',
-                                        'value' => 'Organostannic compounds',
-                                      ),
-                                      48 => 
-                                      array (
-                                        'key' => 'Pentachloroethane',
-                                        'value' => 'Pentachloroethane',
-                                      ),
-                                      49 => 
-                                      array (
-                                        'key' => 'Pentachlorophenol and salts, esters',
-                                        'value' => 'Pentachlorophenol and salts- esters',
-                                      ),
-                                      50 => 
-                                      array (
-                                        'key' => 'Perfluorooctanoic acid (PFOA) and salts',
-                                        'value' => 'Perfluorooctanoic acid -PFOA- and salts',
-                                      ),
-                                      51 => 
-                                      array (
-                                        'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
-                                        'value' => 'Phenylmercury- 2-ethylhexanoate- acetate- neodecanoate- octanoate- propionate',
-                                      ),
-                                      52 => 
-                                      array (
-                                        'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-isodecyl phthalate (DIDP), Di-n-octyl phthalate (DNOP)',
-                                        'value' => 'Phthalates- 1-2-Benzenedicarboxylic acid- di-C8-10-branched alkyl esters- C9-rich- 1-2-Benzenedicarboxylic acid- di-C9-11-branched alkyl esters- C10-rich- Di-isononyl phthalate -DINP-- Di-isodecyl phthalate -DIDP-- Di-n-octyl phthalate -DNOP-',
-                                      ),
-                                      53 => 
-                                      array (
-                                        'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
-                                        'value' => 'Phthalates- Dibutyl phthalate -DBP-- Benzyl butyl phthalate -BBP-- Bis -2-ethylhexyl- phthalate -DEHP-',
-                                      ),
-                                      54 => 
-                                      array (
-                                        'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
-                                        'value' => 'Polybromobiphenyls- Polybrominatedbiphenyls -PBB-',
-                                      ),
-                                      55 => 
-                                      array (
-                                        'key' => 'Polychlorinated terphenyls (PCTs)',
-                                        'value' => 'Polychlorinated terphenyls -PCTs-',
-                                      ),
-                                      56 => 
-                                      array (
-                                        'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[k]fluoranthene (BkFA), Dibenzo[a,h]anthracene (DBAhA)',
-                                        'value' => 'Polycyclic-aromatic hydrocarbons -PAHs-- Benzo-a-pyrene -BaP-- Benzo-e-pyrene -BeP-- Benzo-a-anthracene -BaA-- Chrysen -CHR-- Benzo-b-fluoranthene -BbFA-- Benzo-j-fluoranthene -BjFA-- Benzo-k-fluoranthene -BkFA-- Dibenzo-a-h-anthracene -DBAhA-',
-                                      ),
-                                      57 => 
-                                      array (
-                                        'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
-                                        'value' => 'Soap bark powder -Quillaja saponaria- and saponine derivatives',
-                                      ),
-                                      58 => 
-                                      array (
-                                        'key' => 'Toluene',
-                                        'value' => 'Toluene',
-                                      ),
-                                      59 => 
-                                      array (
-                                        'key' => 'Trichlorobenzene',
-                                        'value' => 'Trichlorobenzene',
-                                      ),
-                                      60 => 
-                                      array (
-                                        'key' => 'Tris (2,3 dibromopropyl) phosphate',
-                                        'value' => 'Tris -2-3 dibromopropyl- phosphate',
-                                      ),
-                                      61 => 
-                                      array (
-                                        'key' => 'Tris(aziridinyl) phosphinoxide',
-                                        'value' => 'Tris-aziridinyl- phosphinoxide',
-                                      ),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
                                      'width' => 250,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
                                      'name' => 'reach',
                                      'title' => 'Reach',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2035,220 +1669,225 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       226 => 
                                       array (
+                                        'key' => 'Static Pressure Rating',
+                                        'value' => 12472320,
+                                      ),
+                                      227 => 
+                                      array (
                                         'key' => 'Static Wire',
                                         'value' => 3168,
                                       ),
-                                      227 => 
+                                      228 => 
                                       array (
                                         'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
                                         'value' => 759973,
                                       ),
-                                      228 => 
+                                      229 => 
                                       array (
                                         'key' => 'Static Wire Option Available',
                                         'value' => 3169,
                                       ),
-                                      229 => 
+                                      230 => 
                                       array (
                                         'key' => 'Suitable for drinking  water',
                                         'value' => 759974,
                                       ),
-                                      230 => 
+                                      231 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Cover',
                                         'value' => 3170,
                                       ),
-                                      231 => 
+                                      232 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube',
                                         'value' => 3171,
                                       ),
-                                      232 => 
+                                      233 => 
                                       array (
                                         'key' => 'Superior Abrasion Resistant Tube & Cover',
                                         'value' => 3172,
                                       ),
-                                      233 => 
+                                      234 => 
                                       array (
                                         'key' => 'Superior Bend Radius',
                                         'value' => 759975,
                                       ),
-                                      234 => 
+                                      235 => 
                                       array (
                                         'key' => 'Superior Cold Weather Flexibility',
                                         'value' => 759976,
                                       ),
-                                      235 => 
+                                      236 => 
                                       array (
                                         'key' => 'Superior Cover Adhesion',
                                         'value' => 3173,
                                       ),
-                                      236 => 
+                                      237 => 
                                       array (
                                         'key' => 'Superior Crush-Resistance',
                                         'value' => 759977,
                                       ),
-                                      237 => 
+                                      238 => 
                                       array (
                                         'key' => 'Superior Durability',
                                         'value' => 759978,
                                       ),
-                                      238 => 
+                                      239 => 
                                       array (
                                         'key' => 'Superior efficiency for improved performance',
                                         'value' => 760057,
                                       ),
-                                      239 => 
+                                      240 => 
                                       array (
                                         'key' => 'Superior Fitting Retention',
                                         'value' => 3174,
                                       ),
-                                      240 => 
+                                      241 => 
                                       array (
                                         'key' => 'Superior Kink Resistance',
                                         'value' => 759979,
                                       ),
-                                      241 => 
+                                      242 => 
                                       array (
                                         'key' => 'Superior Oil Resistance In The Tube',
                                         'value' => 759980,
                                       ),
-                                      242 => 
+                                      243 => 
                                       array (
                                         'key' => 'Superior Oil Resistance On The Cover',
                                         'value' => 759981,
                                       ),
-                                      243 => 
+                                      244 => 
                                       array (
                                         'key' => 'Superior Oil Resistance Tube And Cover',
                                         'value' => 759982,
                                       ),
-                                      244 => 
+                                      245 => 
                                       array (
                                         'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
                                         'value' => 759983,
                                       ),
-                                      245 => 
+                                      246 => 
                                       array (
                                         'key' => 'Survivor Compound Available',
                                         'value' => 3194,
                                       ),
-                                      246 => 
+                                      247 => 
                                       array (
                                         'key' => 'Tapered Nozzle Available',
                                         'value' => 3175,
                                       ),
-                                      247 => 
+                                      248 => 
                                       array (
                                         'key' => 'Taste & Odorless Tube',
                                         'value' => 3176,
                                       ),
-                                      248 => 
+                                      249 => 
                                       array (
                                         'key' => 'Tolerates misalignment',
                                         'value' => 760058,
                                       ),
-                                      249 => 
+                                      250 => 
                                       array (
                                         'key' => 'Transmit power from both sides',
                                         'value' => 760059,
                                       ),
-                                      250 => 
+                                      251 => 
                                       array (
                                         'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
                                         'value' => 760060,
                                       ),
-                                      251 => 
+                                      252 => 
                                       array (
                                         'key' => 'Twist Resistant',
                                         'value' => 3177,
                                       ),
-                                      252 => 
+                                      253 => 
                                       array (
                                         'key' => 'U.S. Coast Guard Certified',
                                         'value' => 3178,
                                       ),
-                                      253 => 
+                                      254 => 
                                       array (
                                         'key' => 'UL / CUL 330 Certified ',
                                         'value' => 759987,
                                       ),
-                                      254 => 
+                                      255 => 
                                       array (
                                         'key' => 'UL / CUL Certified',
                                         'value' => 3195,
                                       ),
-                                      255 => 
+                                      256 => 
                                       array (
                                         'key' => 'UL 330A Approved',
                                         'value' => 3179,
                                       ),
-                                      256 => 
+                                      257 => 
                                       array (
                                         'key' => 'UL 330B Approved',
                                         'value' => 3180,
                                       ),
-                                      257 => 
+                                      258 => 
                                       array (
                                         'key' => 'UL 94Hb Approved',
                                         'value' => 759984,
                                       ),
-                                      258 => 
+                                      259 => 
                                       array (
                                         'key' => 'UL Certified',
                                         'value' => 759985,
                                       ),
-                                      259 => 
+                                      260 => 
                                       array (
                                         'key' => 'Ultra-Low Permeation',
                                         'value' => 3181,
                                       ),
-                                      260 => 
+                                      261 => 
                                       array (
                                         'key' => 'Uniform cross section means less drive wear',
                                         'value' => 760061,
                                       ),
-                                      261 => 
+                                      262 => 
                                       array (
                                         'key' => 'Universal Fuel Compatibility',
                                         'value' => 3182,
                                       ),
-                                      262 => 
+                                      263 => 
                                       array (
                                         'key' => 'Universal tooth profile drops into existing sprockets',
                                         'value' => 760062,
                                       ),
-                                      263 => 
+                                      264 => 
                                       array (
                                         'key' => 'Universal tooth profile fits into existing RPP sprockets',
                                         'value' => 760063,
                                       ),
-                                      264 => 
+                                      265 => 
                                       array (
                                         'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
                                         'value' => 760064,
                                       ),
-                                      265 => 
+                                      266 => 
                                       array (
                                         'key' => 'USDA / FDA Certified',
                                         'value' => 759986,
                                       ),
-                                      266 => 
+                                      267 => 
                                       array (
                                         'key' => 'Vacuum Rated',
                                         'value' => 3183,
                                       ),
-                                      267 => 
+                                      268 => 
                                       array (
                                         'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
                                         'value' => 3184,
                                       ),
-                                      268 => 
+                                      269 => 
                                       array (
                                         'key' => 'Visibility of Flow',
                                         'value' => 3185,
                                       ),
-                                      269 => 
+                                      270 => 
                                       array (
                                         'key' => 'Withstand high loading forces',
                                         'value' => 760065,
@@ -3224,7 +2863,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'MaterialGroup',
+                                    'classes' => 'PTGEUMaterialGroup',
                                   ),
                                 ),
                                  'pathFormatterClass' => '',
@@ -3267,7 +2906,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'Country',
+                                    'classes' => 'PTGEUCountryOfOrigin',
                                   ),
                                 ),
                                  'pathFormatterClass' => '',
@@ -3349,8 +2988,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'width' => 250,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUBeltType|beltType',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
@@ -3362,7 +3001,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => true,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => 'margin-left:20px;',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
@@ -5319,11 +4958,26 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'test',
+                                    'value' => 12961632,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'FGFF, GHFGH',
+                                    'value' => 12961633,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'synchronous, timing, falcon, GTR',
+                                    'value' => 12961634,
+                                  ),
                                 ),
                                  'width' => 220,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
+                                 'optionsProviderData' => 'Search Keywords|Id',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
@@ -5441,11 +5095,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'demo test',
+                                    'value' => 12961640,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'demo demo',
+                                    'value' => 12961641,
+                                  ),
                                 ),
                                  'width' => 220,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
+                                 'optionsProviderData' => 'Description|Id',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
@@ -5457,7 +5121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => 'margin-left: 20px;',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
@@ -6641,7 +6305,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'table',
                  'width' => '',
                  'height' => '',
-                 'cols' => 8,
+                 'cols' => 11,
                  'colsFixed' => true,
                  'rows' => '',
                  'rowsFixed' => false,
@@ -6688,6 +6352,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'key' => 7,
                     'label' => 'Condition Type',
+                  ),
+                  8 => 
+                  array (
+                    'key' => 8,
+                    'label' => 'Price Ref.',
+                  ),
+                  9 => 
+                  array (
+                    'key' => 9,
+                    'label' => 'Per',
+                  ),
+                  10 => 
+                  array (
+                    'key' => 10,
+                    'label' => 'Unit',
                   ),
                 ),
                  'queryColumnType' => 'longtext',

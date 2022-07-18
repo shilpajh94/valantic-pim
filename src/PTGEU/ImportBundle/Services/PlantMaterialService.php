@@ -583,21 +583,15 @@ class PlantMaterialService
         $objectPlant->load();
         if(empty($objectPlant))
         {
-            $objectPlant = new DataObject\PTGEUPlant();
-            $objectPlant->setKey($plantKey);
-            $objectPlant->setPlant($plantKey);
-            $objectPlant->setParentId($this->plantFolderId);
-            $objectPlant->setPublished(TRUE);
-            $objectPlant->save();
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
-
-            return $objectPlant->getId();
+            return '';
         }
         else{
             foreach ($objectPlant as $objPlant) {
+                $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
                 return $objPlant->getId();
             }
-            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
+         
         }
     }
 
@@ -610,22 +604,15 @@ class PlantMaterialService
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\PTGEUDistributionChannel();
-            $object->setKey($distributionChannelKey);
-            $object->setDistributionCode($distributionChannelKey);
-            $object->setName($distributionChannelKey);
-            $object->setParentId($this->distributionChannelFolderId);
-            $object->setPublished(TRUE);
-            $object->save();
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created.");
-        
-            return $object->getId();
+            return '';
         }
         else{
             foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
                 return $obj->getId();
             }
-            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
+          
         }
     }
 
@@ -638,22 +625,15 @@ class PlantMaterialService
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\PTGEUSalesOrg();
-            $object->setKey($salesOrgKey);
-            $object->setSalesOrgCode($salesOrgKey);
-            $object->setSalesOrgName($salesOrgKey);
-            $object->setParentId($this->salesOrganizationsFolderId);
-            $object->setPublished(TRUE);
-            $object->save();
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
-
-            return $object->getId();
+            return '';
         }
         else{
             foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
                 return $obj->getId();
             }
-            $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
+            
         }
 
     }
@@ -666,22 +646,15 @@ class PlantMaterialService
         $object->load();
         if(empty($object))
         {
-            $object = new DataObject\PTGEUCountryOfOrigin();
-            $object->setKey($countryKey);
-            $object->setcountryCode($countryKey);
-            $object->setCountryName($countryKey);
-            $object->setParentId($this->countryFolderId);
-            $object->setPublished(TRUE);
-            $object->save();
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created");
-
-            return $object->getId();
+            return '';
         }
         else{
             foreach ($object as $obj) {
+                $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
                 return $obj->getId();
             }
-            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
+
         }
 
     }

@@ -41,7 +41,7 @@ class PTGEUBeltTypeOptionProvider implements SelectOptionsProviderInterface
     public function getOptions($context, $fieldDefinition)
     {
         $beltTypeListPTGEU = new DataObject\PTGEUBeltType\Listing();
-        $beltTypeListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Brands/" );
+        $beltTypeListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Belts Type/" );
         $beltTypeListPTGEU = $beltTypeListPTGEU->load();
 
         foreach ($beltTypeListPTGEU as $beltType) {

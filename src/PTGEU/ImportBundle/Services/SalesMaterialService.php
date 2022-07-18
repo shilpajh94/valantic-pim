@@ -246,7 +246,6 @@ class SalesMaterialService
             $plantName = $rowvalue[$columnPlant];
             $material = $rowvalue[$columnMaterial];
             $salesOrg = $rowvalue[$columnSalesOrg];
-            //p_r($salesOrg);die;
             $distributionChannel = $rowvalue[$columnDistributionChannel];
             $countryOfOrigin = $rowvalue[$columnCountryOfOrigin];
             

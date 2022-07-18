@@ -1,0 +1,5 @@
+ptgeu_catalog:
+    resource: "@PTGEUCatalogBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

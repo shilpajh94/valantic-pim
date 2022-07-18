@@ -45,7 +45,7 @@ class PTGEUSearchKeywordsOptionProvider  implements SelectOptionsProviderInterfa
         $searchKeywordsPTGEU = $searchKeywordsPTGEU->load();
 
         foreach ($searchKeywordsPTGEU as $searchKeywords) {
-            $result[] = array('key' => $searchKeywords->getProductRange(), 'value' => $searchKeywords->getId());
+            $result[] = array('key' => $searchKeywords->getSearchKeywords(), 'value' => $searchKeywords->getId());
         }
         return $result;
     }
