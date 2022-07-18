@@ -28,42 +28,6 @@ if($groupData){
                                 <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
                         </span>
                         <div class="flex aligned ">
-                                <div class="sets">
-                                        <strong>
-                                                <?php
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_Compatibility")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_Compatibility");
-                                                }
-                                                ?>
-                                        </strong>
-                                                <?php
-                                                $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_Compatibility_Description")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility_Description");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_Compatibility_Description");
-                                                }
-                                                ?>
-                                </div>
-
                                 <h5>
                                         <?php
                                         if($this->editmode){
@@ -113,6 +77,41 @@ if($groupData){
                         
                 
                                 </h5>
+                                <div class="sets">
+                                        <strong>
+                                                <?php
+                                                if($this->editmode){
+                                                        if(!$this->input("PTG_Footer_Compatibility")->isEmpty())
+                                                        {
+                                                                echo $this->input("PTG_Footer_Compatibility");
+                                                        }
+                                                        else
+                                                        {
+                                                                echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
+                                                        }
+                                                                
+                                                }else{
+                                                        echo $this->input("PTG_Footer_Compatibility");
+                                                }
+                                                ?>
+                                        </strong>
+                                                <?php
+                                                $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
+                                                if($this->editmode){
+                                                        if(!$this->input("PTG_Footer_Compatibility_Description")->isEmpty())
+                                                        {
+                                                                echo $this->input("PTG_Footer_Compatibility_Description");
+                                                        }
+                                                        else
+                                                        {
+                                                                echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
+                                                        }
+                                                                
+                                                }else{
+                                                        echo $this->input("PTG_Footer_Compatibility_Description");
+                                                }
+                                                ?>
+                                </div>
                         </div>
                 </footer>
         </div>
@@ -120,6 +119,41 @@ if($groupData){
         <div class="footer1">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                         <div class="flex aligned ">
+                                <div class="sets">
+                                        <strong>
+                                                <?php
+                                                        if($this->editmode){
+                                                                if(!$this->input("PTG_Footer_Compatibility1")->isEmpty())
+                                                                {
+                                                                        echo $this->input("PTG_Footer_Compatibility1");
+                                                                }
+                                                                else
+                                                                {
+                                                                        echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
+                                                                }
+                                                                        
+                                                        }else{
+                                                                echo $this->input("PTG_Footer_Compatibility1");
+                                                        }
+                                                ?>
+                                        </strong>
+
+                                        <?php
+                                        $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                if(!$this->input("PTG_Footer_Compatibility1_Description")->isEmpty())
+                                                {
+                                                        echo $this->input("PTG_Footer_Compatibility1_Description");
+                                                }
+                                                else
+                                                {
+                                                        echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
+                                                }
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility1_Description");
+                                        }
+                                        ?>
+                                </div>
                                 <h5>
                                         <?php
                                                 if($this->editmode){
@@ -171,42 +205,6 @@ if($groupData){
 
                                         </span>
                                 </h5>
-
-                                <div class="sets">
-                                        <strong>
-                                                <?php
-                                                        if($this->editmode){
-                                                                if(!$this->input("PTG_Footer_Compatibility1")->isEmpty())
-                                                                {
-                                                                        echo $this->input("PTG_Footer_Compatibility1");
-                                                                }
-                                                                else
-                                                                {
-                                                                        echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
-                                                                }
-                                                                        
-                                                        }else{
-                                                                echo $this->input("PTG_Footer_Compatibility1");
-                                                        }
-                                                ?>
-                                        </strong>
-
-                                        <?php
-                                        $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
-                                        if($this->editmode){
-                                                if(!$this->input("PTG_Footer_Compatibility1_Description")->isEmpty())
-                                                {
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description");
-                                                }
-                                                else
-                                                {
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
-                                                }
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility1_Description");
-                                        }
-                                        ?>
-                                </div>
                         </div>
 
                         <span class="logo">

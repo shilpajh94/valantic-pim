@@ -284,25 +284,23 @@ if (!isset($this->parentContainer)) {
 							</tr>
 							<?php } ?>
 
-							<?php if($groupData['nominalLength']){ ?>
+							<?php if($groupData['nominalLengthList']){ ?>
 							<tr>
-								<th ><?= $this->translate('PTGEU_Nominal_length'); ?></th>
+								<th ><?= $this->translate($groupData['nominalLength']); ?></th>
 								
 								<td colspan="2">
 									<table cellspacing="5" cellpadding ="5">
 										<tr>
 											<th></th>
-											<th><?= $this->translate('PTGEU_Datum_length'); ?></th>
+											<th><?= $this->translate($groupData['datumLengthColumn']); ?></th>
 											<th><?= $this->translate('PTGEU_Length_tolerance'); ?></th>
-											<th><?= $this->translate('PTGEU_Set_tolerance'); ?></th>
 										</tr>
 
-										<?php foreach ($groupData['nominalLength'] as $key => $value) { ?>
+										<?php foreach ($groupData['nominalLengthList'] as $key => $value) { ?>
 										<tr>
 											<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
 											<td><?= $value['datumLength']; ?></td>
 											<td><?= $value['lengthTolerance']; ?></td>
-											<td><?= $value['setTolerance']; ?></td>
 										</tr>
 										<?php } ?>
 									</table>
@@ -312,28 +310,38 @@ if (!isset($this->parentContainer)) {
 						</table>
 
 						<h4 class="mt-4"><?= $this->input("Schematic_belt_marking_and_production_code_$profileKey",['placeholder'=>'Schematic belt marking and production code']); ?></h4>
-						<div class="highlight">
+						
+						<div class="img-wrapper ">
+							<div class="">
+							<?php
+								if($this->editmode){
+										?>
 
-						<?php if($groupData['product_qr_code_src']){ ?>
-						<span><img src="<?= $groupData['branding_logo_src']; ?>" width="100"  alt="branding image"></span>
-						<?php } ?>
+										<div class="attr-font">
+											<div class="attr-font">Attribute Name = Branding Image</div>
+										</div>
 
-						<span><?= $groupData['brandName']; ?></span>
-						<span>3000.00</span>
-						<span>LD</span>
-						<span>Made in <br/>XXX</span>
-						<span>antispoc <br/> ISO</span>
-						<span>04-07-2022</span>
-						<span>6</span>
+										<?php
+											echo $this->image("PTGEU_Product_BrandingImage_$profileKey");
+												
+								}else{
+										$imgSrcObj1 = $this->image("PTGEU_Product_BrandingImage_$profileKey");
 
-						<?php if($groupData['product_qr_code_src']){ ?>
-						<span><img src="<?= $groupData['product_qr_code_src']; ?>" style="width:30px;"  alt="product qr code"></span>
-						<?php } ?>
-
+										if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+										{
+										?>
+										<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
+										<?php
+										}
+								}
+								?>
+							</div>
 						</div>
 					</section>
 				</div>
+				
 			</div>
+			
 		<?php } ?>	
 	</div>
 <?php } ?>
