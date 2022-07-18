@@ -117,11 +117,11 @@ body {
 
 body {
   background: #ffffff;
-  line-height: 1.2;
+  line-height: 18px;
   font-size: 12px;
   font-weight: normal;
   font-family: 'ContinentalStagSansLCG-Light';
-  color: #000000;
+  color: cmyk(0%, 0%, 0%, 100%);
   overflow: visible;
   letter-spacing: 0.5px;
 
@@ -486,7 +486,7 @@ font-size: 18px;
   color: #ffa500;
 }
 .black {
-  color: #000000 !important;
+  color: cmyk(90%, 72%, 72%, 100%) !important;
 }
 .orange-bg {
   background: #ffa500;
@@ -494,10 +494,10 @@ font-size: 18px;
   -webkit-print-color-adjust: exact;
 }
 .conti-grey {
-  color: #737373 !important;
+  color: cmyk(1%, 1%, 0%, 21%) !important;
 }
 .grey-bg {
-  background: #e6e7e8;
+  background: cmyk(1%, 1%, 0%, 21%);
   }
 
 ul, ul li, li{
@@ -569,7 +569,7 @@ header.content.white{
 header  h1{
     color: #f79c0e;
     font-size:3em;
-    padding:1.5em 0.5em 0.5em 0.5em ;
+    padding:0em 0.5em 0.5em 0.5em ;
 }
 
 header  h2{
@@ -686,6 +686,13 @@ article figure.reverse p{
 .table{
   width: 100%;
   text-align: center;
+padding-bottom: 50px;
+position: relative;
+    top: 20px;
+    margin-top: 30px;
+    table-layout: fixed;
+font-size: 11px;
+
 }
 
 
@@ -712,25 +719,26 @@ article figure.reverse p{
     background-color: #e9e8e8;
 
 }
-
+.table img{height: 20px; width: 20px;}
 
 .table1{
-    width: 70%;
+    width: 70% !important;
   text-align: left;
   /*border-collapse: unset;*/
   border-bottom: 1px solid #000;
-
+font-size: 11px;
 }
 
 .table1 th, .table1 td{
   border-top: 1px solid #000;
-  padding: 5px 10px;
+  padding: 2px 10px;
 }
 
 .table1 tr > th{
     background-color: #e9e8e8;
   font-family: 'ContinentalStagSansLCG-Medium';
   font-weight: normal;
+text-align: left;
 }
 
 .table1 table th{
@@ -746,6 +754,9 @@ article figure.reverse p{
 
     .table1 table th{
       border-top: 0;
+}
+.table1 > th{
+text-align: left !important;
     }
 
 .products{
@@ -857,7 +868,7 @@ aside p{
 
 
 section.content{
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     padding:2.5em 0 1em 0;
     justify-content: space-between;
@@ -951,10 +962,11 @@ section.content article h5{
 }
 
 menu{
-    margin:1em 0 2em 0;
+    margin:0.5em 0 1em 0;
     text-transform: uppercase;
     text-align: center;
     width:100%;
+align-items: flex-start;
 
 }
 menu h3{
@@ -966,24 +978,24 @@ menu h3{
     margin-bottom: 0;
 }
 menu figure{
-    display:flex;
+    display: flex;
     justify-content: space-around;
 }
 menu figure img {
  margin:0.5em;
 }
 
-menu.flex > *{
-    flex:1;
+menu > *{
     margin:0;
     text-align: left;
     font-size: 1.1em;;
-    
+    width: 45%;;
+
 }
 
 menu .specs{
     /*flex-grow:2;*/
-    margin-right:2em;
+   /* margin-right:2em;*/
 }
 menu .specs  p{
     /*padding-bottom:1em;*/
@@ -991,16 +1003,17 @@ menu .specs  p{
     text-transform: none;
 }
 menu .specs  p span{
-    display:block;
+    display: block;
     color: #f79c0e;
     font-weight: bold;
 }
 
-menu .specs  p b{
-    display:block;
+menu .specs  p b,
+menu .specs  p strong{
+    display: block;
 }
 
-menu.flex > * > div{
+menu > * > div{
     border-left: 2px solid #939597;;
     padding:1em;
     text-transform: none;
@@ -1008,17 +1021,23 @@ menu.flex > * > div{
 
 menu .feature .flex{
     align-items: center;
-    font-weight: bold;
-    padding-bottom:1em;
+    line-height: 1;
+    padding-bottom: 0px;
+margin-bottom: 0;
 }
 
 menu .feature > div{
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
 menu .feature .flex > *{
     margin:0;
+}
+
+menu .feature img{
+max-width: 35px;
+margin-right: 5px !important;
 }
 
 .spec-requirement{
@@ -1038,7 +1057,7 @@ footer{
 }
 
 footer .logo{
- background-color: #000;
+ background-color: cmyk(0%, 0%, 0%, 100%);
  padding:1em;
  margin:0;
  display: flex;
@@ -1058,14 +1077,14 @@ footer h5 span{
     margin-top:0.2em;
     font-family: 'ContinentalStagSansLCG-Light';
 }
-.footer1 p b, .footer1 p strong,
-.footer p b, .footer p strong{
+.footer1 .sets b, .footer1 .sets strong,
+.footer .sets b, .footer .sets strong{
     display: block;
     margin-bottom:0.2em;
     
 }
 
-.footer p, .footer1 p{ width: 200px;}
+.sets{ width: 200px;}
 
 footer .aligned{
     align-items: center;
@@ -1078,4 +1097,10 @@ footer .aligned{
 
 footer .flex > * {
     margin: 0.5em;
+}
+.abs{
+position: absolute;
+    top: 35px;
+    right: 4px;
+    max-width: 100px;
 }

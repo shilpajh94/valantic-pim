@@ -114,12 +114,19 @@ class DefaultController extends AbstractController
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
         if($catalogCategoryTableObject)
         {
-            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
-            $branding_logo_src = $commonHelper->getParameter($attributeImagesConfig, 'BrandingLogoWhite');
-            $branding_logo_src = $this->getS3ImageSrc($branding_logo_src);
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+            $reinforcementList = $this->getReinforcementList();
+
+            $reinforcementListSelected = [];
+
+            $nominalLengthAndDatumLengthColumnMapping = array(
+                'LP' => 'Pitch Length',
+                'LI' => 'Inside Length',
+                'LD' => 'Datum Length',
+                'LE' => 'Effective Length',
+                'LB' => 'Reference Length'
+            );
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
 
@@ -155,67 +162,112 @@ class DefaultController extends AbstractController
 
             $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
+            $nominalLength = '';
+            $upperRibWidth = '';
+            $beltHeight = '';
             $profile = [];
             foreach ($productObjectLevel6List as $productObjectLevel6) {
                 
                 if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
                 {
+                    if(empty(trim($nominalLength)))
+                    {
+                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        foreach ($productObjectLevel7List as $productObjectLevel7) {
+                            if($productObjectLevel7->getPrintedCatalogFlag() === true)
+                            {
+                                $nominalLength = $productObjectLevel7->getNominalLength();
+                            }
+                        }
+                    }
+
+                    if(empty(trim($beltHeight)))
+                    {
+                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        foreach ($productObjectLevel7List as $productObjectLevel7) {
+                            if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
+                            {
+                                $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
+                            }
+                        }
+                    }
+
                     $groupData = [];
                     $profile = $productObjectLevel6->getProfile();
                     $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
 
-                    $beltDesignlist = ['Polymer base: Polychlorophene','Tension member: Polyster','Fabric: Cotton'];
-                    $beltDesignlistContent = implode("<br/>", $beltDesignlist);
+                    $material = $productObjectLevel6->getMaterial();
+                    $reinforcement = $productObjectLevel6->getReinforcement();
+
+                    if($reinforcement)
+                    {
+                        foreach ($reinforcement as $reinforcementId) {
+                            $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
+                        }
+                    }
+
+                    $reinforcement = implode(', ', $reinforcementListSelected);
+                    $fabricType = $productObjectLevel6->getFabricType();
+
+                    $beltDesignlistContent = array(
+                        'PTGEU_Material' => $material,
+                        'PTGEU_Reinforcement' => $reinforcement,
+                        'PTGEU_FabricType' => $fabricType
+                    );
+
                     $groupData['beltDesign'] = $beltDesignlistContent;
+                    if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
+                    {
+                        echo $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
+                    }
 
-                    $groupData['upperRibWidth'] = "=12.7 ()";
-                    $groupData['beltHeight'] = "=13 ()";
-                    $groupData['flankAngle'] = "= ()";
-                    $groupData['hardness'] = "86 (+5)";
-                    $groupData['weightPerMLength'] = "1.95x10-1";
-                    $groupData['minDiameter'] = "100";
-                    $groupData['minBlackIdlerDiameter'] = "160";
+                    $groupData['upperRibWidth'] = $upperRibWidth;
+                    $groupData['beltHeight'] = $beltHeight;
+                    $groupData['flankAngle'] = $productObjectLevel6->getBeltAngle(); 
+                    $groupData['hardness'] = $productObjectLevel6->getBeltHardness();
+                    $groupData['weightPerMLength'] = $productObjectLevel6->getNetWeight();
+                    $groupData['minDiameter'] = $productObjectLevel6->getMinPulleyDia();
+                    $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
+                    $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
 
-                    $propertieslist = ['Temprature resistant from -40C up to +80C','Electronic conductive to ISO 1813','Conditionally registant to Oil'];
-                    $propertieslistContent = implode("<br/>", $propertieslist);
+                    $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
+
+                    if($productObjectLevel6->getBase()->getPTGEUCommonBase())
+                    {
+                        $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+                    }
+                    $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
+
+                    $propertieslistContent = array(
+                        'PTGEU_HeatAndOilResistant' => $heatAndOilResistant,
+                        'PTGEU_ElectricalConductivity' => $electricalConductivity,
+                        'PTGEU_RangeTemperatureC' => $rangeTemperatureC
+                    );
+
                     $groupData['properties'] = $propertieslistContent;
 
-                    $groupData['nominalLength'] = array(
-                        array(
-                            'datumLength' => '1900 < Ld < 5000',
-                            'lengthTolerance' => '+2',
-                            'setTolerance' => '4',
-                        ),
-                        array(
-                            'datumLength' => '5000 < Ld < 8000',
-                            'lengthTolerance' => '+4',
-                            'setTolerance' => '8',
-                        ),
-                        array(
-                            'datumLength' => '8000 < Ld < 10000',
-                            'lengthTolerance' => '+6',
-                            'setTolerance' => '16',
-                        ),
-                        array(
-                            'datumLength' => '10000 < Ld < 12000',
-                            'lengthTolerance' => '+8',
-                            'setTolerance' => '20',
-                        ),
-                        array(
-                            'datumLength' => '12000 < Ld < 16000',
-                            'lengthTolerance' => '+16',
-                            'setTolerance' => '22',
-                        ),
-                        array(
-                            'datumLength' => '18000 < Ld < 20000',
-                            'lengthTolerance' => '20',
-                            'setTolerance' => '24',
-                        )
+                    $nominalLengthUpperCase = strtoupper($nominalLength);
+                    $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
 
+                    $groupData['nominalLengthList'] = array(
+                        array(
+                            'datumLength' => '< 1350',
+                            'lengthTolerance' => '&plusmn;2',
+                        ),
+                        array(
+                            'datumLength' => '1350 < '.$nominalLength.' < 3550',
+                            'lengthTolerance' => '&plusmn;3',
+                        ),
+                        array(
+                            'datumLength' => '3550 < '.$nominalLength.' < 5000',
+                            'lengthTolerance' => '&plusmn;4',
+                        ),
+                        array(
+                            'datumLength' => '> 5000',
+                            'lengthTolerance' => '',
+                        )
                     );
-                
-                    
-                    $groupData['branding_logo_src'] = $branding_logo_src;
+
                     $profileData[$profile] = $groupData;
                 }
             }
