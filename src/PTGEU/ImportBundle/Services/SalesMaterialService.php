@@ -302,7 +302,6 @@ class SalesMaterialService
                             $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
 
                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
-                           // p_r($salesOrgId);exit;
                             if($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                             }
