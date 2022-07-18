@@ -16,8 +16,8 @@ if (!isset($this->parentContainer)) {
 <?php endif; ?>
 
 <?php if($profileData){ ?>
-	<div class="wrapper">
-		<div class="footer mt-4" >
+	<div class="wrapper above">
+		<div class="footer" >
 			<p>
 				<?= $this->textarea("PTGEU_disclaimer_$profileKey"); ?>
 			</p>
@@ -101,7 +101,7 @@ if (!isset($this->parentContainer)) {
 				}
 				?>
 				
-				<div class="img-wrapper">
+				<div class="img-wrapper ">
 					<div class="set1">
 					<?php
 					if($this->editmode){
@@ -133,7 +133,7 @@ if (!isset($this->parentContainer)) {
 					}
 					?>
 					</div>
-					<div class="set1">
+					<div class="set1 abs">
 					<?php
 					if($this->editmode){
 							?>

@@ -28,7 +28,7 @@ if($groupData){
                                 <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
                         </span>
                         <div class="flex aligned ">
-                                <p>
+                                <div class="sets">
                                         <strong>
                                                 <?php
                                                 if($this->editmode){
@@ -62,7 +62,7 @@ if($groupData){
                                                         echo $this->input("PTG_Footer_Compatibility_Description");
                                                 }
                                                 ?>
-                                </p>
+                                </div>
 
                                 <h5>
                                         <?php
@@ -172,7 +172,7 @@ if($groupData){
                                         </span>
                                 </h5>
 
-                                <p>
+                                <div class="sets">
                                         <strong>
                                                 <?php
                                                         if($this->editmode){
@@ -206,7 +206,7 @@ if($groupData){
                                                 echo $this->input("PTG_Footer_Compatibility1_Description");
                                         }
                                         ?>
-                                </p>
+                                </div>
                         </div>
 
                         <span class="logo">

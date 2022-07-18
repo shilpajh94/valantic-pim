@@ -117,7 +117,7 @@ body {
 
 body {
   background: #ffffff;
-  line-height: 1.2;
+  line-height: 18px;
   font-size: 12px;
   font-weight: normal;
   font-family: 'ContinentalStagSansLCG-Light';
@@ -686,7 +686,7 @@ article figure.reverse p{
 .table{
   width: 100%;
   text-align: center;
-padding-bottom: 100px;
+padding-bottom: 50px;
 position: relative;
     top: 20px;
     margin-top: 30px;
@@ -726,18 +726,19 @@ font-size: 11px;
   text-align: left;
   /*border-collapse: unset;*/
   border-bottom: 1px solid #000;
-
+font-size: 11px;
 }
 
 .table1 th, .table1 td{
   border-top: 1px solid #000;
-  padding: 5px 10px;
+  padding: 2px 10px;
 }
 
 .table1 tr > th{
     background-color: #e9e8e8;
   font-family: 'ContinentalStagSansLCG-Medium';
   font-weight: normal;
+text-align: left;
 }
 
 .table1 table th{
@@ -753,6 +754,9 @@ font-size: 11px;
 
     .table1 table th{
       border-top: 0;
+}
+.table1 > th{
+text-align: left !important;
     }
 
 .products{
@@ -1017,8 +1021,8 @@ menu > * > div{
 
 menu .feature .flex{
     align-items: center;
-    
-    padding-bottom: 10px;
+    line-height: 1;
+    padding-bottom: 0px;
 margin-bottom: 0;
 }
 
@@ -1032,7 +1036,7 @@ menu .feature .flex > *{
 }
 
 menu .feature img{
-max-width: 30px;
+max-width: 35px;
 margin-right: 5px !important;
 }
 
@@ -1073,14 +1077,14 @@ footer h5 span{
     margin-top:0.2em;
     font-family: 'ContinentalStagSansLCG-Light';
 }
-.footer1 p b, .footer1 p strong,
-.footer p b, .footer p strong{
+.footer1 .sets b, .footer1 .sets strong,
+.footer .sets b, .footer .sets strong{
     display: block;
     margin-bottom:0.2em;
     
 }
 
-.footer p, .footer1 p{ width: 200px;}
+.sets{ width: 200px;}
 
 footer .aligned{
     align-items: center;
