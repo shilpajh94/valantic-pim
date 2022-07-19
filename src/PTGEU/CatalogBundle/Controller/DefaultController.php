@@ -114,9 +114,14 @@ class DefaultController extends AbstractController
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
         if($catalogCategoryTableObject)
         {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
+            $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
             $reinforcementList = $this->getReinforcementList();
+
+            $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
 
             $reinforcementListSelected = [];
 
@@ -181,19 +186,20 @@ class DefaultController extends AbstractController
                         }
                     }
 
-                    // if(empty(trim($beltHeight)))
-                    // {
-                    //     $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                    //     foreach ($productObjectLevel7List as $productObjectLevel7) {
-                    //         if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
-                    //         {
-                    //             $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
-                    //         }
-                    //     }
-                    // }
+                    if(empty(trim($beltHeight)))
+                    {
+                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        foreach ($productObjectLevel7List as $productObjectLevel7) {
+                            if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
+                            {
+                                $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
+                            }
+                        }
+                    }
 
                     $groupData = [];
                     $profile = $productObjectLevel6->getProfile();
+                    $groupData['profile'] = $profile;
                     $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
 
                     $material = $productObjectLevel6->getMaterial();
@@ -209,12 +215,23 @@ class DefaultController extends AbstractController
                     $reinforcement = implode(', ', $reinforcementListSelected);
                     $fabricType = $productObjectLevel6->getFabricType();
 
-                    $beltDesignlistContent = array(
-                        'PTGEU_Material' => $material,
-                        'PTGEU_Reinforcement' => $reinforcement,
-                        'PTGEU_FabricType' => $fabricType
-                    );
+                    $beltDesignlistContent = [];
+                    
+                    if($material)
+                    {
+                        $beltDesignlistContent['PTGEU_Material'] = $material;
+                    }
 
+                    if($reinforcement)
+                    {
+                        $beltDesignlistContent['PTGEU_Reinforcement'] = $reinforcement;
+                    }
+
+                    if($fabricType)
+                    {
+                        $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
+                    }
+                    
                     $groupData['beltDesign'] = $beltDesignlistContent;
                     if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
                     {
@@ -238,11 +255,20 @@ class DefaultController extends AbstractController
                     }
                     $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
 
-                    $propertieslistContent = array(
-                        'PTGEU_HeatAndOilResistant' => $heatAndOilResistant,
-                        'PTGEU_ElectricalConductivity' => $electricalConductivity,
-                        'PTGEU_RangeTemperatureC' => $rangeTemperatureC
-                    );
+                    if($heatAndOilResistant)
+                    {
+                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
+                    }
+
+                    if($electricalConductivity)
+                    {
+                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
+                    }
+
+                    if($rangeTemperatureC)
+                    {
+                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
+                    }
 
                     $groupData['properties'] = $propertieslistContent;
 
@@ -272,7 +298,7 @@ class DefaultController extends AbstractController
                 }
             }
             
-            
+            $this->view['BrandLogoSrc'] = $BrandLogoSrc;
             $this->view['profileData'] = $profileData;
         }
     }

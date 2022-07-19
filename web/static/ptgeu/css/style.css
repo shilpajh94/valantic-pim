@@ -3,7 +3,7 @@
 .top-section{
   position: relative;
   padding-top: 30px;
-  overflow: hidden;
+  /* overflow: hidden; */
 
 }
 
@@ -11,7 +11,7 @@
   position: absolute;
   top: -30px;
   left: 5%;
-  max-width: 300px;
+  max-width: 250px;
 z-index: 10;
 }
 .img-wrapper.relative{ top:0px;}
@@ -22,6 +22,15 @@ z-index: 10;
       width: 100%;
 }
 
+.img-wrapper .branding-img{
+  width: 70%;
+}
+
+.img-wrapper .branding-img img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 .set1{
   height: 300px;
@@ -91,6 +100,13 @@ max-height: 30px;
     text-align: left;
     position: running(footer1);
 }
+.footer3{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-bottom: 50px;
+    font-size: 10px;
+    position: running(footer3);
+}
 
 .footer-logo{
     string-set: logo self;
@@ -114,6 +130,21 @@ max-height: 30px;
   width: 100%;  
 }
 
+.display-float-left{
+  float: left;
+}
+.display-flow-root{
+  display: flow-root;
+}
+
+.display-flow-root p{
+  margin-bottom: 1px;
+  min-height: 0;
+}
+.footer3 p
+{
+  margin-bottom: 0.3rem;
+}
 @page {
     margin-left: 0;
     margin-right: 0;
@@ -145,6 +176,7 @@ max-height: 30px;
     }
     @bottom-center {
         content: element(footer);
+        content: element(footer3);
         z-index: 1;
     }
 }
@@ -176,7 +208,7 @@ max-height: 30px;
     }
     @bottom-center {
         content: element(footer1);
-
+        content: element(footer3);
         z-index: 1;
     }
 }
