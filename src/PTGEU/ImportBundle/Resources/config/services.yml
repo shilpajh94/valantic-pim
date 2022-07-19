@@ -58,6 +58,11 @@ services:
     PTGEU\ImportBundle\Command\SAPPriceImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:sap-price-import' }
+    
+    # this command will execute the SAP price import
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUDeleteCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:delete' }
 
     # Services
     import.sap_file_feeder_service:

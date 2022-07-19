@@ -118,7 +118,7 @@ class ProductModel
             foreach ($dataArray as $data) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        if (is_null($data[$key])) {
+                        if (is_null($data[$key]) || empty($data[$key])) {
                             $valueArray[] = "NULL";      
                         } else {
                             $valueArray[] = $this->db->quote($data[$key]);
@@ -135,6 +135,7 @@ class ProductModel
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
+             
                 $this->db->query($query);
             }
         } catch (\Exception $e) {
@@ -314,7 +315,7 @@ class ProductModel
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
             $keysArray = [];
             foreach ($deletedProducts as $product) {
-                $keysArray[] = $product['id'];
+                $keysArray[] = "'".$product['id']."'";
             }
             $obj = new DataObject\PTGEUProduct\Listing();
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");

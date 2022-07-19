@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-28T09:22:05+02:00
+* Generated at: 2022-07-11T17:12:50+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUBeltType',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656400925,
+   'modificationDate' => 1657539770,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -58,7 +58,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Sales Organisation',
+         'title' => 'Belt Type',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
         ),
          'locked' => false,
-         'icon' => NULL,
+         'icon' => '',
       )),
     ),
      'locked' => false,

@@ -1,19 +1,19 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-07T13:31:11+02:00
+* Generated at: 2022-07-13T11:03:39+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
 - shelfLife [numeric]
 - specificationConstruction [input]
 - printedCatalogFlag [booleanSelect]
-- rohs [select]
-- reach [select]
+- rohs [input]
+- reach [input]
 - virtualCatalogFlag [booleanSelect]
 - FeaturesBenefitsBulletPoint [multiselect]
 - productType [select]
@@ -26,10 +26,10 @@ Fields Summary:
 -- sapDescription [textarea]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
-- performance [input]
+- performance [select]
 - material [select]
 - fabricColor [input]
-- Color [input]
+- Color [select]
 - heatAndOilResistant [input]
 - beltHardness [numeric]
 - reinforcement [multiselect]
@@ -38,8 +38,8 @@ Fields Summary:
 - countryOfOrigin [manyToOneRelation]
 - quality [input]
 - fabricType [input]
-- beltType [input]
-- staticConductive [input]
+- beltType [select]
+- staticConductive [select]
 - minimumTemperatureF [numeric]
 - maximumTemperatureF [numeric]
 - rangeTemperatureF [input]
@@ -84,7 +84,7 @@ Fields Summary:
 - searchKeywords [select]
 - CategoryDescriptionCatalog [textarea]
 - newItemFlagForCatalog [booleanSelect]
-- vtlStatus [numeric]
+- vtlStatus [select]
 - pdfLINK [input]
 - catalogFlag [input]
 - fert [objectbricks]
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657193468,
+   'modificationDate' => 1657703016,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -412,77 +412,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Cadmium (Cd): < 100 ppm',
-                                        'value' => 'Cadmium (Cd): < 100 ppm',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Lead (Pb): < 1000 ppm',
-                                        'value' => 'Lead (Pb): < 1000 ppm',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Mercury (Hg): < 1000 ppm',
-                                        'value' => 'Mercury (Hg): < 1000 ppm',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                                        'value' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                                        'value' => 'Polybrominated Biphenyls (PBB): < 1000 ppm',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                                        'value' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                                        'value' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                                        'value' => 'Benzyl butyl phthalate (BBP): < 1000 ppm',
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                                        'value' => 'Dibutyl phthalate (DBP): < 1000 ppm',
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                                        'value' => 'Diisobutyl phthalate (DIBP): < 1000 ppm',
-                                      ),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
                                      'width' => 250,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
                                      'name' => 'rohs',
                                      'title' => 'Rohs',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -493,337 +440,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => '1-methyl-2-pyrrolidone (NMP)',
-                                        'value' => '1-methyl-2-pyrrolidone -NMP-',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => '1,1-Dichloroethene',
-                                        'value' => '1-1-Dichloroethene',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => '1,1,1,2-Tetrachloroethane',
-                                        'value' => '1-1-1-2-Tetrachloroethane',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => '1,1,2-Trichloroethane',
-                                        'value' => '1-1-2-Trichloroethane',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => '1,1,2,2-Tetrachloroethane',
-                                        'value' => '1-1-2-2-Tetrachloroethane',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => '1,4-Dichlorobenzene',
-                                        'value' => '1-4-Dichlorobenzene',
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
-                                        'value' => '2--2-butoxyethoxy-ethanol -DEGBE-',
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
-                                        'value' => '2--2-methoxyethoxy-ethanol -DEGME-',
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => '2-naphthylamine and salts',
-                                        'value' => '2-naphthylamine and salts',
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => '4-Aminobiphenyl xenylamine and salts',
-                                        'value' => '4-Aminobiphenyl xenylamine and salts',
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => '4-Nitrobiphenyl',
-                                        'value' => '4-Nitrobiphenyl',
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Acrylamide',
-                                        'value' => 'Acrylamide',
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
-                                        'value' => 'Ammonium and compounds- nitrates- polysulphides- sulphide- hydrogen sulphides- inorganic salts',
-                                      ),
-                                      13 => 
-                                      array (
-                                        'key' => 'Arsenic and compounds',
-                                        'value' => 'Arsenic and compounds',
-                                      ),
-                                      14 => 
-                                      array (
-                                        'key' => 'Asbestos fibers',
-                                        'value' => 'Asbestos fibers',
-                                      ),
-                                      15 => 
-                                      array (
-                                        'key' => 'Azocolourants and Azodyes',
-                                        'value' => 'Azocolourants and Azodyes',
-                                      ),
-                                      16 => 
-                                      array (
-                                        'key' => 'Benzene',
-                                        'value' => 'Benzene',
-                                      ),
-                                      17 => 
-                                      array (
-                                        'key' => 'Benzidine and salts',
-                                        'value' => 'Benzidine and salts',
-                                      ),
-                                      18 => 
-                                      array (
-                                        'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
-                                        'value' => 'Bis-pentabromophenyl-ether -decaBDE-',
-                                      ),
-                                      19 => 
-                                      array (
-                                        'key' => 'Bisphenol A',
-                                        'value' => 'Bisphenol A',
-                                      ),
-                                      20 => 
-                                      array (
-                                        'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
-                                        'value' => 'Bromoacetic acid esters- Butyl bromoacetate- Propyl bromoacetate- Ethyl bromoacetate- Methyl bromoacetate',
-                                      ),
-                                      21 => 
-                                      array (
-                                        'key' => 'Cadmium and compounds',
-                                        'value' => 'Cadmium and compounds',
-                                      ),
-                                      22 => 
-                                      array (
-                                        'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
-                                        'value' => 'Chloroethene and Chloroethylene -Vinyl chloride-',
-                                      ),
-                                      23 => 
-                                      array (
-                                        'key' => 'Chloroform',
-                                        'value' => 'Chloroform',
-                                      ),
-                                      24 => 
-                                      array (
-                                        'key' => 'Chromium VI and compounds',
-                                        'value' => 'Chromium VI and compounds',
-                                      ),
-                                      25 => 
-                                      array (
-                                        'key' => 'CMR substances in textiles',
-                                        'value' => 'CMR substances in textiles',
-                                      ),
-                                      26 => 
-                                      array (
-                                        'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
-                                        'value' => 'Coal tars- low-temp oils- alkalines- acids- extracts- phenols- distillates; anthracene- creosote- naphthalene oils',
-                                      ),
-                                      27 => 
-                                      array (
-                                        'key' => 'Cyclohexane',
-                                        'value' => 'Cyclohexane',
-                                      ),
-                                      28 => 
-                                      array (
-                                        'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
-                                        'value' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane - Dibutyltin hydrogen borate C8H19BO3Sn -DBB-',
-                                      ),
-                                      29 => 
-                                      array (
-                                        'key' => 'Dichloromethane',
-                                        'value' => 'Dichloromethane',
-                                      ),
-                                      30 => 
-                                      array (
-                                        'key' => 'Dimethylfumarate (DMF)',
-                                        'value' => 'Dimethylfumarate -DMF-',
-                                      ),
-                                      31 => 
-                                      array (
-                                        'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
-                                        'value' => 'Diphenylether- octabromo derivative C12H2Br8O',
-                                      ),
-                                      32 => 
-                                      array (
-                                        'key' => 'Directive 1999/45/EC dangerous liquids',
-                                        'value' => 'Directive 1999-45-EC dangerous liquids',
-                                      ),
-                                      33 => 
-                                      array (
-                                        'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
-                                        'value' => 'EC 1272-2008 Annex VI Part 3 carcinogens- mutagens- and reprotoxins per category 1A- 1B -Table 3.1- or 1- 2 -Table 3.2-',
-                                      ),
-                                      34 => 
-                                      array (
-                                        'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
-                                        'value' => 'Flammable gases -Cat 1-2-- liquids -Cat 1-2-3-- solids -Cat 1-2- that in water emit flamable gases -Cat 1-2-3- of pyrophoric liquids- solids -Cat 1-',
-                                      ),
-                                      35 => 
-                                      array (
-                                        'key' => 'Hexachloroethane',
-                                        'value' => 'Hexachloroethane',
-                                      ),
-                                      36 => 
-                                      array (
-                                        'key' => 'Lead and compounds',
-                                        'value' => 'Lead and compounds',
-                                      ),
-                                      37 => 
-                                      array (
-                                        'key' => 'Mercury and compounds',
-                                        'value' => 'Mercury and compounds',
-                                      ),
-                                      38 => 
-                                      array (
-                                        'key' => 'Methanol',
-                                        'value' => 'Methanol',
-                                      ),
-                                      39 => 
-                                      array (
-                                        'key' => 'Methylenediphenyl diisocyanate (MDI)',
-                                        'value' => 'Methylenediphenyl diisocyanate -MDI-',
-                                      ),
-                                      40 => 
-                                      array (
-                                        'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141)',
-                                        'value' => 'Monomethyl -tetrachlorodiphenyl methane -Ugilec 141-',
-                                      ),
-                                      41 => 
-                                      array (
-                                        'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
-                                        'value' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene- mixture of isomers -DBBT-',
-                                      ),
-                                      42 => 
-                                      array (
-                                        'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21)',
-                                        'value' => 'Monomethyl-dichloro-diphenyl methane -Ugilec 121-21-',
-                                      ),
-                                      43 => 
-                                      array (
-                                        'key' => 'Nickel and compounds',
-                                        'value' => 'Nickel and compounds',
-                                      ),
-                                      44 => 
-                                      array (
-                                        'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates',
-                                        'value' => 'Nonylphenol C6H4-OH-C9H19 and Nonylphenol ethoxylates',
-                                      ),
-                                      45 => 
-                                      array (
-                                        'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
-                                        'value' => 'Nonylphenol ethoxylates -NPE- -C2H4O-nC15H24O',
-                                      ),
-                                      46 => 
-                                      array (
-                                        'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
-                                        'value' => 'Octamethylcyclotetrasiloxane -D4-- Decamethylcyclopentasiloxane -D5-',
-                                      ),
-                                      47 => 
-                                      array (
-                                        'key' => 'Organostannic compounds',
-                                        'value' => 'Organostannic compounds',
-                                      ),
-                                      48 => 
-                                      array (
-                                        'key' => 'Pentachloroethane',
-                                        'value' => 'Pentachloroethane',
-                                      ),
-                                      49 => 
-                                      array (
-                                        'key' => 'Pentachlorophenol and salts, esters',
-                                        'value' => 'Pentachlorophenol and salts- esters',
-                                      ),
-                                      50 => 
-                                      array (
-                                        'key' => 'Perfluorooctanoic acid (PFOA) and salts',
-                                        'value' => 'Perfluorooctanoic acid -PFOA- and salts',
-                                      ),
-                                      51 => 
-                                      array (
-                                        'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
-                                        'value' => 'Phenylmercury- 2-ethylhexanoate- acetate- neodecanoate- octanoate- propionate',
-                                      ),
-                                      52 => 
-                                      array (
-                                        'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-isodecyl phthalate (DIDP), Di-n-octyl phthalate (DNOP)',
-                                        'value' => 'Phthalates- 1-2-Benzenedicarboxylic acid- di-C8-10-branched alkyl esters- C9-rich- 1-2-Benzenedicarboxylic acid- di-C9-11-branched alkyl esters- C10-rich- Di-isononyl phthalate -DINP-- Di-isodecyl phthalate -DIDP-- Di-n-octyl phthalate -DNOP-',
-                                      ),
-                                      53 => 
-                                      array (
-                                        'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
-                                        'value' => 'Phthalates- Dibutyl phthalate -DBP-- Benzyl butyl phthalate -BBP-- Bis -2-ethylhexyl- phthalate -DEHP-',
-                                      ),
-                                      54 => 
-                                      array (
-                                        'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
-                                        'value' => 'Polybromobiphenyls- Polybrominatedbiphenyls -PBB-',
-                                      ),
-                                      55 => 
-                                      array (
-                                        'key' => 'Polychlorinated terphenyls (PCTs)',
-                                        'value' => 'Polychlorinated terphenyls -PCTs-',
-                                      ),
-                                      56 => 
-                                      array (
-                                        'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[k]fluoranthene (BkFA), Dibenzo[a,h]anthracene (DBAhA)',
-                                        'value' => 'Polycyclic-aromatic hydrocarbons -PAHs-- Benzo-a-pyrene -BaP-- Benzo-e-pyrene -BeP-- Benzo-a-anthracene -BaA-- Chrysen -CHR-- Benzo-b-fluoranthene -BbFA-- Benzo-j-fluoranthene -BjFA-- Benzo-k-fluoranthene -BkFA-- Dibenzo-a-h-anthracene -DBAhA-',
-                                      ),
-                                      57 => 
-                                      array (
-                                        'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
-                                        'value' => 'Soap bark powder -Quillaja saponaria- and saponine derivatives',
-                                      ),
-                                      58 => 
-                                      array (
-                                        'key' => 'Toluene',
-                                        'value' => 'Toluene',
-                                      ),
-                                      59 => 
-                                      array (
-                                        'key' => 'Trichlorobenzene',
-                                        'value' => 'Trichlorobenzene',
-                                      ),
-                                      60 => 
-                                      array (
-                                        'key' => 'Tris (2,3 dibromopropyl) phosphate',
-                                        'value' => 'Tris -2-3 dibromopropyl- phosphate',
-                                      ),
-                                      61 => 
-                                      array (
-                                        'key' => 'Tris(aziridinyl) phosphinoxide',
-                                        'value' => 'Tris-aziridinyl- phosphinoxide',
-                                      ),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
                                      'width' => 250,
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
                                      'name' => 'reach',
                                      'title' => 'Reach',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2839,17 +2473,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'childs' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'High',
+                                    'value' => 'High',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Advance',
+                                    'value' => 'Advance',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Standard',
+                                    'value' => 'Standard',
+                                  ),
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
+                                 'dynamicOptions' => false,
                                  'name' => 'performance',
                                  'title' => 'Performance',
                                  'tooltip' => '',
@@ -2956,17 +2608,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Grey',
+                                    'value' => 'Grey',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Black',
+                                    'value' => 'Black',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Blue',
+                                    'value' => 'Blue',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Yellow',
+                                    'value' => 'Yellow',
+                                  ),
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 100,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
+                                 'dynamicOptions' => false,
                                  'name' => 'Color',
                                  'title' => 'Color',
                                  'tooltip' => '',
@@ -3049,596 +2724,51 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Fabric',
-                                    'value' => 1829543,
+                                    'key' => 'Cord',
+                                    'value' => 'Cord',
                                   ),
                                   1 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Polyester',
-                                    'value' => 1829547,
+                                    'key' => 'Polyamide',
+                                    'value' => 'Poly',
                                   ),
                                   2 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Steel Wire',
-                                    'value' => 2881,
+                                    'key' => 'Polyester',
+                                    'value' => 'Polyster',
                                   ),
                                   3 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Synthetic Yarn',
-                                    'value' => 2882,
+                                    'key' => 'Aramid',
+                                    'value' => 'Aramid',
                                   ),
                                   4 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Synthetic Yarn With Static Wire',
-                                    'value' => 2884,
+                                    'key' => 'Carbon',
+                                    'value' => 'Carbon',
                                   ),
                                   5 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Textile',
-                                    'value' => 2883,
+                                    'key' => 'Carbon-Glass',
+                                    'value' => 'Carbon-Glass',
                                   ),
                                   6 => 
                                   array (
-                                    'key' => '1 Layer, Braided, Textile and 1 Layer, Braided, Steel Wire',
-                                    'value' => 10778364,
+                                    'key' => 'Glass',
+                                    'value' => 'Glass',
                                   ),
                                   7 => 
                                   array (
-                                    'key' => '1 Or 2 Steel Wire Braids',
-                                    'value' => 1829541,
-                                  ),
-                                  8 => 
-                                  array (
-                                    'key' => '2 Layer, Braided Synthetic Yarn With Static Wire',
-                                    'value' => 2886,
-                                  ),
-                                  9 => 
-                                  array (
-                                    'key' => '2 Layer, Braided, Steel Wire',
-                                    'value' => 1829536,
-                                  ),
-                                  10 => 
-                                  array (
-                                    'key' => '2 Layers, Braided Synthetic Yarn',
-                                    'value' => 2885,
-                                  ),
-                                  11 => 
-                                  array (
-                                    'key' => '2 Layers, Braided, Steel Wire',
-                                    'value' => 2887,
-                                  ),
-                                  12 => 
-                                  array (
-                                    'key' => '2 Layers, Braided, Textile',
-                                    'value' => 2888,
-                                  ),
-                                  13 => 
-                                  array (
-                                    'key' => '2 Layers, Spiral, Polyester',
-                                    'value' => 1829546,
-                                  ),
-                                  14 => 
-                                  array (
-                                    'key' => '2 Layers, Spiral-Plied, Synthetic Fabric, One Nylon Breaker',
-                                    'value' => 12528747,
-                                  ),
-                                  15 => 
-                                  array (
-                                    'key' => '2 Layers, Textile Braid, Static Wire',
-                                    'value' => 7558073,
-                                  ),
-                                  16 => 
-                                  array (
-                                    'key' => '304 Stainless Steel Wire Braid',
-                                    'value' => 1829539,
-                                  ),
-                                  17 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral, Steel Wire',
-                                    'value' => 1829540,
-                                  ),
-                                  18 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral, Synthetic Fabric',
-                                    'value' => 12406204,
-                                  ),
-                                  19 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral, Textile',
-                                    'value' => 2889,
-                                  ),
-                                  20 => 
-                                  array (
-                                    'key' => '4 Layers, Spiral-Plied Fabric, One Nylon Breaker',
-                                    'value' => 12528746,
-                                  ),
-                                  21 => 
-                                  array (
-                                    'key' => '4 ply Poly Synthetic Fabrics',
-                                    'value' => 7610884,
-                                  ),
-                                  22 => 
-                                  array (
-                                    'key' => '6 Fabric Plies W/ Boot Straps',
-                                    'value' => 2890,
-                                  ),
-                                  23 => 
-                                  array (
-                                    'key' => '6 Layers, Spiral, Steel Wire',
-                                    'value' => 1829545,
-                                  ),
-                                  24 => 
-                                  array (
-                                    'key' => 'Aramid',
-                                    'value' => 2891,
-                                  ),
-                                  25 => 
-                                  array (
-                                    'key' => 'Aramid Fibers',
-                                    'value' => 1829551,
-                                  ),
-                                  26 => 
-                                  array (
-                                    'key' => 'Braided Flexsten® Synthetic Yarn',
-                                    'value' => 2892,
-                                  ),
-                                  27 => 
-                                  array (
-                                    'key' => 'Braided Steel Wire',
-                                    'value' => 7610880,
-                                  ),
-                                  28 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Fibers',
-                                    'value' => 2893,
-                                  ),
-                                  29 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Fibers, Wire Helix',
-                                    'value' => 2894,
-                                  ),
-                                  30 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Yarn',
-                                    'value' => 2895,
-                                  ),
-                                  31 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Yarn, Antistatic Wire',
-                                    'value' => 12530042,
-                                  ),
-                                  32 => 
-                                  array (
-                                    'key' => 'Braided Textile, Braided Steel',
-                                    'value' => 1829544,
-                                  ),
-                                  33 => 
-                                  array (
-                                    'key' => 'Braided Synthetic Fibers; Galvanized Wire',
-                                    'value' => 7493991,
-                                  ),
-                                  34 => 
-                                  array (
-                                    'key' => 'Brass coated High Tensile Steel Wire Braid',
-                                    'value' => 3913766,
-                                  ),
-                                  35 => 
-                                  array (
-                                    'key' => 'Brass CTD Steel Aramid Breaker',
-                                    'value' => 2896,
-                                  ),
-                                  36 => 
-                                  array (
-                                    'key' => 'Carbon',
-                                    'value' => 1829534,
-                                  ),
-                                  37 => 
-                                  array (
-                                    'key' => 'Cotton',
-                                    'value' => 2897,
-                                  ),
-                                  38 => 
-                                  array (
-                                    'key' => 'Fabric Plies, Wire Helix',
-                                    'value' => 2898,
-                                  ),
-                                  39 => 
-                                  array (
-                                    'key' => 'Fabric With Antistatic Wire',
-                                    'value' => 2899,
-                                  ),
-                                  40 => 
-                                  array (
-                                    'key' => 'Fiberglass',
-                                    'value' => 1829532,
-                                  ),
-                                  41 => 
-                                  array (
-                                    'key' => 'Glass',
-                                    'value' => 2900,
-                                  ),
-                                  42 => 
-                                  array (
-                                    'key' => 'Kevlar',
-                                    'value' => 2901,
-                                  ),
-                                  43 => 
-                                  array (
-                                    'key' => 'Nylon',
-                                    'value' => 1829533,
-                                  ),
-                                  44 => 
-                                  array (
-                                    'key' => 'Nylon®',
-                                    'value' => 2902,
-                                  ),
-                                  45 => 
-                                  array (
-                                    'key' => 'Pliovic Helix',
-                                    'value' => 2903,
-                                  ),
-                                  46 => 
-                                  array (
-                                    'key' => 'Polyester',
-                                    'value' => 2905,
-                                  ),
-                                  47 => 
-                                  array (
-                                    'key' => 'Polyester Braid',
-                                    'value' => 2906,
-                                  ),
-                                  48 => 
-                                  array (
-                                    'key' => 'Polyester Spiral Nylon Barrier',
-                                    'value' => 2907,
-                                  ),
-                                  49 => 
-                                  array (
-                                    'key' => 'Polyester Synthetic Yarn',
-                                    'value' => 2908,
-                                  ),
-                                  50 => 
-                                  array (
-                                    'key' => 'Polyester Yarn',
-                                    'value' => 1829537,
-                                  ),
-                                  51 => 
-                                  array (
-                                    'key' => 'Polyethylene Helix',
-                                    'value' => 2909,
-                                  ),
-                                  52 => 
-                                  array (
-                                    'key' => 'PVA',
-                                    'value' => 2910,
-                                  ),
-                                  53 => 
-                                  array (
-                                    'key' => 'PVC Helix, Static Wire',
-                                    'value' => 2904,
-                                  ),
-                                  54 => 
-                                  array (
-                                    'key' => 'Rayon',
-                                    'value' => 2911,
-                                  ),
-                                  55 => 
-                                  array (
-                                    'key' => 'Rigid High-Density PVC Helix',
-                                    'value' => 5550460,
-                                  ),
-                                  56 => 
-                                  array (
-                                    'key' => 'Spiral Aramid Yarn',
-                                    'value' => 2912,
-                                  ),
-                                  57 => 
-                                  array (
-                                    'key' => 'Spiral Flexten® Synthetic Yarn',
-                                    'value' => 2913,
-                                  ),
-                                  58 => 
-                                  array (
-                                    'key' => 'Spiral Steel Wire',
-                                    'value' => 1829548,
-                                  ),
-                                  59 => 
-                                  array (
-                                    'key' => 'Spiral Synthetic Cord',
-                                    'value' => 5679578,
-                                  ),
-                                  60 => 
-                                  array (
-                                    'key' => 'Spiral Synthetic Yarn',
-                                    'value' => 2914,
-                                  ),
-                                  61 => 
-                                  array (
-                                    'key' => 'Spiral Synthetic Yarn, Copper Static Wire',
-                                    'value' => 7563315,
-                                  ),
-                                  62 => 
-                                  array (
-                                    'key' => 'Spiral Synthetic Yarn, Stainless Static Wire',
-                                    'value' => 7563316,
-                                  ),
-                                  63 => 
-                                  array (
-                                    'key' => 'Spiral Textile Reinforcement',
-                                    'value' => 2915,
-                                  ),
-                                  64 => 
-                                  array (
-                                    'key' => 'Spiral wire between plies of synthetic fabric',
-                                    'value' => 7610886,
-                                  ),
-                                  65 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Aramid Fibers, Wire Helix',
-                                    'value' => 2916,
-                                  ),
-                                  66 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric & Grounding Wire',
-                                    'value' => 7610885,
-                                  ),
-                                  67 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric with Double Galvanized Wire',
-                                    'value' => 11973767,
-                                  ),
-                                  68 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric, Double Helix Wire, Antistatic Wire',
-                                    'value' => 7610827,
-                                  ),
-                                  69 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric, Wire Helix',
-                                    'value' => 2917,
-                                  ),
-                                  70 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabric; Monofilament Helix',
-                                    'value' => 7493990,
-                                  ),
-                                  71 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Fabrics',
-                                    'value' => 7610881,
-                                  ),
-                                  72 => 
-                                  array (
-                                    'key' => 'Spiral-Plied fabrics with double wire helix',
-                                    'value' => 7610882,
-                                  ),
-                                  73 => 
-                                  array (
-                                    'key' => 'Spiral-Plied fabrics with dual steel helix wire',
-                                    'value' => 7610883,
-                                  ),
-                                  74 => 
-                                  array (
-                                    'key' => 'Spiral-Plied fabrics, double helix wire, & longitu',
-                                    'value' => 7610888,
-                                  ),
-                                  75 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Steel Wire',
-                                    'value' => 2918,
-                                  ),
-                                  76 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric',
-                                    'value' => 2919,
-                                  ),
-                                  77 => 
-                                  array (
-                                    'key' => 'Spiral-plied Synthetic Fabric with 2 Anti-Static Wires',
-                                    'value' => 5550459,
-                                  ),
-                                  78 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric With Antistatic Wire',
-                                    'value' => 2920,
-                                  ),
-                                  79 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric With Double Wire Helix',
-                                    'value' => 2921,
-                                  ),
-                                  80 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix',
-                                    'value' => 2922,
-                                  ),
-                                  81 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric With Wire Helix & Antistatic Wire',
-                                    'value' => 2923,
-                                  ),
-                                  82 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric, Double Wire Helix',
-                                    'value' => 2924,
-                                  ),
-                                  83 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric, Galvanized Helix',
-                                    'value' => 2925,
-                                  ),
-                                  84 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Fabric, Wire Helix',
-                                    'value' => 2926,
-                                  ),
-                                  85 => 
-                                  array (
-                                    'key' => 'Spiral-Plied Synthetic Yarn',
-                                    'value' => 2927,
-                                  ),
-                                  86 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric',
-                                    'value' => 2928,
-                                  ),
-                                  87 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric Breaker',
-                                    'value' => 2932,
-                                  ),
-                                  88 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric Nylon Breaker',
-                                    'value' => 2929,
-                                  ),
-                                  89 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric Plies',
-                                    'value' => 2930,
-                                  ),
-                                  90 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric Plies, Outer PVC Helix',
-                                    'value' => 11973768,
-                                  ),
-                                  91 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, 2 Galvanized Helix',
-                                    'value' => 1829542,
-                                  ),
-                                  92 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, 2 Static Wires',
-                                    'value' => 7610828,
-                                  ),
-                                  93 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, 2 Wire Helix',
-                                    'value' => 2931,
-                                  ),
-                                  94 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, Galvanized Helix',
-                                    'value' => 2938,
-                                  ),
-                                  95 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, Grounding Wires',
-                                    'value' => 2933,
-                                  ),
-                                  96 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, Static Wire',
-                                    'value' => 2934,
-                                  ),
-                                  97 => 
-                                  array (
-                                    'key' => 'Synthetic Fabric, Wire Helix',
-                                    'value' => 2935,
-                                  ),
-                                  98 => 
-                                  array (
-                                    'key' => 'Synthetic Fabrics, 2 Galvanized Helix Wires',
-                                    'value' => 2936,
-                                  ),
-                                  99 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers',
-                                    'value' => 2939,
-                                  ),
-                                  100 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers with Steel Wire Braid',
-                                    'value' => 10705763,
-                                  ),
-                                  101 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers, Helix Wire',
-                                    'value' => 1829550,
-                                  ),
-                                  102 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers, Plastic Helix',
-                                    'value' => 2940,
-                                  ),
-                                  103 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers, Steel Helix',
-                                    'value' => 2941,
-                                  ),
-                                  104 => 
-                                  array (
-                                    'key' => 'Synthetic Fibers, Wire Helix',
-                                    'value' => 1829549,
-                                  ),
-                                  105 => 
-                                  array (
-                                    'key' => 'Synthetic Plies, 2 Wire Helix',
-                                    'value' => 2942,
-                                  ),
-                                  106 => 
-                                  array (
-                                    'key' => 'Synthetic Textile Fabric',
-                                    'value' => 2943,
-                                  ),
-                                  107 => 
-                                  array (
-                                    'key' => 'Synthetic Yarn',
-                                    'value' => 2944,
-                                  ),
-                                  108 => 
-                                  array (
-                                    'key' => 'Synthetic Yarn, Static Wire',
-                                    'value' => 2945,
-                                  ),
-                                  109 => 
-                                  array (
-                                    'key' => 'Textile Braid',
-                                    'value' => 2946,
-                                  ),
-                                  110 => 
-                                  array (
-                                    'key' => 'Textile Braid, Steel Helix',
-                                    'value' => 2947,
-                                  ),
-                                  111 => 
-                                  array (
-                                    'key' => 'Textile Spiral Reinforced',
-                                    'value' => 7610887,
-                                  ),
-                                  112 => 
-                                  array (
-                                    'key' => 'Thermoplastic Alloyed Blend of Polyurethane and PVC',
-                                    'value' => 10706729,
-                                  ),
-                                  113 => 
-                                  array (
-                                    'key' => 'Through-The-Weave Fabric',
-                                    'value' => 2948,
-                                  ),
-                                  114 => 
-                                  array (
-                                    'key' => 'Vinyl Helix',
-                                    'value' => 2949,
-                                  ),
-                                  115 => 
-                                  array (
-                                    'key' => 'Wire Braid',
-                                    'value' => 1829535,
-                                  ),
-                                  116 => 
-                                  array (
-                                    'key' => 'Wire Helix',
-                                    'value' => 2950,
+                                    'key' => 'Steel',
+                                    'value' => 'Steel',
                                   ),
                                 ),
                                  'width' => 250,
                                  'height' => '',
                                  'maxItems' => 1,
                                  'renderType' => 'tags',
-                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                                 'optionsProviderData' => 'ProductClass',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'text',
                                  'columnType' => 'text',
                                  'phpdocType' => 'array',
@@ -3851,17 +2981,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUBeltType|beltType',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
+                                 'dynamicOptions' => false,
                                  'name' => 'beltType',
                                  'title' => 'Belt Type',
                                  'tooltip' => '',
@@ -3879,17 +3012,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => ' Yes acc. ISO 1813',
+                                    'value' => ' Yes acc. ISO 1813',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Yes acc. ISO 9563',
+                                    'value' => 'Yes acc. ISO 9563',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 'Yes',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'No',
+                                    'value' => 'No',
+                                  ),
+                                ),
                                  'width' => 250,
-                                 'defaultValue' => NULL,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 30,
                                  'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
+                                 'dynamicOptions' => false,
                                  'name' => 'staticConductive',
                                  'title' => 'Static Conductive',
                                  'tooltip' => '',
@@ -5802,11 +4958,26 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'test',
+                                    'value' => 12961632,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'FGFF, GHFGH',
+                                    'value' => 12961633,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'synchronous, timing, falcon, GTR',
+                                    'value' => 12961634,
+                                  ),
                                 ),
                                  'width' => 220,
                                  'defaultValue' => '',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
+                                 'optionsProviderData' => 'Search Keywords|Id',
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
                                  'columnLength' => 190,
@@ -5920,20 +5091,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                               )),
                               1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                 'fieldtype' => 'numeric',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'demo test',
+                                    'value' => 12961640,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'demo demo',
+                                    'value' => 12961641,
+                                  ),
+                                ),
                                  'width' => 220,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'double',
-                                 'columnType' => 'double',
-                                 'phpdocType' => 'float',
-                                 'integer' => false,
-                                 'unsigned' => false,
-                                 'minValue' => NULL,
-                                 'maxValue' => NULL,
-                                 'unique' => false,
-                                 'decimalSize' => NULL,
-                                 'decimalPrecision' => 3,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
+                                 'optionsProviderData' => 'Description|Id',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
                                  'name' => 'vtlStatus',
                                  'title' => 'VTL Status / Distribution Chain Level',
                                  'tooltip' => '',
@@ -7124,7 +6305,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'table',
                  'width' => '',
                  'height' => '',
-                 'cols' => 8,
+                 'cols' => 11,
                  'colsFixed' => true,
                  'rows' => '',
                  'rowsFixed' => false,
@@ -7171,6 +6352,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'key' => 7,
                     'label' => 'Condition Type',
+                  ),
+                  8 => 
+                  array (
+                    'key' => 8,
+                    'label' => 'Price Ref.',
+                  ),
+                  9 => 
+                  array (
+                    'key' => 9,
+                    'label' => 'Per',
+                  ),
+                  10 => 
+                  array (
+                    'key' => 10,
+                    'label' => 'Unit',
                   ),
                 ),
                  'queryColumnType' => 'longtext',
