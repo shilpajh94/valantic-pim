@@ -159,7 +159,7 @@ class DefaultController extends AbstractController
                     }
                 }
             }
-
+            
             $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
             $nominalLength = '';
@@ -181,16 +181,16 @@ class DefaultController extends AbstractController
                         }
                     }
 
-                    if(empty(trim($beltHeight)))
-                    {
-                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                        foreach ($productObjectLevel7List as $productObjectLevel7) {
-                            if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
-                            {
-                                $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
-                            }
-                        }
-                    }
+                    // if(empty(trim($beltHeight)))
+                    // {
+                    //     $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                    //     foreach ($productObjectLevel7List as $productObjectLevel7) {
+                    //         if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
+                    //         {
+                    //             $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
+                    //         }
+                    //     }
+                    // }
 
                     $groupData = [];
                     $profile = $productObjectLevel6->getProfile();
@@ -218,7 +218,7 @@ class DefaultController extends AbstractController
                     $groupData['beltDesign'] = $beltDesignlistContent;
                     if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
                     {
-                        echo $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
+                        $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
                     }
 
                     $groupData['upperRibWidth'] = $upperRibWidth;
@@ -271,6 +271,7 @@ class DefaultController extends AbstractController
                     $profileData[$profile] = $groupData;
                 }
             }
+            
             
             $this->view['profileData'] = $profileData;
         }
