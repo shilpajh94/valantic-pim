@@ -99,7 +99,7 @@ class ProductService
     public function import()
     {
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
-        $this->filePath = $sapFileFeeder->execFileFeeder('material');
+        $this->filePath = $sapFileFeeder->execFileFeeder('product');
 
         $csvInfo = ImportService::getCSVData($this->filePath);
         $this->csvHeader = array_flip($csvInfo['header']);

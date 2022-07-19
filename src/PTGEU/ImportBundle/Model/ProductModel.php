@@ -315,7 +315,7 @@ class ProductModel
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
             $keysArray = [];
             foreach ($deletedProducts as $product) {
-                $keysArray[] = $product['id'];
+                $keysArray[] = "'".$product['id']."'";
             }
             $obj = new DataObject\PTGEUProduct\Listing();
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");

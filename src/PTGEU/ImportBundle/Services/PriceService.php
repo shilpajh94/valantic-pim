@@ -23,7 +23,7 @@ class PriceService
     public function import()
     {
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
-        $this->filePath = $sapFileFeeder->execFileFeeder('priceList');
+        $this->filePath = $sapFileFeeder->execFileFeeder('price');
         $csvInfo        = ImportService::getCSVData($this->filePath);
         $this->csvHeader= array_flip($csvInfo['header']);
         $csvData        = $csvInfo['data'];

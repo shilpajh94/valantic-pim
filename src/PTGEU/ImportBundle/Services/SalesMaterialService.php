@@ -246,7 +246,6 @@ class SalesMaterialService
             $plantName = $rowvalue[$columnPlant];
             $material = $rowvalue[$columnMaterial];
             $salesOrg = $rowvalue[$columnSalesOrg];
-            //p_r($salesOrg);die;
             $distributionChannel = $rowvalue[$columnDistributionChannel];
             $countryOfOrigin = $rowvalue[$columnCountryOfOrigin];
             
@@ -302,7 +301,6 @@ class SalesMaterialService
                             $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
 
                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
-                           // p_r($salesOrgId);exit;
                             if($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                             }
