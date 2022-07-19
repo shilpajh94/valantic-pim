@@ -52,8 +52,6 @@ class DefaultController extends FrontendController
           "type" => $type,
           "success" => true 
        ]; 
-
-
        echo json_encode($arr);
        die();
  
@@ -90,12 +88,9 @@ class DefaultController extends FrontendController
             }
            
         }
-
         $storeData=array();
         $newData=array();
-        
         $cofigArray =  \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/src/RestApiBundle/Resources/config/config.yml');
-       
         $type = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'];
         if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) && $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
         {
