@@ -117,7 +117,7 @@ body {
 
 body {
   background: #ffffff;
-  line-height: 18px;
+  line-height: 1.2;
   font-size: 12px;
   font-weight: normal;
   font-family: 'ContinentalStagSansLCG-Light';
@@ -294,10 +294,6 @@ header {
 .align-self-center {
   -ms-flex-item-align: center !important;
   align-self: center !important;
-}
-
-table {
-  border-collapse: collapse;
 }
 
 table th,
@@ -594,13 +590,23 @@ header aside{
 }
 
 header aside p{
-    padding:0 ;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 0px 4px;
+    /* padding:0 ; */
     width: 90%;
 }
 
 header aside img{
     max-width: 100%;
     height:auto;
+}
+header h1{
+    color: #ffa500;
+    padding: 0px 16px 8px;
+    font-size: 30px;
+    margin-top: 16px;
+    margin-bottom: 0;
 }
 
 article figure h3{
@@ -692,6 +698,7 @@ position: relative;
     margin-top: 30px;
     table-layout: fixed;
 font-size: 11px;
+border-collapse: collapse;
 
 }
 
@@ -703,7 +710,9 @@ font-size: 11px;
 }
 
 .table td, .table th{
-  padding: 8px 5px;
+  padding: 5px 2px;
+  font-size: 10px;
+  /* padding: 8px 5px; */
 }
 
 .table th:first-child,
@@ -849,7 +858,7 @@ aside p{
 
 .flex-center {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
 }
@@ -977,6 +986,17 @@ menu h3{
     padding-left:1em;
     margin-bottom: 0;
 }
+
+menu h6{
+  border-bottom: 1px solid #8d8b8b;
+    padding-bottom: 4px;
+    padding-left: 15px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
 menu figure{
     display: flex;
     justify-content: space-around;
@@ -1014,8 +1034,9 @@ menu .specs  p strong{
 }
 
 menu > * > div{
-    border-left: 2px solid #939597;;
+    border-left: 1px solid #8d8b8b;
     padding:1em;
+    font-size: 10px;
     text-transform: none;
 }
 
@@ -1057,21 +1078,31 @@ footer{
 }
 
 footer .logo{
- background-color: cmyk(0%, 0%, 0%, 100%);
- padding:1em;
- margin:0;
- display: flex;
- align-items: center;
- justify-content: center;
+  background-color: #000000;
+  padding: 15px 15px;
+  background-color: cmyk(0%, 0%, 0%, 100%);
+  padding:1em;
+  margin:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .logo img {
+  max-width: 100%;
+  height: 25px;
 }
 
 footer h5{
-    font-size:2em;
+    /* font-size:2em; */
+    letter-spacing: 0.5px;
+    font-size: 18px;
    
 }
 
 footer h5 span{
     font-size:0.6em;
+    font-size: 14px;
     display:block;
     font-weight: normal;
     margin-top:0.2em;
@@ -1093,7 +1124,7 @@ footer .aligned{
     margin:0;
 }
 
-.footer1 .aligned{ width: 84.2%;}
+/* .footer1 .aligned{ width: 84.2%;} */
 
 footer .flex > * {
     margin: 0.5em;

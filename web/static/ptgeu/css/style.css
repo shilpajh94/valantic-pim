@@ -107,6 +107,13 @@ max-height: 30px;
   page-break-before: always;
 }
 
+.continueRow{
+  text-align: right; 
+  display:inline-flex; 
+  justify-content: flex-end; 
+  width: 100%;  
+}
+
 @page {
     margin-left: 0;
     margin-right: 0;

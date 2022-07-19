@@ -25,7 +25,7 @@ if($groupData){
         <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
                         </span>
                         <div class="flex aligned ">
                                 <h5>
@@ -208,7 +208,7 @@ if($groupData){
                         </div>
 
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
                         </span>
                 </footer>
         </div>
@@ -306,7 +306,7 @@ if($groupData){
                         <menu class="flex">
                                 <?php if($groupData['safetyFeatures']): ?>
                                         <div class="feature mr-4">
-                                                <h3><?= $this->translate('features') ?></h3>
+                                                <h6><?= $this->translate('features') ?></h6>
                                                 <div >
                                                         <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex center">
@@ -322,7 +322,7 @@ if($groupData){
 
                                 <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
                                         <div class="specs">
-                                                <h3><?= $this->translate('specs') ?></h3>
+                                                <h6><?= $this->translate('specs') ?></h6>
                                                 <div>
                                                         <?php if(!empty(trim($groupData['material']))): ?>
                                                                 <p>
@@ -359,7 +359,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table width="100%" class="table page-break-before-always">
+                        <table width="100%" class="table page-break-before-always continueLable">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
