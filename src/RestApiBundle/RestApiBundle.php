@@ -11,6 +11,7 @@ class RestApiBundle extends AbstractPimcoreBundle
         return [
             '/bundles/restapi/js/pimcore/startup.js',
             '/bundles/restapi/js/pimcore/headerSorter.js',
+            '/bundles/restapi/js/pimcore/formattedGridHandlerMapper.js',
         ];
     }
 }

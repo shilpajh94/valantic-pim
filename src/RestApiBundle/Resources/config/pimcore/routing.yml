@@ -7,3 +7,6 @@ rest_api_virtual_cat:
 get_data:
     path:     /virtual_catalog/get_available_headers/
     defaults: { _controller: RestApiBundle:Default:getAvailableHeaders }
+get_mapper_data:
+    path:     /virtual_catalog/get_mapper_data/
+    defaults: { _controller: RestApiBundle:Default:getAvailableMappers }

@@ -69,5 +69,96 @@ class DefaultController extends FrontendController
         }
         return $this->classDefinition[$className];
     }
+
+    public function getAvailableMappersAction(Request $request) {
+
+        $aliasValueArray = [];
+        $listing = new \Pimcore\Model\DataObject\VirtualCatalogApiMapper\Listing();
+        $listing->setCondition("oo_id = ? ", [$request->get('objId')]);
+        $listing = $listing->load();
+        $selectedField = null;
+        foreach($listing as $obj)
+        {
+            $selectedField = $obj->getGroupingField();
+
+            if($selectedField == $request->get('table') && is_array($obj->getOriginalValues()) && !empty($obj->getOriginalValues()))
+            {
+                foreach($obj->getOriginalValues() as $values)
+                {
+                    $aliasValueArray[$values[0]] =  $values[2];
+                }
+            }
+           
+        }
+
+        $storeData=array();
+        $newData=array();
+        
+        $cofigArray =  \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/src/RestApiBundle/Resources/config/config.yml');
+       
+        $type = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'];
+        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) && $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
+        {
+            \Pimcore::setAdminMode();
+            $className = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['container_name'];
+            $definiion = $this->getClassDefinition($className);
+            $fieldName = $request->get('table');
+            $fieldDefinition = $definiion->getFieldDefinition($fieldName);
+            \Pimcore::unsetAdminMode();
+            $options = $fieldDefinition->getOptions();
+            foreach ($options as $option) {
+                $aliasText = '';
+                if(isset($aliasValueArray[$option['value']]))
+                {
+                    $aliasText = $aliasValueArray[$option['value']];
+                }
+                $storeData[] = [$option['value'], $option['key'], $aliasText];
+                $newData[] = [''];
+            }
+        } 
+
+        $arrayVar = [
+            "objectData" => $aliasValueArray,
+            "brandData" => [],
+            "columnData" => [
+                [
+                    "xtype" => "gridcolumn",
+                    "name" => "ID",
+                    "Text" => "ID",
+                    "header" => "ID",
+                    "dataIndex" => "ID",
+                    "flex" => 1,
+                ],
+                [
+                    "xtype" => "gridcolumn",
+                    "name" => "Label",
+                    "Text" => "Label",
+                    "header" => "Label",
+                    "dataIndex" => "Label",
+                    "flex" => 1
+                ],
+
+                [
+                    "xtype" => "gridcolumn",
+                    "name" => "valueAlias",
+                    "Text" => "Value Alias",
+                    "header" => "Value Alias",
+                    "dataIndex" => "valueAlias",
+                    "flex" => 1,
+                    "editor" =>  "textfield"
+                ],
+                
+            ],
+            "fieldData" => [
+                "id" => "ID",
+                "label" => "Label",
+                "valueAlias" => "valueAlias"
+            ],
+            "data" =>  $storeData,
+            "type" => $type
+        ];   
+        
+        echo  json_encode($arrayVar); die();
+    }
     
 }

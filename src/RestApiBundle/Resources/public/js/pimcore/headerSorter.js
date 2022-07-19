@@ -37,12 +37,14 @@ pimcore.plugin.headerSorter = Class.create({
             
             var objectEditParentPanel = object.edit.layout.items.items[0];
             
+         
+            
             var objectEditParentPanelItems = objectEditParentPanel.items;
             // console.log(objectEditParentPanelItems);
             var panelContainingConfiguration = objectEditParentPanelItems.items[tabIndexContainingConfiguration];
 
             var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
-            console.log(panelContainingConfigurationItems);
+            //console.log(panelContainingConfigurationItems);
             var filterFieldSet = panelContainingConfigurationItems[0];
             var headerFieldSet = panelContainingConfigurationItems[1];
             var headerData = [];
@@ -72,13 +74,18 @@ pimcore.plugin.headerSorter = Class.create({
             storeData = headerData.storeData;
             completeData = headerData.completeData;
 
+
+        //    console.log(object);
+
             if(headerData.type == 'Select')
             {
                 Ext.getCmp(object.edit.dataFields.Order.component.id).disabled = true;
                 Ext.getCmp(object.edit.dataFields.Order.component.id).hide();
+                headerFieldSet.show();
             } else {
                 Ext.getCmp(object.edit.dataFields.Order.component.id).disabled = false;
                 Ext.getCmp(object.edit.dataFields.Order.component.id).show();
+                headerFieldSet.hide();
             }
 
             if(count==1){
