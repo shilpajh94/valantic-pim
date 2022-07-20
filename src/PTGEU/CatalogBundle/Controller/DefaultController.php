@@ -126,6 +126,8 @@ class DefaultController extends AbstractController
 
             $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
 
+            $reinforcementListSelected = [];
+
             $nominalLengthAndDatumLengthColumnMapping = array(
                 'LP' => 'Pitch Length',
                 'LI' => 'Inside Length',
@@ -166,55 +168,53 @@ class DefaultController extends AbstractController
                 }
             }
             
-            $objectLevel5thId = $fifthLevelProduct->getId();
+            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
-            $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
-            $row6ThLevelDetails =  $this->db->fetchCol($sql);
-
+            
             $profile = [];
-            foreach ($row6ThLevelDetails as $objectLevel6thId) {
+            foreach ($productObjectLevel6List as $productObjectLevel6) {
                 
-                if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
+                if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
                 {
-                    $nominalLength= $upperRibWidth= $electricalConductivity ='';
-                    $profileObjectDetails =[];
-                    $sql = "SELECT `profile`, `ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ORDER BY  o_id ASC LIMIT 1";
-                    $profileObjectDetails =  $this->db->fetchRow($sql);
-
-                    $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId' LIMIT 1";
-                    $upperRibWidth =  $this->db->fetchColumn($sql);
-
-                    $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel6thId' LIMIT 1";
-                    $electricalConductivity =  $this->db->fetchColumn($sql);
+                    $nominalLength = '';
+                    $upperRibWidth = '';
+                    $beltHeight = '';
                     
-                    $sql = "SELECT o_id, nominalLength FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY  o_id ASC LIMIT 1";
-                    $rowDetails =  $this->db->fetchArray($sql);
-
-                    if($rowDetails)
-                    {
-                        $fertObjId = $rowDetails[0];
-                        $nominalLength = $rowDetails[1];
-
-                        $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId' LIMIT 1";
-                        $beltHeight =  $this->db->fetchColumn($sql);
+                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                    foreach ($productObjectLevel7List as $productObjectLevel7) {
+                        if($productObjectLevel7->getPrintedCatalogFlag() === true)
+                        {
+                            $nominalLength = $productObjectLevel7->getNominalLength();
+                            break;
+                        }
+                    }
+                    
+                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                    foreach ($productObjectLevel7List as $productObjectLevel7) {
+                        if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
+                        {
+                            $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
+                            break;
+                        }
                     }
 
-                    $reinforcementListSelected = [];
-                    $profile = $profileObjectDetails['profile'];
-                    $material = $profileObjectDetails['material'];
-                    $reinforcementSelected = $profileObjectDetails['reinforcement'];
-                    $reinforcementDbList = explode(',',$reinforcementSelected);
-                    $reinforcementDbList = array_filter($reinforcementDbList);
+                    $groupData = [];
+                    $profile = $productObjectLevel6->getProfile();
+                    $groupData['profile'] = $profile;
+                    $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
 
-                    if($reinforcementDbList)
+                    $material = $productObjectLevel6->getMaterial();
+                    $reinforcement = $productObjectLevel6->getReinforcement();
+
+                    if($reinforcement)
                     {
-                        foreach ($reinforcementDbList as $reinforcementId) {
+                        foreach ($reinforcement as $reinforcementId) {
                             $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
                         }
                     }
 
                     $reinforcement = implode(', ', $reinforcementListSelected);
-                    $fabricType = $profileObjectDetails['fabricType'];
+                    $fabricType = $productObjectLevel6->getFabricType();
 
                     $beltDesignlistContent = [];
                     
@@ -232,30 +232,25 @@ class DefaultController extends AbstractController
                     {
                         $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
                     }
-
-                    $heatAndOilResistant = $profileObjectDetails['heatAndOilResistant'];
-                    $rangeTemperatureC = $profileObjectDetails['rangeTemperatureC'];
-
-                    if($heatAndOilResistant)
+                    
+                    $groupData['beltDesign'] = $beltDesignlistContent;
+                    if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
                     {
-                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
+                        $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
                     }
 
-                    if($electricalConductivity)
-                    {
-                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
-                    }
+                    $groupData['upperRibWidth'] = $upperRibWidth;
+                    $groupData['beltHeight'] = $beltHeight;
+                    $groupData['flankAngle'] = $productObjectLevel6->getBeltAngle(); 
+                    $groupData['hardness'] = $productObjectLevel6->getBeltHardness();
+                    $groupData['weightPerMLength'] = $productObjectLevel6->getNetWeight();
+                    $groupData['minDiameter'] = $productObjectLevel6->getMinPulleyDia();
+                    $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
 
-                    if($rangeTemperatureC)
-                    {
-                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
-                    }
-
-                    $groupData = [];
                     if($nominalLength)
                     {
-                        $nominalLengthUpperCase = strtoupper($nominalLength);
                         $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
+                        $nominalLengthUpperCase = strtoupper($nominalLength);
                         $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
 
                         $groupData['nominalLengthList'] = array(
@@ -277,17 +272,30 @@ class DefaultController extends AbstractController
                             )
                         );
                     }
-                    
-                    $groupData['profile'] = $profile;
-                    $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
-                    $groupData['beltDesign'] = $beltDesignlistContent;
-                    $groupData['upperRibWidth'] = $upperRibWidth;
-                    $groupData['beltHeight'] = $beltHeight;
-                    $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
-                    $groupData['hardness'] = $profileObjectDetails['beltHardness'];
-                    $groupData['weightPerMLength'] = $profileObjectDetails['netWeight'];
-                    $groupData['minDiameter'] = $profileObjectDetails['minPulleyDia'];
-                    $groupData['minBlackIdlerDiameter'] = $profileObjectDetails['minOutsidePulleyDia'];
+
+                    $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
+
+                    if($productObjectLevel6->getBase()->getPTGEUCommonBase())
+                    {
+                        $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+                    }
+                    $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
+
+                    if($heatAndOilResistant)
+                    {
+                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
+                    }
+
+                    if($electricalConductivity)
+                    {
+                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
+                    }
+
+                    if($rangeTemperatureC)
+                    {
+                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
+                    }
+
                     $groupData['properties'] = $propertieslistContent;
                     $profileData[$profile] = $groupData;
                 }
