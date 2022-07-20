@@ -322,3 +322,55 @@ if (!isset($this->parentContainer)) {
 		<?php } ?>	
 	</div>
 <?php } ?>
+
+<style>
+.footer3 p
+{
+  margin-bottom: 0.3rem;
+}
+
+.footer3{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-bottom: 50px;
+    font-size: 10px;
+    position: running(footer3);
+}
+
+@page {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 50px;
+	margin-bottom: 150px;
+}
+
+
+@page:left {
+    @top-left-corner{
+        content: '';
+    }
+    @top-right{
+        content: '';
+    }
+    @bottom-center {
+        content: element(footer3);
+        z-index: 1;
+    }
+}
+
+
+@page:right {
+    @top-right-corner{
+        content: '';
+    }
+
+    @top-left{
+		content: '';
+    }
+    @bottom-center {
+        content: element(footer3);
+        z-index: 1;
+    }
+}
+
+</style>

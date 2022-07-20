@@ -100,13 +100,6 @@ max-height: 30px;
     text-align: left;
     position: running(footer1);
 }
-.footer3{
-    margin-left: 50px;
-    margin-right: 50px;
-    padding-bottom: 50px;
-    font-size: 10px;
-    position: running(footer3);
-}
 
 .footer-logo{
     string-set: logo self;
@@ -141,10 +134,6 @@ max-height: 30px;
   margin-bottom: 1px;
   min-height: 0;
 }
-.footer3 p
-{
-  margin-bottom: 0.3rem;
-}
 @page {
     margin-left: 0;
     margin-right: 0;
@@ -176,7 +165,6 @@ max-height: 30px;
     }
     @bottom-center {
         content: element(footer);
-        content: element(footer3);
         z-index: 1;
     }
 }
@@ -208,7 +196,6 @@ max-height: 30px;
     }
     @bottom-center {
         content: element(footer1);
-        content: element(footer3);
         z-index: 1;
     }
 }
