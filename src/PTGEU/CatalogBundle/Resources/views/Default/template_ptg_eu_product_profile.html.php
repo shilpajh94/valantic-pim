@@ -70,7 +70,7 @@ if (!isset($this->parentContainer)) {
 				}
 				?>
 				
-				<div class="img-wrapper ">
+				<div class="img-wrapper position-relative">
 					<div class="set1 bg-mask">
 					<?php
 					if($this->editmode){
@@ -102,7 +102,7 @@ if (!isset($this->parentContainer)) {
 					}
 					?>
 					</div>
-					<div class="set1 abs">
+					<div class="abs">
 					<?php
 					if($this->editmode){
 							?>
@@ -155,11 +155,11 @@ if (!isset($this->parentContainer)) {
 
 					<h6><?= $this->input("PTGEU_Technical_Data_$profileKey",['placeholder'=>'Technical Data']); ?></h4>
 
-					<table class="table1" cellspacing="5" cellpadding ="5">
+					<table class="table1" aria-describedby="outer">
 
 						<?php if($groupData['profile']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Profile'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Profile'); ?></th>
 							<td></td>
 							<td><?= $groupData['profile']; ?></td>
 						</tr>
@@ -167,7 +167,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['beltDesign']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Belt_design'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Belt_design'); ?></th>
 							<td></td>
 							<td>
 								<?php
@@ -184,7 +184,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['upperRibWidth']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Upper_rib_width'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Upper_rib_width'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
 							<td><?= $groupData['upperRibWidth']; ?></td>
 						</tr>
@@ -192,7 +192,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['beltHeight']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Belt_height'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Belt_height'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
 							<td><?= $groupData['beltHeight']; ?></td>
 						</tr>
@@ -200,7 +200,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['flankAngle']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Flank_angle'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Flank_angle'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_degree'); ?>]</td>
 							<td><?= $groupData['flankAngle']; ?></td>
 						</tr>
@@ -208,7 +208,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['hardness']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Hardness'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Hardness'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_hardness_shore_a'); ?>]</td>
 							<td><?= $groupData['hardness']; ?></td>
 						</tr>
@@ -216,7 +216,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['weightPerMLength']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Weight_per_m_length'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Weight_per_m_length'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_kg_per_m'); ?>]</td>
 							<td><?= $groupData['weightPerMLength']; ?></td>
 						</tr>
@@ -224,7 +224,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['minDiameter']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Min_diameter'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Min_diameter'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
 							<td><?= $groupData['minDiameter']; ?></td>
 						</tr>
@@ -232,7 +232,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['minBlackIdlerDiameter']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Min_black_idler_diameter'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Min_black_idler_diameter'); ?></th>
 							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
 							<td><?= $groupData['minBlackIdlerDiameter']; ?></td>
 						</tr>
@@ -240,7 +240,7 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['properties']){ ?>
 						<tr>
-							<th><?= $this->translate('PTGEU_Properties'); ?></th>
+							<th scope="outer"><?= $this->translate('PTGEU_Properties'); ?></th>
 							<td></td>
 							<td>
 								<?php
@@ -257,22 +257,22 @@ if (!isset($this->parentContainer)) {
 
 						<?php if($groupData['nominalLengthList']){ ?>
 						<tr>
-							<th ><?= $this->translate($groupData['nominalLength']); ?></th>
+							<th scope="outer" ><?= $this->translate($groupData['nominalLength']); ?></th>
 							
-							<td>
-								<table cellspacing="5" cellpadding ="5">
-								<tr><th>&nbsp;</th></tr>
+							<td class="noPadding">
+								<table aria-describedby="inner1">
+								<tr><th scope="inner1">&nbsp;</th></tr>
 								<?php foreach ($groupData['nominalLengthList'] as $key => $value) { ?>
 									<tr><td colspan="1">[<?= $this->translate('PTGEU_unit_mm'); ?>]</td></tr>
 								<?php } ?>
 								</table>
 							</td>
 							
-							<td colspan="1">
-								<table cellspacing="5" cellpadding ="5">
+							<td colspan="1" class="noPadding">
+								<table aria-describedby="inner2">
 									<tr>
-										<th><?= $this->translate($groupData['datumLengthColumn']); ?></th>
-										<th><?= $this->translate('PTGEU_Length_tolerance'); ?></th>
+										<th scope="inner2"><?= $this->translate($groupData['datumLengthColumn']); ?></th>
+										<th scope="inner3"><?= $this->translate('PTGEU_Length_tolerance'); ?></th>
 									</tr>
 
 									<?php foreach ($groupData['nominalLengthList'] as $key => $value) { ?>

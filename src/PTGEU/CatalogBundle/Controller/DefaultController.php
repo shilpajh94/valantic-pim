@@ -22,6 +22,9 @@ class DefaultController extends AbstractController
     private $catalogTemplatingHelper;
     private $db;
 
+    const COMMON_HELPER = 'app.common_helper';
+    const CATALOG_CONFIG_PROVIDER_SERVICE = 'catalog.config_provider_service';
+
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
@@ -80,8 +83,8 @@ class DefaultController extends AbstractController
      * @Route("/ptgeu_catalog/get-available-headers")
      */
     public function getAvailableHeaders(Request $request) {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-        $catalogConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getCatalogConfig();
+        $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+        $catalogConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
         
         $columns = array();
@@ -114,16 +117,14 @@ class DefaultController extends AbstractController
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
         if($catalogCategoryTableObject)
         {
-            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
+            $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+            $attributeImagesConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
             $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
             $reinforcementList = $this->getReinforcementList();
 
             $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
-
-            $reinforcementListSelected = [];
 
             $nominalLengthAndDatumLengthColumnMapping = array(
                 'LP' => 'Pitch Length',
@@ -165,55 +166,55 @@ class DefaultController extends AbstractController
                 }
             }
             
-            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+            $objectLevel5thId = $fifthLevelProduct->getId();
 
-            $nominalLength = '';
-            $upperRibWidth = '';
-            $beltHeight = '';
+            $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+            $row6ThLevelDetails =  $this->db->fetchCol($sql);
+
             $profile = [];
-            foreach ($productObjectLevel6List as $productObjectLevel6) {
+            foreach ($row6ThLevelDetails as $objectLevel6thId) {
                 
-                if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                 {
-                    if(empty(trim($nominalLength)))
+                    $nominalLength= $upperRibWidth= $electricalConductivity ='';
+                    $profileObjectDetails =[];
+                    $sql = "SELECT `profile`, `ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ORDER BY  o_id ASC LIMIT 1";
+                    $profileObjectDetails =  $this->db->fetchRow($sql);
+
+                    $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId' LIMIT 1";
+                    $upperRibWidth =  $this->db->fetchColumn($sql);
+
+                    $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel6thId' LIMIT 1";
+                    $electricalConductivity =  $this->db->fetchColumn($sql);
+                    
+                    $sql = "SELECT o_id, nominalLength FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY  o_id ASC LIMIT 1";
+                    $rowDetails =  $this->db->fetchArray($sql);
+
+                    if($rowDetails)
                     {
-                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                        foreach ($productObjectLevel7List as $productObjectLevel7) {
-                            if($productObjectLevel7->getPrintedCatalogFlag() === true)
-                            {
-                                $nominalLength = $productObjectLevel7->getNominalLength();
-                            }
-                        }
+                        $fertObjId = $rowDetails[0];
+                        $nominalLength = $rowDetails[1];
+
+                        $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId' LIMIT 1";
+                        $beltHeight =  $this->db->fetchColumn($sql);
                     }
 
-                    if(empty(trim($beltHeight)))
+                    $reinforcementListSelected = [];
+                    $profile = $profileObjectDetails['profile'];
+                    $material = $profileObjectDetails['material'];
+                    $reinforcementSelected = $profileObjectDetails['reinforcement'];
+                    $reinforcementDbList = explode(',',$reinforcementSelected);
+                    $reinforcementDbList = array_filter($reinforcementDbList);
+
+                    if($reinforcementDbList)
                     {
-                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                        foreach ($productObjectLevel7List as $productObjectLevel7) {
-                            if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
-                            {
-                                $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
-                            }
-                        }
-                    }
-
-                    $groupData = [];
-                    $profile = $productObjectLevel6->getProfile();
-                    $groupData['profile'] = $profile;
-                    $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
-
-                    $material = $productObjectLevel6->getMaterial();
-                    $reinforcement = $productObjectLevel6->getReinforcement();
-
-                    if($reinforcement)
-                    {
-                        foreach ($reinforcement as $reinforcementId) {
+                        foreach ($reinforcementDbList as $reinforcementId) {
                             $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
                         }
                     }
 
                     $reinforcement = implode(', ', $reinforcementListSelected);
-                    $fabricType = $productObjectLevel6->getFabricType();
+                    $fabricType = $profileObjectDetails['fabricType'];
 
                     $beltDesignlistContent = [];
                     
@@ -231,29 +232,9 @@ class DefaultController extends AbstractController
                     {
                         $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
                     }
-                    
-                    $groupData['beltDesign'] = $beltDesignlistContent;
-                    if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
-                    {
-                        $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
-                    }
 
-                    $groupData['upperRibWidth'] = $upperRibWidth;
-                    $groupData['beltHeight'] = $beltHeight;
-                    $groupData['flankAngle'] = $productObjectLevel6->getBeltAngle(); 
-                    $groupData['hardness'] = $productObjectLevel6->getBeltHardness();
-                    $groupData['weightPerMLength'] = $productObjectLevel6->getNetWeight();
-                    $groupData['minDiameter'] = $productObjectLevel6->getMinPulleyDia();
-                    $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
-                    $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
-
-                    $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
-
-                    if($productObjectLevel6->getBase()->getPTGEUCommonBase())
-                    {
-                        $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
-                    }
-                    $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
+                    $heatAndOilResistant = $profileObjectDetails['heatAndOilResistant'];
+                    $rangeTemperatureC = $profileObjectDetails['rangeTemperatureC'];
 
                     if($heatAndOilResistant)
                     {
@@ -270,30 +251,44 @@ class DefaultController extends AbstractController
                         $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
                     }
 
+                    $groupData = [];
+                    if($nominalLength)
+                    {
+                        $nominalLengthUpperCase = strtoupper($nominalLength);
+                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
+                        $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
+
+                        $groupData['nominalLengthList'] = array(
+                            array(
+                                'datumLength' => '< 1350',
+                                'lengthTolerance' => '&plusmn;2',
+                            ),
+                            array(
+                                'datumLength' => '1350 < '.$nominalLength.' < 3550',
+                                'lengthTolerance' => '&plusmn;3',
+                            ),
+                            array(
+                                'datumLength' => '3550 < '.$nominalLength.' < 5000',
+                                'lengthTolerance' => '&plusmn;4',
+                            ),
+                            array(
+                                'datumLength' => '> 5000',
+                                'lengthTolerance' => '',
+                            )
+                        );
+                    }
+                    
+                    $groupData['profile'] = $profile;
+                    $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
+                    $groupData['beltDesign'] = $beltDesignlistContent;
+                    $groupData['upperRibWidth'] = $upperRibWidth;
+                    $groupData['beltHeight'] = $beltHeight;
+                    $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
+                    $groupData['hardness'] = $profileObjectDetails['beltHardness'];
+                    $groupData['weightPerMLength'] = $profileObjectDetails['netWeight'];
+                    $groupData['minDiameter'] = $profileObjectDetails['minPulleyDia'];
+                    $groupData['minBlackIdlerDiameter'] = $profileObjectDetails['minOutsidePulleyDia'];
                     $groupData['properties'] = $propertieslistContent;
-
-                    $nominalLengthUpperCase = strtoupper($nominalLength);
-                    $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
-
-                    $groupData['nominalLengthList'] = array(
-                        array(
-                            'datumLength' => '< 1350',
-                            'lengthTolerance' => '&plusmn;2',
-                        ),
-                        array(
-                            'datumLength' => '1350 < '.$nominalLength.' < 3550',
-                            'lengthTolerance' => '&plusmn;3',
-                        ),
-                        array(
-                            'datumLength' => '3550 < '.$nominalLength.' < 5000',
-                            'lengthTolerance' => '&plusmn;4',
-                        ),
-                        array(
-                            'datumLength' => '> 5000',
-                            'lengthTolerance' => '',
-                        )
-                    );
-
                     $profileData[$profile] = $groupData;
                 }
             }
@@ -308,11 +303,11 @@ class DefaultController extends AbstractController
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_page')->getElement();
         if($catalogCategoryTableObject)
         {
-            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-            $attributeImagesConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getAttributeImagesConfig();
-            $priceListTableConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getPriceListTableConfig();
+            $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+            $attributeImagesConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
+            $priceListTableConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getPriceListTableConfig();
 
-            $catalogConfig = \Pimcore::getContainer()->get('catalog.config_provider_service')->getCatalogConfig();
+            $catalogConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
             $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
             $DynamicTableAttribute = $ptgProductPageConfig['Dynamic Table Attribute'];
             $tableSortingFields = $ptgProductPageConfig['Table Sorting Fields'];
