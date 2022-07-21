@@ -216,7 +216,6 @@ class PlantMaterialService
             $distributionChannel = $rowvalue[$columnDistributionChannel];
 
             $errorsData = $this->validateMaterialSalesDistributionValues($material, $salesOrg, $distributionChannel);
-            
             if(!count($errorsData))
             {
                 try
@@ -232,8 +231,8 @@ class PlantMaterialService
                         $objectArr          = $processedRowData['objectArr'];
                         
                         $objId              = $this->tableImportHelper->insertInObjects($objectArr);
-
                         $prepareTableData = $this->prepareTableDataArray($objId, $materialObjId, $rowvalue);
+
                         $queryTableDataArray[] = $prepareTableData['queryTableData'];
                         $storeTableDataArray[] = $prepareTableData['storeTableData'];
                         $relationTableDataArray = array_merge($relationTableDataArray, $prepareTableData['objectRelationsTableData']);
@@ -242,8 +241,10 @@ class PlantMaterialService
                         unset($prepareTableData);
 
                         $errorsData['SUCCESS'] = "Plant Material Code: ".$plantMaterialKey." has been ".$createdOrUpdated.".";
+
                     }
                     else{
+
                         $errorsData[] = "Material ".$material. " not found in system.";
                         $this->failedIDs[] = $rowvalueRecord['id'];
                     }
@@ -306,7 +307,7 @@ class PlantMaterialService
                 if($objDelete)
                 {
                     $deleteCount++;
-                    $objDelete->setDeletedFlagAtPlantLevel(1);
+                    // $objDelete->setDeletedFlagAtPlantLevel(1);
                     $objDelete->setPublished(FALSE);
                     $objDelete->save();
                 }
@@ -335,15 +336,16 @@ class PlantMaterialService
         $columnConversionDenominator = $this->mappingCsvColumn['conversionDenominator'];
         $columnConversionNumerator = $this->mappingCsvColumn['conversionNumerator'];
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
-        $columnStockIndicatorDescription = $this->mappingCsvColumn['Stock Indicator - Description'];
-        $columnMrpController = $this->mappingCsvColumn['MRP Controller'];
+        $columnStockIndicatorDescription = $this->mappingCsvColumn['stockIndicatorDescription'];
+        $columnMrpController = $this->mappingCsvColumn['mrpController'];
         $columnOutsidePurchaseIdentifier = $this->mappingCsvColumn['outsidePurchaseIdentifierOrProcurementType'];
         $columnTariffCodes =  $this->mappingCsvColumn['tariffCodes'];
+        $columnTotalReplenismentLeadTime =  $this->mappingCsvColumn['totalReplenismentLeadTime'];
 
         $deliveryUnitUOM = $rowvalue[$columnDeliveryUnitUOM];
         $baseUOM = $rowvalue[$columnBaseUOM];
         $epixFlag = $rowvalue[$columnEPIXFlag];
-        $minOrderQty = $rowvalue[$columnMinOrderQty];
+        $minOrderQty = ($rowvalue[$columnMinOrderQty]) != '' ? $rowvalue[$columnMinOrderQty] : NULL;
         $tariffCodes = $rowvalue[$columnTariffCodes];
         $mrpController = $rowvalue[$columnMrpController];
         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
@@ -352,6 +354,7 @@ class PlantMaterialService
         $stockIndicator = $rowvalue[$columnStockIndicator]; 
         $stockIndicatorDescription = $rowvalue[$columnStockIndicatorDescription]; 
         $outsidePurchaseIdentifierOrProcurementType = $rowvalue[$columnOutsidePurchaseIdentifier];
+        $totalReplenismentLeadTime = $rowvalue[$columnTotalReplenismentLeadTime];
 
         $plantName = $rowvalue[$columnPlant];
         $salesOrg = $rowvalue[$columnSalesOrg];
@@ -376,10 +379,10 @@ class PlantMaterialService
             'mrpController' => $mrpController,
             'stockIndicator' => $stockIndicator,
             'stockIndicatorDescription' => $stockIndicatorDescription,
-            'OrderingQuantityIncrements' => $orderQtyInc
+            'OrderingQuantityIncrements' => $orderQtyInc,
+            'totalReplenismentLeadTime' => $totalReplenismentLeadTime
         ];
         $data['storeTableData'] = $storeTableData;
-
         $queryTableData = [
             'oo_classId' => 40,
             'oo_className' => 'PTGEUPlantMaterialMaster',

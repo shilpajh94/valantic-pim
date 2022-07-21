@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-19T06:19:48+02:00
+* Generated at: 2022-07-21T16:18:00+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -23,7 +23,7 @@ Fields Summary:
 - distributionChannel [manyToOneRelation]
 - mrpController [input]
 - totalReplenismentLeadTime [numeric]
-- stockIndicator [select]
+- stockIndicator [input]
 - stockIndicatorDescription [input]
 - conversionNumerator [input]
 - conversionDenominator [input]
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658204388,
+   'modificationDate' => 1658413080,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -676,42 +676,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'S',
-                        'value' => 'S',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'N',
-                        'value' => 'N',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'SP',
-                        'value' => 'SP',
-                      ),
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 350,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
                      'phpdocType' => 'string',
-                     'dynamicOptions' => false,
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'stockIndicator',
                      'title' => 'Stock Indicator',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => 'float:left; margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
