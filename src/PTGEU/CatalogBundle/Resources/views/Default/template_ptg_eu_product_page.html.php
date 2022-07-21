@@ -282,7 +282,7 @@ if($groupData){
                                 }
                                 else
                                 {
-                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['technicalDrawing1Obj']);
                                 }
                         }else{
                                 $imgSrcObj2 = $this->image("Drawing_Picture");

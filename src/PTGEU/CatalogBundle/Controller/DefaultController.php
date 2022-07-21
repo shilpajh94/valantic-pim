@@ -114,6 +114,9 @@ class DefaultController extends AbstractController
 
     public function templatePtgEuProductProfileAction(Request $request)
     {
+        $language = $this->document->getProperty('language');
+        $language = $language ? $language : 'en';
+
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
         if($catalogCategoryTableObject)
         {
@@ -122,11 +125,9 @@ class DefaultController extends AbstractController
             $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
-            $reinforcementList = $this->getReinforcementList();
+            $reinforcementList = $this->getReinforcementList($language);
 
             $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
-
-            $reinforcementListSelected = [];
 
             $nominalLengthAndDatumLengthColumnMapping = array(
                 'LP' => 'Pitch Length',
@@ -140,16 +141,11 @@ class DefaultController extends AbstractController
 
             if($PTGEUProductHierarchy)
             {   
-                $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
-                $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
-                $fifthLevelEntries->setLimit(1);
-
-                foreach ($fifthLevelEntries as $entry) {
-                    $fifthLevelProduct = $entry;
-                }
+                $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'base' AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
+                $objectLevel5thId =  $this->db->fetchColumn($sql);
             }
 
-            if($fifthLevelProduct)
+            if($objectLevel5thId)
             {
                 $seventhLevelProductList = [];
 
@@ -157,64 +153,64 @@ class DefaultController extends AbstractController
                 {
                     foreach ($sixSevenLevelCategoryObj as $categoryId) {
 
-                        $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
-                        $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
-                        $seventhLevelEntries->setLimit(1);
+                        $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
+                        $objectLevel7thId =  $this->db->fetchColumn($sql);
 
-                        foreach ($seventhLevelEntries as $entry) {
-                            $seventhLevelProductList[] = $entry->getId();
+                        if($objectLevel7thId) 
+                        {
+                            $seventhLevelProductList[] = $objectLevel7thId;
                         }
                     }
                 }
             }
-            
-            $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
+            $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+            $row6ThLevelDetails =  $this->db->fetchCol($sql);
             
             $profile = [];
-            foreach ($productObjectLevel6List as $productObjectLevel6) {
+            foreach ($row6ThLevelDetails as $objectLevel6thId) {
                 
-                if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                 {
-                    $nominalLength = '';
-                    $upperRibWidth = '';
-                    $beltHeight = '';
+                    $nominalLength= $upperRibWidth= $electricalConductivity ='';
+                    $profileObjectDetails =[];
+                    $sql = "SELECT `profile`, `ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                    $profileObjectDetails =  $this->db->fetchRow($sql);
+
+                    $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId'";
+                    $upperRibWidth =  $this->db->fetchColumn($sql);
+
+                    $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel6thId'";
+                    $electricalConductivity =  $this->db->fetchColumn($sql);
                     
-                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                    foreach ($productObjectLevel7List as $productObjectLevel7) {
-                        if($productObjectLevel7->getPrintedCatalogFlag() === true)
-                        {
-                            $nominalLength = $productObjectLevel7->getNominalLength();
-                            break;
-                        }
-                    }
-                    
-                    $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                    foreach ($productObjectLevel7List as $productObjectLevel7) {
-                        if(($productObjectLevel7->getPrintedCatalogFlag() === true) && ($productObjectLevel7->getFert()->getPTGEUCommonFert()))
-                        {
-                            $beltHeight = $productObjectLevel7->getFert()->getPTGEUCommonFert()->getHeightMM();
-                            break;
-                        }
-                    }
+                    $sql = "SELECT o_id, nominalLength FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
+                    $rowDetails =  $this->db->fetchArray($sql);
 
-                    $groupData = [];
-                    $profile = $productObjectLevel6->getProfile();
-                    $groupData['profile'] = $profile;
-                    $groupData['brandName'] = $productObjectLevel6->getProductName(). " " . $profile;
-
-                    $material = $productObjectLevel6->getMaterial();
-                    $reinforcement = $productObjectLevel6->getReinforcement();
-
-                    if($reinforcement)
+                    if($rowDetails)
                     {
-                        foreach ($reinforcement as $reinforcementId) {
+                        $fertObjId = $rowDetails[0];
+                        $nominalLength = $rowDetails[1];
+
+                        $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
+                        $beltHeight =  $this->db->fetchColumn($sql);
+                    }
+
+                    $reinforcementListSelected = [];
+                    $profile = $profileObjectDetails['profile'];
+                    $material = $profileObjectDetails['material'];
+                    $reinforcementSelected = $profileObjectDetails['reinforcement'];
+                    $reinforcementDbList = explode(',',$reinforcementSelected);
+                    $reinforcementDbList = array_filter($reinforcementDbList);
+
+                    if($reinforcementDbList)
+                    {
+                        foreach ($reinforcementDbList as $reinforcementId) {
                             $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
                         }
                     }
 
                     $reinforcement = implode(', ', $reinforcementListSelected);
-                    $fabricType = $productObjectLevel6->getFabricType();
+                    $fabricType = $profileObjectDetails['fabricType'];
 
                     $beltDesignlistContent = [];
                     
@@ -232,25 +228,30 @@ class DefaultController extends AbstractController
                     {
                         $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
                     }
-                    
-                    $groupData['beltDesign'] = $beltDesignlistContent;
-                    if($productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton())
+
+                    $heatAndOilResistant = $profileObjectDetails['heatAndOilResistant'];
+                    $rangeTemperatureC = $profileObjectDetails['rangeTemperatureC'];
+
+                    if($heatAndOilResistant)
                     {
-                        $upperRibWidth = $productObjectLevel6->getSkeleton()->getPTGEUFlatBeltsSkeleton()->getWidthMM();
+                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
                     }
 
-                    $groupData['upperRibWidth'] = $upperRibWidth;
-                    $groupData['beltHeight'] = $beltHeight;
-                    $groupData['flankAngle'] = $productObjectLevel6->getBeltAngle(); 
-                    $groupData['hardness'] = $productObjectLevel6->getBeltHardness();
-                    $groupData['weightPerMLength'] = $productObjectLevel6->getNetWeight();
-                    $groupData['minDiameter'] = $productObjectLevel6->getMinPulleyDia();
-                    $groupData['minBlackIdlerDiameter'] = $productObjectLevel6->getminOutsidePulleyDia();
+                    if($electricalConductivity)
+                    {
+                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
+                    }
 
+                    if($rangeTemperatureC)
+                    {
+                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
+                    }
+
+                    $groupData = [];
                     if($nominalLength)
                     {
-                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
                         $nominalLengthUpperCase = strtoupper($nominalLength);
+                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
                         $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
 
                         $groupData['nominalLengthList'] = array(
@@ -272,30 +273,17 @@ class DefaultController extends AbstractController
                             )
                         );
                     }
-
-                    $heatAndOilResistant = $productObjectLevel6->getHeatAndOilResistant();
-
-                    if($productObjectLevel6->getBase()->getPTGEUCommonBase())
-                    {
-                        $electricalConductivity = $productObjectLevel6->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
-                    }
-                    $rangeTemperatureC = $productObjectLevel6->getRangeTemperatureC();
-
-                    if($heatAndOilResistant)
-                    {
-                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
-                    }
-
-                    if($electricalConductivity)
-                    {
-                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
-                    }
-
-                    if($rangeTemperatureC)
-                    {
-                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
-                    }
-
+                    
+                    $groupData['profile'] = $profile;
+                    $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
+                    $groupData['beltDesign'] = $beltDesignlistContent;
+                    $groupData['upperRibWidth'] = $upperRibWidth;
+                    $groupData['beltHeight'] = $beltHeight;
+                    $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
+                    $groupData['hardness'] = $profileObjectDetails['beltHardness'];
+                    $groupData['weightPerMLength'] = $profileObjectDetails['netWeight'];
+                    $groupData['minDiameter'] = $profileObjectDetails['minPulleyDia'];
+                    $groupData['minBlackIdlerDiameter'] = $profileObjectDetails['minOutsidePulleyDia'];
                     $groupData['properties'] = $propertieslistContent;
                     $profileData[$profile] = $groupData;
                 }
@@ -307,6 +295,9 @@ class DefaultController extends AbstractController
     }
     public function templatePtgEuProductPageAction(Request $request)
     {
+        $language = $this->document->getProperty('language');
+        $language = $language ? $language : 'en';
+
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_page')->getElement();
         if($catalogCategoryTableObject)
@@ -334,28 +325,28 @@ class DefaultController extends AbstractController
             $objColumnsData = $catalogCategoryTableObject->getColumns();
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
-            
 
-            $reinforcementList = $this->getReinforcementList();
+            $reinforcementList = $this->getReinforcementList($language);
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
-            $siop5Category = '';
+            $siop5Category = $PTGEUProductHierarchy->getPrintedCatalogDescription();
             $siop6siop7Category = '';
-            if($PTGEUProductHierarchy)
-            {   $siop5Category = $PTGEUProductHierarchy->getDescription();
-                $fifthLevelEntries = new DataObject\PTGEUProduct\Listing();
-                $fifthLevelEntries->setCondition("productType = ? AND hierarchyLevel5 LIKE ?", ["base","%$fifthLevelCategoryObj%"]);
-                $fifthLevelEntries->setLimit(1);
+            $objectLevel5thDetails = '';
 
-                foreach ($fifthLevelEntries as $entry) {
-                    $fifthLevelProduct = $entry;
+            if($PTGEUProductHierarchy)
+            {   
+                $sql = "SELECT * FROM `object_query_38` WHERE productType = 'base' AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
+                $objectLevel5thDetails =  $this->db->fetchRow($sql);
+
+                if($objectLevel5thDetails)
+                {
+                    $objectLevel5thId = $objectLevel5thDetails['oo_id'];
                 }
             }
 
             $groupData = array();
             
-            
-            if($fifthLevelProduct)
+            if($objectLevel5thId)
             {
                 $seventhLevelProductList = [];
 
@@ -363,12 +354,12 @@ class DefaultController extends AbstractController
                 {
                     foreach ($sixSevenLevelCategoryObj as $categoryId) {
 
-                        $seventhLevelEntries = new DataObject\PTGEUProduct\Listing();
-                        $seventhLevelEntries->setCondition("productType = ? AND hierarchyLevel7 LIKE ?", ["skeleton","%$categoryId%"]);
-                        $seventhLevelEntries->setLimit(1);
+                        $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
+                        $objectLevel7thId =  $this->db->fetchColumn($sql);
 
-                        foreach ($seventhLevelEntries as $entry) {
-                            $seventhLevelProductList[] = $entry->getId();
+                        if($objectLevel7thId) 
+                        {
+                            $seventhLevelProductList[] = $objectLevel7thId;
                         }
                     }
                 }
@@ -425,16 +416,24 @@ class DefaultController extends AbstractController
                 $this->subHeaderRequired = 'YES';
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
                 $groupData['iconRequired'] = $this->iconRequired;
-                $groupData['material'] = $fifthLevelProduct->getMaterial();
-                $groupData['heatAndOilResistant'] = $fifthLevelProduct->getHeatAndOilResistant();
-                $groupData['performance'] = $fifthLevelProduct->getPerformance();
-                $groupData['electricalConductivy'] = $fifthLevelProduct->getBase()->getPTGEUCommonBase()->getElectricalConductivity();
+                $groupData['material'] = $objectLevel5thDetails['material'];
+                $groupData['heatAndOilResistant'] = $objectLevel5thDetails['heatAndOilResistant'];
+                $groupData['performance'] = $objectLevel5thDetails['performance'];
+
+                $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel5thId'";
+                $electricalConductivity =  $this->db->fetchColumn($sql);
+
+                $groupData['electricalConductivy'] = $electricalConductivity;
 
                 $reinforcementListSelected = [];
-                if($fifthLevelProduct->getReinforcement())
+
+                $reinforcementSelected = $objectLevel5thDetails['reinforcement'];
+                $reinforcementDbList = explode(',',$reinforcementSelected);
+                $reinforcementDbList = array_filter($reinforcementDbList);
+
+                if($reinforcementDbList)
                 {
-                    $reinforcement = $fifthLevelProduct->getReinforcement();
-                    foreach ($reinforcement as $reinforcementId) {
+                    foreach ($reinforcementDbList as $reinforcementId) {
                         $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
                     }
                 }
@@ -443,13 +442,17 @@ class DefaultController extends AbstractController
                         
                 $groupData['reinforcement'] = $reinforcement;
 
-                $this->featuresList = $this->getFeaturesList('en');
+                $this->featuresList = $this->getFeaturesList($language);
                 
                 $safetyFeatures = array();
 
-                if($fifthLevelProduct->getFeaturesBenefitsBulletPoint())
+                $featuresBenefitsBulletPointSelected = $objectLevel5thDetails['FeaturesBenefitsBulletPoint'];
+                $featuresBenefitsBulletPointSelectedDbList = explode(',',$featuresBenefitsBulletPointSelected);
+                $featuresBenefitsBulletPointSelectedDbList = array_filter($featuresBenefitsBulletPointSelectedDbList);
+
+                if($featuresBenefitsBulletPointSelectedDbList)
                 {
-                    foreach ($fifthLevelProduct->getFeaturesBenefitsBulletPoint() as $feature) {
+                    foreach ($featuresBenefitsBulletPointSelectedDbList as $feature) {
                         array_push($safetyFeatures,$feature);
                     }
                 }
@@ -457,61 +460,77 @@ class DefaultController extends AbstractController
                 $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                 
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
-                $groupData['mainImageObj'] = $fifthLevelProduct->getMainImage1();
-                $groupData['ProfileDimensionImageObj'] = $fifthLevelProduct->getTechnicalDrawing1();
-                $groupData['longDescription'] = $fifthLevelProduct->getLongDescription();
 
-                if($fifthLevelProduct->getRangeTemperatureF() && $fifthLevelProduct->getRangeTemperatureC())
+                if($objectLevel5thDetails['mainImage1'])
                 {
-                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF()."(".$fifthLevelProduct->getRangeTemperatureC().")";
+                    $mainImageObj = \Pimcore\Model\Asset::getById($objectLevel5thDetails['mainImage1']);
                 }
-                else if($fifthLevelProduct->getRangeTemperatureF())
+                $groupData['mainImageObj'] = $mainImageObj;
+
+                if($objectLevel5thDetails['technicalDrawing1'])
                 {
-                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureF();
+                    $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($objectLevel5thDetails['technicalDrawing1']);
                 }
-                else if($fifthLevelProduct->getRangeTemperatureC())
+                $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
+
+                $sql = "SELECT longDescription FROM `object_localized_query_38_$language` WHERE ooo_id = '$objectLevel5thId' LIMIT 1";
+                $longDescription =  $this->db->fetchColumn($sql);
+                $groupData['longDescription'] = $longDescription;
+
+                if($objectLevel5thDetails['rangeTemperatureF'] && $objectLevel5thDetails['rangeTemperatureC'])
                 {
-                    $groupData['temperatureRange'] = $fifthLevelProduct->getRangeTemperatureC();
+                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF']."(".$objectLevel5thDetails['rangeTemperatureC'].")";
+                }
+                else if($objectLevel5thDetails['rangeTemperatureF'])
+                {
+                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF'];
+                }
+                else if($objectLevel5thDetails['rangeTemperatureC'])
+                {
+                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureC'];
                 }
                 
-                $groupData['brandName'] = $fifthLevelProduct->getProductName();
+                $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
                 
-                $productObjectLevel6List = $fifthLevelProduct->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+                $row6ThLevelDetails =  $this->db->fetchAll($sql);
 
                 $notApplicableFields = [];
                 $articleData = [];
-                foreach ($productObjectLevel6List as $productObjectLevel6) {
-                    
-                    if(empty($seventhLevelProductList) || in_array($productObjectLevel6->getId(), $seventhLevelProductList))
+                foreach ($row6ThLevelDetails as $objectLevel6) {
+                    $objectLevel6thId = $objectLevel6['o_id'];
+                    if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                     {
-                        $productObjectLevel7List = $productObjectLevel6->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ORDER BY o_id ASC";
+                        $productObjectLevel7List =  $this->db->fetchAll($sql);
+
                         foreach ($productObjectLevel7List as $article) {
-                            if($article->getPrintedCatalogFlag() === true)
+                            if($article['printedCatalogFlag'] == '1')
                             {
                                 foreach ($orderFieldNameList as $fieldName => $fields) {
                                     if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
                                     {
-                                        $method = "get".ucfirst($fieldName);
-                                        $data[$fieldName] = $article->$method();
+                                        $data[$fieldName] = $article[$fieldName];
                                     }
                                     else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
                                     {
-                                        $method = "get".ucfirst($fieldName);
-                                        $data[$fieldName] = $fifthLevelProduct->$method();
+                                        $data[$fieldName] = $objectLevel5thDetails[$fieldName];
                                     }
                                     else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
                                     {
-                                        $method = "get".ucfirst($fieldName);
-                                        $data[$fieldName] = $productObjectLevel6->$method();
+                                        $data[$fieldName] = $objectLevel6[$fieldName];
                                     }
                                     else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
                                     {
-                                        $fertMethod = "get".ucfirst($fields['objectBrickType']);
-                                        $fertNameMethod = "get".$fields['objectBrickName'];
-                                        $method = "get".ucfirst($fieldName);
-                                        if($article->$fertMethod()->$fertNameMethod())
+
+                                        $o_id = $article['o_id'];
+                                        $objectBrickName = $fields['objectBrickName'];
+                                        $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
+                                        $rowData =  $this->db->fetchRow($sql);
+                                        
+                                        if($rowData)
                                         {
-                                            $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                            $data[$fieldName] = $rowData[$fieldName];
                                         }
                                         else
                                         {
@@ -530,32 +549,29 @@ class DefaultController extends AbstractController
 
                                             if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
                                             {
-                                                $method = "get".ucfirst($fieldName);
-                                                $data[$fieldName] = $article->$method();
+                                                $data[$fieldName] = $article[$fieldName];
                                             }
                                             else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
                                             {
-                                                $method = "get".ucfirst($fieldName);
-                                                $data[$fieldName] = $fifthLevelProduct->$method();
+                                                $data[$fieldName] = $objectLevel5thDetails[$fieldName];
                                             }
                                             else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
                                             {
-                                                $method = "get".ucfirst($fieldName);
-                                                $data[$fieldName] = $productObjectLevel6->$method();
+                                                $data[$fieldName] = $objectLevel6[$fieldName];
                                             }
                                             else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
                                             {
-                                                $fertMethod = "get".ucfirst($fieldConfig['objectBrickType']);
-                                                $fertNameMethod = "get".$fieldConfig['objectBrickName'];
-                                                $method = "get".ucfirst($fieldName);
-                                                
-                                                if($article->$fertMethod()->$fertNameMethod())
+                                                $o_id = $article['o_id'];
+                                                $objectBrickName = $fieldConfig['objectBrickName'];
+                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
+                                                $rowData =  $this->db->fetchRow($sql);
+
+                                                if($rowData)
                                                 {
-                                                    $data[$fieldName] = $article->$fertMethod()->$fertNameMethod()->$method();
+                                                    $data[$fieldName] = $rowData[$fieldName];
                                                 }
                                                 else
                                                 {
-                                                    
                                                     $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
                                                 }
                                             }
@@ -565,20 +581,23 @@ class DefaultController extends AbstractController
 
                                 if($IsPriceCatalog)
                                 {
-                                    $priceData = $article->getPriceData();
-                                    $listPrice = '';
-                                    if($priceData)
+                                    if($article['priceData'])
                                     {
-                                        foreach ($priceData as $rvalue) 
-                                        {
-                                            if(($rvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($rvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($rvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
-                                            {
-                                                $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity Start Date']]);
-                                                $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$rvalue[$priceListTableColumn['Validity End Date']]);
+                                        $recordArray = explode(PHP_EOL, $article['priceData']);
 
-                                                if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
-                                                    $listPrice = $rvalue[$priceListTableColumn['Rate']];
-                                                    break;
+                                        if(count($recordArray))
+                                        {
+                                            foreach ($recordArray as $rvalue) {
+                                                $pvalue = explode('|', $rvalue);
+                                                if(($pvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
+                                                {
+                                                    $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
+                                                    $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
+
+                                                    if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
+                                                        $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
@@ -586,12 +605,11 @@ class DefaultController extends AbstractController
 
                                     $data['listPrice'] = $listPrice;
                                 }
-                                $articleData[$article->getProfile()][] = $data;
+                                $articleData[$article['profile']][] = $data;
                             }
                         }
                     }
                 }
-
                 
                 if($tableSortingFields)
                 {
@@ -790,7 +808,7 @@ class DefaultController extends AbstractController
         return $columnsDataWithImages;
     }
 
-    private function getReinforcementList() :array
+    private function getReinforcementList($language) :array
     {
         $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
         $list->setCondition(" masterType = :masterType ",["masterType" => "ProductClass~reinforcement"]);
@@ -798,7 +816,7 @@ class DefaultController extends AbstractController
 
         $returnValue = [];
         foreach($list as $object){
-            $returnValue[$object->getId()] = $object->getName();
+            $returnValue[$object->getId()] = $object->getName($language);
         }
         return $returnValue;
     }
