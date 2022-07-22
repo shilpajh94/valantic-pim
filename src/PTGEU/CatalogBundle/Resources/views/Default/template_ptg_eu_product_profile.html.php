@@ -308,7 +308,7 @@ if (!isset($this->parentContainer)) {
 									if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
 									{
 									?>
-									<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo" width="90% !important"/>
+									<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
 									<?php
 									}
 							}

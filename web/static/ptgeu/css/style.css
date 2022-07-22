@@ -23,13 +23,12 @@ z-index: 10;
 }
 
 .img-wrapper .branding-img{
-  width: 70%;
+  height: auto;
+  display: block;
 }
 
 .img-wrapper .branding-img img{
-    max-width: 100%;
-    height: auto;
-    display: block;
+  max-height: 50px;
 }
 
 .set1{
