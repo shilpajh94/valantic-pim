@@ -373,7 +373,7 @@ class PlantMaterialService
             'baseUOM' => $baseUOM,
             'conversionDenominator' => $conversionDenominator,
             'conversionNumerator' => $conversionNumerator,
-            'epixFlag' => $epixFlag,
+            'epixFlag' => (strtoupper(trim($epixFlag)) == 'X') ? 1 : -1,
             'outsidePurchaseIdentifierOrProcurementType' => strtoupper($outsidePurchaseIdentifierOrProcurementType),
             'tariffCodes' => $tariffCodes,
             'mrpController' => $mrpController,

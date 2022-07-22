@@ -18,6 +18,9 @@ class CompletenessPercentageService
         $emptyAttributes='';
         $emptyAttributesLocalized = '';
         $completedPercentage = 0;
+        if ($object->getType() == 'folder') {
+            return null;
+        }
         $classDefinition = ClassDefinition::getByName($object->getClassName());
 
         $langs = \Pimcore\Tool::getValidLanguages();

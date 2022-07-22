@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-21T16:18:00+02:00
+* Generated at: 2022-07-22T08:05:01+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -17,7 +17,7 @@ Fields Summary:
 - outsidePurchaseIdentifierOrProcurementType [select]
 - tariffCodes [numeric]
 - deliveryUnitUOM [input]
-- epixFlag [select]
+- epixFlag [booleanSelect]
 - baseUOM [input]
 - salesOrganization [manyToOneRelation]
 - distributionChannel [manyToOneRelation]
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658413080,
+   'modificationDate' => 1658469900,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -440,37 +440,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
                      'options' => 
                     array (
                       0 => 
                       array (
-                        'key' => 'Epix Material',
-                        'value' => '001',
+                        'key' => 'Empty',
+                        'value' => 0,
                       ),
                       1 => 
                       array (
-                        'key' => 'Chem Do Not Forecast',
-                        'value' => '002',
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
                       ),
                     ),
                      'width' => 350,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
                      'name' => 'epixFlag',
                      'title' => 'Epix Flag / B2B Flag',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -478,7 +481,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -693,7 +695,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'float:left; margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
