@@ -66,6 +66,12 @@ li span {
   font-family: "ContinentalStagSansLCG-light";
 }
 
+.features-benefit-black{
+  font-size: 18px;
+  color: #000000;
+  font-family: "ContinentalStagSansLCG-light";
+}
+
 .feature-benefit-list h3,
 h3 {
   font-size: 14px;

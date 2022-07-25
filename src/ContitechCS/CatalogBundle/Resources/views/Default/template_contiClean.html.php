@@ -100,6 +100,21 @@
                         <?php
                     }
                 } ?>
+
+                <div>
+                    <table width="100%">
+                        <tr>
+                            <th>
+                                <?= $this->input("First_Image_Name", ['placeholder'=>'Image Name']) ?>
+                            </th>
+                            <th>
+                                <?= $this->input("Second_Image_Name", ['placeholder'=>'Image Name']) ?>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+
+
             </div>
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
