@@ -23,12 +23,13 @@ class ObjectsListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        $className = $object->getClassName();
-        
-        if ($className == 'PTGEUProduct') 
-        {
-            $this->percentageCompletionService->completenessPercentage($object);
+        if ($object->getType() != 'folder') {
+            $className = $object->getClassName();
+            
+            if ($className == 'PTGEUProduct') 
+            {
+                $this->percentageCompletionService->completenessPercentage($object);
+            }
         }
-
     } 
 }
