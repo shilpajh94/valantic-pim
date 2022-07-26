@@ -13,6 +13,7 @@ use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BCategoryAttributeConfigProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
 use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BCategoryHelper;
+use PimDataPostBundle\Lib\Util;
 
 /**
  * Description of B2BCategoryRequestBodyGenerator
@@ -88,6 +89,9 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
             if (!empty($config[$key])) {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
+                    if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
+                        $value = Util::formatWysiwygValue($value);
+                    }
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if ($value !== null && $this->checkIfTypeIsAllowed($attributeConfig)) {
                         $type = $config[$key]['pim_attribute_type'];

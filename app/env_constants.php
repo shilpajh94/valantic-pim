@@ -70,7 +70,7 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
     // this is being used by workflow reminder cron
-    define("APPLICATION_HOST","http://stage.pim.conti.de");
+    define("APPLICATION_HOST","https://stage.pim.conti.de");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "stage-ImageThumbnails");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 

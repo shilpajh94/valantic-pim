@@ -236,4 +236,10 @@ Class Util
         return $session->get($key);
     }
 
+    public static function formatWysiwygValue(?string $value): ?string
+    {
+        $value = html_entity_decode($value);
+        return str_replace("&nbsp;", " ", $value);
+    }
+
 }

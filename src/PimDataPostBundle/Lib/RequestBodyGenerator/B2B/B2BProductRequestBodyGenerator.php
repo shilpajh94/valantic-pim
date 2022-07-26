@@ -7,6 +7,7 @@ use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
+use PimDataPostBundle\Lib\Util;
 
 class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
 {
@@ -84,6 +85,9 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                 if ($this->checkIfSendToSF($attributeConfig)) {
                     if($key === "oldMaterialCode" && trim($value) === "N/A" ){
                         $value = null;
+                    }
+                    if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
+                        $value = Util::formatWysiwygValue($value);
                     }
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {

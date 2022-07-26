@@ -84,6 +84,9 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
             if (!empty($config[$key])) {
                 $attributeConfig = $config[$key];
                 if ($this->checkIfSendToSF($attributeConfig)) {
+                    if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
+                        $value = Util::formatWysiwygValue($value);
+                    }
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig)) && $attributeConfig['pim_attribute_name'] != 'Document') {
                         $type = $config[$key]['pim_attribute_type'];
