@@ -122,7 +122,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php if($this->editmode):?>
                             <div class="attr-font">Attribute Name = Name</div>
                         <?php endif;?>
-                        <h3>
+                        <h4>
                             <span class="orange">
                                 <strong>
                                     <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
@@ -134,11 +134,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </span>
 
                             <span class="light-black" style="color:black">
-                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
+                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits dd']) ?>
                             </span>            
 
 
-                        </h3>
+                        </h4>
 
                         <ul>
                             <?php 
@@ -419,7 +419,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty() || $this->textarea("PPFB_Comment")->isEmpty()) || $data['FeaturesAndBenefitsWithoutImages']): ?>
                         <div class="feature-benefit-list">
                             <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty())): ?>
-                                <h3>
+                                <h4>
                                     <?php if(!$this->input("PPF_ProductName")->isEmpty()): ?>
                                         <span class="orange">
                                             <strong>
@@ -433,7 +433,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Enter Feature Benefits Label']); ?>
                                         </span>   
                                     <?php endif; ?>
-                                </h3>
+                                </h4>
                             <?php endif; ?>
                             
                             <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
