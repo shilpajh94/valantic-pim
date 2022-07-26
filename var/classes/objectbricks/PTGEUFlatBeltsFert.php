@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-30T09:45:23+02:00
+* Generated at: 2022-07-26T07:41:27+02:00
 * IP: ::1
 
 
@@ -115,7 +115,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
+                     'decimalPrecision' => NULL,
                      'name' => 'numberOfTeethZ',
                      'title' => 'Number of Teeth (Z)',
                      'tooltip' => '',
