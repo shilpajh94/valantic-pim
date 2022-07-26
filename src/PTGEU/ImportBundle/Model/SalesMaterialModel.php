@@ -56,8 +56,10 @@ class SalesMaterialModel
     	foreach ($dataArray as $data) {
     		$valueArray = [];
     		foreach ($valColumns as $key) {
-    			$valueArray[] = $this->db->quote($data[$key]);
+    			$valueArray[] = $data[$key] == '' ? 'null' : $this->db->quote($data[$key]);
     		}
+            
+
             $values .= '('.implode(",", $valueArray).'),';
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {

@@ -43,8 +43,9 @@ class PlantMaterialModel
     	$values = '';
     	foreach ($dataArray as $data) {
     		$valueArray = [];
+
     		foreach ($valColumns as $key) {
-    			$valueArray[] = $this->db->quote($data[$key]);
+                $valueArray[] = $data[$key] == '' ? 'null' : $this->db->quote($data[$key]);
     		}
             $values .= '('.implode(",", $valueArray).'),';
             // inserting records in batch
@@ -55,10 +56,11 @@ class PlantMaterialModel
             }
             $rowCount++;
         }
+
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
             $this->db->query($query);
-        }
+        }        
     }
 
 
@@ -123,7 +125,6 @@ class PlantMaterialModel
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
                 $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
-
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',').$update;
@@ -133,7 +134,6 @@ class PlantMaterialModel
                 $rowCount++;
 
             }
-
             if ($values) {
                 $query = $sql.rtrim($values, ',').$update ;
                 $this->db->query($query);

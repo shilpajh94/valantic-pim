@@ -356,8 +356,8 @@ class SalesMaterialService
                             'CountryOfOrigin__type' => 'object',
                             'salesText1' => $salesText1,
                             'salesText2' => $salesText2,
-                            'epixFlag' => $epixFlag,
-                            'pricePageFlag' => $pricePageFlag,
+                            'epixFlag' => (strtoupper(trim($epixFlag)) == 'X') ? 1 : -1,
+                            'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
                             'Material' => ",".$materialObjId.",",
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
@@ -367,10 +367,10 @@ class SalesMaterialService
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
                             'SalesUOM' => $salesUnit,
-                            'epixFlag' => $epixFlag,
+                            'epixFlag' => (strtoupper(trim($epixFlag)) == 'X') ? 1 : -1,
                             'salesText1' => $salesText1,
                             'salesText2' => $salesText2,
-                            'pricePageFlag' => $pricePageFlag,
+                            'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
