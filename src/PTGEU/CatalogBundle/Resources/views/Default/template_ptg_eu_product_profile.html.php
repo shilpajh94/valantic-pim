@@ -118,7 +118,7 @@ if (!isset($this->parentContainer)) {
 							}
 							else
 							{
-									echo $this->image("PTGEU_Product_TechnicalImage_$profileKey")->setImage($groupData['technicalImageObj']);
+									echo $this->image("PTGEU_Product_TechnicalImage_$profileKey")->setImage($groupData['technicalDrawing1Obj']);
 							}
 									
 					}else{

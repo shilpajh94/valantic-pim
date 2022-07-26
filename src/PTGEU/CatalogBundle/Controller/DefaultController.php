@@ -24,6 +24,7 @@ class DefaultController extends AbstractController
 
     const COMMON_HELPER = 'app.common_helper';
     const CATALOG_CONFIG_PROVIDER_SERVICE = 'catalog.config_provider_service';
+    const PITCH_LENGTH = 'Pitch Length';
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
         $this->db = Db::get();
@@ -125,12 +126,11 @@ class DefaultController extends AbstractController
             $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
-            $reinforcementList = $this->getReinforcementList($language);
-
             $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
-
             $nominalLengthAndDatumLengthColumnMapping = array(
-                'LP' => 'Pitch Length',
+                'LP' => self::PITCH_LENGTH,
+                'LP(MM)' => self::PITCH_LENGTH,
+                'LP (MM)' => self::PITCH_LENGTH,
                 'LI' => 'Inside Length',
                 'LD' => 'Datum Length',
                 'LE' => 'Effective Length',
@@ -174,7 +174,7 @@ class DefaultController extends AbstractController
                 {
                     $nominalLength= $upperRibWidth= $electricalConductivity ='';
                     $profileObjectDetails =[];
-                    $sql = "SELECT `profile`, `ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                    $sql = "SELECT `profile`, `mainImage1`,`technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                     $profileObjectDetails =  $this->db->fetchRow($sql);
 
                     $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId'";
@@ -195,23 +195,11 @@ class DefaultController extends AbstractController
                         $beltHeight =  $this->db->fetchColumn($sql);
                     }
 
-                    $reinforcementListSelected = [];
+                    $groupData = [];
                     $profile = $profileObjectDetails['profile'];
                     $material = $profileObjectDetails['material'];
-                    $reinforcementSelected = $profileObjectDetails['reinforcement'];
-                    $reinforcementDbList = explode(',',$reinforcementSelected);
-                    $reinforcementDbList = array_filter($reinforcementDbList);
-
-                    if($reinforcementDbList)
-                    {
-                        foreach ($reinforcementDbList as $reinforcementId) {
-                            $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
-                        }
-                    }
-
-                    $reinforcement = implode(', ', $reinforcementListSelected);
+                    $reinforcementSelected = trim($profileObjectDetails['reinforcement'], ",");
                     $fabricType = $profileObjectDetails['fabricType'];
-
                     $beltDesignlistContent = [];
                     
                     if($material)
@@ -219,9 +207,9 @@ class DefaultController extends AbstractController
                         $beltDesignlistContent['PTGEU_Material'] = $material;
                     }
 
-                    if($reinforcement)
+                    if($reinforcementSelected)
                     {
-                        $beltDesignlistContent['PTGEU_Reinforcement'] = $reinforcement;
+                        $beltDesignlistContent['PTGEU_Reinforcement'] = $reinforcementSelected;
                     }
 
                     if($fabricType)
@@ -247,11 +235,23 @@ class DefaultController extends AbstractController
                         $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
                     }
 
-                    $groupData = [];
+                    if($profileObjectDetails['mainImage1'])
+                    {
+                        $mainImageObj = \Pimcore\Model\Asset::getById($profileObjectDetails['mainImage1']);
+                    }
+                    $groupData['mainImageObj'] = $mainImageObj;
+
+                    if($profileObjectDetails['technicalDrawing1'])
+                    {
+                        $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($profileObjectDetails['technicalDrawing1']);
+                    }
+                    $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
+                    
                     if($nominalLength)
                     {
                         $nominalLengthUpperCase = strtoupper($nominalLength);
-                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLength;
+                        $nominalLengthSortName = ($nominalLengthUpperCase == 'LP' || $nominalLengthUpperCase == 'LP(MM)' || $nominalLengthUpperCase == 'LP (MM)') ? 'LP' : $nominalLength;
+                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLengthSortName;
                         $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
 
                         $groupData['nominalLengthList'] = array(
@@ -326,8 +326,6 @@ class DefaultController extends AbstractController
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
 
-            $reinforcementList = $this->getReinforcementList($language);
-            
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
             $siop5Category = $PTGEUProductHierarchy->getPrintedCatalogDescription();
             $siop6siop7Category = '';
@@ -382,18 +380,13 @@ class DefaultController extends AbstractController
                 }
 
                 $orderFieldNameList = [];
-
-                
                 $tableSortingFieldsStatus = [];
-
                 $needRemoveSortedField = false;
 
                 if($this->columnsData)
                 {
                     foreach ($orderKeys as $fieldName) {
-
                         $orderFieldNameList[$fieldName] = $this->columnsData[$fieldName];
-
                     }
 
                     if($orderFieldNameList)
@@ -412,7 +405,6 @@ class DefaultController extends AbstractController
                     }
                 }
 
-                $reinforcement = array();
                 $this->subHeaderRequired = 'YES';
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
                 $groupData['iconRequired'] = $this->iconRequired;
@@ -422,30 +414,12 @@ class DefaultController extends AbstractController
 
                 $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel5thId'";
                 $electricalConductivity =  $this->db->fetchColumn($sql);
-
                 $groupData['electricalConductivy'] = $electricalConductivity;
-
-                $reinforcementListSelected = [];
-
-                $reinforcementSelected = $objectLevel5thDetails['reinforcement'];
-                $reinforcementDbList = explode(',',$reinforcementSelected);
-                $reinforcementDbList = array_filter($reinforcementDbList);
-
-                if($reinforcementDbList)
-                {
-                    foreach ($reinforcementDbList as $reinforcementId) {
-                        $reinforcementListSelected[] = $reinforcementList[$reinforcementId];
-                    }
-                }
-
-                $reinforcement = implode(', ', $reinforcementListSelected);
-                        
-                $groupData['reinforcement'] = $reinforcement;
+                $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
+                $groupData['reinforcement'] = $reinforcementSelected;
 
                 $this->featuresList = $this->getFeaturesList($language);
-                
                 $safetyFeatures = array();
-
                 $featuresBenefitsBulletPointSelected = $objectLevel5thDetails['FeaturesBenefitsBulletPoint'];
                 $featuresBenefitsBulletPointSelectedDbList = explode(',',$featuresBenefitsBulletPointSelected);
                 $featuresBenefitsBulletPointSelectedDbList = array_filter($featuresBenefitsBulletPointSelectedDbList);
@@ -458,7 +432,6 @@ class DefaultController extends AbstractController
                 }
 
                 $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
-                
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
 
                 if($objectLevel5thDetails['mainImage1'])
@@ -473,7 +446,7 @@ class DefaultController extends AbstractController
                 }
                 $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
 
-                $sql = "SELECT longDescription FROM `object_localized_query_38_$language` WHERE ooo_id = '$objectLevel5thId' LIMIT 1";
+                $sql = "SELECT longDescription FROM `object_localized_data_38` WHERE ooo_id = '$objectLevel5thId' AND `language` = '{$language}' LIMIT 1";
                 $longDescription =  $this->db->fetchColumn($sql);
                 $groupData['longDescription'] = $longDescription;
 
@@ -806,18 +779,5 @@ class DefaultController extends AbstractController
         }
 
         return $columnsDataWithImages;
-    }
-
-    private function getReinforcementList($language) :array
-    {
-        $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
-        $list->setCondition(" masterType = :masterType ",["masterType" => "ProductClass~reinforcement"]);
-        $list->load();
-
-        $returnValue = [];
-        foreach($list as $object){
-            $returnValue[$object->getId()] = $object->getName($language);
-        }
-        return $returnValue;
     }
 }
