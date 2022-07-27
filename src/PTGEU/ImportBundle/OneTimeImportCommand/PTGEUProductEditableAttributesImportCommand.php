@@ -72,8 +72,14 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 {
                     $i++;
                     $articleNumber  = $rowData[0];
-                    $product        = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
-                    
+                    $fert           = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
+                    if($fert){
+                        $skeleton = DataObject\PTGEUProduct::getById($fert->getParentId())->getParentId();
+                        if($skeleton){
+                            $product = DataObject\PTGEUProduct::getById($skeleton);
+                        }
+                    }
+
                     if(!empty($product))
                     {
                         $rowData    = array_combine($csvHeader, $rowData);
@@ -155,6 +161,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $colNameArray[] = $fieldCSVKey. 'does not exists in configuration file.';
             }
         }
+        echo "Data updated for === ". $product->getProductName(). PHP_EOL;
     }
 
     private function processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey)
@@ -218,8 +225,8 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         {           
             foreach($featuresBenefitsBulletPoint as $feature)
             {
-                $objFeatures = new DataObject\Features\Listing();
-                $objFeatures->setCondition("Name = ?", $feature);
+                $objFeatures = new DataObject\PTGEUFeaturesAndBenefits\Listing();
+                $objFeatures->setCondition("FeaturesAndBenefits = ?", $feature);
                 if(!empty($objFeatures)) 
                 {
                     foreach ($objFeatures as $featureData) {

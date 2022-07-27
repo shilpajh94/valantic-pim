@@ -276,7 +276,7 @@ class ProductService
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
 
         if ($type == 'base' || $type == 'skeleton') {
-        $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
+            $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
             $currentLevelArray = explode('/', $currentLevelPath);
             $objectKey = $currentLevelArray[count($currentLevelArray)-1];
         } elseif ($type == 'fert') {
@@ -401,14 +401,22 @@ class ProductService
                 $folderId = $this->products[$folderPath];
             }
             $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+            if (!$errorFlag) {
+                $this->updatedArticlesArray[] = $levelArray[0]; 
+            }
             $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+            if (!$errorFlag) {
+                $this->updatedArticlesArray[] = $levelArray[0]; 
+            }
             $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+            
             $status = 'Success';
             $msg = 'Object Id is: '.$levelArray[0];
 
             if (!$errorFlag) {
                 $this->updatedArticlesArray[] = $levelArray[0]; 
             }
+            $this->updatedArticlesArray = array_unique($this->updatedArticlesArray);
         }
         unset($record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
 
@@ -766,13 +774,16 @@ class ProductService
     public function saveProducts($updatedArticlesArray) {
         if(is_array($updatedArticlesArray))
         {
+            $counter = 1;
             foreach ($updatedArticlesArray as $objectId) {
                 if (!empty($objectId)) {
                     $object = DataObject\PTGEUProduct::getById($objectId, true);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
                         $object->save();
+                        echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
                     }
                 }
+                $counter++;
             }
         }
     }
