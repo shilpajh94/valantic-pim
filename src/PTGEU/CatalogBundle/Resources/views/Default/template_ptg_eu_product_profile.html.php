@@ -295,10 +295,6 @@ if (!isset($this->parentContainer)) {
 							if($this->editmode){
 									?>
 
-									<div class="attr-font">
-										<div class="attr-font">Attribute Name = Branding Image</div>
-									</div>
-
 									<?php
 										echo $this->image("PTGEU_Product_BrandingImage_$profileKey");
 											

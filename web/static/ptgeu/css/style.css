@@ -1,10 +1,6 @@
-.above{ margin-top: -50px;}
 .relative{ position: relative; }
 .top-section{
   position: relative;
-  padding-top: 30px;
-  /* overflow: hidden; */
-
 }
 
 .top-section .logo{
@@ -133,6 +129,14 @@ max-height: 30px;
   margin-bottom: 1px;
   min-height: 0;
 }
+
+@media print {
+  .top-section{
+    padding-top: 30px;
+  }
+  .above{ margin-top: -50px;}
+}
+
 @page {
     margin-left: 0;
     margin-right: 0;
