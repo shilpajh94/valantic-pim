@@ -130,11 +130,18 @@ max-height: 30px;
   min-height: 0;
 }
 
+.edit-prev-mode-mt-50{
+  margin-top: 50px;
+}
+
 @media print {
   .top-section{
     padding-top: 30px;
   }
   .above{ margin-top: -50px;}
+  .edit-prev-mode-mt-50{
+    
+  }
 }
 
 @page {

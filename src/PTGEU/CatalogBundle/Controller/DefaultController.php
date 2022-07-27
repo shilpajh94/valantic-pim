@@ -418,7 +418,7 @@ class DefaultController extends AbstractController
                 $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
                 $groupData['reinforcement'] = $reinforcementSelected;
 
-                $this->featuresList = $this->getFeaturesList($language);
+                $this->featuresList = $this->getFeaturesList();
                 $safetyFeatures = array();
                 $featuresBenefitsBulletPointSelected = $objectLevel5thDetails['FeaturesBenefitsBulletPoint'];
                 $featuresBenefitsBulletPointSelectedDbList = explode(',',$featuresBenefitsBulletPointSelected);
@@ -433,6 +433,8 @@ class DefaultController extends AbstractController
 
                 $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
+                // p_r($groupData['safetyFeatures']);
+                // die;
 
                 if($objectLevel5thDetails['mainImage1'])
                 {
@@ -667,10 +669,10 @@ class DefaultController extends AbstractController
             foreach ($safetyFeatures as $fvalue) {
                 if($this->featuresList[$fvalue]['icon'])
                 {
-                    if(!isset($this->s3srcArr[$fvalue]))
-                    {
-                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
-                    }
+                    // if(!isset($this->s3srcArr[$fvalue]))
+                    // {
+                    //     $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
+                    // }
                     $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
@@ -680,14 +682,14 @@ class DefaultController extends AbstractController
             }
         }
 
-        if($safetyFeaturesListWithImage)
-        {
-            array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-        }
+        // if($safetyFeaturesListWithImage)
+        // {
+        //     array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
+        // }
         
         if($safetyFeaturesListWithOutImage)
         {
-            array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
+            // array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
         }
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
@@ -703,17 +705,17 @@ class DefaultController extends AbstractController
         return $safetyFeaturesList;
     }
 
-    private function getFeaturesList($language){
-        $entries = new DataObject\Features\Listing();
+    private function getFeaturesList(){
+        $entries = new DataObject\PTGEUFeaturesAndBenefits\Listing();
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
-            if($entry->getIcon())
-            {
-                $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
-            }
+            // if($entry->getIcon())
+            // {
+            //     $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+            // }
 
-            $featureData[$entry->getId()]['name'] = $entry->getName($language);
+            $featureData[$entry->getId()]['name'] = $entry->getFeaturesAndBenefits();
             $featureData[$entry->getId()]['key'] = $entry->getKey();
             $featureData[$entry->getId()]['SortOrder'] = $entry->getSortOrder();
         }

@@ -59,7 +59,7 @@ if (!isset($this->parentContainer)) {
 			<?php 
 				$profileKey = md5($groupData['brandName'].$profile);
 			?>
-			<div class="top-section page-break-before-always above">
+			<div class="top-section page-break-before-always above edit-prev-mode-mt-50">
 				<?php
 				if($BrandLogoSrc){
 					?>
@@ -328,9 +328,13 @@ if (!isset($this->parentContainer)) {
 .footer3{
     margin-left: 50px;
     margin-right: 50px;
-    padding-bottom: 50px;
     font-size: 10px;
     position: running(footer3);
+}
+@media print {
+	.footer3{
+		padding-bottom: 50px;
+	}
 }
 
 @page {
