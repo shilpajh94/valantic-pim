@@ -72,14 +72,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 {
                     $i++;
                     $articleNumber  = $rowData[0];
-                    $fert           = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
-                    if($fert){
-                        $skeleton = DataObject\PTGEUProduct::getById($fert->getParentId())->getParentId();
-                        if($skeleton){
-                            $product = DataObject\PTGEUProduct::getById($skeleton);
-                        }
-                    }
-
+                    $product           = DataObject\PTGEUProduct::getByArticleNumber($articleNumber, true);
                     if(!empty($product))
                     {
                         $rowData    = array_combine($csvHeader, $rowData);
@@ -171,42 +164,39 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $incorrectDataArray[]   = $fieldValue;
         }
         $method = 'set' . ucfirst($fieldName);
-        if($method != 'setArticleNumber'){
-            if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
-            {
-                $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
-                $fieldValue     = array_map('trim', $featureValueArr);
-                $product->$method($fieldValue);
-            }
-            elseif($fieldType=='Boolean Select')
-            {
-                $booleanValue = $this->getBooleanValue($fieldValue);
-                $product->$method($booleanValue, 1);
-            }
-            elseif($fieldName=='searchKeywords' && $fieldType == 'Select')
-            {
-                $searchKeywordObject = $this->getSearchKeyWordsObject($fieldValue);
-                if($searchKeywordObject !=''){
-                    $product->$method($searchKeywordObject);
-                }
-            }
-            elseif($fieldName=='vtlStatus' && $fieldType == 'Select')
-            {
-                $vtlObject = $this->getVtlStatus($fieldValue);
-                if($vtlObject !=''){
-                    $product->$method($vtlObject);
-                }
-            }
-            elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
-            {
-                $product->$method($fieldValue, 'en');
-            }
-            else
-            {
-                $product->$method($fieldValue, 1);
+        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
+        {
+            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
+            $fieldValue     = array_map('trim', $featureValueArr);
+            $product->$method($fieldValue);
+        }
+        elseif($fieldType=='Boolean Select')
+        {
+            $booleanValue = $this->getBooleanValue($fieldValue);
+            $product->$method($booleanValue, 1);
+        }
+        elseif($fieldName=='searchKeywords' && $fieldType == 'Select')
+        {
+            $searchKeywordObject = $this->getSearchKeyWordsObject($fieldValue);
+            if($searchKeywordObject !=''){
+                $product->$method($searchKeywordObject);
             }
         }
-        
+        elseif($fieldName=='vtlStatus' && $fieldType == 'Select')
+        {
+            $vtlObject = $this->getVtlStatus($fieldValue);
+            if($vtlObject !=''){
+                $product->$method($vtlObject);
+            }
+        }
+        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
+        {
+            $product->$method($fieldValue, 'en');
+        }
+        else
+        {
+            $product->$method($fieldValue, 1);
+        }        
     }
 
     private function getBooleanValue($data)
