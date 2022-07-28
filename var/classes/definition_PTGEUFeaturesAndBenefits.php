@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-27T12:59:55+05:30
+* Generated at: 2022-07-28T10:54:27+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -11,6 +11,7 @@
 Fields Summary: 
 - FeaturesAndBenefits [input]
 - SortOrder [numeric]
+- FeaturesAndBenefitsImage [image]
 */ 
 
 
@@ -19,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUFeaturesAndBenefits',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658906995,
+   'modificationDate' => 1658985866,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -146,6 +147,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                 'fieldtype' => 'image',
+                 'width' => 600,
+                 'height' => '',
+                 'uploadPath' => '',
+                 'queryColumnType' => 'int(11)',
+                 'columnType' => 'int(11)',
+                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                 'name' => 'FeaturesAndBenefitsImage',
+                 'title' => 'Image',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => 'padding-left:205px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
               )),
             ),
              'locked' => false,
