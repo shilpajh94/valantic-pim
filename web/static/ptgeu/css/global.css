@@ -462,6 +462,9 @@ section:first-child{
 .text-left{
   text-align: left !important;
 }
+.text-center{
+  text-align: center;
+}
 .text-right{
   text-align: right !important;
 }

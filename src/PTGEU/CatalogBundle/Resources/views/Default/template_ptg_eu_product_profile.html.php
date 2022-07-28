@@ -76,9 +76,7 @@ if (!isset($this->parentContainer)) {
 					if($this->editmode){
 							?>
 
-							<div class="attr-font">
-								<div class="attr-font">Attribute Name = Main Image</div>
-							</div>
+							<div class="attr-font text-center">Attribute Name = Main Image</div>
 
 							<?php
 							if(!$this->image("PTGEU_Product_MainImage_$profileKey")->isEmpty())
@@ -107,9 +105,7 @@ if (!isset($this->parentContainer)) {
 					if($this->editmode){
 							?>
 
-							<div class="attr-font">
-								<div class="attr-font">Attribute Name = Technical Image</div>
-							</div>
+							<div class="attr-font">Attribute Name = Technical Image</div>
 
 							<?php
 							if(!$this->image("PTGEU_Product_TechnicalImage_$profileKey")->isEmpty())

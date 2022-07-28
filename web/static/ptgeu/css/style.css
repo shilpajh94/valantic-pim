@@ -82,6 +82,13 @@ margin-top: 10px;
 max-height: 30px;
 }
 
+.mr-40{
+  margin-right: 40px !important;
+}
+
+.ptb-5{
+  padding: 5px 0 5px 0;
+}
 
 
 .footer {

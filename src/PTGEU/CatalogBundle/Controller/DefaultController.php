@@ -138,7 +138,6 @@ class DefaultController extends AbstractController
             );
             
             $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
-
             if($PTGEUProductHierarchy)
             {   
                 $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'base' AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
@@ -148,7 +147,6 @@ class DefaultController extends AbstractController
             if($objectLevel5thId)
             {
                 $seventhLevelProductList = [];
-
                 if($sixSevenLevelCategoryObj)
                 {
                     foreach ($sixSevenLevelCategoryObj as $categoryId) {
@@ -255,22 +253,10 @@ class DefaultController extends AbstractController
                         $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
 
                         $groupData['nominalLengthList'] = array(
-                            array(
-                                'datumLength' => '< 1350',
-                                'lengthTolerance' => '&plusmn;2',
-                            ),
-                            array(
-                                'datumLength' => '1350 < '.$nominalLength.' < 3550',
-                                'lengthTolerance' => '&plusmn;3',
-                            ),
-                            array(
-                                'datumLength' => '3550 < '.$nominalLength.' < 5000',
-                                'lengthTolerance' => '&plusmn;4',
-                            ),
-                            array(
-                                'datumLength' => '> 5000',
-                                'lengthTolerance' => '',
-                            )
+                            array('datumLength' => '< 1350','lengthTolerance' => '&plusmn;2'),
+                            array('datumLength' => '1350 < '.$nominalLength.' < 3550','lengthTolerance' => '&plusmn;3'),
+                            array('datumLength' => '3550 < '.$nominalLength.' < 5000','lengthTolerance' => '&plusmn;4'),
+                            array('datumLength' => '> 5000','lengthTolerance' => '')
                         );
                     }
                     
@@ -418,7 +404,7 @@ class DefaultController extends AbstractController
                 $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
                 $groupData['reinforcement'] = $reinforcementSelected;
 
-                $this->featuresList = $this->getFeaturesList();
+                $this->featuresList = $this->getFeaturesList($language);
                 $safetyFeatures = array();
                 $featuresBenefitsBulletPointSelected = $objectLevel5thDetails['FeaturesBenefitsBulletPoint'];
                 $featuresBenefitsBulletPointSelectedDbList = explode(',',$featuresBenefitsBulletPointSelected);
@@ -431,10 +417,18 @@ class DefaultController extends AbstractController
                     }
                 }
 
+                $isAnyIconFeatureAvailable = 0;
                 $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+                foreach ($safetyFeaturesList as $featureData) {
+                    if($featureData['iconSrc'])
+                    {
+                        $isAnyIconFeatureAvailable = 1;
+                        break;
+                    }
+                }
+
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
-                // p_r($groupData['safetyFeatures']);
-                // die;
+                $groupData['isAnyIconFeatureAvailable'] = $isAnyIconFeatureAvailable;
 
                 if($objectLevel5thDetails['mainImage1'])
                 {
@@ -669,27 +663,17 @@ class DefaultController extends AbstractController
             foreach ($safetyFeatures as $fvalue) {
                 if($this->featuresList[$fvalue]['icon'])
                 {
-                    // if(!isset($this->s3srcArr[$fvalue]))
-                    // {
-                    //     $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
-                    // }
-                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    if(!isset($this->s3srcArr[$fvalue]))
+                    {
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
+                    }
+                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue]);
                 }
                 else
                 {
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon'], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon']);
                 }
             }
-        }
-
-        // if($safetyFeaturesListWithImage)
-        // {
-        //     array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-        // }
-        
-        if($safetyFeaturesListWithOutImage)
-        {
-            // array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
         }
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
@@ -705,19 +689,18 @@ class DefaultController extends AbstractController
         return $safetyFeaturesList;
     }
 
-    private function getFeaturesList(){
+    private function getFeaturesList($language){
         $entries = new DataObject\PTGEUFeaturesAndBenefits\Listing();
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
-            // if($entry->getIcon())
-            // {
-            //     $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
-            // }
+            if($entry->getFeaturesAndBenefitsImage())
+            {
+                $featureData[$entry->getId()]['icon'] = $entry->getFeaturesAndBenefitsImage()->getPath().$entry->getFeaturesAndBenefitsImage()->getFilename();
+            }
 
-            $featureData[$entry->getId()]['name'] = $entry->getFeaturesAndBenefits();
+            $featureData[$entry->getId()]['name'] = $entry->getFeaturesAndBenefits($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
-            $featureData[$entry->getId()]['SortOrder'] = $entry->getSortOrder();
         }
         return $featureData;
     }

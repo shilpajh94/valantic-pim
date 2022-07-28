@@ -310,10 +310,15 @@ if($groupData){
                                                 <div >
                                                         <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex center">
-                                                                        <?php if($feature['iconSrc']): ?>
-                                                                        <img src="<?= $feature['iconSrc'] ?>" alt=""/>
+                                                                        <?php if($groupData['isAnyIconFeatureAvailable']): ?>
+                                                                                <?php if($feature['iconSrc']): ?>
+                                                                                <img src="<?= $feature['iconSrc'] ?>" alt=""/>
+                                                                                <?php else: ?>
+                                                                                        <span class="mr-40"></span>
+                                                                                <?php endif;?>
                                                                         <?php endif; ?>
-                                                                        <?= $feature['name'] ?>
+
+                                                                        <span class="ptb-5"><?= $feature['name'] ?></span>
                                                                 </p>
                                                         <?php endforeach; ?>
                                                 </div>
