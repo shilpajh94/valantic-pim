@@ -6,7 +6,7 @@ parameters:
             client_id: 3MVG95AcBeaB55lXysyLY.BKdXXKGqOC47.jGV3AfSnfAkstIJVXiWa9G6ClPIJRGZtHCG1.v8_aQ2oZHnTZk
             client_secret: 425526D7DB530EE2CBC961EF61089DDC8C4E1071F4881FB61ED33FBFF4B02F8B
             username: pimintegration@contitech.qa.com
-            password: PIMB2BSFContiTech@20_22oi76iMyIrIY6ZxvxkEag9K0L
+            password: PIM-B2BSFContiTech@20_22Obhq5x7xUZpdUMgthe2moNt4
             grant_type: password
         token_lifetime: 1740
         guzzle_request_timeout: 10
