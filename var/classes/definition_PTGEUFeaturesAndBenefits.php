@@ -1,16 +1,17 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-28T10:54:27+05:30
+* Generated at: 2022-07-28T11:17:50+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
-- FeaturesAndBenefits [input]
 - SortOrder [numeric]
+- localizedfields [localizedfields]
+-- FeaturesAndBenefits [input]
 - FeaturesAndBenefitsImage [image]
 */ 
 
@@ -20,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUFeaturesAndBenefits',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658985866,
+   'modificationDate' => 1658999870,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -90,37 +91,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 500,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'FeaturesAndBenefits',
-                 'title' => 'Features and Benefits',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 500,
+                 'width' => 400,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -148,7 +121,93 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              2 => 
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'fieldtype' => 'localizedfields',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 500,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'FeaturesAndBenefits',
+                     'title' => 'Name',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'name' => 'localizedfields',
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxTabs' => NULL,
+                 'labelWidth' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => NULL,
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => NULL,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+              )),
+            ),
+             'locked' => false,
+             'icon' => '',
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => 'east',
+             'title' => '',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'fieldtype' => 'image',
                  'width' => 600,
@@ -158,12 +217,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'columnType' => 'int(11)',
                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                  'name' => 'FeaturesAndBenefitsImage',
-                 'title' => 'Image',
+                 'title' => 'Icon',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'padding-left:205px;',
                  'permissions' => NULL,
                  'datatype' => 'data',
