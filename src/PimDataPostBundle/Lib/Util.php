@@ -238,7 +238,8 @@ Class Util
 
     public static function formatWysiwygValue(?string $value): ?string
     {
-        $value = html_entity_decode($value);
+        $value = html_entity_decode($value); // removing &amp; and other HTML tags
+        $value = str_replace("\u00a0","", $value);
         return str_replace("&nbsp;", " ", $value);
     }
 
