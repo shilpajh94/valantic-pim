@@ -140,13 +140,18 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $objectType = $fieldConfig['objectType'];
                 if ($objectType == 'class') 
                 {
-                    if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
-                    {
-                        $this->featurePoints[] = trim($fieldValue);
+                    if($fieldName == 'longDescription' || $fieldName == 'shortDescription'){
+                        $this->saveDescriptionInBase($product,$fieldName,$fieldValue);
+                    }else{
+                        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+                        {
+                            $this->featurePoints[] = trim($fieldValue);
+                        }
+    
+                        // call function process product attributes
+                        $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
+    
                     }
-
-                    // call function process product attributes
-                    $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
                 }
             }
             else
@@ -157,6 +162,14 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         echo "Data updated for === ". $product->getProductName(). PHP_EOL;
     }
 
+    private function saveDescriptionInBase($product,$fieldName,$fieldValue){
+
+        $baseObject = $product->getParent()->getParent();
+        $method = 'set' . ucfirst($fieldName);
+        $baseObject->$method($fieldValue);
+        $baseObject->save();
+    }
+
     private function processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey)
     {
         if (($fieldType == 'Number') && $fieldValue && !is_numeric($fieldValue)) {
@@ -164,6 +177,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $incorrectDataArray[]   = $fieldValue;
         }
         $method = 'set' . ucfirst($fieldName);
+        
         if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
         {
             $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
