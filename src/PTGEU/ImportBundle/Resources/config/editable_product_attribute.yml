@@ -113,10 +113,6 @@ Category Description Catalog:
     fieldName: CategoryDescriptionCatalog
     fieldType: Textarea
     objectType: class
-New Item Flag for Catalog:
-    fieldName: newItemFlagForCatalog
-    fieldType: Boolean Select
-    objectType: class
 VTL Status:
     fieldName: vtlStatus
     fieldType: Select
