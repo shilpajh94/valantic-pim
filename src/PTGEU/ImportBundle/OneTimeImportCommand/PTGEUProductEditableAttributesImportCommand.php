@@ -147,6 +147,8 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                         }
                         $this->saveDescriptionInBase($product,$fieldName,$fieldValue,$fieldType);
                     }else{
+                        
+    
                         // call function process product attributes
                         $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
     
@@ -163,13 +165,14 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 
     private function saveDescriptionInBase($product,$fieldName,$fieldValue,$fieldType){
 
-        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10){
-            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
-            $fieldValue     = array_map('trim', $featureValueArr);
-        }
-
         $baseObject = $product->getParent()->getParent();
         $method = 'set' . ucfirst($fieldName);
+        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
+        {
+            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
+            $fieldValue     = array_map('trim', $featureValueArr);
+            $baseObject->$method($fieldValue);
+        }
         $baseObject->$method($fieldValue);
         $baseObject->save();
     }
@@ -181,7 +184,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             $incorrectDataArray[]   = $fieldValue;
         }
         $method = 'set' . ucfirst($fieldName);
-        
         
         if($fieldType=='Boolean Select')
         {
