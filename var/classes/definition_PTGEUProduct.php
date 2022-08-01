@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-08-01T09:51:12+00:00
+* Generated at: 2022-08-01T10:04:21+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -69,6 +69,7 @@ Fields Summary:
 - manufacturer [input]
 - manufacturerPartNumber [numeric]
 - materialType [input]
+- priceRef [input]
 - oldMaterialCode [input]
 - industryStandard [input]
 - beltTolerance [input]
@@ -121,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1659347469,
+   'modificationDate' => 1659348258,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3098,13 +3099,41 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
-                                 'columnLength' => 3,
+                                 'columnLength' => 190,
                                  'phpdocType' => 'string',
                                  'regex' => '',
                                  'unique' => false,
                                  'showCharCount' => false,
                                  'name' => 'materialType',
                                  'title' => 'Material Type',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              9 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'priceRef',
+                                 'title' => 'Price Ref',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
