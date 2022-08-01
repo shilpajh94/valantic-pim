@@ -140,14 +140,13 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $objectType = $fieldConfig['objectType'];
                 if ($objectType == 'class') 
                 {
-                    if($fieldName == 'longDescription' || $fieldName == 'shortDescription'){
-                        $this->saveDescriptionInBase($product,$fieldName,$fieldValue);
-                    }else{
+                    if($fieldName == 'longDescription' || $fieldName == 'shortDescription' || $fieldName=='FeaturesBenefitsBulletPoint'){
                         if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
                         {
                             $this->featurePoints[] = trim($fieldValue);
                         }
-    
+                        $this->saveDescriptionInBase($product,$fieldName,$fieldValue,$fieldType);
+                    }else{
                         // call function process product attributes
                         $this->processProductAttributes($product, $fieldName, $fieldType, $fieldValue, $fieldCSVKey);
     
@@ -162,7 +161,12 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         echo "Data updated for === ". $product->getProductName(). PHP_EOL;
     }
 
-    private function saveDescriptionInBase($product,$fieldName,$fieldValue){
+    private function saveDescriptionInBase($product,$fieldName,$fieldValue,$fieldType){
+
+        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10){
+            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
+            $fieldValue     = array_map('trim', $featureValueArr);
+        }
 
         $baseObject = $product->getParent()->getParent();
         $method = 'set' . ucfirst($fieldName);
@@ -178,13 +182,8 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         }
         $method = 'set' . ucfirst($fieldName);
         
-        if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint' && count($this->featurePoints)==10)
-        {
-            $featureValueArr= $this->getProcessedFeaturePoints($this->featurePoints);
-            $fieldValue     = array_map('trim', $featureValueArr);
-            $product->$method($fieldValue);
-        }
-        elseif($fieldType=='Boolean Select')
+        
+        if($fieldType=='Boolean Select')
         {
             $booleanValue = $this->getBooleanValue($fieldValue);
             $product->$method($booleanValue, 1);
