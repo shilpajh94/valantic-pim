@@ -41,7 +41,20 @@ class ScheduleService
         return $this->bundleService->getConfig('schedule_date_format');
     }
 
-    public function buildScheduleForGrid(Schedule $schedule): array
+    public function getTimeDiffInSecondsForSave($completeDateString, $timeDiffInMins)
+    {
+        $timeInSeconds = $timeDiffInMins * 60;
+        if(strpos($timeDiffInMins,"-") !== false){
+            $timeInSeconds = substr($timeInSeconds, 1);
+            $exportTimeInSecond = strtotime($completeDateString) - $timeInSeconds;
+        } else {
+            $exportTimeInSecond = strtotime($completeDateString) + $timeInSeconds;
+        }
+        
+        return $exportTimeInSecond;
+    }
+
+    public function buildScheduleForGrid(Schedule $schedule, $timeDiffInMins): array
     {
         $dateFormat = $this->getDateFormat();
 

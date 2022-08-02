@@ -74,7 +74,8 @@ class ScheduleController extends AdminController
      */
     public function saveScheduleAction(Request $request, ScheduleService $scheduleService)
     {
-
+        $timeDiffInMins = $request->get('timeDiff');
+        
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
@@ -107,8 +108,9 @@ class ScheduleController extends AdminController
             $exportTime = "00:00";
         }
         $completeDateString = $exportDate.' '.$exportTime;
-        $completeExportDate = \DateTime::createFromFormat('m/d/y H:i', $completeDateString);
-
+        $exportTimeInSecond = $scheduleService->getTimeDiffInSecondsForSave($completeDateString, $timeDiffInMins);
+        $completeDateStringWithDiff = date('m/d/y H:i',$exportTimeInSecond);
+        $completeExportDate = \DateTime::createFromFormat('m/d/y H:i', $completeDateStringWithDiff);
         $schedule  = new Schedule();
         $schedule->setName($name);
         $schedule->setExportFormat($exportFormat);
@@ -147,7 +149,7 @@ class ScheduleController extends AdminController
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 
-        $data = $scheduleService->buildScheduleForGrid($schedule);
+        $data = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
         $data['success'] = true;
 
         return $this->json($data);
@@ -174,7 +176,7 @@ class ScheduleController extends AdminController
 
         $data = [];
         foreach ($list->getItems() as $schedule) {
-            $tmp = $scheduleService->buildScheduleForGrid($schedule);
+            $tmp = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
             $data[] = $tmp;
         }
 
