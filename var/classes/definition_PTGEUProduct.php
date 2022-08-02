@@ -1,29 +1,27 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-27T13:24:20+05:30
+* Generated at: 2022-08-01T10:04:21+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
 - shelfLife [numeric]
 - specificationConstruction [input]
-- printedCatalogFlag [booleanSelect]
 - rohs [input]
 - reach [input]
-- virtualCatalogFlag [booleanSelect]
 - FeaturesBenefitsBulletPoint [multiselect]
 - productType [select]
 - businessUnit [select]
 - localizedfields [localizedfields]
 -- shortDescription [wysiwyg]
--- webDiscription [input]
 -- longDescription [wysiwyg]
 -- legalText [textarea]
 -- sapDescription [textarea]
+-- webDiscription [input]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
 - performance [select]
@@ -60,16 +58,18 @@ Fields Summary:
 - maxSpeed [input]
 - minPulleyDia [numeric]
 - minOutsidePulleyDia [numeric]
+- nominalLength [input]
 - skeleton [objectbricks]
 - articleNumber [input]
 - eanUpc [input]
 - netWeight [numeric]
 - weightUnit [select]
 - listPrice [numeric]
-- nominalLength [input]
 - sapDescriptionLanguage [input]
 - manufacturer [input]
 - manufacturerPartNumber [numeric]
+- materialType [input]
+- priceRef [input]
 - oldMaterialCode [input]
 - industryStandard [input]
 - beltTolerance [input]
@@ -80,13 +80,14 @@ Fields Summary:
 - alternativeUnitOfMeasureForStockkeepingUnit [input]
 - cadLINK [input]
 - cadFile [booleanSelect]
+- printedCatalogFlag [booleanSelect]
 - pdfDrawing [booleanSelect]
 - searchKeywords [select]
-- CategoryDescriptionCatalog [textarea]
-- newItemFlagForCatalog [booleanSelect]
 - vtlStatus [select]
 - pdfLINK [input]
 - catalogFlag [input]
+- virtualCatalogFlag [booleanSelect]
+- CategoryDescriptionCatalog [textarea]
 - fert [objectbricks]
 - salesData [reverseManyToManyObjectRelation]
 - plantData [reverseManyToManyObjectRelation]
@@ -121,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658908452,
+   'modificationDate' => 1659348258,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -369,49 +370,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                                     'fieldtype' => 'booleanSelect',
-                                     'yesLabel' => 'Y',
-                                     'noLabel' => 'N',
-                                     'emptyLabel' => 'Empty',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Empty',
-                                        'value' => 0,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Y',
-                                        'value' => 1,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'N',
-                                        'value' => -1,
-                                      ),
-                                    ),
-                                     'width' => 250,
-                                     'queryColumnType' => 'tinyint(1) null',
-                                     'columnType' => 'tinyint(1) null',
-                                     'phpdocType' => 'boolean',
-                                     'name' => 'printedCatalogFlag',
-                                     'title' => 'Printed Catalog Flag',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
-                                  3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 250,
@@ -439,7 +397,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  4 => 
+                                  3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 250,
@@ -466,49 +424,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
-                                  )),
-                                  5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                                     'fieldtype' => 'booleanSelect',
-                                     'yesLabel' => 'Y',
-                                     'noLabel' => 'N',
-                                     'emptyLabel' => 'Empty',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Empty',
-                                        'value' => 0,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Y',
-                                        'value' => 1,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'N',
-                                        'value' => -1,
-                                      ),
-                                    ),
-                                     'width' => 250,
-                                     'queryColumnType' => 'tinyint(1) null',
-                                     'columnType' => 'tinyint(1) null',
-                                     'phpdocType' => 'boolean',
-                                     'name' => 'virtualCatalogFlag',
-                                     'title' => 'Virtual Catalog Flag',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
                                   )),
                                 ),
                                  'locked' => false,
@@ -540,67 +455,67 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       0 => 
                                       array (
                                         'key' => 'Suitable for tropical climates',
-                                        'value' => 13023492,
+                                        'value' => 13071571,
                                       ),
                                       1 => 
                                       array (
                                         'key' => 'Dust-proof',
-                                        'value' => 13023493,
+                                        'value' => 13071572,
                                       ),
                                       2 => 
                                       array (
                                         'key' => 'Ozone-resistant',
-                                        'value' => 13023494,
+                                        'value' => 13071573,
                                       ),
                                       3 => 
                                       array (
                                         'key' => 'UV & Ozone resistant',
-                                        'value' => 13023495,
+                                        'value' => 13071574,
                                       ),
                                       4 => 
                                       array (
-                                        'key' => 'Very low-noise',
-                                        'value' => 13023496,
+                                        'key' => 'Suitable for reverse flexing-revrese tensioning idlers.',
+                                        'value' => 13071575,
                                       ),
                                       5 => 
                                       array (
-                                        'key' => 'Aging-resistant',
-                                        'value' => 13023497,
+                                        'key' => 'Very low-noise',
+                                        'value' => 13071576,
                                       ),
                                       6 => 
                                       array (
-                                        'key' => 'Can be welded with thermoplastics',
-                                        'value' => 13023498,
+                                        'key' => 'Aging-resistant',
+                                        'value' => 13071577,
                                       ),
                                       7 => 
                                       array (
-                                        'key' => 'Compatible with CTD; therefore, it is suited for new drive designs and at the same time also compatible for use in existing systems',
-                                        'value' => 13023499,
+                                        'key' => 'Can be welded with thermoplastics',
+                                        'value' => 13071578,
                                       ),
                                       8 => 
                                       array (
-                                        'key' => 'Maintenance-free',
-                                        'value' => 13023500,
+                                        'key' => 'Compatible with CTD; therefore, it is suited for new drive designs and at the same time also compatible for use in existing systems',
+                                        'value' => 13071579,
                                       ),
                                       9 => 
                                       array (
-                                        'key' => 'Raw materials and production are silicone-free',
-                                        'value' => 13023501,
+                                        'key' => 'Maintenance-free',
+                                        'value' => 13071580,
                                       ),
                                       10 => 
                                       array (
-                                        'key' => 'Resistant to fuel and benzene',
-                                        'value' => 13023502,
+                                        'key' => 'Raw materials and production are silicone-free',
+                                        'value' => 13071581,
                                       ),
                                       11 => 
                                       array (
-                                        'key' => 'Wear resistant',
-                                        'value' => 13023503,
+                                        'key' => 'Resistant to fuel and benzene',
+                                        'value' => 13071582,
                                       ),
                                       12 => 
                                       array (
-                                        'key' => 'Suitable for reverse flexing-revrese tensioning idlers.',
-                                        'value' => 13023504,
+                                        'key' => 'Wear resistant',
+                                        'value' => 13071583,
                                       ),
                                     ),
                                      'width' => 250,
@@ -807,34 +722,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
                                       )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 250,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'webDiscription',
-                                         'title' => 'Web Description',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
                                     ),
                                      'locked' => false,
                                   )),
@@ -995,6 +882,70 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleSearch' => true,
                           )),
                           1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                             'fieldtype' => 'localizedfields',
+                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 280,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 100,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'webDiscription',
+                                 'title' => 'Web Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'name' => 'localizedfields',
+                             'region' => NULL,
+                             'layout' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'maxTabs' => NULL,
+                             'labelWidth' => NULL,
+                             'border' => true,
+                             'provideSplitView' => false,
+                             'tabPosition' => NULL,
+                             'hideLabelsWhenTabsReached' => NULL,
+                             'referencedFields' => 
+                            array (
+                            ),
+                             'fieldDefinitionsCache' => NULL,
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => NULL,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => true,
+                             'visibleSearch' => true,
+                          )),
+                          2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'fieldtype' => 'localizedfields',
                              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -2680,6 +2631,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 250,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 30,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'nominalLength',
+                                 'title' => 'Nominal Length',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
                             ),
                              'locked' => false,
                           )),
@@ -3038,34 +3017,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'regex' => '',
                                  'unique' => false,
                                  'showCharCount' => false,
-                                 'name' => 'nominalLength',
-                                 'title' => 'Nominal Length',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              6 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 220,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
                                  'name' => 'sapDescriptionLanguage',
                                  'title' => 'SAP Description Language',
                                  'tooltip' => '',
@@ -3082,7 +3033,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              7 => 
+                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -3110,7 +3061,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              8 => 
+                              7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'fieldtype' => 'numeric',
                                  'width' => 220,
@@ -3127,6 +3078,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'decimalPrecision' => 3,
                                  'name' => 'manufacturerPartNumber',
                                  'title' => 'Manufacturer Part Number',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              8 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'materialType',
+                                 'title' => 'Material Type',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              9 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'priceRef',
+                                 'title' => 'Price Ref',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -3648,8 +3655,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'tinyint(1) null',
                                  'columnType' => 'tinyint(1) null',
                                  'phpdocType' => 'boolean',
-                                 'name' => 'pdfDrawing',
-                                 'title' => 'PDF Drawing (Y/N)',
+                                 'name' => 'printedCatalogFlag',
+                                 'title' => 'Printed Catalog Flag',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -3664,280 +3671,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                               )),
                               3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'fieldtype' => 'select',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, falcon, GTR',
-                                    'value' => 13021144,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'flat, PU, polyflat',
-                                    'value' => 13021145,
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, silent, silentsync, HOT',
-                                    'value' => 13021146,
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, standard, synchrobelt',
-                                    'value' => 13021147,
-                                  ),
-                                  4 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, PU, synchrochain, SCC',
-                                    'value' => 13021148,
-                                  ),
-                                  5 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor',
-                                    'value' => 13021149,
-                                  ),
-                                  6 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, CXA',
-                                    'value' => 13021150,
-                                  ),
-                                  7 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, CXP',
-                                    'value' => 13021151,
-                                  ),
-                                  8 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, color, synchrocolor, carbon',
-                                    'value' => 13021152,
-                                  ),
-                                  9 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, PU, drive, synchrodrive',
-                                    'value' => 13021153,
-                                  ),
-                                  10 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, PU, flex, synchroflex',
-                                    'value' => 13021154,
-                                  ),
-                                  11 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, PU, flex, synchroflex, GEN III',
-                                    'value' => 13021155,
-                                  ),
-                                  12 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, force, synchroforce, CXP',
-                                    'value' => 13021156,
-                                  ),
-                                  13 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, force, synchroforce, CXA',
-                                    'value' => 13021157,
-                                  ),
-                                  14 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, force, carbon, synchroforce',
-                                    'value' => 13021158,
-                                  ),
-                                  15 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, force, extreme, synchroforce',
-                                    'value' => 13021159,
-                                  ),
-                                  16 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, open end, line, synchroline',
-                                    'value' => 13021160,
-                                  ),
-                                  17 => 
-                                  array (
-                                    'key' => 'Synchronous, Positive Drive, timing, open end, line, synchroline, CXP',
-                                    'value' => 13021161,
-                                  ),
-                                  18 => 
-                                  array (
-                                    'key' => 'hybrid, special, synchrorib',
-                                    'value' => 13021162,
-                                  ),
-                                  19 => 
-                                  array (
-                                    'key' => 'hybrid, special, synchrorib, CXP',
-                                    'value' => 13021163,
-                                  ),
-                                  20 => 
-                                  array (
-                                    'key' => 'hybrid, special, synchrorib, CXA',
-                                    'value' => 13021164,
-                                  ),
-                                  21 => 
-                                  array (
-                                    'key' => 'double sided, twin, synchrotwin',
-                                    'value' => 13021165,
-                                  ),
-                                  22 => 
-                                  array (
-                                    'key' => 'double sided, twin, synchrotwin, CXP',
-                                    'value' => 13021166,
-                                  ),
-                                  23 => 
-                                  array (
-                                    'key' => 'double sided, twin, synchrotwin, CXA',
-                                    'value' => 13021167,
-                                  ),
-                                  24 => 
-                                  array (
-                                    'key' => 'friction, V-belt, V, advance',
-                                    'value' => 13021168,
-                                  ),
-                                  25 => 
-                                  array (
-                                    'key' => 'friction, V-belt, V, double sided, dual',
-                                    'value' => 13021169,
-                                  ),
-                                  26 => 
-                                  array (
-                                    'key' => 'friction, raw edge, V-belt, V, FO, standard',
-                                    'value' => 13021170,
-                                  ),
-                                  27 => 
-                                  array (
-                                    'key' => 'friction, raw edge, V-belt, V, FO, pioneer',
-                                    'value' => 13021171,
-                                  ),
-                                  28 => 
-                                  array (
-                                    'key' => 'garden, insta, instapower',
-                                    'value' => 13021172,
-                                  ),
-                                  29 => 
-                                  array (
-                                    'key' => 'banded, V-belt, V, multi, multibelt, standard',
-                                    'value' => 13021173,
-                                  ),
-                                  30 => 
-                                  array (
-                                    'key' => 'banded, V-belt, V, multi, multibelt, advance',
-                                    'value' => 13021174,
-                                  ),
-                                  31 => 
-                                  array (
-                                    'key' => 'banded, V-belt, V, multi, multibelt, power, ZAR',
-                                    'value' => 13021175,
-                                  ),
-                                  32 => 
-                                  array (
-                                    'key' => 'banded, raw edge, V-belt, V, multi, multibelt, FO, standard',
-                                    'value' => 13021176,
-                                  ),
-                                  33 => 
-                                  array (
-                                    'key' => 'banded, raw edge, V-belt, V, multi, multibelt, FO, advance',
-                                    'value' => 13021177,
-                                  ),
-                                  34 => 
-                                  array (
-                                    'key' => 'poly-V, multi, multirib, power, ZAR',
-                                    'value' => 13021178,
-                                  ),
-                                  35 => 
-                                  array (
-                                    'key' => 'poly-V, multi, multirib, elast',
-                                    'value' => 13021179,
-                                  ),
-                                  36 => 
-                                  array (
-                                    'key' => 'poly-V, multi, multirib, double sided, dual',
-                                    'value' => 13021180,
-                                  ),
-                                  37 => 
-                                  array (
-                                    'key' => 'V-belt, V, power, ZAR',
-                                    'value' => 13021181,
-                                  ),
-                                  38 => 
-                                  array (
-                                    'key' => 'variable speed, variator, varispeed, VSB, advance',
-                                    'value' => 13021182,
-                                  ),
-                                ),
-                                 'width' => 220,
-                                 'defaultValue' => '',
-                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
-                                 'optionsProviderData' => 'Search Keywords|Id',
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'dynamicOptions' => false,
-                                 'name' => 'searchKeywords',
-                                 'title' => 'Search Keywords',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              4 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'fieldtype' => 'textarea',
-                                 'width' => 220,
-                                 'height' => 80,
-                                 'maxLength' => NULL,
-                                 'showCharCount' => false,
-                                 'excludeFromSearchIndex' => false,
-                                 'queryColumnType' => 'longtext',
-                                 'columnType' => 'longtext',
-                                 'phpdocType' => 'string',
-                                 'name' => 'CategoryDescriptionCatalog',
-                                 'title' => 'Category Description Catalog',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                            ),
-                             'locked' => false,
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                             'fieldtype' => 'fieldcontainer',
-                             'labelWidth' => 150,
-                             'layout' => 'vbox',
-                             'fieldLabel' => '',
-                             'name' => 'Field Container',
-                             'type' => NULL,
-                             'region' => NULL,
-                             'title' => '',
-                             'width' => NULL,
-                             'height' => NULL,
-                             'collapsible' => false,
-                             'collapsed' => false,
-                             'bodyStyle' => '',
-                             'datatype' => 'layout',
-                             'permissions' => NULL,
-                             'childs' => 
-                            array (
-                              0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'fieldtype' => 'booleanSelect',
                                  'yesLabel' => 'Y',
@@ -3965,14 +3698,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'tinyint(1) null',
                                  'columnType' => 'tinyint(1) null',
                                  'phpdocType' => 'boolean',
-                                 'name' => 'newItemFlagForCatalog',
-                                 'title' => 'New Item Flag for Catalog',
+                                 'name' => 'pdfDrawing',
+                                 'title' => 'PDF Drawing (Y/N)',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
-                                 'style' => 'margin-left: 20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
@@ -3980,10 +3713,154 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              1 => 
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
-                                 'options' => NULL,
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'test',
+                                    'value' => 12961632,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'FGFF, GHFGH',
+                                    'value' => 12961633,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'synchronous, timing, falcon, GTR',
+                                    'value' => 12961634,
+                                  ),
+                                ),
+                                 'width' => 220,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
+                                 'optionsProviderData' => 'Search Keywords|Id',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
+                                 'name' => 'searchKeywords',
+                                 'title' => 'Search Keywords',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                                 'fieldtype' => 'localizedfields',
+                                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                                 'childs' => 
+                                array (
+                                  0 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 280,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 100,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'webDiscription',
+                                     'title' => 'Web Description',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                ),
+                                 'name' => 'localizedfields',
+                                 'region' => NULL,
+                                 'layout' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'maxTabs' => NULL,
+                                 'labelWidth' => NULL,
+                                 'border' => true,
+                                 'provideSplitView' => false,
+                                 'tabPosition' => NULL,
+                                 'hideLabelsWhenTabsReached' => NULL,
+                                 'referencedFields' => 
+                                array (
+                                ),
+                                 'fieldDefinitionsCache' => NULL,
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => NULL,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => true,
+                                 'visibleSearch' => true,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 150,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => NULL,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'demo test',
+                                    'value' => 12961640,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'demo demo',
+                                    'value' => 12961641,
+                                  ),
+                                ),
                                  'width' => 220,
                                  'defaultValue' => '',
                                  'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
@@ -4009,7 +3886,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              2 => 
+                              1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -4037,7 +3914,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -4064,6 +3941,75 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                 'fieldtype' => 'booleanSelect',
+                                 'yesLabel' => 'Y',
+                                 'noLabel' => 'N',
+                                 'emptyLabel' => 'Empty',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Empty',
+                                    'value' => 0,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Y',
+                                    'value' => 1,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'N',
+                                    'value' => -1,
+                                  ),
+                                ),
+                                 'width' => 220,
+                                 'queryColumnType' => 'tinyint(1) null',
+                                 'columnType' => 'tinyint(1) null',
+                                 'phpdocType' => 'boolean',
+                                 'name' => 'virtualCatalogFlag',
+                                 'title' => 'Virtual Catalog Flag',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left: 20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'fieldtype' => 'textarea',
+                                 'width' => 220,
+                                 'height' => 80,
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'queryColumnType' => 'longtext',
+                                 'columnType' => 'longtext',
+                                 'phpdocType' => 'string',
+                                 'name' => 'CategoryDescriptionCatalog',
+                                 'title' => 'Category Description Catalog',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left: 20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
                               )),
                             ),
                              'locked' => false,
