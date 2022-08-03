@@ -364,7 +364,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table aria-describedby="articleTable" class="table page-break-before-always">
+                        <table aria-describedby="articleTable" class="table page-break-before-always continueLable">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
@@ -443,6 +443,10 @@ if($groupData){
         </section>
 
 </article>
+
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+<?php endif; ?>
 
 <?php } ?>
 
