@@ -44,6 +44,11 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:one-time-import:product-hierarchy-import' }
 
+    # this command will execute to modify the state of workflow to published state
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUWorkflowPublishCommand:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-workflow-publish' }
+
     # this command will execute the onetime import of product hierarchy
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductAssetImportCommand:
         tags:
