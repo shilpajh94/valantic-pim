@@ -19,12 +19,16 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
      */
     getGridPanel: function () {
 
+        const dateObj = new Date();
+        let timeDiff = dateObj.getTimezoneOffset();
+
         this.store = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
                 url: '/admin/distributionhub/schedules/list',
                 extraParams: {
-                    channelId: this.channelId
+                    channelId: this.channelId,
+                    timeDiff: timeDiff
                 },
                 reader: {
                     type: 'json',
