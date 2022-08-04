@@ -1,43 +1,4 @@
 /**
- *  INH Template left right code
- */
-
-var INHTablerows = document.querySelectorAll(".inhsetting1");
-
-INHTablerows.forEach(function (row) {
-     var rowDescriptions = ro.layout.getBoxDescriptions(row);
-     var rowDescription = rowDescriptions[0];
-     const onLeftPage = rowDescription.pageLeft;
-     row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
- });
-
-/**
- *  End - HYD Hose left right code
- */
-
-var HYDHoseRows = document.querySelectorAll(".productHeadingProductPage");
-HYDHoseRows.forEach(function (row) {
-    var rowDescriptions = ro.layout.getBoxDescriptions(row);
-    var rowDescription = rowDescriptions[0];
-    const onLeftPage = rowDescription.pageLeft;
-    row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
-});
-
-
-/**
- *  End - HYD Fitting left right code
- */
-
-var HYDFittingRows = document.querySelectorAll(".headingSection");
-HYDFittingRows.forEach(function (row) {
-    var rowDescriptions = ro.layout.getBoxDescriptions(row);
-    var rowDescription = rowDescriptions[0];
-    const onLeftPage = rowDescription.pageLeft;
-    row.className = onLeftPage ? "leftHeadingSection" : "rightHeadingSection";
-});
-
-
-/**
  *  Table Continue Label Code
  */
 
@@ -59,7 +20,7 @@ for (var i = 0; i < tables.length; i++) {
         var cells = table.querySelectorAll("tbody tr:first-child td");
         // var cells = table.firstElementChild.querySelectorAll("tr:first-child td");
         var colspan = cells.length;
-
+        // console.log()
         // for (var i = 0; i < cells.length; i++) {
         //     var cellColspan = parseInt(cells[i].getAttribute("colspan"));
 
@@ -90,10 +51,11 @@ for (var i = 0; i < tables.length; i++) {
                         // create a new row
                         var continueRow = document.createElement("tr");
                         var continueCell = document.createElement("td");
+                        // console.log("colspan: "+ colspan);
                         continueCell.setAttribute("colspan", colspan);
                         continueCell.textContent = CONTINUED_TEXT;
-                        continueCell.className = "continueRow";
-                        // continueRow.className = "continueRow";
+                        // continueCell.className = "continueRow";
+                        continueRow.className = "continueRow";
                         continueRow.appendChild(continueCell);
                         previousRow.parentNode.insertBefore(continueRow, previousRow);
                     }

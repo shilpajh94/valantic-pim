@@ -25,7 +25,7 @@ if($groupData){
         <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
                         </span>
                         <div class="flex aligned ">
                                 <h5>
@@ -208,7 +208,7 @@ if($groupData){
                         </div>
 
                         <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image" width="100">
+                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
                         </span>
                 </footer>
         </div>
@@ -282,7 +282,7 @@ if($groupData){
                                 }
                                 else
                                 {
-                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['technicalDrawing1Obj']);
                                 }
                         }else{
                                 $imgSrcObj2 = $this->image("Drawing_Picture");
@@ -306,14 +306,19 @@ if($groupData){
                         <menu class="flex">
                                 <?php if($groupData['safetyFeatures']): ?>
                                         <div class="feature mr-4">
-                                                <h3><?= $this->translate('features') ?></h3>
+                                                <h6><?= $this->translate('features') ?></h6>
                                                 <div >
                                                         <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex center">
-                                                                        <?php if($feature['iconSrc']): ?>
-                                                                        <img src="<?= $feature['iconSrc'] ?>" alt=""/>
+                                                                        <?php if($groupData['isAnyIconFeatureAvailable']): ?>
+                                                                                <?php if($feature['iconSrc']): ?>
+                                                                                <img src="<?= $feature['iconSrc'] ?>" alt=""/>
+                                                                                <?php else: ?>
+                                                                                        <span class="mr-40"></span>
+                                                                                <?php endif;?>
                                                                         <?php endif; ?>
-                                                                        <?= $feature['name'] ?>
+
+                                                                        <span class="ptb-5"><?= $feature['name'] ?></span>
                                                                 </p>
                                                         <?php endforeach; ?>
                                                 </div>
@@ -322,7 +327,7 @@ if($groupData){
 
                                 <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
                                         <div class="specs">
-                                                <h3><?= $this->translate('specs') ?></h3>
+                                                <h6><?= $this->translate('specs') ?></h6>
                                                 <div>
                                                         <?php if(!empty(trim($groupData['material']))): ?>
                                                                 <p>
@@ -359,7 +364,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table width="100%" class="table page-break-before-always">
+                        <table aria-describedby="articleTable" class="table page-break-before-always continueLable">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
@@ -375,7 +380,7 @@ if($groupData){
                                                                         }
                                                                                 
                                                                 ?>
-                                                                <th colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
+                                                                <th scope="outer" colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
                                                                 <?php if($firstArray['columnIcon']): ?>
                                                                 <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" alt="icon image"/>
                                                                 <?php endif; ?>
@@ -395,7 +400,7 @@ if($groupData){
                                                                         $columnWidth = "width=".$first2Array['columnWidth'];
                                                                 }
                                                         ?>
-                                                        <th colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></th>
+                                                        <th scope="outer" colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></th>
                                                 <?php endforeach; ?>
                                         </tr>
 
@@ -404,9 +409,9 @@ if($groupData){
                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c3data): ?>
                                                                 <?php  foreach($c3data as $c3key => $c3value): ?>
                                                                         <?php if($c3value['unitName']): ?>
-                                                                                <th><?= $c3value['unitName'] ?></th>
+                                                                                <th scope="outer"><?= $c3value['unitName'] ?></th>
                                                                         <?php else: ?>
-                                                                                <th></th>
+                                                                                <th scope="outer"></th>
                                                                         <?php endif; ?>
                                                                 <?php endforeach; ?>
                                                         <?php endforeach; ?>
@@ -430,8 +435,7 @@ if($groupData){
                                         <?php endforeach; ?>
                                 </tbody>
                         </table>
-                        <div class="small relative"><?= $this->input('PTG_Note_' .$tableNoteCount, ['placeholder' => 'Enter comment']); ?></div>
-                       
+
                         <?php
                         $tableNoteCount++;
 
@@ -440,9 +444,9 @@ if($groupData){
 
 </article>
 
-<?php if (!$containerRequest){ ?>
-        <!-- <script type="text/javascript" src="/static/js/tableContinueLable.js"></script> -->
-<?php } ?>
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+<?php endif; ?>
 
 <?php } ?>
 

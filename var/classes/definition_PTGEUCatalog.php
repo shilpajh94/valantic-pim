@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-29T11:02:08+02:00
+* Generated at: 2022-07-21T19:15:43+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUCatalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656493327,
+   'modificationDate' => 1658423742,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -86,6 +86,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               array (
                 'key' => 'English',
                 'value' => 'en',
+              ),
+              1 => 
+              array (
+                'key' => 'German',
+                'value' => 'de',
               ),
             ),
              'width' => '',
@@ -228,14 +233,19 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'key' => '1 (1)',
+                'key' => 'Domestic Market (1)',
                 'value' => '1',
+              ),
+              1 => 
+              array (
+                'key' => 'Export (2)',
+                'value' => '2',
               ),
             ),
              'width' => '',
              'defaultValue' => '',
              'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
-             'optionsProviderData' => 'DistributionChannel|name+code|code',
+             'optionsProviderData' => 'PTGEUDistributionChannel|name+distributionCode|distributionCode',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -264,24 +274,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'key' => '104 (104)',
-                'value' => '104',
+                'key' => 'CT PT Ninghai IND (204)',
+                'value' => '204',
               ),
               1 => 
               array (
-                'key' => '204 (204)',
-                'value' => '204',
+                'key' => 'IND CT AS (4)',
+                'value' => '4',
               ),
               2 => 
               array (
-                'key' => '4 (4)',
-                'value' => '4',
+                'key' => 'IND CT India (104)',
+                'value' => '104',
               ),
             ),
              'width' => '',
              'defaultValue' => '',
              'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
-             'optionsProviderData' => 'SalesOrganisation|name+code|code',
+             'optionsProviderData' => 'PTGEUSalesOrg|salesOrgName+salesOrgCode|salesOrgCode',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,

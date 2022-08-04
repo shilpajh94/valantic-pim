@@ -117,7 +117,7 @@ body {
 
 body {
   background: #ffffff;
-  line-height: 18px;
+  line-height: 1.2;
   font-size: 12px;
   font-weight: normal;
   font-family: 'ContinentalStagSansLCG-Light';
@@ -296,10 +296,6 @@ header {
   align-self: center !important;
 }
 
-table {
-  border-collapse: collapse;
-}
-
 table th,
 table td {
   padding: 4px;
@@ -382,6 +378,9 @@ section:first-child{
 .mt-4{
   margin-top: 20px;
 }
+.mt-10{
+  margin-top: 10px;
+}
 .pt-4{
   padding-top: 20px !important;
 }
@@ -462,6 +461,9 @@ section:first-child{
 }
 .text-left{
   text-align: left !important;
+}
+.text-center{
+  text-align: center;
 }
 .text-right{
   text-align: right !important;
@@ -594,13 +596,23 @@ header aside{
 }
 
 header aside p{
-    padding:0 ;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 0px 4px;
+    /* padding:0 ; */
     width: 90%;
 }
 
 header aside img{
     max-width: 100%;
     height:auto;
+}
+header h1{
+    color: #ffa500;
+    padding: 0px 16px 8px;
+    font-size: 30px;
+    margin-top: 16px;
+    margin-bottom: 0;
 }
 
 article figure h3{
@@ -692,6 +704,7 @@ position: relative;
     margin-top: 30px;
     table-layout: fixed;
 font-size: 11px;
+border-collapse: collapse;
 
 }
 
@@ -703,7 +716,9 @@ font-size: 11px;
 }
 
 .table td, .table th{
-  padding: 8px 5px;
+  padding: 5px 2px;
+  font-size: 10px;
+  /* padding: 8px 5px; */
 }
 
 .table th:first-child,
@@ -722,16 +737,25 @@ font-size: 11px;
 .table img{height: 20px; width: 20px;}
 
 .table1{
-    width: 70% !important;
+    width: 90% !important;
   text-align: left;
-  /*border-collapse: unset;*/
+  border-collapse: collapse;
   border-bottom: 1px solid #000;
-font-size: 11px;
+  border-top: 1px solid #000;
+font-size: 10px;
 }
 
 .table1 th, .table1 td{
   border-top: 1px solid #000;
   padding: 2px 10px;
+border-right:5px solid white;
+}
+
+.table1 td:last-child{
+ border-right: 0 !important;
+}
+.table1 tr:first-child th, .table1 tr:first-child td{
+  border-top:0;
 }
 
 .table1 tr > th{
@@ -739,6 +763,7 @@ font-size: 11px;
   font-family: 'ContinentalStagSansLCG-Medium';
   font-weight: normal;
 text-align: left;
+vertical-align: top;
 }
 
 .table1 table th{
@@ -746,11 +771,15 @@ text-align: left;
     }
 
     .table1 table{
-      text-align: center;
+      /* text-align: center; */
       width: 100%;
-  /*border-collapse: unset;*/
+  border-collapse: collapse;
 
     }
+
+.noPadding{
+ padding: 2px 0 !important;
+}
 
     .table1 table th{
       border-top: 0;
@@ -849,7 +878,7 @@ aside p{
 
 .flex-center {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
 }
@@ -977,6 +1006,17 @@ menu h3{
     padding-left:1em;
     margin-bottom: 0;
 }
+
+menu h6{
+  border-bottom: 1px solid #8d8b8b;
+    padding-bottom: 4px;
+    padding-left: 15px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
 menu figure{
     display: flex;
     justify-content: space-around;
@@ -992,13 +1032,7 @@ menu > *{
     width: 45%;;
 
 }
-
-menu .specs{
-    /*flex-grow:2;*/
-   /* margin-right:2em;*/
-}
 menu .specs  p{
-    /*padding-bottom:1em;*/
     margin-right:1em;
     text-transform: none;
 }
@@ -1014,8 +1048,9 @@ menu .specs  p strong{
 }
 
 menu > * > div{
-    border-left: 2px solid #939597;;
+    border-left: 1px solid #8d8b8b;
     padding:1em;
+    font-size: 10px;
     text-transform: none;
 }
 
@@ -1057,21 +1092,31 @@ footer{
 }
 
 footer .logo{
- background-color: cmyk(0%, 0%, 0%, 100%);
- padding:1em;
- margin:0;
- display: flex;
- align-items: center;
- justify-content: center;
+  background-color: #000000;
+  padding: 15px 15px;
+  background-color: cmyk(0%, 0%, 0%, 100%);
+  padding:1em;
+  margin:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .logo img {
+  max-width: 100%;
+  height: 25px;
 }
 
 footer h5{
-    font-size:2em;
+    /* font-size:2em; */
+    letter-spacing: 0.5px;
+    font-size: 18px;
    
 }
 
 footer h5 span{
     font-size:0.6em;
+    font-size: 14px;
     display:block;
     font-weight: normal;
     margin-top:0.2em;
@@ -1093,14 +1138,20 @@ footer .aligned{
     margin:0;
 }
 
-.footer1 .aligned{ width: 84.2%;}
+/* .footer1 .aligned{ width: 84.2%;} */
 
 footer .flex > * {
     margin: 0.5em;
 }
-.abs{
-position: absolute;
-    top: 35px;
-    right: 4px;
-    max-width: 100px;
+.position-relative{
+  position: relative;
 }
+.abs{
+    position: absolute;
+    bottom: -30px;
+    left: 35%;
+    max-width: 250px;
+    -webkit-filter: drop-shadow(5px 5px 10px  rgba(0, 0 ,0 , 0.5));
+    filter: drop-shadow(5px 5px 10px rgba(0, 0 ,0 , 0.5));
+}
+

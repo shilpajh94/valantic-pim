@@ -1,17 +1,13 @@
-.above{ margin-top: -50px;}
 .relative{ position: relative; }
 .top-section{
   position: relative;
-  padding-top: 30px;
-  overflow: hidden;
-
 }
 
 .top-section .logo{
   position: absolute;
   top: -30px;
   left: 5%;
-  max-width: 300px;
+  max-width: 250px;
 z-index: 10;
 }
 .img-wrapper.relative{ top:0px;}
@@ -22,6 +18,14 @@ z-index: 10;
       width: 100%;
 }
 
+.img-wrapper .branding-img{
+  height: auto;
+  display: block;
+}
+
+.img-wrapper .branding-img img{
+  max-height: 50px;
+}
 
 .set1{
   height: 300px;
@@ -78,6 +82,13 @@ margin-top: 10px;
 max-height: 30px;
 }
 
+.mr-40{
+  margin-right: 40px !important;
+}
+
+.ptb-5{
+  padding: 5px 0 5px 0;
+}
 
 
 .footer {
@@ -105,6 +116,39 @@ max-height: 30px;
 .pageName{ opacity: 0; height: 0;}
 .page-break-before-always{
   page-break-before: always;
+}
+
+.continueRow{
+  text-align: right; 
+  display:inline-flex; 
+  justify-content: flex-end; 
+  width: 100%;  
+}
+
+.display-float-left{
+  float: left;
+}
+.display-flow-root{
+  display: flow-root;
+}
+
+.display-flow-root p{
+  margin-bottom: 1px;
+  min-height: 0;
+}
+
+.edit-prev-mode-mt-50{
+  margin-top: 50px;
+}
+
+@media print {
+  .top-section{
+    padding-top: 30px;
+  }
+  .above{ margin-top: -50px;}
+  .edit-prev-mode-mt-50{
+    
+  }
 }
 
 @page {
@@ -169,7 +213,6 @@ max-height: 30px;
     }
     @bottom-center {
         content: element(footer1);
-
         z-index: 1;
     }
 }

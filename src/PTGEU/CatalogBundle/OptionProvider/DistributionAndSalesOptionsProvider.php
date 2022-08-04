@@ -47,16 +47,6 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
                 $listingObject->setOrderKey($displayFieldName);
                 $listingObject->setOrder("ASC");
                 
-                if($className == 'DistributionChannel')
-                {
-                    $listingObject->setCondition("o_path = ?", ["/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/"]);
-                }
-
-                if($className == 'SalesOrganisation')
-                {
-                    $listingObject->setCondition("o_path = ?", ["/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/"]);
-                }
-                
                 foreach ($listingObject as $object) {
                     $displayFieldNameGetter = "get" . ucfirst($displayFieldName);
                     $name = $object->$displayFieldNameGetter();
