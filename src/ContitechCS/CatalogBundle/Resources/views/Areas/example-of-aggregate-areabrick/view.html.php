@@ -51,7 +51,7 @@
                                 ?>
             <div class="process-image">
 
-                                            <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="w-80"   />
+                                            <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="w-100"   />
             </div>
                                 <?php
                             }

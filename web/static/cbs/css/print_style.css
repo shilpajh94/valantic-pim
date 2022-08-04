@@ -108,8 +108,20 @@ pre {
     border-color: cmyk(0%, 40%, 100%, 0%);
 }
 
-.grey-bg, .cover-compounds-table tbody tr:nth-child(2n), .process-table td:nth-child(2n+2), .process-table th:nth-child(2n+2) {
+.grey-bg, .cover-compounds-table tbody tr:nth-child(2n){
     background: cmyk(0%, 0%, 0%, 10%);
+    -webkit-print-color-adjust: exact;
+}
+.process-table td:nth-child(2), .process-table th:nth-child(2) {
+    background: cmyk(1%, 1%, 0%, 9%);
+    -webkit-print-color-adjust: exact;
+}
+.process-table td:nth-child(3), .process-table th:nth-child(3){
+    background: cmyk(0%, 7%, 18%, 1%);
+    -webkit-print-color-adjust: exact;
+}
+.process-table td:nth-child(4), .process-table th:nth-child(4){
+    background: cmyk(1%, 1%, 0%, 21%);
     -webkit-print-color-adjust: exact;
 }
 .divider{
@@ -136,10 +148,11 @@ pre {
     color: cmyk(0%, 0%, 0%, 0%);
 }
 
-.table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd),  .process-table td:nth-child(2n+3), .process-table th:nth-child(2n+3){
+.table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd){
     background: cmyk(0%, 7%, 20%, 0%);
     -webkit-print-color-adjust: exact;
 }
+
 .wpa-table tbody tr:nth-child(2n){
     background: cmyk(0%, 0%, 0%, 0%);
 }
