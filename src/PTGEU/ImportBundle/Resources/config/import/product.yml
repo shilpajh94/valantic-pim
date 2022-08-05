@@ -17,7 +17,7 @@ parameters:
       description:  'Material Description'
       group:  'Material Group'
       code: 'Prod Hier'
-      baseUOM:  'Base UOM'
+      baseUOM:  'BaseUOM'
       oldMaterial:  'Old Material'
       prodHier1:  'Prod Hier 1'
       prodHier1Desc:  'Prod Hier 1 Desc'
