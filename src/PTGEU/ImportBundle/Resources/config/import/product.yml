@@ -65,6 +65,8 @@ parameters:
       beltTolerance: 'Belt Tolerance'
       minPulleyDia: 'Min. pulley dia.\n[mm]'
       minOutsidePulleyDia: 'Min. outside pulley dia.\n[mm]'
+      priceRef: 'Price Ref. Mat'
+      materialType: 'Material type'
     lastColName: 'CQ'
     startRow: 1
     readFrom: 2

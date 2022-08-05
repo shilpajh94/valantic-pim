@@ -518,23 +518,21 @@ class ProductService
             'beltTolerance' => null,
             'minPulleyDia' => null,
             'minOutsidePulleyDia' => null,
-            'sapDescriptionLanguage' => null
+            'sapDescriptionLanguage' => null,
+            'materialType' => null,
+            'priceRef' => null
         ];
         
         if (strtolower($productType) == 'base') {
             $queryTableData['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
-            $queryTableData['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
             $queryTableData['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
             $queryTableData['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $queryTableData['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
-            $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $queryTableData['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $queryTableData['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $queryTableData['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $queryTableData['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
-            $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $queryTableData['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
 
             $materialGroupCode  = trim($record[$this->getRecordIndexByKey('group')]);
@@ -544,13 +542,63 @@ class ProductService
                 $queryTableData['materialGroup__type'] = 'object';
             }
 
-            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
-            $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $reinforcements         = implode(',', $reinforcementValueArr);
-            $queryTableData['reinforcement'] = $reinforcements;
-
             $beltType                   = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['beltType'] = $this->getBeltTypeId($beltType); 
+
+            $baseObject = DataObject\PTGEUProduct::getById($objId, true);
+
+            $reinforcementValuesToBeMapped = [];
+            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
+            $reinforcementValueArr  = explode('|', $reinforcementValue);
+            $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                foreach($reinforcementValueArr as $eachReinforcementValue){
+                    if($eachOptions['value'] == $eachReinforcementValue){
+                        array_push($reinforcementValuesToBeMapped,$eachReinforcementValue);
+                    }
+                }
+                
+            }
+            $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
+            $queryTableData['reinforcement'] = $reinforcements;
+
+            $performance = trim($record[$this->getRecordIndexByKey('performance')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("performance");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $performance){
+                    $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+                }
+            }
+
+            $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("material");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $materialCompound){
+                    $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+                }
+            }
+
+            $color = trim($record[$this->getRecordIndexByKey('Color')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $color){
+                    $queryTableData['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+                }
+            }
+
+            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $staticConductive){
+                    $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+                }
+            }
+
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -565,10 +613,10 @@ class ProductService
             $queryTableData['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $queryTableData['grossWeight'] = $grossWeight;
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $queryTableData['weightUnit'] = $weightUnit;
+            // $queryTableData['weightUnit'] = $weightUnit;
             $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
             $queryTableData['din'] = trim($record[$this->getRecordIndexByKey('din')]);
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
@@ -578,6 +626,19 @@ class ProductService
             $queryTableData['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $queryTableData['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
             $queryTableData['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);
+            $queryTableData['materialType'] = trim($record[$this->getRecordIndexByKey('materialType')]);
+            $queryTableData['priceRef'] = trim($record[$this->getRecordIndexByKey('priceRef')]);
+
+            $fertObject = DataObject\PTGEUProduct::getById($objId, true);
+
+            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $weightUnit){
+                    $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+                }
+            }
         }
         
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -627,32 +688,81 @@ class ProductService
             'beltTolerance' => null,
             'minPulleyDia' => null,
             'minOutsidePulleyDia' => null,
-            'sapDescriptionLanguage' => null
+            'sapDescriptionLanguage' => null,
+            'materialType' => null,
+            'priceRef' => null
         ];
 
         if (strtolower($productType) == 'base') {
             $storeTableDataArray['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
-            $storeTableDataArray['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
             $storeTableDataArray['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
             $storeTableDataArray['fabricColor'] = trim($record[$this->getRecordIndexByKey('fabricColor')]);
             $storeTableDataArray['quality'] = trim($record[$this->getRecordIndexByKey('quality')]);
-            $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
-            $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $storeTableDataArray['heatAndOilResistant'] = trim($record[$this->getRecordIndexByKey('heatAndOilResistant')]);
             $storeTableDataArray['minimumTemperatureC'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $storeTableDataArray['minimumTemperatureF'] = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
             $storeTableDataArray['maximumTemperatureC'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['maximumTemperatureF'] = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
-            $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $storeTableDataArray['beltHardness'] = trim($record[$this->getRecordIndexByKey('beltHardness')]);
-
-            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
-            $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $reinforcements         = implode(',', $reinforcementValueArr);
-            $storeTableDataArray['reinforcement'] = $reinforcements;
 
             $beltType                       = trim($record[$this->getRecordIndexByKey('beltType')]);
             $storeTableDataArray['beltType']= $this->getBeltTypeId($beltType);
+
+            $baseObject = DataObject\PTGEUProduct::getById($objId, true);
+
+            $reinforcementValuesToBeMapped = [];
+            $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
+            $reinforcementValueArr  = explode('|', $reinforcementValue);
+            $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                foreach($reinforcementValueArr as $eachReinforcementValue){
+                    if($eachOptions['value'] == $eachReinforcementValue){
+                        array_push($reinforcementValuesToBeMapped,$eachReinforcementValue);
+                    }
+                }
+                
+            }
+            $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
+            $storeTableDataArray['reinforcement'] = $reinforcements;
+
+
+            $performance = trim($record[$this->getRecordIndexByKey('performance')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("performance");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $performance){
+                    $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+                }
+            }
+
+            $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("material");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $materialCompound){
+                    $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+                }
+                
+            }
+
+            $color = trim($record[$this->getRecordIndexByKey('Color')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $color){
+                    $storeTableDataArray['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+                }
+            }
+
+            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $staticConductive){
+                    $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+                }
+            }
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -667,10 +777,10 @@ class ProductService
             $storeTableDataArray['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $storeTableDataArray['weightUnit'] = $weightUnit; 
+            // $storeTableDataArray['weightUnit'] = $weightUnit; 
             $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
             $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
@@ -679,7 +789,20 @@ class ProductService
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['matchMakerLL'] = trim($record[$this->getRecordIndexByKey('matchMakerLL')]);
             $storeTableDataArray['beltTolerance'] = trim($record[$this->getRecordIndexByKey('beltTolerance')]);
-            $storeTableDataArray['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);        
+            $storeTableDataArray['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]); 
+            $storeTableDataArray['materialType'] = trim($record[$this->getRecordIndexByKey('materialType')]);
+            $storeTableDataArray['priceRef'] = trim($record[$this->getRecordIndexByKey('priceRef')]);    
+            
+            $fertObject = DataObject\PTGEUProduct::getById($objId, true);
+
+            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
+            $options = $fd->getOptions();
+            foreach($options as $eachOptions){
+                if($eachOptions['value'] == $weightUnit){
+                    $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+                }
+            }
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;

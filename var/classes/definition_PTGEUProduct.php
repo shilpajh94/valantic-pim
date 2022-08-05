@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-08-01T10:04:21+00:00
+* Generated at: 2022-08-05T08:51:27+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -69,15 +69,15 @@ Fields Summary:
 - manufacturer [input]
 - manufacturerPartNumber [numeric]
 - materialType [input]
-- priceRef [input]
 - oldMaterialCode [input]
 - industryStandard [input]
 - beltTolerance [input]
 - grossWeight [numeric]
 - din [input]
 - matchMakerLL [input]
-- Currency [select]
 - alternativeUnitOfMeasureForStockkeepingUnit [input]
+- priceRef [input]
+- Currency [select]
 - cadLINK [input]
 - cadFile [booleanSelect]
 - printedCatalogFlag [booleanSelect]
@@ -122,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1659348258,
+   'modificationDate' => 1659689484,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1140,15 +1140,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
+                                    'key' => 'Convenient Line',
+                                    'value' => 'Convenient Line',
+                                  ),
+                                  1 => 
+                                  array (
                                     'key' => 'High',
                                     'value' => 'High',
                                   ),
-                                  1 => 
+                                  2 => 
                                   array (
                                     'key' => 'Advance',
                                     'value' => 'Advance',
                                   ),
-                                  2 => 
+                                  3 => 
                                   array (
                                     'key' => 'Standard',
                                     'value' => 'Standard',
@@ -1191,8 +1196,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   ),
                                   1 => 
                                   array (
-                                    'key' => 'HNBR',
-                                    'value' => 'HNBR',
+                                    'key' => 'H-NBR',
+                                    'value' => 'H-NBR',
                                   ),
                                   2 => 
                                   array (
@@ -1275,20 +1280,65 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
+                                    'key' => 'Black / Yellow',
+                                    'value' => 'Black / Yellow',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Black / White',
+                                    'value' => 'Black / White',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Black / Red',
+                                    'value' => 'Black / Red',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Black / Purple',
+                                    'value' => 'Black / Purple',
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'Black / Orange',
+                                    'value' => 'Black / Orange',
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Black / Green',
+                                    'value' => 'Black / Green',
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Black / Blue',
+                                    'value' => 'Black / Blue',
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'White',
+                                    'value' => 'White',
+                                  ),
+                                  8 => 
+                                  array (
+                                    'key' => 'Red',
+                                    'value' => 'Red',
+                                  ),
+                                  9 => 
+                                  array (
                                     'key' => 'Grey',
                                     'value' => 'Grey',
                                   ),
-                                  1 => 
+                                  10 => 
                                   array (
                                     'key' => 'Black',
                                     'value' => 'Black',
                                   ),
-                                  2 => 
+                                  11 => 
                                   array (
                                     'key' => 'Blue',
                                     'value' => 'Blue',
                                   ),
-                                  3 => 
+                                  12 => 
                                   array (
                                     'key' => 'Yellow',
                                     'value' => 'Yellow',
@@ -1385,40 +1435,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'key' => 'Cord',
-                                    'value' => 'Cord',
+                                    'key' => 'PE',
+                                    'value' => 'PE',
                                   ),
                                   1 => 
-                                  array (
-                                    'key' => 'Polyamide',
-                                    'value' => 'Poly',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Polyester',
-                                    'value' => 'Polyster',
-                                  ),
-                                  3 => 
                                   array (
                                     'key' => 'Aramid',
                                     'value' => 'Aramid',
                                   ),
-                                  4 => 
+                                  2 => 
                                   array (
                                     'key' => 'Carbon',
                                     'value' => 'Carbon',
                                   ),
-                                  5 => 
+                                  3 => 
                                   array (
                                     'key' => 'Carbon-Glass',
                                     'value' => 'Carbon-Glass',
                                   ),
-                                  6 => 
+                                  4 => 
                                   array (
                                     'key' => 'Glass',
                                     'value' => 'Glass',
                                   ),
-                                  7 => 
+                                  5 => 
                                   array (
                                     'key' => 'Steel',
                                     'value' => 'Steel',
@@ -1679,13 +1719,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'key' => ' Yes acc. ISO 1813',
-                                    'value' => ' Yes acc. ISO 1813',
+                                    'key' => 'Yes acc. to ISO 1813',
+                                    'value' => 'Yes acc. to ISO 1813',
                                   ),
                                   1 => 
                                   array (
-                                    'key' => 'Yes acc. ISO 9563',
-                                    'value' => 'Yes acc. ISO 9563',
+                                    'key' => 'Yes acc. to ISO 9563',
+                                    'value' => 'Yes acc. to ISO 9563',
                                   ),
                                   2 => 
                                   array (
@@ -3105,35 +3145,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'unique' => false,
                                  'showCharCount' => false,
                                  'name' => 'materialType',
-                                 'title' => 'Material Type',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              9 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 220,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'priceRef',
-                                 'title' => 'Price Ref',
+                                 'title' => 'Material type',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -3342,6 +3354,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 3,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'alternativeUnitOfMeasureForStockkeepingUnit',
+                                 'title' => 'Alternative Unit of Measure for Stockkeeping Unit',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              7 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 220,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'priceRef',
+                                 'title' => 'Price Ref. Mat',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
@@ -3372,35 +3440,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              7 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 220,
-                                 'defaultValue' => NULL,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 3,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'alternativeUnitOfMeasureForStockkeepingUnit',
-                                 'title' => 'Alternative Unit of Measure for Stockkeeping Unit',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => true,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => 'margin-left:20px;',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
+                                 'invisible' => true,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
