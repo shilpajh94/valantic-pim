@@ -218,11 +218,11 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     {
         switch ($data) {
             case 'Y':
-                return 1;
+                return true;
             case 'N':
-                return 0;
+                return false;
             default:
-                return '';
+                return;
         }
     }
 

@@ -149,6 +149,7 @@ class ScheduleController extends AdminController
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 
+        // $data = $scheduleService->buildScheduleForGrid($schedule);
         $data = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
         $data['success'] = true;
 
@@ -166,6 +167,7 @@ class ScheduleController extends AdminController
     public function listSchedule(Request $request, ScheduleService $scheduleService)
     {
         $channelId = $request->get('channelId');
+        $timeDiffInMins = $request->get('timeDiff');
 
         $list = new Schedule\Listing();
         $condition = "channelId = ".$channelId." AND status != ".$list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
@@ -176,6 +178,7 @@ class ScheduleController extends AdminController
 
         $data = [];
         foreach ($list->getItems() as $schedule) {
+            // $tmp = $scheduleService->buildScheduleForGrid($schedule);
             $tmp = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
             $data[] = $tmp;
         }

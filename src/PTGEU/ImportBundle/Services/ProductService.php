@@ -607,17 +607,15 @@ class ProductService
             $queryTableData['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
             $queryTableData['minPulleyDia'] = trim($record['61']);
             $queryTableData['minOutsidePulleyDia'] = trim($record['62']);
+            $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
         }
 
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $queryTableData['grossWeight'] = $grossWeight;
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            // $queryTableData['weightUnit'] = $weightUnit;
-            $queryTableData['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);
             $queryTableData['din'] = trim($record[$this->getRecordIndexByKey('din')]);
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
@@ -771,17 +769,16 @@ class ProductService
             $storeTableDataArray['maxSpeed'] = trim($record[$this->getRecordIndexByKey('maxSpeed')]);
             $storeTableDataArray['minPulleyDia'] = trim($record['61']);
             $storeTableDataArray['minOutsidePulleyDia'] = trim($record['62']);
+            $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
+
         }
 
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['articleNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
             $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            // $storeTableDataArray['weightUnit'] = $weightUnit; 
-            $storeTableDataArray['nominalLength'] = trim($record[$this->getRecordIndexByKey('nominalLength')]);   
             $storeTableDataArray['din'] = trim($record[$this->getRecordIndexByKey('din')]);
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]); 
