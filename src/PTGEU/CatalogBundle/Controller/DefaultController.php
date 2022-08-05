@@ -172,7 +172,7 @@ class DefaultController extends AbstractController
                 {
                     $nominalLength= $upperRibWidth= $electricalConductivity ='';
                     $profileObjectDetails =[];
-                    $sql = "SELECT `profile`, `mainImage1`,`technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                    $sql = "SELECT `oo_id`, `profile`, `mainImage1`, `nominalLength`, `technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                     $profileObjectDetails =  $this->db->fetchRow($sql);
 
                     $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId'";
@@ -181,14 +181,11 @@ class DefaultController extends AbstractController
                     $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel6thId'";
                     $electricalConductivity =  $this->db->fetchColumn($sql);
                     
-                    $sql = "SELECT o_id, nominalLength FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
-                    $rowDetails =  $this->db->fetchArray($sql);
+                    $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
+                    $fertObjId =  $this->db->fetchColumn($sql);
 
-                    if($rowDetails)
+                    if($fertObjId)
                     {
-                        $fertObjId = $rowDetails[0];
-                        $nominalLength = $rowDetails[1];
-
                         $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
                         $beltHeight =  $this->db->fetchColumn($sql);
                     }
@@ -196,6 +193,7 @@ class DefaultController extends AbstractController
                     $groupData = [];
                     $profile = $profileObjectDetails['profile'];
                     $material = $profileObjectDetails['material'];
+                    $nominalLength = $profileObjectDetails['nominalLength'];
                     $reinforcementSelected = trim($profileObjectDetails['reinforcement'], ",");
                     $fabricType = $profileObjectDetails['fabricType'];
                     $beltDesignlistContent = [];
@@ -274,7 +272,7 @@ class DefaultController extends AbstractController
                     $profileData[$profile] = $groupData;
                 }
             }
-            
+
             $this->view['BrandLogoSrc'] = $BrandLogoSrc;
             $this->view['profileData'] = $profileData;
         }
