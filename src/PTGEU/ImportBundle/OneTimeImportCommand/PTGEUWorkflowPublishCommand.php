@@ -24,13 +24,25 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
         $productsList->load();
         if($productsList)
         {
+            $sql = "SELECT `cid` from element_workflow_state";
+            $record = $this->db->fetchAll($sql);
             foreach ($productsList->getObjects() as $obj) {
                 $objectId = $obj->getId();
-                $updateQuery = "UPDATE element_workflow_state SET place = 'published' where cid = $objectId";
-                $this->db->executeUpdate($updateQuery);
-                print_r('Update state for ----- '.$objectId);
-                echo PHP_EOL;
+                $key = array_search($objectId, array_column($record, 'cid'));
+                if ($key){
+                    $updateQuery = "UPDATE element_workflow_state SET place = 'published' where cid = $objectId";
+                    $this->db->executeUpdate($updateQuery);
+                    print_r('Updated state for ----- '.$objectId);
+                    echo PHP_EOL;
+                }else{
+                    $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,`workflow`) VALUES('$objectId', 'object', 'published', 'ptg_eu_product_enrichment')";
+                    $this->db->query($insertQuery);
+                    print_r('Inserted for  ----- '.$objectId);
+                    echo PHP_EOL;
+                }
             }
+    
+            
         }
     }
 }
