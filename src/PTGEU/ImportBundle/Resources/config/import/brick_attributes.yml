@@ -230,10 +230,10 @@ Number of Grooves:
     fieldName: numberOfGrooves
     fieldType: Number
     objectType: PTGEUMetalFert
-Number of Teeth:
-    fieldName: numberOfTeeth
-    fieldType: Number
-    objectType: PTGEUMetalFert
+# Number of Teeth:
+#     fieldName: numberOfTeeth
+#     fieldType: Number
+#     objectType: PTGEUMetalFert
 Standards:
     fieldName: standards
     fieldType: Textarea
