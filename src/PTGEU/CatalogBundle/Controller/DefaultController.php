@@ -113,6 +113,12 @@ class DefaultController extends AbstractController
         die;
     }
 
+    public function containerAction(Request $request)
+    {
+        $allChildren = $this->document->getAllChildren();
+        $this->view->allChildren = $allChildren;
+    }
+    
     public function templatePtgEuProductProfileAction(Request $request)
     {
         $language = $this->document->getProperty('language');
