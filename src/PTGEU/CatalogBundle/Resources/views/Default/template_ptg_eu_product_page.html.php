@@ -18,7 +18,7 @@ if (!isset($this->parentContainer)) {
 <?php
 if($groupData){
 ?>
-<article class="template">
+<article class="template page-break-after-always">
         <span  class="pageName">
                 <?= $groupData['siop5Category']; ?>
         </span>
@@ -356,7 +356,7 @@ if($groupData){
 
                 <?php endif; ?>
                 
-                
+                <div class="page-break-after-always"></div>
                 <?php
 
                 $tableNoteCount = 0;
@@ -364,7 +364,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table aria-describedby="articleTable" class="table page-break-before-always continueLable">
+                        <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
