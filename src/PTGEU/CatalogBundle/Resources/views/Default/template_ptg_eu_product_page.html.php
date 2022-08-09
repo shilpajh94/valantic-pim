@@ -18,7 +18,7 @@ if (!isset($this->parentContainer)) {
 <?php
 if($groupData){
 ?>
-<article class="template">
+<article class="template page-break-after-always">
         <span  class="pageName">
                 <?= $groupData['siop5Category']; ?>
         </span>
