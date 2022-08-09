@@ -43,7 +43,7 @@ class Constants
      * 
      * value range: 0-23
      */
-    const UPDATE_WINDOW_END_HOUR = 2;
+    const UPDATE_WINDOW_END_HOUR = 18;
 
     const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
 
