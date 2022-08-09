@@ -356,7 +356,7 @@ if($groupData){
 
                 <?php endif; ?>
                 
-                
+                <div class="page-break-after-always"></div>
                 <?php
 
                 $tableNoteCount = 0;
@@ -364,7 +364,7 @@ if($groupData){
                 {
                         ?>
 
-                        <table aria-describedby="articleTable" class="table page-break-before-always continueLable">
+                        <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
                                 <thead>
 
                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
