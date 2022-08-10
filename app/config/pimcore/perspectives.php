@@ -182,6 +182,7 @@ return [
                 'sort' => 7,
                 'id' => 'cs_dataobject_master_data',
             ]
+            
         ]
     ],
     'CS_MarCom' => [
@@ -463,6 +464,22 @@ return [
                 'sort' => 5,
                 'id' => 'contitech_ptgeu_catalog_objects',
             ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 4,
+                'id' => 'contitech_ptgeu_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 5,
+                'id' => 'contitech_ptgeu_material_master_list',
+            ],
             
         ]
     ],
@@ -509,6 +526,22 @@ return [
                 'hidden' => false,
                 'sort' => 5,
                 'id' => 'contitech_ptgeu_catalog_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 4,
+                'id' => 'contitech_ptgeu_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 5,
+                'id' => 'contitech_ptgeu_material_master_list',
             ],
             
         ]
