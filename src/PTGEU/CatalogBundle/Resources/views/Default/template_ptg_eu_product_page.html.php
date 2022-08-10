@@ -306,7 +306,7 @@ if($groupData){
                         <menu class="flex">
                                 <?php if($groupData['safetyFeatures']): ?>
                                         <div class="feature mr-4">
-                                                <h6><?= $this->translate('features') ?></h6>
+                                                <h6><?= $this->translate('PTGEU_features') ?></h6>
                                                 <div >
                                                         <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex center">
@@ -327,25 +327,25 @@ if($groupData){
 
                                 <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
                                         <div class="specs">
-                                                <h6><?= $this->translate('specs') ?></h6>
+                                                <h6><?= $this->translate('PTGEU_specs') ?></h6>
                                                 <div>
                                                         <?php if(!empty(trim($groupData['material']))): ?>
                                                                 <p>
-                                                                        <strong><?= $this->translate('Material') ?></strong>
+                                                                        <strong><?= $this->translate('PTGEU_Material') ?></strong>
                                                                         <?= $groupData['material'] ?>
                                                                 </p>
                                                         <?php endif; ?>
                                                         
                                                         <?php if(!empty(trim($groupData['reinforcement']))): ?>
                                                                 <p>
-                                                                        <strong><?= $this->translate('Reinforcement') ?></strong>
+                                                                        <strong><?= $this->translate('PTGEU_Reinforcement') ?></strong>
                                                                         <?= $groupData['reinforcement'] ?>
                                                                 </p>
                                                         <?php endif; ?>
 
                                                         <?php if(!empty(trim($groupData['temperatureRange']))): ?>
                                                                 <p>
-                                                                        <strong><?= $this->translate('Temperature Range') ?></strong>
+                                                                        <strong><?= $this->translate('PTGEU_Temperature_Range') ?></strong>
                                                                         <?= $groupData['temperatureRange']; ?>
                                                                 </p>
                                                         <?php endif; ?>
