@@ -320,7 +320,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 4,
-                'id' => 'contitech_ptgeu_product_objects',
+                'id' => 'cs_product_data_import_module',
             ],
             [
                 'type' => 'customview',
@@ -328,9 +328,32 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 5,
+                'id' => 'contitech_ptgeu_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 6,
+                'id' => 'contitech_ptgeu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 7,
+                'id' => 'contitech_ptgeu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 8,
                 'id' => 'contitech_ptgeu_catalog_objects',
             ],
-            
         ]
     ],
 
@@ -367,7 +390,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 4,
-                'id' => 'contitech_ptgeu_product_objects',
+                'id' => 'contitech_ptgeu_master_list',
             ],
             [
                 'type' => 'customview',
@@ -375,6 +398,22 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 5,
+                'id' => 'contitech_ptgeu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 6,
+                'id' => 'contitech_ptgeu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 7,
                 'id' => 'contitech_ptgeu_catalog_objects',
             ],
             

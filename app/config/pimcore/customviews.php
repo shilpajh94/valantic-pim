@@ -249,7 +249,7 @@ return [
             'name' => 'Catalog Images',
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
             'id' => 'contitech_ptgeu_catalog_images',
-            'rootfolder' => '/Contitech_PTGEU/Catalog Images',
+            'rootfolder' => '/Contitech_PTGEU/CatalogImages',
             'showroot' => true,
             'position' => 'left',
             'sort' => '5',
@@ -343,7 +343,35 @@ return [
             ]
         ],
 
+        [
+            'treetype' => 'object',
+            'name' => 'Master List',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
+            'id' => 'contitech_ptgeu_master_list',
+            'rootfolder' => '/Contitech_PTGEU/Master List',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+        ],
 
+        [
+            'treetype' => 'object',
+            'name' => 'Material Master List',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
+            'id' => 'contitech_ptgeu_material_master_list',
+            'rootfolder' => '/Contitech_PTGEU/MaterialMaster',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+        ],
 
         [
             'treetype' => 'document',
