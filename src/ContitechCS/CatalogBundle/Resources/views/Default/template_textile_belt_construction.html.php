@@ -119,14 +119,14 @@
                 <?php
                     if ($this->editmode) {
                         if ($this->image("TBS_ApplicationImage")->isEmpty()) {
-                            echo $this->image("TBS_ApplicationImage",["height" => 240])->setImage($data['ApplicationImage']);
+                            echo $this->image("TBS_ApplicationImage",["height" => 250])->setImage($data['ApplicationImage']);
                         } else {
-                            echo $this->image("TBS_ApplicationImage",["height" => 240]);
+                            echo $this->image("TBS_ApplicationImage",["height" => 250]);
                         }
                     } else {
                         $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
                         if (!empty($TBSAppImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" style="height: 240px; width: auto;"/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" style="height: 250px; width: auto;"/>
                         <?php
                         }
                     }

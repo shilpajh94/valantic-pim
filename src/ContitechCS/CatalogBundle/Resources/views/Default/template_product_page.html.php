@@ -95,10 +95,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                         if($this->image("PP_Product_Image")->isEmpty())
                         {
-                            echo $this->image("PP_Product_Image")->setImage($data['LogoImage']);
+                            echo $this->image("PP_Product_Image",["height" => 142])->setImage($data['LogoImage']);
                         }
                         else{
-                            echo $this->image("PP_Product_Image");
+                            echo $this->image("PP_Product_Image",["height" => 142]);
                         }
                         ?>
                     </div>
@@ -122,20 +122,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php if($this->editmode):?>
                             <div class="attr-font">Attribute Name = Name</div>
                         <?php endif;?>
-                        <h3>
+                        <h4>
                             <span class="orange">
-                            <strong>
-                                <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
-                                        <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"])->setDataFromResource($data['ProductName']) ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"]); ?>
-                                <?php endif; ?>
-                            </strong>
+                                <strong>
+                                    <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
+                                            <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"])->setDataFromResource($data['ProductName']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"]); ?>
+                                    <?php endif; ?>
+                                </strong>
                             </span>
 
-                            <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
+                            <span class="light-black" style="color:black">
+                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits dd']) ?>
+                            </span>            
 
-                        </h3>
+
+                        </h4>
 
                         <ul>
                             <?php 
@@ -262,7 +265,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
 
                 <div class="media" style="margin: 5px 0px;">
-                    <?= $this->image("ContiA_feature1", ["width" => 40, "height" => 40]); ?>
+                    <?= $this->image("ContiA_feature1", ["width" => 41, "height" => 41]); ?>
                     
                     <div class="media-body">
                         <strong>
@@ -276,7 +279,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 <div class="media" style="margin: 5px 0px;">
 
-                    <?= $this->image("ContiA_feature2", ["width" => 40, "height" => 40]); ?>
+                    <?= $this->image("ContiA_feature2", ["width" => 41, "height" => 41]); ?>
 
                     <div class="media-body">
                         <strong>
@@ -393,12 +396,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         </div>
                     <?php endif; ?>
-                    <?php if(!empty($productImgSrcObj->getId())): ?>
-                        <div class="seal-image">
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt=""/>
-                        </div>
-                    <?php endif; ?>
+                    <!-- <div class ="logo"> -->
+                        <?php if(!empty($productImgSrcObj->getId())): ?>
+                            <div class="seal-image">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:142px; width:auto"/>
+                            </div>
+                        <?php endif; ?>
+                    <!-- </div> -->
                 </div>
+                
                 <?php endif; ?>
                 
                 <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
@@ -413,19 +419,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty() || $this->textarea("PPFB_Comment")->isEmpty()) || $data['FeaturesAndBenefitsWithoutImages']): ?>
                         <div class="feature-benefit-list">
                             <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty())): ?>
-                                <h3>
+                                <h4>
                                     <?php if(!$this->input("PPF_ProductName")->isEmpty()): ?>
                                         <span class="orange">
-                                        <strong>
-                                            <?= $this->input("PPF_ProductName",['placeholder'=>'Enter Product Name']); ?>
-                                        </strong>
+                                            <strong>
+                                                <?= $this->input("PPF_ProductName",['placeholder'=>'Enter Product Name']); ?>
+                                            </strong>
                                         </span>
                                     <?php endif; ?>
 
                                     <?php if(!$this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
+                                        <span class="features-benefit-black">
                                             <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Enter Feature Benefits Label']); ?>
+                                        </span>   
                                     <?php endif; ?>
-                                </h3>
+                                </h4>
                             <?php endif; ?>
                             
                             <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
@@ -581,7 +589,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         
                             $ContiA_feature1Obj =  $this->image("ContiA_feature1");
                             if (!empty($ContiA_feature1Obj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images"  >
                             <?php
                             }
                         ?>
@@ -607,7 +615,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                             $ContiA_feature2Obj =  $this->image("ContiA_feature2");
                             if (!empty($ContiA_feature2Obj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" class="features-images"  >
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images"  >
                             <?php
                             }
                         ?>
