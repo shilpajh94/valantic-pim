@@ -554,6 +554,7 @@ class DefaultController extends AbstractController
 
                                 if($IsPriceCatalog)
                                 {
+                                    $listPrice = '';
                                     if($article['priceData'])
                                     {
                                         $recordArray = explode(PHP_EOL, $article['priceData']);
@@ -741,15 +742,15 @@ class DefaultController extends AbstractController
 
                 if($key == 'listPrice')
                 {
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans("PTGEU_currency_".$value['unitName']);
                 }
                 else
                 {
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans("PTGEU_unit_".$value['unitName']) : '';
                 }
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $key;
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans("PTGEU_".$groupColumnName);
                 if ($this->iconRequired == 'YES')
                 {
                     if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
