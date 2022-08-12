@@ -9,6 +9,7 @@ parameters:
     b2b_Product2:
         url: /services/data/%b2b_api_version%/sobjects/Product2
         external_id: B2B_External_Id__c
+        RecordTypeId: 0121j000003COSVAA4
 
     b2b_ProductCategory:
         url: /services/data/%b2b_api_version%/sobjects/ProductCategory

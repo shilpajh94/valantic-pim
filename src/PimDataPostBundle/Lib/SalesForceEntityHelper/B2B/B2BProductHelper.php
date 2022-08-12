@@ -46,4 +46,11 @@ class B2BProductHelper extends AbstractB2BSalesForceEntityHelper
     {
         return $tempTableData["external_id"];
     }
+
+    public function getRecordTypeId()
+    {
+        $parameter = strtolower($this->getShopType()) ."_" . strval($this->getSalesForceObjectType());
+        $objectTypeConfig =  $this->helper->getSymfonyParameter($parameter);
+        return $objectTypeConfig["RecordTypeId"];
+    }
 }

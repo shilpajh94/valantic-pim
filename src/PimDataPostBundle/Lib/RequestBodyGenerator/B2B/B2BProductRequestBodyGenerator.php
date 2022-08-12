@@ -7,6 +7,7 @@ use PimDataPostBundle\Model\Types\PimFieldType;
 use PimDataPostBundle\Lib\RequestBodyGenerator\RequestBodyGeneratorHelper;
 use PimDataPostBundle\AttributeConfigProvider\B2B\B2BProductAttributeConfigProvider;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
+use PimDataPostBundle\Lib\SalesForceEntityHelper\B2B\B2BProductHelper;
 use PimDataPostBundle\Lib\Util;
 
 class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
@@ -104,12 +105,12 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                             $returnArray[$attributeConfig['sf_attribute_name']] = $pimValue;
                             
                         }
-
                     }
                 }
             }
         }
         $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
+        $returnArray["RecordTypeId"] = (new B2BProductHelper())->getRecordTypeId();
 
         return $returnArray;
     }

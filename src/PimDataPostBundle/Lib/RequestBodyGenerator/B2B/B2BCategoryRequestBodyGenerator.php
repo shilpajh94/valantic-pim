@@ -106,11 +106,12 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
        
-                        $returnArray["CatalogId"] = (new B2BCategoryHelper())->getCatalogId();
                     }
                 }
             }
         }
+        $returnArray["CatalogId"] = (new B2BCategoryHelper())->getCatalogId();
+
         return $returnArray;
     }
     
