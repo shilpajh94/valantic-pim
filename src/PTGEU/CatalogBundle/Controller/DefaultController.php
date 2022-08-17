@@ -353,6 +353,17 @@ class DefaultController extends AbstractController
                 }
 
                 $this->columnsData = json_decode($objColumnsData, true);
+
+                if(!isset($this->columnsData['articleNumber']))
+                {
+                    $matchCodeData['articleNumber']['columnLabel'] = 'Match Code';
+                    $matchCodeData['articleNumber']['fieldType'] = 'Input';
+                    $matchCodeData['articleNumber']['groupName'] = 'articleNumber';
+                    $matchCodeData['articleNumber']['fieldLevel'] = 'class';
+                    $matchCodeData['articleNumber']['objectLevel'] = 'fert';
+                    $this->columnsData = array_merge($matchCodeData, $this->columnsData);
+                }
+
                 if($IsPriceCatalog)
                 {
                     $this->columnsData['listPrice']['columnLabel'] = 'listPrice';

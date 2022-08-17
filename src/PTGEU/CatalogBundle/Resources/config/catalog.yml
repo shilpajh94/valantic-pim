@@ -43,6 +43,14 @@ parameters:
                 fieldType: Relation
         # Write dynamic table header config below
         Dynamic Table Attribute:
+            articleNumber:
+                columnName: articleNumber
+                columnLabel: Match Code
+                fieldLevel: class
+                objectLevel: fert
+                fieldType: Input
+                groupName: articleNumber
+                defaultColumn: true
             netWeight:
                 columnName: netWeight
                 columnLabel: Net Weight
