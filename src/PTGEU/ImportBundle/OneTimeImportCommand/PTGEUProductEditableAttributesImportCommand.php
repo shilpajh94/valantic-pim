@@ -76,7 +76,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                     if(!empty($product))
                     {
                         $rowData    = array_combine($csvHeader, $rowData);
-                        $this->processProduct($rowData, $product);
+                        $this->processProduct($rowData, $product, $i);
 
                         // unset features points var once row processed
                         unset($this->featurePoints);
@@ -126,7 +126,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
 
-    private function processProduct($rowData, $product)
+    private function processProduct($rowData, $product ,$i)
     {
         $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();       
         foreach ($rowData as $fieldCSVKey => $fieldValue) 
@@ -160,7 +160,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $colNameArray[] = $fieldCSVKey. 'does not exists in configuration file.';
             }
         }
-        echo "Data updated for === ". $product->getProductName(). PHP_EOL;
+        echo 'Data updated for row '.$i.' ===  Article Number ==== '.$product->getArticleNumber(). PHP_EOL;
     }
 
     private function saveDescriptionInBase($product,$fieldName,$fieldValue,$fieldType){
