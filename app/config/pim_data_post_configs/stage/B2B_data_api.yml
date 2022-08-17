@@ -1,7 +1,7 @@
 parameters:
     b2b_api_version: v50.0
 
-    b2b_api_host: https://continental-contitech--qa.staging.my.salesforce.com
+    b2b_api_host: https://continental-contitech--qa.sandbox.my.salesforce.com
     b2b_composite_graph_api_url: /services/data/%b2b_api_version%/composite/graph
 
     # follow the following format to add more entries
