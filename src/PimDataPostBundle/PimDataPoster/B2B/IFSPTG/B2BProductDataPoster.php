@@ -117,24 +117,22 @@ class B2BProductDataPoster implements IDataPoster
             }
             $tempTableData = $tempTablePopulator->getExistingTempTableData($recordPimId);
 
-            if($tempTableData["external_id"] != null && trim($tempTableData["external_id"]) != ""){
-                $currTime = time();
-                $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
-    
-                $apiRequestEntity = new B2BAPIRequestEntity();
-                $apiRequestEntity->setBody(json_encode($requestBody));
-                $apiRequestEntity->setOperationType($operationType);
-                $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
-        
-                $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
-                $apiRequestEntity->setPimId($tempTableData["o_id"]);
-                $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
-                $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
-                $apiRequestEntity->setCreationDate($currTime);
-                $apiRequestEntity->save();
+            $currTime = time();
+            $requestBody = $b2bProductRequestBodyGenerator->generateRequestBody($tempTableData);
 
-                $savedRequestIds[] = $recordPimId;
-            }
+            $apiRequestEntity = new B2BAPIRequestEntity();
+            $apiRequestEntity->setBody(json_encode($requestBody));
+            $apiRequestEntity->setOperationType($operationType);
+            $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT());
+    
+            $apiRequestEntity->setexternalID(B2BProductHelper::getExternalId($tempTableData));
+            $apiRequestEntity->setPimId($tempTableData["o_id"]);
+            $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
+            $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
+            $apiRequestEntity->setCreationDate($currTime);
+            $apiRequestEntity->save();
+
+            $savedRequestIds[] = $recordPimId;
         }
     }
 
