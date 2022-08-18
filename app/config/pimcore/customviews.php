@@ -223,7 +223,7 @@ return [
 //                                'uploadFromUrl' => 0                            // hide "Upload From URL"
                             ]
                         ],
-                        'addFolder' => 0,                                       // show (!) "Add Folder" (shown by default anyway)
+                        'addFolder' => 1,                                       // show (!) "Add Folder" (shown by default anyway)
                         'rename' => 0,                                          // hide "Rename"
 //                        "copy" => 0,                                            // hide "Copy"
 //                        "cut" => 0,                                             // hide "Cut"
