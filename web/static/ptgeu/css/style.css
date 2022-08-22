@@ -5,7 +5,7 @@
 
 .top-section .logo{
   position: absolute;
-  top: -30px;
+  top: 0px;
   left: 5%;
   max-width: 250px;
 z-index: 10;

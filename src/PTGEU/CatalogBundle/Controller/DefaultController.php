@@ -267,13 +267,13 @@ class DefaultController extends AbstractController
                     $groupData['profile'] = $profile;
                     $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
                     $groupData['beltDesign'] = $beltDesignlistContent;
-                    $groupData['upperRibWidth'] = $upperRibWidth;
-                    $groupData['beltHeight'] = $beltHeight;
+                    $groupData['upperRibWidth'] = floatval($upperRibWidth);
+                    $groupData['beltHeight'] = floatval($beltHeight);
                     $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
-                    $groupData['hardness'] = $profileObjectDetails['beltHardness'];
-                    $groupData['weightPerMLength'] = $profileObjectDetails['netWeight'];
-                    $groupData['minDiameter'] = $profileObjectDetails['minPulleyDia'];
-                    $groupData['minBlackIdlerDiameter'] = $profileObjectDetails['minOutsidePulleyDia'];
+                    $groupData['hardness'] = floatval($profileObjectDetails['beltHardness']);
+                    $groupData['weightPerMLength'] = floatval($profileObjectDetails['netWeight']);
+                    $groupData['minDiameter'] = floatval($profileObjectDetails['minPulleyDia']);
+                    $groupData['minBlackIdlerDiameter'] = floatval($profileObjectDetails['minOutsidePulleyDia']);
                     $groupData['properties'] = $propertieslistContent;
                     $profileData[$profile] = $groupData;
                 }
@@ -481,6 +481,8 @@ class DefaultController extends AbstractController
 
                 $notApplicableFields = [];
                 $articleData = [];
+                // p_r($orderFieldNameList);
+                // die;
                 foreach ($row6ThLevelDetails as $objectLevel6) {
                     $objectLevel6thId = $objectLevel6['o_id'];
                     if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
@@ -492,33 +494,69 @@ class DefaultController extends AbstractController
                             if($article['printedCatalogFlag'] == '1')
                             {
                                 foreach ($orderFieldNameList as $fieldName => $fields) {
-                                    if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
+                                    if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class'))
                                     {
-                                        $data[$fieldName] = $article[$fieldName];
-                                    }
-                                    else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
-                                    {
-                                        $data[$fieldName] = $objectLevel5thDetails[$fieldName];
-                                    }
-                                    else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class') && (ucfirst($fields['fieldType']) == 'Input'))
-                                    {
-                                        $data[$fieldName] = $objectLevel6[$fieldName];
-                                    }
-                                    else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick') && (ucfirst($fields['fieldType']) == 'Input'))
-                                    {
-
-                                        $o_id = $article['o_id'];
-                                        $objectBrickName = $fields['objectBrickName'];
-                                        $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
-                                        $rowData =  $this->db->fetchRow($sql);
-                                        
-                                        if($rowData)
+                                        if(ucfirst($fields['fieldType']) == 'Input')
                                         {
-                                            $data[$fieldName] = $rowData[$fieldName];
+                                            $data[$fieldName] = $article[$fieldName];
                                         }
-                                        else
+                                        else if(trim($article[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $notApplicableFields[$fields['groupName']]= $fieldName;
+                                            $data[$fieldName] = floatval($article[$fieldName]);
+                                        }
+                                        
+                                    }
+                                    else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
+                                    {
+                                        if(ucfirst($fields['fieldType']) == 'Input')
+                                        {
+                                            $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                        }
+                                        else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
+                                        {
+                                            $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                        }
+                                    }
+                                    else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
+                                    {
+                                        if(ucfirst($fields['fieldType']) == 'Input')
+                                        {
+                                            $data[$fieldName] = $objectLevel6[$fieldName];
+                                        }
+                                        else if(trim($objectLevel6[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
+                                        {
+                                            $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                        }
+                                    }
+                                    else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
+                                    {
+                                        $inputOrNumber = false;
+                                        $isNumericField = false;
+                                        if(ucfirst($fields['fieldType']) == 'Input')
+                                        {
+                                            $inputOrNumber = true;
+                                        }
+                                        else if(ucfirst($fields['fieldType']) == 'Number')
+                                        {
+                                            $inputOrNumber = true;
+                                            $isNumericField = true;
+                                        }
+
+                                        if($inputOrNumber)
+                                        {
+                                            $o_id = $article['o_id'];
+                                            $objectBrickName = $fields['objectBrickName'];
+                                            $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
+                                            $rowData =  $this->db->fetchRow($sql);
+                                            
+                                            if($rowData)
+                                            {
+                                                $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
+                                            }
+                                            else
+                                            {
+                                                $notApplicableFields[$fields['groupName']]= $fieldName;
+                                            }
                                         }
                                         
                                     }
@@ -531,32 +569,68 @@ class DefaultController extends AbstractController
                                         {
                                             $fieldConfig = $DynamicTableAttribute[$fieldName];
 
-                                            if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
+                                            if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class'))
                                             {
-                                                $data[$fieldName] = $article[$fieldName];
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
-                                            {
-                                                $data[$fieldName] = $objectLevel5thDetails[$fieldName];
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
-                                            {
-                                                $data[$fieldName] = $objectLevel6[$fieldName];
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick') && (ucfirst($fieldConfig['fieldType']) == 'Input'))
-                                            {
-                                                $o_id = $article['o_id'];
-                                                $objectBrickName = $fieldConfig['objectBrickName'];
-                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
-                                                $rowData =  $this->db->fetchRow($sql);
-
-                                                if($rowData)
+                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
                                                 {
-                                                    $data[$fieldName] = $rowData[$fieldName];
+                                                    $data[$fieldName] = $article[$fieldName];
                                                 }
-                                                else
+                                                else if(trim($article[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
                                                 {
-                                                    $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
+                                                    $data[$fieldName] = floatval($article[$fieldName]);
+                                                }
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class'))
+                                            {
+                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                                {
+                                                    $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                                }
+                                                else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
+                                                {
+                                                    $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                                }
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class'))
+                                            {
+                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                                {
+                                                    $data[$fieldName] = $objectLevel6[$fieldName];
+                                                }
+                                                else if(trim($objectLevel6[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
+                                                {
+                                                    $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                                }
+                                            }
+                                            else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick'))
+                                            {
+                                                $inputOrNumber = false;
+                                                $isNumericField = false;
+                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                                {
+                                                    $inputOrNumber = true;
+                                                }
+                                                else if(ucfirst($fieldConfig['fieldType']) == 'Number')
+                                                {
+                                                    $inputOrNumber = true;
+                                                    $isNumericField = true;
+                                                }
+                                                
+                                                if($inputOrNumber)
+                                                {
+                                                    $o_id = $article['o_id'];
+                                                    $objectBrickName = $fieldConfig['objectBrickName'];
+                                                    $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
+                                                    $rowData =  $this->db->fetchRow($sql);
+
+                                                    if($rowData)
+                                                    {
+                                                        $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
+                                                    }
+                                                    else
+                                                    {
+                                                        $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
+                                                    }
                                                 }
                                             }
                                         }
@@ -587,8 +661,8 @@ class DefaultController extends AbstractController
                                             }
                                         }
                                     }
-
-                                    $data['listPrice'] = $listPrice;
+                                    
+                                    $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
                                 }
                                 $articleData[$article['profile']][] = $data;
                             }
