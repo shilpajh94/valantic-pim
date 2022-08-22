@@ -74,7 +74,7 @@ class ImportDefinition extends AbstractDataDefinition implements ImportDefinitio
     /**
      * @var boolean
      */
-    public $createVersion;
+    public $createVersion = true;
 
     /**
      * @var boolean
