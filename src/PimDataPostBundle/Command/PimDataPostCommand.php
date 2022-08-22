@@ -50,25 +50,25 @@ class PimDataPostCommand extends AbstractCommand
         /**
          * posting data for B2C shop
          */
-        // $b2cscriptStartTime = time();
-        // Util::setB2CScriptStartTime($b2cscriptStartTime);
-        // p_r($b2cscriptStartTime);
+        $b2cscriptStartTime = time();
+        Util::setB2CScriptStartTime($b2cscriptStartTime);
+        p_r($b2cscriptStartTime);
 
-        // $executor = new B2CProductDataPoster();
-        // $executor->postData();
+        $executor = new B2CProductDataPoster();
+        $executor->postData();
 
-        // $executor = new B2CCategoryDataPoster();
-        // $executor->postData();
+        $executor = new B2CCategoryDataPoster();
+        $executor->postData();
 
-        // $executor = new B2CProductCategoryRelationDataPoster();
-        // $executor->postData();
+        $executor = new B2CProductCategoryRelationDataPoster();
+        $executor->postData();
 
-        // $scriptEndTime = time();
-        // p_r("total time: " .( $scriptEndTime - $b2cscriptStartTime ) . "s");
+        $scriptEndTime = time();
+        p_r("total time: " .( $scriptEndTime - $b2cscriptStartTime ) . "s");
 
 
-        // $notificationSender = new B2CFailureNotificationSender();
-        // $notificationSender->SendFailureNotification();
+        $notificationSender = new B2CFailureNotificationSender();
+        $notificationSender->SendFailureNotification();
 
         $this->removeEntriesFromPimDeletedAssets();
 
