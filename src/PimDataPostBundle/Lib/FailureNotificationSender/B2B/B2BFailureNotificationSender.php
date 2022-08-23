@@ -15,7 +15,7 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         $this->helper = new B2BFailureNotificationSenderHelper();
     }
 
-    public function SendFailureNotification(): void 
+    public function sendFailureNotification(): void 
     {
         $failedRecords = $this->helper->getSfFailureRecords();
 

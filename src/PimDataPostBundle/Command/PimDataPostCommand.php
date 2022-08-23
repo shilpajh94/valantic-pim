@@ -2,10 +2,12 @@
 
 namespace PimDataPostBundle\Command;
 
+use Doctrine\ORM\Query\Expr\Func;
 use Pimcore\Console\AbstractCommand;
 use PimDataPostBundle\Lib\FailureNotificationSender\B2B\B2BFailureNotificationSender;
 use PimDataPostBundle\Lib\FailureNotificationSender\B2C\B2CFailureNotificationSender;
 use PimDataPostBundle\Lib\Util;
+use PimDataPostBundle\Logger\B2BLogger;
 use PimDataPostBundle\Model\PersistantModel\PimcoreDeletedAssets;
 use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BCategoryDataPoster;
 use PimDataPostBundle\PimDataPoster\B2B\IFSPTG\B2BProductCategoryRelationDataPoster;
@@ -22,9 +24,25 @@ class PimDataPostCommand extends AbstractCommand
 {
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        /**
-         * posting data for B2B shop
-         */
+        $this->postDataForB2BShop();
+        $this->postDataForB2CShop();
+      
+        $this->removeEntriesFromPimDeletedAssets();
+
+        if(Util::isPIMFailureFlagSet()){
+            $notificationSender = new B2CFailureNotificationSender();
+            try{
+                $notificationSender->sendPIMFailureNotification();
+            }catch(\Throwable $throwable){
+                B2BLogger::getInstace()->error("Error sending PIM failure email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+            }
+        }
+
+         echo "executed\n";
+    }
+
+    private function postDataForB2BShop()
+    {
         $scriptStartTime = time();
         Util::setB2BScriptStartTime($scriptStartTime);
         p_r($scriptStartTime);
@@ -45,11 +63,16 @@ class PimDataPostCommand extends AbstractCommand
         p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
 
         $notificationSender = new B2BFailureNotificationSender();
-        $notificationSender->SendFailureNotification();
+        try{
+            $notificationSender->sendFailureNotification();
+        }catch(\Throwable $throwable){
+                B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+                Util::setPIMFailureFlag();
+        }
+    }
 
-        /**
-         * posting data for B2C shop
-         */
+    private function postDataForB2CShop()
+    {
         $b2cscriptStartTime = time();
         Util::setB2CScriptStartTime($b2cscriptStartTime);
         p_r($b2cscriptStartTime);
@@ -68,16 +91,14 @@ class PimDataPostCommand extends AbstractCommand
 
 
         $notificationSender = new B2CFailureNotificationSender();
-        $notificationSender->SendFailureNotification();
-
-        $this->removeEntriesFromPimDeletedAssets();
-
-        if(Util::isPIMFailureFlagSet()){
-            $notificationSender->sendPIMFailureNotification();
+        try{
+            $notificationSender->sendFailureNotification();
+        }catch(\Throwable $throwable){
+                B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+                Util::setPIMFailureFlag();
         }
-
-         echo "executed\n";
     }
+
 
     private function removeEntriesFromPimDeletedAssets()
     {
