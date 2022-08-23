@@ -43,12 +43,20 @@ parameters:
                 fieldType: Relation
         # Write dynamic table header config below
         Dynamic Table Attribute:
+            articleNumber:
+                columnName: articleNumber
+                columnLabel: Match Code
+                fieldLevel: class
+                objectLevel: fert
+                fieldType: Input
+                groupName: articleNumber
+                defaultColumn: true
             netWeight:
                 columnName: netWeight
                 columnLabel: Net Weight
                 fieldLevel: class
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: netWeight
                 defaultColumn: true
             weightUnit:
@@ -72,7 +80,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth Pitch (P/t)
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothPitchPt
                 unitName: in
                 objectBrickType: skeleton
@@ -82,7 +90,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth Pitch (P/t)
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothPitchPt
                 unitName: mm
                 objectBrickType: skeleton
@@ -124,7 +132,7 @@ parameters:
                 columnLabel: Effective Length
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: effectiveLength
                 objectBrickType: fert
                 objectBrickName: PTGEUVBeltsFert
@@ -143,7 +151,7 @@ parameters:
                 columnLabel: Pitch Length (Lp/Lw)
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: pitchLengthLpLw
                 unitName: in
                 objectBrickType: fert
@@ -153,7 +161,7 @@ parameters:
                 columnLabel: Pitch Length (Lp/Lw)
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: pitchLengthLpLw
                 unitName: mm
                 objectBrickType: fert
@@ -164,7 +172,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Datum Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: datumLength
                 unitName: in
                 objectBrickType: fert
@@ -174,7 +182,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Datum Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: datumLength
                 unitName: mm
                 objectBrickType: fert
@@ -185,7 +193,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Outside Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: outsideLength
                 unitName: in
                 objectBrickType: fert
@@ -195,7 +203,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Outside Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: outsideLength
                 unitName: mm
                 objectBrickType: fert
@@ -205,7 +213,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Inside Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: insideLength
                 unitName: in
                 objectBrickType: fert
@@ -215,7 +223,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Inside Length
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: insideLength
                 unitName: mm
                 objectBrickType: fert
@@ -226,7 +234,7 @@ parameters:
                 columnLabel: Ref. Length (Lr)
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: refLengthLr
                 unitName: in
                 objectBrickType: fert
@@ -236,7 +244,7 @@ parameters:
                 columnLabel: Ref. Length (Lr)
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: refLengthLr
                 unitName: mm
                 objectBrickType: fert
@@ -247,7 +255,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth height (ht)
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothHeightHt
                 unitName: in
                 objectBrickType: skeleton
@@ -257,7 +265,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth height (ht)
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothHeightHt
                 unitName: mm
                 objectBrickType: skeleton
@@ -268,7 +276,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth Width
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothWidth
                 unitName: in
                 objectBrickType: skeleton
@@ -278,7 +286,7 @@ parameters:
                 fieldLevel: objectBrick
                 columnLabel: Tooth Width
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: toothWidth
                 unitName: mm
                 objectBrickType: skeleton
@@ -289,7 +297,7 @@ parameters:
                 columnLabel: Number of Teeth (Z)
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: numberOfTeethZ
                 objectBrickType: fert
                 objectBrickName: PTGEUFlatBeltsFert
@@ -306,7 +314,7 @@ parameters:
                 columnLabel: ribs
                 fieldLevel: objectBrick
                 objectLevel: fert
-                fieldType: Input
+                fieldType: Number
                 groupName: ribs
                 objectBrickType: fert
                 objectBrickName: PTGEUCommonFert
