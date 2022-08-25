@@ -18,15 +18,15 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
         let objectClassName = object.data.general.o_className;
 
         if (object.data.general.o_className == 'PTGEUCatalog') {
-            var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
+            // var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
             var DistributionChannelCompObj = object.edit.dataFields.DistributionChannel.component;
             var IsPriceCatalogCompObj = object.edit.dataFields.IsPriceCatalog.component;
             var CurrencyCompObj = object.edit.dataFields.Currency.component;
             var ValidFromDateCompObj = object.edit.dataFields.ValidFromDate.component;
             if(IsPriceCatalogCompObj.value == '1')
             {
-                SalesOrganisationCompObj.show();
-                SalesOrganisationCompObj.enable();
+                // SalesOrganisationCompObj.show();
+                // SalesOrganisationCompObj.enable();
                 DistributionChannelCompObj.show();
                 DistributionChannelCompObj.enable();
                 CurrencyCompObj.show();
@@ -35,8 +35,8 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 ValidFromDateCompObj.enable();
             }
             else{
-                SalesOrganisationCompObj.hide();
-                SalesOrganisationCompObj.disable();
+                // SalesOrganisationCompObj.hide();
+                // SalesOrganisationCompObj.disable();
                 DistributionChannelCompObj.hide();
                 DistributionChannelCompObj.disable();
                 CurrencyCompObj.hide();
@@ -49,8 +49,8 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 
                 if(chVal == '1')
                 {
-                    SalesOrganisationCompObj.show();
-                    SalesOrganisationCompObj.enable();
+                    // SalesOrganisationCompObj.show();
+                    // SalesOrganisationCompObj.enable();
                     DistributionChannelCompObj.show();
                     DistributionChannelCompObj.enable();
                     CurrencyCompObj.show();
@@ -59,8 +59,8 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                     ValidFromDateCompObj.enable();
                 }
                 else{
-                    SalesOrganisationCompObj.hide();
-                    SalesOrganisationCompObj.disable();
+                    // SalesOrganisationCompObj.hide();
+                    // SalesOrganisationCompObj.disable();
                     DistributionChannelCompObj.hide();
                     DistributionChannelCompObj.disable();
                     CurrencyCompObj.hide();

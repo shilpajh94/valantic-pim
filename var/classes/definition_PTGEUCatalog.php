@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-21T19:15:43+02:00
+* Generated at: 2022-08-25T08:14:45+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -10,11 +10,12 @@
 
 Fields Summary: 
 - CatalogLanguage [language]
+- DeliveringPlant [select]
+- SalesOrganisation [select]
 - IsPriceCatalog [booleanSelect]
 - ValidFromDate [date]
 - Currency [select]
 - DistributionChannel [select]
-- SalesOrganisation [select]
 */ 
 
 
@@ -23,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUCatalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1658423742,
+   'modificationDate' => 1661408085,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -60,8 +61,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
+         'labelWidth' => 150,
+         'layout' => '',
          'border' => false,
          'name' => 'Layout',
          'type' => NULL,
@@ -87,11 +88,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 'key' => 'English',
                 'value' => 'en',
               ),
-              1 => 
-              array (
-                'key' => 'German',
-                'value' => 'de',
-              ),
             ),
              'width' => '',
              'defaultValue' => NULL,
@@ -109,7 +105,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => 'width:350px;',
+             'style' => 'width:500px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -119,6 +115,103 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'ContiTech India Private Limited (100)',
+                'value' => '100',
+              ),
+              1 => 
+              array (
+                'key' => 'ContiTech PTG Ninghai (200)',
+                'value' => '200',
+              ),
+              2 => 
+              array (
+                'key' => 'CT Antriebssysteme GmbH (10)',
+                'value' => '10',
+              ),
+              3 => 
+              array (
+                'key' => 'CT Antriebssysteme GmbH (50)',
+                'value' => '50',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
+             'optionsProviderData' => 'PTGEUPlant|name+Plant|Plant',
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'dynamicOptions' => false,
+             'name' => 'DeliveringPlant',
+             'title' => 'Delivering Plant',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => 'width:500px;',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'CT PT Ninghai IND (204)',
+                'value' => '204',
+              ),
+              1 => 
+              array (
+                'key' => 'IND CT AS (4)',
+                'value' => '4',
+              ),
+              2 => 
+              array (
+                'key' => 'IND CT India (104)',
+                'value' => '104',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
+             'optionsProviderData' => 'PTGEUSalesOrg|salesOrgName+salesOrgCode|salesOrgCode',
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'dynamicOptions' => false,
+             'name' => 'SalesOrganisation',
+             'title' => 'Sales Organisation',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => 'width:500px;',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
              'fieldtype' => 'booleanSelect',
              'yesLabel' => 'Yes',
@@ -153,7 +246,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => 'width:500px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -161,7 +254,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          2 => 
+          4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
              'fieldtype' => 'date',
              'queryColumnType' => 'bigint(20)',
@@ -176,7 +269,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => 'width:500px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -185,7 +278,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          3 => 
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
@@ -217,7 +310,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => 'width:500px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -226,7 +319,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          4 => 
+          6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
@@ -244,7 +337,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
              'optionsProviderData' => 'PTGEUDistributionChannel|name+distributionCode|distributionCode',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
@@ -258,53 +351,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          5 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'CT PT Ninghai IND (204)',
-                'value' => '204',
-              ),
-              1 => 
-              array (
-                'key' => 'IND CT AS (4)',
-                'value' => '4',
-              ),
-              2 => 
-              array (
-                'key' => 'IND CT India (104)',
-                'value' => '104',
-              ),
-            ),
-             'width' => '',
-             'defaultValue' => '',
-             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
-             'optionsProviderData' => 'PTGEUSalesOrg|salesOrgName+salesOrgCode|salesOrgCode',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'dynamicOptions' => false,
-             'name' => 'SalesOrganisation',
-             'title' => 'Sales Organisation',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
+             'style' => 'width:500px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
