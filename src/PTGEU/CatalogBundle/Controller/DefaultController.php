@@ -310,6 +310,7 @@ class DefaultController extends AbstractController
             $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
             $distributionChannel = $catalogObj->getDistributionChannel();
             $salesOrganisation = $catalogObj->getSalesOrganisation();
+            $deliveringPlant = $catalogObj->getDeliveringPlant();
             $Currency = $catalogObj->getCurrency();
             $ValidFromDate = $catalogObj->getValidFromDate();
             $objColumnsData = $catalogCategoryTableObject->getColumns();
@@ -320,6 +321,27 @@ class DefaultController extends AbstractController
             $siop5Category = $PTGEUProductHierarchy->getPrintedCatalogDescription();
             $siop6siop7Category = '';
             $objectLevel5thDetails = '';
+
+            # get All PlantMaterialMaster of the selected Delivery Plant
+            if(trim($deliveringPlant))
+            {
+                $sql = "SELECT o_id FROM `object_PTGEUPlant` WHERE Plant = '$deliveringPlant' AND o_published = 1 ";
+                $deliveringPlantID =  $this->db->fetchColumn($sql);
+
+                $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_40` WHERE plant__id = '$deliveringPlantID' AND o_published = 1 ";
+                $plantAssociatedMaterials =  $this->db->fetchCol($sql);
+            }
+
+            # get All SalesMaterialMaster of the selected Sales Organization
+            if(trim($salesOrganisation))
+            {
+                $sql = "SELECT o_id FROM `object_PTGEUSalesOrg` WHERE salesOrgCode = '$salesOrganisation' AND o_published = 1 ";
+                $salesOrganisationID =  $this->db->fetchColumn($sql);
+
+                $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_41` WHERE salesOrganization__id = '$salesOrganisationID' AND o_published = 1 ";
+                $salesAssociatedMaterials =  $this->db->fetchCol($sql);
+            }
+
 
             if($PTGEUProductHierarchy)
             {   
@@ -481,13 +503,36 @@ class DefaultController extends AbstractController
 
                 $notApplicableFields = [];
                 $articleData = [];
-                // p_r($orderFieldNameList);
-                // die;
+                
+                if($plantAssociatedMaterials)
+                {
+                    $plantAssociatedMaterials_String = implode(',', $plantAssociatedMaterials);
+                }
+
+                if($salesAssociatedMaterials)
+                {
+                    $salesAssociatedMaterials_String = implode(',', $salesAssociatedMaterials);
+                }
+
                 foreach ($row6ThLevelDetails as $objectLevel6) {
                     $objectLevel6thId = $objectLevel6['o_id'];
                     if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                     {
-                        $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ORDER BY o_id ASC";
+                        $appendWhereClauseSQL = '';
+                        if(trim($plantAssociatedMaterials_String) && trim($salesAssociatedMaterials_String))
+                        {
+                            $appendWhereClauseSQL = "AND `oo_id` IN ($plantAssociatedMaterials_String) AND `oo_id` IN ($salesAssociatedMaterials_String)";
+                        }
+                        else if(trim($plantAssociatedMaterials_String))
+                        {
+                            $appendWhereClauseSQL = "AND `oo_id` IN ($plantAssociatedMaterials_String)";
+                        }
+                        else if(trim($salesAssociatedMaterials_String))
+                        {
+                            $appendWhereClauseSQL = "AND `oo_id` IN ($salesAssociatedMaterials_String)";
+                        }
+
+                        $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' $appendWhereClauseSQL ORDER BY o_id ASC";
                         $productObjectLevel7List =  $this->db->fetchAll($sql);
 
                         foreach ($productObjectLevel7List as $article) {

@@ -92,7 +92,7 @@ class SalesMaterialModel
 	        $valuesArr[] = $this->db->quote("object");
 	        $valuesArr[] = $this->db->quote($data['o_key']);
 	        $valuesArr[] = $this->db->quote($data['o_path']);
-	        $valuesArr[] = $this->db->quote("38");
+	        $valuesArr[] = $this->db->quote("1");
 	        $valuesArr[] = $this->db->quote("41");
 	        $valuesArr[] = $this->db->quote("PTGEUSalesMaterialMaster");
 	        $valuesArr[] = $this->db->quote(time());
