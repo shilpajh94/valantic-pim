@@ -134,7 +134,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </span>
 
                             <span class="light-black" style="color:black">
-                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits dd']) ?>
+                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
                             </span>            
 
 
@@ -159,6 +159,33 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 <?php } ?>
 
+                <div class="feature-benefit-list">
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading1",["placeholder" => "Cost savings"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading1",['placeholder'=>'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
+                        <li><?= $this->input("PPContiAlert_SubHeading2",['placeholder'=>'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
+                    </ul>
+
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading2",["placeholder" => "Predictability"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading3",['placeholder'=>'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+determine how much time is remaining before the carcass is exposed.*']) ?></li>
+                    </ul>
+
+                    <p class="fs-8 ml-10">
+                        <?= $this->textarea("PPContiAlert_Comment",['placeholder'=>'Enter text']) ?>
+                    </p>
+                </div>
                 <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
 
                     <div class="table">
@@ -461,7 +488,35 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>
+                <?php if(!$this->input("PPContiAlert_Heading1")->isEmpty() || !$this->input("PPContiAlert_Heading2")->isEmpty()): ?>
+                <div class="feature-benefit-list">
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading1",["placeholder" => "Cost savings"]); ?>
+                        </strong>
+                    </span>
 
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading1",['placeholder'=>'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
+                        <li><?= $this->input("PPContiAlert_SubHeading2",['placeholder'=>'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
+                    </ul>
+
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading2",["placeholder" => "Predictability"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading3",['placeholder'=>'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+determine how much time is remaining before the carcass is exposed.*']) ?></li>
+                    </ul>
+
+                    <p class="fs-8 ml-10">
+                        <?= $this->textarea("PPContiAlert_Comment",['placeholder'=>'Enter text']) ?>
+                    </p>
+                </div>
+                <?php endif; ?>
                 <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
 
                     <div class="table">

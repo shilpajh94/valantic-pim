@@ -322,7 +322,7 @@ Common Product Page:
                     objectType: TensionElevatorBelt
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     objectType: TensionElevatorBelt
-    ContiTitan:
+    CONTI Titan:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:

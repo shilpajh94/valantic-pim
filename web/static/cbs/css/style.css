@@ -1404,3 +1404,13 @@ left:0;
 .process-table tbody tr{
   height: 50px;
 }
+
+p.fs-8
+{
+  font-size: 8px;
+}
+
+p.ml-10
+{
+  margin-left: 10px;
+}
