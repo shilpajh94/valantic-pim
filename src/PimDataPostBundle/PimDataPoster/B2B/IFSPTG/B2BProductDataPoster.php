@@ -108,7 +108,6 @@ class B2BProductDataPoster implements IDataPoster
     {
         $b2bProductRequestBodyGenerator = new B2BProductRequestBodyGenerator();
         $savedRequestIds = [];
-        $records = $tempTablePopulator->filterIFSPTGProducts($records);
 
         foreach($records as $recordPimId){
             // there is a probability of duplicate requests here, so handling with following
@@ -138,7 +137,6 @@ class B2BProductDataPoster implements IDataPoster
 
     private function insertProductIdsInTempTable(B2BProductTempTablePopulator $tempTablePopulator, array $ids)
     {
-        $ids = $tempTablePopulator->filterIFSPTGProducts($ids);
         $tempTableData = $tempTablePopulator->getTempTableDataForIds($ids);
         $tempTableDataWithHashes = $tempTablePopulator->addHashesToTempTableData($tempTableData);
         $tempTablePopulator->insertDataInTempTable($tempTableDataWithHashes);

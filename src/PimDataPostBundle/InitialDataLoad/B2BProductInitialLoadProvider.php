@@ -28,7 +28,6 @@ class B2BProductInitialLoadProvider
                     salesMaster.epixFlag = '001'
                         AND salesMaster.o_published = 1
                         AND product.o_published = 1
-                        AND (product.externalID IS NULL OR product.externalID = '')
                 ORDER BY product.o_id ASC
                 LIMIT $offSet, $limit;";
 

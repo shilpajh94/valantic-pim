@@ -33,8 +33,6 @@ class B2CInitialLoadCommand extends AbstractCommand
             $provider = new B2CProductInitialLoadProvider();
             $allProductIds = $provider->getProductIdsForInitialLoad($pageSize, $pageNumber);
 
-            $allProductIds = $b2cProductTempTablePopulator->filterIFSPTGProducts($allProductIds);
-
             $currTime = time();
             
             foreach($allProductIds as $id)

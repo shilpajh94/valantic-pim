@@ -24,6 +24,7 @@ use PimDataPostBundle\PimDataPoster\IDataPoster;
 class B2BCategoryDataPoster implements IDataPoster
 {
 
+    // @todo for CR: how to decide which category should be used in a group ?
     public function postData()
     {
         
@@ -64,7 +65,7 @@ class B2BCategoryDataPoster implements IDataPoster
             $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
-            for($level = 2; $level <= 4; $level++){
+            for($level = 1; $level <= 4; $level++){
                 $recordsToCreate = $deltaManager->getRecordsToCreateByLevel($level);
                 $categoriesEnforcedToPushForCreate = $enforcedRecordProvier->getRecordsToCreateByLevel($level);
 
@@ -72,6 +73,7 @@ class B2BCategoryDataPoster implements IDataPoster
                     $this->insertProductIdsInTempTable($tempTablePopulator, $categoriesEnforcedToPushForCreate);
                 }
                 $recordsToCreate = array_merge($recordsToCreate, $categoriesEnforcedToPushForCreate);
+                // @todo for CR: for a group, replace all request of other categories with the designated category in the group
                 if(!empty($recordsToCreate)){
                     $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
                     $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
@@ -90,6 +92,7 @@ class B2BCategoryDataPoster implements IDataPoster
             }
 
             $recordsToUpdate = array_merge($deltaManager->getRecordsToUpdate(), $categoriesEnforcedToPushForUpdate);
+            // @todo for CR: for a group, replace all request of other categories with the designated category in the group
             if(!empty($recordsToUpdate)){
                 $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
                 $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
@@ -108,6 +111,8 @@ class B2BCategoryDataPoster implements IDataPoster
         $categoriyIdsInMasterTable = $activeFlagHandler->getAllCategoryIdsInMasterTable();
         $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
         $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
+        // @todo for CR: if any of the category in the group is active, then all the categories in the group should be active
+        // if all the categories in a group are inactive, then all the categories in the group should be inactive 
         $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
         $categoryIdsToBeAddedInTempTable = [];
 
@@ -115,9 +120,13 @@ class B2BCategoryDataPoster implements IDataPoster
         foreach($categoryIdsWhereRelationWithHashChanged as $categoryId){
             if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
                 if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
+                    // @todo for CR: if activating a category in the group, then all the categories in this group should be
+                    // activated with it
                     $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
                 }
             }else{
+                // @todo for CR: if activating a category in the group, then all the categories in this group should be
+                // activated with it
                 $activeFlagHandler->updateActiveFlagValue([$categoryId => true]);
                 $categoryIdsToBeAddedInTempTable[] = $categoryId;
             }
@@ -176,7 +185,7 @@ class B2BCategoryDataPoster implements IDataPoster
 
     private function isCategoryLevelValidForSF(string $level): bool
     {
-        return in_array(strval($level), ['2','3','4']);
+        return in_array(strval($level), ['1','2','3','4']);
     }
 
 }

@@ -45,6 +45,8 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $uniqueRelationChangeObjects = $this->mergeAndRemoveDuplicateRelationObjects($levelCategoriesRelationObject,
                                                             $categoryRelationsObjectsEnforcedToPush,
                                                             $relationChangeObjectsToResent);
+            // @todo for CR: iterate all these relation objects and replace the old value and new value of categories
+            // with the disgnated category value in the group
             $this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
 
             $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResent);
