@@ -41,6 +41,10 @@ services:
     ContitechCS\ProductBundle\EventListener\HierarchyListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: setBricks }
+    
+    ContitechCS\ProductBundle\EventListener\UserRolesListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.admin.permissions.elementIsAllowed, method: userPermission }
 
 #    ContitechCS\ProductBundle\EventListener\ProductListener:
 #        tags:
