@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-05-16T09:22:47+02:00
-* Inheritance: no
+* Generated at: 2022-09-05T09:37:21+00:00
+* Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProductHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1652685767,
+   'modificationDate' => 1662370641,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -728,7 +728,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'PTGEU',
+   'group' => 'PTGEU_Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 
