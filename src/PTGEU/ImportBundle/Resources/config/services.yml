@@ -63,6 +63,11 @@ services:
     PTGEU\ImportBundle\Command\SAPPriceImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:sap-price-import' }
+
+    # this command will execute the SAP editables import
+    PTGEU\ImportBundle\Command\SAPEditablesImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:sap-editables-import' }
     
     # this command will execute the SAP price import
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUDeleteCommand:
@@ -121,4 +126,8 @@ services:
 
     import.sap_price_service:
         class: PTGEU\ImportBundle\Services\PriceService
+        public: true
+
+    import.editables_service:
+        class: PTGEU\ImportBundle\Services\EditablesService
         public: true
