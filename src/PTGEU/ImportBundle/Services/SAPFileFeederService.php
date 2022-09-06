@@ -38,8 +38,7 @@ class SAPFileFeederService
             $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
             $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
 
-            $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH'));
-
+            $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH_PTGEU'));
             $fileName       = array_pop($filePathInfo);
             $ftpFilePath    = implode("/", $filePathInfo);
             $fileNameArray  = explode(".", $fileName);

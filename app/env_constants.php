@@ -11,7 +11,7 @@ if (CUSTOM_ENV == "prod") {
     define("S3_BUCKET_BW_SAP_ARCHIVE", "pim-sap-import-archive-prod");
     define("S3_REGION_BW_SAP_ARCHIVE", "eu-central-1");
     define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_files");
-    
+   
     define("B2B_EXPORT_SFTP_HOST", "vey1epxnds01");
     define("B2B_EXPORT_SFTP_PORT", 22);
     define("B2B_EXPORT_SFTP_USERNAME", "pimuser");
@@ -23,6 +23,8 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "D3duct!0n");
     define("BW_SAP_IMPORT_SFTP_PATH", "/P9A/PIMCORE/OUTBOUND");
+   
+    define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/P9A/PIMCORE/OUTBOUND/P61/STAGING");
 
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
     define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialSales.csv");
@@ -31,6 +33,12 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+
+    define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_P61_Material_Plant.csv");
+    define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_MaterialSales.csv");
+    define("BW_SAP_IMPORT_SFTP_PRODUCT_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_Material.csv");
+    define("BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_ListPrice.csv");
+    define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/archive/");
 
     // this is being used by workflow reminder cron
     // setting this in 'settings' - > 'domain name' breaks the redirect set for admin
@@ -67,6 +75,14 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    
+    define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_P61_Material_Plant.csv");
+    define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_MaterialSales.csv");
+    define("BW_SAP_IMPORT_SFTP_PRODUCT_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_Material.csv");
+    define("BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_ListPrice.csv");
+    define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/archive/");
+    
+    
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","http://stage.pim.conti.de");
 
@@ -105,6 +121,12 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    
+    define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_P61_Material_Plant.csv");
+    define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_MaterialSales.csv");
+    define("BW_SAP_IMPORT_SFTP_PRODUCT_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_Material.csv");
+    define("BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/PIM_ListPrice.csv");
+    define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH_PTGEU", BW_SAP_IMPORT_SFTP_PATH_PTGEU."/archive/");
 
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","localhost");
