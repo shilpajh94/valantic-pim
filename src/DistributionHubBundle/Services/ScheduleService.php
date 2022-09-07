@@ -46,7 +46,6 @@ class ScheduleService
         $timeInSeconds = $timeDiffInMins * 60;
         if(strpos($timeDiffInMins,"-") !== false){
             $timeInSeconds = substr($timeInSeconds, 1);
-            // print_r(strtotime($completeDateString));
             $exportTimeInSecond = strtotime($completeDateString) - $timeInSeconds;
         } else {
             $exportTimeInSecond = strtotime($completeDateString) + $timeInSeconds;
@@ -76,18 +75,18 @@ class ScheduleService
         $timeInSeconds = $timeDiffInMins * 60;
         if(strpos($timeDiffInMins,"-") !== false){
             $timeInSeconds = substr($timeInSeconds, 1);
-            $exportTimeInSecond = strtotime($completeDateString1) + $timeInSeconds;
+            $exportTimeInSecond = $completeDateString1 + $timeInSeconds;
 
         } else {
-            $exportTimeInSecond = strtotime($completeDateString1) - $timeInSeconds;
+            $exportTimeInSecond = $completeDateString1 - $timeInSeconds;
         }
         $completeDateStringWithDiff = date('m/d/y H:i',$exportTimeInSecond);
         return [
             'id' => $schedule->getId(),
             'name' => $schedule->getName(),
             'download_file_name' => $schedule->getDownloadFileName(),
-            // 'export_date' => date('m/d/y H:i',$completeDateString1),
-            'export_date' => $schedule->getTime()->format($dateFormat),
+            'export_date' => $completeDateStringWithDiff,
+            //'export_date' => $schedule->getTime()->format($dateFormat),
             'export_format' => $schedule->getExportFormat(),
             'export_location' => $schedule->getExportLocation(),
             'expiry' => $expiryTime,
