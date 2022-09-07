@@ -15,10 +15,9 @@ class EditablesService
     { 
         $this->editablesModel  = new EditablesModel;     
     }
-    public function import()
+    public function import($filePath)
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
-        $this->filePath = $sapFileFeeder->execFileFeeder('editables');
+        $this->filePath = $filePath;
         $this->configProviderService    = \Pimcore::getContainer()->get('import.config_provider_service');
         $this->editablesImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();
         $csvInfo        = ImportService::getCSVData($this->filePath);
