@@ -65,12 +65,12 @@ services:
             - { name: 'console.command', command: 'contitech:ptg:eu:sap-price-import' }
     
     # this command will delete files older than 30 days
-    PTGEU\ImportBundle\Command\DeleteOlderPtgeuSapFIleCommand:
+    PTGEU\ImportBundle\Command\DeleteOlderPTGEUSAPFileCommand:
         tags:
             - { name: 'console.command', command: 'contitech:delete_older_ptgeu_sap_files' }
 
     # this command will move older files to S3
-    PTGEU\ImportBundle\Command\MovePtgeuSAPFileToS3Command:
+    PTGEU\ImportBundle\Command\MovePTGEUSAPFileToS3Command:
         tags:
             - { name: 'console.command', command: 'contitech:move_ptgeu_sap_file_to_s3' }
     
