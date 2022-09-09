@@ -29,34 +29,36 @@ class EditablesService
     }
  
     public function processEditablesData($csvData) {
-        
-        foreach ($csvData as $eachRowRecord) {
-            $record = array_combine($this->csvHeader, $eachRowRecord);
-            $this->processSingleRecord($record);
-        }
-    }
-
-    public function processSingleRecord($record){
+        $i = 2;
         $productsData = $this->editablesModel->getAllProducts();
         $queryTableData = $productsData['queryTableData'];
-        foreach ($queryTableData as $rec) {
-            if($rec['articleNumber'] == $record['SAP Code / Material Number']){
-                list($baseData, $baseObjectId) = $this->prepareBaseDataArray($rec['articleNumber'], $record);
-                $fertData = $this->prepareFertDataArray($rec['oo_id'], $record);
-                $this->insertDataInDB($fertData, $rec['oo_id'], $baseData, $baseObjectId);
-            }
+        foreach ($csvData as $eachRowRecord) {
+            $record = array_combine($this->csvHeader, $eachRowRecord);
+            $this->processSingleRecord($record, $queryTableData, $i);
+            $i++;
         }
         unset($queryTableData);
         unset($productsData);
     }
 
-    public function prepareFertDataArray($objId, $record){
+    public function processSingleRecord($record, $queryTableData, $i){
+        foreach ($queryTableData as $rec) {
+            if($rec['articleNumber'] == $record['SAP Code / Material Number']){
+                list($baseData, $baseObjectId) = $this->prepareBaseDataArray($rec['articleNumber'], $record);
+                $fertData = $this->prepareFertDataArray($record);        
+                $this->insertDataInDB($fertData, $rec['oo_id'], $baseData, $baseObjectId);
+                echo $i. ' ====== '. $rec['articleNumber'] . PHP_EOL;
+            }
+        }
+    }
+
+    public function prepareFertDataArray($record){
         $printedCatalogFlag             = (strtoupper(trim($record['Printed Catalog Flag'])) == 'Y') ? 1 : -1;
         $virtualCatalogFlag             = (strtoupper(trim($record['Virtual Catalog Flag'])) == 'Y') ? 1 : -1;
         $cadFile                        = (strtoupper(trim($record['CAD File'])) == 'Y') ? 1 : -1;
         $pdfDrawing                     = (strtoupper(trim($record['PDF Drawing'])) == 'Y') ? 1 : -1;
-        $searchKeywords                 = $this->getSelectTypeValue($record['Search Keywords'], 'searchKeywords', $objId);
-        $vtlStatus                      = $this->getSelectTypeValue($record['VTL Status'], 'searchKeywords', $objId);
+        $searchKeywords                 = $this->getSelectTypeValue($record['Search Keywords'], 'searchKeywords');
+        // $vtlStatus                      = $this->getSelectTypeValue($record['VTL Status'], 'vtlStatus');
         $webDiscription                 = $record['Web Description'];
         $catalogFlag                    = $record['Catalog Flag'];
         $reach                          = $record['Reach'];
@@ -80,7 +82,7 @@ class EditablesService
             'pdfDrawing' => $pdfDrawing,
             'searchKeywords' => $searchKeywords,
             'CategoryDescriptionCatalog' => $CategoryDescriptionCatalog,
-            'vtlStatus' => $vtlStatus,
+            // 'vtlStatus' => $vtlStatus,
             'pdfLINK' => $pdfLINK,
             'catalogFlag' => $catalogFlag
         ];
@@ -129,12 +131,12 @@ class EditablesService
 
         foreach($this->editablesImportConfig as $fieldCsvKey => $fields){
             if($fields['fieldName'] == 'FeaturesBenefitsBulletPoint'){
-                $this->featurePoints[] = $record[$fieldCsvKey];
+                $featurePoints[] = $record[$fieldCsvKey];
             }
         }
         $featureValueArr = [];
-        $featuresBenefitsBulletPoint = array_filter($this->featurePoints);
-        if(!empty($featuresBenefitsBulletPoint)) 
+        $featuresBenefitsBulletPoint = array_filter($featurePoints);
+        if(!empty($featuresBenefitsBulletPoint))
         {           
             foreach($featuresBenefitsBulletPoint as $feature)
             {
@@ -148,39 +150,35 @@ class EditablesService
                 }
             }
         }
-        $featureBenefitValueArr = array_map('trim', $featureValueArr);
+        unset($objFeatures);
+        $featureBenefitValueArr = $featureValueArr;
         $featureBenefits  = implode(',', $featureBenefitValueArr);
         return $featureBenefits;
     }
 
-    private function getSelectTypeValue($data, $fieldName, $objId){
+    private function getSelectTypeValue($data, $fieldName){
 
-        $baseObject = DataObject\PTGEUProduct::getById($objId, true);
         if($fieldName == 'searchKeywords'){
-            $fd = $baseObject->getClass()->getFieldDefinition("searchKeywords");
-            $options = $fd->getOptions();
-            \Pimcore::collectGarbage();
-            gc_collect_cycles();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $data){
-                    return $data;
-                }else{
-                    return null;
+            $objSearchKeywords = new DataObject\PTGEUSearchKeywords\Listing();
+            $objSearchKeywords->setCondition("SearchKeywords = ?", $data);
+            if(!empty($objSearchKeywords))
+            {
+                foreach ($objSearchKeywords as $object) {
+                    return $object->getId();
                 }
             }
+            return '';
         }
         else if($fieldName == 'vtlStatus'){
-            $fd = $baseObject->getClass()->getFieldDefinition("vtlStatus");
-            $options = $fd->getOptions();
-            \Pimcore::collectGarbage();
-            gc_collect_cycles();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $data){
-                    return $data;
-                }else{
-                    return null;
+            $objVtl = new DataObject\PTGEUVTL\Listing();
+            $objVtl->setCondition("description = ?", $data);
+            if(!empty($objVtl))
+            {
+                foreach ($objVtl as $object) {
+                    return $object->getId();
                 }
             }
+            return '';
         }
 
     }
