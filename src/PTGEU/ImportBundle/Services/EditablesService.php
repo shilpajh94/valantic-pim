@@ -10,6 +10,7 @@ class EditablesService
 {
       
     private $filePath;
+    private $baseArray = [];
 
     public function __construct() 
     { 
@@ -23,11 +24,10 @@ class EditablesService
         $csvInfo        = ImportService::getCSVData($this->filePath);
         $this->csvHeader= $csvInfo['header'];
         $csvData        = $csvInfo['data'];
-
         $this->processEditablesData($csvData);
 
     }
- 
+
     public function processEditablesData($csvData) {
         $i = 2;
         $productsData = $this->editablesModel->getAllProducts();
@@ -47,7 +47,6 @@ class EditablesService
                 list($baseData, $baseObjectId) = $this->prepareBaseDataArray($rec['articleNumber'], $record);
                 $fertData = $this->prepareFertDataArray($record);        
                 $this->insertDataInDB($fertData, $rec['oo_id'], $baseData, $baseObjectId);
-                echo $i. ' ====== '. $rec['articleNumber'] . PHP_EOL;
             }
         }
     }
@@ -185,17 +184,23 @@ class EditablesService
 
     private function insertDataInDB($fertData, $objId, $baseData, $baseObjectId)
     {
+        if(!in_array($baseObjectId, $this->baseArray)){
 
+            $this->baseArray[] = $baseObjectId;
+
+            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_query_38', $baseObjectId);
+            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_store_38', $baseObjectId);
+
+            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_query_38_en', $baseObjectId);
+            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_data_38', $baseObjectId);            
+
+
+        }
         $this->editablesModel->insertDataForEditablesIntoTable($fertData['fertLevelData'], 'object_query_38', $objId);
         $this->editablesModel->insertDataForEditablesIntoTable($fertData['fertLevelData'], 'object_store_38', $objId);
 
         $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData['fertLevelLocalizedfieldArray'], 'object_localized_query_38_en', $objId);
         $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData['fertLevelLocalizedfieldArray'], 'object_localized_data_38', $objId);
 
-        $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_store_38', $baseObjectId);
-        $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_store_38', $baseObjectId);
-
-        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_query_38_en', $baseObjectId);
-        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_data_38', $baseObjectId);            
     }
 }

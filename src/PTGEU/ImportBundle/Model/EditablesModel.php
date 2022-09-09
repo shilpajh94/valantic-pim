@@ -38,6 +38,9 @@ class EditablesModel
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE oo_id =  $objId";
         $this->db->executeUpdate($sql);
+
+        echo $objId;
+        echo PHP_EOL;
     }
 
     /**
