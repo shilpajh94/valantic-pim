@@ -19,16 +19,12 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
      */
     getGridPanel: function () {
 
-        const dateObj = new Date();
-        let timeDiff = dateObj.getTimezoneOffset();
-
         this.store = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
                 url: '/admin/distributionhub/schedules/list',
                 extraParams: {
-                    channelId: this.channelId,
-                    timeDiff: timeDiff
+                    channelId: this.channelId
                 },
                 reader: {
                     type: 'json',
@@ -36,7 +32,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                 }
             },
             fields: ["id", "name", "export_date", "export_format", "export_location", "expiry", "export_ftp", "export_status", "creation_date"],
-
+           
         });
 
         this.store.load();
@@ -193,15 +189,15 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     return '';
                 },
                 items: [{
-                    icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
-                    handler: function (grid, rowIndex, param, button,) {
-                        let exportFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportFilePimcoreAssetId;
-
-                        if (exportFilePimcoreAssetId) {
-                            pimcore.helpers.download("/admin/asset/download?id=" + exportFilePimcoreAssetId);
-                        }
-                    }.bind(this)
-                }]
+                        icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
+                        handler: function (grid, rowIndex, param, button, ) {
+                            let exportFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportFilePimcoreAssetId;
+                            
+                            if (exportFilePimcoreAssetId) {
+                                pimcore.helpers.download("/admin/asset/download?id=" + exportFilePimcoreAssetId);
+                            }
+                        }.bind(this)
+                    }]
             },
             {
                 text: t('dHub_asset_download_column_header'),
@@ -219,56 +215,56 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     return '';
                 },
                 items: [{
-                    icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
-                    handler: function (grid, rowIndex, param, button,) {
-                        let exportAssetFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportAssetFilePimcoreAssetId;
+                        icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
+                        handler: function (grid, rowIndex, param, button, ) {
+                            let exportAssetFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().exportAssetFilePimcoreAssetId;
 
-                        if (exportAssetFilePimcoreAssetId) {
-                            pimcore.helpers.download("/admin/asset/download?id=" + exportAssetFilePimcoreAssetId);
-                        }
-                    }.bind(this)
-                }]
+                            if (exportAssetFilePimcoreAssetId) {
+                                pimcore.helpers.download("/admin/asset/download?id=" + exportAssetFilePimcoreAssetId);
+                            }
+                        }.bind(this)
+                    }]
             },
             {
                 xtype: 'actioncolumn',
                 menuText: t('delete'),
                 width: 40,
                 items: [{
-                    tooltip: t('delete'),
-                    icon: "/bundles/pimcoreadmin/img/flat-color-icons/delete.svg",
-                    handler: function (grid, rowIndex) {
+                        tooltip: t('delete'),
+                        icon: "/bundles/pimcoreadmin/img/flat-color-icons/delete.svg",
+                        handler: function (grid, rowIndex) {
 
-                        let data = grid.getStore().getAt(rowIndex);
-                        let recordId = data.data.id;
-                        let status = data.data.export_status;
+                            let data = grid.getStore().getAt(rowIndex);
+                            let recordId = data.data.id;
+                            let status = data.data.export_status;
 
-                        if (status == "IN-PROGRESS") {
-                            Ext.MessageBox.alert(t('dHub_can_not_delete_schedule'), t('dHub_in_progress_schedule_can_not_be_deleted'));
-                            return;
-                        }
-
-                        Ext.Msg.confirm(t('dHub_delete_schedule'), t("dHub_delete_schedule_confirm"), function (btnText) {
-                            if (btnText === "yes") {
-                                Ext.Ajax.request({
-                                    url: "/admin/distributionhub/schedules/delete",
-                                    params: {
-                                        scheduleId: recordId
-                                    },
-                                    method: "post",
-                                    success: function (response) {
-                                        var rdata = Ext.decode(response.responseText);
-                                        if (rdata && rdata.success) {
-                                            grid.getStore().removeAt(rowIndex);
-                                        } else {
-                                            Ext.MessageBox.alert(t('dHub_failure'), rdata.msg);
-                                        }
-                                    }
-                                });
+                            if (status == "IN-PROGRESS") {
+                                Ext.MessageBox.alert(t('dHub_can_not_delete_schedule'), t('dHub_in_progress_schedule_can_not_be_deleted'));
+                                return;
                             }
-                        });
 
-                    }.bind(this)
-                }]
+                            Ext.Msg.confirm(t('dHub_delete_schedule'), t("dHub_delete_schedule_confirm"), function (btnText) {
+                                if (btnText === "yes") {
+                                    Ext.Ajax.request({
+                                        url: "/admin/distributionhub/schedules/delete",
+                                        params: {
+                                            scheduleId: recordId
+                                        },
+                                        method: "post",
+                                        success: function (response) {
+                                            var rdata = Ext.decode(response.responseText);
+                                            if (rdata && rdata.success) {
+                                                grid.getStore().removeAt(rowIndex);
+                                            } else {
+                                                Ext.MessageBox.alert(t('dHub_failure'), rdata.msg);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
+                        }.bind(this)
+                    }]
             }
         ];
 
@@ -320,7 +316,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
         let exportResourceStoreData = new Array();
         let resources = ['dHub_data_file', 'dHub_assets', 'dHub_both'];
         for (var i = 0; i < resources.length; i++) {
-            let storeItem = { id: resources[i], name: t(resources[i]) };
+            let storeItem = {id: resources[i], name: t(resources[i])};
             exportResourceStoreData.push(storeItem);
         }
 
@@ -328,7 +324,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
             data: exportResourceStoreData,
             fields: ["id", "name"]
         });
-
+  
         var downloadTypes = new Array();
         exportResourceStore.data.items.forEach(function (item) {
             let downloadInfo = {
@@ -343,33 +339,33 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
             }
             downloadTypes.push(downloadInfo);
         });
-
+        
         let infoImage = "/bundles/pimcoreadmin/img/flat-color-icons/info.svg";
-        let infoMsg = "<img src='" + infoImage + "' style='vertical-align: middle' > " + "<span><i>" + t('dHub_channel_name_append_msg3') + "</i></span>";
+        let infoMsg = "<img src='"+ infoImage +"' style='vertical-align: middle' > " + "<span><i>" +t('dHub_channel_name_append_msg3') + "</i></span>";
 
-        let infoPanel = new Ext.create('Ext.panel.Panel', {
-            cls: 'info_ftp',
-            style: {
-                clear: 'left',
-                float: 'left',
-                paddingLeft: '5px',
-                paddingTop: '10px'
+        let infoPanel = new Ext.create('Ext.panel.Panel',{
+            cls:'info_ftp',
+            style:{
+                clear:'left',
+                float:'left',
+                paddingLeft:'5px',
+                paddingTop:'10px'
             },
             html: infoMsg
         });
+        
+         
+        let infoTimezoneMsg = "<img src='"+ infoImage +"' style='height:60%;vertical-align: middle' > " + "<span><i>" +t('dHub_channel_name_append_msg4') + pimcore.settings.timezone + "</i></span>";
 
-
-        let infoTimezoneMsg = "<img src='" + infoImage + "' style='height:60%;vertical-align: middle' > " + "<span><i>" + t('dHub_channel_name_append_msg4') + pimcore.settings.timezone + "</i></span>";
-
-        let infoTimezonePanel = new Ext.create('Ext.panel.Panel', {
-            style: {
-                paddingLeft: '140px',
+        let infoTimezonePanel = new Ext.create('Ext.panel.Panel',{
+            style:{
+                paddingLeft:'140px',
                 marginBottom: '10px',
                 float: 'left'
             },
             html: infoTimezoneMsg
         });
-
+        
         this.wizardForm = new Ext.form.FormPanel({
             bodyStyle: "padding:10px;",
             defaults: {
@@ -430,17 +426,17 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     style: {
                         float: 'left'
                     }
-                }, infoTimezonePanel,
+                },infoTimezonePanel,
                 {
                     fieldLabel: t("dHub_export_to_ftp"),
                     xtype: 'checkboxfield',
                     items:
-                    {
-                        boxLabel: 'FTP',
-                        name: 'exportLocation',
-                        inputValue: 'FTP',
-                        id: 'FTP'
-                    },
+                        {
+                            boxLabel: 'FTP',
+                            name: 'exportLocation',
+                            inputValue: 'FTP',
+                            id: 'FTP'
+                        },
                     anchor: '81%',
                     name: 'exportLocation',
                     displayField: 'name',
@@ -492,10 +488,10 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
             modal: true,
             items: [this.wizardForm],
             buttons: [{
-                text: t("save"),
-                iconCls: "pimcore_icon_accept",
-                handler: this.saveWizard.bind(this)
-            }]
+                    text: t("save"),
+                    iconCls: "pimcore_icon_accept",
+                    handler: this.saveWizard.bind(this)
+                }]
         });
         return wizardWindow;
     },
@@ -519,7 +515,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
         } else if (newResourceValue === "dHub_both") {
             this.formatSelectorCombo = this.getFormatSelectorCombo();
             form.add(this.formatSelectorCombo);
-
+            
             this.assetSelectorCombo = this.getAssetSelectorCombo();
             form.add(this.assetSelectorCombo);
         }
@@ -581,6 +577,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
     },
 
     saveWizard: function () {
+
         let form = this.wizardForm;
         let outerScope = this;
         let values = form.getForm().getFieldValues();
@@ -588,9 +585,6 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
         let exportFtp = values.exportFtp;
 
         if (form.isValid()) {
-
-            const dateObj = new Date();
-            let timeDiff = dateObj.getTimezoneOffset();
 
             let exportDate = values.exportDate;
             let exportTime = values.exportTime;
@@ -611,8 +605,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                 method: 'POST',
                 params: {
                     channelId: this.channelId,
-                    exportResource: values.exportResource,
-                    timeDiff: timeDiff
+                    exportResource: values.exportResource
                 },
                 success: function (form, response) {
                     response = response.response;
@@ -637,11 +630,11 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     Ext.MessageBox.alert(t('dHub_failure'), response.msg);
                 }
             });
-
-            if (form.getForm().findField('exportResource')) {
+            
+            if(form.getForm().findField('exportResource')){
                 form.getForm().findField('exportResource').destroy();
             }
-
+ 
             this.wizardWindow.hide();
         }
 
@@ -654,9 +647,9 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
         for (var i = 0; i < nameArray.length; i++) {
             let storeItem = null;
             if (useElementForId == true) {
-                storeItem = { id: nameArray[i], name: nameArray[i] };
+                storeItem = {id: nameArray[i], name: nameArray[i]};
             } else {
-                storeItem = { id: i, name: nameArray[i] };
+                storeItem = {id: i, name: nameArray[i]};
             }
             if (storeItem) {
                 storeData.push(storeItem);

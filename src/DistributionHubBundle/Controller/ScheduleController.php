@@ -74,8 +74,7 @@ class ScheduleController extends AdminController
      */
     public function saveScheduleAction(Request $request, ScheduleService $scheduleService)
     {
-        $timeDiffInMins = $request->get('timeDiff');
-        
+
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
@@ -108,9 +107,8 @@ class ScheduleController extends AdminController
             $exportTime = "00:00";
         }
         $completeDateString = $exportDate.' '.$exportTime;
-        $exportTimeInSecond = $scheduleService->getTimeDiffInSecondsForSave($completeDateString, $timeDiffInMins);
-        $completeDateStringWithDiff = date('m/d/y H:i',$exportTimeInSecond);
-        $completeExportDate = \DateTime::createFromFormat('m/d/y H:i', $completeDateStringWithDiff);
+        $completeExportDate = \DateTime::createFromFormat('m/d/y H:i', $completeDateString);
+
         $schedule  = new Schedule();
         $schedule->setName($name);
         $schedule->setExportFormat($exportFormat);
@@ -149,8 +147,7 @@ class ScheduleController extends AdminController
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 
-        // $data = $scheduleService->buildScheduleForGrid($schedule);
-        $data = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
+        $data = $scheduleService->buildScheduleForGrid($schedule);
         $data['success'] = true;
 
         return $this->json($data);
@@ -167,7 +164,6 @@ class ScheduleController extends AdminController
     public function listSchedule(Request $request, ScheduleService $scheduleService)
     {
         $channelId = $request->get('channelId');
-        $timeDiffInMins = $request->get('timeDiff');
 
         $list = new Schedule\Listing();
         $condition = "channelId = ".$channelId." AND status != ".$list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
@@ -178,8 +174,7 @@ class ScheduleController extends AdminController
 
         $data = [];
         foreach ($list->getItems() as $schedule) {
-            // $tmp = $scheduleService->buildScheduleForGrid($schedule);
-            $tmp = $scheduleService->buildScheduleForGrid($schedule, $timeDiffInMins);
+            $tmp = $scheduleService->buildScheduleForGrid($schedule);
             $data[] = $tmp;
         }
 

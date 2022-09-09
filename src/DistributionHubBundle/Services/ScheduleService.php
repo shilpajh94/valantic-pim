@@ -41,21 +41,7 @@ class ScheduleService
         return $this->bundleService->getConfig('schedule_date_format');
     }
 
-    public function getTimeDiffInSecondsForSave($completeDateString, $timeDiffInMins)
-    {
-        $timeInSeconds = $timeDiffInMins * 60;
-        if(strpos($timeDiffInMins,"-") !== false){
-            $timeInSeconds = substr($timeInSeconds, 1);
-            $exportTimeInSecond = strtotime($completeDateString) - $timeInSeconds;
-        } else {
-            $exportTimeInSecond = strtotime($completeDateString) + $timeInSeconds;
-        }
-        
-        return $exportTimeInSecond;
-    }
-
-    public function buildScheduleForGrid(Schedule $schedule, $timeDiffInMins): array
-    // public function buildScheduleForGrid(Schedule $schedule): array
+    public function buildScheduleForGrid(Schedule $schedule): array
     {
         $dateFormat = $this->getDateFormat();
 
@@ -71,22 +57,12 @@ class ScheduleService
         if ($expiryTime) {
             $expiryTime = $expiryTime->format($dateFormat);
         }
-        $completeDateString1 = strtotime($schedule->getTime()->format($dateFormat));
-        $timeInSeconds = $timeDiffInMins * 60;
-        if(strpos($timeDiffInMins,"-") !== false){
-            $timeInSeconds = substr($timeInSeconds, 1);
-            $exportTimeInSecond = $completeDateString1 + $timeInSeconds;
 
-        } else {
-            $exportTimeInSecond = $completeDateString1 - $timeInSeconds;
-        }
-        $completeDateStringWithDiff = date('m/d/y H:i',$exportTimeInSecond);
         return [
             'id' => $schedule->getId(),
             'name' => $schedule->getName(),
             'download_file_name' => $schedule->getDownloadFileName(),
-            'export_date' => $completeDateStringWithDiff,
-            //'export_date' => $schedule->getTime()->format($dateFormat),
+            'export_date' => $schedule->getTime()->format($dateFormat),
             'export_format' => $schedule->getExportFormat(),
             'export_location' => $schedule->getExportLocation(),
             'expiry' => $expiryTime,
