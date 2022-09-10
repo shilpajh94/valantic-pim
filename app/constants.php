@@ -28,6 +28,10 @@ define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/Contite
 
 define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS/CatalogUIApiBundle/Resources/config");
 
+
+define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ProductBundle/Resources/config");
+
+
 /**
  * to include the constants of the required attributes module
  * this is being used for calculating completeness,calculating some validations for export etc.
@@ -130,6 +134,40 @@ define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 
 //SAP Files older than these many days will be deleted from SFTP server
 define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
+
 define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
 
+// PTG_EU Constants
+define("PTG_EU_WORKFLOW_CONFIG",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
+
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
+
+
+// define constants used in PTGEU
+define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ImportBundle/Resources/config");
+// global product configuration file path
+define('PTG_EU_PRODUCT_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product.yml");
+// Global Category Configuraction File Path
+define('PTG_EU_CATEGORY_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/category.yml");
+define("PTG_EU_BRICK_MAPPING_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yml");
+// Global Category Configuraction File Path
+define('PTG_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yml");
+define("PTG_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/editable_product_attribute.yml");
+define('PTG_EU_ASSET_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/assets.yml");
+
+define("PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_values_config.yml");
+
+// Global Category Configuraction File Path
+define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+
+// PTG-EU Product Object Table
+define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
+// global brick configuration file path
+define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yml");
+
+// define constants used in PTGEU - CatalogBundle config
+define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/CatalogBundle/Resources/config");
+define('PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog.yml");
+define('PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/attribute_images.yml");
+define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yml");

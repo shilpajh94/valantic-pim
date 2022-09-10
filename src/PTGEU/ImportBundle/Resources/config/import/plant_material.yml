@@ -1,0 +1,27 @@
+parameters:
+  approvedSalesOrg: 
+    '0109': '0109-US'
+    '0310': '0310-Canada'
+    '0252': '0252-Export'
+    '0644': '0644-Mexico'
+  mappingCsvColumn: 
+    'plant': 'DeliveringPlantCode'
+    'Material': 'SAPMaterialCode'
+    'salesOrganization': 'SalesOrgCode'
+    'distributionChannel': 'DCCode'
+    'countryOfOrigin': 'CountryofOriginCode'
+    'stockIndicatorDescription': 'StockIndicatorDescription'
+    'mrpController': 'MRPController'
+    'LanguageID': 'LanguageID'
+    'conversionNumerator': 'ConversionCounter'
+    'conversionDenominator': 'ConversionDenominator'
+    'minOrderQuantity': 'MinOrdQty'
+    'deliveryUnitUOM': 'DeliveryUnitUOM'
+    'orderingQuantityIncrements': 'OrderIncrement'
+    'baseUOM': 'BaseUOM'
+    'stockIndicator': 'StockIndicator'
+    'outsidePurchaseIdentifierOrProcurementType': 'ProcurementType'
+    'tariffCodes': 'TariffCodes'
+    'epixFlag': 'EPIXFlag'
+    'totalReplenismentLeadTime': 'Leadtime'
+  keyColumns: ['material','plant','salesOrg','distributionChannel']

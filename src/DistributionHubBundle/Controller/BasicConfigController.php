@@ -17,6 +17,9 @@ use DistributionHubBundle\Services\BasicConfigService;
 use DistributionHubBundle\Services\BundleService;
 use DistributionHubBundle\Services\ChannelService;
 use Pimcore\Model\DataObject\AbstractObject;
+use Pimcore\Tool\Admin;
+use Pimcore\Model\User\Role;
+use AppBundle\Tool\Utils;
 
 /**
  * @package DistributionHubBundle\Controller
@@ -32,7 +35,14 @@ class BasicConfigController extends AdminController
      */
     public function getPimcoreClasses(Request $request)
     {
+        $user = Admin::getCurrentUser();
         $list = new \Pimcore\Model\DataObject\ClassDefinition\Listing();
+
+        if (!$user->isAdmin()) {
+            $buClassList    = $this->getUserBUClasses();
+            $list->setCondition("name IN ('". implode("', '", $buClassList)."')");
+        }
+
         $list->load();
         $availableClasses = $list->getClasses();
 
@@ -45,6 +55,83 @@ class BasicConfigController extends AdminController
         }
 
         return $this->json(["classes" => $fieldArray]);
+    }
+
+    public function getUserBUClasses()
+    {
+        $arrClass       = [];
+        $resultBU       = [];
+        $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
+        if (isset($rolesConfig['config'])) {
+            foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
+                $resultBU[$arrRoles['Roles'][0]] = $roleClass;
+            }
+        }
+
+        $resultClass= [];
+        $buConfig   = $this->getBusinessUnitClassFromConfig();
+        if (isset($buConfig['config'])) {
+            foreach ($buConfig['config'] as $buClass => $arrClass) {
+                $resultClass[$buClass] = $arrClass['Class'];
+            }
+        }
+
+        $commonRoles    = $this->getCommonRoles();
+        foreach ($commonRoles as $currentRole) {
+            if (array_key_exists($currentRole, $resultBU)) {
+                $currentBU = $resultBU[$currentRole];
+                if (array_key_exists($currentBU, $resultClass)) {
+                    $arrClass = $resultClass[$currentBU];
+                }
+            }
+        }
+        return $arrClass;
+    }
+
+    public function getCommonRoles()
+    {
+        $arrConfigRoles = [];
+        $configRoles          = $this->getRoleFromConfg();
+        foreach ($configRoles as $configRoleId) {
+            $arrConfigRoles[] = $configRoleId[0];
+        }
+
+        $arrUserRoles   = [];
+        $userRoles      = $this->getAdminUser()->getRoles();
+        if ($userRoles) {
+            foreach ($userRoles  as $userRoleId) {
+                $role = Role::getById($userRoleId);
+                if ($role) {
+                    $arrUserRoles[] = ['name' => $role->getName()];
+                }
+            }
+
+            $currUserRoles = [];
+            foreach ($arrUserRoles as $role) {
+                $currUserRoles[] = $role['name'];
+            }
+        }
+        return array_intersect($currUserRoles, $arrConfigRoles);
+    }
+
+    public function getBusinessUnitRolesFromConfig()
+    {
+        $yamlFilePath = Constants::DHUB_BU_ROLES;
+        return Utils::getYmlConfig($yamlFilePath);
+    }
+
+    public function  getBusinessUnitClassFromConfig()
+    {
+        $yamlFilePath = Constants::DHUB_BU_CLASSESS;
+        return Utils::getYmlConfig($yamlFilePath);
+    }
+
+    public function getRoleFromConfg()
+    {
+        $getAllRoles= $this->getBusinessUnitRolesFromConfig();
+        $rolesIFSPTG= array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
+        $rolesPTGEU = array("PTG_EU" => $getAllRoles['config']['PTG_EU']['Roles']);
+        return array_merge($rolesIFSPTG, $rolesPTGEU);
     }
 
     /**

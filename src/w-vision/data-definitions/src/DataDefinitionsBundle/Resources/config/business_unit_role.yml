@@ -10,3 +10,8 @@ config:
             [
                 "ProductManagerCS"    
             ]
+    PTG_EU:       
+        Roles:
+            [
+                "ApplicationAdmin"    
+            ]
