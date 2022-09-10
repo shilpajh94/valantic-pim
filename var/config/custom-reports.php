@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     "ItemCount" => [
@@ -146,12 +146,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608288402,
         "creationDate" => 1606361037,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ItemCount"
     ],
     "NewProducts" => [
@@ -299,12 +305,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608104456,
         "creationDate" => 1606362991,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "NewProducts"
     ],
     "BrandProducts" => [
@@ -462,12 +474,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608102702,
         "creationDate" => 1606812138,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "BrandProducts"
     ],
     "ProductsWithNoImage" => [
@@ -759,12 +777,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103299,
         "creationDate" => 1606817832,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ProductsWithNoImage"
     ],
     "DataCompleteness" => [
@@ -922,12 +946,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103142,
         "creationDate" => 1606822831,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "DataCompleteness"
     ],
     "ProductAttributeIncomplete" => [
@@ -1075,12 +1105,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1608103230,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ProductAttributeIncomplete"
     ],
     "WorkflowPendingProducts" => [
@@ -1257,12 +1293,18 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615715453,
         "creationDate" => 1606838413,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "WorkflowPendingProducts"
     ],
     "ChartBrandProduct" => [
@@ -1319,12 +1361,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1614075082,
         "creationDate" => 1606812138,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartBrandProduct"
     ],
     "ChartProductsWithNoImage" => [
@@ -1381,12 +1429,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Main Image",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1614075246,
         "creationDate" => 1606817832,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartProductsWithNoImage"
     ],
     "ChartNewProducts" => [
@@ -1459,8 +1513,12 @@ return [
         "modificationDate" => 1615487332,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartNewProducts"
     ],
     "ChartDataCompleteness" => [
@@ -1517,12 +1575,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615438796,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartDataCompleteness"
     ],
     "ChartSKUsUnderReview" => [
@@ -1569,12 +1633,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1615441276,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartSKUsUnderReview"
     ],
     "ChartProductAtrributrIncomplete" => [
@@ -1647,8 +1717,12 @@ return [
         "modificationDate" => 1615436789,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "ChartProductAtrributrIncomplete"
     ],
     "IndustrialHoseChartBrandProduct" => [
@@ -1702,12 +1776,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807442,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartBrandProduct"
     ],
     "HydraulicHoseChartBrandProduct" => [
@@ -1761,12 +1841,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807118,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartBrandProduct"
     ],
     "HydraulicFittingsChartBrandProduct" => [
@@ -1820,12 +1906,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Brand",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620807090,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartBrandProduct"
     ],
     "PTGChartBrandProduct" => [
@@ -1888,12 +1980,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "SIOP Level 4 -- Band",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1629875608,
         "creationDate" => 1620661797,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartBrandProduct"
     ],
     "IndustrialHoseChartNewProducts" => [
@@ -1946,8 +2044,12 @@ return [
         "modificationDate" => 1620810328,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartNewProducts"
     ],
     "HydraulicHoseChartNewProduct" => [
@@ -2000,8 +2102,12 @@ return [
         "modificationDate" => 1620807567,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartNewProduct"
     ],
     "PTGChartNewProducts" => [
@@ -2054,8 +2160,12 @@ return [
         "modificationDate" => 1620807641,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartNewProducts"
     ],
     "IndustrialHoseChartDataCompleteness" => [
@@ -2112,12 +2222,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1623916067,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness"
     ],
     "HydraulicHoseChartDataCompleteness" => [
@@ -2174,12 +2290,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808055,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness"
     ],
     "PTGChartDataCompleteness" => [
@@ -2236,12 +2358,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808147,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness"
     ],
     "IndustrialHoseChartSKUsUnderReview" => [
@@ -2288,12 +2416,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808419,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartSKUsUnderReview"
     ],
     "HydrualicHoseChartSKUsUnderReview" => [
@@ -2340,12 +2474,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808538,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydrualicHoseChartSKUsUnderReview"
     ],
     "PTGChartSKUsUnderReview" => [
@@ -2392,12 +2532,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808598,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartSKUsUnderReview"
     ],
     "IndustrialHoseChartProductAttributeIncomplete" => [
@@ -2470,8 +2616,12 @@ return [
         "modificationDate" => 1620808864,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductAttributeIncomplete"
     ],
     "HydraulicHoseChartProductAttributeIncomplete" => [
@@ -2544,8 +2694,12 @@ return [
         "modificationDate" => 1620809052,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductAttributeIncomplete"
     ],
     "PTGChartProductAttributeIncomplete" => [
@@ -2618,8 +2772,12 @@ return [
         "modificationDate" => 1620809115,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductAttributeIncomplete"
     ],
     "HydraulicFittingsChartNewProducts" => [
@@ -2672,8 +2830,12 @@ return [
         "modificationDate" => 1620807816,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartNewProducts"
     ],
     "HydraulicFittingsChartDataCompleteness" => [
@@ -2730,12 +2892,18 @@ return [
         "pieColumn" => "COMPLETED (%)",
         "pieLabelColumn" => "SIOP Level 3",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808313,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness"
     ],
     "HydraulicFittingsChartSKUsUnderReview" => [
@@ -2782,12 +2950,18 @@ return [
         "pieColumn" => "# of SKUs",
         "pieLabelColumn" => "Status",
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1620808742,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartSKUsUnderReview"
     ],
     "HydraulicFittingsChartProductAttributeIncomplete" => [
@@ -2860,8 +3034,12 @@ return [
         "modificationDate" => 1620809370,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductAttributeIncomplete"
     ],
     "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -2940,8 +3118,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3020,8 +3202,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
     ],
     "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3101,8 +3287,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3172,8 +3362,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3243,8 +3437,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "IndustrialHoseChartDataCompleteness-BrandFilter" => [
@@ -3314,8 +3512,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "IndustrialHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3394,8 +3596,12 @@ return [
         "modificationDate" => 1629893476,
         "creationDate" => 1629891069,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-BrandFilter" => [
@@ -3474,8 +3680,12 @@ return [
         "modificationDate" => 1629893494,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -3555,8 +3765,12 @@ return [
         "modificationDate" => 1629893512,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter" => [
@@ -3626,8 +3840,12 @@ return [
         "modificationDate" => 1629893535,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter" => [
@@ -3697,8 +3915,12 @@ return [
         "modificationDate" => 1629893556,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicHoseChartDataCompleteness-BrandFilter" => [
@@ -3768,8 +3990,12 @@ return [
         "modificationDate" => 1629893578,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicHoseChartDataCompleteness-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -3848,8 +4074,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-BrandFilter" => [
@@ -3928,8 +4158,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-BrandFilter"
     ],
     "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4009,8 +4243,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4080,8 +4318,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-PrintedCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4151,8 +4393,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-VirtualCatalogFilter"
     ],
     "HydraulicFittingsChartDataCompleteness-BrandFilter" => [
@@ -4222,8 +4468,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "HydraulicFittingsChartDataCompleteness-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-VirtualCatalogFilter" => [
@@ -4302,8 +4552,12 @@ return [
         "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-VirtualCatalogFilter"
     ],
     "PTGChartProductsWithNoImage-BrandFilter" => [
@@ -4382,8 +4636,12 @@ return [
         "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-BrandFilter"
     ],
     "PTGChartProductsWithNoImage-PrintedCatalogFlag" => [
@@ -4463,8 +4721,12 @@ return [
         "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartProductsWithNoImage-PrintedCatalogFlag"
     ],
     "PTGChartDataCompleteness-PrintedCatalogFilter" => [
@@ -4534,8 +4796,12 @@ return [
         "modificationDate" => 1625039364,
         "creationDate" => 1625039156,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-PrintedCatalogFilter"
     ],
     "PTGChartDataCompleteness-VirtualCatalogFilter" => [
@@ -4605,8 +4871,12 @@ return [
         "modificationDate" => 1625039940,
         "creationDate" => 1625039584,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-VirtualCatalogFilter"
     ],
     "PTGChartDataCompleteness-BrandFilter" => [
@@ -4676,8 +4946,12 @@ return [
         "modificationDate" => 1625041855,
         "creationDate" => 1625040174,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "PTGChartDataCompleteness-BrandFilter"
     ],
     "CS_NewProductsLastOneWeek" => [
@@ -4749,11 +5023,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1644510029,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -4840,11 +5118,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1644510151,
         "creationDate" => 1632124921,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5111,11 +5393,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192223,
         "creationDate" => 1632215120,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5346,11 +5632,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192180,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5370,7 +5660,9 @@ return [
                 "type" => "sql"
             ]
         ],
-        "columnConfiguration" => [],
+        "columnConfiguration" => [
+
+        ],
         "niceName" => "CS_ArchivedProducts",
         "group" => "ContiTech CS",
         "groupIconClass" => "",
@@ -5381,11 +5673,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192129,
         "creationDate" => 1632215479,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5463,11 +5759,15 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1641192091,
         "creationDate" => 1631861341,
         "shareGlobally" => FALSE,
-        "sharedUserNames" => [],
+        "sharedUserNames" => [
+
+        ],
         "sharedRoleNames" => [
             "MarComCS",
             "ProductManagerCS",
@@ -5639,12 +5939,1182 @@ return [
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
         "xAxis" => NULL,
-        "yAxis" => [],
+        "yAxis" => [
+
+        ],
         "modificationDate" => 1643097180,
         "creationDate" => 1606822831,
         "shareGlobally" => TRUE,
-        "sharedUserNames" => [],
-        "sharedRoleNames" => [],
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
         "id" => "DataCompletenessEmptyAttributes"
+    ],
+    "PTGEU_ProductCompleteness" => [
+        "name" => "PTGEU_ProductCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nen.`EmptyFields`as `Empty Fields`, \nen.CompletenessPercentage \"COMPLETED (%)\",\no1.`ProductType` AS `Product Type`,\n\no1.`o_id` as  `Id`\nFrom\nobject_38 o1 \nLEFT JOIN `object_localized_query_38_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\n\nWHERE\n    (o1.`o_published` =1) AND (en.`CompletenessPercentage`  != \"\")",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Key",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-2"
+            ],
+            [
+                "name" => "Article Number",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-3"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-4"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-5"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-6"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-7"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-8"
+            ],
+            [
+                "name" => "Path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-9"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel314-12",
+                "columnAction" => "openObject"
+            ]
+        ],
+        "niceName" => "PTGEU - Product Completeness",
+        "group" => "PTG_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1657196282,
+        "creationDate" => 1654674916,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGEU_ProductCompleteness"
+    ],
+    "PTGEU_MissingAssetsOnProducts" => [
+        "name" => "PTGEU_MissingAssetsOnProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "select  \no1.`oo_id` as ID, o1.`productName` as `Product Name`,\n IF(o1.`mainImage1` IS NOT NULL, \"True\", \"False\") AS `Main Image1`,\n IF(o1.`mainImage2` IS NOT NULL, \"True\", \"False\") AS `Main Image2`,\n IF(o1.`epixImage1` IS NOT NULL, \"True\", \"False\") AS `Epix Image1`,\n IF(o1.`epixImage2` IS NOT NULL, \"True\", \"False\") AS `Epix Image2`,\n IF(o1.`epixImage3` IS NOT NULL, \"True\", \"False\") AS `Epix Image3`,\n IF(o1.`epixImage4` IS NOT NULL, \"True\", \"False\") AS `Epix Image4`,\n IF(o1.`halfView1` IS NOT NULL, \"True\", \"False\") AS `Half View1`,\n IF(o1.`halfView2` IS NOT NULL, \"True\", \"False\") AS `Half View2`,\n IF(o1.`halfView3` IS NOT NULL, \"True\", \"False\") AS `Half View3`,\n IF(o1.`halfView4` IS NOT NULL, \"True\", \"False\") AS `Half View4`,\n IF(o1.`technicalDrawing1` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing1`,\n IF(o1.`technicalDrawing2` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing2`,\n IF(o1.`applicationImage1` IS NOT NULL, \"True\", \"False\") AS `Application Image1`,\n IF(o1.`applicationImage2` IS NOT NULL, \"True\", \"False\") AS `Application Image2`,\n IF(o1.`applicationImage3` IS NOT NULL, \"True\", \"False\") AS `Application Image3`,\n IF(o1.`applicationImage4` IS NOT NULL, \"True\", \"False\") AS `Application Image4`,\n IF(o1.`applicationImage5` IS NOT NULL, \"True\", \"False\") AS `Application Image5`,\n IF(o1.`applicationImage6` IS NOT NULL, \"True\", \"False\") AS `Application Image6`\n FROM object_38 o1 \n inner join object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')  \n WHERE o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = '') AND\n        (\n            o1.`mainImage1` IS NULL ||\n            o1.`mainImage2` IS NULL ||\n            o1.`epixImage1` IS NULL ||\n            o1.`epixImage2` IS NULL ||\n            o1.`epixImage3` IS NULL ||\n            o1.`epixImage4` IS NULL ||\n            o1.`halfView1` IS NULL ||\n            o1.`halfView2` IS NULL ||\n            o1.`halfView3` IS NULL ||\n            o1.`halfView4` IS NULL ||\n            o1.`technicalDrawing1` IS NULL ||\n            o1.`technicalDrawing2` IS NULL ||\n            o1.`applicationImage1` IS NULL ||\n            o1.`applicationImage2` IS NULL ||\n            o1.`applicationImage3` IS NULL ||\n            o1.`applicationImage4` IS NULL ||\n            o1.`applicationImage5` IS NULL ||\n            o1.`applicationImage6` IS NULL \n        )",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "ID",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1613-1"
+            ],
+            [
+                "name" => "Product Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-2"
+            ],
+            [
+                "name" => "Main Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-3"
+            ],
+            [
+                "name" => "Main Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-4"
+            ],
+            [
+                "name" => "Epix Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-5"
+            ],
+            [
+                "name" => "Epix Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-6"
+            ],
+            [
+                "name" => "Epix Image3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-7"
+            ],
+            [
+                "name" => "Epix Image4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-8"
+            ],
+            [
+                "name" => "Half View1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-9"
+            ],
+            [
+                "name" => "Half View2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-10"
+            ],
+            [
+                "name" => "Half View3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-11"
+            ],
+            [
+                "name" => "Half View4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-12"
+            ],
+            [
+                "name" => "Technical Drawing1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-13"
+            ],
+            [
+                "name" => "Technical Drawing2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-14"
+            ],
+            [
+                "name" => "Application Image1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-15"
+            ],
+            [
+                "name" => "Application Image2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-16"
+            ],
+            [
+                "name" => "Application Image3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-17"
+            ],
+            [
+                "name" => "Application Image4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-18"
+            ],
+            [
+                "name" => "Application Image5",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-19"
+            ],
+            [
+                "name" => "Application Image6",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1613-20"
+            ]
+        ],
+        "niceName" => "PTGEU - Missing Assets On Products",
+        "group" => "PTG_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1657196779,
+        "creationDate" => 1654688457,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGEU_MissingAssetsOnProducts"
+    ],
+    "PTGEU_PendingWorkFlowReport" => [
+        "name" => "PTGEU_PendingWorkFlowReport",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nn.title AS `Last Action Note`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\nCASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'archived' THEN 'Archived' \nWHEN wf.`place` = 'enrich' THEN 'Enrich' \nWHEN wf.`place` = 'paused' THEN 'Paused' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'review_content' THEN 'Review Content' \nWHEN wf.`place` = 'accepted' THEN 'Accepted' \nWHEN wf.`place` = 'default' THEN 'Default' \nWHEN wf.`place` = 'in_process' THEN 'In Process' \nWHEN wf.`place` = 'in_rd_edit' THEN 'In R&D Edit' \nWHEN wf.`place` = 'in_publish' THEN 'In Publish' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review' \nWHEN wf.`place` = 'published' THEN 'Published' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_pm_review_after_publish' THEN 'In Product Manger Review' \nEND as `Status`,\no1.`o_id` as  `ID`\n\n\nFROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nLEFT JOIN object_38 o1 ON o1.oo_id = n.cid \nINNER JOIN object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')\nJOIN element_workflow_state wf ON wf.cid = n.cid \n\nLEFT JOIN `object_localized_query_1_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \n\nWHERE\n    (o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = ''))  \n    AND\n    (wf.`place` != 'published')\nORDER BY\n  (o1.`o_creationDate`) DESC",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Key",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-1"
+            ],
+            [
+                "name" => "Article Number",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-2"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-3"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-4"
+            ],
+            [
+                "name" => "Path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-5"
+            ],
+            [
+                "name" => "Last Action Note",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-6"
+            ],
+            [
+                "name" => "Pending Since",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-7"
+            ],
+            [
+                "name" => "Last Action Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-8"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-9"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-10"
+            ],
+            [
+                "name" => "ID",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1719-11",
+                "columnAction" => "openObject"
+            ]
+        ],
+        "niceName" => "PTGEU - Pending Work Flow Report",
+        "group" => "PTG_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1657197420,
+        "creationDate" => 1656506280,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGEU_PendingWorkFlowReport"
+    ],
+    "PTGEU_TranslationsMissingReport" => [
+        "name" => "PTGEU_TranslationsMissingReport",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n\tobject_localized_38_en.oo_id As ' Id',\n\tobject_localized_38_en.ProductName,\n\tobject_localized_38_en.shortDescription As 'Short Description',\n    object_localized_38_en.longDescription As 'Long Description',\n    object_localized_38_en.CategoryDescriptionCatalog As 'Category Description Catalog',\n    object_localized_38_en.webDiscription As 'Web Description',\n    object_localized_38_en.searchKeywords As 'Search Keywords',\n    object_localized_38_en.legalText As 'Legal Text',\n    object_localized_38_en.sapDescription As 'SAP Description',\n\tobject_localized_38_de.shortDescription As 'Short Description (de)',\n    object_localized_38_de.longDescription As 'Long Description (de)',\n    object_localized_38_de.CategoryDescriptionCatalog As 'Category Description Catalog (de)',\n    object_localized_38_de.webDiscription As 'Web Description (de)',\n    object_localized_38_de.searchKeywords As 'Search Keywords (de)',\n    object_localized_38_de.legalText As 'Legal Text (de)',\n    object_localized_38_de.sapDescription As 'SAP Description (de)',\n    object_localized_38_ro_RO.shortDescription As 'Short Description (ro)',\n    object_localized_38_ro_RO.longDescription As 'Long Description (ro)',\n    object_localized_38_ro_RO.CategoryDescriptionCatalog As 'Category Description Catalog (ro)',\n    object_localized_38_ro_RO.webDiscription As 'Web Description (ro)',\n    object_localized_38_ro_RO.searchKeywords As 'Search Keywords (ro)',\n    object_localized_38_ro_RO.legalText As 'Legal Text (ro)',\n    object_localized_38_ro_RO.sapDescription As 'SAP Description (ro)',\n    object_localized_38_en_GB.shortDescription As 'Short Description (en UK)',\n    object_localized_38_en_GB.longDescription As 'Long Description (en UK)',\n    object_localized_38_en_GB.CategoryDescriptionCatalog As 'Category Description Catalog (en UK)',\n    object_localized_38_en_GB.webDiscription As 'Web Description (en UK)',\n    object_localized_38_en_GB.searchKeywords As 'Search Keywords (en UK)',\n    object_localized_38_en_GB.legalText As 'Legal Text (en UK)',\n    object_localized_38_en_GB.sapDescription As 'SAP Description (en UK)',\n    object_localized_38_it_IT.shortDescription As 'Short Description (it)',\n    object_localized_38_it_IT.longDescription As 'Long Description (it)',\n    object_localized_38_it_IT.CategoryDescriptionCatalog As 'Category Description Catalog (it)',\n    object_localized_38_it_IT.webDiscription As 'Web Description (it)',\n    object_localized_38_it_IT.searchKeywords As 'Search Keywords (it)',\n    object_localized_38_it_IT.legalText As 'Legal Text (it)',\n    object_localized_38_it_IT.sapDescription As 'SAP Description (it)',\n    object_localized_38_fr.shortDescription As 'Short Description (fr)',\n    object_localized_38_fr.longDescription As 'Long Description (fr)',\n    object_localized_38_fr.CategoryDescriptionCatalog As 'Category Description Catalog (fr)',\n    object_localized_38_fr.webDiscription As 'Web Description (fr)',\n    object_localized_38_fr.searchKeywords As 'Search Keywords (fr)',\n    object_localized_38_fr.legalText As 'Legal Text (fr)',\n    object_localized_38_fr.sapDescription As 'SAP Description (fr)',\n    object_localized_38_es.shortDescription As 'Short Description (es)',\n    object_localized_38_es.longDescription As 'Long Description (es)',\n    object_localized_38_es.CategoryDescriptionCatalog As 'Category Description Catalog (es)',\n    object_localized_38_es.webDiscription As 'Web Description (es)',\n    object_localized_38_es.searchKeywords As 'Search Keywords (es)',\n    object_localized_38_es.legalText As 'Legal Text (es)',\n    object_localized_38_es.sapDescription As 'SAP Description (es)',\n    object_localized_38_ru_RU.shortDescription As 'Short Description (ru)',\n    object_localized_38_ru_RU.longDescription As 'Long Description (ru)',\n    object_localized_38_ru_RU.CategoryDescriptionCatalog As 'Category Description Catalog (ru)',\n    object_localized_38_ru_RU.webDiscription As 'Web Description (ru)',\n    object_localized_38_ru_RU.searchKeywords As 'Search Keywords (ru)',\n    object_localized_38_ru_RU.legalText As 'Legal Text (ru)',\n    object_localized_38_ru_RU.sapDescription As 'SAP Description (ru)',\n    object_localized_38_zh.shortDescription As 'Short Description (zh)',\n    object_localized_38_zh.longDescription As 'Long Description (zh)',\n    object_localized_38_zh.CategoryDescriptionCatalog As 'Category Description Catalog (zh)',\n    object_localized_38_zh.webDiscription As 'Web Description (zh)',\n    object_localized_38_zh.searchKeywords As 'Search Keywords (zh)',\n    object_localized_38_zh.legalText As 'Legal Text (zh)',\n    object_localized_38_zh.sapDescription As 'SAP Description (zh)',\n    object_localized_38_pl_PL.shortDescription As 'Short Description (pl)',\n    object_localized_38_pl_PL.longDescription As 'Long Description (pl)',\n    object_localized_38_pl_PL.CategoryDescriptionCatalog As 'Category Description Catalog (pl)',\n    object_localized_38_pl_PL.webDiscription As 'Web Description (pl)',\n    object_localized_38_pl_PL.searchKeywords As 'Search Keywords (pl)',\n    object_localized_38_pl_PL.legalText As 'Legal Text (pl)',\n    object_localized_38_pl_PL.sapDescription As 'SAP Description (pl)'\n\n    FROM object_localized_38_en\n    INNER JOIN object_39 ON object_localized_38_en.`hierarchyLevel5` = CONCAT(',', object_39.oo_id, ',') \n    INNER JOIN object_localized_38_de ON object_localized_38_en.oo_id = object_localized_38_de.oo_id\n    INNER JOIN object_localized_38_ro_RO ON object_localized_38_en.oo_id = object_localized_38_ro_RO.oo_id\n    INNER JOIN object_localized_38_en_GB ON object_localized_38_en.oo_id = object_localized_38_en_GB.oo_id\n    INNER JOIN object_localized_38_it_IT ON object_localized_38_en.oo_id = object_localized_38_it_IT.oo_id\n    INNER JOIN object_localized_38_fr ON object_localized_38_en.oo_id = object_localized_38_fr.oo_id\n    INNER JOIN object_localized_38_es ON object_localized_38_en.oo_id = object_localized_38_es.oo_id\n    INNER JOIN object_localized_38_ru_RU ON object_localized_38_en.oo_id = object_localized_38_ru_RU.oo_id\n    INNER JOIN object_localized_38_zh ON object_localized_38_en.oo_id = object_localized_38_zh.oo_id\n    INNER JOIN object_localized_38_pl_PL ON object_localized_38_en.oo_id = object_localized_38_pl_PL.oo_id\n    \n    WHERE\n    (object_39.`Level` = 5 AND (object_localized_38_en.`hierarchyLevel6` IS NULL || object_localized_38_en.`hierarchyLevel6` = ''))\n    AND\n    (\n\tobject_localized_38_en.shortDescription is null OR\n\tobject_localized_38_en.longDescription is null OR\n    object_localized_38_en.CategoryDescriptionCatalog is null OR\n    object_localized_38_en.webDiscription is null OR\n\tobject_localized_38_en.searchKeywords is null OR\n    object_localized_38_en.legalText is null OR\n    object_localized_38_en.sapDescription is null OR\n    object_localized_38_de.shortDescription is null OR\n\tobject_localized_38_de.longDescription is null OR\n    object_localized_38_de.CategoryDescriptionCatalog is null OR\n    object_localized_38_de.webDiscription is null OR\n\tobject_localized_38_de.searchKeywords is null OR\n    object_localized_38_de.legalText is null OR\n    object_localized_38_de.sapDescription is null OR\n    object_localized_38_ro_RO.shortDescription is null OR\n\tobject_localized_38_ro_RO.longDescription is null OR\n    object_localized_38_ro_RO.CategoryDescriptionCatalog is null OR\n    object_localized_38_ro_RO.webDiscription is null OR\n\tobject_localized_38_ro_RO.searchKeywords is null OR\n    object_localized_38_ro_RO.legalText is null OR\n    object_localized_38_ro_RO.sapDescription is null OR\n    object_localized_38_en_GB.shortDescription is null OR\n\tobject_localized_38_en_GB.longDescription is null OR\n    object_localized_38_en_GB.CategoryDescriptionCatalog is null OR\n    object_localized_38_en_GB.webDiscription is null OR\n\tobject_localized_38_en_GB.searchKeywords is null OR\n    object_localized_38_en_GB.legalText is null OR\n    object_localized_38_en_GB.sapDescription is null OR\n    object_localized_38_it_IT.shortDescription is null OR\n\tobject_localized_38_it_IT.longDescription is null OR\n    object_localized_38_it_IT.CategoryDescriptionCatalog is null OR\n    object_localized_38_it_IT.webDiscription is null OR\n\tobject_localized_38_it_IT.searchKeywords is null OR\n    object_localized_38_it_IT.legalText is null OR\n    object_localized_38_it_IT.sapDescription is null OR\n    object_localized_38_fr.shortDescription is null OR\n\tobject_localized_38_fr.longDescription is null OR\n    object_localized_38_fr.CategoryDescriptionCatalog is null OR\n    object_localized_38_fr.webDiscription is null OR\n\tobject_localized_38_fr.searchKeywords is null OR\n    object_localized_38_fr.legalText is null OR\n    object_localized_38_fr.sapDescription is null OR\n    object_localized_38_es.shortDescription is null OR\n\tobject_localized_38_es.longDescription is null OR\n    object_localized_38_es.CategoryDescriptionCatalog is null OR\n    object_localized_38_es.webDiscription is null OR\n\tobject_localized_38_es.searchKeywords is null OR\n    object_localized_38_es.legalText is null OR\n    object_localized_38_es.sapDescription is null OR\n    object_localized_38_ru_RU.shortDescription is null OR\n\tobject_localized_38_ru_RU.longDescription is null OR\n    object_localized_38_ru_RU.CategoryDescriptionCatalog is null OR\n    object_localized_38_ru_RU.webDiscription is null OR\n\tobject_localized_38_ru_RU.searchKeywords is null OR\n    object_localized_38_ru_RU.legalText is null OR\n    object_localized_38_ru_RU.sapDescription is null OR\n    object_localized_38_zh.shortDescription is null OR\n\tobject_localized_38_zh.longDescription is null OR\n    object_localized_38_zh.CategoryDescriptionCatalog is null OR\n    object_localized_38_zh.webDiscription is null OR\n\tobject_localized_38_zh.searchKeywords is null OR\n    object_localized_38_zh.legalText is null OR\n    object_localized_38_zh.sapDescription is null OR\n    object_localized_38_pl_PL.shortDescription is null OR\n\tobject_localized_38_pl_PL.longDescription is null OR\n    object_localized_38_pl_PL.CategoryDescriptionCatalog is null OR\n    object_localized_38_pl_PL.webDiscription is null OR\n\tobject_localized_38_pl_PL.searchKeywords is null OR\n    object_localized_38_pl_PL.legalText is null OR\n    object_localized_38_pl_PL.sapDescription is null \n    )\n    ",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "ProductName",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-1"
+            ],
+            [
+                "name" => "Short Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-2"
+            ],
+            [
+                "name" => "Long Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-3"
+            ],
+            [
+                "name" => "Category Description Catalog",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-4"
+            ],
+            [
+                "name" => "Web Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-5"
+            ],
+            [
+                "name" => "Search Keywords",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-6"
+            ],
+            [
+                "name" => "Legal Text",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-7"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-8"
+            ],
+            [
+                "name" => "Short Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-9"
+            ],
+            [
+                "name" => "Long Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-10"
+            ],
+            [
+                "name" => "Category Description Catalog (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-11"
+            ],
+            [
+                "name" => "Web Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-12"
+            ],
+            [
+                "name" => "Search Keywords (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-13"
+            ],
+            [
+                "name" => "Legal Text (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-14"
+            ],
+            [
+                "name" => "SAP Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-15"
+            ],
+            [
+                "name" => "Short Description (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-16"
+            ],
+            [
+                "name" => "Long Description (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-17"
+            ],
+            [
+                "name" => "Category Description Catalog (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-18"
+            ],
+            [
+                "name" => "Web Description (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-19"
+            ],
+            [
+                "name" => "Search Keywords (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-20"
+            ],
+            [
+                "name" => "Legal Text (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-21"
+            ],
+            [
+                "name" => "SAP Description (ro)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-22"
+            ],
+            [
+                "name" => "Short Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-23"
+            ],
+            [
+                "name" => "Long Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-24"
+            ],
+            [
+                "name" => "Category Description Catalog (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-25"
+            ],
+            [
+                "name" => "Web Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-26"
+            ],
+            [
+                "name" => "Search Keywords (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-27"
+            ],
+            [
+                "name" => "Legal Text (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-28"
+            ],
+            [
+                "name" => "SAP Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-29"
+            ],
+            [
+                "name" => "Short Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-30"
+            ],
+            [
+                "name" => "Long Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-31"
+            ],
+            [
+                "name" => "Category Description Catalog (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-32"
+            ],
+            [
+                "name" => "Web Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-33"
+            ],
+            [
+                "name" => "Search Keywords (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-34"
+            ],
+            [
+                "name" => "Legal Text (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-35"
+            ],
+            [
+                "name" => "SAP Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-36"
+            ],
+            [
+                "name" => "Short Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-37"
+            ],
+            [
+                "name" => "Long Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-38"
+            ],
+            [
+                "name" => "Category Description Catalog (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-39"
+            ],
+            [
+                "name" => "Web Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-40"
+            ],
+            [
+                "name" => "Search Keywords (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-41"
+            ],
+            [
+                "name" => "Legal Text (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-42"
+            ],
+            [
+                "name" => "SAP Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-43"
+            ],
+            [
+                "name" => "Short Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-44"
+            ],
+            [
+                "name" => "Long Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-45"
+            ],
+            [
+                "name" => "Category Description Catalog (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-46"
+            ],
+            [
+                "name" => "Web Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-47"
+            ],
+            [
+                "name" => "Search Keywords (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-48"
+            ],
+            [
+                "name" => "Legal Text (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-49"
+            ],
+            [
+                "name" => "SAP Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-50"
+            ],
+            [
+                "name" => "Short Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-51"
+            ],
+            [
+                "name" => "Long Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-52"
+            ],
+            [
+                "name" => "Category Description Catalog (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-53"
+            ],
+            [
+                "name" => "Web Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-54"
+            ],
+            [
+                "name" => "Search Keywords (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-55"
+            ],
+            [
+                "name" => "Legal Text (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-56"
+            ],
+            [
+                "name" => "SAP Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-57"
+            ],
+            [
+                "name" => "Short Description (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-58"
+            ],
+            [
+                "name" => "Long Description (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-59"
+            ],
+            [
+                "name" => "Category Description Catalog (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-60"
+            ],
+            [
+                "name" => "Web Description (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-61"
+            ],
+            [
+                "name" => "Search Keywords (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-62"
+            ],
+            [
+                "name" => "Legal Text (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-63"
+            ],
+            [
+                "name" => "SAP Description (pl)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-64"
+            ],
+            [
+                "name" => "Short Description (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-65"
+            ],
+            [
+                "name" => "Long Description (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-66"
+            ],
+            [
+                "name" => "Category Description Catalog (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-67"
+            ],
+            [
+                "name" => "Web Description (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-68"
+            ],
+            [
+                "name" => "Search Keywords (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-69"
+            ],
+            [
+                "name" => "Legal Text (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-70"
+            ],
+            [
+                "name" => "SAP Description (en UK)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel321-71"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel321-72"
+            ]
+        ],
+        "niceName" => "PTGEU -  Translations Missing Report",
+        "group" => "PTG_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1657198834,
+        "creationDate" => 1655290783,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGEU_TranslationsMissingReport"
     ]
 ];

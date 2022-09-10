@@ -40,6 +40,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_WORKFLOW_CONFIG);
     }
+    public function getPTGEUWorkflowConfig()
+    {
+        return $this->getConfigFromYmlFile(PTG_EU_WORKFLOW_CONFIG);
+    }
     public function getProductAttributeValidationConfig()
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);

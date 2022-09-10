@@ -1,0 +1,18 @@
+parameters:
+  mappingCsvColumn: 
+    'material': 'SAPMaterialCode'
+    'salesOrgCode' : 'SalesOrgCode'
+    'salesOrgName' : 'Sales Org Desc'
+    'distributionChannelCode' : 'DCCode'
+    'distributionChannelName' : 'Dist Channel Desc'
+    'deliveringPlantCode' : 'DeliveringPlantCode'
+    'countryOfOriginCode' : 'CountryofOriginCode'
+    'countryOfOriginName':  'CountryofOriginname'
+    'epixFlag' : 'EPIXFlag'
+    'pricePageFlag': 'PricePageFlag'
+    'deletedFlagAtDistributionChainLevel': 'Deletionflag'
+    'salesText1': 'Salestext1'
+    'salesText2': 'Salestext2'
+    'privateBrand': 'MaterialGroup5'
+    'salesUnit': 'Sales Unit'
+    'deleteFlagAtDistributionChainLevel' : 'Dist Chain Status'
