@@ -73,6 +73,11 @@ services:
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUDeleteCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:delete' }
+    
+    # this command will execute to save and publish ptgeu products
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductSaveAndPublishCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:product-save_publish' }
 
     # Services
     import.sap_file_feeder_service:
