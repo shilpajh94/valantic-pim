@@ -9,8 +9,8 @@ class PTGEUCatalogBundle extends AbstractPimcoreBundle
     public function getJsPaths()
     {
         return [
-            '/bundles/ptgeucatalog/js/pimcore/startup.js',
-            '/bundles/ptgeucatalog/js/pimcore/headerSelection.js'
+            '/bundles/ptgeucatalog/js/pimcore/euStartup.js',
+            '/bundles/ptgeucatalog/js/pimcore/euHeaderSelection.js'
         ];
     }
 }
