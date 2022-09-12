@@ -83,8 +83,8 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 this.listProductTable(object, eve.value);
              }.bind(this));
 
-            let headerSelection = new pimcore.plugin.headerSelection();
-            headerSelection.attachHeader(object);
+            let euHeaderSelection = new pimcore.plugin.euHeaderSelection();
+            euHeaderSelection.attachEUHeaders(object);
         }
     },
 
