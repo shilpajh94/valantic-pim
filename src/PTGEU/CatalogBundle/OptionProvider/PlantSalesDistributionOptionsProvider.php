@@ -12,7 +12,7 @@ use PTGEU\ImportBundle\Services\ImportConstants;
 
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
-class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterface {
+class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInterface {
 
     /**
      * @param $context array

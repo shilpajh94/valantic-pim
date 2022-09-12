@@ -1,17 +1,16 @@
 /**
  * 
- * @class headerSelection
- * @desc This file is used to create new panel for headerSelection
+ * @class euHeaderSelection
+ * @desc This file is used to create new panel for euHeaderSelection
  * @version 1.0
  *
  */
 
-pimcore.registerNS("pimcore.plugin.headerSelection");
+pimcore.registerNS("pimcore.plugin.euHeaderSelection");
 
-pimcore.plugin.headerSelection = Class.create({
+pimcore.plugin.euHeaderSelection = Class.create({
 
-    attachHeader: function (object) {
-       
+    attachEUHeaders: function (object) {
         var headerFieldIndex = 1;
         var objectClassName = object.data.general.o_className;
 

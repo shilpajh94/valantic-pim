@@ -149,7 +149,7 @@ return [
                         //'delete' => 0,  
                         'searchAndMove' => 0, 
                         'unlock' => 0,            
-                        'unlockAndPropagete' => 0
+                        'unlockAndPropagete' => 0,
                     ]
                 ]
             ]
@@ -311,6 +311,8 @@ return [
                         'searchAndMove' => 0, 
                         'unlock' => 0,            
                         'unlockAndPropagete' => 0,
+                        'importCsv' => 0
+
                     ]
                 ]
             ]
@@ -338,6 +340,7 @@ return [
                         'searchAndMove' => 0, 
                         'unlock' => 0,            
                         'unlockAndPropagete' => 0,
+                        'importCsv' => 0
                     ]
                 ]
             ]
@@ -356,6 +359,13 @@ return [
             'sort' => '10',
             'expanded' => false,
             'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'importCsv' => 0
+                    ]
+                ]
+            ]
         ],
 
         [
@@ -371,6 +381,14 @@ return [
             'sort' => '10',
             'expanded' => false,
             'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'importCsv' => 0
+                    ]
+                ]
+            ]
+
         ],
 
         [
