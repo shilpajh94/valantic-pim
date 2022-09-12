@@ -285,6 +285,9 @@ class ProductService
             if (!empty($description)) {
                 $objectKey = $objectKey."-".$description;
             }
+            if(strpos($objectKey,'/')){
+                $objectKey = str_replace("/","-",$objectKey);
+            }
             $objectIndex = count($levelInfo);
         }
         $objectArr = [
