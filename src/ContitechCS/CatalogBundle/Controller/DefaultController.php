@@ -3,14 +3,11 @@
 namespace ContitechCS\CatalogBundle\Controller;
 
 use CatalogBundle\Helper\CatalogTemplatingHelper;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
-use S3CustomizationBundle\Lib\Utils;
-use ContitechCS\ImportBundle\Services\ImportConstants;
 use Pimcore\Db;
 use \Exception;
 
@@ -428,12 +425,14 @@ class DefaultController extends AbstractController
                         }
 
                         $productTables          = array();
-                        $childrenDataChunkArray = array_chunk($childrenData, CS_PRODUCT_TABLE_COLUMN_LIMIT);
+                        $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
+                        $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
     
                         if($childrenDataChunkArray)
                         {
                             foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
                             {
+                                unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
                                 $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
                                 
                                 if($tables)
@@ -740,6 +739,30 @@ class DefaultController extends AbstractController
                                 }
                             }
                         }
+
+                        if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
+                        {
+                            $singleLoadSupportMaximumBeltWidthData = [];
+                            $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
+
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadfirstRowColspan'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadfirstRowColspan'];
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRowGroup'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRowGroup'];
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRow'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRow'];
+
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadfirstRowColspan'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadfirstRowColspan'];
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRowGroup'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRowGroup'];
+                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRow'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRow'];
+
+                            foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
+                                foreach ($section as $sectionKey => $tableSection) {
+                                    foreach ($tableSection['tbody'] as $key => $value) {
+                                        $singleLoadSupportMaximumBeltWidthData[0][$sectionKey]['tbody'][] = $value;
+                                    }
+                                }
+                            }
+                            $productTables['Load Support – Maximum Belt Width Data'] = $singleLoadSupportMaximumBeltWidthData;
+                        }
+
                         $productData['productTables'] = $productTables;
                     }
                 }
