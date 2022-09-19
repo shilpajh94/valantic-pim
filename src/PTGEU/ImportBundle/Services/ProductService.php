@@ -100,38 +100,42 @@ class ProductService
     {
         $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
-
-        $csvInfo = ImportService::getCSVData($this->filePath);
-        $this->csvHeader = array_flip($csvInfo['header']);
-
-        try {
-            $this->initImportTable();
-            Logger::log(self::LOGGER_MODULE)->info("SAP import started"); 
-            $this->productModel->truncateTempTable();
-            $this->productModel->insertDataInTemp($csvInfo['data']);
-            Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-            $this->productModel->processDeletedProducts();
-            Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
-            Logger::log(self::LOGGER_MODULE)->info("Product import started");
-            $this->initiateProductsProcess();
-            Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-            $this->productModel->updateMaster();
-            Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
-
-            if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                echo "Object Saving started for completeness.".PHP_EOL;         
-                $this->saveProducts($this->updatedArticlesArray);
-                echo "Object Saving completed for completeness.".PHP_EOL;
+        if($this->filePath){
+            $csvInfo = ImportService::getCSVData($this->filePath);
+            $this->csvHeader = array_flip($csvInfo['header']);
+    
+            try {
+                $this->initImportTable();
+                Logger::log(self::LOGGER_MODULE)->info("SAP import started"); 
+                $this->productModel->truncateTempTable();
+                $this->productModel->insertDataInTemp($csvInfo['data']);
+                Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
+                $this->productModel->processDeletedProducts();
+                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                Logger::log(self::LOGGER_MODULE)->info("Product import started");
+                $this->initiateProductsProcess();
+                Logger::log(self::LOGGER_MODULE)->info("Product import completed");
+                $this->productModel->updateMaster();
+                Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+    
+                if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                    echo "Object Saving started for completeness.".PHP_EOL;         
+                    $this->saveProducts($this->updatedArticlesArray);
+                    echo "Object Saving completed for completeness.".PHP_EOL;
+                }
+    
+                if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
+                    $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
+                    Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
+                    $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
+                }
+            } catch (\Throwable $th) {
+                Logger::error($this->logFileName, $th);
+                die;
             }
-
-            if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
-                $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
-                Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
-                $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
-            }
-        } catch (\Throwable $th) {
-            Logger::error($this->logFileName, $th);
-            die;
+    
+        }else{
+            die; 
         }
             
     }
@@ -285,9 +289,7 @@ class ProductService
             if (!empty($description)) {
                 $objectKey = $objectKey."-".$description;
             }
-            if(strpos($objectKey,'/')){
-                $objectKey = str_replace("/","-",$objectKey);
-            }
+            $objectKey = \Pimcore\Model\Element\Service::getValidKey($objectKey, 'object');
             $objectIndex = count($levelInfo);
         }
         $objectArr = [
