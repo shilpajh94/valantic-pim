@@ -35,20 +35,26 @@ class MediaGetter extends AbstractOperator
                 $customDefaultValue = $this->getCustomAnyGetter($c);
                 $childResult = $customDefaultValue->getLabeledValue($element);
             }
-            p_r($childResult->value);die;
-            //p_r($childResult->value[0]);die;
+            
             if ($childResult && $childResult->value) {
-                $image = $childResult->value[1];
-                //p_r($image);die;
-		        // for contitech
-                if ($image instanceof \Pimcore\Model\Asset\Image) {
-                    die("DDDDDDDDDD");
-                    $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($image, $this->thumbnail);
+                $image = $childResult->value;
+                if(is_array($image)){
+                    foreach($image as $img){
+                        if ($img instanceof \Pimcore\Model\Asset\Image) {
+                            $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($img, $this->thumbnail);
+                        }
+                        if($result->value && $this->getContext()['purpose'] == "gridview"){
+                            $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
+                        }
+                    }
+                } else {
+                    if ($image instanceof \Pimcore\Model\Asset\Image) {
+                        $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($image, $this->thumbnail);
+                    }
+                    if($result->value && $this->getContext()['purpose'] == "gridview"){
+                        $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
+                    }    
                 }
-                if($result->value && $this->getContext()['purpose'] == "gridview"){
-                    $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
-                }
-                die("BBBBBBBBBB");
             }
         }
         return $result;
