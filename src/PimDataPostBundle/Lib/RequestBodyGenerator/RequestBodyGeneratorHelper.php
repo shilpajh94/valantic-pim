@@ -1,6 +1,7 @@
 <?php
 namespace PimDataPostBundle\Lib\RequestBodyGenerator;
 
+use PimDataPostBundle\Lib\Constants;
 use PimDataPostBundle\Lib\RequestBodyGenerator\B2B\Dao\B2BProductRequestBodyGeneratorDao;
 use S3CustomizationBundle\Lib\Utils;
 
@@ -44,16 +45,18 @@ class RequestBodyGeneratorHelper
      * @param type $language
      * @return type
      */
-    public function getBooleanTypeValue($currentValue, array $config, $language = null) 
+    public function getBooleanSelectTypeValue($currentValue, array $config, $language = null) 
     {
-        $return = true;
-        if (empty($currentValue)) {
-            $return = null;
-        } elseif ($currentValue == "-1") {
-            $return = false;
+        $return = null;
+
+        if($currentValue === "1")
+        {
+            $return = Constants::BOOLEAN_SELECT_YES_VALUE_FOR_EXPORT;
+        }elseif($currentValue === "-1")
+        {
+            $return = Constants::BOOLEAN_SELECT_NO_VALUE_FOR_EXPORT;
         }
-        unset($config);
-        unset($language);
+
         return $return;
     }
     /**

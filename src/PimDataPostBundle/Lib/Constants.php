@@ -106,5 +106,8 @@ class Constants
     const B2C_API_REQUEST_ARCHIVE_FOLDER = "/Internal Assets/Saleforce Integration Archives/B2C";
 
     const B2C_API_REQUEST_ARCHIVE_CSV_LOG_HEADERS = ['ID' => 'id', 'Body' => 'body', 'SFObjectType' => 'SFObjectType', "Response Status" => 'responseStatus', "Reponse Msg" => 'responseMsg' , 'Operation Type' => 'operationType', "External ID" => "externalID", "PIM ID" => "pimId", "Response Time Stamp" =>"responseTimestamp", "Created Date Time Stamp" => "creationDate"];
+    
+    const BOOLEAN_SELECT_YES_VALUE_FOR_EXPORT = "Yes";
 
+    const BOOLEAN_SELECT_NO_VALUE_FOR_EXPORT = "No";
 }
