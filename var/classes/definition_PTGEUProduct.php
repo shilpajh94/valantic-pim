@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-09-05T06:38:11+00:00
+* Generated at: 2022-09-23T06:20:56+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -122,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1662359889,
+   'modificationDate' => 1663914035,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1191,33 +1191,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
+                                    'key' => 'NR / SBR',
+                                    'value' => 'NR / SBR',
+                                  ),
+                                  1 => 
+                                  array (
                                     'key' => 'EPDM',
                                     'value' => 'EPDM',
                                   ),
-                                  1 => 
+                                  2 => 
                                   array (
                                     'key' => 'H-NBR',
                                     'value' => 'H-NBR',
                                   ),
-                                  2 => 
+                                  3 => 
                                   array (
                                     'key' => 'PU',
                                     'value' => 'PU',
                                   ),
-                                  3 => 
+                                  4 => 
                                   array (
                                     'key' => 'CR',
                                     'value' => 'CR',
                                   ),
-                                  4 => 
+                                  5 => 
                                   array (
                                     'key' => 'PBD',
                                     'value' => 'PBD',
                                   ),
-                                  5 => 
+                                  6 => 
                                   array (
-                                    'key' => 'NR / SBR',
-                                    'value' => 'NR / SBR',
+                                    'key' => 'NR/SBR',
+                                    'value' => 'NR/SBR',
                                   ),
                                 ),
                                  'width' => 250,
