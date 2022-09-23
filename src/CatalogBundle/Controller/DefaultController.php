@@ -2306,5 +2306,7 @@ if(isset($data[$baseId])) {
     public function templateIndexProductNumberAction(Request $request)
     {
     }
+
+    
 }
 
