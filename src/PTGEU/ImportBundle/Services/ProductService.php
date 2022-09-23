@@ -559,8 +559,8 @@ class ProductService
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
                 foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if($eachOptions['value'] == $eachReinforcementValue){
-                        array_push($reinforcementValuesToBeMapped,$eachReinforcementValue);
+                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                     }
                 }
                 
@@ -572,8 +572,9 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("performance");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $performance){
-                    $queryTableData['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+                if(strtolower($eachOptions['value']) == strtolower($performance)){
+                    echo $eachOptions['value'].PHP_EOL;
+                    $queryTableData['performance'] = trim($eachOptions['value']);
                 }
             }
 
@@ -590,8 +591,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("Color");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $color){
-                    $queryTableData['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+                if(strtolower($eachOptions['value']) == strtolower($color)){
+                    $queryTableData['Color'] = trim($eachOptions['value']);
                 }
             }
 
@@ -599,8 +600,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $staticConductive){
-                    $queryTableData['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+                    $queryTableData['staticConductive'] = trim($eachOptions['value']);
                 }
             }
 
@@ -720,8 +721,8 @@ class ProductService
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
                 foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if($eachOptions['value'] == $eachReinforcementValue){
-                        array_push($reinforcementValuesToBeMapped,$eachReinforcementValue);
+                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                     }
                 }
                 
@@ -734,8 +735,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("performance");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $performance){
-                    $storeTableDataArray['performance'] = trim($record[$this->getRecordIndexByKey('performance')]);
+                if(strtolower($eachOptions['value']) == strtolower($performance)){
+                    $storeTableDataArray['performance'] = trim($eachOptions['value']);
                 }
             }
 
@@ -743,8 +744,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("material");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $materialCompound){
-                    $storeTableDataArray['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+                if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
+                    $storeTableDataArray['material'] = trim($eachOptions['value']);
                 }
                 
             }
@@ -753,8 +754,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("Color");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $color){
-                    $storeTableDataArray['Color'] = trim($record[$this->getRecordIndexByKey('Color')]);
+                if(strtolower($eachOptions['value']) == strtolower($color)){
+                    $storeTableDataArray['Color'] = trim($eachOptions['value']);
                 }
             }
 
@@ -762,8 +763,8 @@ class ProductService
             $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
-                if($eachOptions['value'] == $staticConductive){
-                    $storeTableDataArray['staticConductive'] = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+                    $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
                 }
             }
         }

@@ -48,7 +48,9 @@ class SAPFileFeederService
 
             if(!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
             {
-                $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
+                // $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
+                $fileName = $fileNamePrefix."_".date('mdY',strtotime("-4 days")).".".$ext;
+
 
                 if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
                 {

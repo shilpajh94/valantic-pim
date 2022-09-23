@@ -27,7 +27,7 @@ if (CUSTOM_ENV == "prod") {
     // Received an email from Don on Sep 19, 2022 to use default path for PTGEU Files
     //define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/P9A/PIMCORE/OUTBOUND/P61/PRODUCTION");
     define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/P9A/PIMCORE/OUTBOUND");
-
+    
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
     define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialSales.csv");
     define("BW_SAP_IMPORT_SFTP_PRODUCT_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_Material.csv");
