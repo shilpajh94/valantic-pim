@@ -26,13 +26,16 @@ class PTGEUProductSaveAndPublishCommand extends AbstractCommand
     {
         $entries = new DataObject\PTGEUProduct\Listing();
         $entries->addConditionParam("businessUnit = ?", 'PTGEU');
+        $entries->setUnpublished(1);
         $entries->load();
+        $i = 1;
         foreach($entries as $eachEntry){
-            $productObj = DataObject\PTGEUProduct::getById($eachEntry->getId());
-            $productObj->setKey(\Pimcore\Model\Element\Service::getValidKey($productObj->getKey(), 'object'));
-            $productObj->save();
-            print_r($productObj->getKey());
+            $eachEntry->setKey(\Pimcore\Model\Element\Service::getValidKey($eachEntry->getKey(), 'object'));
+            $eachEntry->setPublished(1);
+            $eachEntry->save();
+            print_r($i. ' --------  '.$eachEntry->getKey());
             echo PHP_EOL;
+            $i++;
         }
     }
 }
