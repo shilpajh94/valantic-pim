@@ -58,6 +58,8 @@ class ProductModelService {
         $conArray["condition"] = $conditionString;
         $conArray["fields"] = ["oo_id" => ["string"]];
         $totalCount = $this->model->getTotalCount($langCode, $conArray);
+
+        //fetch product order by brand
         $productsByBrand = $this->model->fetchProductByBrandOrdering($langCode, $parameterArray,'fert',$this->vCatalog);
         return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
         // these are all ferts with offset, limit and conditions
