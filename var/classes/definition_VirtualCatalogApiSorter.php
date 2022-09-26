@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-14T21:21:16+05:30
+* Generated at: 2022-09-23T10:51:11+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: ::1
 
 
 Fields Summary: 
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'VirtualCatalogApiSorter',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1657813876,
+   'modificationDate' => 1663923071,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
