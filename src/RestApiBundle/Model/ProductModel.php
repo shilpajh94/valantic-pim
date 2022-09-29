@@ -28,7 +28,7 @@ class ProductModel
     {
         // Get Condition String.
         $conditionString = $this->getConditionString($conditionArray,$productType);
-
+p_r($conditionString);die;
         // Get Field String.
         $fieldString = $vCatalogMap['VirtualCatalog']['Fields'];
 
@@ -48,8 +48,7 @@ class ProductModel
                     $sql = $this->getproductwithBrandOrder($lang,$conArray,$offsetLimit);
                     $stmt = $this->db->prepare($sql);
                     $stmt->execute();
-                    $product = $stmt->fetchAll();
-                    return $product;
+                    return $stmt->fetchAll();
                 } catch(\Exception $ex) {
                     Logger::error($ex->getTraceAsString());
                     return false;
@@ -66,22 +65,25 @@ class ProductModel
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $brand = $stmt->fetchAll();
-        if(count($brand)!= 0)
+        if(!empty($brand)){
             return $brand[0];
-        else
+        } else {
             return null;
+        }
+            
     }
 
     public function getVirtualCatalogApiSorter($id)
     {
-        $sql = "select Columns from ".$this->virtualCatalogSorterTable." where oo_id = ".$id;
+        $sql = "select GroupingField, Columns, `Order` from ".$this->virtualCatalogSorterTable." where oo_id = ".$id;
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $sorter = $stmt->fetchAll();
-        if(count($sorter)!= 0)
+        if(!empty($sorter)) {
             return $sorter[0];
-        else
+        } else {
             return null;
+        }
     }
 
     public function getVirtualCatalogApiMapper($id)
@@ -89,11 +91,12 @@ class ProductModel
         $sql = "select originalValues from ".$this->virtualCatalogMapperTable." where oo_id = ".$id;
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        $sorter = $stmt->fetchAll();
-        if(count($sorter)!= 0)
-            return $sorter[0];
-        else
+        $mapper = $stmt->fetchAll();
+        if(!empty($mapper)) {
+            return $mapper[0];
+        } else {
             return null;
+        }
     }
 
 

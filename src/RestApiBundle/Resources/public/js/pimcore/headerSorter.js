@@ -33,7 +33,7 @@ pimcore.plugin.headerSorter = Class.create({
             var headerDataFieldName = 'Columns';
             var dataFields = object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;
-            // console.log(headerDataComponent);
+            //console.log(headerDataComponent);
             
             var objectEditParentPanel = object.edit.layout.items.items[0];
             
@@ -105,7 +105,7 @@ pimcore.plugin.headerSorter = Class.create({
 
 
             let itemSelectorValues = this.getValuesForItemSelector(headerDataComponent);
-            console.log(headerFieldSet);
+            //console.log(itemSelectorValues);
             var head = headerFieldSet.items.find(k=> (k.name == 'header-selector'));
 
             
@@ -128,18 +128,19 @@ pimcore.plugin.headerSorter = Class.create({
                 toTitle: 'Selected',
                 listeners: {
                     change: function (field, newValue, oldValue, eOpts) {
+                        //headerDataComponent.setValue('{}');
                         // console.log(my_item_selector_instance);
                         // console.log(my_item_selector_instance);
                         let selectedHeaders = my_item_selector_instance.getValue();
-                        // console.log(selectedHeaders);
-                        // console.log(completeData);
+                        //console.log(selectedHeaders);
                         // setting selected headers in selectedHeadersField
                         let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
+                        //console.log(formatedSelectedHeaders);
                         formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
                         headerDataComponent.setValue(formatedSelectedHeaders);
                         // trying to resolve the screen scroll to top issue on item selector value change
                         setTimeout(function(){
-                            //panelContainingConfiguration.setScrollY(panelContainingConfiguration.getHeight());
+                            panelContainingConfiguration.setScrollY(panelContainingConfiguration.getHeight());
                         },0);
 
                     }.bind(this),
@@ -158,6 +159,7 @@ pimcore.plugin.headerSorter = Class.create({
         else
         {
          //var head = headerFieldSet.items.find(k=> (k.name == 'header-selector'));   
+         //console.log("ASDF");
          head.setStore(my_array_store);
          head.setValue(this.getValuesForItemSelector(headerDataComponent));
        
@@ -174,11 +176,14 @@ pimcore.plugin.headerSorter = Class.create({
         return returnData;
     },
     getValuesForItemSelector: function (headerDataComponent) {
+        //console.log(headerDataComponent);
         let savedData = this.getHeaderData(headerDataComponent);
+        //console.log(savedData);
         let returnData = [];
         for (var key in savedData) {
             if (savedData.hasOwnProperty(key)) {
                 let value = savedData[key];
+                //console.log(value);
                 returnData.push(value.columnName);
             }
         }
@@ -186,28 +191,25 @@ pimcore.plugin.headerSorter = Class.create({
     },
     formatHeaderDataForSave: function (data, completeData) {
         let returnData = {};
-
         // now doing this in php for applied header
         // if (data.length > 0) {
         //     returnData['id'] = this.idColumnConfig;
         // }
  
         for (let i = 0; i < data.length; i++) {
-           // console.log(completeData);
-          
             var completeHeaderData = completeData[data[i]];
-            // console.log(completeHeaderData)
             header = {
                 "columnName": data[i],
-                "columnLabel": completeHeaderData.fieldLabel,
-                "groupName": completeHeaderData.groupName,
-                "unitName": completeHeaderData.unitName,
-                "columnWidth": completeHeaderData.columnWidth,
+                "columnLabel": completeHeaderData.fieldLabel
+                // "groupName": completeHeaderData.groupName,
+                // "unitName": completeHeaderData.unitName,
+                // "columnWidth": completeHeaderData.columnWidth,
                 // "columnName": data[i],
                 // "columnWidth": completeHeaderData[1],
                 // "columnLabel": completeHeaderData[2]
             };
-            returnData[data[i]] = header;
+            returnData["'"+data[i]+"'"] = header;
+            
         }
         return returnData;
     },

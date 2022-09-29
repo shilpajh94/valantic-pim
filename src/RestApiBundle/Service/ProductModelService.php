@@ -61,7 +61,7 @@ class ProductModelService {
 
         //fetch product order by brand
         $productsByBrand = $this->model->fetchProductByBrandOrdering($langCode, $parameterArray,'fert',$this->vCatalog);
-        return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
+        //return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray, "fert", $this->vCatalog);
         if ($products) {
@@ -88,13 +88,20 @@ class ProductModelService {
                 $brandArray[$product["brandName"]]["name"] = $brandDetails["name"];
                 if (isset($brandDetails["VirtualCatalogApiSorter__id"]) && $brandDetails["VirtualCatalogApiSorter__id"] != "" && $brandDetails["VirtualCatalogApiSorter__id"] != null) {
                     $sortArray = $this->model->getVirtualCatalogApiSorter($brandDetails["VirtualCatalogApiSorter__id"]);
-                    if(isset($sortArray['Columns']) && $sortArray['Columns'] != "" && $sortArray['Columns']!= null)
+                    if(isset($sortArray) && $sortArray != null) {
+                        $brandArray[$product["brandName"]]["grouping"]  = $sortArray['GroupingField'];
+                    }
+                    if(isset($sortArray['Columns']) && $sortArray['Columns'] != "" && $sortArray['Columns']!= null && $sortArray['Columns']!= '{}') {
                         $brandArray[$product["brandName"]]["sorting"]  = array_keys(json_decode($sortArray['Columns'],true));
+                    } else {
+                        $brandArray[$product["brandName"]]["sorting"]  = $sortArray['Order'];
+                    }
                 }
                 if (isset($brandDetails["VirtualCatalogApiMapper__id"]) && $brandDetails["VirtualCatalogApiMapper__id"] != "" && $brandDetails["VirtualCatalogApiMapper__id"] != null) {
                     $mappingArray = $this->model->getVirtualCatalogApiMapper($brandDetails["VirtualCatalogApiMapper__id"]);
-                    if(isset($mappingArray['originalValues']) && $mappingArray['originalValues'] != "" && $mappingArray['originalValues']!= null)
+                    if(isset($mappingArray['originalValues']) && $mappingArray['originalValues'] != "" && $mappingArray['originalValues']!= null) {
                         $brandArray[$product["brandName"]]["mapping"]  = explode("/n",$mappingArray['originalValues']);
+                    }
                 }
             }
         }
