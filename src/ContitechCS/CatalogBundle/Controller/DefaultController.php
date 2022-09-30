@@ -745,22 +745,36 @@ class DefaultController extends AbstractController
                             $singleLoadSupportMaximumBeltWidthData = [];
                             $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
 
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadfirstRowColspan'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadfirstRowColspan'];
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRowGroup'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRowGroup'];
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRow'] = $loadSupportMaximumBeltWidthData[0]['CS_Imperial']['theadSecondRow'];
-
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadfirstRowColspan'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadfirstRowColspan'];
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRowGroup'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRowGroup'];
-                            $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRow'] = $loadSupportMaximumBeltWidthData[0]['CS_Metric']['theadSecondRow'];
-
                             foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
                                 foreach ($section as $sectionKey => $tableSection) {
-                                    foreach ($tableSection['tbody'] as $key => $value) {
-                                        $singleLoadSupportMaximumBeltWidthData[0][$sectionKey]['tbody'][] = $value;
+
+                                    foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
+
+                                        if($tableSectionKey == 'tbody')
+                                        {
+                                            foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
+                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                            }
+                                        }
+                                        else{
+                                            $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                        }
                                     }
                                 }
                             }
-                            $productTables['Load Support – Maximum Belt Width Data'] = $singleLoadSupportMaximumBeltWidthData;
+
+                            #Move first imperail then matric
+                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
+                            {
+                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
+                            }
+
+                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
+                            {
+                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
+                            }
+                            
+                            $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
                         }
 
                         $productData['productTables'] = $productTables;
