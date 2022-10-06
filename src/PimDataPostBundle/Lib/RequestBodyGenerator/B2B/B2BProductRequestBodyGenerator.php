@@ -90,6 +90,7 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                     if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
                         $value = Util::formatWysiwygValue($value);
                     }
+
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if (!empty($value) && !empty($this->checkIfTypeIsAllowed($attributeConfig))) {
                         $type = $config[$key]['pim_attribute_type'];
@@ -105,6 +106,18 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                             $returnArray[$attributeConfig['sf_attribute_name']] = $pimValue;
                             
                         }
+                    }
+
+                    if (array_key_exists('value_formatter_for_push', $attributeConfig) &&
+                    $attributeConfig['value_formatter_for_push'] != null
+                    ) {
+                        $returnArray[$attributeConfig['sf_attribute_name']] =
+                            call_user_func(
+                                array(
+                                    $attributeConfig['value_formatter_for_push'][0],
+                                    $attributeConfig['value_formatter_for_push'][1]),
+                                $returnArray[$attributeConfig['sf_attribute_name']]
+                            );
                     }
                 }
             }
