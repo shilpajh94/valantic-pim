@@ -349,7 +349,7 @@ section {
     @bottom-center{
         content: element(conticleanImage, first);
          position: absolute;
-         bottom:0;
+         bottom:-5px;
          width:100%;
          height:auto;
          left:0;
