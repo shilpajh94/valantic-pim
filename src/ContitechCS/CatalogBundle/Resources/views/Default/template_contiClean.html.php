@@ -225,7 +225,7 @@
                     } else {
                         $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
                         if (!empty($CCAppImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:373px; width:auto;"/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:550px; width:auto;"/>
                             <?php
                         }
                     }
