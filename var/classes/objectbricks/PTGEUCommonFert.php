@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-30T09:35:59+02:00
-* IP: ::1
+* Generated at: 2022-10-27T13:00:29+05:30
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -141,7 +141,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Height',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -172,7 +172,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -203,7 +203,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Pitch height (hd/u)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -234,7 +234,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Ref. Length (Lr)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -265,7 +265,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Rib Pitch (s)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -296,7 +296,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Ribs',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -324,7 +324,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'PAH',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -539,7 +539,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Height',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -570,7 +570,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -601,7 +601,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Pitch height (hd/u)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -632,7 +632,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Ref. Length (Lr)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -663,7 +663,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Rib Pitch (s)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',

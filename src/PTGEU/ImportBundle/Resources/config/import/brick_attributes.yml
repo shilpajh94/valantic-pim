@@ -1,9 +1,4 @@
 #Setting object bricks attributes
-# PTGEUCommonBase
-Electrical Conductivity:
-    fieldName: electricalConductivity
-    fieldType: Input
-    objectType: PTGEUCommonBase
 
 # PTGEUVBeltsBase
 

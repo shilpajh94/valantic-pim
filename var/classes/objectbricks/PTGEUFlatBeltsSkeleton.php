@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-04T09:40:02+02:00
-* IP: ::1
+* Generated at: 2022-10-27T13:01:30+05:30
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -135,7 +135,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -166,7 +166,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -197,7 +197,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Width',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -228,7 +228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -415,7 +415,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -446,7 +446,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -477,7 +477,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Width',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -508,7 +508,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
