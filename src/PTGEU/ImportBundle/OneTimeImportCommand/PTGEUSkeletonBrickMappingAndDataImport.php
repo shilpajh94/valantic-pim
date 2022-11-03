@@ -73,7 +73,15 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
                             'beltThicknessHsMM' => $rowData['Belt thickness (hs) (mm)'],
                             'beltThicknessHsIN' => $rowData['Belt thickness (hs) (In)'],
                             'toothHeightHtMM' => $rowData['Tooth height (ht) (mm)'],
-                            'toothHeightHtIN' => $rowData['Tooth height (ht) (In)']
+                            'toothHeightHtIN' => $rowData['Tooth height (ht) (In)'],
+                            'toothPitchPtMMUnit' => 'mm',
+                            'toothHeightHtMMUnit' => 'mm',
+                            'widthMMUnit' => 'mm',
+                            'beltThicknessHsMMUnit' => 'mm',
+                            'toothPitchPtINUnit' => 'inch',
+                            'toothHeightHtINUnit' => 'inch',
+                            'widthINUnit' => 'inch',
+                            'beltThicknessHsINUnit' => 'inch'
                         ];
                     }
                     $this->insertDataForSkeletonBrickIntoTable($skeletonBrickData, 'object_brick_query_PTGEUFlatBeltsSkeleton_38', $skeletonObjectId);
