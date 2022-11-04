@@ -146,12 +146,12 @@ parameters:
             isLocalisedMaster:
         ShowInMenu:
             pim_attribute_name: ShowInMenu
-            pim_table_name: object_2
+            pim_table_name: object_store_2
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: TINYINT(1) NULL
             sf_attribute_name: IsNavigational
-            joinOn:
+            joinOn: LEFT JOIN object_store_2 ON object_store_2.oo_id = object_2.o_id
             addOnJoin:
             pim_attribute_type: checkbox
             sf_relational_attribute:

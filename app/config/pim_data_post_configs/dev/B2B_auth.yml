@@ -6,7 +6,7 @@ parameters:
             client_id: 3MVG9X0_oZyBSzHrpq1LAYOwqAn1MaBliP5NvU07Wuh9uUsrjFPNr6XRr5XMKQrHrhQu_YTya6QtF8HqdHoSB
             client_secret: F368D65782C257BC15BBA9412207702DF323D13AEB54B91F13AB4A6567C47F31
             username: pradeep.singh@happiestminds.com.pimcom
-            password: Continental@9zEeA4fxdlrP7VLDLVg8vQxgi
+            password: Continental@91zEeA4fxdlrP7VLDLVg8vQxgi
             grant_type: password
         token_lifetime: 1740
         guzzle_request_timeout: 10
