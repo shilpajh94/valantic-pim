@@ -204,7 +204,14 @@ class ObjectListener
                     $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
                     $object->setParentId($parentId);
                 }
-                //}
+                else{
+                    $parentFOlder = $object->getParent();
+                    if(strtolower($parentFOlder->getType()) == 'folder')
+                    {
+                        $parentObjectID = $parentFOlder->getParentId();
+                        $object->setParentId($parentObjectID);
+                    }
+                }
             }
         }
     }
