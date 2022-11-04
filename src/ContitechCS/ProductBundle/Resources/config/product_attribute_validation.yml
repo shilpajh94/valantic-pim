@@ -3702,9 +3702,9 @@ Digital Solutions:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
