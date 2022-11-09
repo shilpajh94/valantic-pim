@@ -300,7 +300,7 @@ parameters:
             widthIN: 
                     columnName: widthIN
                     fieldLevel: objectBrick
-                    columnLabel: Tooth Width
+                    columnLabel: Width
                     objectLevel: fert
                     fieldType: Number
                     groupName: toothWidth
@@ -310,7 +310,7 @@ parameters:
             widthMM: 
                     columnName: widthMM
                     fieldLevel: objectBrick
-                    columnLabel: Tooth Width
+                    columnLabel: Width
                     objectLevel: fert
                     fieldType: Number
                     groupName: toothWidth
