@@ -67,6 +67,7 @@ parameters:
       minOutsidePulleyDia: 'Min. outside pulley dia.\n[mm]'
       priceRef: 'Price Ref. Mat'
       materialType: 'Material type'
+      vtlStatus: 'Status'
     lastColName: 'CQ'
     startRow: 1
     readFrom: 2

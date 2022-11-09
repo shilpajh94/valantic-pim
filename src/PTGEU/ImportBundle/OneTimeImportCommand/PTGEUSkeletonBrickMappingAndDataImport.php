@@ -68,19 +68,15 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
                         $skeletonBrickData = [
                             'toothPitchPtMM' => $rowData['Tooth Pitch (P/t) (mm)'],
                             'toothPitchPtIN' => $rowData['Tooth Pitch (P/t) (in)'],
-                            'widthIN' => $rowData['Width (bo?) (in)'],
-                            'widthMM' => $rowData['Width (bo?) (mm)'],
                             'beltThicknessHsMM' => $rowData['Belt thickness (hs) (mm)'],
                             'beltThicknessHsIN' => $rowData['Belt thickness (hs) (In)'],
                             'toothHeightHtMM' => $rowData['Tooth height (ht) (mm)'],
                             'toothHeightHtIN' => $rowData['Tooth height (ht) (In)'],
                             'toothPitchPtMMUnit' => 'mm',
                             'toothHeightHtMMUnit' => 'mm',
-                            'widthMMUnit' => 'mm',
                             'beltThicknessHsMMUnit' => 'mm',
                             'toothPitchPtINUnit' => 'inch',
                             'toothHeightHtINUnit' => 'inch',
-                            'widthINUnit' => 'inch',
                             'beltThicknessHsINUnit' => 'inch'
                         ];
                     }

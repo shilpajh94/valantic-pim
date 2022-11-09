@@ -23,6 +23,10 @@ Rib Pitch (s) (mm):
     fieldName: ribPitchMM
     fieldType: Number
     objectType: PTGEUCommonFert
+Width (bo?) (mm):
+    fieldName: widthMM
+    fieldType: Number
+    objectType: PTGEUCommonFert
 Ribs:
     fieldName: ribs
     fieldType: Number
@@ -49,6 +53,10 @@ Ref. Length (Lr) (In):
     objectType: PTGEUCommonFert
 Rib Pitch (s) (In):
     fieldName: ribPitchIN
+    fieldType: Number
+    objectType: PTGEUCommonFert
+Width (bo?) (in):
+    fieldName: widthIN
     fieldType: Number
     objectType: PTGEUCommonFert
 
@@ -129,14 +137,6 @@ RMA Code:
 #PTGEUFlatBeltsSkeleton
 Tooth Pitch (P/t) (mm):
     fieldName: toothPitchPtMM
-    fieldType: Number
-    objectType: PTGEUFlatBeltsSkeleton
-Width (bo?) (in):
-    fieldName: widthIN
-    fieldType: Number
-    objectType: PTGEUFlatBeltsSkeleton
-Width (bo?) (mm):
-    fieldName: widthMM
     fieldType: Number
     objectType: PTGEUFlatBeltsSkeleton
 Tooth Pitch (P/t) (in):

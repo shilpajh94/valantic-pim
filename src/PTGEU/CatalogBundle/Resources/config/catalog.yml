@@ -271,27 +271,6 @@ parameters:
                 objectBrickType: skeleton
                 objectBrickName: PTGEUFlatBeltsSkeleton
                 defaultColumn: true
-            widthIN: 
-                columnName: widthIN
-                fieldLevel: objectBrick
-                columnLabel: Tooth Width
-                objectLevel: skeleton
-                fieldType: Number
-                groupName: toothWidth
-                unitName: in
-                objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltsSkeleton
-            widthMM: 
-                columnName: widthMM
-                fieldLevel: objectBrick
-                columnLabel: Tooth Width
-                objectLevel: skeleton
-                fieldType: Number
-                groupName: toothWidth
-                unitName: mm
-                objectBrickType: skeleton
-                objectBrickName: PTGEUFlatBeltsSkeleton
-                defaultColumn: true
             numberOfTeethZ:
                 columnName: numberOfTeethZ
                 columnLabel: Number of Teeth (Z)
@@ -318,6 +297,27 @@ parameters:
                 groupName: ribs
                 objectBrickType: fert
                 objectBrickName: PTGEUCommonFert
+            widthIN: 
+                    columnName: widthIN
+                    fieldLevel: objectBrick
+                    columnLabel: Tooth Width
+                    objectLevel: fert
+                    fieldType: Number
+                    groupName: toothWidth
+                    unitName: in
+                    objectBrickType: fert
+                    objectBrickName: PTGEUCommonFert
+            widthMM: 
+                    columnName: widthMM
+                    fieldLevel: objectBrick
+                    columnLabel: Tooth Width
+                    objectLevel: fert
+                    fieldType: Number
+                    groupName: toothWidth
+                    unitName: mm
+                    objectBrickType: fert
+                    objectBrickName: PTGEUCommonFert
+                    defaultColumn: true
             beltAngle:
                 columnName: beltAngle
                 columnLabel: Belt Angle

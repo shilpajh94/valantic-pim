@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-10-27T11:51:53+05:30
+* Generated at: 2022-11-09T09:09:02+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -69,6 +69,7 @@ Fields Summary:
 - manufacturer [input]
 - manufacturerPartNumber [numeric]
 - materialType [input]
+- vtlStatus [select]
 - oldMaterialCode [input]
 - industryStandard [input]
 - beltTolerance [input]
@@ -83,7 +84,6 @@ Fields Summary:
 - printedCatalogFlag [booleanSelect]
 - pdfDrawing [booleanSelect]
 - searchKeywords [select]
-- vtlStatus [select]
 - pdfLINK [input]
 - catalogFlag [input]
 - virtualCatalogFlag [booleanSelect]
@@ -122,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1666851692,
+   'modificationDate' => 1667984934,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3254,6 +3254,77 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
+                              9 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'fieldtype' => 'select',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Stock article',
+                                    'value' => 12930589,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Overall block',
+                                    'value' => 12930590,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Matchcode stock art.',
+                                    'value' => 12930591,
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Remaining quantity',
+                                    'value' => 12930592,
+                                  ),
+                                  4 => 
+                                  array (
+                                    'key' => 'On Demand Priv.Brand',
+                                    'value' => 12930593,
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Stock art.Priv.Brand',
+                                    'value' => 12930594,
+                                  ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Matchcode China MTO',
+                                    'value' => 12930595,
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'Remaining quant. MTO',
+                                    'value' => 12930596,
+                                  ),
+                                ),
+                                 'width' => 220,
+                                 'defaultValue' => '',
+                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
+                                 'optionsProviderData' => 'Description|Id',
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'dynamicOptions' => false,
+                                 'name' => 'vtlStatus',
+                                 'title' => 'Status',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
                             ),
                              'locked' => false,
                           )),
@@ -4165,77 +4236,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'childs' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'fieldtype' => 'select',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Stock article',
-                                    'value' => 12930589,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Overall block',
-                                    'value' => 12930590,
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Matchcode stock art.',
-                                    'value' => 12930591,
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'Remaining quantity',
-                                    'value' => 12930592,
-                                  ),
-                                  4 => 
-                                  array (
-                                    'key' => 'On Demand Priv.Brand',
-                                    'value' => 12930593,
-                                  ),
-                                  5 => 
-                                  array (
-                                    'key' => 'Stock art.Priv.Brand',
-                                    'value' => 12930594,
-                                  ),
-                                  6 => 
-                                  array (
-                                    'key' => 'Matchcode China MTO',
-                                    'value' => 12930595,
-                                  ),
-                                  7 => 
-                                  array (
-                                    'key' => 'Remaining quant. MTO',
-                                    'value' => 12930596,
-                                  ),
-                                ),
-                                 'width' => 220,
-                                 'defaultValue' => '',
-                                 'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
-                                 'optionsProviderData' => 'Description|Id',
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'dynamicOptions' => false,
-                                 'name' => 'vtlStatus',
-                                 'title' => 'VTL Status / Distribution Chain Level',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => 'margin-left: 20px;',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                                 'defaultValueGenerator' => '',
-                              )),
-                              1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -4263,7 +4263,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              2 => 
+                              1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
                                  'width' => 220,
@@ -4291,7 +4291,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'fieldtype' => 'booleanSelect',
                                  'yesLabel' => 'Y',
@@ -4334,7 +4334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              4 => 
+                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'fieldtype' => 'textarea',
                                  'width' => 220,

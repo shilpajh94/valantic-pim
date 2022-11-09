@@ -1,12 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2022-10-27T13:00:29+05:30
+* Generated at: 2022-11-07T10:05:43+00:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - heightMM [numeric]
+- widthMM [numeric]
 - pitchLengthLpLwMM [numeric]
 - pitchHeightHduMM [numeric]
 - refLengthLrMM [numeric]
@@ -14,16 +15,19 @@ Fields Summary:
 - ribs [numeric]
 - pah [input]
 - heightMMUnit [input]
+- widthMMUnit [input]
 - pitchLengthLpLwMMUnit [input]
 - pitchHeightHduMMUnit [input]
 - refLengthLrMMUnit [input]
 - ribPitchMM1 [input]
 - heightIN [numeric]
+- widthIN [numeric]
 - pitchLengthLpLwIN [numeric]
 - pitchHeightHduIN [numeric]
 - refLengthLrIN [numeric]
 - ribPitchIN [numeric]
 - heightINUnit [input]
+- widthINUnit [input]
 - pitchLengthLpLwINUnit [input]
 - pitchHeightHduINUnit [input]
 - refLengthLrINUnit [input]
@@ -168,6 +172,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
+                     'name' => 'widthMM',
+                     'title' => 'Width',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'pitchLengthLpLwMM',
                      'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
@@ -184,7 +219,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  2 => 
+                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -215,7 +250,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  3 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -246,7 +281,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -277,7 +312,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -308,7 +343,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -398,7 +433,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'pitchLengthLpLwMMUnit',
+                     'name' => 'widthMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -426,7 +461,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'pitchHeightHduMMUnit',
+                     'name' => 'pitchLengthLpLwMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -454,7 +489,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'refLengthLrMMUnit',
+                     'name' => 'pitchHeightHduMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -471,6 +506,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'refLengthLrMMUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:15px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
@@ -566,6 +629,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
+                     'name' => 'widthIN',
+                     'title' => 'Width',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:40px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'pitchLengthLpLwIN',
                      'title' => 'Pitch Length (Lp/Lw)',
                      'tooltip' => '',
@@ -582,7 +676,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  2 => 
+                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -613,7 +707,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  3 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -644,7 +738,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  4 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -737,7 +831,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'pitchLengthLpLwINUnit',
+                     'name' => 'widthINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -765,7 +859,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'pitchHeightHduINUnit',
+                     'name' => 'pitchLengthLpLwINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -793,7 +887,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'refLengthLrINUnit',
+                     'name' => 'pitchHeightHduINUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -810,6 +904,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'refLengthLrINUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:15px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,

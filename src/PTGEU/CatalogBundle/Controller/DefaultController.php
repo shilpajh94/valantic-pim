@@ -181,9 +181,6 @@ class DefaultController extends AbstractController
                     $sql = "SELECT `oo_id`, `profile`, `mainImage1`, `nominalLength`, `technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                     $profileObjectDetails =  $this->db->fetchRow($sql);
 
-                    $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId'";
-                    $upperRibWidth =  $this->db->fetchColumn($sql);
-
                     $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                     $staticConductive =  $this->db->fetchColumn($sql);
                     
@@ -194,6 +191,10 @@ class DefaultController extends AbstractController
                     {
                         $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
                         $beltHeight =  $this->db->fetchColumn($sql);
+
+                        $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
+                        $upperRibWidth =  $this->db->fetchColumn($sql);
+    
                     }
 
                     $groupData = [];
