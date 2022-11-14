@@ -93,6 +93,12 @@ services:
         tags:
             - { name: 'console.command', command: 'ptgeu-skeletonBrickMapping-and-dataImport' }
 
+    # this command will execute to import width attribute data in commonFert brick
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUWidthAttributeDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-widthAttribute-dataImport' }
+
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService
