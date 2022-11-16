@@ -134,5 +134,4 @@ if (CUSTOM_ENV == "prod") {
 
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","localhost");
-    
 }
