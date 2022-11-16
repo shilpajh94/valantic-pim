@@ -194,7 +194,6 @@ class DefaultController extends AbstractController
 
                         $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
                         $upperRibWidth =  $this->db->fetchColumn($sql);
-    
                     }
 
                     $groupData = [];
