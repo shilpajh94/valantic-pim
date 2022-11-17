@@ -97,6 +97,11 @@ services:
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUWidthAttributeDataImportCommand:
         tags:
             - { name: 'console.command', command: 'ptgeu-widthAttribute-dataImport' }
+        
+    # this command will execute to map polyVFert brick and import it's data
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUPolyVFertBrickMappingAndDataImport:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-polyVFertBrickMapping-and-dataImport' }
 
 
     # Services
