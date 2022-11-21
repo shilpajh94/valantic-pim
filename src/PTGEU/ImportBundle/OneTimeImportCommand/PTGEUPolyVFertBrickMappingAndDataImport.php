@@ -49,10 +49,12 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
             $results = $this->getCSVData($filePath);
             $csvData = $results['data'];
             unset($result);
+            $siopFullCodeForMultiVRubberProducts = '50IN010050';
             foreach($csvData as $rowData){
                 $fertObj = DataObject\PTGEUProduct::getByArticleNumber($rowData['SAPMaterialCode'], true);
                 if($fertObj){
-                    if($fertObj->getType() != 'folder'){
+                    $siopCode = $fertObj->getSiopFullCode();
+                    if(preg_match("/{$siopFullCodeForMultiVRubberProducts}/", $siopCode)) {
 
                         $polyVFertBrickClass = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\PTGEUPolyVFert';
                         $polyVFertBrickObject = new $polyVFertBrickClass($fertObj);
@@ -67,10 +69,10 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
                             'refLineDiffHBMMUnit' => 'mm',
                             'refLineDiffHBINUnit' => 'inch',
                         ];
+                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData, 'object_brick_query_PTGEUPolyVFert_38', $fertObjectId);
+                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData, 'object_brick_store_PTGEUPolyVFert_38', $fertObjectId);            
                     }
-                    $this->insertDataForpolyBFertBrickIntoTable($polyVFertBrickData, 'object_brick_query_PTGEUPolyVFert_38', $fertObjectId);
-                    $this->insertDataForpolyBFertBrickIntoTable($polyVFertBrickData, 'object_brick_store_PTGEUPolyVFert_38', $fertObjectId);    
-                }                
+                }    
             }
         }catch (\Throwable $th) {
             p_r($th->getMessage());
@@ -78,7 +80,7 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
 
     }
 
-    private function insertDataForpolyBFertBrickIntoTable($dataArray, $tableName, $objId){
+    private function insertDataForpolyVFertBrickIntoTable($dataArray, $tableName, $objId){
 
         $cols = array();
 

@@ -62,8 +62,8 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
                             'widthMMUnit' => 'mm',
                             'widthINUnit' => 'inch'
                         ];
-                    $this->insertDataForSkeletonBrickIntoTable($fertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
-                    $this->insertDataForSkeletonBrickIntoTable($fertBrickData, 'object_brick_store_PTGEUCommonFert_38', $fertObjectId);    
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_store_PTGEUCommonFert_38', $fertObjectId);    
                 }
             }
         }catch (\Throwable $th) {
@@ -72,7 +72,7 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
 
     }
 
-    private function insertDataForSkeletonBrickIntoTable($dataArray, $tableName, $objId){
+    private function insertDataForWidthAttributeIntoTable($dataArray, $tableName, $objId){
 
         $cols = array();
 
