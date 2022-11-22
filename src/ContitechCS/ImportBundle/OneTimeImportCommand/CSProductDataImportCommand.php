@@ -207,9 +207,8 @@ class CSProductDataImportCommand extends AbstractCommand
                             if (strpos($productName, "/") !== false) {
                                 $productName = str_replace("/", "-", $productName);
                             }
-                            print_r($productPath);
-                            echo PHP_EOL;
-                            if (strpos($productPath, $productName) !== false) {
+                            // if (strpos($productPath, $productName) !== false) {
+                                if($productPath == "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' .$productData['Product Hierarchy'].'/'.$productName){
                                 // $productPath = str_replace($productName, "", $productPath);
 
                                 // $regionPath = $productPath . $region;
@@ -552,14 +551,14 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $parentId = $result->getId();
                                 $prd = DataObject\CSProducts::getById($parentId, true);
                                 $prd->save();
-                                // echo "\n" . '---------------------------';
-                                // echo "\n" . "Product added successfully";
-                                // echo "\n Hierarchy created: " . $productPath;
-                                // $comment = "Product added successfully";
-                                // echo "\n Product asset folder creation started.";
-                                // \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
-                                // echo "\n Product asset folder creation Done.";
-                                // echo "\n";
+                                echo "\n" . '---------------------------';
+                                echo "\n" . "Product added successfully";
+                                echo "\n Hierarchy created: " . $productPath;
+                                $comment = "Product added successfully";
+                                echo "\n Product asset folder creation started.";
+                                \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
+                                echo "\n Product asset folder creation Done.";
+                                echo "\n";
                             } catch (\Throwable $th) {
                                 p_r($th->getMessage());
                                 //p_r($th->getTraceAsString());
