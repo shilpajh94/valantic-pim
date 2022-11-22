@@ -197,7 +197,9 @@ class FailedRecords {
             }
             // $templateParam['file_url'] = $link;
             $mail = new \Pimcore\Mail();
-            $mail->addto($email_Id);
+            foreach ($email_Id as $eachBccEmailID) {
+              $mail->addBcc($eachBccEmailID);
+          }
             $mail->setSubject("SAP BW - Failure SKU(s) list");
             $mail->setDocument($document);
             // $mail->setParams($templateParam);
