@@ -158,8 +158,8 @@ class CSProductDataImportCommand extends AbstractCommand
                     }
                     $completeHierarchy = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . trim($productData['Product Hierarchy']) . $pName;
 
-                    unset($productData['Product Hierarchy']);
-                    unset($productData['Product Name']);
+                    // unset($productData['Product Hierarchy']);
+                    // unset($productData['Product Name']);
                     // // $productData = array_slice($productData, 2);
                     $parentHierarchyObj = $parentObjForLeaf = $pathWithoutRegion = '';
                     foreach ($productHier as $key => $hierarchy) {
@@ -207,17 +207,21 @@ class CSProductDataImportCommand extends AbstractCommand
                             if (strpos($productName, "/") !== false) {
                                 $productName = str_replace("/", "-", $productName);
                             }
+                            print_r($productPath);
+                            echo PHP_EOL;
                             if (strpos($productPath, $productName) !== false) {
-                                $productPath = str_replace($productName, "", $productPath);
+                                // $productPath = str_replace($productName, "", $productPath);
 
-                                $regionPath = $productPath . $region;
+                                // $regionPath = $productPath . $region;
+                                $regionPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' .$productData['Product Hierarchy'].'/'.$region;
                                 $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
-                                $productPath = $productPath . $region . "/" . $productName;
+                                $productPath = $regionPath. "/" . $productName;
                             }
-                            if (strpos($completeHierarchy, $productName) !== false) {
-                                $completeHierarchy = str_replace($region . "/", "", $completeHierarchy);
-                                $completeHierarchy = str_replace($productName, $region . "/" . $productName, $completeHierarchy);
-                            }
+                            $completeHierarchy = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' .$productData['Product Hierarchy'].'/'.$region.'/'.$productName;
+                            // if (strpos($completeHierarchy, $productName) !== false) {
+                            //     $completeHierarchy = str_replace($region . "/", "", $completeHierarchy);
+                            //     $completeHierarchy = str_replace($productName, $region . "/" . $productName, $completeHierarchy);
+                            // }
                         }
                         $product = '';
                         $CSProductObj = DataObject\CSProducts::getByPath($productPath);
@@ -231,40 +235,42 @@ class CSProductDataImportCommand extends AbstractCommand
 
                                     $product = $CSProductObj;
                                     $parentId = $product->getParentId();
-                                } else {
-                                    if($productName){
-                                        if (strpos($pathWithoutRegion, $productName) !== false) {
-                                            $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
-                                        }
+                                } 
+                                // else {
+                                //     if($productName){
+                                //         if (strpos($pathWithoutRegion, $productName) !== false) {
+                                //             $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
+                                //         }
     
-                                    }
-                                    // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/EMEA/400-3  --> for example
-                                    $query = "SELECT o_id from objects where concat(o_path,o_key) 
-                                    LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
-                                    $result = $this->db->fetchCol($query);
-                                    $count = count($result);
-                                    if ($count > 0) {
-                                        echo "\n Changing Region Folder";
-                                        $product = DataObject\CSProducts::getById($result[0], true);
-                                        $product->setParentId($parentId);
-                                    } else {
-                                        // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/1000-5  -->for example
-                                        $query = "SELECT o_id from objects where concat(o_path,o_key) 
-                                        LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
-                                        $result = $this->db->fetchCol($query);
-                                        $count = count($result);
-                                        if ($count > 0) {
-                                            echo "\n Changing Region Folder";
-                                            $product = DataObject\CSProducts::getById($result[0], true);
-                                            $product->setParentId($parentId);
-                                        } else {
+                                //     }
+                                //     // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/EMEA/400-3  --> for example
+                                //     $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                //     LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
+                                //     $result = $this->db->fetchCol($query);
+                                //     $count = count($result);
+                                //     if ($count > 0) {
+                                //         echo "\n Changing Region Folder";
+                                //         $product = DataObject\CSProducts::getById($result[0], true);
+                                //         $product->setParentId($parentId);
+                                //     } else {
+                                //         // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/1000-5  -->for example
+                                //         $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                //         LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                //         $result = $this->db->fetchCol($query);
+                                //         $count = count($result);
+                                //         if ($count > 0) {
+                                //             echo "\n Changing Region Folder";
+                                //             $product = DataObject\CSProducts::getById($result[0], true);
+                                //             $product->setParentId($parentId);
+                                //         } 
+                                else {
                                             $product = new DataObject\CSProducts();
                                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
                                             $product->setKey($hierarchyKey);
                                             $product->setParentId($parentId);
                                         }
-                                    }
-                                }
+                                //     }
+                                // }
 
                                 if (isset($removeSlashInProductName[$hierarchy])) {
                                     $product->setName($removeSlashInProductName[$hierarchy], $language);
@@ -546,20 +552,19 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $parentId = $result->getId();
                                 $prd = DataObject\CSProducts::getById($parentId, true);
                                 $prd->save();
-                                echo "\n" . '---------------------------';
-                                echo "\n" . "Product added successfully";
-                                echo "\n Hierarchy created: " . $productPath;
-                                $comment = "Product added successfully";
-                                echo "\n Product asset folder creation started.";
-                                \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
-                                echo "\n Product asset folder creation Done.";
-                                echo "\n";
+                                // echo "\n" . '---------------------------';
+                                // echo "\n" . "Product added successfully";
+                                // echo "\n Hierarchy created: " . $productPath;
+                                // $comment = "Product added successfully";
+                                // echo "\n Product asset folder creation started.";
+                                // \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
+                                // echo "\n Product asset folder creation Done.";
+                                // echo "\n";
                             } catch (\Throwable $th) {
                                 p_r($th->getMessage());
                                 //p_r($th->getTraceAsString());
                             }
                         } else {
-                           
                             $parentId = $CSProductObj->getId();
                         }
                     }
