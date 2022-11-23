@@ -176,16 +176,13 @@ class DefaultController extends AbstractController
                 
                 if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                 {
-                    $nominalLength= $upperRibWidth= $electricalConductivity ='';
+                    $nominalLength= $upperRibWidth= $staticConductive='';
                     $profileObjectDetails =[];
                     $sql = "SELECT `oo_id`, `profile`, `mainImage1`, `nominalLength`, `technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                     $profileObjectDetails =  $this->db->fetchRow($sql);
 
-                    $sql = "SELECT widthMM FROM `object_brick_query_PTGEUFlatBeltsSkeleton_38` WHERE `o_id` = '$objectLevel6thId'";
-                    $upperRibWidth =  $this->db->fetchColumn($sql);
-
-                    $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel6thId'";
-                    $electricalConductivity =  $this->db->fetchColumn($sql);
+                    $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                    $staticConductive =  $this->db->fetchColumn($sql);
                     
                     $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
                     $fertObjId =  $this->db->fetchColumn($sql);
@@ -194,6 +191,10 @@ class DefaultController extends AbstractController
                     {
                         $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
                         $beltHeight =  $this->db->fetchColumn($sql);
+
+                        $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
+                        $upperRibWidth =  $this->db->fetchColumn($sql);
+    
                     }
 
                     $groupData = [];
@@ -227,9 +228,9 @@ class DefaultController extends AbstractController
                         $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
                     }
 
-                    if($electricalConductivity)
+                    if($staticConductive)
                     {
-                        $propertieslistContent['PTGEU_ElectricalConductivity'] = $electricalConductivity;
+                        $propertieslistContent['PTGEU_StaticConductive'] = $staticConductive;
                     }
 
                     if($rangeTemperatureC)
@@ -435,9 +436,9 @@ class DefaultController extends AbstractController
                 $groupData['heatAndOilResistant'] = $objectLevel5thDetails['heatAndOilResistant'];
                 $groupData['performance'] = $objectLevel5thDetails['performance'];
 
-                $sql = "SELECT electricalConductivity FROM `object_brick_query_PTGEUCommonBase_38` WHERE `o_id` = '$objectLevel5thId'";
-                $electricalConductivity =  $this->db->fetchColumn($sql);
-                $groupData['electricalConductivy'] = $electricalConductivity;
+                $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel5thId'";
+                $staticConductive =  $this->db->fetchColumn($sql);
+                $groupData['staticConductive'] = $staticConductive;
                 $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
                 $groupData['reinforcement'] = $reinforcementSelected;
 

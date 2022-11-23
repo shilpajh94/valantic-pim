@@ -77,15 +77,15 @@
                 if($this->editmode)
                     {
                         if($this->image("ST_LogoImage")->isEmpty()) {
-                            echo $this->image("ST_LogoImage")->setImage($data['LogoImage']);
+                            echo $this->image("ST_LogoImage", ["height"=>50])->setImage($data['LogoImage']);
                         } else {
-                            echo $this->image("ST_LogoImage");
+                            echo $this->image("ST_LogoImage", ["height"=>50]);
                         }
                     } else
                         {
                         $STLogoImgSrcObj =  $this->image("ST_LogoImage");
-                        if (!empty($STLogoImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin-right: 0px; margin-bottom: 0px;" width="180" />
+                        if (!empty($STLogoImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin-right: 0px; margin-bottom: 0px; max-height:50px; width:auto;"/>
                         <?php
                         }
                     }
@@ -120,14 +120,14 @@
                         <?php
                         if($this->editmode) {
                             if($this->image("ST_ProductImage")->isEmpty()) {
-                                echo $this->image("ST_ProductImage")->setImage($data['ProductImage']);
+                                echo $this->image("ST_ProductImage", ["height"=>180])->setImage($data['ProductImage']);
                             } else {
-                               echo $this->image("ST_ProductImage");
+                               echo $this->image("ST_ProductImage", ["height"=>180]);
                             }
                         } else {
                             $STProdImgSrcObj =  $this->image("ST_ProductImage");
-                            if (!empty($STProdImgSrcObj)) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
+                            if (!empty($STProdImgSrcObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:180px; width:auto;"/>
                             <?php
                             }
                         }
@@ -141,14 +141,14 @@
                     <?php
                     if($this->editmode) {
                         if ($this->image("ST_ApplicationImage")->isEmpty()) {
-                            echo $this->image("ST_ApplicationImage")->setImage($data['ApplicationImage']);
+                            echo $this->image("ST_ApplicationImage", ["height"=>250])->setImage($data['ApplicationImage']);
                         } else {
-                            echo $this->image("ST_ApplicationImage");
+                            echo $this->image("ST_ApplicationImage", ["height"=>250]);
                         }
                     } else {
                         $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
-                        if (!empty($STAppImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="max-width:180px"  />
+                        if (!empty($STAppImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:250px; width:auto;"  />
                         <?php
                         }
                     }

@@ -14,6 +14,9 @@
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Importer;
 
+use AppBundle\Lib\UnitConversion\ConverterFactory;
+use AppBundle\Lib\UnitConversion\Unit;
+use AppBundle\Services\AppService;
 use CoreShop\Component\Registry\ServiceRegistryInterface;
 use Pimcore\File;
 use Pimcore\Mail;
@@ -48,6 +51,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Pimcore\Model\Element;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\BlockElement;
+use Symfony\Component\Yaml\Yaml;
 
 final class Importer implements ImporterInterface
 {
@@ -99,6 +103,8 @@ final class Importer implements ImporterInterface
     /** @var Factory */
     private $modelFactory;
 
+    private $appService;
+
     /**
      * @var bool
      */
@@ -145,6 +151,7 @@ final class Importer implements ImporterInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
+        $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
     }
 
     /**
@@ -621,6 +628,7 @@ final class Importer implements ImporterInterface
 
                     }
                 }else{
+
                     $classDefinition = ClassDefinition::getByName($definition->getClass());
                     foreach($classDefinition->getFieldDefinitions() as $field){
                         if($field->getName() == $mapItem->getToColumn() && $field->fieldtype == 'numeric' && !is_numeric($value) && !empty($value)){
@@ -790,7 +798,8 @@ final class Importer implements ImporterInterface
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-            $object->setValue($map->getToColumn(), $value);
+                $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
+                $object->setValue($map->getToColumn(), $value);
         }
     }
 

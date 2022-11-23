@@ -112,7 +112,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                 else
                 {
                     $imgSrcObj4 = $this->image('myCrampApp_f1');
-                    if($imgSrcObj4)
+                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj4,$this->imageWidth))
                     {
                     ?>
                     <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj4,$this->imageWidth); ?>" width="61" height="60"/>
@@ -205,7 +205,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                         echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
                                 } else {
                                     $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
-                                    if($imgSrcObj1)
+                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
                                     {
                                     ?>
                                     <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
@@ -219,7 +219,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                         echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
                                 } else {
                                     $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
-                                    if($imgSrcObj2)
+                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
                                     {
                                     ?>
                                     <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
@@ -249,7 +249,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                                     if($this->editmode): 
                                         if($this->input('shortDescription' . $uniqueId)->isEmpty()): 
-                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource($tableRows['brandData']['shortDescription']);
+                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource(strip_tags($tableRows['brandData']['shortDescription']));
                                         else: 
                                         echo $this->input('shortDescription' . $uniqueId); 
                                         endif; 
@@ -268,7 +268,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                         if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
 
                         ?>
-                        <table class="grid inh fitting continueLable" cellspacing="0" cellpadding="0">
+                        <table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
                             <thead>
                                 <?php if ($iconRequired == 'YES'): ?>
                                     <tr class="sub-head">

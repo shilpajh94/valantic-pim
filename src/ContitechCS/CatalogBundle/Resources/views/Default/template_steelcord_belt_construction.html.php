@@ -101,17 +101,17 @@
                         {
                             if($this->image("SCB_ProductImage")->isEmpty())
                             {
-                                echo $this->image("SCB_ProductImage")->setImage($data['ProductImage']);
+                                echo $this->image("SCB_ProductImage",["height" => 350])->setImage($data['ProductImage']);
                             }
                             else{
-                                echo $this->image("SCB_ProductImage");
+                                echo $this->image("SCB_ProductImage",["height" => 350]);
                             }
                         }
                         else
                         {
                             $SCBImgSrcObj =  $this->image("SCB_ProductImage");
-                            if (!empty($SCBImgSrcObj)) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100 mb-5" />
+                            if (!empty($SCBImgSrcObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100 mb-5" style="max-height: 350px; width: auto;"/>
                             <?php
                             }
                         }
@@ -122,7 +122,7 @@
                 <h3 class="orange fnt20 mb-0">
                     <?= $this->input("SubHeading_title2",["placeholder" =>"Enter Your  SubHeading"]); ?>
                 </h3>
-
+                <hr></hr>
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Application Image</div>
                 <?php endif;?>
@@ -131,18 +131,18 @@
                 {
                     if($this->image("SCB_ApplicationImage")->isEmpty())
                     {
-                        echo $this->image("SCB_ApplicationImage")->setImage($data['ApplicationImage']);
+                        echo $this->image("SCB_ApplicationImage",["height" => 240])->setImage($data['ApplicationImage']);
                     }        
                     else
                     {
-                        echo $this->image("SCB_ApplicationImage");
+                        echo $this->image("SCB_ApplicationImage",["height" => 240]);
                     }
                 }
                 else
                 {
                     $SCBAppImgSrcObj =  $this->image("SCB_ApplicationImage");
-                    if (!empty($SCBAppImgSrcObj)) { ?>
-                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBAppImgSrcObj, $this->imageWidth); ?>" alt="" class="mb-4" />
+                    if (!empty($SCBAppImgSrcObj->getId())) { ?>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($SCBAppImgSrcObj, $this->imageWidth); ?>" alt="" class="mb-4" style="height: 240px; width: auto;"/>
                     <?php
                     }
                 }

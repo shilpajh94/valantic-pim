@@ -77,6 +77,8 @@ Fields Summary:
 - HoseID3MM [numeric]
 - Hex1WrenchSizeIN [input]
 - Hex2WrenchSizeIN [input]
+- Hex1WrenchSizeFraction [input]
+- Hex2WrenchSizeFraction [input]
 - Hex1WrenchSizeMM [input]
 - Hex2WrenchSizeMM [input]
 - SingleHexYN [booleanSelect]
@@ -4411,6 +4413,62 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'showCharCount' => false,
                                  'name' => 'Hex2WrenchSizeIN',
                                  'title' => 'Hex 2 Wrench Size (in)',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 200,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'Hex1WrenchSizeFraction',
+                                 'title' => 'Hex 1 Wrench Size (Fraction)',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 200,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'Hex2WrenchSizeFraction',
+                                 'title' => 'Hex 2 Wrench Size (Fraction)',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,

@@ -96,14 +96,14 @@
                 <?php
                     if ($this->editmode) {
                         if ($this->image("TBS_ProductImage")->isEmpty()) {
-                            echo $this->image("TBS_ProductImage")->setImage($data['ProductImage']);
+                            echo $this->image("TBS_ProductImage",["height" => 350])->setImage($data['ProductImage']);
                         } else {
-                            echo $this->image("TBS_ProductImage");
+                            echo $this->image("TBS_ProductImage",["height" => 350]);
                         }
                     } else {
                         $TBSProdImgSrcObj =  $this->image("TBS_ProductImage");
-                        if (!empty($TBSProdImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSProdImgSrcObj, $this->imageWidth); ?>"  class="mb-4" alt="" />
+                        if (!empty($TBSProdImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSProdImgSrcObj, $this->imageWidth); ?>"  class="mb-4" alt="" style="max-height: 350px; width: auto;"/>
                         <?php
                         }
                     } ?>
@@ -112,21 +112,21 @@
                 <?php endif;?>
                 <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
                 </h2>
-
+                <hr></hr>
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Application Image</div>
                 <?php endif;?>
                 <?php
                     if ($this->editmode) {
                         if ($this->image("TBS_ApplicationImage")->isEmpty()) {
-                            echo $this->image("TBS_ApplicationImage")->setImage($data['ApplicationImage']);
+                            echo $this->image("TBS_ApplicationImage",["height" => 250])->setImage($data['ApplicationImage']);
                         } else {
-                            echo $this->image("TBS_ApplicationImage");
+                            echo $this->image("TBS_ApplicationImage",["height" => 250]);
                         }
                     } else {
                         $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
-                        if (!empty($TBSAppImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" />
+                        if (!empty($TBSAppImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" style="height: 250px; width: auto;"/>
                         <?php
                         }
                     }

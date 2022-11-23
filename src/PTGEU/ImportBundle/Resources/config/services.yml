@@ -88,6 +88,11 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:product-save_publish' }
 
+    # this command will execute to map skeleton brick and import it's data
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUSkeletonBrickMappingAndDataImport:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-skeletonBrickMapping-and-dataImport' }
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService

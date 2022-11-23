@@ -33,8 +33,17 @@
 }
 
 .table-of-contents .grey-bg,
-.process-table th:nth-child(2n + 2),
-.process-table td:nth-child(2n + 2) {
+.process-table th:nth-child(2),
+.process-table td:nth-child(2) {
+  background: #e6e7e9;
+}
+.process-table td:nth-child(3),
+.process-table th:nth-child(3) {
+  background: #fdecd0;
+}
+
+.process-table th:nth-child(4),
+.process-table td:nth-child(4) {
   background: #c7c8ca;
 }
 .black-bg {
@@ -63,6 +72,12 @@ li span {
   display: block;
   color: #000000;
   padding-bottom: 15px;
+  font-family: "ContinentalStagSansLCG-light";
+}
+
+.features-benefit-black{
+  font-size: 18px;
+  color: #000000;
   font-family: "ContinentalStagSansLCG-light";
 }
 
@@ -614,10 +629,8 @@ h3 {
 .table-data.textile-table tbody tr:nth-child(even) {
   background: #ffffff;
 }
-.table-data.textile-table tbody tr td:nth-child(2n + 3),
-.process-table td:nth-child(2n + 3),
-.process-table th:nth-child(2n + 3) {
-  background: #ffedcc;
+.table-data.textile-table tbody tr td:nth-child(2n + 3){
+  background: #fdecd0;
   -webkit-print-color-adjust: exact;
 }
 
@@ -1384,3 +1397,20 @@ left:0;
 }
 /** css added above for new cover and footer page **/
 
+.process-table thead tr th h3{
+  font-size: 12px;
+}
+
+.process-table tbody tr{
+  height: 50px;
+}
+
+p.fs-8
+{
+  font-size: 8px;
+}
+
+p.ml-10
+{
+  margin-left: 10px;
+}

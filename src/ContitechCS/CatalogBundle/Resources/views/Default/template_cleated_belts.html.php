@@ -115,7 +115,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 else
                                 {
                                     $CBChild_productImageObj =  $this->image("CBChild_productImage_{$md5Key}");
-                                    if($CBChild_productImageObj) { ?>
+                                    if($CBChild_productImageObj->getId()) { ?>
                                         <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CBChild_productImageObj, $this->imageWidth); ?>" class="w-100" alt=""/>
                                     <?php 
                                     }
@@ -234,17 +234,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php
                 if($this->image("CB_BeltRollDiameters")->isEmpty())
                 {
-                    echo $this->image("CB_BeltRollDiameters")->setImage($data['BeltRollDiameters']);
+                    echo $this->image("CB_BeltRollDiameters",["height" => 525])->setImage($data['BeltRollDiameters']);
                 }
                 else{
-                    echo $this->image("CB_BeltRollDiameters");
+                    echo $this->image("CB_BeltRollDiameters",["height" => 525]);
                 }
                 ?>
             <?php else:?>
                 <?php 
 
                 $CB_BeltRollDiametersObj =  $this->image("CB_BeltRollDiameters");
-                if(!empty($CB_BeltRollDiametersObj))
+                if(!empty($CB_BeltRollDiametersObj->getId()))
                 {
                 ?>
                 <div class="page-break"></div>
@@ -254,7 +254,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
                     </span>
                 </h2>
-                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_BeltRollDiametersObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_BeltRollDiametersObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4" style="max-height:525px; width:auto;"/>
                 <?php
                 }
                 ?>
@@ -285,17 +285,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php
                     if($this->image("CB_AngleOfInclination")->isEmpty())
                     {
-                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination'])->setImage($data['AngleOfInclination']);
+                        echo $this->image("CB_AngleOfInclination",["height" => 450])->setImage($data['AngleOfInclination']);
                     }
                     else{
-                        echo $this->image("CB_AngleOfInclination",['placeholder' => 'Enter AngleOfInclination']);
+                        echo $this->image("CB_AngleOfInclination",["height" => 450]);
                     }
                 ?>
 
             <?php else:?>
                 <?php 
                 $CB_AngleOfInclinationObj =  $this->image("CB_AngleOfInclination");
-                if(!empty($CB_AngleOfInclinationObj))
+                if(!empty($CB_AngleOfInclinationObj->getId()))
                 {
                 ?>
                 <div class="page-break"></div>
@@ -310,7 +310,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Angles of Inclination</div>
                 <?php endif;?>
-                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_AngleOfInclinationObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_AngleOfInclinationObj, $this->imageWidth); ?>" alt="" class="w-100 mt-4 mb-4" style="max-height:450px; width:auto;"/>
                 <?php
                 }
                 ?>
@@ -413,7 +413,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         {
                                             $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
 
-                                            if(!empty($CB_ProfileOptionImage1Obj))
+                                            if(!empty($CB_ProfileOptionImage1Obj->getId()))
                                             {
                                             ?>
                                                 <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage1Obj, $this->imageWidth); ?>" alt="" class=""/>
@@ -442,7 +442,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                         else
                                         {
                                             $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
-                                            if(!empty($CB_ProfileOptionImage2Obj))
+                                            if(!empty($CB_ProfileOptionImage2Obj->getId()))
                                             {
                                             ?>
                                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage2Obj, $this->imageWidth); ?>" alt="" class=""/>

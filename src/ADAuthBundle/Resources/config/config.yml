@@ -16,7 +16,7 @@ parameters:
         ldap_user: 
             s-pimcore_PO@contiwan.com
         ldap_pass:
-            P1mC0r32020
+            P1mC0r3.2022$
         ldap_dn:
             DC=contiwan,DC=com
         ldap_user_filter:

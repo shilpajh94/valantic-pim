@@ -122,10 +122,10 @@ $coverCompound = $data['coverCompoundData'];
                         <?php
                         if($this->image("CC_productImage")->isEmpty())
                         {
-                            echo $this->image("CC_productImage")->setImage($coverCompound['productImage']);
+                            echo $this->image("CC_productImage", ['height'=>370])->setImage($coverCompound['productImage']);
                         }
                         else{
-                            echo $this->image("CC_productImage");
+                            echo $this->image("CC_productImage", ['height'=>370]);
                         }
                         ?>
                         </div>
@@ -135,9 +135,9 @@ $coverCompound = $data['coverCompoundData'];
                     else
                     {
                         $productImgSrcObj =  $this->image("CC_productImage");
-                        if (!empty($productImgSrcObj)) { ?>
+                        if (!empty($productImgSrcObj->getId())) { ?>
                             <div class="full-image-sec">
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>"  alt="">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>"  alt="" style="max-height:370px; width:auto;">
                             </div>
                             <?php
                         }
@@ -313,17 +313,17 @@ $coverCompound = $data['coverCompoundData'];
                     {
                         if($this->image("CCHRPage_productImage")->isEmpty())
                         {
-                            echo $this->image("CCHRPage_productImage")->setImage($singleProductPage['productImage']);
+                            echo $this->image("CCHRPage_productImage", ['height'=>145])->setImage($singleProductPage['productImage']);
                         }
                         else{
-                            echo $this->image("CCHRPage_productImage");
+                            echo $this->image("CCHRPage_productImage", ['height'=>145]);
                         }
                     }
                     else
                     {
                         $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
-                        if (!empty($CCHRPage_productImageObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_productImageObj, $this->imageWidth); ?>" class="w-100 mb-4"  alt="">
+                        if (!empty($CCHRPage_productImageObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_productImageObj, $this->imageWidth); ?>" class="w-100 mb-4"  alt="" style="max-height:145px; width:auto;">
                             <?php
                         }
                     }
@@ -369,7 +369,7 @@ $coverCompound = $data['coverCompoundData'];
                                     else
                                     {
                                         $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
-                                        if (!empty($CCHRPageFeatureImgSrcObj)) { ?>
+                                        if (!empty($CCHRPageFeatureImgSrcObj->getId())) { ?>
                                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPageFeatureImgSrcObj, $this->imageWidth); ?>" class="features-images"  alt="">
                                             <?php
                                         }
@@ -420,15 +420,15 @@ $coverCompound = $data['coverCompoundData'];
                         {
                             ?>
                             <?php
-                            echo $this->image("CCHRPage_tempratureImage");
+                            echo $this->image("CCHRPage_tempratureImage", ['height'=>400]);
                             ?>
                             <?php
                         }
                         else
                         {
                             $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
-                            if (!empty($CCHRPage_tempratureImageObj)) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_tempratureImageObj, $this->imageWidth); ?>" class="features-images  ml-0"  alt="">
+                            if (!empty($CCHRPage_tempratureImageObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCHRPage_tempratureImageObj, $this->imageWidth); ?>" class="features-images  ml-0"  alt="" style="max-height:400px; width:auto;">
                                 <?php
                             }
                         }

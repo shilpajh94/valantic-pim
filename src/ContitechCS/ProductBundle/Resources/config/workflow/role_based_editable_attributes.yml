@@ -9,8 +9,6 @@ All:
     - CSSegment
     - CSRegion
     - CSPerformanceCategory
-    - Benefits
-    - Features
     - ProductClaimSlogan
     - SelectCountries
     - ProductDescription
@@ -270,8 +268,6 @@ ProductManagerCS:
     - CSSegment
     - CSRegion
     - CSPerformanceCategory
-    - Benefits
-    - Features
     - ProductClaimSlogan
     - SelectCountries
     - ProductDescription

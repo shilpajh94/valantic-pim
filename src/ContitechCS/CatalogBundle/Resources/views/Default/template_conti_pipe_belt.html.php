@@ -159,17 +159,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         if($this->image("CPBParent_ProductImage")->isEmpty())
                         {
-                            echo $this->image("CPBParent_ProductImage")->setImage($parentProductData['ProductImage']);
+                            echo $this->image("CPBParent_ProductImage", ['height'=>385])->setImage($parentProductData['ProductImage']);
                         }
                         else{
-                            echo $this->image("CPBParent_ProductImage");
+                            echo $this->image("CPBParent_ProductImage", ['height'=>385]);
                         }
                     }
                     else
                     {
                         $CPBParent_ProductImageObj =  $this->image("CPBParent_ProductImage");
-                        if (!empty($CPBParent_ProductImageObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBParent_ProductImageObj, $this->imageWidth); ?>" alt="" class="mb-4" >
+                        if (!empty($CPBParent_ProductImageObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBParent_ProductImageObj, $this->imageWidth); ?>" alt="" class="mb-4" style="max-height:385px; width:auto;" >
                         <?php
                         }
                     }
@@ -262,17 +262,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         if($this->image("CPBChild_ProductImage")->isEmpty())
                         {
-                            echo $this->image("CPBChild_ProductImage")->setImage($childProductData['ProductImage']);
+                            echo $this->image("CPBChild_ProductImage", ['height'=>195])->setImage($childProductData['ProductImage']);
                         }
                         else{
-                            echo $this->image("CPBChild_ProductImage");
+                            echo $this->image("CPBChild_ProductImage", ['height'=>195]);
                         }
                     }
                     else
                     {
                         $CPBChild_ProductImageObj =  $this->image("CPBChild_ProductImage");
-                        if (!empty($CPBChild_ProductImageObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBChild_ProductImageObj, $this->imageWidth); ?>" alt="" >
+                        if (!empty($CPBChild_ProductImageObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPBChild_ProductImageObj, $this->imageWidth); ?>" alt="" style="max-height:195px; width:auto;" >
                         <?php
                         }
                     }

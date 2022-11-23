@@ -544,7 +544,8 @@ class ProductService
             'minOutsidePulleyDia' => null,
             'sapDescriptionLanguage' => null,
             'materialType' => null,
-            'priceRef' => null
+            'priceRef' => null,
+            'vtlStatus' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -662,9 +663,28 @@ class ProductService
                     $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
             }
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $queryTableData['vtlStatus'] = trim($vtlObject);
+            }
         }
         
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
+    }
+
+    private function getVtlStatus(string $value)
+    {
+        $objVtl = new DataObject\PTGEUVTL\Listing();
+        $objVtl->setCondition("description = ?", $value);
+        if(!empty($objVtl))
+        {
+            foreach ($objVtl as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
+
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'PTGEU') {
@@ -713,7 +733,9 @@ class ProductService
             'minOutsidePulleyDia' => null,
             'sapDescriptionLanguage' => null,
             'materialType' => null,
-            'priceRef' => null
+            'priceRef' => null,
+            'vtlStatus' => null
+
         ];
 
         if (strtolower($productType) == 'base') {
@@ -824,6 +846,11 @@ class ProductService
                 if($eachOptions['value'] == $weightUnit){
                     $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
+            }
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $storeTableDataArray['vtlStatus'] = trim($vtlObject);
             }
         }
 

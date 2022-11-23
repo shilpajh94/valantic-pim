@@ -95,10 +95,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                         if($this->image("PP_Product_Image")->isEmpty())
                         {
-                            echo $this->image("PP_Product_Image")->setImage($data['LogoImage']);
+                            echo $this->image("PP_Product_Image",["height" => 142])->setImage($data['LogoImage']);
                         }
                         else{
-                            echo $this->image("PP_Product_Image");
+                            echo $this->image("PP_Product_Image",["height" => 142]);
                         }
                         ?>
                     </div>
@@ -122,20 +122,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php if($this->editmode):?>
                             <div class="attr-font">Attribute Name = Name</div>
                         <?php endif;?>
-                        <h3>
+                        <h4>
                             <span class="orange">
-                            <strong>
-                                <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
-                                        <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"])->setDataFromResource($data['ProductName']) ?>
-                                <?php else: ?>
-                                        <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"]); ?>
-                                <?php endif; ?>
-                            </strong>
+                                <strong>
+                                    <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
+                                            <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"])->setDataFromResource($data['ProductName']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("PPF_ProductName",["placeholder" => "Enter Product Name"]); ?>
+                                    <?php endif; ?>
+                                </strong>
                             </span>
 
-                            <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
+                            <span class="light-black" style="color:black">
+                                <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Features and Benefits']) ?>
+                            </span>            
 
-                        </h3>
+
+                        </h4>
 
                         <ul>
                             <?php 
@@ -156,6 +159,33 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 <?php } ?>
 
+                <div class="feature-benefit-list">
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading1",["placeholder" => "Cost savings"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading1",['placeholder'=>'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
+                        <li><?= $this->input("PPContiAlert_SubHeading2",['placeholder'=>'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
+                    </ul>
+
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading2",["placeholder" => "Predictability"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading3",['placeholder'=>'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+determine how much time is remaining before the carcass is exposed.*']) ?></li>
+                    </ul>
+
+                    <p class="fs-8 ml-10">
+                        <?= $this->textarea("PPContiAlert_Comment",['placeholder'=>'Enter text']) ?>
+                    </p>
+                </div>
                 <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
 
                     <div class="table">
@@ -217,14 +247,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php if ($this->editmode) { ?>
                             <div class="media-img">
                                 <?php
-                                    echo $this->image("PP_ConveyorBeltsComponents_Image");
+                                    echo $this->image("PP_ConveyorBeltsComponents_Image",["height" => 280]);
                                 ?>
                             </div>
                         <?php } else { 
                             $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
-                            if (!empty($componentImage)) { ?>
+                            if (!empty($componentImage->getId())) { ?>
                                 <div class="media-img">
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt=""/>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt="" style="max-height:280px; width:auto"/>
                                 </div>
                             <?php }
                         } ?>
@@ -239,6 +269,64 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 </div>
                 
+                <h2>
+                    <span class="orange">
+                        <?php if($this->input("ContiA_MoreInfoHeading")->isEmpty()): ?>
+                                <?= $this->input("ContiA_MoreInfoHeading")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiA_MoreInfoHeading"); ?>
+                        <?php endif; ?>
+                    </span> 
+                    <span class="light-black">
+                        <?= $this->input("ContiA_MoreInfo", ['placeholder'=>'Belt Information']) ?>
+                    </span>
+                </h2>
+
+                <div class="media-body">
+                    <strong>
+                        <?= $this->input("ContiA_BeltSpecsLabel", ['placeholder'=>'Belt Specs']) ?>
+                    </strong>
+
+                    <br />
+                    <?= $this->input("ContiA_BeltSpecsDescription", ['placeholder'=>'Belt Specs Description']) ?>
+                </div>
+
+                <div class="media" style="margin: 5px 0px;">
+                    <?= $this->image("ContiA_feature1", ["width" => 41, "height" => 41]); ?>
+                    
+                    <div class="media-body">
+                        <strong>
+                            <?= $this->input("ContiA_Feature1Label", ['placeholder'=>'Abrasion-resistant compound specs']) ?>
+                        </strong> 
+
+                        <br />
+                        <?= $this->input("ContiA_Feature1Desc", ['placeholder'=>'Feature 1 Desc']) ?>
+                    </div>
+                </div>
+
+                <div class="media" style="margin: 5px 0px;">
+
+                    <?= $this->image("ContiA_feature2", ["width" => 41, "height" => 41]); ?>
+
+                    <div class="media-body">
+                        <strong>
+                            <?= $this->input("ContiA_Feature2Label", ['placeholder'=>'Flame-retardant compound specs']) ?>
+                        </strong> 
+                        
+                        <br />
+                        <?= $this->input("ContiA_Feature2Desc", ['placeholder'=>'Feature 2 Desc']) ?>
+                    </div>
+                </div>
+
+                <div class="media-body">
+                    <strong>
+                        <?= $this->input("ContiA_AvailabilityLabel", ['placeholder'=>'CONTI®Alert Availability']) ?>
+                    </strong>
+                    
+                    <br />
+
+                    <?= $this->input("ContiA_AvailabilityDesc", ['placeholder'=>'CONTI®Alert Availability Description']) ?>
+                </div>
                 <div class="labels">
                     <table width="100%">
                         <tr>
@@ -255,14 +343,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php if ($this->editmode) { ?>
                 <div class="full-image-sec">
                     <?php
-                        echo $this->image("PP_BannerImage");
+                        echo $this->image("PP_BannerImage",["height" => 390]);
                     ?>
                 </div>
                 <?php } else { 
                     $bannerImage =  $this->image("PP_BannerImage");
-                    if (!empty($bannerImage)) { ?>
+                    if (!empty($bannerImage->getId())) { ?>
                         <div class="full-image-sec">
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt=""/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt="" style="max-height:390px; width:auto;"/>
                         </div>
                     <?php }
                 } ?>
@@ -283,7 +371,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </h2>
                     <div class="media">
                         <?php 
-                                echo $this->image("PPSS_Image");
+                                echo $this->image("PPSS_Image",["height" => 235]);
                         ?>
 
                         <div class="media-body">
@@ -335,12 +423,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         </div>
                     <?php endif; ?>
-                    <?php if(!empty($productImgSrcObj)): ?>
-                        <div class="seal-image">
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt=""/>
-                        </div>
-                    <?php endif; ?>
+                    <!-- <div class ="logo"> -->
+                        <?php if(!empty($productImgSrcObj->getId())): ?>
+                            <div class="seal-image">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($productImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:142px; width:auto"/>
+                            </div>
+                        <?php endif; ?>
+                    <!-- </div> -->
                 </div>
+                
                 <?php endif; ?>
                 
                 <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
@@ -355,19 +446,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty() || $this->textarea("PPFB_Comment")->isEmpty()) || $data['FeaturesAndBenefitsWithoutImages']): ?>
                         <div class="feature-benefit-list">
                             <?php if(!($this->input("PPF_ProductName")->isEmpty() || $this->input("PPF_FeatureBenefitsLabel")->isEmpty())): ?>
-                                <h3>
+                                <h4>
                                     <?php if(!$this->input("PPF_ProductName")->isEmpty()): ?>
                                         <span class="orange">
-                                        <strong>
-                                            <?= $this->input("PPF_ProductName",['placeholder'=>'Enter Product Name']); ?>
-                                        </strong>
+                                            <strong>
+                                                <?= $this->input("PPF_ProductName",['placeholder'=>'Enter Product Name']); ?>
+                                            </strong>
                                         </span>
                                     <?php endif; ?>
 
                                     <?php if(!$this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
+                                        <span class="features-benefit-black">
                                             <?= $this->input("PPF_FeatureBenefitsLabel",['placeholder'=>'Enter Feature Benefits Label']); ?>
+                                        </span>   
                                     <?php endif; ?>
-                                </h3>
+                                </h4>
                             <?php endif; ?>
                             
                             <?php if($data['FeaturesAndBenefitsWithoutImages']): ?>
@@ -395,7 +488,35 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>
+                <?php if(!$this->input("PPContiAlert_Heading1")->isEmpty() || !$this->input("PPContiAlert_Heading2")->isEmpty()): ?>
+                <div class="feature-benefit-list">
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading1",["placeholder" => "Cost savings"]); ?>
+                        </strong>
+                    </span>
 
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading1",['placeholder'=>'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
+                        <li><?= $this->input("PPContiAlert_SubHeading2",['placeholder'=>'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
+                    </ul>
+
+                    <span class="orange">
+                        <strong>
+                            <?= $this->input("PPContiAlert_Heading2",["placeholder" => "Predictability"]); ?>
+                        </strong>
+                    </span>
+
+                    <ul>
+                        <li><?= $this->input("PPContiAlert_SubHeading3",['placeholder'=>'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+determine how much time is remaining before the carcass is exposed.*']) ?></li>
+                    </ul>
+
+                    <p class="fs-8 ml-10">
+                        <?= $this->textarea("PPContiAlert_Comment",['placeholder'=>'Enter text']) ?>
+                    </p>
+                </div>
+                <?php endif; ?>
                 <?php if($data['Applications'] || $data['Markets'] || $data['CoverCompounds']){ ?>
 
                     <div class="table">
@@ -470,7 +591,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <div class="media">
                                 <?php
                                     
-                                    if(!empty($cbcImgSrcObj))
+                                    if(!empty($cbcImgSrcObj->getId()))
                                     {
                                     ?>
                                     <div class="media-img">
@@ -493,6 +614,93 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </div>
                 <?php } ?>
                 
+                <?php if(!$this->input("ContiA_MoreInfoHeading")->isEmpty() || !$this->input("ContiA_MoreInfo")->isEmpty()): ?>
+                <h2>
+                    <span class="orange">
+                            <?= $this->input("ContiA_MoreInfoHeading") ?>
+                    </span> 
+                    <span class="light-black">
+                            <?= $this->input("ContiA_MoreInfo") ?>
+                    </span>
+                </h2>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_BeltSpecsLabel")->isEmpty() || !$this->input("ContiA_BeltSpecsDescription")->isEmpty()): ?>
+                <p>
+                    <b>
+                        <?= $this->input("ContiA_BeltSpecsLabel") ?>
+                    </b>
+
+                    <br />
+
+                    <?= $this->input("ContiA_BeltSpecsDescription") ?>
+                </p>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_Feature1Label")->isEmpty() || !$this->input("ContiA_Feature1Desc")->isEmpty()): ?>
+            
+                    <div class="media" style="margin: 5px 0px;">
+                        <?php
+                        
+                            $ContiA_feature1Obj =  $this->image("ContiA_feature1");
+                            if (!empty($ContiA_feature1Obj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images"  >
+                            <?php
+                            }
+                        ?>
+                        
+                        <div class="media-body">
+                            <p>
+                                <b>
+                                    <?= $this->input("ContiA_Feature1Label") ?>
+                                </b> 
+                                
+                                <br />
+                                
+                                <?= $this->input("ContiA_Feature1Desc") ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_Feature2Label")->isEmpty() || !$this->input("ContiA_Feature2Desc")->isEmpty()): ?>
+            
+                    <div class="media" style="margin: 5px 0px;">
+
+                        <?php
+                            $ContiA_feature2Obj =  $this->image("ContiA_feature2");
+                            if (!empty($ContiA_feature2Obj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images"  >
+                            <?php
+                            }
+                        ?>
+
+                        <div class="media-body">
+                            <p>
+                                <b>
+                                    <?= $this->input("ContiA_Feature2Label") ?>
+                                </b> 
+                                
+                                <br />
+                                
+                                <?= $this->input("ContiA_Feature2Desc") ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif;?>
+
+                <?php if(!$this->input("ContiA_AvailabilityLabel")->isEmpty() || !$this->input("ContiA_AvailabilityDesc")->isEmpty()): ?>
+                <p>
+                    <b>
+                        <?= $this->input("ContiA_AvailabilityLabel") ?>
+                    </b>
+                    
+                    <br />
+
+                    <?= $this->input("ContiA_AvailabilityDesc") ?>
+                </p>
+                <?php endif;?>
+
                 <?php if(!($this->input("PP_CostPerTon")->isEmpty() || $this->input("PP_TensionRange")->isEmpty())): ?>
                     <div class="labels">
                         <table width="100%">
@@ -513,7 +721,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?>
                 <?php 
                     $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                    if(!empty($ppBannerImgSrcObj))
+                    if(!empty($ppBannerImgSrcObj->getId()))
                     {
                     ?>
                     <div class="full-image-sec">
@@ -555,7 +763,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     if($ppssImgSrcObj->getThumbnail('catalog_thumb'))
                                     {
                                     ?>
-                                    <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                    <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" style="max-height:235px; width:auto"/>
                                     <?php
                                     }
                                 ?>
@@ -644,7 +852,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 else
                                 {
                                     $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
-                                    if (!empty($PPFIImgSrcObj)) { ?>
+                                    if (!empty($PPFIImgSrcObj->getId())) { ?>
                                         <div class="media-img media-image">
                                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($PPFIImgSrcObj, $this->imageWidth); ?>" class="features-images" alt=""/>
                                         </div>
@@ -721,6 +929,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 foreach ($conveyorBeltDataArray as $chunkKey => $conveyorBeltData) {
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -830,7 +1039,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                    </div>
                 <?php 
                 }
             }
@@ -844,6 +1053,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 
                 foreach ($LoadSupportMaximumBeltWidthDataArr as $chunkKey => $LoadSupportMaximumBeltWidthData) {
                     ?>
+                    <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -959,6 +1169,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
+                    </div>
                 <?php 
                 }
             }
@@ -972,6 +1183,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 
                 foreach ($TroughabilityMinimumBeltWidthArray as $chunkKey => $TroughabilityMinimumBeltWidth) {
                 ?>  
+                <div class = "new-page">
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>
                     <?php endif;?>
@@ -1096,7 +1308,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 </p>
                             <?php endif; ?>
                         <?php endif; ?>
-
+                        </div>
                     <?php 
                     }
                 }
@@ -1109,7 +1321,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 foreach ($MinimumPulleyDiametersArray as $chunkKey => $MinimumPulleyDiameters) {
                 ?>
-
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1205,7 +1417,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1219,6 +1431,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($ElevatorBeltDataArray as $chunkKey => $ElevatorBeltData) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1312,7 +1525,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1326,6 +1539,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($MaximumBucketProjectionArray as $chunkKey => $MaximumBucketProjection) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1420,7 +1634,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </p>
                         <?php endif; ?>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }
@@ -1434,6 +1648,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 foreach ($StandardSpecificationsArray as $chunkKey => $StandardSpecifications) {
                 
                 ?>
+                <div class = "new-page">
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Name</div>
                 <?php endif;?>
@@ -1521,7 +1736,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php else: ?>
                         <p class="table-notes"><?= $this->textarea("PP_Standard_Specifications_Comment_{$chunkKey}",['placeholder'=>'Enter Standard Specifications']); ?></p>
                     <?php endif; ?>
-
+                </div>
                 <?php 
                 }
             }

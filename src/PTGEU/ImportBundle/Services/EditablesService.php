@@ -57,7 +57,6 @@ class EditablesService
         $cadFile                        = (strtoupper(trim($record['CAD File'])) == 'Y') ? 1 : -1;
         $pdfDrawing                     = (strtoupper(trim($record['PDF Drawing'])) == 'Y') ? 1 : -1;
         $searchKeywords                 = $this->getSelectTypeValue($record['Search Keywords'], 'searchKeywords');
-        // $vtlStatus                      = $this->getSelectTypeValue($record['VTL Status'], 'vtlStatus');
         $webDiscription                 = $record['Web Description'];
         $catalogFlag                    = $record['Catalog Flag'];
         $reach                          = $record['Reach'];
@@ -81,7 +80,6 @@ class EditablesService
             'pdfDrawing' => $pdfDrawing,
             'searchKeywords' => $searchKeywords,
             'CategoryDescriptionCatalog' => $CategoryDescriptionCatalog,
-            // 'vtlStatus' => $vtlStatus,
             'pdfLINK' => $pdfLINK,
             'catalogFlag' => $catalogFlag
         ];
@@ -168,18 +166,6 @@ class EditablesService
             }
             return '';
         }
-        else if($fieldName == 'vtlStatus'){
-            $objVtl = new DataObject\PTGEUVTL\Listing();
-            $objVtl->setCondition("description = ?", $data);
-            if(!empty($objVtl))
-            {
-                foreach ($objVtl as $object) {
-                    return $object->getId();
-                }
-            }
-            return '';
-        }
-
     }
 
     private function insertDataInDB($fertData, $objId, $baseData, $baseObjectId)

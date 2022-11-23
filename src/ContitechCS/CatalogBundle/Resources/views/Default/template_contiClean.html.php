@@ -89,17 +89,32 @@
             <?php endif;?>
                 <?php if($this->editmode) {
                     if($this->image("ContiClean_ProductImage")->isEmpty()) {
-                        echo $this->image("ContiClean_ProductImage")->setImage($data['ProductImage']);
+                        echo $this->image("ContiClean_ProductImage", ['height'=>320])->setImage($data['ProductImage']);
                     } else {
-                        echo $this->image("ContiClean_ProductImage");
+                        echo $this->image("ContiClean_ProductImage", ['height'=>320]);
                     }
                 } else {
                     $CCProdImgSrcObj =  $this->image("ContiClean_ProductImage");
-                    if (!empty($CCProdImgSrcObj)) { ?>
-                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  />
+                    if (!empty($CCProdImgSrcObj->getId())) { ?>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCProdImgSrcObj, $this->imageWidth); ?>" alt=""  style="max-height:320px; width:auto;"/>
                         <?php
                     }
                 } ?>
+
+                <div>
+                    <table width="100%">
+                        <tr>
+                            <th>
+                                <?= $this->input("First_Image_Name", ['placeholder'=>'Image Name']) ?>
+                            </th>
+                            <th>
+                                <?= $this->input("Second_Image_Name", ['placeholder'=>'Image Name']) ?>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+
+
             </div>
             <div class="conticleancol colum-2 p-0">
                 <div class="conticlean-tab">
@@ -181,14 +196,14 @@
                    <?php
                     if($this->editmode) {
                         if ($this->image("ContiClean_reportImage")->isEmpty()) {
-                            echo $this->image("ContiClean_reportImage")->setImage($data['reportImage']);
+                            echo $this->image("ContiClean_reportImage", ['height'=>153])->setImage($data['reportImage']);
                         } else{
-                            echo $this->image("ContiClean_reportImage");
+                            echo $this->image("ContiClean_reportImage", ['height'=>153]);
                         }
                     } else {
                         $CCReportImgSrcObj =  $this->image("ContiClean_reportImage");
-                        if (!empty($CCReportImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" />
+                        if (!empty($CCReportImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCReportImgSrcObj, $this->imageWidth); ?>" alt="" class="chartimage" style="max-height:153px; width:auto;"/>
                             <?php
                         }
                     } ?>
@@ -203,14 +218,14 @@
                 <?php
                     if($this->editmode) {
                         if ($this->image("ContiClean_ApplicationImage")->isEmpty()) {
-                            echo $this->image("ContiClean_ApplicationImage")->setImage($data['ApplicationImage']);
+                            echo $this->image("ContiClean_ApplicationImage", ['height'=>373])->setImage($data['ApplicationImage']);
                         } else{
-                            echo $this->image("ContiClean_ApplicationImage");
+                            echo $this->image("ContiClean_ApplicationImage", ['height'=>373]);
                         }
                     } else {
                         $CCAppImgSrcObj =  $this->image("ContiClean_ApplicationImage");
-                        if (!empty($CCAppImgSrcObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" />
+                        if (!empty($CCAppImgSrcObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CCAppImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:550px; width:auto;"/>
                             <?php
                         }
                     }

@@ -105,7 +105,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($child['ProductImage'], $this->imageWidth); ?>" width="150"  alt="" class="features-images"  >
                             <?php
                         }
-                        else
+                        else if($default_image)
                         { ?>
                                 <img src="<?= $default_image; ?>" alt="" width="150" class="features-images">
                             <?Php

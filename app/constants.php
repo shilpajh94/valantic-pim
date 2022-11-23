@@ -19,7 +19,7 @@ if (!DISABLE_S3_CDN) {
 require_once('log_file_name_constants.php');
 //require_once('sftp_constants.php');
 define("INTERNAL_ASSET_FOLDER_PATHS", [
-    "/Contitech_ConveyorSolution/Internal Assets"
+    "/Contitech_ConveyorSolution/Internal Assets","/IFS PTG Private Folder/Import Failure Logs"
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/AppBundle/Resources/config");
@@ -105,8 +105,6 @@ define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master
 define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
 define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
 define("CS_PPRODUCT_PATH", '/Contitech_ConveyorSolution/Products/');
-
-define("CS_PRODUCT_TABLE_COLUMN_LIMIT", 10);
 
 // Files older than these many days will be moved to S3 from archive folder
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');

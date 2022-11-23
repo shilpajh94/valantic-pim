@@ -26,6 +26,12 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
     /**
      * {@inheritdoc}
      */
+
+    private $appService;
+    public function __construct(){
+        $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
+
+    }
     public function set(Concrete $object, $value, ImportMapping $map, $data)
     {
         $keyParts = explode('~', $map->getToColumn());
@@ -72,6 +78,7 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                     }else{
                         $brickFieldObject->$setter($value);
                     }
+                    $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
                 }
             }
         }

@@ -49,14 +49,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php
                         if($this->editmode) {
                             if($this->image("CIS_productImage")->isEmpty()) {
-                                echo $this->image("CIS_productImage")->setImage($data['ProductImage']);
+                                echo $this->image("CIS_productImage", ["height" => 335])->setImage($data['ProductImage']);
                             } else{
-                                echo $this->image("CIS_productImage");
+                                echo $this->image("CIS_productImage", ["height" => 335]);
                             }
                         } else {
                             $CIS_productImageObj =  $this->image("CIS_productImage");
-                            if (!empty($CIS_productImageObj)) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_productImageObj, $this->imageWidth); ?>" alt="" class="w-100">
+                            if (!empty($CIS_productImageObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_productImageObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:335px; width:auto;">
                             <?php
                             }
                         }
@@ -109,17 +109,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             {
                                 if($this->image("CIS_ReportImage")->isEmpty())
                                 {
-                                    echo $this->image("CIS_ReportImage")->setImage($data['ReportImage']);
+                                    echo $this->image("CIS_ReportImage",["height" => 105])->setImage($data['ReportImage']);
                                 }
                                 else{
-                                    echo $this->image("CIS_ReportImage");
+                                    echo $this->image("CIS_ReportImage",["height" => 105]);
                                 }
                             }
                             else
                             {
                                 $CIS_ReportImageObj =  $this->image("CIS_ReportImage");
-                                if (!empty($CIS_ReportImageObj)) { ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj, $this->imageWidth); ?>" alt="" class="features-images ml-0">
+                                if (!empty($CIS_ReportImageObj->getId())) { ?>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj, $this->imageWidth); ?>" alt="" class="features-images ml-0" style="max-height:105px; width:auto;">
                                 <?php
                                 }
                             }
@@ -167,17 +167,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         if($this->image("CIS_ApplicationImage")->isEmpty())
                         {
-                            echo $this->image("CIS_ApplicationImage")->setImage($data['ApplicationImage']);
+                            echo $this->image("CIS_ApplicationImage",["height" => 280])->setImage($data['ApplicationImage']);
                         }
                         else{
-                            echo $this->image("CIS_ApplicationImage");
+                            echo $this->image("CIS_ApplicationImage",["height" => 280]);
                         }
                     }
                     else
                     {
                         $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
-                        if (!empty($CIS_ApplicationImageObj)) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="">
+                        if (!empty($CIS_ApplicationImageObj->getId())) { ?>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height: 280px; width:auto;">
                         <?php
                         }
                     }
