@@ -1260,6 +1260,11 @@ footer .aligned.small {
     padding: 0;
 }
 
+h1.skiveTypeTableTitle {
+    font-family: 'ContinentalStagSansLCG-Light';
+    padding-top: 30px;;
+}
+
 footer h4 {
     border-bottom: 1px solid #969696;
     color: #969696;

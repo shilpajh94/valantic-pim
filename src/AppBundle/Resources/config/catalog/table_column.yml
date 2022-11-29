@@ -939,6 +939,10 @@ parameters:
                 numberOfDecimalPoints: 2
                 parent:
                     name: AccessoriesFert
+            ElbowType:
+                fieldLevel: NoNeedProcessing
+                fieldLabel: Elbow Type
+                fieldType: Input
     Industrial Hose Section Page:
         INHPrintCatalog:
             id:

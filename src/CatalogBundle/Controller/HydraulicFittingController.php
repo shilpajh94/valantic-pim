@@ -3,19 +3,11 @@
 namespace CatalogBundle\Controller;
 
 use CatalogBundle\Helper\CatalogTemplatingHelper;
-use Pimcore\Model\Asset;
 use Pimcore\Db;
-use Pimcore\Model\DataObject;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use S3CustomizationBundle\Lib\Utils;
 
 class HydraulicFittingController extends AbstractController
 {
-
-    private $tableColumns;
     private $db;
     private $iconRequired = 'NO';
     private $subHeaderRequired = 'NO';
@@ -24,12 +16,10 @@ class HydraulicFittingController extends AbstractController
     private $attributeImages = array();
     private $catalogTemplatingHelper;
 
-
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
-        /* Initilize monitoring item and set the number of steps will take to complete the task */
     }
 
     /**
@@ -41,8 +31,12 @@ class HydraulicFittingController extends AbstractController
     public function fittingPageAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $fittingTableColumn = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
-        // $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $fittingTableColumnConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
+
+        $fittingTableColumn = $fittingTableColumnConfig['tables'];
+        $shortDescriptionSortKeys = $fittingTableColumnConfig['shortDescriptionSortKeys'];
+        $skiveTypeSortKeys = $fittingTableColumnConfig['skiveTypeSortKeys'];
+
         $common = \Pimcore::getContainer()->get('app.common_helper');
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
@@ -63,7 +57,9 @@ class HydraulicFittingController extends AbstractController
 
             $data = array();
             $headerData = json_decode($obj->getHeaderData(), true);
+            // p_r($headerData);
             $headerKeys = array_keys($headerData);
+            // p_r($headerKeys);
             $headerKeysIndex = array_flip($headerKeys);
 
             $objColumnsData = $obj->getColumns();
@@ -71,123 +67,168 @@ class HydraulicFittingController extends AbstractController
             $this->iconRequired = 'YES';
             $this->columnsData = json_decode($objColumnsData, true);
 
-            $this->columnsData['ElbowType']['columnName'] = 'ElbowType';
-            $this->columnsData['ElbowType']['columnLabel'] = 'ElbowType';
+            // $this->columnsData['ElbowType']['columnName'] = 'ElbowType';
+            // $this->columnsData['ElbowType']['columnLabel'] = 'ElbowType';
 
-            $headerKeysIndex['ElbowType'] = count($headerKeysIndex);
+            // $headerKeysIndex['ElbowType'] = count($headerKeysIndex);
 
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
             $brandsList = $this->getBrandsList();
 
-            $brandsData = array();
+            $brandsDataList = array();
             if($productsData)
             {
+                // HoseID1InFract field value to decimal and add a new field in product data
+                foreach ($productsData as $key => $productItem) {
+                    $HoseID1InFract = $productItem[$headerKeysIndex['HoseID1InFract']];
+                    $HoseID1InDecimal = '';
+                    if($HoseID1InFract)
+                    {
+                        $HoseID1InDecimal = $this->convertFranctionToDecimal($HoseID1InFract);
+                    }
+                    $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim($HoseID1InFract,' ');
+                    $productsData[$key][] = $HoseID1InDecimal;
+                }
+
+                $HoseID1InFractSortKey = array_key_last($productsData[0]);
+                $HoseID1InDecimalCustom = array_column($productsData, $HoseID1InFractSortKey);
+
+                array_multisort($HoseID1InDecimalCustom, SORT_ASC, $productsData);
+
                 foreach ($productsData as $key => $item)
                 {
                     $brandName = $item[$headerKeysIndex['brandName']][0];
+                    $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
+                    $shortDescription = str_replace(array(" ", "/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
 
                     if(!empty($brandName) && !empty($FittingTableName))
                     {
-                        if(isset($item[$headerKeysIndex['HoseID1InFract']]) && !empty($item[$headerKeysIndex['HoseID1InFract']])) {
-                            $hoseID = $common->fractionToDecimal($item[$headerKeysIndex['HoseID1InFract']]);
-                        } else {
-                            $hoseID = 0;
-                        }
-                        $brandsData[$brandName][$FittingTableName][strval($hoseID)][] = $item;
-                        unset($hoseID);
+                        $brandsDataList[$brandName][$shortDescription][$FittingTableName][] = $item;
                     }
                 }
-            }
-            unset($productsData);
+                
+                unset($productsData);
 
-            foreach ($brandsData as $brandName => $fittingTables) {
-                foreach ($fittingTables as $fittingTable => $allSortedGroupList) {
-                    ksort($brandsData[$brandName][$fittingTable],SORT_NUMERIC);
+                # Sort talbes using short table description
+                $sortedBrandsData = [];
+                if($brandsDataList)
+                {
+                    foreach ($brandsDataList as $brandNameKey => $brandInfo) {
+
+                        foreach ($shortDescriptionSortKeys as $shortDescriptionKey => $shortDescriptionKeyName) {
+                           
+                            if(isset($brandInfo[$shortDescriptionKey]))
+                            {
+                                $sortedBrandsData[$brandNameKey][$shortDescriptionKey] = $brandInfo[$shortDescriptionKey];
+                            }
+                           
+                        }
+                    }
                 }
-            }
+                
+                unset($brandsDataList);
 
+            }
+            
             $newBrandArray = array();
             $HydFittingFamilyArr = array();
-            if($brandsData)
+            if($sortedBrandsData)
             {
-                foreach ($brandsData as $brandKey => $fittingTables)
+                foreach ($sortedBrandsData as $brandKey => $sortDescriptionTables)
                 {
-                    foreach ($fittingTables as $FittingTableName => $articlesGroups) 
+                    foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables) 
                     {
-                        $shortDescription = '';
-                        $LeftPrintCatalogImageObj = '';
-                        $RightPrintCatalogImageObj = '';
-                        foreach ($articlesGroups as $agkey => $articles) 
+                        foreach ($fittingTables as $FittingTableName => $articlesGroups) 
                         {
-                            foreach ($articles as $akey => $bvalue) 
+                            
+                            $shortDescription = '';
+                            $LeftPrintCatalogImageObj = '';
+                            $RightPrintCatalogImageObj = '';
+                            foreach ($articlesGroups as $agkey => $articles) 
                             {
                                 $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
                                 if(is_array($FittingTableKeys))
                                 {
-                                    if($bvalue[$headerKeysIndex['HydFittingFamily']][0]) {
-                                        $HydFittingFamilyArr[$bvalue[$headerKeysIndex['HydFittingFamily']][0]] = $bvalue[$headerKeysIndex['HydFittingFamily']][0];
+                                    if($articles[$headerKeysIndex['HydFittingFamily']][0]) {
+                                        $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']][0]] = $articles[$headerKeysIndex['HydFittingFamily']][0];
                                     }
 
-                                    if(!$shortDescription && $bvalue[$headerKeysIndex['shortDescription']]) {
-                                        $shortDescription = $bvalue[$headerKeysIndex['shortDescription']];
+                                    if(!$shortDescription && $articles[$headerKeysIndex['shortDescription']]) {
+                                        $shortDescription = $articles[$headerKeysIndex['shortDescription']];
                                     }
 
-                                    if(!$LeftPrintCatalogImageObj && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
-                                        $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
+                                    if(!$LeftPrintCatalogImageObj && $articles[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                        $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['LeftPrintCatalogImage']]);
                                     }
 
-                                    if(!$RightPrintCatalogImageObj && $bvalue[$headerKeysIndex['RightPrintCatalogImage']]) {
-                                        $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['RightPrintCatalogImage']]);
+                                    if(!$RightPrintCatalogImageObj && $articles[$headerKeysIndex['RightPrintCatalogImage']]) {
+                                        $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['RightPrintCatalogImage']]);
                                     }
 
                                     $articlesData = array();
                                     $this->subHeaderRequired = 'NO';
 
                                     $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
-
+                                    // p_r($columnsDataWithImages);
                                     // Getting order of the keys
                                     $orderKeys = array();
+
+                                    
                                     foreach ($columnsDataWithImages as $skey => $svalue) {
+                                        
                                         foreach ($svalue as $vkey => $vvalue) {
+                                            
                                                 $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                                         }
                                     }
 
-                                    if($bvalue[$headerKeysIndex['DescriptivePartNumber']])
+                                    if($articles[$headerKeysIndex['DescriptivePartNumber']])
                                     {
-                                        $partialPartNumberArray = explode('-',$bvalue[$headerKeysIndex['DescriptivePartNumber']]);
+                                        $partialPartNumberArray = explode('-',$articles[$headerKeysIndex['DescriptivePartNumber']]);
                                         $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
-                                        $bvalue[]= $nomenClatureList[$partialPartNumber];
+                                        $articles[$headerKeysIndex['ElbowType']]= $nomenClatureList[$partialPartNumber];
                                     }
                                     else
                                     {
-                                        $bvalue[]= '';
+                                        $articles[$headerKeysIndex['ElbowType']]= '';
                                     }
 
+                                    $skiveType = '';
+                                    if(in_array('SkiveType',$FittingTableKeys))
+                                    {
+                                        $skiveType = $articles[$headerKeysIndex['SkiveType']];
+                                    }
+
+                                    if($orderKeys['HoseID1InFract'])
+                                    {
+                                        $originalHoseID1InFractIndex = array_search("HoseID1InFract",array_keys($orderKeys));
+                                    }
+                                    
                                     foreach ($orderKeys as $ckey => $cvalue) {
-                                        $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
+                                        $articlesData[] = $articles[$headerKeysIndex[$ckey]];
                                     }
 
-                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][$agkey][] = $articlesData;
-                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
-                                    $newBrandArray[$brandKey][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
-                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['brandName'] = $brandKey;
-                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['shortDescription'] = $shortDescription;
-                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                                    $newBrandArray[$brandKey][$FittingTableName]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['articles'][] = $articlesData;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['brandData']['brandName'] = $brandKey;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['brandData']['shortDescription'] = $shortDescription;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                                 }
                             }
                         }
                     }
                     $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
-                    unset($brandsData[$brandKey]);
+                    unset($sortedBrandsData[$brandKey]);
                 }
                 if($newBrandArray)
                     array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
             }
-
+            // p_r($newBrandArray);die;
             unset($objColumnsData);
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -196,6 +237,7 @@ class HydraulicFittingController extends AbstractController
             $this->view['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
             $this->view['iconRequired'] = $this->iconRequired;
             $this->view['brandsData'] = $newBrandArray;
+            $this->view['skiveTypeSortKeys'] = $skiveTypeSortKeys;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
             $this->view['containerRequest'] = $containerRequest;
@@ -252,9 +294,9 @@ class HydraulicFittingController extends AbstractController
 
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
@@ -290,10 +332,10 @@ class HydraulicFittingController extends AbstractController
                 if($value['columnName'] == 'listPrice')
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->get('translator')->trans($value['unitName'])) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
@@ -314,5 +356,41 @@ class HydraulicFittingController extends AbstractController
 
         return $columnsDataWithImages;
     }
+
+    public function replaceYellowCode($string)
+    {
+        $string = str_replace('%*','<span style="color: #ffa500;">', $string);
+        $string = str_replace('*%','</span>', $string);
+        return $string;
+    }
+
+    public function convertFranctionToDecimal($string)
+    {
+        $decimal = '';
+        $string = str_replace(' ', '', $string);
+        $stringParts = explode('-', $string);
+
+        if(count($stringParts) > 1)
+        {
+            $floatValues = explode("/",$stringParts[1]);
+            $decimalVal = $floatValues[0]/$floatValues[1];
+            $decimal = $stringParts[0] + $decimalVal;
+        }
+        else{
+            $fractionValues = explode("/",$stringParts[0]);
+            if(count($fractionValues) > 1)
+            {   
+                $decimal = $fractionValues[0]/$fractionValues[1];
+            }
+            else{
+                $decimal = $stringParts[0];
+            }
+            
+        }
+
+        return $decimal;
+    }
+
 }
+
 
