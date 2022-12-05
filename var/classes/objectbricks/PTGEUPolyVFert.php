@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T10:30:12+02:00
-* IP: ::1
+* Generated at: 2022-10-27T13:03:09+05:30
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -123,7 +123,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:10px;',
@@ -154,7 +154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Ref.line diff. (hb)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:10px;',
