@@ -1,26 +1,22 @@
 <?php 
 
 /** 
-* Generated at: 2022-07-04T09:40:02+02:00
-* IP: ::1
+* Generated at: 2022-11-10T05:33:02+00:00
+* IP: 10.32.0.35
 
 
 Fields Summary: 
 - toothPitchPtMM [numeric]
 - toothHeightHtMM [numeric]
-- widthMM [numeric]
 - beltThicknessHsMM [numeric]
 - toothPitchPtMMUnit [input]
 - toothHeightHtMMUnit [input]
-- widthMMUnit [input]
 - beltThicknessHsMMUnit [input]
 - toothPitchPtIN [numeric]
 - toothHeightHtIN [numeric]
-- widthIN [numeric]
 - beltThicknessHsIN [numeric]
 - toothPitchPtINUnit [input]
 - toothHeightHtINUnit [input]
-- widthINUnit [input]
 - beltThicknessHsINUnit [input]
 */ 
 
@@ -135,7 +131,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -166,7 +162,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -193,42 +189,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'widthMM',
-                     'title' => 'Width',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:5px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
                      'name' => 'beltThicknessHsMM',
                      'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:5px;',
@@ -330,34 +295,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'widthMMUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'beltThicknessHsMMUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -415,7 +352,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth Pitch (P/t)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -446,7 +383,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Tooth height (ht)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -473,42 +410,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'widthIN',
-                     'title' => 'Width',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:40px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
                      'name' => 'beltThicknessHsIN',
                      'title' => 'Belt thickness (hs)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left:40px;',
@@ -599,34 +505,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 50,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'widthINUnit',
-                     'title' => '',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:10px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,

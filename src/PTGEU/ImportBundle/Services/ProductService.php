@@ -110,12 +110,12 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
+                //$this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-                $this->productModel->updateMaster();
+                //$this->productModel->updateMaster();
                 Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
     
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
@@ -274,11 +274,15 @@ class ProductService
 
     public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) 
     {
+        
         $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
+        
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
+        
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
+        
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
-
+        
         if ($type == 'base' || $type == 'skeleton') {
             $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
             $currentLevelArray = explode('/', $currentLevelPath);
@@ -299,17 +303,27 @@ class ProductService
             'o_className' => 'PTGEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
+                
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
+                // Need to check the current path of fert, changed or not
+                $newPath = explode("/", $currentLevelPath);
+                array_pop($newPath);
+                $newPath = implode("/", $newPath);
+                
+                $productObj = new \Pimcore\Model\DataObject\PTGEUProduct;
+                $currentPathId = $productObj->getByPath($newPath)->getId();
+                
                 $articleNumber = $record[$this->getRecordIndexByKey('material')];
                 $data = $this->productModel->checkIfArticleExists($articleNumber);
+                
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
-                    $objectArr['parentId'] = $data[0]['o_parentId'];
+                    //$objectArr['parentId'] = $data[0]['o_parentId'];
+                    $objectArr['parentId'] = $currentPathId;
                 }
             }
-            
             $objId = $this->productModel->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTGEU');
@@ -326,6 +340,8 @@ class ProductService
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
+
+            echo "GGGGGG\n\n";
             $objId = $this->products[$currentLevelPath];
         }
         unset($objectIndex, $currentLevelCode, $fertLevelCode, $categoryPath, $type, $currentLevelArray, $objectKey, $objectArr, $parentPath);
@@ -344,6 +360,7 @@ class ProductService
             if ($this->productHelper->isValidCategoryCode($siopCode)) {
 
                 if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
+                    
                     if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
                         $record = array(
@@ -398,7 +415,9 @@ class ProductService
             $folderIndex = count($levelInfo['levels'])-3;
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
             $folderPath = $this->categories[$folderCode]['fullPath'];
+            
             $folderPath = $this->productHelper->convertCategoryPathToProduct($folderPath);
+            
             if (!array_key_exists($folderPath, $this->products)) {
                 $folderId = $this->productHelper->getFolderByPath($folderPath);
                 $this->products[$folderPath] = $folderId;
@@ -525,7 +544,8 @@ class ProductService
             'minOutsidePulleyDia' => null,
             'sapDescriptionLanguage' => null,
             'materialType' => null,
-            'priceRef' => null
+            'priceRef' => null,
+            'vtlStatus' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -643,9 +663,28 @@ class ProductService
                     $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
             }
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $queryTableData['vtlStatus'] = trim($vtlObject);
+            }
         }
         
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
+    }
+
+    private function getVtlStatus(string $value)
+    {
+        $objVtl = new DataObject\PTGEUVTL\Listing();
+        $objVtl->setCondition("description = ?", $value);
+        if(!empty($objVtl))
+        {
+            foreach ($objVtl as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
+
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'PTGEU') {
@@ -694,7 +733,9 @@ class ProductService
             'minOutsidePulleyDia' => null,
             'sapDescriptionLanguage' => null,
             'materialType' => null,
-            'priceRef' => null
+            'priceRef' => null,
+            'vtlStatus' => null
+
         ];
 
         if (strtolower($productType) == 'base') {
@@ -805,6 +846,11 @@ class ProductService
                 if($eachOptions['value'] == $weightUnit){
                     $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
+            }
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $storeTableDataArray['vtlStatus'] = trim($vtlObject);
             }
         }
 
