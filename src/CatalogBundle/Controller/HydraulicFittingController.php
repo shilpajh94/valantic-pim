@@ -100,7 +100,7 @@ class HydraulicFittingController extends AbstractController
                 {
                     $brandName = $item[$headerKeysIndex['brandName']][0];
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
-                    $shortDescription = str_replace(array(" ", "/",PHP_EOL), "", $shortDescription);
+                    $shortDescription = str_replace(array(" ","-","°","/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
 
                     if(!empty($brandName) && !empty($FittingTableName))
@@ -108,8 +108,6 @@ class HydraulicFittingController extends AbstractController
                         $brandsDataList[$brandName][$shortDescription][$FittingTableName][] = $item;
                     }
                 }
-                
-                unset($productsData);
 
                 # Sort talbes using short table description
                 $sortedBrandsData = [];
@@ -124,6 +122,16 @@ class HydraulicFittingController extends AbstractController
                                 $sortedBrandsData[$brandNameKey][$shortDescriptionKey] = $brandInfo[$shortDescriptionKey];
                             }
                            
+                        }
+
+                        // Add the short marketing keys not in above shorted list
+
+                        foreach ($brandInfo as $shortDKey => $shortDValue) {
+                            
+                            if(!isset($sortedBrandsData[$brandNameKey][$shortDKey]))
+                            {
+                                $sortedBrandsData[$brandNameKey][$shortDKey] = $brandInfo[$shortDKey];
+                            }
                         }
                     }
                 }
