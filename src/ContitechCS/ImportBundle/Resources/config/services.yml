@@ -113,3 +113,15 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:performance-categories-import",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSGetAllCoverCompoundDataFromProducts:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:get-coverCompound-data",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSMapAllCoverCompoundDataInProducts:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:map-coverCompound-data",
+              }
