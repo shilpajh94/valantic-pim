@@ -1,13 +1,14 @@
 <?php
 
-namespace DistributionHubBundle\Operator;
+namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\DataObject\GridColumnConfig\ResultContainer;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
 use Symfony\Component\Yaml\Yaml;
 
-class OperatorToGetProductBrickDataFromPlantClass extends AbstractOperator
+class ProductBrickDataOperator extends AbstractOperator
 {
     private $attributeName;
     
@@ -23,6 +24,9 @@ class OperatorToGetProductBrickDataFromPlantClass extends AbstractOperator
         
         $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
         AbstractObject::setGetInheritedValues(true);
+        $getUnpublishedObjects = DataObject::doHideUnpublished();
+        DataObject::setHideUnpublished(false);
+
         $brickAttributesConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/DistributionHubBundle/Resources/config/ifs_ptg_us_brickAttributes.yml');
         if(array_key_exists($this->attributeName,$brickAttributesConfig)){
 
@@ -42,6 +46,7 @@ class OperatorToGetProductBrickDataFromPlantClass extends AbstractOperator
                 $data = $this->getDataForMultiSelectMasterFields($element,$brickAttributeDetails);
             }
         }
+            DataObject::setHideUnpublished($getUnpublishedObjects);
             AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     
             $result = new ResultContainer();
