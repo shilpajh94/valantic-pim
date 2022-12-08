@@ -241,6 +241,7 @@ section {
 
 @page {
     size: A4;
+    /* size: 216mm 279mm; */
     margin: 0px;
     padding: 100px 0 60px;
 

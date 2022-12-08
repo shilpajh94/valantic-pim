@@ -247,14 +247,14 @@ determine how much time is remaining before the carcass is exposed.*']) ?></li>
                         <?php if ($this->editmode) { ?>
                             <div class="media-img">
                                 <?php
-                                    echo $this->image("PP_ConveyorBeltsComponents_Image",["height" => 280]);
+                                    echo $this->image("PP_ConveyorBeltsComponents_Image",["height" => 300]);
                                 ?>
                             </div>
                         <?php } else { 
                             $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
                             if (!empty($componentImage->getId())) { ?>
                                 <div class="media-img">
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt="" style="max-height:280px; width:auto"/>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt="" style="max-height:300px; width:auto"/>
                                 </div>
                             <?php }
                         } ?>
@@ -595,7 +595,7 @@ determine how much time is remaining before the carcass is exposed.*']) ?></li>
                                     {
                                     ?>
                                     <div class="media-img">
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($cbcImgSrcObj, $this->imageWidth); ?>" alt=""/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($cbcImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:300px; width:auto"/>
                                     </div>
                                     <?php
                                     }
