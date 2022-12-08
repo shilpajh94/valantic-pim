@@ -214,6 +214,15 @@ h3 {
   font-size: 14px;
 }
 
+.steel-belt-const .p-medium p{
+  font-size: 15px;
+}
+
+.steel-belt-const .h-padding {
+  padding: 10px 0px;
+}
+
+
 .wood-product-applications .p-medium p,
 .wood-product-applications  .environment-quality-sec .media .p-medium p{
   line-height: 1.1;
@@ -1403,14 +1412,4 @@ left:0;
 
 .process-table tbody tr{
   height: 50px;
-}
-
-p.fs-8
-{
-  font-size: 8px;
-}
-
-p.ml-10
-{
-  margin-left: 10px;
 }

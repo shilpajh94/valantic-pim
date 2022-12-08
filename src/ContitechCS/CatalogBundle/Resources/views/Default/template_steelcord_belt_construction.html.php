@@ -41,7 +41,7 @@
             </div>
         </footer>
         <main id="content" role="main">
-            <section class="fortressxp-belts">
+            <section class="fortressxp-belts steel-belt-const">
             <?php if($this->editmode):?>
                 <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?> 
@@ -147,9 +147,9 @@
                     }
                 }
                 ?>
-
+                
                 <?php
-                if(!$this->image("PPFB_title")->isEmpty())
+                if(!$this->input("PPFB_title")->isEmpty())
                 {
                     ?>
                     <div class="page-break"></div>
@@ -158,79 +158,86 @@
                 ?>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your Heading</div>
+                    <div class="attr-font">Enter Title</div>
                 <?php endif;?>
-                <h2 class="orange mb-0"><?= $this->input("PPFB_title",["placeholder" =>"Enter Your  Heading"]); ?>
-                    <span class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Enter Your  SubHeading"]); ?>
+                <h2 class="orange">
+                    <?= $this->input("PPFB_title",["placeholder" =>"Phoenix Phoenocord® and Flexsteel® Belts"]); ?>
+                </h2>
+
+                <?php if($this->editmode):?>
+                    <div class="attr-font">Enter Slogan</div>
+                <?php endif;?>
+                <h2 class="">
+                    <span class="sub-title"><?= $this->input("PPFB_SubHeading",["placeholder" =>"Technologically Superior Products"]); ?>
                     </span>
                 </h2>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  SubHeading</div>
+                    <div class="attr-font">Enter Short Description</div>
                 <?php endif;?>
-                <p class="p-medium">
-                    <?= $this->input("PPFB_Content",["placeholder" =>"Enter Your  SubHeading"]); ?>
-                </p>
+                <div class="p-medium">
+                    <?= $this->wysiwyg("PPFB_Content",["placeholder" =>"Description"]); ?>
+                </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  SubHeading</div>
+                    <div class="attr-font">Enter Heading</div>
                 <?php endif;?>
-                <h3 class="my-4"><?= $this->input("PPFB_Slogan",["placeholder" =>"Enter Your  Slogan"]); ?></h3>
+                <h3 class="h-padding"><?= $this->input("PPFB_Slogan",["placeholder" =>"Three Reasons Why We Outperform The Competition:"]); ?></h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Sub Heading</div>
                 <?php endif;?>   
-                <h3 class="orange mb-0"><?= $this->input("ZGSC_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
+                <h3 class="orange mb-0"><?= $this->input("ZGSC_title",["placeholder" =>"Zinc galvanized steel cord"]);?> </h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Description</div>
+                    <div class="attr-font">Enter Description</div>
                 <?php endif;?>
-                <p> <?= $this->wysiwyg("ZGSC_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
+                <div> <?= $this->wysiwyg("ZGSC_Content",["placeholder" =>"Description"]); ?> </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Sub Heading</div>
                 <?php endif;?>
-                <h3 class="orange mb-0"><?= $this->input("ZGSC2_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
+                <h3 class="orange mb-0"><?= $this->input("ZGSC2_title",["placeholder" =>"Insulation gum (core rubber)"]);?> </h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Description</div>
+                    <div class="attr-font">Enter Description</div>
                 <?php endif;?>
-                <p><?= $this->wysiwyg("ZGSC2_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
+                <div><?= $this->wysiwyg("ZGSC2_Content",["placeholder" =>"Description"]); ?> </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Sub Heading</div>
                 <?php endif;?>
-                <h3 class="orange mb-0"><?= $this->input("ORBC_title",["placeholder" =>"Enter Your  Heading"]);?> </h3>
+                <h3 class="orange mb-0"><?= $this->input("ORBC_title",["placeholder" =>"Outer rubber covers"]);?> </h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Description</div>
+                    <div class="attr-font">Enter Description</div>
                 <?php endif;?>
-                <p><?= $this->wysiwyg("ORBC_Content",["placeholder" =>"Enter Your  Description"]); ?> </p>
+                <div><?= $this->wysiwyg("ORBC_Content",["placeholder" =>"Description"]); ?> </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Heading</div>
                 <?php endif;?>
-                <h3 class="my-4"><?= $this->input("BHE_title",["placeholder" => "Enter Your  Heading"]);?></h3>
+                <h3 class="h-padding"><?= $this->input("BHE_title",["placeholder" => "Built for the Harshest Environments"]);?></h3>
                 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Sub Heading</div>
                 <?php endif;?>
-                <h3 class="orange"><?= $this->input("PPSB_title",["placeholder" =>"Enter Your  Heading"]);?></h3>
+                <h3 class="orange"><?= $this->input("PPSB_title",["placeholder" =>"Phoenix Phoenocord® – World’s Strongest Belts"]);?></h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Description</div>
+                    <div class="attr-font">Enter Description</div>
                 <?php endif;?>
-                <p> <?= $this->wysiwyg("PPSB_Content",["placeholder" =>"Enter Your  Description"]); ?></p>
+                <div><?= $this->wysiwyg("PPSB_Content",["placeholder" =>"Description"]); ?> </div>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Heading</div>
+                    <div class="attr-font">Enter Sub Heading</div>
                 <?php endif;?>
-                <h3 class="orange"><?= $this->input("FSSMO_title",["placeholder" =>"Enter Your  Heading"]);?></h3>
+                <h3 class="orange"><?= $this->input("FSSMO_title",["placeholder" =>"Flexsteel® – Superior Strength for Heavy Mining Operations"]);?></h3>
 
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Enter Your  Description</div>
+                    <div class="attr-font">Enter Description</div>
                 <?php endif;?>
-                <p> <?= $this->wysiwyg("FSSMO_Content",["placeholder" =>"Enter Your  Description"]); ?> </p>
+                <div> <?= $this->wysiwyg("FSSMO_Content",["placeholder" =>"Description"]); ?> </div>
             </section>
         </main>
     </div>
