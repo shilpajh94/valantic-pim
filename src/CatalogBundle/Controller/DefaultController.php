@@ -1591,7 +1591,6 @@ if(isset($data[$baseId])) {
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-
             $this->get('translator')->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
@@ -1663,7 +1662,8 @@ if(isset($data[$baseId])) {
                                     if($bkey == $headerKeysIndex['workingPressurePSI'])
                                     {
                                         if($value)
-                                            $workingPressurePSI[] = $value;
+                                            $workingPressureValueArray = explode('.',$value);
+                                            $workingPressurePSI[] = $workingPressureValueArray[0];
                                     }
                                     if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
