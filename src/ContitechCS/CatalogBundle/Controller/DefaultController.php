@@ -596,6 +596,9 @@ class DefaultController extends AbstractController
                                                                     }
                                                                 }
                                                             }
+                                                            else{
+                                                                $data[$key] = '';
+                                                            }
                                                         }
                                                     }
             

@@ -591,6 +591,274 @@ Common Product Page:
                     objectType: TensionElevatorBelt
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     objectType: TensionElevatorBelt
+    CONTI Titan Elevator Belt:
+        Product_Table_Column_Limit: 10
+        Conveyor Belt Data: 
+            ColumnKeys: true
+            Imperial:
+                KeysGroupLogic: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                FabricType: 
+                    objectType: Material
+                VulcanizedAndFastenerRatinginPIW:
+                    objectType: LoadSupport
+                CarcassGaugeinInch:
+                    objectType: Material
+                    showDecimalPlaces: 3
+                CarcassWeightLBS:
+                    objectType: BeltData
+                CoverWeightPer132inThicknessLBS:
+                    objectType: BeltData
+                ElasticModulusinPIW:
+                    objectType: BeltData
+                SpliceType:
+                    objectType: SpliceData
+                RecommendedFastenerPlate: 
+                    objectType: LoadSupport
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
+            Metric: 
+                KeysGroupLogic: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                FabricType: 
+                    objectType: Material
+                beltRatingNMM: 
+                    objectType: BeltData
+                VulcanizedAndFastenerRatinginNMM:
+                    objectType: LoadSupport
+                CarcassGaugeinMM:
+                    objectType: Material
+                CarcassWeightKGM:
+                    objectType: BeltData
+                CoverWeightPer1mmThicknessKGM:
+                    objectType: BeltData
+                ElasticModulusinKNMM:
+                    objectType: BeltData
+                SpliceType:
+                    objectType: SpliceData
+                RecommendedFastenerPlate: 
+                    objectType: LoadSupport
+                Hinge:
+                    objectType: SpliceData
+                Hinge2:
+                    objectType: SpliceData
+        Load Support – Maximum Belt Width Data:
+            ColumnKeys: false
+            CS_Trough_Angle_Label: true
+            CS_Material_Weight_Label: true
+            Imperial:
+                KeysGroupLogic: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                VulcanizedAndFastenerRatinginPIW:
+                    objectType: LoadSupport
+                LoadSupportMaximumBeltWidthinInch640KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
+                LoadSupportMaximumBeltWidthinInch640KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
+                LoadSupportMaximumBeltWidthinInch640KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch640KGM
+                LoadSupportMaximumBeltWidthinInch1280KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
+                LoadSupportMaximumBeltWidthinInch1280KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
+                LoadSupportMaximumBeltWidthinInch1280KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1280KGM
+                LoadSupportMaximumBeltWidthinInch1920KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
+                LoadSupportMaximumBeltWidthinInch1920KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
+                LoadSupportMaximumBeltWidthinInch1920KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInch1920KGM
+                LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM
+                LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM
+                LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM
+            Metric: 
+                KeysGroupLogic: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                beltRatingNMM: 
+                    objectType: BeltData
+                LoadSupportMaximumBeltWidthinMM640KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
+                LoadSupportMaximumBeltWidthinMM640KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
+                LoadSupportMaximumBeltWidthinMM640KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM640KGM
+                LoadSupportMaximumBeltWidthinMM1280KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
+                LoadSupportMaximumBeltWidthinMM1280KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
+                LoadSupportMaximumBeltWidthinMM1280KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1280KGM
+                LoadSupportMaximumBeltWidthinMM1920KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
+                LoadSupportMaximumBeltWidthinMM1920KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
+                LoadSupportMaximumBeltWidthinMM1920KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMM1920KGM
+                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
+                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
+                LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45:
+                    objectType: LoadSupport
+                    groupingTitle: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM
+        Troughability Minimum Belt Width:
+            ColumnKeys: true
+            CS_Idlers_Label: true
+            Imperial:
+                KeysGroupLogic: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                VulcanizedAndFastenerRatinginPIW:
+                    objectType: LoadSupport
+                TroughabilityMinimumBeltsWidthinInch20:
+                    objectType: LoadSupport
+                TroughabilityMinimumBeltsWidthinInch35:
+                    objectType: LoadSupport
+                TroughabilityMinimumBeltsWidthinInch45:
+                    objectType: LoadSupport
+            Metric:
+                KeysGroupLogic: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                RemoveKeys: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                beltRatingNMM: 
+                    objectType: BeltData
+                TroughabilityMinimumBeltsWidthinMM20:
+                    objectType: LoadSupport
+                TroughabilityMinimumBeltsWidthinMM35:
+                    objectType: LoadSupport
+                TroughabilityMinimumBeltsWidthinMM45:
+                    objectType: LoadSupport
+        Minimum Pulley Diameters:
+            ColumnKeys: true
+            Imperial:
+                RemoveKeys: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                KeysGroupLogic: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                VulcanizedAndFastenerRatinginPIW:
+                    objectType: LoadSupport
+                MinimumPulleyDiameterinInchGreaterThan80Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinInch60_80Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinInch60Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinInchTailsAndSnubs:
+                    objectType: BeltData
+            Metric: 
+                RemoveKeys: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                KeysGroupLogic: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                beltRatingNMM: 
+                    objectType: BeltData
+                MinimumPulleyDiameterinMMGreaterThan80Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinMM60_80Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinMM60Tension:
+                    objectType: BeltData
+                MinimumPulleyDiameterinMMTailsAndSnubs:
+                    objectType: BeltData
+        Elevator Belt Data:
+            ColumnKeys: true
+            Imperial:
+                RemoveKeys: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                KeysGroupLogic: 
+                    VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                VulcanizedAndFastenerRatinginPIW:
+                    objectType: LoadSupport
+                IndustrialServiceTensionCapacityinPIW:
+                    objectType: TensionElevatorBelt
+                SpacedIndustrialMaxBucketProjectionInch:
+                    objectType: TensionElevatorBelt
+                ContinuousIndustrialMaxBucketProjectionInch: 
+                    objectType: TensionElevatorBelt
+            Metric: 
+                RemoveKeys: 
+                    beltRatingNMM: beltRatingNMM
+                KeysGroupLogic: 
+                    beltRatingNMM: beltRatingNMM
+                    NumberofPlies: NumberofPlies
+                NumberofPlies:
+                    objectType: Material
+                beltRatingNMM: 
+                    objectType: BeltData
+                IndustrialServiceTensionCapacityinKNM:
+                    objectType: TensionElevatorBelt
+                SpacedIndustrialMaxBucketProjectionMM:
+                    objectType: TensionElevatorBelt
+                ContinuousIndustrialMaxBucketProjectionMM: 
+                    objectType: TensionElevatorBelt
     Plylon Plus: 
         Product_Table_Column_Limit: 9
         Conveyor Belt Data: 
@@ -2742,3 +3010,4 @@ ContiPipe and MegaPipe Table Attributes:
     BeltWidthmm:    ProdDimensions #BeltWidth mm
     FabricType:     Material #BeltWidth mm
     SteelType:      Material #BeltWidth mm
+
