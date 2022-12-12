@@ -316,6 +316,7 @@ tubeGaugeIN:
   fieldName: tubeGaugeIN
   fieldType: number
   brickLevel: Skeleton
+  brickName: HoseSkeleton
 tubeGaugeMM:
   fieldName: tubeGaugeMM
   fieldType: number
