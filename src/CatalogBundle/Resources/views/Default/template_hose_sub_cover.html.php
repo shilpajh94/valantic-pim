@@ -198,7 +198,6 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php else: ?>
                         <tr class="active">
                         <?php endif; ?>
-
                                 <td><b><?= $brandData['brandName']; ?></b></td>
                                 <td><?= $this->input("HHSC_Page_{$md5brandKey}") ?></td>
                                 <td><?= $brandData['reinforcement']; ?></td>
