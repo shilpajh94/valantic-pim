@@ -240,7 +240,8 @@ section {
  }  */
 
 @page {
-    size: A4;
+    /* size: A4; */
+    size: 8.5in 11in;
     margin: 0px;
     padding: 100px 0 60px;
 
@@ -387,7 +388,8 @@ section {
 @page coverPage{
     margin:0;
     padding:0;
-    size: A4;
+    /* size: A4; */
+    size: 8.5in 11in;
 
     @bottom-right {
         content: none;
@@ -435,7 +437,8 @@ section {
 @page backcoverPage{
     margin:0px 25px;
     padding:0;
-    size: A4;
+    /* size: A4; */
+    size: 8.5in 11in;
 
     @bottom-right {
         content: none;
