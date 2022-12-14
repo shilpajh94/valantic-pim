@@ -1623,6 +1623,7 @@ if(isset($data[$baseId])) {
                         $CatalogGrouping = '';
                         $CatalogPackaging = '';
                         $rangeTemperatureF = '';
+                        $constructionType = '';
 
                         $tubeMaterial = array();
                         $reinforcement = array();
@@ -1652,6 +1653,15 @@ if(isset($data[$baseId])) {
 
                             if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
                                 $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
+                            
+                            if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
+                                $entries = new DataObject\ProductCategory\Listing();
+                                $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
+                                $entries->load();
+                                foreach($entries as $entry) {
+                                    $constructionType = $entry->getConstructionType();
+                                }
+                            }
 
                             foreach($element as $bkey => $value):
 
@@ -1715,7 +1725,7 @@ if(isset($data[$baseId])) {
 
                         $data[$uniqueId]['brandName'] = $brandName;
                         $data[$uniqueId]['rangeTemperatureF'] = $rangeTemperatureF;
-                        $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                        $data[$uniqueId]['reinforcement'] = $constructionType;
                         $data[$uniqueId]['fittingFamily'] = $fittingFamily;
                         $data[$uniqueId]['industryStandard'] = $industryStandard;
                         $data[$uniqueId]['CatalogGrouping'] = $CatalogGrouping;
