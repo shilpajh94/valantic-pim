@@ -75,6 +75,15 @@ li span {
   font-family: "ContinentalStagSansLCG-light";
 }
 
+
+.sybercord-sub-title {
+  font-size: 20px;
+  display: block;
+  color: #000000;
+  /* padding-bottom: 15px; */
+  font-family: "ContinentalStagSansLCG-light";
+}
+
 .features-benefit-black{
   font-size: 18px;
   color: #000000;
@@ -160,7 +169,7 @@ h3 {
   margin-top: 20px;
 }
 .environment-quality-sec .media p {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .features-benefit-sec .media {
@@ -1418,4 +1427,11 @@ p.fs-8
 p.ml-10
 {
   margin-left: 10px;
+}
+
+.mleft-10{
+  margin-left: 10px;
+}
+#sybercord-para-right-container{
+  /* text-align: center; */
 }
