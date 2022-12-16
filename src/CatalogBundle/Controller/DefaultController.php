@@ -1672,8 +1672,7 @@ if(isset($data[$baseId])) {
                                     if($bkey == $headerKeysIndex['workingPressurePSI'])
                                     {
                                         if($value)
-                                            $workingPressureValueArray = explode('.',$value);
-                                            $workingPressurePSI[] = $workingPressureValueArray[0];
+                                        $workingPressurePSI[] = $value;
                                     }
                                     if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
