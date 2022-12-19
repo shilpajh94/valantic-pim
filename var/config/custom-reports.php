@@ -167,7 +167,7 @@ return [
             [
                 "sql" => "SELECT \n    o1.`o_key` as `Key`,\n    o1.`articleNumber` AS `Article Number`,\n`en`.`sapDescription` AS `SAP Description`,\n    o1.`siopFullCode` AS `SIOP Full Code` ,\n    o1.`ProductType` AS `Product Type`,\n    cat1.`description` AS `SIOP Level 1`,\n    cat2.`description` AS `SIOP Level 2`,\n    cat3.`description` AS `SIOP Level 3`,\n    cat4.`description` AS `SIOP Level 4`,\n    cat5.`description` AS `SIOP Level 5`,\n    cat6.`description` AS `SIOP Level 6`,\n    o1.`o_id` ",
                 "from" => "FROM object_1 o1\nLEFT JOIN\n    object_localized_query_2_en cat1 ON cat1.`ooo_id` = SUBSTRING(o1.`SIOPLevel1`,\n        2,\n        (LENGTH(o1.`SIOPLevel1`) - 2))\n        LEFT JOIN\n    object_localized_query_2_en cat2 ON cat2.`ooo_id` = SUBSTRING(o1.`SIOPLevel2`,\n        2,\n        (LENGTH(o1.`SIOPLevel2`) - 2))\n        LEFT JOIN\n    object_localized_query_2_en cat3 ON cat3.`ooo_id` = SUBSTRING(o1.`SIOPLevel3`,\n        2,\n        (LENGTH(o1.`SIOPLevel3`) - 2))\n        LEFT JOIN\n    object_localized_query_2_en cat4 ON cat4.`ooo_id` = SUBSTRING(o1.`SIOPLevel4`,\n        2,\n        (LENGTH(o1.`SIOPLevel4`) - 2))\n        LEFT JOIN\n    object_localized_query_2_en cat5 ON cat5.`ooo_id` = SUBSTRING(o1.`SIOPLevel5`,\n        2,\n        (LENGTH(o1.`SIOPLevel5`) - 2))\n        LEFT JOIN\n    object_localized_query_2_en cat6 ON cat6.`ooo_id` = SUBSTRING(o1.`SIOPLevel6`,\n        2,\n        (LENGTH(o1.`SIOPLevel6`) - 2)) \n\tLEFT JOIN\n    `object_localized_query_1_en` `en` ON `en`.`ooo_id` = `o1`.`o_id`",
-                "where" => "WHERE (o1.`o_published` =1) AND (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 1 DAY)))",
+                "where" => "WHERE (o1.`o_published` =1)  AND (o1.`o_path` NOT LIKE '%/Quote/%')",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -181,7 +181,7 @@ return [
                 "width" => 300,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-1"
+                "id" => "extModel4016-1"
             ],
             [
                 "name" => "Article Number",
@@ -191,7 +191,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-2"
+                "id" => "extModel4016-2"
             ],
             [
                 "name" => "SAP Description",
@@ -201,7 +201,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-3"
+                "id" => "extModel4016-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -211,7 +211,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-4"
+                "id" => "extModel4016-4"
             ],
             [
                 "name" => "Product Type",
@@ -221,7 +221,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-5"
+                "id" => "extModel4016-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -231,7 +231,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-6"
+                "id" => "extModel4016-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -241,7 +241,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-7"
+                "id" => "extModel4016-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -251,7 +251,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-8"
+                "id" => "extModel4016-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -261,7 +261,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-9"
+                "id" => "extModel4016-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -271,7 +271,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-10"
+                "id" => "extModel4016-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -281,7 +281,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel3708-11"
+                "id" => "extModel4016-11"
             ],
             [
                 "name" => "o_id",
@@ -292,7 +292,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel3708-12"
+                "id" => "extModel4016-12"
             ]
         ],
         "niceName" => "New Products",
@@ -308,7 +308,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1608104456,
+        "modificationDate" => 1671439051,
         "creationDate" => 1606362991,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
