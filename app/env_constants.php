@@ -43,6 +43,8 @@ if (CUSTOM_ENV == "prod") {
     // this is being used by workflow reminder cron
     // setting this in 'settings' - > 'domain name' breaks the redirect set for admin
     define("APPLICATION_HOST","https://pim.conti.de");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "Prod-ImageThumbnails");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 
 } elseif (CUSTOM_ENV == "stage") {
 
@@ -86,7 +88,9 @@ if (CUSTOM_ENV == "prod") {
     
     
     // this is being used by workflow reminder cron
-    define("APPLICATION_HOST","http://stage.pim.conti.de");
+    define("APPLICATION_HOST","https://stage.pim.conti.de");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "stage-ImageThumbnails");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 
 } elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc") {
 
@@ -134,4 +138,6 @@ if (CUSTOM_ENV == "prod") {
 
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","localhost");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "dev-ImageThumbnails");
+    define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 }

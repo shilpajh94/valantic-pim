@@ -165,9 +165,7 @@ class ProductEnrichmentListener
                 foreach ($userRolesArray['users'] as $userField) {
                     if (!empty($userField)) {
                         $getter = "get".ucfirst($userField);
-                        if ($product->$getter() != '' && is_numeric($product->$getter())) {
-                            $userIds[] = $product->$getter();
-                        }
+                        $userIds[] = $product->$getter();
                     }
                 }
 //                if (in_array('ProductOwner', $userRolesArray['users'])) {
