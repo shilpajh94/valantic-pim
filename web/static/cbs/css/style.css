@@ -1414,3 +1414,11 @@ p.ml-10
 {
   margin-left: 10px;
 }
+
+.cleated_product_img .pimcore_tag_image, 
+.cleated_product_img img{
+  min-height: 100px !important;
+  max-height: 100px !important;
+  max-width: 100px !important;
+
+}

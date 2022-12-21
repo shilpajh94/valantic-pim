@@ -222,6 +222,13 @@ section {
 
 .new-page {break-inside: avoid-page;}
 
+
+    .cleated_product_img .img{
+
+        height: 100px !important;
+    
+    }
+
 }
 
 .header-txt, .print-pg-no, #footer1{
@@ -240,7 +247,9 @@ section {
  }  */
 
 @page {
-    size: A4;
+    /* margin: 0; */
+    /* size: A4; */
+    size: 8.5in 11in;
     margin: 0px;
     padding: 100px 0 60px;
 
@@ -252,32 +261,32 @@ section {
 
 
 @page:right { 
-    margin-left: 60px;
-    margin-right: 40px;
+    margin-left: 80px;
+    margin-right: 50px;
 
    
 
     @top-left-corner{
         content: string(headerFirsttitle, first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-family: 'ContinentalStagSansLCG-Medium';
         font-size:10px;
         white-space:nowrap;
         position: absolute;
-        left:60px;
+        left:80px;
         letter-spacing: 0.05em;
     }
        
     @top-left{
         content: string(headerSecondtitle , first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-size:10px;
         font-family: 'ContinentalStagSansLCG-light' !important;
         white-space:nowrap;
         position: absolute;
-        left:165px;
+        left:185px;
         letter-spacing: 0.05em;
         color:#000000;
     }
@@ -286,7 +295,7 @@ section {
     @top-right{
         content: counter(page);
         font-size: 10px;
-        padding-top: 40px;
+        padding-top: 50px;
         font-family: 'ContinentalStagSansLCG-Light';
         vertical-align: top;
 
@@ -300,30 +309,30 @@ section {
 }
 
 @page:left { 
-    margin-left: 40px;
-    margin-right: 60px;
+    margin-left: 50px;
+    margin-right: 80px;
  
     @top-left-corner{
         content: string(headerFirsttitle, first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-family: 'ContinentalStagSansLCG-Medium';
         font-size:10px;
         white-space:nowrap;
         position: absolute;
-        left:40px;
+        left:50px;
         letter-spacing: 0.05em;
     }
        
     @top-left{
         content: string(headerSecondtitle , first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-size:10px;
         font-family: 'ContinentalStagSansLCG-light' !important;
         white-space:nowrap;
         position: absolute;
-        left:145px;
+        left: 155px;
         letter-spacing: 0.05em;
         color:#000000;
     }
@@ -331,9 +340,10 @@ section {
     @top-right{
         content: counter(page);
         font-size: 10px;
-        padding-top: 40px;
+        padding-top: 50px;
         font-family: 'ContinentalStagSansLCG-Light';
         vertical-align: top;
+        right: 55px;
 
     }
     @bottom-left {
@@ -387,7 +397,8 @@ section {
 @page coverPage{
     margin:0;
     padding:0;
-    size: A4;
+    /* size: A4; */
+    size: 8.5in 11in;
 
     @bottom-right {
         content: none;
@@ -435,7 +446,8 @@ section {
 @page backcoverPage{
     margin:0px 25px;
     padding:0;
-    size: A4;
+    /* size: A4; */
+    size: 8.5in 11in;
 
     @bottom-right {
         content: none;
