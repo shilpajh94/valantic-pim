@@ -1429,6 +1429,10 @@ p.ml-10
   margin-left: 10px;
 }
 
+.lineheight-stylecode1 p{
+  line-height: 1.5 !important;
+}
+
 .mleft-10{
   margin-left: 10px;
 }
