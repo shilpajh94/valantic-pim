@@ -379,7 +379,7 @@ section {
 
 
 @page contiInspect{
-
+    size: 8.5in 11in;
     @top-center{
         content: element(conticleanImage, first);
          position: absolute;

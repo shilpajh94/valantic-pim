@@ -1775,7 +1775,7 @@ class DefaultController extends AbstractController
         
                     $productData['childrenData'] = $childrenData;
         
-                    $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
+                    $this->view['monitoring_system'] = $this->getContiProtectFeatures($productObject);
                 }
             }
     
@@ -2435,6 +2435,32 @@ class DefaultController extends AbstractController
                 foreach($productObject->getBenefitBlock() as $obj)
                 {
                     $benefits[] = $obj['Benefit']->getData();
+                }
+            }
+            return $benefits;
+        }
+        catch(Exception $e)
+        {  
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Conti Clean Materials
+     * @param object $productObject
+     * @access private 
+     * @return array
+     */
+    private function getContiProtectFeatures($productObject)
+    {   
+        try
+        {
+            $benefits = [];
+            if(method_exists($productObject,'getFeatureBlock') && $productObject->getFeatureBlock())
+            {
+                foreach($productObject->getFeatureBlock() as $obj)
+                {
+                    $benefits[] = $obj['Feature']->getData();
                 }
             }
             return $benefits;
