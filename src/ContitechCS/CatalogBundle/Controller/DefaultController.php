@@ -1745,7 +1745,7 @@ class DefaultController extends AbstractController
                 if(!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $productData['Name'] = $productObject->getName();
-                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ShortText'] = $productObject->getLongText();
                     $productData['ProductImage'] = $productObject->getProductImage();
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
         
@@ -1766,7 +1766,7 @@ class DefaultController extends AbstractController
                         if(trim($childValue->getName()))
                         {
                             $data['Name'] = $childValue->getName();
-                            $data['ShortText'] = $childValue->getShortText();
+                            $data['ShortText'] = $childValue->getProductDescription();
             
                             $childrenData[] = $data;
                             unset($data);
