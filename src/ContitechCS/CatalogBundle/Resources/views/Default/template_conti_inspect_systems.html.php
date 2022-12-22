@@ -15,25 +15,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <?php endif; ?>
 <?php if($data): ?>
     <div class="wrapper contiinspectsystem">
-    <header id="header">
-        <div class="header-sec">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_header_title') ?></span>
-                <span class="second-title">
-                    <?php
-                        if($this->input("CIS_title")->isEmpty())
-                            {
-                                echo $this->input("CIS_title",['placeholder' => 'Enter your title'])->setDataFromResource($data['HierarchyNameLevel2']);
-                            }
-                            else
-                            {
-                                echo $this->input("CIS_title",['placeholder' => 'Enter your title']);
-                            }
-                        ?>
-                    </span>
-            </div>
-                <div class="print-pg-no"></div>
-            </div>
-    </header>
+    
+    
     <footer id="footer" class="footer">
         <div class="footer-logo">
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -41,31 +24,31 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
 
         <main id="content" role="main">
-            <section class="fortressxp-belts conveyor-belt">
+            <div class="fortressxp-belts conveyor-belt">
                 <?php if($this->editmode):?>
                     <div class="attr-font"> Attribute Name = Product Image</div>
                 <?php endif;?>
-                <div class="page95">
+                <div class="page95" id="contiInspectSystemBanner">
                     <?php
                         if($this->editmode) {
                             if($this->image("CIS_productImage")->isEmpty()) {
-                                echo $this->image("CIS_productImage", ["height" => 335])->setImage($data['ProductImage']);
+                                echo $this->image("CIS_productImage", ["height" => 340])->setImage($data['ProductImage']);
                             } else{
-                                echo $this->image("CIS_productImage", ["height" => 335]);
+                                echo $this->image("CIS_productImage", ["height" => 340]);
                             }
                         } else {
                             $CIS_productImageObj =  $this->image("CIS_productImage");
                             if (!empty($CIS_productImageObj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_productImageObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:335px; width:auto;">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_productImageObj, $this->imageWidth); ?>" alt="" style="height:340px; width:auto;">
                             <?php
                             }
                         }
                     ?>
                 </div>
-                <div class="feature-benefit-list w-80">
-                <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = Name</div>
-                <?php endif;?>
+                <div class="feature-benefit-list" id="contiInspectSystemProducts">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font"> Attribute Name = Name</div>
+                    <?php endif;?>
                     <h2>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CIS_Inspect_Systems")->isEmpty()): ?>
@@ -99,33 +82,44 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
 
                 </div>
-                <div class="environment-quality-sec">
-                    <div class="media pt-0">
-                        <?php if($this->editmode):?>
-                            <div class="attr-font"> Attribute Name = Report Image</div>
-                        <?php endif;?>
-                        <?php
-                            if($this->editmode)
-                            {
-                                if($this->image("CIS_ReportImage")->isEmpty())
+                <div class="environment-quality-sec" id="contiInspectSystemReport">
+                    <div class="media pt-0" id="contiInspectSystemReportImage">
+                        
+                        <div id="instpectReport1">
+                            <?php
+                                if($this->editmode)
                                 {
-                                    echo $this->image("CIS_ReportImage",["height" => 105])->setImage($data['ReportImage']);
+                                    echo $this->image("CIS_ReportImage1",["height" => 90]);
                                 }
-                                else{
-                                    echo $this->image("CIS_ReportImage",["height" => 105]);
+                                else
+                                {
+                                    $CIS_ReportImageObj1 =  $this->image("CIS_ReportImage1");
+                                    if (!empty($CIS_ReportImageObj1->getId())) { ?>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj1, $this->imageWidth); ?>" alt="" style="height:90px;">
+                                    <?php
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                $CIS_ReportImageObj =  $this->image("CIS_ReportImage");
-                                if (!empty($CIS_ReportImageObj->getId())) { ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj, $this->imageWidth); ?>" alt="" class="features-images ml-0" style="max-height:105px; width:auto;">
-                                <?php
-                                }
-                            }
-                        ?>
+                            ?>
+                        </div>
 
-                        <div class="media-body">
+                        <div id="instpectReport2">
+                            <?php
+                                if($this->editmode)
+                                {
+                                    echo $this->image("CIS_ReportImage2",["height" => 90]);
+                                }
+                                else
+                                {
+                                    $CIS_ReportImageObj2 =  $this->image("CIS_ReportImage2");
+                                    if (!empty($CIS_ReportImageObj2->getId())) { ?>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ReportImageObj2, $this->imageWidth); ?>" alt="" style="height: 90px;">
+                                    <?php
+                                    }
+                                }
+                            ?>
+                        </div>
+
+                        <div class="media-body mt-4 mr50 ml20">
                             <p class="orange mb-0"><strong>
                             
                             <?php if($this->editmode): ?>
@@ -158,31 +152,32 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
                     </div>
                 </div>
-                
-                <?php if($this->editmode):?>
-                    <div class="attr-font"> Attribute Name = Application Image</div>
-                <?php endif;?>
-                <?php
-                    if($this->editmode)
-                    {
-                        if($this->image("CIS_ApplicationImage")->isEmpty())
+                <div id="contiInspectSystemApplicationImage">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font"> Attribute Name = Application Image</div>
+                    <?php endif;?>
+                    <?php
+                        if($this->editmode)
                         {
-                            echo $this->image("CIS_ApplicationImage",["height" => 280])->setImage($data['ApplicationImage']);
+                            if($this->image("CIS_ApplicationImage")->isEmpty())
+                            {
+                                echo $this->image("CIS_ApplicationImage",["height" => 280])->setImage($data['ApplicationImage']);
+                            }
+                            else{
+                                echo $this->image("CIS_ApplicationImage",["height" => 280]);
+                            }
                         }
-                        else{
-                            echo $this->image("CIS_ApplicationImage",["height" => 280]);
+                        else
+                        {
+                            $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
+                            if (!empty($CIS_ApplicationImageObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height: 280px; width:auto;">
+                            <?php
+                            }
                         }
-                    }
-                    else
-                    {
-                        $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
-                        if (!empty($CIS_ApplicationImageObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height: 280px; width:auto;">
-                        <?php
-                        }
-                    }
-                ?>
-            </section>
+                    ?>
+                </div>
+            </div>
         </main>
     
 

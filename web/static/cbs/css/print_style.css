@@ -186,12 +186,10 @@ pre {
     width: 30px;
 }
 
-.page95, .pg-6{
+.pg-6{
     min-width: 100%;
     margin: 0;
 }
-
-
 
 section:nth-of-type(1) {
     page-break-before: avoid;
@@ -233,6 +231,9 @@ section {
         bottom:0;
         left: 40px;
     }
+
+    
+    
 }
 
 .header-txt, .print-pg-no, #footer1{
@@ -380,18 +381,21 @@ section {
 
 @page contiInspect{
     size: 8.5in 11in;
-    @top-center{
-        content: element(conticleanImage, first);
-         position: absolute;
-         top:0;
-         width:100%;
-         height:auto;
-         left:0;
-        z-index: 1;
-        margin-left:0px !important;
-        margin-right:0px !important;
+    margin:0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+
+    @bottom-left {
+        content: element(footerLogo, last);
+        position: relative;
+        left: 50px;
     }
-    
+    @bottom-right {
+        content: element(footerLogo, last);
+        position: relative;
+        right: 40px;
+    }
 }
 
 @page contiProtect{

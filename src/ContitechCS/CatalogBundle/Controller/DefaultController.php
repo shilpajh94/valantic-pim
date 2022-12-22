@@ -1843,7 +1843,7 @@ class DefaultController extends AbstractController
                             if(trim($childValue->getName()))
                             {
                                 $data['Name'] = $childValue->getName();
-                                $data['ShortText'] = $childValue->getShortText();
+                                $data['ShortText'] = $childValue->getProductDescription();
             
                                 $childrenData[] = $data;
                                 unset($data);
