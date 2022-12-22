@@ -75,6 +75,15 @@ li span {
   font-family: "ContinentalStagSansLCG-light";
 }
 
+
+.sybercord-sub-title {
+  font-size: 20px;
+  display: block;
+  color: #000000;
+  /* padding-bottom: 15px; */
+  font-family: "ContinentalStagSansLCG-light";
+}
+
 .features-benefit-black{
   font-size: 18px;
   color: #000000;
@@ -160,7 +169,7 @@ h3 {
   margin-top: 20px;
 }
 .environment-quality-sec .media p {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .features-benefit-sec .media {
@@ -192,6 +201,8 @@ h3 {
     } */
 
 .fortressxp-belts .seal-image {
+  top: -35px;
+  position: relative;
   flex: 30%;
   padding-left: 20px;
   width: 30%;
@@ -342,7 +353,7 @@ h3 {
 }
 
 .components-sec {
-  padding-bottom: 30px;
+  padding-top: 30px;
 }
 
 .components-sec .media {
@@ -350,23 +361,26 @@ h3 {
 }
 
 .components-sec .media-body {
-  max-width: 40%;
-  flex: 40%;
+  max-width: 30%;
+  flex: 30%;
 }
 
 .components-sec .media-img {
-  max-width: 60%;
+  max-width: 70%;
 }
 
 .components {
-  padding: 1em 0 0.5em 1.5em;
+  padding: 1em 0 0.5em 0;
 }
 
 .components li {
-  font-weight: bold;
+  /* font-weight: bold; */
   position: relative;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
   line-height: normal;
+  font-size: 10px;
+  font-family: "ContinentalStagSansLCG-Medium";
+  /* font-weight: normal !important; */
 }
 
 .components li:last-child {
@@ -1413,4 +1427,11 @@ p.fs-8
 p.ml-10
 {
   margin-left: 10px;
+}
+
+.mleft-10{
+  margin-left: 10px;
+}
+#sybercord-para-right-container{
+  /* text-align: center; */
 }
