@@ -1748,7 +1748,7 @@ class DefaultController extends AbstractController
                 if(!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                 {
                     $productData['Name'] = $productObject->getName();
-                    $productData['ShortText'] = $productObject->getShortText();
+                    $productData['ShortText'] = $productObject->getLongText();
                     $productData['ProductImage'] = $productObject->getProductImage();
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
         
@@ -1769,7 +1769,7 @@ class DefaultController extends AbstractController
                         if(trim($childValue->getName()))
                         {
                             $data['Name'] = $childValue->getName();
-                            $data['ShortText'] = $childValue->getShortText();
+                            $data['ShortText'] = $childValue->getProductDescription();
             
                             $childrenData[] = $data;
                             unset($data);
@@ -1778,7 +1778,7 @@ class DefaultController extends AbstractController
         
                     $productData['childrenData'] = $childrenData;
         
-                    $this->view['monitoring_system'] = $this->getContiCleanBenefits($productObject);
+                    $this->view['monitoring_system'] = $this->getContiProtectFeatures($productObject);
                 }
             }
     
@@ -1846,7 +1846,7 @@ class DefaultController extends AbstractController
                             if(trim($childValue->getName()))
                             {
                                 $data['Name'] = $childValue->getName();
-                                $data['ShortText'] = $childValue->getShortText();
+                                $data['ShortText'] = $childValue->getProductDescription();
             
                                 $childrenData[] = $data;
                                 unset($data);
@@ -2438,6 +2438,32 @@ class DefaultController extends AbstractController
                 foreach($productObject->getBenefitBlock() as $obj)
                 {
                     $benefits[] = $obj['Benefit']->getData();
+                }
+            }
+            return $benefits;
+        }
+        catch(Exception $e)
+        {  
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Conti Clean Materials
+     * @param object $productObject
+     * @access private 
+     * @return array
+     */
+    private function getContiProtectFeatures($productObject)
+    {   
+        try
+        {
+            $benefits = [];
+            if(method_exists($productObject,'getFeatureBlock') && $productObject->getFeatureBlock())
+            {
+                foreach($productObject->getFeatureBlock() as $obj)
+                {
+                    $benefits[] = $obj['Feature']->getData();
                 }
             }
             return $benefits;

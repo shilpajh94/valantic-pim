@@ -186,12 +186,10 @@ pre {
     width: 30px;
 }
 
-.page95, .pg-6{
+.pg-6{
     min-width: 100%;
     margin: 0;
 }
-
-
 
 section:nth-of-type(1) {
     page-break-before: avoid;
@@ -222,6 +220,20 @@ section {
 
 .new-page {break-inside: avoid-page;}
 
+    #conti-protect-system img
+    {
+        max-height: 170px;
+    }
+
+    #bottom-block img{
+        position: fixed;
+        width: 90%;
+        bottom:0;
+        left: 40px;
+    }
+
+    
+    
 
     .cleated_product_img .img{
 
@@ -377,21 +389,76 @@ section {
 
 
 @page contiInspect{
+    size: 8.5in 11in;
+    margin:0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
 
-    @top-center{
-        content: element(conticleanImage, first);
-         position: absolute;
-         top:0;
-         width:100%;
-         height:auto;
-         left:0;
-        z-index: 1;
-        margin-left:0px !important;
-        margin-right:0px !important;
+    @bottom-left {
+        content: element(footerLogo, last);
+        position: relative;
+        left: 50px;
     }
-    
+    @bottom-right {
+        content: element(footerLogo, last);
+        position: relative;
+        right: 40px;
+    }
 }
 
+@page contiProtect{
+    size: 8.5in 11in;
+    margin:0px !important;
+    padding-bottom: 0px !important;
+    
+    @top-left-corner{
+        content: string(headerFirsttitle, first);
+        padding-top: 50px;
+        vertical-align: top;
+        font-family: 'ContinentalStagSansLCG-Medium';
+        font-size:10px;
+        white-space:nowrap;
+        position: absolute;
+        left:50px;
+        letter-spacing: 0.05em;
+    }
+
+    @top-left{
+        content: string(headerSecondtitle , first);
+        padding-top: 50px;
+        vertical-align: top;
+        font-size:10px;
+        font-family: 'ContinentalStagSansLCG-light' !important;
+        white-space:nowrap;
+        position: absolute;
+        left:155px;
+        letter-spacing: 0.05em;
+        color:#000000;
+    }
+
+    @top-right{
+        content: counter(page);
+        font-size: 10px;
+        padding-top: 50px;
+        padding-right: 60px;
+        font-family: 'ContinentalStagSansLCG-Light';
+        vertical-align: top;
+
+    }
+    
+    @bottom-left {
+        content: element(footerLogo, last);
+        position: relative;
+        left: 50px;
+    }
+    @bottom-right {
+        content: element(footerLogo, last);
+        position: relative;
+        right: 40px;
+    }
+
+}
 
 @page coverPage{
     margin:0;
