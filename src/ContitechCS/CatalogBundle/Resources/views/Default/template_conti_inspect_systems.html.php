@@ -133,22 +133,24 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php endif; ?>
                             </strong>
                             </h3>
-                            <p>
+                            <div id="reportParagraph">
+                                <p>
 
-                            <?php if($this->editmode):?>
-                                <div class="attr-font"> Attribute Name = Benefits</div>
-                            <?php endif;?>
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
-                                            <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits'])->setDataFromResource($data['Benefits'][0]) ?>
-                                    <?php else: ?>
-                                            <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']) ?>
-                            <?php endif; ?>
-                            
-                            </p>
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font"> Attribute Name = Benefits</div>
+                                <?php endif;?>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
+                                                <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits'])->setDataFromResource($data['Benefits'][0]) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("CIS_Benefits",['placeholder' => 'Enter Benefits']) ?>
+                                <?php endif; ?>
+                                
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

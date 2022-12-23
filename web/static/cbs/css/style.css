@@ -1540,3 +1540,6 @@ p.ml-10
   border-bottom: solid 3px #000;
 }
     
+#reportParagraph p{
+  font-size: 12px;
+}
