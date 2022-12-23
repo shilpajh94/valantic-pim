@@ -1835,7 +1835,7 @@ class DefaultController extends AbstractController
                     $productData['ReportImage'] = $productObject->getReportImage();
                     
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
-                    $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+                    $productData['Benefits'] = $this->getContiProtectFeatures($productObject);
         
                     $childrenData = [];
                     $childObject = $this->getAllRegionChildern($productObject, $regionId);

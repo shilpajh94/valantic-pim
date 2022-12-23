@@ -137,7 +137,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <p>
 
                                 <?php if($this->editmode):?>
-                                    <div class="attr-font"> Attribute Name = Benefits</div>
+                                    <div class="attr-font"> Attribute Name = Features</div>
                                 <?php endif;?>
                                 <?php if($this->editmode): ?>
                                         <?php if($this->input("CIS_Benefits")->isEmpty()): ?>
