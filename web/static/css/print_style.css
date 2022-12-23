@@ -554,11 +554,38 @@ article figure p b {
     display:none;
 }
 
+
+.fittingLeftHeadingSection img.lImg{
+    display:block;
+}
+.fittingLeftHeadingSection img.rImg{
+    display:none;
+}
+
 .rightHeadingSection img.rImg{
     display:block;
 }
 .rightHeadingSection img.lImg{
     display:none;
+}
+
+
+.fittingRightHeadingSection img.rImg{
+    display:block;
+}
+.fittingRightHeadingSection img.lImg{
+    display:none;
+}
+
+
+
+.fittingLeftHeadingSection{
+    padding-top: 0px;
+}
+
+
+.fittingRightHeadingSection{
+    padding-top: 0px;
 }
 
 .leftHeadingSection, .rightHeadingSection{
@@ -576,12 +603,23 @@ article figure p b {
     margin-left: 30px;
 }
 
+ 
+.fittingRightHeadingSection .highlight {
+    margin-right: 30px;
+}
+
 .rightHeadingSection .highlight {
     margin-right: 30px;
 }
 
 .padding{
     margin: 0 30px;
+}
+
+.fittingRightHeadingSection{
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    text-align: right;
 }
 
 .rightHeadingSection  {
@@ -592,6 +630,12 @@ article figure p b {
 
 .alternated {
     padding-right: 30px !important;
+}
+
+.fittingRightHeadingSection p{
+    border-right: 1px solid #000000;
+    text-align: right;
+    border-left: 0 !important;
 }
 
 .rightHeadingSection  p {

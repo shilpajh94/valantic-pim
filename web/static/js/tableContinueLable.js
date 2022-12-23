@@ -33,7 +33,7 @@ HYDFittingRows.forEach(function (row) {
     var rowDescriptions = ro.layout.getBoxDescriptions(row);
     var rowDescription = rowDescriptions[0];
     const onLeftPage = rowDescription.pageLeft;
-    row.className = onLeftPage ? "leftHeadingSection" : "rightHeadingSection";
+    row.className = onLeftPage ? "fittingLeftHeadingSection" : "fittingRightHeadingSection";
 });
 
 
