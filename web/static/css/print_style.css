@@ -2211,3 +2211,9 @@ margin-right:20px;
 
 /*.continueLable{ border:1px solid red;}*/
 
+.page-break-inside-avoid{
+    page-break-inside: avoid;
+}
+.padding-bottom-30{
+    padding-bottom: 30px;
+}
