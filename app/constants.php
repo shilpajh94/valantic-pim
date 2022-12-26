@@ -106,8 +106,6 @@ define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Product
 define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
 define("CS_PPRODUCT_PATH", '/Contitech_ConveyorSolution/Products/');
 
-define("CS_PRODUCT_TABLE_COLUMN_LIMIT", 10);
-
 // Files older than these many days will be moved to S3 from archive folder
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
 
@@ -144,6 +142,7 @@ define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CO
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
 
 
+
 // define constants used in PTGEU
 define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ImportBundle/Resources/config");
 // global product configuration file path
@@ -171,3 +170,5 @@ define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTG
 define('PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog.yml");
 define('PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/attribute_images.yml");
 define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yml");
+
+define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PimDataPostBundle/Resources/config");

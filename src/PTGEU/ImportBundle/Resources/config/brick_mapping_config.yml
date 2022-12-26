@@ -5,6 +5,6 @@ product_type_to_product_brick_field_mapping:
 group_name_to_brick_suffix_mapping:
   PTGEUCommon: "PTGEUCommon"
   PTGEUVBelts: "PTGEUVBelts"
-  IPTGEUPolyV: "PTGEUPolyV"
+  PTGEUPolyV: "PTGEUPolyV"
   PTGEUFlatBelts: "PTGEUFlatBelts"
   PTGEUMetal: "PTGEUMetal"

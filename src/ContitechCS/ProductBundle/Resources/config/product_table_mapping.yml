@@ -1,6 +1,7 @@
 
 Common Product Page: 
     Fortress XP:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -322,7 +323,8 @@ Common Product Page:
                     objectType: TensionElevatorBelt
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     objectType: TensionElevatorBelt
-    ContiTitan:
+    CONTI Titan:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -590,6 +592,7 @@ Common Product Page:
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     objectType: TensionElevatorBelt
     Plylon Plus: 
+        Product_Table_Column_Limit: 9
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -938,6 +941,7 @@ Common Product Page:
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     objectType: TensionElevatorBelt
     ContiFlex:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -1211,6 +1215,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData      
     Spartan: 
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -1484,6 +1489,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData      
     Wood Sawyer:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -1724,6 +1730,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData
     Wood Sawyer Plus:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -1975,6 +1982,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData      
     Pathfinder Plus:
+        Product_Table_Column_Limit: 11
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -2256,6 +2264,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData
     Texsteel:
+        Product_Table_Column_Limit: 10
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
@@ -2491,6 +2500,7 @@ Common Product Page:
                 MinimumPulleyDiameterinMMTailsAndSnubs:
                     objectType: BeltData      
     Phoenix Phoenocord:
+        Product_Table_Column_Limit: 11
         Standard Specifications:
             ColumnKeys: true
             Imperial:
@@ -2540,6 +2550,7 @@ Common Product Page:
                 CarcassWeightKGM:
                     objectType: BeltData      
     Flexsteel:
+        Product_Table_Column_Limit: 10
         Standard Specifications:
             ColumnKeys: true
             Imperial:
@@ -2589,6 +2600,7 @@ Common Product Page:
                 CarcassWeightKGM:
                     objectType: BeltData
     TransConti:
+        Product_Table_Column_Limit: 7
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:

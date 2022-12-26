@@ -197,13 +197,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $product->$method($searchKeywordObject);
             }
         }
-        elseif($fieldName=='vtlStatus' && $fieldType == 'Select')
-        {
-            $vtlObject = $this->getVtlStatus($fieldValue);
-            if($vtlObject !=''){
-                $product->$method($vtlObject);
-            }
-        }
         elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
         {
             $product->$method($fieldValue, 'en');
@@ -255,21 +248,6 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
         if(!empty($objSearchKeywords))
         {
             foreach ($objSearchKeywords as $object) {
-                return $object->getId();
-            }
-        }
-        return '';
-
-    }
-
-    private function getVtlStatus(string $value)
-    {
-
-        $objVtl = new DataObject\PTGEUVTL\Listing();
-        $objVtl->setCondition("description = ?", $value);
-        if(!empty($objVtl))
-        {
-            foreach ($objVtl as $object) {
                 return $object->getId();
             }
         }

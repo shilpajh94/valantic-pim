@@ -3702,9 +3702,9 @@ Digital Solutions:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3727,9 +3727,9 @@ Conveyor Monitoring Systems:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3758,9 +3758,9 @@ CONTI LoadSense:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3810,9 +3810,9 @@ Belt Monitoring Systems:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3841,9 +3841,9 @@ CONTI CordProtect:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Features and Benefits (combination of text and pic):
         fieldName: CSProductFeaturesAndBenefits
         objectType: class
@@ -3911,9 +3911,9 @@ CONTI MultiProtect:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -3975,9 +3975,9 @@ CONTI RipProtect Plus:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4039,9 +4039,9 @@ CONTI SpliceProtect :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4106,9 +4106,9 @@ CONTI TotalProtect :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4164,9 +4164,9 @@ CONTI SurfaceProtect :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4364,9 +4364,9 @@ ABS Extra:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -4427,9 +4427,9 @@ Conti Secur BFA :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features:
-        fieldName: Features
-        objectType: class
+    # Features:
+    #     fieldName: Features
+    #     objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class

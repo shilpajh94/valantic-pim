@@ -6078,7 +6078,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "select  \no1.`oo_id` as ID, o1.`productName` as `Product Name`,\n IF(o1.`mainImage1` IS NOT NULL, \"True\", \"False\") AS `Main Image1`,\n IF(o1.`mainImage2` IS NOT NULL, \"True\", \"False\") AS `Main Image2`,\n IF(o1.`epixImage1` IS NOT NULL, \"True\", \"False\") AS `Epix Image1`,\n IF(o1.`epixImage2` IS NOT NULL, \"True\", \"False\") AS `Epix Image2`,\n IF(o1.`epixImage3` IS NOT NULL, \"True\", \"False\") AS `Epix Image3`,\n IF(o1.`epixImage4` IS NOT NULL, \"True\", \"False\") AS `Epix Image4`,\n IF(o1.`halfView1` IS NOT NULL, \"True\", \"False\") AS `Half View1`,\n IF(o1.`halfView2` IS NOT NULL, \"True\", \"False\") AS `Half View2`,\n IF(o1.`halfView3` IS NOT NULL, \"True\", \"False\") AS `Half View3`,\n IF(o1.`halfView4` IS NOT NULL, \"True\", \"False\") AS `Half View4`,\n IF(o1.`technicalDrawing1` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing1`,\n IF(o1.`technicalDrawing2` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing2`,\n IF(o1.`applicationImage1` IS NOT NULL, \"True\", \"False\") AS `Application Image1`,\n IF(o1.`applicationImage2` IS NOT NULL, \"True\", \"False\") AS `Application Image2`,\n IF(o1.`applicationImage3` IS NOT NULL, \"True\", \"False\") AS `Application Image3`,\n IF(o1.`applicationImage4` IS NOT NULL, \"True\", \"False\") AS `Application Image4`,\n IF(o1.`applicationImage5` IS NOT NULL, \"True\", \"False\") AS `Application Image5`,\n IF(o1.`applicationImage6` IS NOT NULL, \"True\", \"False\") AS `Application Image6`\n FROM object_38 o1 \n inner join object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')  \n WHERE o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = '') AND\n        (\n            o1.`mainImage1` IS NULL ||\n            o1.`mainImage2` IS NULL ||\n            o1.`epixImage1` IS NULL ||\n            o1.`epixImage2` IS NULL ||\n            o1.`epixImage3` IS NULL ||\n            o1.`epixImage4` IS NULL ||\n            o1.`halfView1` IS NULL ||\n            o1.`halfView2` IS NULL ||\n            o1.`halfView3` IS NULL ||\n            o1.`halfView4` IS NULL ||\n            o1.`technicalDrawing1` IS NULL ||\n            o1.`technicalDrawing2` IS NULL ||\n            o1.`applicationImage1` IS NULL ||\n            o1.`applicationImage2` IS NULL ||\n            o1.`applicationImage3` IS NULL ||\n            o1.`applicationImage4` IS NULL ||\n            o1.`applicationImage5` IS NULL ||\n            o1.`applicationImage6` IS NULL \n        )",
+                "sql" => "select  \no1.`oo_id` as ID, o1.`productName` as `Product Name`,\n IF(o1.`mainImage1` IS NOT NULL, \"True\", \"False\") AS `Main Image1`,\n IF(o1.`mainImage2` IS NOT NULL, \"True\", \"False\") AS `Main Image2`,\n IF(o1.`epixImage1` IS NOT NULL, \"True\", \"False\") AS `Epix Image1`,\n IF(o1.`epixImage2` IS NOT NULL, \"True\", \"False\") AS `Epix Image2`,\n IF(o1.`epixImage3` IS NOT NULL, \"True\", \"False\") AS `Epix Image3`,\n IF(o1.`epixImage4` IS NOT NULL, \"True\", \"False\") AS `Epix Image4`,\n IF(o1.`fullView1` IS NOT NULL, \"True\", \"False\") AS `Full View1`,\n IF(o1.`fullView2` IS NOT NULL, \"True\", \"False\") AS `Full View2`,\n IF(o1.`halfView1` IS NOT NULL, \"True\", \"False\") AS `Half View1`,\n IF(o1.`halfView2` IS NOT NULL, \"True\", \"False\") AS `Half View2`,\n IF(o1.`halfView3` IS NOT NULL, \"True\", \"False\") AS `Half View3`,\n IF(o1.`halfView4` IS NOT NULL, \"True\", \"False\") AS `Half View4`,\n IF(o1.`technicalDrawing1` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing1`,\n IF(o1.`technicalDrawing2` IS NOT NULL, \"True\", \"False\") AS `Technical Drawing2`,\n IF(o1.`applicationImage1` IS NOT NULL, \"True\", \"False\") AS `Application Image1`,\n IF(o1.`applicationImage2` IS NOT NULL, \"True\", \"False\") AS `Application Image2`,\n IF(o1.`applicationImage3` IS NOT NULL, \"True\", \"False\") AS `Application Image3`,\n IF(o1.`applicationImage4` IS NOT NULL, \"True\", \"False\") AS `Application Image4`,\n IF(o1.`applicationImage5` IS NOT NULL, \"True\", \"False\") AS `Application Image5`,\n IF(o1.`applicationImage6` IS NOT NULL, \"True\", \"False\") AS `Application Image6`\n FROM object_38 o1 \n inner join object_39 o2 ON o1.`hierarchyLevel5` = CONCAT(',', o2.oo_id, ',')  \n WHERE o2.`Level` = 5 AND (o1.`hierarchyLevel6` IS NULL || o1.`hierarchyLevel6` = '') AND\n        (\n            o1.`mainImage1` IS NULL ||\n            o1.`mainImage2` IS NULL ||\n            o1.`epixImage1` IS NULL ||\n            o1.`epixImage2` IS NULL ||\n            o1.`epixImage3` IS NULL ||\n            o1.`epixImage4` IS NULL ||\n            o1.`fullView1` IS NULL ||\n            o1.`fullView2` IS NULL ||\n            o1.`halfView1` IS NULL ||\n            o1.`halfView2` IS NULL ||\n            o1.`halfView3` IS NULL ||\n            o1.`halfView4` IS NULL ||\n            o1.`technicalDrawing1` IS NULL ||\n            o1.`technicalDrawing2` IS NULL ||\n            o1.`applicationImage1` IS NULL ||\n            o1.`applicationImage2` IS NULL ||\n            o1.`applicationImage3` IS NULL ||\n            o1.`applicationImage4` IS NULL ||\n            o1.`applicationImage5` IS NULL ||\n            o1.`applicationImage6` IS NULL \n        )",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -6094,7 +6094,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel1613-1"
+                "id" => "extModel3044-1"
             ],
             [
                 "name" => "Product Name",
@@ -6103,7 +6103,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-2"
+                "id" => "extModel3044-2"
             ],
             [
                 "name" => "Main Image1",
@@ -6112,7 +6112,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-3"
+                "id" => "extModel3044-3"
             ],
             [
                 "name" => "Main Image2",
@@ -6121,7 +6121,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-4"
+                "id" => "extModel3044-4"
             ],
             [
                 "name" => "Epix Image1",
@@ -6130,7 +6130,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-5"
+                "id" => "extModel3044-5"
             ],
             [
                 "name" => "Epix Image2",
@@ -6139,7 +6139,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-6"
+                "id" => "extModel3044-6"
             ],
             [
                 "name" => "Epix Image3",
@@ -6148,7 +6148,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-7"
+                "id" => "extModel3044-7"
             ],
             [
                 "name" => "Epix Image4",
@@ -6157,7 +6157,25 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-8"
+                "id" => "extModel3044-8"
+            ],
+            [
+                "name" => "Full View1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3044-21"
+            ],
+            [
+                "name" => "Full View2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3044-22"
             ],
             [
                 "name" => "Half View1",
@@ -6166,7 +6184,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-9"
+                "id" => "extModel3044-9"
             ],
             [
                 "name" => "Half View2",
@@ -6175,7 +6193,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-10"
+                "id" => "extModel3044-10"
             ],
             [
                 "name" => "Half View3",
@@ -6184,7 +6202,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-11"
+                "id" => "extModel3044-11"
             ],
             [
                 "name" => "Half View4",
@@ -6193,7 +6211,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-12"
+                "id" => "extModel3044-12"
             ],
             [
                 "name" => "Technical Drawing1",
@@ -6202,7 +6220,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-13"
+                "id" => "extModel3044-13"
             ],
             [
                 "name" => "Technical Drawing2",
@@ -6211,7 +6229,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-14"
+                "id" => "extModel3044-14"
             ],
             [
                 "name" => "Application Image1",
@@ -6220,7 +6238,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-15"
+                "id" => "extModel3044-15"
             ],
             [
                 "name" => "Application Image2",
@@ -6229,7 +6247,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-16"
+                "id" => "extModel3044-16"
             ],
             [
                 "name" => "Application Image3",
@@ -6238,7 +6256,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-17"
+                "id" => "extModel3044-17"
             ],
             [
                 "name" => "Application Image4",
@@ -6247,7 +6265,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-18"
+                "id" => "extModel3044-18"
             ],
             [
                 "name" => "Application Image5",
@@ -6256,7 +6274,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-19"
+                "id" => "extModel3044-19"
             ],
             [
                 "name" => "Application Image6",
@@ -6265,7 +6283,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1613-20"
+                "id" => "extModel3044-20"
             ]
         ],
         "niceName" => "PTGEU - Missing Assets On Products",
@@ -6281,7 +6299,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1657196779,
+        "modificationDate" => 1666341212,
         "creationDate" => 1654688457,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [

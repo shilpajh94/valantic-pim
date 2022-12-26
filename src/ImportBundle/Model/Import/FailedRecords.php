@@ -57,7 +57,11 @@ class FailedRecords {
       $sql = "SELECT * FROM material_sales_import_log WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
       $record = $this->db->fetchAll($sql);
         if($record) {
-          $columns = array_keys(current($record));
+          $columns[] = "Log Id";
+          $columns[] = "Id";
+          $columns[] = "Status Code";
+          $columns[] = "Failed Reason";
+          $columns[] = "Created At";
           $columns[] = "Material";
           $columns[] = "Sales Organization";
           $columns[] = "Distribution Channel";
@@ -70,7 +74,6 @@ class FailedRecords {
               $row    = [];
               $row[]  = $arr['logId'];
               $row[]  = $arr['id'];
-              $row[]  = $arr['record'];
               $row[]  = $arr['statusCode'];
               $row[]  = $arr['failedReason'];
               $row[]  = $arr['createdAt'];
@@ -91,7 +94,13 @@ class FailedRecords {
       $record = $this->db->fetchAll($sql);
 
         if($record) {
-          $columns = array_keys(current($record));
+          // $columns = array_keys(current($record));
+          $columns[] = "Log Id";
+          $columns[] = "Id";
+          $columns[] = "Status Code";
+          $columns[] = "Failed Reason";
+          $columns[] = "Created At";
+
           $fileName = "PIM_Material_".date('mdY')."_Logs".'.csv';
 
           $fileResource = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
@@ -101,7 +110,6 @@ class FailedRecords {
               $row    = [];
               $row[]  = $arr['logId'];
               $row[]  = $arr['id'];
-              $row[]  = $arr['record'];
               $row[]  = $arr['statusCode'];
               $row[]  = $arr['failedReason'];
               $row[]  = $arr['createdAt'];
@@ -117,7 +125,11 @@ class FailedRecords {
       $sql = "SELECT * FROM `material_plant_import_log` WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
       $record = $this->db->fetchAll($sql); 
         if($record) {
-          $columns = array_keys(current($record));
+          $columns[] = "Log Id";
+          $columns[] = "Id";
+          $columns[] = "Status Code";
+          $columns[] = "Failed Reason";
+          $columns[] = "Created At";
           $columns[] = "Material";
           $columns[] = "Plant";
           $columns[] = "Sales Organization";
@@ -131,7 +143,6 @@ class FailedRecords {
               $row    = [];
               $row[]  = $arr['logId'];
               $row[]  = $arr['id'];
-              $row[]  = $arr['record'];
               $row[]  = $arr['statusCode'];
               $row[]  = $arr['failedReason'];
               $row[]  = $arr['createdAt'];
@@ -182,16 +193,18 @@ class FailedRecords {
             foreach ($fileId as $id)
             {
             $objAsset = \Pimcore\Model\Asset::getById($id);
-            $link = $this->getFaliureFilesDeeplink($objAsset);
-            $li .= "<li><a href='".$link."'>".$link."</a></li>";
+            // $link = $this->getFaliureFilesDeeplink($objAsset);
             }
-            $templateParam['file_url'] = $li;
-
+            // $templateParam['file_url'] = $link;
             $mail = new \Pimcore\Mail();
-            $mail->addto($email_Id);
-            $mail->setSubject("Product Fail Records");
+            foreach ($email_Id as $eachBccEmailID) {
+              $mail->addBcc($eachBccEmailID);
+          }
+            $mail->setSubject("SAP BW - Failure SKU(s) list");
             $mail->setDocument($document);
-            $mail->setParams($templateParam);
+            // $mail->setParams($templateParam);
+            $mail->createAttachment($objAsset->getData(),'',$objAsset->getFilename());
+
             
             $mailSent = $mail->send();
               if ($mailSent) {
@@ -207,7 +220,7 @@ class FailedRecords {
     {
       $host = APPLICATION_HOST;
       $link = $host. "/admin/login/deeplink?";
-      $link .= 'asset_' . $asset->getId() . '_document';  
+      $link .= 'asset_' . $asset->getId() . '_text';
       return $link;
     }
 
@@ -237,4 +250,3 @@ class FailedRecords {
         return $email_Id;
     }  
 }
-

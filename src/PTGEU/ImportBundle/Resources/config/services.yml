@@ -88,6 +88,22 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:product-save_publish' }
 
+    # this command will execute to map skeleton brick and import it's data
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUSkeletonBrickMappingAndDataImport:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-skeletonBrickMapping-and-dataImport' }
+
+    # this command will execute to import width attribute data in commonFert brick
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUWidthAttributeDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-widthAttribute-dataImport' }
+        
+    # this command will execute to map polyVFert brick and import it's data
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUPolyVFertBrickMappingAndDataImport:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-polyVFertBrickMapping-and-dataImport' }
+
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService

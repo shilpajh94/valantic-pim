@@ -41,7 +41,8 @@ parameters:
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
-    lastColName: 'AB'
+      externalID: 'External ID'
+    lastColName: 'AC'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']

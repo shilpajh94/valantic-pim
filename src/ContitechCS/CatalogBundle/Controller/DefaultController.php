@@ -3,14 +3,11 @@
 namespace ContitechCS\CatalogBundle\Controller;
 
 use CatalogBundle\Helper\CatalogTemplatingHelper;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
-use S3CustomizationBundle\Lib\Utils;
-use ContitechCS\ImportBundle\Services\ImportConstants;
 use Pimcore\Db;
 use \Exception;
 
@@ -428,12 +425,14 @@ class DefaultController extends AbstractController
                         }
 
                         $productTables          = array();
-                        $childrenDataChunkArray = array_chunk($childrenData, CS_PRODUCT_TABLE_COLUMN_LIMIT);
+                        $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
+                        $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
     
                         if($childrenDataChunkArray)
                         {
                             foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
                             {
+                                unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
                                 $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
                                 
                                 if($tables)
@@ -740,6 +739,44 @@ class DefaultController extends AbstractController
                                 }
                             }
                         }
+
+                        if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
+                        {
+                            $singleLoadSupportMaximumBeltWidthData = [];
+                            $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
+
+                            foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
+                                foreach ($section as $sectionKey => $tableSection) {
+
+                                    foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
+
+                                        if($tableSectionKey == 'tbody')
+                                        {
+                                            foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
+                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                            }
+                                        }
+                                        else{
+                                            $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                        }
+                                    }
+                                }
+                            }
+
+                            #Move first imperail then matric
+                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
+                            {
+                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
+                            }
+
+                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
+                            {
+                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
+                            }
+                            
+                            $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
+                        }
+
                         $productData['productTables'] = $productTables;
                     }
                 }

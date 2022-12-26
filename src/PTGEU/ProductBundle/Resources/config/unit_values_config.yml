@@ -24,6 +24,11 @@ ribPitchMM1:
   fieldType: Input
   fieldValue: mm
   objectType: PTGEUCommonFert
+widthMMUnit:
+  fieldName: widthMMUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: PTGEUCommonFert
 heightINUnit:
   fieldName: heightINUnit
   fieldType: Input
@@ -49,6 +54,11 @@ ribPitchINUnit:
   fieldType: Input
   fieldValue: inch
   objectType: PTGEUCommonFert
+widthINUnit:
+  fieldName: widthINUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: PTGEUCommonFert
 
 #PTGEUFlatBeltsSkeleton
 toothPitchPtMMUnit:
@@ -58,11 +68,6 @@ toothPitchPtMMUnit:
   objectType: PTGEUFlatBeltsSkeleton
 toothHeightHtMMUnit:
   fieldName: toothHeightHtMMUnit
-  fieldType: Input
-  fieldValue: mm
-  objectType: PTGEUFlatBeltsSkeleton
-widthMMUnit:
-  fieldName: widthMMUnit
   fieldType: Input
   fieldValue: mm
   objectType: PTGEUFlatBeltsSkeleton
@@ -78,11 +83,6 @@ toothPitchPtINUnit:
   objectType: PTGEUFlatBeltsSkeleton
 toothHeightHtINUnit:
   fieldName: toothHeightHtINUnit
-  fieldType: Input
-  fieldValue: inch
-  objectType: PTGEUFlatBeltsSkeleton
-widthINUnit:
-  fieldName: widthINUnit
   fieldType: Input
   fieldValue: inch
   objectType: PTGEUFlatBeltsSkeleton
