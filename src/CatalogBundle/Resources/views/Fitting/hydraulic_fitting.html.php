@@ -197,7 +197,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                         /* New Family Info */
                         ?>
-                        <article class="container noBorder noBreak">
+                        <article class="container page-break-inside-avoid">
                             <figure class="headingSection">
                                 <span>
                                     <?php
