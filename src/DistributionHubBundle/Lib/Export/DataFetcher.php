@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Pimcore\Localization\LocaleServiceInterface;
 use Pimcore\Model\DataObject;
 use DistributionHubBundle\Services\BundleService;
+use DistributionHubBundle\Lib\DHubLogger;
 
 class DataFetcher
 {
@@ -316,7 +317,14 @@ class DataFetcher
                 }
 
                 $getter = "get" . ucfirst($field['attributeName']);
-                $asset = $object->$getter();
+                if($field['className']){
+                    $classGetter = "get". ucfirst($field['className']);
+                    if($object->getMaterial()[0]){
+                        $asset = $object->$classGetter()[0]->$getter();
+                    }
+                }else{
+                    $asset = $object->$getter();
+                }
                 if (!empty($asset)) {
                     $field['assetId'] = $asset->getId();
                 }
