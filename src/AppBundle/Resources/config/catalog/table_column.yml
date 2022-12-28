@@ -540,25 +540,26 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
                 fieldType: Input
-                columnWidth: 80
+                columnWidth: 98
                 parent:
                     name: HydFittingsFert
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
-                columnWidth: 80
+                columnWidth: 75
                 parent: 
                     name: Product
             articleNumber:
                 fieldLevel: class
                 fieldLabel: SAP Number
                 fieldType: Input
-                columnWidth: 70
+                # columnWidth: 65
             HoseID1InFract:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID 1 In Fract
                 groupName: HoseID1InFract
+                columnWidth: 50
                 unitName: fract
                 fieldType: Input
                 parent:
@@ -593,6 +594,7 @@ parameters:
                 groupName: Hex1WrenchSize
                 unitName: in
                 numberOfDecimalPoints: 2
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -602,6 +604,7 @@ parameters:
                 groupName: Hex1WrenchSize
                 unitName: mm
                 numberOfDecimalPoints: 2
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -609,6 +612,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 1 Wrench Size (Fraction)
                 groupName: Hex1WrenchSize
+                # columnWidth: 75
                 unitName: fract
                 fieldType: Input
                 parent:
@@ -619,6 +623,7 @@ parameters:
                 groupName: Hex2WrenchSize
                 unitName: in
                 numberOfDecimalPoints: 2
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -628,6 +633,7 @@ parameters:
                 groupName: Hex2WrenchSize
                 unitName: mm
                 numberOfDecimalPoints: 2
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -635,6 +641,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 2 Wrench Size (Fraction)
                 groupName: Hex2WrenchSize
+                # columnWidth: 75
                 unitName: fract
                 fieldType: Input
                 parent:
@@ -645,7 +652,7 @@ parameters:
                 groupName: CutOffLength
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 70
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -655,7 +662,7 @@ parameters:
                 groupName: CutOffLength
                 unitName: mm
                 numberOfDecimalPoints: 2
-                columnWidth: 70
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -665,6 +672,7 @@ parameters:
                 groupName: ThreadSize1InMMDecimal
                 unitName: in
                 numberOfDecimalPoints: 2
+                columnWidth: 60
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -782,7 +790,7 @@ parameters:
                 groupName: OverallLength
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 70
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -792,7 +800,7 @@ parameters:
                 groupName: OverallLength
                 unitName: mm
                 numberOfDecimalPoints: 2
-                columnWidth: 70
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -903,7 +911,7 @@ parameters:
                 groupName: DropLength
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 60
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -913,7 +921,7 @@ parameters:
                 groupName: DropLength
                 unitName: mm
                 numberOfDecimalPoints: 2
-                columnWidth: 60
+                # columnWidth: 75
                 fieldType: Input
                 parent:
                     name: HydFittingsFert

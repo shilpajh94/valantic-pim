@@ -2047,6 +2047,7 @@ div.content_double {
 /*#pimcore-pdf img{  max-width:100%; height:auto;}*/
 
 @page {
+    /* size: 8.5in 11in; */
     margin-left: 0;
     margin-right: 0;
     margin-top: 50px;
