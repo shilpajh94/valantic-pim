@@ -1502,7 +1502,14 @@ p.ml-10
 }
 
 #productImageContainer{
-  margin-bottom: -52px;
+  float: right;
+  position: absolute;
+  right: 0;
+  bottom: -52px;
+}
+
+#conti-protect-title-desc{
+  width: 80%;
 }
 
 #conti-protect-system img{

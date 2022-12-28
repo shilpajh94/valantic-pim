@@ -64,79 +64,84 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php if($this->editmode):?>
                                 <div class="attr-font">Attribute Name = Short Text</div>
                             <?php endif;?>
-                                <p>
 
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->input("CPS_ShortText")->isEmpty()): ?>
-                                                <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
-                                        <?php else: ?>
-                                                <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']) ?>
-                                <?php endif; ?>
+                                <div id="conti-protect-title-desc">
+                                    <p>
 
-                                </p>
-                                
-                                <?php
-                                    if($monitoring_system)
-                                    {
-                                        ?>
-                                            <div class="feature-benefit-list mb-0">
-                                                <h3 class="f-12 conti-grey">
-                                                
-                                                <?php if($this->editmode): ?>
-                                                        <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
-                                                                <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
-                                                        <?php else: ?>
-                                                                <?= $this->input("CPS_BenefitLabel"); ?>
-                                                        <?php endif; ?>
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("CPS_ShortText")->isEmpty()): ?>
+                                                        <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("CPS_BenefitLabel") ?>
+                                                        <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']); ?>
                                                 <?php endif; ?>
-                                                
-                                                </h3>
-                                                <?php if($this->editmode):?>
-                                                    <div class="attr-font">Attribute Name = Features</div>
-                                                <?php endif;?>
-                
-                                                <?php 
-                                                    echo "<ul>";
-                                                    foreach($monitoring_system as $val)
-                                                    {
-                                                        echo "<li>".$val."</li>";
-                                                    }
-                                                    echo "</ul>";
-                                                ?>
-                                            </div>
-                                        <?php
-                                    }
-                                ?>
-                            </div>
-                            <div id="productImageContainer">
-                                <?php if($this->editmode):?>
-                                    <div class="attr-font">Child Attribute Name = Product Image</div>
-                                <?php endif;?>
-                                <?php
-                                    if($this->editmode)
-                                    {
-                                        if($this->image("CPS_productImage")->isEmpty())
+                                        <?php else: ?>
+                                                <?= $this->input("CPS_ShortText",['placeholder' => 'Enter Short Text']) ?>
+                                        <?php endif; ?>
+
+                                    </p>
+                                    
+                                    <?php
+                                        if($monitoring_system)
                                         {
-                                            echo $this->image("CPS_productImage")->setImage($data['ProductImage']);
+                                            ?>
+                                                <div class="feature-benefit-list mb-0">
+                                                    <h3 class="f-12 conti-grey">
+                                                    
+                                                    <?php if($this->editmode): ?>
+                                                            <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
+                                                                    <?= $this->input("CPS_BenefitLabel", ['placeholder'=>'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.']) ?>
+                                                            <?php else: ?>
+                                                                    <?= $this->input("CPS_BenefitLabel"); ?>
+                                                            <?php endif; ?>
+                                                    <?php else: ?>
+                                                            <?= $this->input("CPS_BenefitLabel") ?>
+                                                    <?php endif; ?>
+                                                    
+                                                    </h3>
+                                                    <?php if($this->editmode):?>
+                                                        <div class="attr-font">Attribute Name = Features</div>
+                                                    <?php endif;?>
+                    
+                                                    <?php 
+                                                        echo "<ul>";
+                                                        foreach($monitoring_system as $val)
+                                                        {
+                                                            echo "<li>".$val."</li>";
+                                                        }
+                                                        echo "</ul>";
+                                                    ?>
+                                                </div>
+                                            <?php
                                         }
-                                        else{
-                                            echo $this->image("CPS_productImage");
+                                    ?>
+
+                                </div>
+
+                                <div id="productImageContainer">
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = Product Image</div>
+                                    <?php endif;?>
+                                    <?php
+                                        if($this->editmode)
+                                        {
+                                            if($this->image("CPS_productImage")->isEmpty())
+                                            {
+                                                echo $this->image("CPS_productImage")->setImage($data['ProductImage']);
+                                            }
+                                            else{
+                                                echo $this->image("CPS_productImage");
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        $CPS_productImageObj =  $this->image("CPS_productImage");
-                                        if (!empty($CPS_productImageObj->getId())) { ?>
-                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_productImageObj, $this->imageWidth); ?>" alt=""  class="" style="">
-                                        <?php
+                                        else
+                                        {
+                                            $CPS_productImageObj =  $this->image("CPS_productImage");
+                                            if (!empty($CPS_productImageObj->getId())) { ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CPS_productImageObj, $this->imageWidth); ?>" alt=""  class="" style="">
+                                            <?php
+                                            }
                                         }
-                                    }
-                                ?>
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
