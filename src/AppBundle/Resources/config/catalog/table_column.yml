@@ -672,7 +672,7 @@ parameters:
                 groupName: ThreadSize1InMMDecimal
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 60
+                columnWidth: 105
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
