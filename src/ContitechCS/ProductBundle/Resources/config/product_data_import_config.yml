@@ -1007,7 +1007,7 @@ Features and Benefits (combination of text and pic):
     fieldName: CSProductFeaturesAndBenefits
     fieldType: manyToManyObjectRelation
     className: CSFeaturesAndBenefits
-    fieldNameToSearch: FeatureName
+    fieldNameToSearch: FeatureDescription
     objectType: class
     mandatoryFields: "FeatureName|FeatureDescription"
     createFlag: false

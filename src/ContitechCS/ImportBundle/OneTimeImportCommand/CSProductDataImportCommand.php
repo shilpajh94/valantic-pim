@@ -340,7 +340,19 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         }
                                                     }
                                                     $fieldValue = array_map('trim', $segmentValueArr);
-                                                } else {
+                                                } else if ($fieldName == 'CSPerformanceCategory') {
+                                                    $performanceCategoryArr = [];
+                                                    foreach ($fieldValueArr as $eachPerformance) {
+                                                        $performanceValue = trim($eachPerformance);
+                                                        $performanceCategories = new \Pimcore\Model\DataObject\CSPerformanceCategories\Listing();
+                                                        $performanceCategories->setCondition('PerformanceCategory = ?', $performanceValue);
+                                                        foreach ($performanceCategories as $performanceCategory) {
+                                                            $performanceCategoryArr[] = $performanceCategory->getId();
+                                                        }
+                                                    }
+                                                    $fieldValue = array_map('trim', $performanceCategoryArr);
+                                                }
+                                                else {
                                                     $fieldValue = array_map('trim', $fieldValueArr);
                                                 }
                                                 $method = 'set' . $fieldName;
