@@ -30,8 +30,10 @@ class CommonHelper {
                 foreach ($rolesList->getItems() as $role) {
                     $roleName = $role->getName();    
                     $attributes = $editableAttributes[$roleName];
-                    foreach ($attributes as $attribute) {
-                        $attributeList[$attribute] = true;
+                    if($attributes){
+                        foreach ($attributes as $attribute) {
+                            $attributeList[$attribute] = true;
+                        }    
                     }
                 }
                 $allRestrictedFields = $editableAttributes['All'];     
