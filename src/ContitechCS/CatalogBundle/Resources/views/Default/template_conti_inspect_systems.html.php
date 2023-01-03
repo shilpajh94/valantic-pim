@@ -86,10 +86,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="media pt-0" id="contiInspectSystemReportImage">
                         
                         <div id="instpectReport1">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font"> Attribute Name = ReportImage</div>
+                            <?php endif;?>
                             <?php
                                 if($this->editmode)
                                 {
-                                    echo $this->image("CIS_ReportImage1",["height" => 90]);
+                                    if($this->image("CIS_ReportImage1")->isEmpty())
+                                    {
+                                        echo $this->image("CIS_ReportImage1",["height" => 90])->setImage($data['ReportImage']);
+                                    }
+                                    else{
+                                        echo $this->image("CIS_ReportImage1",["height" => 90]);
+                                    }
                                 }
                                 else
                                 {
@@ -103,10 +112,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </div>
 
                         <div id="instpectReport2">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font"> Attribute Name = DamageImage</div>
+                            <?php endif;?>
                             <?php
                                 if($this->editmode)
                                 {
-                                    echo $this->image("CIS_ReportImage2",["height" => 90]);
+                                    if($this->image("CIS_ReportImage2")->isEmpty())
+                                    {
+                                        echo $this->image("CIS_ReportImage2",["height" => 90])->setImage($data['DamageImage']);
+                                    }
+                                    else{
+                                        echo $this->image("CIS_ReportImage2",["height" => 90]);
+                                    }
                                 }
                                 else
                                 {

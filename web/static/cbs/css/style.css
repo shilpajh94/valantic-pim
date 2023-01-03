@@ -1093,16 +1093,14 @@ height:100%;
 }
 #contiInspectSystemReportImage
 {
+  padding: 10px 0;
   margin-left: 70px;
 }
 #contiInspectSystemApplicationImage img{
-    /* max-height: 200px; */
     width: 90%;
     position: relative;
     right: 0;
     bottom: 0;
-  /* height: auto; */
-  /* width: auto; */
 }
 #contiInspectSystemApplicationImage{
   margin-left: 70px;
@@ -1483,12 +1481,14 @@ p.ml-10
   /* text-align: center; */
 }
 
+.cleated_product_img{
+  height: 80px;
+}
 .cleated_product_img .pimcore_tag_image, 
 .cleated_product_img img{
-  min-height: 100px !important;
-  max-height: 100px !important;
-  max-width: 100px !important;
-
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
 }
 
 #contiprotectsystem{

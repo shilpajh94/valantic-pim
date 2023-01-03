@@ -1833,6 +1833,7 @@ class DefaultController extends AbstractController
                     $productData['ShortText'] = $productObject->getShortText();
                     $productData['ProductImage'] = $productObject->getProductImage();
                     $productData['ReportImage'] = $productObject->getReportImage();
+                    $productData['DamageImage'] = $productObject->getDamageImage();
                     
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
                     $productData['Benefits'] = $this->getContiProtectFeatures($productObject);
