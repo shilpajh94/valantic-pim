@@ -198,15 +198,14 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php else: ?>
                         <tr class="active">
                         <?php endif; ?>
-
                                 <td><b><?= $brandData['brandName']; ?></b></td>
                                 <td><?= $this->input("HHSC_Page_{$md5brandKey}") ?></td>
                                 <td><?= $brandData['reinforcement']; ?></td>
                                 <td><?= $brandData['tubeMaterialAtrributeString']; ?></td>
                                 <td><?= $brandData['workingPressurePSIString']; ?></td>
-                                <td><?= $brandData['temperatureRangeFAndC']; ?></td>
+                                <td><?= $brandData['rangeTemperatureF']; ?></td>
                                 <td><?= $brandData['fittingFamily']; ?></td>
-                                <td><?= $brandData['industryStandard']; ?></td>
+                                <td><?= $this->input("Construction_Type_{$md5brandKey}")->setDataFromResource($brandData['industryStandard']); ?></td>
                                 <td><?= $brandData['CatalogPackaging']; ?></td>
                         </tr>
 

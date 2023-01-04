@@ -1586,11 +1586,11 @@ if(isset($data[$baseId])) {
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-
             $this->get('translator')->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
@@ -1609,7 +1609,6 @@ if(isset($data[$baseId])) {
                 }
 
                 $catalogGroupData = array();
-
                 foreach($catalogGrouping as $catalogKey => $brandsData)
                 {
                     foreach ($brandsData as $brandKey => $brandArray)
@@ -1621,19 +1620,21 @@ if(isset($data[$baseId])) {
                         $VirtualCatalogTubeMaterial = '';
                         $VirtualCatalogCoverMaterial = '';
                         $VirtualCatalogReinforcement = '';
-                        $temperatureRangeFAndC = '';
-                        $industryStandard = '';
                         $CatalogGrouping = '';
                         $CatalogPackaging = '';
+                        $rangeTemperatureF = '';
+                        $constructionType = '';
 
                         $tubeMaterial = array();
                         $reinforcement = array();
                         $workingPressurePSI = array();
                         $fittingFamily = array();
+                        $industryStandardKey = array();
+                        $industryStandard = array();
 
                         foreach($brandArray as $key => $element):
 
-                            $brandName = $element[$headerKeysIndex['brandName']][0];
+                            $brandName = $element[$headerKeysIndex['brandName']][0];                            
 
                             if(empty($CatalogPackaging) && $element[$headerKeysIndex['Packaging']])
                                     $CatalogPackaging = $element[$headerKeysIndex['Packaging']];
@@ -1650,11 +1651,17 @@ if(isset($data[$baseId])) {
                             if(empty($CatalogGrouping) && $element[$headerKeysIndex['CatalogGrouping']])
                                 $CatalogGrouping = $element[$headerKeysIndex['CatalogGrouping']];
 
-                            if(empty($industryStandard) && $element[$headerKeysIndex['industryStandard']])
-                                $industryStandard = $element[$headerKeysIndex['industryStandard']];
-
-                            if(empty($temperatureRangeFAndC) && $element[$headerKeysIndex['temperatureRangeFAndC']])
-                                $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
+                            if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
+                                $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
+                            
+                            if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
+                                $entries = new DataObject\ProductCategory\Listing();
+                                $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
+                                $entries->load();
+                                foreach($entries as $entry) {
+                                    $constructionType = $entry->getConstructionType();
+                                }
+                            }
 
                             foreach($element as $bkey => $value):
 
@@ -1665,10 +1672,12 @@ if(isset($data[$baseId])) {
                                     if($bkey == $headerKeysIndex['workingPressurePSI'])
                                     {
                                         if($value)
-                                            $workingPressurePSI[] = $value;
+                                        $workingPressurePSI[] = $value;
                                     }
                                     if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
+                                    if($bkey == $headerKeysIndex['standardMetHose'])
+                                        $industryStandardKey = array_merge($industryStandardKey, $value);
 
                             endforeach;
 
@@ -1678,6 +1687,11 @@ if(isset($data[$baseId])) {
                         $reinforcement = array_unique($reinforcement);
                         $workingPressurePSI = array_unique($workingPressurePSI);
                         $fittingFamily = array_unique($fittingFamily);
+                        $industryStandardKey = array_unique($industryStandardKey);
+
+                        foreach($industryStandardKey as $industryStandardName){
+                            $industryStandard[] = $standardMetHoseList[$industryStandardName]['name'];
+                        }
 
                         $workingPressurePSIString = "";
                         if($workingPressurePSI)
@@ -1693,6 +1707,7 @@ if(isset($data[$baseId])) {
                         $tubeMaterialAtrributeString = implode(', ', $tubeMaterial);
                         $reinforcement = implode(', ', $reinforcement);
                         $fittingFamily = implode(', ', $fittingFamily);
+                        $industryStandard = implode(', ', $industryStandard);
 
                         $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                         if(empty($VirtualCatalogTubeMaterialStr))
@@ -1706,9 +1721,10 @@ if(isset($data[$baseId])) {
                                 if(empty($reinforcementStr))
                                     $reinforcementStr = $reinforcement;
 
+
                         $data[$uniqueId]['brandName'] = $brandName;
-                        $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                        $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                        $data[$uniqueId]['rangeTemperatureF'] = $rangeTemperatureF;
+                        $data[$uniqueId]['reinforcement'] = $constructionType;
                         $data[$uniqueId]['fittingFamily'] = $fittingFamily;
                         $data[$uniqueId]['industryStandard'] = $industryStandard;
                         $data[$uniqueId]['CatalogGrouping'] = $CatalogGrouping;

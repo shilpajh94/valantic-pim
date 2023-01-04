@@ -121,6 +121,18 @@ parameters:
                 fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
+            rangeTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Temperature Range
+                parent:
+                    name: Product
+            siopFullCode:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Siop Full Code
+                parent:
+                    name: Product
             FeaturesBenefitsBulletPoint:
                 fieldLevel: class
                 fieldType: Relation
