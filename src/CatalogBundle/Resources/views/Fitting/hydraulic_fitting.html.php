@@ -9,6 +9,7 @@ if (!isset($this->parentContainer)) {
 
 <?php
 if (is_array($brandsData) && !empty($brandsData)) {
+    $partNumbers = [];
 ?>
 
 <div class="template">
@@ -266,7 +267,8 @@ if (is_array($brandsData) && !empty($brandsData)) {
                         <?php
 
                         if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
-
+                        $columnList = [];
+                        // p_r($tableRows['articleData']['columnsDataWithImages']);
                         ?>
                         <table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
                             <thead>
@@ -304,7 +306,9 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                 <?php if ($tableRows['articleData']['subHeaderRequired'] == 'YES'): ?>
                                     <tr class="head">
                                         <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data): ?>
-                                            <?php foreach ($c3data as $c3key => $c3value): ?>
+                                            <?php foreach ($c3data as $c3key => $c3value): 
+                                                $columnList[] = $c3key;
+                                                ?>
                                                 <?php if ($c3value['unitName']): ?>
                                                     <td><?= $c3value['unitName'] ?></td>
                                                 <?php else: ?>
@@ -324,6 +328,24 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                     <?php $activeClass = ($incrRow % 2 == 0) ? 'active' : ''; ?>
                                         <?php foreach ($shortedRows as $ekey => $element): ?>
                                             <tr class="<?= $activeClass; ?>">
+
+                                            <?php 
+                                                $indexDescriptiveNumber = array_search('DescriptivePartNumber', $columnList);
+                                                if(($indexDescriptiveNumber !== false) && ($element[$indexDescriptiveNumber]))
+                                                { 
+                                                    $descriptiveNumberText = $element[$indexDescriptiveNumber];
+                                                    $descriptiveNumberList = explode('-', $descriptiveNumberText);
+                                                    if(count($descriptiveNumberList) > 1)
+                                                    {
+                                                        $descriptiveText = $descriptiveNumberList[0].'-'.$descriptiveNumberList[1];
+                                                    }
+
+                                                    if(!in_array($descriptiveText, $partNumbers))
+                                                    {
+                                                        $partNumbers[] = $descriptiveText;
+                                                    }
+                                                }
+                                            ?>
                                                 <?php foreach ($element as $ekey => $value): ?>
                                                     <td><?= $value ?></td>
                                                 <?php endforeach; ?>
@@ -358,6 +380,12 @@ if (is_array($brandsData) && !empty($brandsData)) {
     <!-- End Footer-->
 </section>
 </div>
+
+<?php
+
+$partNumberString = implode(',', $partNumbers);
+echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+?>
 
 <?php if (!$containerRequest): ?>
         <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>

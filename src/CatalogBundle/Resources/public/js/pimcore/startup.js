@@ -330,7 +330,19 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
 
         }
-    }
+    },
+    postOpenDocument: function(doc,type){
+
+        let docPath             = doc.data.path;
+        let docType             = doc.data.type;
+        let template             = doc.data.template;
+
+        if(template ==  'CatalogBundle:Default:template_index_descriptive_number_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+    },
 
 });
 

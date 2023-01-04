@@ -2,16 +2,13 @@
 
 namespace CatalogBundle\Controller;
 
-use Pimcore\Model\Asset;
-use AppBundle\Helper\Common;
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use S3CustomizationBundle\Lib\Utils;
+use \Exception;
 
 class DefaultController extends AbstractController {
 
@@ -1196,7 +1193,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-                    
+                    $uniqueId = md5($brandKey);
                     $availableLengthString = '';
                     $materialString = '';
                     $colorString = '';
@@ -1263,7 +1260,6 @@ if(isset($data[$baseId])) {
 
                     $data[$uniqueId]['brandName'] = $brandName;
                     $data[$uniqueId]['imageObj'] = $imageObj;
-                    $data[$uniqueId]['mainImage'] = $mainImage;
                     $data[$uniqueId]['longDescription'] = $longDescription;
                     $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                     $data[$uniqueId]['materialString'] = $materialString;
@@ -1616,10 +1612,10 @@ if(isset($data[$baseId])) {
                     {
                         $uniqueId = md5($brandKey);
                         $VirtualCatalogTubeMaterialStr = '';
-                        $VirtualCatalogCoverMaterialStr = '';
+                        // $VirtualCatalogCoverMaterialStr = '';
                         $reinforcementStr = '';
                         $VirtualCatalogTubeMaterial = '';
-                        $VirtualCatalogCoverMaterial = '';
+                        // $VirtualCatalogCoverMaterial = '';
                         $VirtualCatalogReinforcement = '';
                         $temperatureRangeFAndC = '';
                         $industryStandard = '';
@@ -1641,8 +1637,8 @@ if(isset($data[$baseId])) {
                             if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
                                     $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
 
-                            if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
-                                $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            // if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
+                            //     $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
 
                             if(empty($VirtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']])
                                 $VirtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
@@ -1698,9 +1694,9 @@ if(isset($data[$baseId])) {
                         if(empty($VirtualCatalogTubeMaterialStr))
                             $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
-                            if(empty($VirtualCatalogCoverMaterialStr))
-                                $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
+                        // $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
+                        //     if(empty($VirtualCatalogCoverMaterialStr))
+                        //         $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
                         $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                                 if(empty($reinforcementStr))
@@ -2303,8 +2299,86 @@ if(isset($data[$baseId])) {
     {
     }
 
+    public function templateIndexDescriptiveNumberDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
+                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
+                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
+                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
+                'CatalogBundle:Default:template_hose_product_page.html.php',
+                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+            ];
+
+            $all_doc_arr = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+                        if (in_array($childDoc->getTemplate(), $templateArray)) {
+                            $obj = $childDoc->getElement('product_page_part_number');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $partNumberList = explode(',', $obj->getData());
+                                $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('product_page_part_number');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $partNumberList = explode(',', $obj->getData());
+                            $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                        }
+                    }
+                }
+            }
+
+            $all_doc_arr = array_unique($all_doc_arr);
+            sort($all_doc_arr);
+
+            $this->view['data'] = $all_doc_arr;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
     public function templateIndexProductNumberAction(Request $request)
     {
+    }
+
+    /**
+     * Reset Table of content page's data
+     * @Route("/reset-table-of-content")
+     * @return json
+     */
+    public function resetTableOfContentPageData(Request $request)
+    {
+        try
+        {
+            $docId  = $request->get('docId');
+            $sql    = "DELETE FROM documents_elements where documentId = '$docId'";
+            $resp   = $this->db->query($sql);
+
+            return $this->json(array("success" => true,"msg" => 'Content Reset Successfully.'));
+        }
+        catch(Exception $e)
+        {  
+            return $this->json(array("success" => false,"msg" => $e->getMessage()));
+        }
     }
 }
 
