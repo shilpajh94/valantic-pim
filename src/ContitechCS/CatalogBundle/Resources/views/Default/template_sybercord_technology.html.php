@@ -42,7 +42,7 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
            <?php if($this->editmode):?>
-                <div class="attr-font">Attribute Name = Name</div>
+                <p class="attr-font">Attribute Name = Name</p>
             <?php endif;?> 
             <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
@@ -55,104 +55,114 @@
                     <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?>
             </h1>
-
-            <?php if($this->editmode):?>
-                <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
-            <?php endif;?>
-            <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
-                <?php if($this->editmode): ?>
-                    <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
-                        <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
-                    <?php else: ?>
-                        <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
-                    <?php endif; ?>
-                        <?php else: ?>
-                    <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
-                <?php endif; ?>
-
-                <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = Logo Image</div>
-                <?php endif;?>
-                <?php
-                if($this->editmode)
-                    {
-                        if($this->image("ST_LogoImage")->isEmpty()) {
-                            echo $this->image("ST_LogoImage", ["height"=>50])->setImage($data['LogoImage']);
-                        } else {
-                            echo $this->image("ST_LogoImage", ["height"=>50]);
-                        }
-                    } else
-                        {
-                        $STLogoImgSrcObj =  $this->image("ST_LogoImage");
-                        if (!empty($STLogoImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin-right: 0px; margin-bottom: 0px; max-height:50px; width:auto;"/>
-                        <?php
-                        }
-                    }
-                ?>
-            </h2>
-
-
-
-            <div class="environment-quality-sec">
-
-                <div class="media">
-                    <div class="media-body pr-4">
+            
+            <div id="sybercord-para-container" class="d-flex">
+                <div id="sybercord-para-left-container" class="col-lg-9">
                     <?php if($this->editmode):?>
-                        <div class="attr-font">Attribute Name = Short Text</div>
+                        <p class="attr-font">Attribute Name = Product Claim/Slogan</p>
                     <?php endif;?>
-                        <p>
-                            <?php if($this->editmode): ?>
-                                <?php if($this->textarea("ST_ShortText")->isEmpty()): ?>
-                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
-                                <?php else: ?>
-                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']); ?>
-                                <?php endif; ?>
-                                <?php else: ?>
-                                    <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']) ?>
+                    
+                    <h2 class="sybercord-sub-title black-bold" style="justify-content: space-between;">
+                        <?php if($this->editmode): ?>
+                            <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
+                                <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan'])->setDataFromResource($data['ProductClaimSlogan']) ?>
+                            <?php else: ?>
+                                <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']); ?>
                             <?php endif; ?>
-                        </p>
+                                <?php else: ?>
+                            <?= $this->textarea("ST_ProductClaimSlogan",['placeholder' => 'Enter Product Slogan']) ?>
+                        <?php endif; ?>
+                    </h2>
+
+                    <div class="environment-quality-sec">
+
+                        <div class="media">
+                            <div class="media-body pr-4">
+                                <?php if($this->editmode):?>
+                                    <p class="attr-font">Attribute Name = Short Text</p>
+                                <?php endif;?>
+                                <p>
+                                    <?php if($this->editmode): ?>
+                                        <?php if($this->textarea("ST_ShortText")->isEmpty()): ?>
+                                            <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
+                                        <?php else: ?>
+                                            <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']); ?>
+                                        <?php endif; ?>
+                                        <?php else: ?>
+                                            <?= $this->textarea("ST_ShortText",['placeholder' => 'Enter Short Text']) ?>
+                                    <?php endif; ?>
+                                </p>
 
 
+                                <?php if($this->editmode):?>
+                                    <p class="attr-font">Attribute Name = Product Image</p>
+                                <?php endif;?>
+                                <?php
+                                if($this->editmode) {
+                                    if($this->image("ST_ProductImage")->isEmpty()) {
+                                        echo $this->image("ST_ProductImage", ["height"=>300])->setImage($data['ProductImage']);
+                                    } else {
+                                    echo $this->image("ST_ProductImage", ["height"=>300]);
+                                    }
+                                } else {
+                                    $STProdImgSrcObj =  $this->image("ST_ProductImage");
+                                    if (!empty($STProdImgSrcObj->getId())) { ?>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" style="height:auto; width:fit-content;"/>
+                                    <?php
+                                    }
+                                }
+                                ?>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sybercord-para-right-container" class="col-lg-3">
+                    <div id="syber-right-logo1">
                         <?php if($this->editmode):?>
-                            <div class="attr-font">Attribute Name = Product Image</div>
+                            <p class="attr-font">Attribute Name = Logo Image</p>
                         <?php endif;?>
                         <?php
+                        if($this->editmode)
+                            {
+                                if($this->image("ST_LogoImage")->isEmpty()) {
+                                    echo $this->image("ST_LogoImage", ["width"=>200])->setImage($data['LogoImage']);
+                                } else {
+                                    echo $this->image("ST_LogoImage", ["width"=>200]);
+                                }
+                            } else
+                                {
+                                $STLogoImgSrcObj =  $this->image("ST_LogoImage");
+                                if (!empty($STLogoImgSrcObj->getId())) { ?>
+                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STLogoImgSrcObj, $this->imageWidth); ?>" alt="" style="margin:0 auto; max-width:200px; height:auto;"/>
+                                <?php
+                                }
+                            }
+                        ?>
+                    </div>
+                    <div id="syber-right-logo2" class="pt-4 mleft-10">
+                        <?php if($this->editmode):?>
+                                <p class="attr-font">Attribute Name = ApplicationImage</p>
+                            <?php endif;?>
+                        <?php
                         if($this->editmode) {
-                            if($this->image("ST_ProductImage")->isEmpty()) {
-                                echo $this->image("ST_ProductImage", ["height"=>180])->setImage($data['ProductImage']);
+                            if ($this->image("ST_ApplicationImage")->isEmpty()) {
+                                echo $this->image("ST_ApplicationImage", ["width"=>180])->setImage($data['ApplicationImage']);
                             } else {
-                               echo $this->image("ST_ProductImage", ["height"=>180]);
+                                echo $this->image("ST_ApplicationImage", ["width"=>180]);
                             }
                         } else {
-                            $STProdImgSrcObj =  $this->image("ST_ProductImage");
-                            if (!empty($STProdImgSrcObj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STProdImgSrcObj, $this->imageWidth); ?>" alt="" class="w-100" style="max-height:180px; width:auto;"/>
+                            $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
+                            if (!empty($STAppImgSrcObj->getId())) { ?>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="height:auto; width: 180px;"  />
                             <?php
                             }
                         }
                         ?>
+                        <p class="note">
+                            <?= $this->input("Sybercord_image_note", ['placeholder'=>'Comment']) ?>
                         </p>
                     </div>
-
-                    <?php if($this->editmode):?>
-                            <div class="attr-font">Attribute Name = ApplicationImage</div>
-                        <?php endif;?>
-                    <?php
-                    if($this->editmode) {
-                        if ($this->image("ST_ApplicationImage")->isEmpty()) {
-                            echo $this->image("ST_ApplicationImage", ["height"=>250])->setImage($data['ApplicationImage']);
-                        } else {
-                            echo $this->image("ST_ApplicationImage", ["height"=>250]);
-                        }
-                    } else {
-                        $STAppImgSrcObj =  $this->image("ST_ApplicationImage");
-                        if (!empty($STAppImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($STAppImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:250px; width:auto;"  />
-                        <?php
-                        }
-                    }
-                    ?>
                 </div>
             </div>
             
@@ -163,12 +173,12 @@
                         <div class="feature-benefit-list">
                             <h3 class="black-bold black mb-3">
                             <?php if($this->editmode):?>
-                                <div class="attr-font">Enter Your  Heading</div>
+                                <p class="attr-font">Enter Your  Heading</p>
                             <?php endif;?>
                                 <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
                             <ul>
                             <?php if($this->editmode):?>
-                                <div class="attr-font">Attribute Name = Features</div>
+                                <p class="attr-font">Attribute Name = Features</p>
                             <?php endif;?>
                                 <?php 
                                     foreach ($data['Features'] as $key => $item) {
@@ -191,7 +201,7 @@
                                 {
                                     ?>
                                         <?php if($this->editmode):?>
-                                            <div class="attr-font">Enter Your  Heading</div>
+                                            <p class="attr-font">Enter Your  Heading</p>
                                         <?php endif;?>
                                         <h3 class="black-bold black mb-3">
                                             <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
@@ -199,7 +209,7 @@
 
                                         <ul>
                                         <?php if($this->editmode):?>
-                                            <div class="attr-font">Attribute Name = Application</div>
+                                            <p class="attr-font">Attribute Name = Application</p>
                                         <?php endif;?>
                                             <?php
                                                 foreach($data['CSProductApplications'] as $key => $applictaion)
@@ -223,14 +233,14 @@
                     <div class="col-6">
                         <div class="feature-benefit-list my-0">
                                 <?php if($this->editmode):?>
-                                    <div class="attr-font">Enter Your  Heading</div>
+                                    <p class="attr-font">Enter Your  Heading</p>
                                 <?php endif;?>
                                 <h3 class="black-bold black mb-3">
                                     <?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
                                 </h3>
                                 <ul>
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font">Enter Your Points</div>
+                                        <p class="attr-font">Enter Your Points</p>
                                     <?php endif;?>
                                     <li>
                                         <?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
