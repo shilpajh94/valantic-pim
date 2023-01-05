@@ -233,14 +233,37 @@ if (isset($info['brandsData'])) {
                                                     <div class="col-6">
                                                         
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                            <div class="full">
+                                                            <div class="right-full">
                                                                 <b><?= $this->translate('Packaging') ?></b>
-                                                                <?= $brand['brandData']['Packaging'] ?>
+                                                                <table>
+                                                                <?php 
+                                                                $rows = explode(PHP_EOL,$brand['brandData']['Packaging']);
+
+                                                                foreach ($rows as $key => $row) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <?php
+                                                                        
+                                                                        $rowColData = explode(' - ', $row);
+
+                                                                        if(count($rowColData) == 2){
+                                                                        ?>
+                                                                        <td><?= $rowColData[0]; ?></td>
+                                                                        <td> - <?= $rowColData[1]; ?></td>
+                                                                        <?php } else { ?>
+                                                                        <td colspan="2"><?= $row; ?></td>
+                                                                        <?php } ?>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                                 
+                                                                ?>
+                                                                </table>
                                                             </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <div class="full">
+                                                            <div class="right-full">
                                                                 <b><?= $this->translate('Coupling') ?></b>
                                                                 <?= $brand['brandData']['Coupling'] ?>
                                                             </div>
@@ -273,9 +296,7 @@ if (isset($info['brandsData'])) {
                                     <?php endif; ?>
                                     <menu>
                                         <h6><?= $this->translate('branding') ?></h6>
-                                        <figure>
-                                            <img src="<?= $info['branding_image_src']; ?>" width='80'/>
-                                            <figcaption><b><?= $brandKey ?></b></figcaption>
+                                        <figure class="brandingLaylineStyle">
                                             <figcaption> <?= $brand['brandData']['BrandingLayline'] ?> </figcaption>
                                         </figure>
                                     </menu>

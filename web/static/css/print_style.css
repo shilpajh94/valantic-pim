@@ -704,6 +704,12 @@ menu .specs  .full {
     word-break: break-word;
 }
 
+menu .specs  .right-full {
+    padding-bottom: 10px;
+    text-transform: none;
+    word-break: break-word;
+}
+
 menu .specs  .full ul{ list-style:disc; margin:0; padding:0; padding-left:12px;}
 menu .specs  .full ul li{ list-style:disc;}
 
@@ -718,6 +724,11 @@ menu .specs p  b,
 menu .specs .full  b {
     display: block;
 }
+
+menu .specs .right-full  b {
+    display: block;
+}
+
 
 menu > * > div {
     border-left: 1px solid #737373;
@@ -2167,3 +2178,13 @@ margin-right:20px;
 
 /*.continueLable{ border:1px solid red;}*/
 
+.brandingLaylineStyle
+{
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+.hide{
+    display: none;
+}

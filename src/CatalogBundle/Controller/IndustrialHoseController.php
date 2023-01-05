@@ -91,6 +91,7 @@ class IndustrialHoseController extends AbstractController
                 $query = "select oo_id, ConstructionType from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
                 $constructionTypeList = $this->db->fetchPairs($query);
 
+                $productMinMaxPressure = [];
                 if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
                     foreach ($template->getProductsData() as $k => $row) {
                         $row[]= '';
@@ -103,10 +104,15 @@ class IndustrialHoseController extends AbstractController
                             $newRow['ConstructionType'] = $constructionTypeList[$SIOPLevel4Id];
 
                         $productsData[] = $newRow;
+
+                        if(trim($newRow['brandName'][0]))
+                        {
+                            $productMinMaxPressure[$newRow['brandName'][0]][] = $newRow['workingPressurePSI'];
+                        }
                         
                     }
                     $i = 0;
-
+                    
                     foreach ($productsData as $k => $row) {
 
                         if (isset($row['brandName']) && !empty($row['brandName'])) {
@@ -123,7 +129,18 @@ class IndustrialHoseController extends AbstractController
                                         $data[$uniqueId]['data'][$brandName][$col] = "";
                                     }
                                     if(empty($data[$uniqueId]['data'][$brandName][$col])) {
-                                        $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+
+                                        if($col == 'workingPressurePSI')
+                                        {
+                                            $productMinPressure = min($productMinMaxPressure[$brandName]);
+                                            $productMaxPressure = max($productMinMaxPressure[$brandName]);
+                                            $wpString = ($productMinPressure == $productMaxPressure) ? $productMinPressure : $productMinPressure . " - ". $productMaxPressure;
+                                            $data[$uniqueId]['data'][$brandName][$col] = $wpString;
+                                        }
+                                        else{
+                                            $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+                                        }
+                                        
                                     }
 
                                 }

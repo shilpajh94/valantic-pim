@@ -12,7 +12,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "classes" => ["CatalogTables"],
         ]);
         ?>
-<?php endif; ?>
+<?php 
+endif; 
+$partNumbers = [];
+?>
 <div class="template">
 <div class="segregate">
 
@@ -191,6 +194,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     
                     ?>
                     </h3>
+
+                        <?php 
+                            $columnList = [];
+                        ?>
                     <table class="grid special" cellspacing="0" cellpadding="0">
                         <thead>
                                 <?php if($iconRequired == 'YES'): ?>
@@ -230,7 +237,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php if($subHeaderRequired == 'YES'): ?>
                                         <tr class="sub-head">
                                                 <?php foreach($brand['columnsDataWithImages'] as $key => $c3data): ?>
-                                                        <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                        <?php  foreach($c3data as $c3key => $c3value): 
+                                                                $columnList[] = $c3key;
+                                                                ?>
                                                                 <?php if($c3value['unitName']): ?>
                                                                         <td><?= $c3value['unitName'] ?></td>
                                                                 <?php else: ?>
@@ -249,6 +258,19 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <?php else: ?>
                                         <tr class="active">
                                         <?php endif; ?>
+
+                                        <?php 
+                                            $indexDescriptiveNumber = array_search('Descriptive', $columnList);
+                                            if(($indexDescriptiveNumber !== false) && ($element[$indexDescriptiveNumber]))
+                                            { 
+                                                $descriptiveNumberText = $element[$indexDescriptiveNumber];
+                                                $descriptiveNumberList = explode('-', $descriptiveNumberText);
+                                                if(!in_array($descriptiveNumberList[0], $partNumbers))
+                                                {
+                                                    $partNumbers[] = $descriptiveNumberList[0];
+                                                }
+                                            }
+                                        ?>
                                                 <?php foreach($element as $ekey => $value): ?>
                                                         <td><?= $value; ?></td>
                                                 <?php endforeach; ?>
@@ -266,7 +288,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
     </article>
 </div>
+
+<div class="hide">
+        <?php
+        $partNumberString = implode(',', $partNumbers);
+        echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+        ?>
 </div>
+
+</div>
+
 <style>
 li .pimcore_tag_input.empty{
     width: 200px;
