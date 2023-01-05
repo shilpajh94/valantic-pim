@@ -13,7 +13,11 @@ if (!isset($this->parentContainer)) {
         "classes" => ["CatalogTables"],
     ]);
     ?>
-<?php endif; ?>
+<?php endif; 
+
+$hydraulic_hose_data = [];
+
+?>
 <div class="template">
 <div>
     <div id="pageHeader"></div>
@@ -137,6 +141,7 @@ if (!isset($this->parentContainer)) {
                                 <?php
                                 $rowcount = 0;
                                 foreach ($brandData as $bkey => $brand) {
+                                    $hydraulic_hose_data[$key][] = $bkey;
                                     $md5key = md5($key.$bkey);
                                     ?>
                                     <?php if ((count($brandData) - 1) == $rowcount): ?>
@@ -191,11 +196,21 @@ if (!isset($this->parentContainer)) {
         </article>
     </div>
 </div>
-<div class="hide">
+<div class="">
     <?php
-        $hydraulic_hose_text_list = implode(PHP_EOL, $hydraulic_hose_text);
-        $hydraulic_hose_details_text = implode(PHP_EOL, $hydraulic_hose_details);
-        echo $this->textarea('hydraulic_hose_details')->setDataFromResource($hydraulic_hose_details_text);
+    $hydraulic_hose_data_list = [];
+    if($hydraulic_hose_data)
+    {
+        foreach ($hydraulic_hose_data as $key => $value) {
+            $hydraulic_hose_data_list[] = $key."$$".implode(',', $value);
+        }
+
+        if($hydraulic_hose_data_list)
+        {
+            $hydraulic_hose_details_text = implode(PHP_EOL, $hydraulic_hose_data_list);
+            echo $this->textarea('hydraulic_hose_details')->setDataFromResource($hydraulic_hose_details_text);
+        }
+    }
     ?>
 </div>
 </div>

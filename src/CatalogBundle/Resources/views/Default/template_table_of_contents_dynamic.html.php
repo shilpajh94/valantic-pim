@@ -22,11 +22,23 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         </div>
     
         <div class="content content_double  table-content ">
-            <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
-                    <h4><?= $this->input("TOC_SectionName", ['placeholder' => 'Enter Section name here.']); ?></h4>
+            <?php 
+            $dataCount = count($data);
+            $i = 0;
+            while($this->block("TOC_SectionBlock", ['default'=>$dataCount])->loop()) 
+            { 
+                $sectionName = $data[$i][0];
+                ?>
+                    <h4><?= $this->input("TOC_SectionName", ['placeholder' => 'Enter Section name here.'])->setDataFromResource($sectionName); ?></h4>
                     <article>
-                        <?php while($this->block("TOC_HeadingBlock")->loop()) { ?>
-                            <h5><?= $this->input("TOC_HeadingName", ['placeholder' => 'Enter Heading here.']); ?></h5>
+                        <?php 
+                        $j = 0;
+                        while($this->block("TOC_HeadingBlock")->loop()) 
+                        { 
+                            $innerData = $data[$i][1];
+                            $heading = $innerData[$j][0];
+                            ?>
+                            <h5><?= $this->input("TOC_HeadingName", ['placeholder' => 'Enter Heading here.'])->setDataFromResource($heading); ?></h5>
                             <?php if($this->editmode): ?>
                                 <span class="pageTitle"><?= $this->input("TOC_Desc", ['placeholder' => 'Enter heading description here.']); ?></span>
                             <?php else: ?>
@@ -40,9 +52,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     <span class="pageNo"><?= $this->input("TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
                                 </div>
                             <?php } ?>
-                        <?php } ?>
+                            <?php 
+                            $j++;
+                        } 
+                        ?>
                     </article>
-            <?php } ?>
+                <?php 
+                $i++;
+            } 
+            ?>
         </div>
     </div>
 </div>

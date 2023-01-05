@@ -1531,6 +1531,74 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsDynamicAction(Request $request)
     {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_part_number_designations.html.php'
+            ];
+
+            $hydraulicHose[] = 'HYDRAULIC HOSE';
+            $all_doc_arr = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+                        if (in_array($childDoc->getTemplate(), $templateArray)) {
+                            $obj = $childDoc->getElement('hydraulic_hose_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $partNumberList = explode(',', $obj->getData());
+                                $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('hydraulic_hose_details');
+                        if (!empty($obj) && !empty($obj->getData())) {
+
+                            $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                            $hydraulicHoseInnerData = [];
+                            if($hydraulicHoseData)
+                            {
+                                foreach ($hydraulicHoseData as $key => $value) {
+                                    $hydraulicHostList = explode('$$',$value);
+                                    $hydraulicHostKey = $hydraulicHostList[0];
+                                    $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                    $hydraulicHoseInnerData[] = $hydraulicHostKey;
+                                    $hydraulicHoseInnerData[] = $hydraulicHostValue;
+                                }
+                            }
+                            $hydraulicHose[] = $hydraulicHoseInnerData;
+                            // $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                        }
+                    }
+
+                    
+                }
+            }
+
+            $data[] = $hydraulicHose;
+            $data[] = $hydraulicHose;
+            // $all_doc_arr = array_unique($all_doc_arr);
+            // sort($all_doc_arr);
+            // p_r($data);
+            // die;
+            $this->view['data'] = $data;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
     }
 
     public function templatePartNumberDesignationsAction(Request $request)
