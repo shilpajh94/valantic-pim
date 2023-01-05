@@ -11,7 +11,8 @@ class CatalogBundle extends AbstractPimcoreBundle
         return [
             '/bundles/catalog/js/pimcore/startup.js',
             '/bundles/catalog/js/pimcore/headerSelection.js',
-            '/bundles/catalog/js/pimcore/formattedGridHandler.js'
+            '/bundles/catalog/js/pimcore/formattedGridHandler.js',
+            '/bundles/catalog/js/pimcore/resetTableOfContent.js'
         ];
     }
     
