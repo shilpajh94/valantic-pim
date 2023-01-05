@@ -339,8 +339,11 @@ foreach($data as $md5Key => $brand):
 
 <div class="hide">
         <?php
-        $partNumberString = implode(',', $partNumbers);
-        echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+        if(count($partNumbers) > 0)
+        {
+                $partNumberString = implode(',', $partNumbers);
+                echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+        }
         ?>
 </div>
 

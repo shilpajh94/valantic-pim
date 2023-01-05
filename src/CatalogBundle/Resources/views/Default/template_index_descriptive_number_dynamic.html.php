@@ -19,7 +19,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <h2><?= $this->input("HHIDN_Heading") ?></h2>
             <?php endif; ?>
         </div>
-        <div id="amortizationTable" class="content_double single">
+        <div id="amortizationTable" class="<?php if(!$this->editmode){echo "content_double";} ?> single">
             <?php if($this->editmode): ?>
                 <div class="flex">
                     <div class="upper"> 
@@ -109,14 +109,3 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         </div>
     </div>
 </div>
-<style>
-div.content_double {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-
-}
-</style>

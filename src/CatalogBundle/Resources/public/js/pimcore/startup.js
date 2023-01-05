@@ -342,6 +342,11 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
             resetTableOfContent.addResetContentButton();
         }
+        else if(template ==  'CatalogBundle:Default:template_table_of_contents_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
     },
 
 });
