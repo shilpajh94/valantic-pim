@@ -1529,6 +1529,10 @@ if(isset($data[$baseId])) {
     {
     }
 
+    public function templateTableOfContentsDynamicAction(Request $request)
+    {
+    }
+
     public function templatePartNumberDesignationsAction(Request $request)
     {
         $templates = $this->getDocumentTag('relations', 'page_number_designations')->getElements();
@@ -1662,12 +1666,12 @@ if(isset($data[$baseId])) {
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
                                     if($bkey == $headerKeysIndex['reinforcement'])
                                         $reinforcement = array_merge($reinforcement, $value);
-                                    if($bkey == $headerKeysIndex['workingPressurePSI'])
+                                    if(isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI']))
                                     {
                                         if($value)
                                             $workingPressurePSI[] = $value;
                                     }
-                                    if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
+                                    if(isset($headerKeysIndex['HoseFittingFamily']) && ($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
 
                             endforeach;
