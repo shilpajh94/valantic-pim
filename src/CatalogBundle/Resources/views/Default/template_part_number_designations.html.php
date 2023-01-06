@@ -196,7 +196,7 @@ $hydraulic_hose_data = [];
         </article>
     </div>
 </div>
-<div class="">
+<div class="hide">
     <?php
     $hydraulic_hose_data_list = [];
     if($hydraulic_hose_data)
