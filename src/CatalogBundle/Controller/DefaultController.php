@@ -334,7 +334,7 @@ class DefaultController extends AbstractController {
               } */
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
-        if (count($fitting)) {
+        if (is_array($fitting) && count($fitting)) {
             $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
             $fittingConditonArray = [];
             foreach ($fitting as $key => $fittingValue) {
