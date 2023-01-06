@@ -75,6 +75,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <article>
                             <?php 
                             $j = 0;
+                            $innerDataCount = 0;
                             if(isset($data[$i][1]))
                             {
                                 $innerData = $data[$i][1];
