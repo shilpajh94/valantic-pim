@@ -337,12 +337,18 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
         let docType             = doc.data.type;
         let template             = doc.data.template;
 
-        if(template ==  'CatalogBundle:Default:template_index_descriptive_number_dynamic.html.php')
+        
+        if(template ==  'CatalogBundle:Default:template_hydraulic_index_descriptive_number_dynamic.html.php')
         {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  'CatalogBundle:Default:template_table_of_contents_dynamic.html.php')
+        else if(template ==  'CatalogBundle:Default:template_hydraulic_index_product_number_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:Default:template_hydraulic_table_of_contents_dynamic.html.php')
         {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
             resetTableOfContent.addResetContentButton();

@@ -1871,6 +1871,10 @@ div.content_double {
     justify-content: space-between !important;
 }
 
+#amortizationTable > .flex, #amortizationTable1 >.flex{
+    justify-content: space-between !important;
+}
+
 #descriptive{
     page: title4;
 }

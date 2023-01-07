@@ -17,6 +17,7 @@ if (!isset($this->parentContainer)) {
 <?php
 if ($data):
     $partNumbers = [];
+    $productNumbers = [];
     // extract($data);
     ?>
     <div class="template">
@@ -145,7 +146,7 @@ if ($data):
                             if(!$this->image("HHAO_Image")->isEmpty())
                                     echo $this->image("HHAO_Image",["width" => 200]);
                             else
-                                    echo $this->image("HHAO_Image", ["width" => 200])->brand($data['imageObj']);
+                                    echo $this->image("HHAO_Image", ["width" => 200])->setImage($data['imageObj']);
                         } else {
                             // if(!$this->image("HHAO_Image")->isEmpty())
                             $imgSrcObj = $this->image("HHAO_Image");
@@ -275,6 +276,16 @@ if ($data):
                                                                 $partNumbers[] = $descriptiveNumberList[0];
                                                             }
                                                         }
+                                                        $industryStandard = array_search('industryStandard', $columnList);
+                                                        if(($industryStandard !== false) && ($element[$industryStandard]))
+                                                        { 
+                                                                $industryStandardText = $element[$industryStandard];
+                                                                $industryStandardList = explode('-', $industryStandardText);
+                                                                if(!in_array($industryStandardList[0], $productNumbers))
+                                                                {
+                                                                        $productNumbers[] = $industryStandardList[0];
+                                                                }
+                                                        }
                                                     ?>
                                                             <?php foreach ($element as $ekey => $value): ?>
                                                                 <td><?= $value; ?></td>
@@ -301,6 +312,12 @@ if ($data):
                 {
                     $partNumberString = implode(',', $partNumbers);
                     echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+                }
+
+                if(count($productNumbers) > 0)
+                {
+                    $productNumbersString = implode(',', $productNumbers);
+                    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
                 }
                 ?>
         </div>

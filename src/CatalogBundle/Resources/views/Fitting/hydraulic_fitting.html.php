@@ -11,6 +11,7 @@ if (!isset($this->parentContainer)) {
 if (is_array($brandsData) && !empty($brandsData)) {
     $partNumbers = [];
     $brandNameList = [];
+    $productNumbers = [];
 ?>
 
 <div class="template">
@@ -348,6 +349,17 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                         $partNumbers[] = $descriptiveText;
                                                     }
                                                 }
+                                                
+                                                $industryStandard = array_search('industryStandard', $columnList);
+                                                if(($industryStandard !== false) && ($element[$industryStandard]))
+                                                { 
+                                                    $industryStandardText = $element[$industryStandard];
+                                                    $industryStandardList = explode('-', $industryStandardText);
+                                                    if(!in_array($industryStandardList[0], $productNumbers))
+                                                    {
+                                                        $productNumbers[] = $industryStandardList[0];
+                                                    }
+                                                }
                                             ?>
                                                 <?php foreach ($element as $ekey => $value): ?>
                                                     <td><?= $value ?></td>
@@ -388,6 +400,12 @@ if(count($partNumbers) > 0)
 {
     $partNumberString = implode(',', $partNumbers);
     echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+}
+
+if(count($productNumbers) > 0)
+{
+    $productNumbersString = implode(',', $productNumbers);
+    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
 }
 
 if(count($brandNameList) > 0)

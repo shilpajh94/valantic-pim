@@ -1451,10 +1451,9 @@ if(isset($data[$baseId])) {
 
             if($productsData){
                 foreach ($productsData as $key => $item) {
-
-                    if(!empty(trim($item[$headerKeysIndex['BrandShortText1']])))
+                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
                     {
-                        $brandName = $item[$headerKeysIndex['BrandShortText1']];
+                        $brandName = $item[$headerKeysIndex['brandName']][0];
 
                         if($item[$headerKeysIndex['MaterialType']] && is_array($item[$headerKeysIndex['MaterialType']]))
                             $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
@@ -1525,7 +1524,7 @@ if(isset($data[$baseId])) {
     {
     }
 
-    public function templateTableOfContentsDynamicAction(Request $request)
+    public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
         try
         {
@@ -2426,7 +2425,7 @@ if(isset($data[$baseId])) {
     {
     }
 
-    public function templateIndexDescriptiveNumberDynamicAction(Request $request)
+    public function templateHydraulicIndexDescriptiveNumberDynamicAction(Request $request)
     {
         try
         {
@@ -2464,6 +2463,62 @@ if(isset($data[$baseId])) {
                 {
                     if (in_array($doc->getTemplate(), $templateArray)) {
                         $obj = $doc->getElement('product_page_part_number');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $partNumberList = explode(',', $obj->getData());
+                            $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                        }
+                    }
+                }
+            }
+
+            $all_doc_arr = array_unique($all_doc_arr);
+            sort($all_doc_arr);
+
+            $this->view['data'] = $all_doc_arr;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
+    public function templateHydraulicIndexProductNumberDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
+                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
+                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
+                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
+                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+            ];
+
+            $all_doc_arr = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+                        if (in_array($childDoc->getTemplate(), $templateArray)) {
+                            $obj = $childDoc->getElement('product_page_product_number');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $partNumberList = explode(',', $obj->getData());
+                                $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('product_page_product_number');
                         if (!empty($obj) && !empty($obj->getData())) {
                             $partNumberList = explode(',', $obj->getData());
                             $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
