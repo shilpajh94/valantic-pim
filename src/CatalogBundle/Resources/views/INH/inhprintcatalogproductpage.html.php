@@ -8,6 +8,8 @@ if (!isset($this->parentContainer)) {
 <?php } ?>
 <?php
 if (isset($info['brandsData'])) {
+
+    $industrial_hose_data = [];
     ?>
 
     <?php
@@ -15,6 +17,8 @@ if (isset($info['brandsData'])) {
         $pg = 0;
         foreach ($info['brandsData'] as $brandKey => $brand) {
             $uniqueId = md5($brandKey);
+
+            $categoryForCatalog = $brand['brandData']['SIOP3Description'].": ".$brand['brandData']['SIOP4Description']; 
             ?>
             <div class="template">
                 <div class="segregate inh  inhSettingProductPage">
@@ -307,6 +311,8 @@ if (isset($info['brandsData'])) {
 
                                         foreach ($brand['articleData'] as $key => $GroupingFields):
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
+
+                                            $industrial_hose_data[$categoryForCatalog][] = ($brandKey && $key) ? $brandKey. " ". $key : $brandKey;
                                             $tableKey = md5($key.$gkey);
                                         ?>
 <div class="inh-section-break">
@@ -434,6 +440,25 @@ if (isset($info['brandsData'])) {
         }
     }
     ?>
+
+    <div class="">
+    <?php
+
+        $industrial_hose_data_list = [];
+        if($industrial_hose_data)
+        {
+            foreach ($industrial_hose_data as $key => $value) {
+                $industrial_hose_data_list[] = $key."$$".implode(',', $value);
+            }
+
+            if($industrial_hose_data_list)
+            {
+                $industrial_hose_details_text = implode(PHP_EOL, $industrial_hose_data_list);
+                echo $this->textarea('industrial_hose_details')->setDataFromResource($industrial_hose_details_text);
+            }
+        }
+        ?>
+    </div>
     
     <style>
         .inhsetting-sidebar.inhsettingLeft {

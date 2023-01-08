@@ -2425,7 +2425,7 @@ if(isset($data[$baseId])) {
     {
     }
 
-    public function templateHydraulicIndexDescriptiveNumberDynamicAction(Request $request)
+    public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request)
     {
         try
         {
@@ -2482,7 +2482,7 @@ if(isset($data[$baseId])) {
         }
     }
 
-    public function templateHydraulicIndexProductNumberDynamicAction(Request $request)
+    public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
     {
         try
         {
