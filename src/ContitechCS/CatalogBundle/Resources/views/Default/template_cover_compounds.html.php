@@ -145,6 +145,12 @@ $coverCompound = $data['coverCompoundData'];
                 ?>
 
                 <div class="belts-information">
+                <div class = "application-info">
+                    <?php if($this->editmode): ?>
+                        <?= $this->relations("objectPaths"); ?>
+                    <?php endif; ?>  
+                </div>  
+
                     <?php if($data['CCAARows']): ?>
                     <h1><span class="orange">
                     <strong>
@@ -160,11 +166,6 @@ $coverCompound = $data['coverCompoundData'];
                     </strong>
                     
                     </h1>
-                    <div class = "application-info">
-                        <?php if($this->editmode): ?>
-                            <?= $this->relations("objectPaths"); ?>
-                        <?php endif; ?>  
-                    </div>  
                     <div class="table-data compounds-table mb-4">
                         <table width="100%" class="white-bg">
                             <thead>
@@ -230,8 +231,8 @@ $coverCompound = $data['coverCompoundData'];
                     <?php endif; ?>
 
                     <?php 
-                    $level3rdObjectData = $data['level3rdObjectData'];
-                    if($level3rdObjectData){
+                    // $level3rdObjectData = $data['level3rdObjectData'];
+                    // if($level3rdObjectData){
                     ?>
                     <div class="page-break"></div>
                     <h1 class="orange">
@@ -262,7 +263,7 @@ $coverCompound = $data['coverCompoundData'];
                         </div>
                     </div>
                     <?php 
-                    }
+                    // }
                     ?>
                 </div>
 
