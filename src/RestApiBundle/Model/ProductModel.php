@@ -13,11 +13,104 @@ class ProductModel
     private $sqlArr = [];
     private $limit  = 50;
     private $maxLimit = 250;
+    private $brandTable = "object_3";
+    private $virtualCatalogSorterTable = "object_VirtualCatalogApiSorter";
+    private $virtualCatalogMapperTable = "object_VirtualCatalogApiMapper";
 
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
     }
+
+
+
+    public function fetchProductByBrandOrdering($lang='en',$conditionArray,$productType='fert',$vCatalogMap)
+    {
+        // Get Condition String.
+        $conditionString = $this->getConditionString($conditionArray,$productType);
+p_r($conditionString);die;
+        // Get Field String.
+        $fieldString = $vCatalogMap['VirtualCatalog']['Fields'];
+
+        $conArray['condition']= $conditionString;
+        $conArray['fields']   = $fieldString;
+        
+        // Get Total record count.
+        $totalCount =   $this->getTotalCount($lang,$conArray);
+        
+        if(empty($totalCount)){
+            return false;
+        }else{
+            // Get Offset and Limit.
+            $offsetLimit    =   $this->getOffsetLimit($conditionArray,$totalCount);
+            if($offsetLimit){
+                try {
+                    $sql = $this->getproductwithBrandOrder($lang,$conArray,$offsetLimit);
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->execute();
+                    return $stmt->fetchAll();
+                } catch(\Exception $ex) {
+                    Logger::error($ex->getTraceAsString());
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function getBrandInfo($brandId)
+    {
+        $sql = "select name, VirtualCatalogApiSorter__id, VirtualCatalogApiMapper__id from ".$this->brandTable." where oo_id = ".$brandId;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $brand = $stmt->fetchAll();
+        if(!empty($brand)){
+            return $brand[0];
+        } else {
+            return null;
+        }
+            
+    }
+
+    public function getVirtualCatalogApiSorter($id)
+    {
+        $sql = "select GroupingField, Columns, `Order` from ".$this->virtualCatalogSorterTable." where oo_id = ".$id;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $sorter = $stmt->fetchAll();
+        if(!empty($sorter)) {
+            return $sorter[0];
+        } else {
+            return null;
+        }
+    }
+
+    public function getVirtualCatalogApiMapper($id)
+    {
+        $sql = "select originalValues from ".$this->virtualCatalogMapperTable." where oo_id = ".$id;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $mapper = $stmt->fetchAll();
+        if(!empty($mapper)) {
+            return $mapper[0];
+        } else {
+            return null;
+        }
+    }
+
+
+    private function getproductwithBrandOrder($lang, $conArray, $offsetLimit)
+    {
+        $this->langCode   = $lang;
+        $limitText  =   "";
+        if(!empty($offsetLimit)){
+            $limitText = " LIMIT ".$offsetLimit['offset'].",".$offsetLimit['limit'];
+        }
+        $sql = 'SELECT * FROM object_localized_' . $this->classId. '_' . $this->langCode . ' WHERE '.$conArray['condition'].' ORDER BY brandName DESC '.' '.$limitText;
+        return $sql;
+    }
+
 
     /**
      * Method to get product details.
@@ -35,7 +128,7 @@ class ProductModel
         $conditionString = $this->getConditionString($conditionArray,$productType);
 
         // Get Field String.
-        $fieldString = $vCatalogMap['VirtualCatalog'][ucfirst($productType)]['Fields'];
+        $fieldString = $vCatalogMap['VirtualCatalog']['Fields'];
 
         $conArray['condition']= $conditionString;
         $conArray['fields']   = $fieldString;
@@ -58,14 +151,13 @@ class ProductModel
                         if(empty($product)) {
                             return false;
                         }else{
-                            if($productType === "base"){
-                                $objectId = $conditionArray["ids"];                                
-                                if(array_key_exists("VirtualCatalogReinforcement",$fieldString)){
-                                    $sql = "SELECT VirtualCatalogReinforcement FROM object_store_" . $this->classId;
-                                    $sql .= " WHERE  oo_id = ?";
-                                    $product[0]["VirtualCatalogReinforcement"] = $this->db->fetchOne($sql,[$objectId]);
-                                }
-                            }
+                               // $objectId = $conditionArray["ids"];                                
+                                // if(array_key_exists("VirtualCatalogReinforcement",$fieldString)){
+                                //     $sql = "SELECT VirtualCatalogReinforcement FROM object_store_" . $this->classId;
+                                //     $sql .= " WHERE  oo_id = ?";
+                                //     $product[0]["VirtualCatalogReinforcement"] = $this->db->fetchOne($sql,[$objectId]);
+                                // }
+                            
                         }
                     }else{
                         return false;
@@ -98,7 +190,7 @@ class ProductModel
         }
 
         if($productType=='fert'){
-            $conditionString .= " virtualCatalogFlag=1  AND oldMaterialCode <> '' AND ";
+            $conditionString .= " virtualCatalogFlag=1 AND ";
         }
 
         switch($productType){
@@ -231,6 +323,7 @@ class ProductModel
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
             WHERE '.$conArray['condition'].' '.$limitText."\n\n";
         \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr [$this->fallbackLangCode],true));
+
         return true;
     }
 
