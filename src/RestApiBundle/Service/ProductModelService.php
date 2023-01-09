@@ -105,8 +105,8 @@ class ProductModelService {
                 }
             }
         }
-        print_r($brandArray);
-        die();
+        // print_r($brandArray);
+        // die();
     }
 
     /**

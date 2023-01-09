@@ -333,93 +333,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'fieldtype' => 'manyToOneRelation',
-                 'width' => 600,
-                 'assetUploadPath' => '',
-                 'relationType' => true,
-                 'queryColumnType' => 
-                array (
-                  'id' => 'int(11)',
-                  'type' => 'enum(\'document\',\'asset\',\'object\')',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'VirtualCatalogApiMapper',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'virtualCatalogAPIMapper',
-                 'title' => 'Virtual Catalog API Mapper',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => NULL,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
               6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'fieldtype' => 'manyToOneRelation',
-                 'width' => 600,
-                 'assetUploadPath' => '',
-                 'relationType' => true,
-                 'queryColumnType' => 
-                array (
-                  'id' => 'int(11)',
-                  'type' => 'enum(\'document\',\'asset\',\'object\')',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'VirtualCatalogApiSorter',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'virtualCatalogAPISorter',
-                 'title' => 'Virtual Catalog API Sorter',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => NULL,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                  'fieldtype' => 'wysiwyg',
                  'width' => '',
@@ -444,7 +358,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => true,
                  'visibleSearch' => false,
               )),
-              6 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'fieldtype' => 'manyToOneRelation',
                  'width' => '',
@@ -487,7 +401,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              7 => 
+              8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'fieldtype' => 'manyToOneRelation',
                  'width' => '',
