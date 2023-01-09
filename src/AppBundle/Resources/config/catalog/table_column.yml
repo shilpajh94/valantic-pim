@@ -46,7 +46,6 @@ parameters:
                 fieldLabel: 'Working Pressure (psi)'
                 groupName: workingPressure
                 unitName: psi
-                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
