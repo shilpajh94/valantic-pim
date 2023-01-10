@@ -283,7 +283,9 @@ if ($data):
                         </aside>
                     </header>
                     <article class="fullcontainer ">
-
+                            <?php 
+                            // p_r($brandData['standardMetHoseListData']);
+                            ?>
                         <section class="content single">
                             <?php if ($brandData['safetyFeatures'] || $brandData['standardMetHoseListData'] || !empty(trim($brandData['tubeMaterialAtrributeString'])) || !empty(trim($brandData['reinforcement'])) || !empty(trim($brandData['coverMaterialattributeString'])) ||!empty(trim($brandData['temperatureRangeFAndC']))): ?>
 
@@ -296,23 +298,41 @@ if ($data):
                                                 <div class="col-6">
                                                         <?php
                                                             $hoseMetCount = 0;
+
+                                                            if(count($brandData['standardMetHoseListData']) > 0)
+                                                            {
+                                                                if($this->editmode): 
+                                                                    if($this->input("meetPerformanceRequirements_{$md5key}")->isEmpty()): 
+                                                                        echo $this->input("meetPerformanceRequirements_{$md5key}")->setDataFromResource("Meets or exceeds the performance requirements of:");
+                                                                    else: 
+                                                                        echo $this->input("meetPerformanceRequirements_{$md5key}"); 
+                                                                    endif; 
+                                                                else:
+                                                                    echo $this->input("meetPerformanceRequirements_{$md5key}");
+                                                                endif; 
+                                                            }
+
                                                             foreach ($brandData['standardMetHoseListData'] as $key => $standard): ?>
                                                             <?php
-                                                            if($this->editmode): 
-                                                                if($this->input("standardMetHose{$md5key}_{$hoseMetCount}")->isEmpty()): 
-                                                                    echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($key);
-                                                                else: 
-                                                                    echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}"); 
-                                                                endif; 
-                                                            else:
-                                                                echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}");
-                                                            endif; 
+                                                            // if($this->editmode): 
+                                                            //     if($this->input("standardMetHose{$md5key}_{$hoseMetCount}")->isEmpty()): 
+                                                            //         echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($key);
+                                                            //     else: 
+                                                            //         echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}"); 
+                                                            //     endif; 
+                                                            // else:
+                                                            //     echo $this->input("standardMetHose{$md5key}_{$hoseMetCount}");
+                                                            // endif; 
                                                             ?>
-                                                            <p><font class="is-highlight"><?= implode('<br>',$standard); ?></font></p>
+                                                           <div class="is-highlight"> <?= $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($key); ?></div>
                                                         <?php
                                                             $hoseMetCount++;
                                                             endforeach;
                                                         ?>
+
+                                                        <div class="custom-specs-text">
+                                                            <?= $this->wysiwyg("customSpecsText{$md5key}"); ?>
+                                                        </div>
                                                 </div>
                                                 <?php endif; ?>
                                                 <div class="col-6">
