@@ -2185,10 +2185,15 @@ margin-right:20px;
 }
 
 .custom-brand-border-style{
-    border-bottom:2px solid;display: inline-block;
+    display: inline-flex;
 }
 
+.custom-brand-border-style p{
+    display: contents;
+}
 
-.custom-brand-border-style p > span{
-    font-weight: bold;
+.custom-brand-border-style span{
+    font-family: 'ContinentalStagSansLCG-Book' !important;
+    padding-right: 5px !important;
+    font-weight: 600 !important;
 }
