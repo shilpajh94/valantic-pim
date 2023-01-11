@@ -334,12 +334,17 @@ class DefaultController extends AbstractController {
               } */
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
-        if (is_array($fitting) && count($fitting)) {
+
+        if (is_array($fitting) && count($fitting) ) {
             $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
             $fittingConditonArray = [];
-            foreach ($fitting as $key => $fittingValue) {
-                $fittingConditonArray[] = "(HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
-                $fittingConditonArray[] = "(HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+            foreach ($fitting as $key => $fittingValue) { 
+                $fittingValue = trim($fittingValue, ',');
+                if(($fittingValue != null) && ($fittingValue != '1'))
+                {
+                    $fittingConditonArray[] = "(HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+                    $fittingConditonArray[] = "(HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+                }
             }
             if(count($fittingConditonArray))
             {
@@ -349,6 +354,7 @@ class DefaultController extends AbstractController {
             // $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
             //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
+        
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
             $query = "select o_id from object_1 where o_parentId IN (" . $baseIds . ")";
