@@ -143,7 +143,7 @@ $coverCompound = $data['coverCompoundData'];
                         }
                     }
                 ?>
-
+                <div class="page-break"></div>
                 <div class="belts-information">
                 <div class = "application-info">
                     <?php if($this->editmode): ?>
@@ -176,7 +176,7 @@ $coverCompound = $data['coverCompoundData'];
                                     </th>
                                 </tr>
                                 <tr class="vertical-head">
-                                    <th align="left" width="13%" class="orange">
+                                    <th align="left" class="orange">
                                     <?= $this->translate('CS_Compounds') ?>
                                     </th>
                                     
@@ -185,7 +185,7 @@ $coverCompound = $data['coverCompoundData'];
 
                                         foreach ($applicationData as $key => $value) {
                                             ?>
-                                            <th width="5.8%" class="rotate"><div><?= $value; ?></div></th>
+                                            <th class="rotate"><div><?= $value; ?></div></th>
                                             <?php
                                         }
                                     ?>
@@ -214,7 +214,7 @@ $coverCompound = $data['coverCompoundData'];
                                                     $value = '';
                                                 }
                                         ?>
-                                            <td <?= $style; ?> <?= $class; ?>><?= $value; ?> <span class="white-bg"></span></td>
+                                            <td  <?= $style; ?> <?= $class; ?>><?= $value; ?> <span class="white-bg"></span></td>
 
                                         <?php 
                                             } 
@@ -230,10 +230,6 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                     <?php endif; ?>
 
-                    <?php 
-                    // $level3rdObjectData = $data['level3rdObjectData'];
-                    // if($level3rdObjectData){
-                    ?>
                     <div class="page-break"></div>
                     <h1 class="orange">
                         <?php if($this->editmode): ?>
@@ -247,26 +243,23 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </h1>
 
-                    <div class="parent">
-                        <div class='child'>
-                            <?php while($this->block("contentblock")->loop()) { ?>
-                                <h6 class = "title"><?= $this->input("heading"); ?></h2>
+                    <div class = "standard-compounds">
+                    <table>
+                        <tr>
+                            <td>
+                                <?php while($this->block("contentblock")->loop()) { ?>
+                                <h3 style="margin-bottom : 0rem;"><?= $this->input("heading"); ?></h2>
                                 <p class = 'description'><?= $this->input("context"); ?></p>
-                            <?php } ?>
-                        </div>
-                        
-                        <div class='child'>
-                            <?php while($this->block("contentblock1")->loop()) { ?>
-                                <h6 class = "title"><?= $this->input("heading1"); ?></h2>
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php while($this->block("contentblock1")->loop()) { ?>
+                                <h3 style="margin-bottom : 0rem;"><?= $this->input("heading1"); ?></h2>
                                 <p><?= $this->input("context1"); ?></p>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <?php 
-                    // }
-                    ?>
-                </div>
-
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </table>
                 <?php 
                     $singleProductPage = $data['singleProductPage'];
                 ?>
@@ -326,11 +319,12 @@ $coverCompound = $data['coverCompoundData'];
                     <?php endif; ?>
                     
                 </p>
-                        
                 <?php if($singleProductPage['FeaturesAndBenefits']) {  ?>
                     <div class="features-benefit-sec">
                         <?php
+                        
                         foreach ($singleProductPage['FeaturesAndBenefits'] as $fkey => $feature) {
+                        
                             $md5FeatureNameKey = md5($feature['FeatureName']);
                         ?>
                             <div class="media">
@@ -422,7 +416,10 @@ $coverCompound = $data['coverCompoundData'];
                                         $count = 0;
                                         foreach ($singleProductPage['Level4ObjChildData'] as $chKey => $chValue) {
                                             $md5Key = md5($chValue['Name'].'_'.$count);
+                                            if($count > 3)
+                                                break;
                                             $count++;
+                                            
                                         ?>
                                             
                                             <tr>
@@ -512,7 +509,7 @@ $coverCompound = $data['coverCompoundData'];
                                     foreach ($coverCompoundsHeaderKeys as $hkey => $headerValue) {
                                         if($firstKey == $hkey)
                                         {
-                                            $style = 'align="left"';
+                                            $style = 'align="center"';
                                         }
                                         ?>
                                             <th <?= $style; ?> width="8%"><?= $this->translate($headerValue); ?></th>
@@ -523,7 +520,6 @@ $coverCompound = $data['coverCompoundData'];
                             </thead>
 
                             <?php
-                                $i = 0;
 
                                 foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
                                     ?>
@@ -541,6 +537,8 @@ $coverCompound = $data['coverCompoundData'];
                                             if($firstKey == $tdKey)
                                             {
                                                 $style = 'align="left"';
+                                            }else{
+                                                $style = 'align="center"';
                                             }
                                             ?>
                                             <td <?= $style; ?>><?= $tdValue; ?></td>
@@ -553,7 +551,6 @@ $coverCompound = $data['coverCompoundData'];
                                     ?>
                                     </tbody>
                                     <?php
-
                                 }
                             ?>
                             
@@ -569,13 +566,4 @@ $coverCompound = $data['coverCompoundData'];
 
 <?php endif; ?>
 
-<style>
-    .child {
-    display: inline-block;
-    width: 500px;
-    /* border: 25px; */
-    padding: 2rem 2rem;
-    vertical-align: middle;
-    
-    }
-</style>
+

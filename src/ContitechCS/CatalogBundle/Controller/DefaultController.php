@@ -951,8 +951,18 @@ class DefaultController extends AbstractController
                                                 }
                                                 if($bricks->$getBrick())
                                                 {
-                                                    
-                                                    $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    if($key == 'MinTemperatureF'){
+                                                        $minTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                        $minTemperatureCValue = $bricks->$getBrick()->getMinTemperatureC();
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . '°F<br>'.'('.$minTemperatureCValue . '°C'.')';
+                                                    }elseif($key == 'MaxTemperatureF'){
+                                                        $maxTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                        $maxTemperatureCValue = $bricks->$getBrick()->getMaxTemperatureC();
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . '°F<br>'.'('.$maxTemperatureCValue . '°C'.')';
+                                                    }
+                                                    else{
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    }
                                                 }
                                                 else{
                                                     $coverCompounds[$coverCompoundName][$level4Key][] = '';
