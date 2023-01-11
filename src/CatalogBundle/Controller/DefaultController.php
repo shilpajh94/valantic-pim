@@ -1057,13 +1057,30 @@ if(isset($data[$baseId])) {
                         $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                         
                         $standardMetHoseListData = array();
+                        $standardMetHoseMeetFlameResistence = array();
                         if($standardsMetHose)
                         {
                             foreach ($standardsMetHose as $fkey => $fvalue) {
                                 if(isset($standardMetHoseList[$fvalue]))
-                                    $standardMetHoseListData[$standardMetHoseList[$fvalue]['CustomerFacingVersion']][] = $standardMetHoseList[$fvalue]['name'];
+                                {
+                                    $hoseMetKey = $standardMetHoseList[$fvalue]['key'];
+                                    $lowercaseHoseMetKey = strtolower($hoseMetKey);
+
+                                    if ((strpos($lowercaseHoseMetKey, 'flame') !== false) || (strpos($lowercaseHoseMetKey, 'usmsha') !== false) || (strpos($lowercaseHoseMetKey, 'msha') !== false)) 
+                                    { 
+                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
+                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['CustomerFacingVersion'] = $standardMetHoseList[$fvalue]['CustomerFacingVersion'];
+                                    }
+                                    else
+                                    {
+                                        $standardMetHoseListData[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
+                                        $standardMetHoseListData[$hoseMetKey]['CustomerFacingVersion'] = $standardMetHoseList[$fvalue]['CustomerFacingVersion'];
+                                    }
+                                }
                             }
                         }
+
+
 
                         $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
                         $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
@@ -1103,6 +1120,7 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
                         $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
                         $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
+                        $data[$uniqueId]['standardMetHoseMeetFlameResistence'] = $standardMetHoseMeetFlameResistence;
                         $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
                         $data[$uniqueId]['iconRequired'] = $this->iconRequired;
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
