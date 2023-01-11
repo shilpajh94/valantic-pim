@@ -11,7 +11,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <div class="numberTitle">
             <?php if($this->editmode): ?>
                 <?php if($this->input("HHIDN_Heading")->isEmpty()): ?>
-                    <h2><?= $this->input("HHIDN_Heading", ['placeholder'=>"Index Page Title"])->setDataFromResource('Industrial Hose Index By Application'); ?></h2>
+                    <h2><?= $this->input("HHIDN_Heading", ['placeholder'=>"Index Page Title"])->setDataFromResource('Industrial Hose Index By Aphabet'); ?></h2>
                 <?php else: ?>
                     <h2><?= $this->input("HHIDN_Heading"); ?></h2>
                 <?php endif; ?>

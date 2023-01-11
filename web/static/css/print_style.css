@@ -1069,7 +1069,7 @@ h5 + .pageTitle {
     display: block;
     position: running(tableHeader);
 }
-.table-content h4{margin-top: 20px; color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
+.table-content h4{color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
 .table-content h5{ font-size: 10px; letter-spacing: 1px; font-family: 'ContinentalStagSansLCG-Book'; font-weight: normal !important; color: #000;}
 
 .table-content > article > *{ margin-right: 40px;}
