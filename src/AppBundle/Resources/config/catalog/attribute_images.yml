@@ -119,6 +119,8 @@ parameters:
     'SizeEnd1Inches': '/CatalogImages/Icons/SizeEnd1Inches.png'
     'SizeEnd2Inches': '/CatalogImages/Icons/SizeEnd2Inches.png'
     'tubeGauge': '/CatalogImages/Icons/tubeGauge.png'
+    'WeightLbsPerFTUOM': '/CatalogImages/Icons/WeightLbsPerFTUOM.png'
+    'HoseFittingFamily': '/CatalogImages/Icons/HoseFittingFamily.png'
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png'
