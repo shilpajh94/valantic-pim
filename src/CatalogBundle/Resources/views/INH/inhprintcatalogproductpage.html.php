@@ -441,7 +441,7 @@ if (isset($info['brandsData'])) {
     }
     ?>
 
-    <div class="">
+    <div class="hide">
     <?php
 
         $industrial_hose_data_list = [];
