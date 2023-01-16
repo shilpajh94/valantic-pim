@@ -24,7 +24,7 @@ pimcore.plugin.DistributionHubBundle.PhpCodeOperator = Class.create({
                 });
         
                 this.additionalDataField = new Ext.form.TextArea({
-                    fieldLabel: t('brick_attributes'),
+                    fieldLabel: t('Brick Attribute Name'),
                     width: 400,
                     value: this.node.data.configAttributes.additionalData
                 });
