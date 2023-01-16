@@ -311,7 +311,8 @@ if ($data):
                                                                     else:
                                                                         echo $this->input("meetPerformanceRequirements_{$md5key}");
                                                                     endif; 
-                                                                }                                                            
+                                                                }         
+                                                                echo "<br/>";                                                   
                                                                 $hoseMetCount = 0;
                                                                 foreach ($brandData['standardMetHoseListData'] as $key => $standard): 
                                                                 ?>
@@ -425,8 +426,6 @@ if ($data):
                                 <menu>
                                     <h6><?= $this->translate('branding') ?></h6>
                                     <figure>
-                                        <img src="<?= $branding_image_src; ?>" width='80'/>
-                                        <figcaption><b><?= $brandData['brandName'] ?></b></figcaption>
                                         <figcaption> <?= $brandData['BrandingLayline'] ?> </figcaption>
                                     </figure>
                                 </menu>

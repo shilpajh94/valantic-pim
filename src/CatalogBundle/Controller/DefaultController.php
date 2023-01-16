@@ -1069,7 +1069,7 @@ if(isset($data[$baseId])) {
                                     if ((strpos($lowercaseHoseMetKey, 'flame') !== false) || (strpos($lowercaseHoseMetKey, 'usmsha') !== false) || (strpos($lowercaseHoseMetKey, 'msha') !== false)) 
                                     { 
                                         $standardMetHoseMeetFlameResistence[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
-                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['CustomerFacingVersion'] = $standardMetHoseList[$fvalue]['CustomerFacingVersion'];
+                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['CustomerFacingVersion'] = 'Meets Flame Resistance';
                                     }
                                     else
                                     {
@@ -1114,7 +1114,7 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
                         $data[$uniqueId]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                         $data[$uniqueId]['longDescription'] = $longDescription;
-                        $data[$uniqueId]['BrandingLayline'] = $BrandingLayline;
+                        $data[$uniqueId]['BrandingLayline'] = 'ASASAS';
                         $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                         $data[$uniqueId]['reinforcement'] = $reinforcementStr;
                         $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
