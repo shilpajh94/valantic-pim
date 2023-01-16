@@ -145,33 +145,20 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
             <?= $this->wysiwyg("HHSC_Description_{$md5Key}",["class"=>"marginBottom30"]); ?>
             </p>
 
-            <div class="bg marginTop30">
-                        <span>
-                        <?php
-                        if($this->editmode)
-                                echo $this->image("HHSC_Title_Image_{$md5Key}", ["width" => 50]);
-                        else{
-                                $imgSrcObj2 =  $this->image("HHSC_Title_Image_{$md5Key}");
-                                if($imgSrcObj2)
-                                {
-                                ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" width="50"/>
-                                <?php
-                                }
-                        }
+            <div class="marginTop30">
+                <?php
+                if($this->editmode)
+                        echo $this->image("HHSC_Title_Image_{$md5Key}");
+                else{
+                        $imgSrcObj2 =  $this->image("HHSC_Title_Image_{$md5Key}");
+                        if($imgSrcObj2)
+                        {
                         ?>
-                        </span>
-                        <h3>
-                        <?php if($this->editmode): ?>
-                                <?php if($this->input("HHSC_Title_{$md5Key}")->isEmpty()): ?>
-                                        <?= $this->input("HHSC_Title_{$md5Key}")->setDataFromResource($catalogGroupKey) ?>
-                                <?php else: ?>
-                                        <?= $this->input("HHSC_Title_{$md5Key}"); ?>
-                                <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("HHSC_Title_{$md5Key}") ?>
-                        <?php endif; ?>
-                        </h3>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" width="100%"/>
+                        <?php
+                        }
+                }
+                ?>
             </div>
             <table cellspacing="0" cellpadding="0" class="grid">
                    <thead>

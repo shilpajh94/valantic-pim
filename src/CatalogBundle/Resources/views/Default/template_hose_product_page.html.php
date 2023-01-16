@@ -425,7 +425,7 @@ if ($data):
                             <?php if (!empty(trim($brandData['BrandingLayline']))): ?>
                                 <menu>
                                     <h6><?= $this->translate('branding') ?></h6>
-                                    <figure>
+                                    <figure class="brandingLaylineStyle">
                                         <figcaption> <?= $brandData['BrandingLayline'] ?> </figcaption>
                                     </figure>
                                 </menu>
