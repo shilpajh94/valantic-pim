@@ -2450,11 +2450,28 @@ if(isset($data[$baseId])) {
                 if($doc->getChildren())
                 {
                     foreach ($doc->getChildren() as $key => $childDoc) {
-                        if (in_array($childDoc->getTemplate(), $templateArray)) {
-                            $obj = $childDoc->getElement('product_page_part_number');
-                            if (!empty($obj) && !empty($obj->getData())) {
-                                $partNumberList = explode(',', $obj->getData());
-                                $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) 
+                            {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    $obj = $child2Doc->getElement('product_page_part_number');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $partNumberList = explode(',', $obj->getData());
+                                        $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                $obj = $childDoc->getElement('product_page_part_number');
+                                if (!empty($obj) && !empty($obj->getData())) {
+                                    $partNumberList = explode(',', $obj->getData());
+                                    $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                }
                             }
                         }
                     }
@@ -2506,11 +2523,27 @@ if(isset($data[$baseId])) {
                 if($doc->getChildren())
                 {
                     foreach ($doc->getChildren() as $key => $childDoc) {
-                        if (in_array($childDoc->getTemplate(), $templateArray)) {
-                            $obj = $childDoc->getElement('product_page_product_number');
-                            if (!empty($obj) && !empty($obj->getData())) {
-                                $partNumberList = explode(',', $obj->getData());
-                                $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    $obj = $child2Doc->getElement('product_page_product_number');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $partNumberList = explode(',', $obj->getData());
+                                        $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                $obj = $childDoc->getElement('product_page_product_number');
+                                if (!empty($obj) && !empty($obj->getData())) {
+                                    $partNumberList = explode(',', $obj->getData());
+                                    $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                }
                             }
                         }
                     }
