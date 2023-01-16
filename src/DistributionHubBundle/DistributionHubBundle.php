@@ -70,7 +70,8 @@ class DistributionHubBundle extends AbstractPimcoreBundle
             '/bundles/distributionhub/js/pimcore/operator/CollectionMediaGetter.js',
             '/bundles/distributionhub/js/pimcore/operator/ReverseManyToManyGetter.js',
             '/bundles/distributionhub/js/pimcore/operator/SelectTypeMasterGetter.js',
-            '/bundles/distributionhub/js/pimcore/operator/StripTag.js'
+            '/bundles/distributionhub/js/pimcore/operator/StripTag.js',
+            '/bundles/distributionhub/js/pimcore/operator/PhpCodeOperator.js'
 
         ];
     }
