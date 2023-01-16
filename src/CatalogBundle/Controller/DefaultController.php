@@ -1114,7 +1114,7 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
                         $data[$uniqueId]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                         $data[$uniqueId]['longDescription'] = $longDescription;
-                        $data[$uniqueId]['BrandingLayline'] = 'ASASAS';
+                        $data[$uniqueId]['BrandingLayline'] = $BrandingLayline;
                         $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                         $data[$uniqueId]['reinforcement'] = $reinforcementStr;
                         $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
