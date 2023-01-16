@@ -1549,42 +1549,89 @@ if(isset($data[$baseId])) {
                 {
                     
                     foreach ($doc->getChildren() as $key => $childDoc) {
-                        if (in_array($childDoc->getTemplate(), $templateArray)) {
 
-                            if($childDoc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) 
                             {
-                                $obj = $childDoc->getElement('hydraulic_hose_details');
-                                if (!empty($obj) && !empty($obj->getData())) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
-                                    $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
-                                    $hydraulicHoseInnerData = [];
-                                    if($hydraulicHoseData)
+                                    if($child2Doc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
                                     {
-                                        foreach ($hydraulicHoseData as $key => $value) {
-                                            $data = [];
-                                            $hydraulicHostList = explode('$$',$value);
-                                            $hydraulicHostKey = $hydraulicHostList[0];
-                                            $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
-                                            $data[] = $hydraulicHostKey;
-                                            $data[] = $hydraulicHostValue;
-                                            $hydraulicHoseInnerData[] = $data;
+                                        $obj = $child2Doc->getElement('hydraulic_hose_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+        
+                                            $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                                            $hydraulicHoseInnerData = [];
+                                            if($hydraulicHoseData)
+                                            {
+                                                foreach ($hydraulicHoseData as $key => $value) {
+                                                    $data = [];
+                                                    $hydraulicHostList = explode('$$',$value);
+                                                    $hydraulicHostKey = $hydraulicHostList[0];
+                                                    $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                    $data[] = $hydraulicHostKey;
+                                                    $data[] = $hydraulicHostValue;
+                                                    $hydraulicHoseInnerData[] = $data;
+                                                }
+                                                $hydraulicHose[] = $hydraulicHoseInnerData;
+                                            }
                                         }
-                                        $hydraulicHose[] = $hydraulicHoseInnerData;
+                                    }
+                                    else if($child2Doc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('hydraulic_fitting_brand');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $fittingBrandNames = explode('$$', $obj->getData());
+                                            $data = [];
+                                            $data[] = $child2Doc->getKey();
+                                            $data[] = $fittingBrandNames;
+                                            $allFittingData[] = $data;
+                                        }
                                     }
                                 }
                             }
-                            else if($childDoc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
-                            {
-                                $obj = $childDoc->getElement('hydraulic_fitting_brand');
-                                if (!empty($obj) && !empty($obj->getData())) {
-                                    $fittingBrandNames = explode('$$', $obj->getData());
-                                    $data = [];
-                                    $data[] = $childDoc->getKey();
-                                    $data[] = $fittingBrandNames;
-                                    $allFittingData[] = $data;
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+
+                                if($childDoc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                                {
+                                    $obj = $childDoc->getElement('hydraulic_hose_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+    
+                                        $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                                        $hydraulicHoseInnerData = [];
+                                        if($hydraulicHoseData)
+                                        {
+                                            foreach ($hydraulicHoseData as $key => $value) {
+                                                $data = [];
+                                                $hydraulicHostList = explode('$$',$value);
+                                                $hydraulicHostKey = $hydraulicHostList[0];
+                                                $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                $data[] = $hydraulicHostKey;
+                                                $data[] = $hydraulicHostValue;
+                                                $hydraulicHoseInnerData[] = $data;
+                                            }
+                                            $hydraulicHose[] = $hydraulicHoseInnerData;
+                                        }
+                                    }
+                                }
+                                else if($childDoc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                {
+                                    $obj = $childDoc->getElement('hydraulic_fitting_brand');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $fittingBrandNames = explode('$$', $obj->getData());
+                                        $data = [];
+                                        $data[] = $childDoc->getKey();
+                                        $data[] = $fittingBrandNames;
+                                        $allFittingData[] = $data;
+                                    }
                                 }
                             }
                         }
+                        
                     }
 
                     
