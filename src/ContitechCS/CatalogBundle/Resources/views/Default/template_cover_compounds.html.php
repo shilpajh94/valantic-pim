@@ -143,8 +143,14 @@ $coverCompound = $data['coverCompoundData'];
                         }
                     }
                 ?>
-
+                <div class="page-break"></div>
                 <div class="belts-information">
+                <div class = "application-info">
+                    <?php if($this->editmode): ?>
+                        <?= $this->relations("objectPaths"); ?>
+                    <?php endif; ?>  
+                </div>  
+
                     <?php if($data['CCAARows']): ?>
                     <h1><span class="orange">
                     <strong>
@@ -157,7 +163,8 @@ $coverCompound = $data['coverCompoundData'];
                         <?php else: ?>
                                 <?= $this->input("CC_CCAA") ?>
                         <?php endif; ?>
-                    </strong>  
+                    </strong>
+                    
                     </h1>
                     <div class="table-data compounds-table mb-4">
                         <table width="100%" class="white-bg">
@@ -169,7 +176,7 @@ $coverCompound = $data['coverCompoundData'];
                                     </th>
                                 </tr>
                                 <tr class="vertical-head">
-                                    <th align="left" width="13%" class="orange">
+                                    <th align="left" class="orange">
                                     <?= $this->translate('CS_Compounds') ?>
                                     </th>
                                     
@@ -178,7 +185,7 @@ $coverCompound = $data['coverCompoundData'];
 
                                         foreach ($applicationData as $key => $value) {
                                             ?>
-                                            <th width="5.8%" class="rotate"><div><?= $value; ?></div></th>
+                                            <th class="rotate"><div><?= $value; ?></div></th>
                                             <?php
                                         }
                                     ?>
@@ -207,7 +214,7 @@ $coverCompound = $data['coverCompoundData'];
                                                     $value = '';
                                                 }
                                         ?>
-                                            <td <?= $style; ?> <?= $class; ?>><?= $value; ?> <span class="white-bg"></span></td>
+                                            <td  <?= $style; ?> <?= $class; ?>><?= $value; ?> <span class="white-bg"></span></td>
 
                                         <?php 
                                             } 
@@ -223,10 +230,6 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                     <?php endif; ?>
 
-                    <?php 
-                    $level3rdObjectData = $data['level3rdObjectData'];
-                    if($level3rdObjectData){
-                    ?>
                     <div class="page-break"></div>
                     <h1 class="orange">
                         <?php if($this->editmode): ?>
@@ -240,51 +243,23 @@ $coverCompound = $data['coverCompoundData'];
                         <?php endif; ?>
                     </h1>
 
-                    <div class="colum-2 standard-compounds p-0">
-                          
-                        <?php
-                            
-                            foreach ($level3rdObjectData as $key => $object) {
-                                ?>
-                                <?php if($this->editmode):?>
-                                    <div class="attr-font"> Object Name = Name</div>
-                                <?php endif;?>
-                                <h3>
-                                    <?php if($this->editmode): ?>
-                                            <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name'])->setDataFromResource($object['Name']) ?>
-                                            <?php else: ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']); ?>
-                                            <?php endif; ?>
-                                    <?php else: ?>
-                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name",['placeholder' => 'Enter Name']) ?>
-                                    <?php endif; ?>
-                                </h3>
-                                
-                                <?php if($this->editmode):?>
-                                    <div class="attr-font"> Object  = LongText</div>
-                                <?php endif;?>
-                                <p>
-                                    <?php if($this->editmode): ?>
-                                            <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($object['LongText']) ?>
-                                            <?php else: ?>
-                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text']); ?>
-                                            <?php endif; ?>
-                                    <?php else: ?>
-                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText",['placeholder' => 'Enter Long Text']) ?>
-                                    <?php endif; ?>
-                                </p>
-                                <?php
-                            }
-
-                        ?>
-                    </div>
-                    <?php 
-                    }
-                    ?>
-                </div>
-
+                    <div class = "standard-compounds">
+                    <table>
+                        <tr>
+                            <td>
+                                <?php while($this->block("contentblock")->loop()) { ?>
+                                <h3 style="margin-bottom : 0rem;"><?= $this->input("heading"); ?></h2>
+                                <p class = 'description'><?= $this->input("context"); ?></p>
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php while($this->block("contentblock1")->loop()) { ?>
+                                <h3 style="margin-bottom : 0rem;"><?= $this->input("heading1"); ?></h2>
+                                <p><?= $this->input("context1"); ?></p>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </table>
                 <?php 
                     $singleProductPage = $data['singleProductPage'];
                 ?>
@@ -344,11 +319,12 @@ $coverCompound = $data['coverCompoundData'];
                     <?php endif; ?>
                     
                 </p>
-                        
                 <?php if($singleProductPage['FeaturesAndBenefits']) {  ?>
                     <div class="features-benefit-sec">
                         <?php
+                        
                         foreach ($singleProductPage['FeaturesAndBenefits'] as $fkey => $feature) {
+                        
                             $md5FeatureNameKey = md5($feature['FeatureName']);
                         ?>
                             <div class="media">
@@ -440,7 +416,10 @@ $coverCompound = $data['coverCompoundData'];
                                         $count = 0;
                                         foreach ($singleProductPage['Level4ObjChildData'] as $chKey => $chValue) {
                                             $md5Key = md5($chValue['Name'].'_'.$count);
+                                            if($count > 3)
+                                                break;
                                             $count++;
+                                            
                                         ?>
                                             
                                             <tr>
@@ -491,6 +470,9 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
 
                 </div>
+                <?php if($this->editmode): ?>                                               
+                        <?=  $this->relations("coverCompoundTableObjects"); ?>
+                <?php endif; ?>
 
                 <?php
 
@@ -514,6 +496,7 @@ $coverCompound = $data['coverCompoundData'];
                         
                         </strong>  
                     </h1>
+
                     <div class="cover-compounds-table">
                         <table width="100%">
                             <thead>
@@ -522,10 +505,11 @@ $coverCompound = $data['coverCompoundData'];
                                     $coverCompoundsHeaderKeys = $data['coverCompoundsHeaderKeys'];
                                     $firstKey = array_key_first($coverCompoundsHeaderKeys);
                                     $colSpan = count($coverCompoundsHeaderKeys);
+
                                     foreach ($coverCompoundsHeaderKeys as $hkey => $headerValue) {
                                         if($firstKey == $hkey)
                                         {
-                                            $style = 'align="left"';
+                                            $style = 'align="center"';
                                         }
                                         ?>
                                             <th <?= $style; ?> width="8%"><?= $this->translate($headerValue); ?></th>
@@ -536,7 +520,7 @@ $coverCompound = $data['coverCompoundData'];
                             </thead>
 
                             <?php
-                                
+
                                 foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
                                     ?>
                                         <tr>
@@ -553,6 +537,8 @@ $coverCompound = $data['coverCompoundData'];
                                             if($firstKey == $tdKey)
                                             {
                                                 $style = 'align="left"';
+                                            }else{
+                                                $style = 'align="center"';
                                             }
                                             ?>
                                             <td <?= $style; ?>><?= $tdValue; ?></td>
@@ -565,7 +551,6 @@ $coverCompound = $data['coverCompoundData'];
                                     ?>
                                     </tbody>
                                     <?php
-
                                 }
                             ?>
                             
@@ -580,3 +565,5 @@ $coverCompound = $data['coverCompoundData'];
     </div>
 
 <?php endif; ?>
+
+
