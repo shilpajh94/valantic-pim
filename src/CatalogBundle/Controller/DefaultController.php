@@ -334,9 +334,19 @@ class DefaultController extends AbstractController {
               } */
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
-        if ($fitting != null && !empty($fitting) && $fitting != '1') {
+        if (is_array($fitting) && count($fitting)) {
             $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
-            $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
+            $fittingConditonArray = [];
+            foreach ($fitting as $key => $fittingValue) {
+                $fittingConditonArray[] = "(HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+                $fittingConditonArray[] = "(HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+            }
+            if(count($fittingConditonArray))
+            {
+                $fittingString = " ( " .implode(' OR ', $fittingConditonArray) . " ) ";
+                $conditionArray[] = $fittingString;
+            }
+            // $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
             //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
         if ($baseProduct !== null && count($baseProduct) > 0) {
@@ -356,6 +366,8 @@ class DefaultController extends AbstractController {
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
         $conditionArray[] = "printedCatalogFlag = '1' ";
+        // p_r($conditionArray);
+        // die;
         $productList->setCondition(implode(' AND ', $conditionArray));
 //        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
 
@@ -2252,9 +2264,9 @@ if(isset($data[$baseId])) {
 
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
@@ -2290,10 +2302,10 @@ if(isset($data[$baseId])) {
                 if($value['columnName'] == 'listPrice')
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->get('translator')->trans($value['unitName'])) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
@@ -2321,6 +2333,13 @@ if(isset($data[$baseId])) {
 
     public function templateIndexProductNumberAction(Request $request)
     {
+    }
+
+    public function replaceYellowCode($string)
+    {
+        $string = str_replace('%*','<span style="color: #ffa500;">', $string);
+        $string = str_replace('*%','</span>', $string);
+        return $string;
     }
 }
 
