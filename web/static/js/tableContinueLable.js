@@ -5,10 +5,13 @@
 var INHTablerows = document.querySelectorAll(".inhsetting1");
 
 INHTablerows.forEach(function (row) {
-     var rowDescriptions = ro.layout.getBoxDescriptions(row);
-     var rowDescription = rowDescriptions[0];
-     const onLeftPage = rowDescription.pageLeft;
-     row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    if (typeof(ro) != "undefined")
+    {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    }
  });
 
 /**
@@ -17,10 +20,13 @@ INHTablerows.forEach(function (row) {
 
 var HYDHoseRows = document.querySelectorAll(".productHeadingProductPage");
 HYDHoseRows.forEach(function (row) {
-    var rowDescriptions = ro.layout.getBoxDescriptions(row);
-    var rowDescription = rowDescriptions[0];
-    const onLeftPage = rowDescription.pageLeft;
-    row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
+    if (typeof(ro) != "undefined")
+    {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
+    }
 });
 
 
@@ -30,10 +36,13 @@ HYDHoseRows.forEach(function (row) {
 
 var HYDFittingRows = document.querySelectorAll(".headingSection");
 HYDFittingRows.forEach(function (row) {
-    var rowDescriptions = ro.layout.getBoxDescriptions(row);
-    var rowDescription = rowDescriptions[0];
-    const onLeftPage = rowDescription.pageLeft;
-    row.className = onLeftPage ? "fittingLeftHeadingSection" : "fittingRightHeadingSection";
+    if (typeof(ro) != "undefined")
+    {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = onLeftPage ? "fittingLeftHeadingSection" : "fittingRightHeadingSection";
+    }
 });
 
 
@@ -75,27 +84,31 @@ for (var i = 0; i < tables.length; i++) {
 
         for (var j = 0; j < rows.length; j++) {
             var row = rows[j];
-            var bd = ro.layout.getBoxDescriptions(row);
 
-            if (bd) {
+            if (typeof(ro) != "undefined")
+            {
+                var bd = ro.layout.getBoxDescriptions(row);
 
-                // check if a page break occurs
-                if (bd[0].pageIndex > currentPage) {
+                if (bd) {
 
-                    currentPage = bd[0].pageIndex;
+                    // check if a page break occurs
+                    if (bd[0].pageIndex > currentPage) {
 
-                    if (j > 0) {
-                    
-                        var previousRow = rows[j - 1];
-                        // create a new row
-                        var continueRow = document.createElement("tr");
-                        var continueCell = document.createElement("td");
-                        continueCell.setAttribute("colspan", colspan);
-                        continueCell.textContent = CONTINUED_TEXT;
-                        continueCell.className = "continueRow";
-                        // continueRow.className = "continueRow";
-                        continueRow.appendChild(continueCell);
-                        previousRow.parentNode.insertBefore(continueRow, previousRow);
+                        currentPage = bd[0].pageIndex;
+
+                        if (j > 0) {
+                        
+                            var previousRow = rows[j - 1];
+                            // create a new row
+                            var continueRow = document.createElement("tr");
+                            var continueCell = document.createElement("td");
+                            continueCell.setAttribute("colspan", colspan);
+                            continueCell.textContent = CONTINUED_TEXT;
+                            continueCell.className = "continueRow";
+                            // continueRow.className = "continueRow";
+                            continueRow.appendChild(continueCell);
+                            previousRow.parentNode.insertBefore(continueRow, previousRow);
+                        }
                     }
                 }
             }
