@@ -794,12 +794,17 @@ final class Importer implements ImporterInterface
                 if ($setter instanceof LoggerAwareInterface) {
                     $setter->setLogger($this->logger);
                 }
-
+                if(empty(trim($value)) && (!is_numeric($value))){
+                    $value = NULL;
+                }
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-                $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
-                $object->setValue($map->getToColumn(), $value);
+            if(empty(trim($value)) && (!is_numeric($value))){
+                $value = NULL;
+            }
+            $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
+            $object->setValue($map->getToColumn(), $value);
         }
     }
 
