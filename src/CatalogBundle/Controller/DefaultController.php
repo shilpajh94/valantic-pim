@@ -918,7 +918,6 @@ if(isset($data[$baseId])) {
             {
                 $headerKeys = array_keys($headerData);
                 $headerKeysIndex = array_flip($headerKeys);
-
                 $objColumnsData = $template->getColumns();
                 $this->iconRequired = 'YES';
                 $this->subHeaderRequired = 'NO';
@@ -1053,6 +1052,10 @@ if(isset($data[$baseId])) {
                                     $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                                 else
                                 {
+                                    if($ckey == 'workingPressurePSI'){
+                                        $workingPressureValueArray = explode('.',$element[$headerKeysIndex[$ckey]]);
+                                        $element[$headerKeysIndex[$ckey]] = $workingPressureValueArray[0];
+                                    }
                                     $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                                 }
                             }
@@ -1127,9 +1130,9 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                     }
-
-                    if($data)
+                    if($data){
                         array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    }
 
                     $catalogGroupData[$catalogKey] = $data;
                     unset($data);
@@ -1683,8 +1686,11 @@ if(isset($data[$baseId])) {
                                         $reinforcement = array_merge($reinforcement, $value);
                                     if($bkey == $headerKeysIndex['workingPressurePSI'])
                                     {
-                                        if($value)
-                                        $workingPressurePSI[] = $value;
+                                        if($value){
+                                            $workingPressureValueArray = explode('.',$value);
+                                            $workingPressurePSI[] = $workingPressureValueArray[0];
+                                            // $workingPressurePSI[] = $value;
+                                        }
                                     }
                                     if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
