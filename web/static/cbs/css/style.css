@@ -783,16 +783,25 @@ thead tr:first-child th {
 .compounds-table td:first-child {
   font-family: "ContinentalStagSansLCG-Medium";
 }
+.compounds-table thead tr th:first-child{width:100px;}
 .compounds-table th.rotate {
-  height: 150px;
-  white-space: nowrap;
-  text-align: center;
+  height: 130px;
+    white-space: nowrap;
+    /* text-align: left; */
+    vertical-align: bottom;
+    text-align: -webkit-center;
+    /* border: 1px solid red; */
+    width:30px;
 }
 
 .compounds-table th.rotate > div {
-  transform: translate(25px, 30px) rotate(-90deg);
-  width: 5px;
-  padding-right:10px
+  transform: rotate(270deg);
+    width: 25px;
+    /* border: 1px solid blue; */
+    /* padding-right: 10px; */
+    height: 25px;
+    position: relative;
+    top: 0;
 }
 .compounds-table th:first-child {
   vertical-align: bottom;
@@ -1055,7 +1064,7 @@ height:100%;
 .cover-compounds-table td,
 .cover-compounds-table th {
   border-bottom: 1px solid #000;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .cover-compounds-table tbody tr:nth-child(2n) {
@@ -1435,4 +1444,12 @@ p.ml-10
 }
 #sybercord-para-right-container{
   /* text-align: center; */
+}
+
+/* .cover_compounds_and_applications .x-action-col-icon{
+  max-width: initial !important;
+} */
+
+.cover_compounds_and_applications .x-grid-cell-inner, .x-grid-cell-inner-checkcolumn, .x-grid-cell-inner-action-col{
+    padding: 0px !important;
 }
