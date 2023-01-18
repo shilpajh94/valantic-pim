@@ -186,12 +186,10 @@ pre {
     width: 30px;
 }
 
-.page95, .pg-6{
+.pg-6{
     min-width: 100%;
     margin: 0;
 }
-
-
 
 section:nth-of-type(1) {
     page-break-before: avoid;
@@ -221,6 +219,27 @@ section {
 }
 
 .new-page {break-inside: avoid-page;}
+
+    #conti-protect-system img
+    {
+        max-height: 170px;
+    }
+
+    #bottom-block img{
+        position: fixed;
+        width: 90%;
+        bottom:0;
+        left: 40px;
+    }
+
+    
+    
+
+    .cleated_product_img .img{
+
+        height: 100px !important;
+    
+    }
 
 }
 
@@ -253,32 +272,32 @@ section {
 
 
 @page:right { 
-    margin-left: 60px;
-    margin-right: 40px;
+    margin-left: 80px;
+    margin-right: 50px;
 
    
 
     @top-left-corner{
         content: string(headerFirsttitle, first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-family: 'ContinentalStagSansLCG-Medium';
         font-size:10px;
         white-space:nowrap;
         position: absolute;
-        left:60px;
+        left:80px;
         letter-spacing: 0.05em;
     }
        
     @top-left{
         content: string(headerSecondtitle , first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-size:10px;
         font-family: 'ContinentalStagSansLCG-light' !important;
         white-space:nowrap;
         position: absolute;
-        left:165px;
+        left:185px;
         letter-spacing: 0.05em;
         color:#000000;
     }
@@ -287,7 +306,7 @@ section {
     @top-right{
         content: counter(page);
         font-size: 10px;
-        padding-top: 40px;
+        padding-top: 50px;
         font-family: 'ContinentalStagSansLCG-Light';
         vertical-align: top;
 
@@ -301,30 +320,30 @@ section {
 }
 
 @page:left { 
-    margin-left: 40px;
-    margin-right: 60px;
+    margin-left: 50px;
+    margin-right: 80px;
  
     @top-left-corner{
         content: string(headerFirsttitle, first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-family: 'ContinentalStagSansLCG-Medium';
         font-size:10px;
         white-space:nowrap;
         position: absolute;
-        left:40px;
+        left:50px;
         letter-spacing: 0.05em;
     }
        
     @top-left{
         content: string(headerSecondtitle , first);
-        padding-top: 40px;
+        padding-top: 50px;
         vertical-align: top;
         font-size:10px;
         font-family: 'ContinentalStagSansLCG-light' !important;
         white-space:nowrap;
         position: absolute;
-        left:145px;
+        left: 155px;
         letter-spacing: 0.05em;
         color:#000000;
     }
@@ -332,9 +351,10 @@ section {
     @top-right{
         content: counter(page);
         font-size: 10px;
-        padding-top: 40px;
+        padding-top: 50px;
         font-family: 'ContinentalStagSansLCG-Light';
         vertical-align: top;
+        right: 55px;
 
     }
     @bottom-left {
@@ -369,21 +389,76 @@ section {
 
 
 @page contiInspect{
+    size: 8.5in 11in;
+    margin:0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
 
-    @top-center{
-        content: element(conticleanImage, first);
-         position: absolute;
-         top:0;
-         width:100%;
-         height:auto;
-         left:0;
-        z-index: 1;
-        margin-left:0px !important;
-        margin-right:0px !important;
+    @bottom-left {
+        content: element(footerLogo, last);
+        position: relative;
+        left: 50px;
     }
-    
+    @bottom-right {
+        content: element(footerLogo, last);
+        position: relative;
+        right: 40px;
+    }
 }
 
+@page contiProtect{
+    size: 8.5in 11in;
+    margin:0px !important;
+    padding-bottom: 0px !important;
+    
+    @top-left-corner{
+        content: string(headerFirsttitle, first);
+        padding-top: 50px;
+        vertical-align: top;
+        font-family: 'ContinentalStagSansLCG-Medium';
+        font-size:10px;
+        white-space:nowrap;
+        position: absolute;
+        left:50px;
+        letter-spacing: 0.05em;
+    }
+
+    @top-left{
+        content: string(headerSecondtitle , first);
+        padding-top: 50px;
+        vertical-align: top;
+        font-size:10px;
+        font-family: 'ContinentalStagSansLCG-light' !important;
+        white-space:nowrap;
+        position: absolute;
+        left:155px;
+        letter-spacing: 0.05em;
+        color:#000000;
+    }
+
+    @top-right{
+        content: counter(page);
+        font-size: 10px;
+        padding-top: 50px;
+        padding-right: 60px;
+        font-family: 'ContinentalStagSansLCG-Light';
+        vertical-align: top;
+
+    }
+    
+    @bottom-left {
+        content: element(footerLogo, last);
+        position: relative;
+        left: 50px;
+    }
+    @bottom-right {
+        content: element(footerLogo, last);
+        position: relative;
+        right: 40px;
+    }
+
+}
 
 @page coverPage{
     margin:0;

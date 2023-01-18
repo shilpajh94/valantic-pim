@@ -45,7 +45,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php if($this->editmode):?>
                 <div class="attr-font">Attribute Name = Name</div>
             <?php endif;?>
-            <h1 class="orange">
+            <h1 class="orange pt-4">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CS_ProductName")->isEmpty()): ?>
                                 <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name'])->setDataFromResource($data['Name']) ?>
@@ -56,7 +56,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CS_ProductName",['placeholder' => 'Enter Product Name']) ?>
                 <?php endif; ?> 
             </h1>
-            <p class="p-medium">
+            <div class="p-medium">
+                <p>
                 <?php if($this->editmode):?>
                     <div class="attr-font">Attribute Name = Long Text</div>
                 <?php endif;?>
@@ -69,13 +70,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text']) ?>
                 <?php endif; ?>
-            </p>
+                </p>
+            </div>
             
             <?php 
             if($data['childrenData'])
             {
             ?>
-                <h2 class="orange mb-4">
+                <h2 class="orange mb-4 pt-4">
                 
                     <?php if($this->editmode): ?>
                             <?php if($this->textarea("CB_ProfileOption")->isEmpty()): ?>
@@ -101,26 +103,28 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php if($this->editmode):?>
                                 <div class="attr-font">Child Attribute Name = Product Image</div>
                             <?php endif;?>
-                            <?php
-                                if($this->editmode)
-                                {
-                                    if($this->image("CBChild_productImage_{$md5Key}")->isEmpty())
+                            <div class="cleated_product_img">
+                                <?php
+                                    if($this->editmode)
                                     {
-                                        echo $this->image("CBChild_productImage_{$md5Key}")->setImage($child['ProductImage']);
+                                        if($this->image("CBChild_productImage_{$md5Key}")->isEmpty())
+                                        {
+                                            echo $this->image("CBChild_productImage_{$md5Key}")->setImage($child['ProductImage']);
+                                        }
+                                        else{
+                                            echo $this->image("CBChild_productImage_{$md5Key}");
+                                        }
                                     }
-                                    else{
-                                        echo $this->image("CBChild_productImage_{$md5Key}");
+                                    else
+                                    {
+                                        $CBChild_productImageObj =  $this->image("CBChild_productImage_{$md5Key}");
+                                        if($CBChild_productImageObj->getId()) { ?>
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CBChild_productImageObj, $this->imageWidth); ?>" alt=""/>
+                                        <?php 
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    $CBChild_productImageObj =  $this->image("CBChild_productImage_{$md5Key}");
-                                    if($CBChild_productImageObj->getId()) { ?>
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CBChild_productImageObj, $this->imageWidth); ?>" class="w-100" alt=""/>
-                                    <?php 
-                                    }
-                                }
-                            ?>
+                                ?>
+                            </div>
                             
                             <?php if($this->editmode):?>
                                 <div class="attr-font">Child Attribute Name = Name</div>
@@ -215,7 +219,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="page-break"></div>
                 <div class="attr-font">Attribute Name = Name</div>
                 
-                <h2 class="orange">
+                <h2 class="orange pt-4">
                         <?php if($this->input("CB_ProductNameBeltRoll")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                         <?php else: ?>
@@ -248,7 +252,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 {
                 ?>
                 <div class="page-break"></div>
-                <h2 class="orange">
+                <h2 class="orange pt-4">
                     <?= $this->input("CB_ProductNameBeltRoll",['placeholder' => 'Enter Name']) ?>
                     <span class="sub-title">
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
@@ -264,7 +268,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="page-break"></div>
                 <div class="attr-font">Attribute Name = Name</div>
                 
-                <h2 class="orange">
+                <h2 class="orange pt-4">
                     <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
                             <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
                     <?php else: ?>
@@ -300,7 +304,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
                 <div class="page-break"></div>
                 
-                <h2 class="orange">
+                <h2 class="orange pt-4">
                     <?= $this->input("CB_ProductNameAngleIncline",['placeholder' => 'Enter Name']) ?>
                     <span class="sub-title">
                         <?= $this->input("CB_ProductNameAngleOfInclination") ?>
@@ -323,7 +327,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>
                     <?php endif;?>
-                    <h2 class="orange heading-info">
+                    <h2 class="orange heading-info pt-4">
                         <?php if($this->editmode): ?>
                                 <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
                                         <?= $this->input("CB_ProductNameProfileOptions",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
@@ -358,8 +362,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             
                         ?>
                             
-                        <table width="100%" class="mt-4">
-                            <thead class="mb-4">
+                        <table width="100%" class="mt-4 mb-5">
+                            <thead>
                                 <th colspan="3" class="text-left">
                                 <?php if($this->editmode):?>
                                     <div class="attr-font">Child Attribute Name = Name</div>
