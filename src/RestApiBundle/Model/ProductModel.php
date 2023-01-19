@@ -2,6 +2,7 @@
 
 namespace RestApiBundle\Model;
 
+use Doctrine\ORM\Query\Expr\Func;
 use Pimcore\Logger;
 
 class ProductModel
@@ -293,6 +294,58 @@ class ProductModel
             return $this->sqlArr[$this->fallbackLangCode];
         }
         return $this->sqlArr['other'];
+    }
+
+    public function getBrandsWithSorterObjectsMapped(){
+        $sql = "SELECT distinct p.brandName as brand_id, b.name,vcmap.GroupingField as mapper_GroupingField, 
+        vcmap.originalValues as mapping, vcsort.GroupingField as sorting_GroupingField, 
+        
+        IF(vcsort.columns = '{}' ,vcsort.Order,vcsort.columns) as sorting
+        from object_1 p join object_3 b on p.brandName = b.oo_id  left join object_VirtualCatalogApiSorter vcsort
+        on b.VirtualCatalogApiSorter__id = vcsort.oo_id left join object_VirtualCatalogApiMapper vcmap
+        on b.VirtualCatalogApiMapper__id = vcmap.oo_id where p.brandName is not null
+        and p.brandName <> ''";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+
+    }
+    public function getProductsForTheRequiredBrand($brandId){
+        $sql = "SELECT * from `object_1` where `brandName` = ".$brandId;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getProductsInSortedFormat($brandId,$groupingFieldNameForSorting,$sortingData, $brickName){
+        $select = "SELECT * from `object_1` INNER JOIN `object_brick_query_".$brickName."_1` ON object_1.oo_id = object_brick_query_".$brickName."_1.o_id
+        where `object_1`.`brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ";
+        if(is_array($sortingData)){
+            $condition = '';
+            $case = 'Case ';
+            $i = 0;
+            foreach($sortingData as $eachSortingData){
+                $eachSortingData = trim($eachSortingData,"'");
+                if($groupingFieldNameForSorting == 'reinforcement'){
+                    $condition = $condition . " WHEN ".$groupingFieldNameForSorting." = ',". $eachSortingData.",' THEN ".$i;
+                }else{
+                    $condition = $condition. " WHEN `object_brick_query_".$brickName."_1`.".$groupingFieldNameForSorting." = ',". $eachSortingData.",' THEN ".$i;
+                }
+                $i++;
+            }
+            $else = ' ELSE '.$i++. ' END';
+            if($groupingFieldNameForSorting == 'reinforcement'){
+                $sql = "SELECT * from `object_1` where `brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
+            }else{
+                $sql = $select.$case.$condition.$else;
+            }
+        }else{
+            $sql = $select.' `object_brick_query_'. $brickName.'_1`.'.$groupingFieldNameForSorting.' '. $sortingData;
+        }
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     /**

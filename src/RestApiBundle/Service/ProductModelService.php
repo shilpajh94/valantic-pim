@@ -27,6 +27,8 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use RestApiBundle\Model\ProductModel;
 use AppBundle\Tool\Utils;
 use AppBundle\Services\AppService;
+use Symfony\Component\Yaml\Yaml;
+
 
 class ProductModelService {
     private $model;
@@ -72,6 +74,37 @@ class ProductModelService {
             $productDetail["products"] = $this->formatProducts($productData);
         }
         return $productDetail;
+    }
+
+    public function getBrandSorter(){
+
+        $brandsArray = $this->model->getBrandsWithSorterObjectsMapped();
+        foreach($brandsArray as $eachBrand){
+            $brandId = $eachBrand['brand_id'];
+            if($eachBrand['sorting'] == NULL){
+                $arr[$brandId] = $this->model->getProductsForTheRequiredBrand($brandId);
+            }else{
+                $groupingFieldNameForSorting = $eachBrand['sorting_GroupingField'];
+                if($eachBrand['sorting'] != 'asc' && $eachBrand['sorting'] != 'desc'){
+                    $sortingData = json_decode($eachBrand['sorting'], TRUE);
+                    $sortingData = array_keys($sortingData);
+                }else{
+                    $sortingData = $eachBrand['sorting'];
+                }
+                $brickName = $this->getSortingFieldDataFromConfig($groupingFieldNameForSorting);
+                $arr[$brandId] = $this->model->getProductsInSortedFormat($brandId,$groupingFieldNameForSorting,$sortingData, $brickName);
+    
+            }
+        }
+        return ($arr);
+    }
+
+    public function getSortingFieldDataFromConfig($groupingFieldNameForSorting){
+        $groupingFieldsConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/RestApiBundle/Resources/config/config.yml');
+        if(array_key_exists($groupingFieldNameForSorting,$groupingFieldsConfig['parameters']['grouping_fields'])){
+            return $groupingFieldsConfig['parameters']['grouping_fields'][$groupingFieldNameForSorting]['container_name'];
+        }
+        return null;
     }
 
     private function filterProductBrandWise($products) {

@@ -93,7 +93,7 @@ class ProductController extends FrontendController
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get Virtual catalog data based on parameter request.
-            $productDetail  =   $this->service->getProduct('en',$conditionArray);
+            $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
             // Log Data.
             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If Virtual catalog data not exist return error.
