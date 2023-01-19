@@ -490,6 +490,15 @@ parameters:
                 fieldLabel: Main Image
                 parent: 
                     name: Product
+            safetyFactor:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Design Factor
+                parent: 
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
         Hydraulic Fitting:
             RightPrintCatalogImage:
                 fieldLevel: class
