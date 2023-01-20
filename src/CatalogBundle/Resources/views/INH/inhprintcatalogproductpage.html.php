@@ -231,7 +231,8 @@ if (isset($info['brandsData'])) {
 
                                                         <?php if (!empty(trim($brand['brandData']['designFactor']))): ?>
                                                             <div class="full">
-                                                                <b><?= $this->translate('Design Factor') ?> <?= $brand['brandData']['designFactor'] ?></b>
+                                                                <b><?= $this->translate('Design Factor') ?></b>
+                                                                <?= $brand['brandData']['designFactor'] ?>
                                                             </div>
                                                         <?php endif; ?>
                                                         

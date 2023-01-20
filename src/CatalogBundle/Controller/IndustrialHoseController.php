@@ -267,6 +267,7 @@ class IndustrialHoseController extends AbstractController
                 {
                     $reinforcementArr = array();
                     $designFactorArr = array();
+                    $designFactorArray = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
 
@@ -361,7 +362,7 @@ class IndustrialHoseController extends AbstractController
                                 $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
-                                $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
+                                $temperatureRangeFAndC = "<ul><li>".$bvalue[$headerKeysIndex['temperatureRangeFAndC']];
                             }
 
                             if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
@@ -435,8 +436,12 @@ class IndustrialHoseController extends AbstractController
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 
-                    if($designFactorArr)
-                        $designFactorStr = implode(', ', array_unique($designFactorArr));
+                    if($designFactorArr){
+                        $uniqueDesignFactor = array_unique($designFactorArr);
+                        foreach($uniqueDesignFactor as $eachDesignFactor)
+                            $designFactorArray[] = "<li>".$eachDesignFactor."</li>";
+                        $designFactorStr = implode(', ',$designFactorArray);
+                    }
 
                     $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                     if(empty($tubeMaterialStr) && $tubeMaterialArr)
