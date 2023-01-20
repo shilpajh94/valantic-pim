@@ -439,7 +439,7 @@ class IndustrialHoseController extends AbstractController
                     if($designFactorArr){
                         $uniqueDesignFactor = array_unique($designFactorArr);
                         foreach($uniqueDesignFactor as $eachDesignFactor)
-                            $designFactorArray[] = "<li>".$eachDesignFactor."</li>";
+                            $designFactorArray[] = "<ul><li>".$eachDesignFactor;
                         $designFactorStr = implode(', ',$designFactorArray);
                     }
 
