@@ -138,6 +138,8 @@ class ProductModelService {
                 }
             }
         }
+        return $brandArray;	
+
         // print_r($brandArray);
         // die();
     }
@@ -515,6 +517,10 @@ class ProductModelService {
         $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yml";
         $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
         return $vcFieldMapping;
+    }
+
+    public function getBrandData() {
+        return $this->model->getDistinctBrand(); 
     }
 
 }

@@ -456,4 +456,19 @@ class ProductModel
         return $featureList;
     }
 
+    /**	
+     * Method to get the distinct brands	
+     */	
+    public function getDistinctBrand() {	
+        $sql = 'SELECT distinct brandName FROM object_1 where virtualcatalogflag = 1';	
+        $stmt = $this->db->prepare($sql);	
+        $stmt->execute();	
+        $data = $stmt->fetchAll();	
+        if(!empty($data)) {	
+            return $data;	
+        } else {	
+            return null;	
+        }	
+    }
+
 }
