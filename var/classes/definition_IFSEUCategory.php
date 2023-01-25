@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-25T06:00:11+01:00
+* Generated at: 2023-01-25T07:29:50+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -17,11 +17,11 @@ Fields Summary:
 
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
-   'id' => 'IFSEUMasterData',
-   'name' => 'IFSEUMasterData',
+   'id' => 'IFSEUCategory',
+   'name' => 'IFSEUCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674622811,
+   'modificationDate' => 1674628190,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -95,7 +95,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -139,7 +139,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
