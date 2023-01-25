@@ -74,16 +74,22 @@ pimcore.plugin.headerSorter = Class.create({
             storeData = headerData.storeData;
             completeData = headerData.completeData;
 
-
-        //    console.log(object);
-
             if(headerData.type == 'Select')
             {
-                Ext.getCmp(object.edit.dataFields.Order.component.id).disabled = true;
+                Ext.getCmp(object.edit.dataFields.Order.component.id).reset();
+                Ext.getCmp(object.edit.dataFields.Order.component.id).setValue();
                 Ext.getCmp(object.edit.dataFields.Order.component.id).hide();
                 headerFieldSet.show();
+
             } else {
-                Ext.getCmp(object.edit.dataFields.Order.component.id).disabled = false;
+                Ext.getCmp(object.edit.dataFields.Order.component.id).store.removeAll();
+                if(headerData.type == 'Bool')
+                {
+                    Ext.getCmp(object.edit.dataFields.Order.component.id).store.add([{"key":"Yes", "value":"Yes"},{"key":"No", "value":"No"}]);
+                }
+                else{
+                    Ext.getCmp(object.edit.dataFields.Order.component.id).store.add([{"key":"Ascending", "value":"Ascending"},{"key":"Descending", "value":"Descending"}]);
+                }
                 Ext.getCmp(object.edit.dataFields.Order.component.id).show();
                 headerFieldSet.hide();
             }

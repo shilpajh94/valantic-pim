@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2022-09-23T10:51:11+02:00
+* Generated at: 2023-01-25T08:47:55+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'VirtualCatalogApiSorter',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1663923071,
+   'modificationDate' => 1674632875,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -217,13 +217,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'Descending',
-                        'value' => 'desc',
+                        'key' => 'Ascending',
+                        'value' => 'Ascending',
                       ),
                       1 => 
                       array (
-                        'key' => 'Ascending',
-                        'value' => 'asc',
+                        'key' => 'Descending',
+                        'value' => 'Descending',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 'Yes',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'No',
+                        'value' => 'No',
                       ),
                     ),
                      'width' => '',
@@ -238,7 +248,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'Order',
                      'title' => 'Order',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
