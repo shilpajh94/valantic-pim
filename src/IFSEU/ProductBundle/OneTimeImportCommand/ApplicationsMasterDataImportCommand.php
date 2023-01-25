@@ -1,10 +1,5 @@
 <?php
 
-/**
- * File Path: Your File path on system
- * Command: cs:one-time-import:product-hierarchy-import <filePath>
- * Des: Product hierarchy data import script.
- */
 
 namespace IFSEU\ProductBundle\OneTimeImportCommand;
 
@@ -16,14 +11,14 @@ use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
 
-class MasteDataImportCommand extends AbstractCommand
+class ApplicationsMasterDataImportCommand extends AbstractCommand
 {
     private $t;
 
     protected function configure()
     {
-        $this->setName('ifs-eu-master-data-import-command')
-            ->setDescription('Master data import script')
+        $this->setName('ifs-eu-applications-master-data-import-command')
+            ->setDescription('Applications master data import script')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -52,7 +47,7 @@ class MasteDataImportCommand extends AbstractCommand
 
             unset($result);
 
-            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER)->getId();
+            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_APPLICATIONS_MASTERDATA_FOLDER)->getId();
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
@@ -69,26 +64,25 @@ class MasteDataImportCommand extends AbstractCommand
     public function insertCategoryMasterData($result, $parentFolderID)
     {
 
-        $categoryLanguageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/category_language_master_data.yml');
+        $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
         $title = trim($result['ID']).'-'.trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
         if ($title) {
 
-            $categoryObj = DataObject\IFSEUCategory::getByPath("/" . ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER . "/" . $validKey);
+            $categoryObj = DataObject\IFSEUApplications::getByPath("/" . ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER . "/" . $validKey);
 
             if (!$categoryObj) {
-                $obj = new DataObject\IFSEUCategory();
+                $obj = new DataObject\IFSEUApplications();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setCategoryID($result['ID']);
-                $obj->setIsThermoplastic($result['isThermoplastic']);
+                $obj->setApplicationID($result['ID']);
 
                 foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$categoryLanguageConfig)){
-                        $lang = ($categoryLanguageConfig[$key]['language']);
-                        $obj->setCategoryName($result[$key],$lang);
+                    if(array_key_exists($key,$languageConfig)){
+                        $lang = ($languageConfig[$key]['language']);
+                        $obj->setApplicationName($result[$key],$lang);
                     }
                 }
                 $obj->setPublished(true);

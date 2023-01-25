@@ -24,6 +24,18 @@ services:
 #            - "%parameter%"
 
 
-    IFSEU\ProductBundle\OneTimeImportCommand\MasteDataImportCommand: 
+    IFSEU\ProductBundle\OneTimeImportCommand\CategoryMasterDataImportCommand: 
         tags:
-            - { name: 'console.command', command: 'ifs-eu-master-data-import-command' }
+            - { name: 'console.command', command: 'ifs-eu-category-master-data-import-command' }
+    
+    IFSEU\ProductBundle\OneTimeImportCommand\CountryMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-country-master-data-import-command' }
+    
+    IFSEU\ProductBundle\OneTimeImportCommand\ApplicationsMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-applications-master-data-import-command' }
+
+    IFSEU\ProductBundle\OneTimeImportCommand\MediumMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-medium-master-data-import-command' }
