@@ -22,3 +22,8 @@ services:
 #            - "@service_id"
 #            - "plain_value"
 #            - "%parameter%"
+
+
+    IFSEU\ProductBundle\OneTimeImportCommand\MasteDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-master-data-import-command' }

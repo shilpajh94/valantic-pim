@@ -1,0 +1,24 @@
+DE:
+  fieldName: CategoryName
+  language: de
+EN:
+  fieldName: CategoryName
+  language: en
+ES:
+  fieldName: CategoryName
+  language: es_ES
+PT:
+  fieldName: CategoryName
+  language: pt_BR
+FR:
+  fieldName: CategoryName
+  language: fr
+ZH:
+  fieldName: CategoryName
+  language: zh
+RU:
+  fieldName: CategoryName
+  language: ru
+IT:
+  fieldName: CategoryName
+  language: it
