@@ -926,7 +926,11 @@ class DefaultController extends AbstractController
                                 $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
                             }
     
-                            $label4Childs = $this->getAllRegionChildern($objectLevel3rd, $regionId);
+                            // $label4Childs = $this->getAllRegionChildern($objectLevel3rd, $regionId);
+                            
+                        }
+                    }
+                    $label4Childs = $this->getDocumentTag('relations', 'coverCompoundTableObjects')->getElements();
                         
                             if($label4Childs)
                             {
@@ -944,36 +948,52 @@ class DefaultController extends AbstractController
     
                                                 $getBrick = 'get' . $brickName;
                                                 $getField = 'get' . $key;
+                                                if(!in_array($this->addPrefix($key), $coverCompoundsHeaderKeys))
+                                                {
+                                                    $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                                }
                                                 if($bricks->$getBrick())
                                                 {
-                                                    if(!$onlyOnce)
-                                                    {
-                                                        $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                                    if($key == 'MinTemperatureF'){
+                                                        $minTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                        $minTemperatureCValue = $bricks->$getBrick()->getMinTemperatureC();
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . '°F<br>'.'('.$minTemperatureCValue . '°C'.')';
+                                                    }elseif($key == 'MaxTemperatureF'){
+                                                        $maxTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                        $maxTemperatureCValue = $bricks->$getBrick()->getMaxTemperatureC();
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . '°F<br>'.'('.$maxTemperatureCValue . '°C'.')';
                                                     }
-                                                    $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    else{
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    }
                                                 }
                                                 else{
                                                     $coverCompounds[$coverCompoundName][$level4Key][] = '';
                                                 }
                                             
                                             }
-                                            $onlyOnce = true;
+                                            // $onlyOnce = true;
                                         }
                                     }
                                     
-                                    if($child->getCSProductApplications())
-                                    {
-                                        foreach ($child->getCSProductApplications() as $key => $application) {
-                                            
-                                            $applicationData[$application->getApplicationName()] = $application->getApplicationName();
-                                            $level4Data[$level4Name][] = $application->getApplicationName();
-                                        }
-                                    }
                                 }
                             }
+                    $productApplicationObject = $this->getDocumentTag('relations', 'objectPaths')->getElements();
+                    foreach($productApplicationObject as $childObj){
+                        $coverCompoundProducts = $childObj->getName();
+
+                        if($childObj->getCSProductApplications())
+                        {
+                            foreach ($childObj->getCSProductApplications() as $key => $application) {
+                                
+                                $applicationData[$application->getApplicationName()] = $application->getApplicationName();
+                                $level4Data[$coverCompoundProducts][] = $application->getApplicationName();
+
+                            }
                         }
+
                     }
-                    
+
                     if($level4Data)
                     {
                         foreach ($level4Data as $lkey => $lvalue)
@@ -981,7 +1001,6 @@ class DefaultController extends AbstractController
                             $data[] = $lkey;
                             foreach ($applicationData as $avalue)
                             {
-    
                                 if(in_array($avalue,$lvalue))
                                 {
                                     $data[] = true;
@@ -989,13 +1008,11 @@ class DefaultController extends AbstractController
                                 else{
                                     $data[] = false;
                                 }
-                                
                             }
                             $CCAARows[] = $data;
                             unset($data);
                         }
                     }
-    
                     $productData['CCAARows'] = $CCAARows;
                     $productData['applicationData'] = $applicationData;
                     $productData['coverCompounds'] = $coverCompounds;
