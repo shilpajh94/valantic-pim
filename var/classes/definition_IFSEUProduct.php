@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-24T11:54:58+01:00
+* Generated at: 2023-01-27T11:54:03+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -149,7 +149,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674557695,
+   'modificationDate' => 1674800637,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8448,9 +8448,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                              'allowedTypes' => 
                             array (
-                              0 => 'HoseBase',
-                              1 => 'PTGBase',
-                              2 => 'IFSEUHoseBase',
                             ),
                              'maxItems' => '',
                              'border' => false,
@@ -11154,9 +11151,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'HoseSkeleton',
-                  1 => 'PTGSkeleton',
-                  2 => 'IFSEUHoseSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -11678,15 +11672,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                          'allowedTypes' => 
                         array (
-                          0 => 'AccessoriesFert',
-                          1 => 'BeltsFert',
-                          2 => 'HoseFert',
-                          3 => 'HydFittingsFert',
-                          4 => 'INHFittingsFert',
-                          5 => 'MetalFert',
-                          6 => 'PTGFert',
-                          7 => 'SynchronousFert',
-                          8 => 'IFSEUHoseFert',
                         ),
                          'maxItems' => '',
                          'border' => false,

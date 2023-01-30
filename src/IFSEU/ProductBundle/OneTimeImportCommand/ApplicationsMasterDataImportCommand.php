@@ -52,7 +52,7 @@ class ApplicationsMasterDataImportCommand extends AbstractCommand
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
-                        $this->insertCategoryMasterData($result, $parentFolderID);
+                        $this->insertApplicationsMasterData($result, $parentFolderID);
                     }
                 }
             }
@@ -61,7 +61,7 @@ class ApplicationsMasterDataImportCommand extends AbstractCommand
         }
     }
 
-    public function insertCategoryMasterData($result, $parentFolderID)
+    public function insertApplicationsMasterData($result, $parentFolderID)
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');

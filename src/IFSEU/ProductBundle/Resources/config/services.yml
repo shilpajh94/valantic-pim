@@ -39,3 +39,11 @@ services:
     IFSEU\ProductBundle\OneTimeImportCommand\MediumMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-medium-master-data-import-command' }
+
+    IFSEU\ProductBundle\OneTimeImportCommand\PropertiesMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-properties-master-data-import-command' }
+
+    IFSEU\ProductBundle\OneTimeImportCommand\NormMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-norm-master-data-import-command' }
