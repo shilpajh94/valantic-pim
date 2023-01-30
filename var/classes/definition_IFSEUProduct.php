@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-27T11:54:03+05:30
+* Generated at: 2023-01-30T12:02:01+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -149,7 +149,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674800637,
+   'modificationDate' => 1675060312,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -10741,7 +10741,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
@@ -10778,7 +10778,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
@@ -10815,7 +10815,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
@@ -10852,7 +10852,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
@@ -10889,7 +10889,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
@@ -10926,7 +10926,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'ProductCategory',
+                            'classes' => 'IFSEUProductCategory',
                           ),
                         ),
                          'pathFormatterClass' => '',
