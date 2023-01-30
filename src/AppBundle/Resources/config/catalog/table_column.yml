@@ -1030,7 +1030,6 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: WP (psi)
                 fieldType: Input
-                numberOfDecimalPoints: 2
                 parent:
                     name: HoseSkeleton
             acceptableHoseMedia:
