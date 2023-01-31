@@ -317,15 +317,15 @@ if ($data):
                                                                 foreach ($brandData['standardMetHoseListData'] as $key => $standard): 
                                                                 ?>
                                                                 <?php
-                                                                if($this->editmode): 
-                                                                    if($this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}")->isEmpty()): 
-                                                                        echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}")->setDataFromResource($standard['CustomerFacingVersion']);
-                                                                    else: 
-                                                                        echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}"); 
-                                                                    endif; 
-                                                                else:
-                                                                    echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}");
-                                                                endif; 
+                                                                // if($this->editmode): 
+                                                                //     if($this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}")->isEmpty()): 
+                                                                //         echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}")->setDataFromResource($standard['CustomerFacingVersion']);
+                                                                //     else: 
+                                                                //         echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}"); 
+                                                                //     endif; 
+                                                                // else:
+                                                                //     echo $this->input("standardMetHoseLabel{$md5key}_{$hoseMetCount}");
+                                                                // endif; 
                                                                 ?>
                                                             
                                                             <div class="is-highlight"> <?= $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($standard['name']); ?></div>
