@@ -398,7 +398,7 @@ $coverCompound = $data['coverCompoundData'];
                 <?php } ?>
                         
                 <div class="environment-quality-sec">
-                    <div class="media my-4">
+                    <div class="media my-4" style="margin: 0px 0px 0px;">
 
                         <?php
                             if($this->editmode)
