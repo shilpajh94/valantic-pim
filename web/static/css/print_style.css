@@ -2238,3 +2238,6 @@ margin-right:20px;
     font-size: 12px;
     font-weight: bold;
 }
+.hide{
+    display: none;
+}

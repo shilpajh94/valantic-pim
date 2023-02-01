@@ -9,6 +9,9 @@ if (!isset($this->parentContainer)) {
 
 <?php
 if (is_array($brandsData) && !empty($brandsData)) {
+    $partNumbers = [];
+    $brandNameList = [];	
+    $productNumbers = [];
 ?>
 
 <div class="template">
@@ -275,6 +278,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                 
                                 if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
                                     $skiveTypeTableTitle = '';
+                                    $columnList = array();
                                     if($skiveTypekey == 'Non-Skive')
                                     {
                                         $skiveTypeTableTitle = 'Uni-Crimp™ Style';
@@ -326,8 +330,9 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                             <?php if ($tableRows['articleData']['subHeaderRequired'] == 'YES'): ?>
                                                 <tr class="head">
                                                     <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data): ?>
-                                                        <?php foreach ($c3data as $c3key => $c3value): ?>
-                                                            <?php if ($c3value['unitName']): ?>
+                                                        <?php foreach ($c3data as $c3key => $c3value): 
+                                                            $columnList[] = $c3key;
+                                                            if ($c3value['unitName']): ?>
                                                                 <td><?= $c3value['unitName'] ?></td>
                                                             <?php else: ?>
                                                                 <td></td>
@@ -358,6 +363,32 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                     }
                                                 ?>
                                                 <tr class="<?= $activeClass; ?>" data-id="<?= "$oldValue = $shortedRows[$HoseID1InFractIndex]" ?>">
+                                                    <?php 	
+                                                        $indexDescriptiveNumber = array_search('DescriptivePartNumber', $columnList);	
+                                                        if(($indexDescriptiveNumber !== false) && ($shortedRows[$indexDescriptiveNumber]))	
+                                                        { 	
+                                                            $descriptiveNumberText = $shortedRows[$indexDescriptiveNumber];	
+                                                            $descriptiveNumberList = explode('-', $descriptiveNumberText);	
+                                                            if(count($descriptiveNumberList) > 1)	
+                                                            {	
+                                                                $descriptiveText = $descriptiveNumberList[0].'-'.$descriptiveNumberList[1];	
+                                                            }	
+                                                            if(!in_array($descriptiveText, $partNumbers))	
+                                                            {	
+                                                                $partNumbers[] = $descriptiveText;	
+                                                            }	
+                                                        }	
+                                                        $industryStandard = array_search('industryStandard', $columnList);	
+                                                        if(($industryStandard !== false) && ($shortedRows[$industryStandard]))	
+                                                        { 	
+                                                            $industryStandardText = $shortedRows[$industryStandard];	
+                                                            $industryStandardList = explode('-', $industryStandardText);	
+                                                            if(!in_array($industryStandardList[0], $productNumbers))	
+                                                            {	
+                                                                $productNumbers[] = $industryStandardList[0];	
+                                                            }	
+                                                        }	
+                                                    ?>
                                                     <?php foreach ($shortedRows as $ekey => $value): ?>
                                                         <td><?= $value ?></td>
                                                     <?php endforeach; ?>
@@ -393,7 +424,33 @@ if (is_array($brandsData) && !empty($brandsData)) {
     <!-- Footer -->
     <!-- End Footer-->
 </section>
+<div class="hide">	
+<?php	
+if(count($partNumbers) > 0)	
+{	
+    $partNumberString = implode(',', $partNumbers);	
+    echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);	
+}	
+if(count($productNumbers) > 0)	
+{	
+    $productNumbersString = implode(',', $productNumbers);	
+    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);	
+}	
+if(count($brandNameList) > 0)	
+{	
+    $brandNameList = array_unique($brandNameList);	
+    $brandNamesText = implode('$$', $brandNameList);	
+    echo $this->textarea('hydraulic_fitting_brand')->setDataFromResource($brandNamesText);	
+}	
+?>	
 </div>
+</div>
+
+<?php
+
+$partNumberString = implode(',', $partNumbers);
+echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+?>
 
 <?php if (!$containerRequest): ?>
         <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>

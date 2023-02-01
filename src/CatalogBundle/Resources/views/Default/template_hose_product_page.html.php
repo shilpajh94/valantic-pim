@@ -18,6 +18,7 @@ if (!isset($this->parentContainer)) {
 <?php endif; ?>
 
 <?php
+$partNumbers = [];
 if ($data):
     foreach ($data as $catalogGroupKey => $catalogGroupData):
 
@@ -379,7 +380,9 @@ if ($data):
                                     </figure>
                                 </menu>
                             <?php endif; ?>
-
+                            <?php 
+                            $columnList = [];
+                            ?>
                             <table cellpadding="0" cellspacing="0" class="grid continueLable">
                                 <thead>
                                         <?php if($brandData['iconRequired'] == 'YES'): ?>
@@ -418,7 +421,9 @@ if ($data):
                                         <?php if($brandData['subHeaderRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
                                                         <?php foreach($brandData['columnsDataWithImages'] as $key => $c3data): ?>
-                                                                <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                                <?php  foreach($c3data as $c3key => $c3value): 
+                                                                    $columnList[] = $c3key;
+                                                                    ?>
                                                                         <?php if($c3value['unitName']): ?>
                                                                                 <td><?= $c3value['unitName'] ?></td>
                                                                         <?php else: ?>
@@ -437,6 +442,18 @@ if ($data):
                                         <?php else: ?>
                                         <tr class="active">
                                         <?php endif; ?>
+                                        <?php 
+                                            $indexDescriptiveNumber = array_search('descriptive', $columnList);
+                                            if(($indexDescriptiveNumber !== false) && ($element[$indexDescriptiveNumber]))
+                                            { 
+                                                $descriptiveNumberText = $element[$indexDescriptiveNumber];
+                                                $descriptiveNumberList = explode('-', $descriptiveNumberText);
+                                                if(!in_array($descriptiveNumberList[0], $partNumbers))
+                                                {
+                                                    $partNumbers[] = $descriptiveNumberList[0];
+                                                }
+                                            }
+                                        ?>
                                         <?php foreach ($element as $ekey => $value): ?>
                                             <td><?= $value; ?></td>
                                         <?php endforeach; ?>
@@ -444,6 +461,9 @@ if ($data):
                                     <?php $incrRow++ ?>
                                 <?php endforeach; ?>
                             </table>
+                            <?php
+                            // p_r($sds);
+                            ?>
                             <p class="small"><?= $this->input("customer_data_{$md5key}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
 
@@ -456,6 +476,16 @@ if ($data):
 
     endforeach;
     
+    ?>
+
+    <div class="hide">
+        <?php
+        $partNumberString = implode(',', $partNumbers);
+        echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+        ?>
+    </div>
+
+<?php
     if (!$containerRequest):
     
     ?>
