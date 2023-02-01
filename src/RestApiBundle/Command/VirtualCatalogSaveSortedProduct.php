@@ -68,12 +68,12 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             foreach ($allBrandProducts as $brandKey => $brandProducts) {
                 
                 $brandName = addslashes($this->brandList[$brandKey]['brandNameText']);
-                echo "Save brand ".$brandName. " products. It have ".count($brandProducts). " products".PHP_EOL;
+                
                 $selectedSortFieldName = $this->brandList[$brandKey]['sorting_GroupingField'];
                 $selectedSortFieldValues = $this->brandList[$brandKey]['sorting'];
                 $selectedSortFieldValues = str_replace("'","",$selectedSortFieldValues);
                 
-                $insert  = "INSERT INTO `{$this->virtual_catalog_sorted_product_table}` (`product_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`, `sortFieldValue`, `sapCode`, `siopFullcode`) VALUES ";
+                $insert  = "INSERT INTO `{$this->virtual_catalog_sorted_product_table}` (`oo_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`, `sortFieldValue`, `sapCode`, `siopFullcode`, `updatedAt`) VALUES ";
 
                 foreach ($brandProducts as $indexKey => $product) {
                     
@@ -81,8 +81,9 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                     $sapCode = $product["articleNumber"];
                     $siopFullcode = $product["siopFullCode"];
                     $sortFieldValue = $product["sortFieldValue"];
+                    $updatedAt = $product["updatedAt"];
                     
-                    $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, $siopFullcode) ";
+                    $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, $siopFullcode, $updatedAt) ";
                 }
 
                 if($insertValues)
@@ -125,7 +126,9 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                     $brickName = $this->getSortingFieldDataFromConfig($fieldForSort);
                     $arr[$brandId] = $this->getProductsInSortedFormat($brandId,$fieldForSort,$sortingData, $brickName);
                 }
-
+                
+                $brandName = addslashes($this->brandList[$brandId]['brandNameText']);
+                echo "Save brand ".$brandName. " products. It have ".count($arr[$brandId]). " fert products having virtualcatalogflag true.".PHP_EOL;
                 if(count($arr[$brandId]) > 0)
                 {
                     $this->saveBrandProducts($arr);
@@ -137,7 +140,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     }
 
     private function getProductsInSortedFormat($brandId,$fieldForSort,$sortingData, $brickName){
-        $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS `sortFieldValue` ,`articleNumber`, `siopFullCode` from `object_1` INNER JOIN `object_brick_query_".$brickName."_1` AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.o_id
+        $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS `sortFieldValue` ,`articleNumber`, `siopFullCode`, `o_modificationDate` AS `updatedAt` from `object_1` INNER JOIN `object_brick_query_".$brickName."_1` AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.o_id
         where `VirtualCatalogFlag` = 1 AND `object_1`.`brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ";
         if(is_array($sortingData)){
             $condition = '';
@@ -155,7 +158,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             }
             $else = ' ELSE '.$i++. ' END';
             if($fieldForSort == 'reinforcement'){
-                $sql = "SELECT `oo_id`, `{$fieldForSort}` AS `sortFieldValue`,`articleNumber`, `siopFullCode` from `object_1` where `VirtualCatalogFlag` = 1 AND `brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
+                $sql = "SELECT `oo_id`, `{$fieldForSort}` AS `sortFieldValue`,`articleNumber`, `siopFullCode`, `o_modificationDate` AS `updatedAt` from `object_1` where `VirtualCatalogFlag` = 1 AND `brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
             }else{
                 $sql = $select.$case.$condition.$else;
             }
@@ -176,7 +179,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     }
 
     private function getProductsForTheRequiredBrand($brandId){
-        $sql = "SELECT `oo_id`, `articleNumber`, `siopFullCode` from `object_1` where `VirtualCatalogFlag` = 1 AND `ProductType` = 'fert' AND `brandName` = ".$brandId;
+        $sql = "SELECT `oo_id`, `articleNumber`, `siopFullCode`, `o_modificationDate` AS `updatedAt` from `object_1` where `VirtualCatalogFlag` = 1 AND `ProductType` = 'fert' AND `brandName` = ".$brandId;
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -195,7 +198,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         $sql = "DROP TABLE IF EXISTS `virtual_catalog_sorted_product_table`;
         CREATE TABLE `virtual_catalog_sorted_product_table` (
         `id` int NOT NULL AUTO_INCREMENT,
-        `product_id` int NOT NULL,
+        `oo_id` int NOT NULL,
         `brand_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
         `selectedSortFieldName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
         `selectedSortFieldValues` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -203,11 +206,13 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         `sort_order` int DEFAULT NULL,
         `sapCode` int NOT NULL,
         `siopFullcode` int NOT NULL,
+        `updatedAt` int NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
     }
+
     private function getAllBrand()
     {
         $sql = "SELECT distinct p.brandName as brand_id, b.name AS brandNameText,vcmap.GroupingField as mapper_GroupingField, 

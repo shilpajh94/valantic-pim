@@ -4,6 +4,9 @@ rest_api_homepage:
 rest_api_virtual_cat:
     path:     /VirtualCatalog/products/
     defaults: { _controller: RestApiBundle:Product:getProductdata }
+rest_api_virtual_cat2:
+    path:     /VirtualCatalog/products-new-api/
+    defaults: { _controller: RestApiBundle:Product:getProductDataNewAPI }
 get_data:
     path:     /virtual_catalog/get_available_headers/
     defaults: { _controller: RestApiBundle:Default:getAvailableHeaders }

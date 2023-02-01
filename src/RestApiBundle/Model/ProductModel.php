@@ -175,6 +175,67 @@ class ProductModel
     }
 
     /**
+     * Method to get product details.
+     *
+     * @param string $lang language code
+     * @param array $conditionArray parameter array
+     * @param string $productType product type('Fert','Skeleton','Base')
+     * @param array $vCatalogMap Virtual Catalog mapping array.
+     *
+     * @return array $productDetail Product Details array
+     */
+    public function fetchProductNewAPI($lang='en',$conditionArray,$productType='fert',$vCatalogMap)
+    {
+        // Get Condition String.
+        $conditionString = $this->getConditionStringNewAPI($conditionArray,$productType);
+
+        // Get Field String.
+        $fieldString = $vCatalogMap['VirtualCatalog']['Fields'];
+
+        $conArray['condition']= $conditionString;
+        $conArray['fields']   = $fieldString;
+
+        // Get Total record count.
+        $totalCount =   $this->getTotalCountNewAPI($lang,$conArray);
+
+        if(empty($totalCount)){
+            return false;
+        }else{
+            // Get Offset and Limit.
+            $offsetLimit    =   $this->getOffsetLimit($conditionArray,$totalCount);
+            if($offsetLimit){
+                try {
+                    $rFlag = $this->createProductSqlNewAPI($lang,$conArray,$offsetLimit);
+                    if($rFlag){
+                        $stmt = $this->db->prepare($this->getSql());
+                        $stmt->execute();
+                        $product = $stmt->fetchAll();
+                        if(empty($product)) {
+                            return false;
+                        }else{
+                               // $objectId = $conditionArray["ids"];                                
+                                // if(array_key_exists("VirtualCatalogReinforcement",$fieldString)){
+                                //     $sql = "SELECT VirtualCatalogReinforcement FROM object_store_" . $this->classId;
+                                //     $sql .= " WHERE  oo_id = ?";
+                                //     $product[0]["VirtualCatalogReinforcement"] = $this->db->fetchOne($sql,[$objectId]);
+                                // }
+                            
+                        }
+                    }else{
+                        return false;
+                    }
+                    return $product;
+                } catch(\Exception $ex) {
+                    Logger::error($ex->getTraceAsString());
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+    }
+
+    /**
      * Method to get condition string.
      *
      * @param array $conditionArray parameter array
@@ -230,6 +291,63 @@ class ProductModel
     }
 
     /**
+     * Method to get condition string.
+     *
+     * @param array $conditionArray parameter array
+     * @param string $productType product type('Fert','Skeleton','Base')
+     *
+     * @return array $conditionString condition array.
+     */
+    public function getConditionStringNewAPI($conditionArray,$productType){
+
+        // $conditionString    =   " ProductType='".$productType."'  AND ";
+        // if(empty($conditionArray)){
+        //     $conditionString    =   trim($conditionString,'  AND ');
+        //     return $conditionString;
+        // }
+
+        // if($productType=='fert'){
+        //     $conditionString .= " virtualCatalogFlag=1 AND ";
+        // }
+
+        $conditionString = " ";
+
+        switch($productType){
+            case 'fert':
+                // Code to be executed if productType=base
+                if(isset($conditionArray['ids']) && !empty($conditionArray['ids'])){
+
+                    $conditionString    .=   " `vc`.`sapCode` in (".$conditionArray['ids'].")  AND ";
+                }
+                if(isset($conditionArray['siop']) && !empty($conditionArray['siop'])){
+                    $conditionString    .=   " `vc`.`siopFullcode` ='".$conditionArray['siop']."'  AND ";
+                }
+                if(isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])){
+                    $conditionString    .=   " `vc`.updatedAt >= ".strtotime($conditionArray['updatedFrom'])." AND  o_modificationDate <=".strtotime(date('Y-m-d H:i:s'))."  AND ";
+                }
+                break;
+            case 'skeleton':
+                // Code to be executed if productType=skelton
+                if(isset($conditionArray['ids']) && !empty($conditionArray['ids'])){
+                    $conditionString    .=   " oo_id = ".$conditionArray['ids'];
+                }
+                break;
+            case 'base':
+                // Code to be executed if productType=fert
+                if(isset($conditionArray['ids']) && !empty($conditionArray['ids'])){
+                    $conditionString    .=   " oo_id = ".$conditionArray['ids'];
+                }
+                break;
+            default:
+                // Code to be executed if productType is empty
+        }
+
+        $conditionString    =   trim($conditionString,'  AND ');
+
+        return $conditionString;
+    }
+
+    /**
      * Method to get total count
      *
      * @param string $lang language code
@@ -248,6 +366,28 @@ class ProductModel
             return false;
         }
     }
+
+    /**
+     * Method to get total count
+     *
+     * @param string $lang language code
+     * @param array $conArray condition array.
+     * @return int count product total count.
+     */
+    public function getTotalCountNewAPI($lang,$conArray){
+
+        $rtFlag = $this->createProductSqlNewAPI($lang,$conArray);
+        if($rtFlag){
+            $stmt = $this->db->prepare($this->getSql());
+            $stmt->execute();
+            $product = $stmt->fetchAll();
+            return count($product);
+        }else{
+            return false;
+        }
+    }
+
+    
 
     /**
      * Method to set offset and limit.
@@ -380,6 +520,49 @@ class ProductModel
         return true;
     }
 
+    /**
+     * Method to create and set sql query array based on language code.
+     *
+     * @param string $lang Language code
+     * @param array $conArray consition array
+     * @param array $offsetLimit offset,limit data array
+     * @return boolean true/false
+     */
+    private function createProductSqlNewAPI($lang,$conArray,$offsetLimit=array())
+    {
+        if(empty($conArray['fields']) || empty($conArray['fields'])){
+            return false;
+        }
+
+        $this->langCode   = $lang;
+        $limitText  =   "";
+        if(!empty($offsetLimit)){
+            $limitText = " LIMIT ".$offsetLimit['offset'].",".$offsetLimit['limit'];
+        }
+        
+        $selectStatementAttributeArray = $this->createSelectStatementAttributeNewAPIArray($conArray);
+
+        $whereClause = '';
+        if($conArray['condition'])
+        {
+            $whereClause = ' WHERE '.$conArray['condition'];
+        }
+
+        $this->sqlArr [$this->fallbackLangCode] = '
+                SELECT  '.implode(",",$selectStatementAttributeArray).'
+                FROM virtual_catalog_sorted_product_table AS `vc` 
+                LEFT JOIN object_localized_' . $this->classId. '_' . $this->langCode . ' AS `objlocal`
+                ON `vc`.`oo_id` = `objlocal`.`oo_id` '.$whereClause.' '.$limitText."\n\n";
+
+        // $this->sqlArr [$this->fallbackLangCode] = '
+        //     SELECT  '.implode(",",$selectStatementAttributeArray).'
+        //     FROM object_localized_' . $this->classId. '_' . $this->langCode . '
+        //     WHERE '.$conArray['condition'].' '.$limitText."\n\n";
+        \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr [$this->fallbackLangCode],true));
+
+        return true;
+    }
+
     private function createSelectStatementAttributeArray($conArray)
     {
         $selectStatementAttributes = [];
@@ -391,6 +574,26 @@ class ProductModel
                 $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
                 $selectStatementAttributes[] = "ROUND(". $fieldName .",". $decimalPoints .") AS " . $fieldName;
             }elseif($fieldDataType === "string"){
+                $selectStatementAttributes[] = $fieldName;
+            }
+
+        }
+        return $selectStatementAttributes;
+    }
+
+    private function createSelectStatementAttributeNewAPIArray($conArray)
+    {
+        $selectStatementAttributes = [];
+        $fieldConfigs = $conArray["fields"];
+        foreach($fieldConfigs as $fieldName => $fieldConfig){
+            $fieldDataType = $fieldConfig[0];
+            
+            if( is_array($fieldDataType) && array_key_first($fieldDataType) === "numeric" ){
+                $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                $selectStatementAttributes[] = "ROUND(". $fieldName .",". $decimalPoints .") AS " . $fieldName;
+            }elseif($fieldDataType === "string"){
+                $selectStatementAttributes[] = "`objlocal`.`$fieldName`";
+            }elseif($fieldDataType === "customString"){
                 $selectStatementAttributes[] = $fieldName;
             }
 
@@ -426,6 +629,36 @@ class ProductModel
         $query = 'SELECT name as BrandName FROM object_query_3 WHERE oo_id = '.$id;
         $brandName = $this->db->fetchOne($query);
         return $brandName;
+    }
+
+    /**
+     * Method to get the brand name based on id
+     *
+     * @param int $id object Id
+     */
+    public function getBrandNameNewAPI(int $id) : ?array {
+        $query = 'SELECT oq3.oo_id AS brandId, oq3.name as BrandName, oq3.VirtualCatalogApiMapper__id, oq_mapper.GroupingField, oq_mapper.originalValues 
+        FROM object_query_3 AS oq3
+        LEFT JOIN object_query_VirtualCatalogApiMapper AS oq_mapper
+        ON oq_mapper.oo_id = oq3.VirtualCatalogApiMapper__id
+        WHERE oq3.oo_id = '.$id;
+        $brand = $this->db->fetchAssoc($query);
+
+        if($brand['originalValues'])
+        {
+            $originalValuesList = explode(PHP_EOL, $brand['originalValues']);
+            $fieldValues = [];
+            foreach ($originalValuesList as $key => $originalValues) {
+
+                $fieldOriginalValues = explode('|', $originalValues);
+                $fieldValues[$fieldOriginalValues[0]]['original'] = $fieldOriginalValues[1];
+                $fieldValues[$fieldOriginalValues[0]]['alias'] = $fieldOriginalValues[2];
+            }
+                
+            $brand['originalValues'] = $fieldValues;
+        }
+
+        return $brand;
     }
 
     /**

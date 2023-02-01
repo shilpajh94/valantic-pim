@@ -93,7 +93,8 @@ class ProductController extends FrontendController
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get Virtual catalog data based on parameter request.
-            $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
+            // $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
+            $productDetail  =   $this->service->getProduct('en',$conditionArray);
             // Log Data.
             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If Virtual catalog data not exist return error.
@@ -108,6 +109,48 @@ class ProductController extends FrontendController
             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
         }
     }
+
+    /**
+     * Function to fetch products by ids,siopcode and UpdatedFrom to till date.
+     *
+     * Method({"GET"})
+     *
+     * @Route("/VirtualCatalog/products-new-api/")
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @throws \Exception
+     */
+   
+     public function getProductDataNewAPIAction(Request $request)
+     {
+         // Get Apikey validation.
+         $returnValidationFlag =    $this->validateApiKey($request);
+         
+         if($returnValidationFlag){
+             // Get Virtual catalog fields mapping configuration.
+             $vConfig = $this->service->getVirtualCatalogFieldMapping();
+             // Get Parameter Array.
+             $conditionArray =   $this->getParameterArray($request);
+             // Get Virtual catalog data based on parameter request.
+             // $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
+             $productDetail  =   $this->service->getProductNewAPI('en',$conditionArray);
+             // Log Data.
+             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
+             // If Virtual catalog data not exist return error.
+             if (empty($productDetail)) {
+                 \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
+                 return $this->jsonResponce($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!'), 404);
+             }
+             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($productDetail));
+             return $this->jsonResponce($productDetail);
+         }else{
+             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
+             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
+         }
+     }
 
     /**
      * Function to fetch parameter details .

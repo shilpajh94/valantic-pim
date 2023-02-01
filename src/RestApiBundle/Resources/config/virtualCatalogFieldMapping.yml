@@ -59,6 +59,8 @@ VirtualCatalog:
                 - string
             articleNumber:
                 - string
+            virtualCatalogReadyToGo:
+                - string
             oldMaterialCode:
                 - string
             weightKg:
@@ -73,6 +75,8 @@ VirtualCatalog:
                 - string
             grossWeight:
                 - numeric: 2
+            reinforcement:
+                - string
     Images:
         - mainImage
         - frontView
@@ -120,6 +124,14 @@ VirtualCatalog:
                     tubeColor:
                         - string
                     VirtualCatalogCoverMaterial:
+                        - string
+                    coverMaterial:
+                        - string
+                    tubeMaterial:
+                        - string
+                    coverCharacteristic:
+                        - string
+                    staticWireType:
                         - string
                     coverColor:
                         - string

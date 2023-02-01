@@ -34,6 +34,15 @@ class ProductModelService {
     private $model;
     private $appService;
     private $vCatalog = [];
+    private $brandData;
+
+    private $customFields = [
+        'coverCharacteristic' => 'coverCharacteristicId', 
+        'coverMaterial' => 'coverMaterialId', 
+        'tubeMaterial' => 'tubeMaterialId',
+        'staticWireType' => 'staticWireType'
+    ];
+
     /**
      * @var Pimcore\Model\DataObject
      */
@@ -60,9 +69,8 @@ class ProductModelService {
         $conArray["condition"] = $conditionString;
         $conArray["fields"] = ["oo_id" => ["string"]];
         $totalCount = $this->model->getTotalCount($langCode, $conArray);
-
         //fetch product order by brand
-        $productsByBrand = $this->model->fetchProductByBrandOrdering($langCode, $parameterArray,'fert',$this->vCatalog);
+        // $productsByBrand = $this->model->fetchProductByBrandOrdering($langCode, $parameterArray,'fert',$this->vCatalog);
         //return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray, "fert", $this->vCatalog);
@@ -70,6 +78,29 @@ class ProductModelService {
             $productDetail["apikey"] = $parameterArray["apiKey"];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData = $this->getProductDetail($products, $langCode);
+            $productDetail["total"] = strval($totalCount);
+            $productDetail["products"] = $this->formatProducts($productData);
+        }
+        return $productDetail;
+    }
+
+    public function getProductNewAPI($langCode, $parameterArray) {
+        $productDetail = [];
+        $this->vCatalog = $this->getVirtualCatalogFieldMapping();
+        $conditionString = $this->model->getConditionStringNewAPI($parameterArray, "fert");
+        $conArray["condition"] = $conditionString;
+        $conArray["fields"] = ["`vc`.`oo_id`" => ["customString"]];
+        $totalCount = $this->model->getTotalCountNewAPI($langCode, $conArray);
+        //fetch product order by brand
+        // $productsByBrand = $this->model->fetchProductByBrandOrdering($langCode, $parameterArray,'fert',$this->vCatalog);
+        //return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
+        // these are all ferts with offset, limit and conditions
+        $products = $this->model->fetchProductNewAPI($langCode, $parameterArray, "fert", $this->vCatalog);
+        // p_r($products); die;
+        if ($products) {
+            $productDetail["apikey"] = $parameterArray["apiKey"];
+            // iterating all the ferts and fetching their 9 digit and 6 digit data
+            $productData = $this->getProductDetailNewAPI($products, $langCode);
             $productDetail["total"] = strval($totalCount);
             $productDetail["products"] = $this->formatProducts($productData);
         }
@@ -163,8 +194,8 @@ class ProductModelService {
         foreach ($products as $key => $value) {
             $finalProductArrayTemp = $value;
             $finalProductArrayTemp["id"] = $finalProductArrayTemp["oo_id"];
-            $baseObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "base");
-            $skeletonObjectBrickData = $this->getProductObjectBrickData($value["o_parentId"], "skeleton");
+            $baseObjectBrickData = $this->getProductObjectBrickData($value["o_parentId"], "base");
+            $skeletonObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "skeleton");
             $fertObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "fert");
             $sixDigit = substr($value["oldMaterialCode"], 0, 6);
             $nineDigit = substr($value["oldMaterialCode"], 0, 9);
@@ -218,6 +249,161 @@ class ProductModelService {
             unset($finalProductArrayTemp["subCategory"]);
             unset($finalProductArrayTemp["fittingCategory"]);
             unset($finalProductArrayTemp["fittingSubCategory"]);
+            // Set Images.
+            $imageDataArray["fert"] = $value;
+            $images = $this->getImagesData($value["images"], $imageDataArray, $value["oldMaterialCode"]);
+            if (count($images) > 0) {
+                $finalProductArrayTemp["images"] = $images;
+            }
+            // To get the base alt image & document URL
+            if (isset($certificationImageID) && !empty($certificationImageID) && ($propertyAssetData = $this->getPropertyAssetData($certificationImageID))) {
+                $finalProductArrayTemp["CertificationImage"] = $propertyAssetData;
+            }
+            if (isset($certificationDocumentID) && !empty($certificationDocumentID) && ($propertyAssetData = $this->getPropertyAssetData($certificationDocumentID))) {
+                $finalProductArrayTemp["CertificationDocument"] = $propertyAssetData;
+            }
+            $finalProductArray[] = $finalProductArrayTemp;
+        }
+        return $finalProductArray;
+    }
+
+    /**
+     * Method to get product details
+     *
+     * @param array $product
+     * @param string $langCode
+     *
+     * @return array $finalProductArray
+     *
+     * @throws \Exception
+     */
+
+     private function getProductDetailNewAPI($products) {
+        
+        $finalProductArray = [];
+        if (empty($products)) {
+            return $finalProductArray;
+        }
+        foreach ($products as $key => $value) {
+            
+            $finalProductArrayTemp = $value;
+            $finalProductArrayTemp["id"] = $finalProductArrayTemp["oo_id"];
+            $baseObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "base");
+            // p_r($baseObjectBrickData);
+            $skeletonObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "skeleton");
+            $fertObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "fert");
+            $sixDigit = substr($value["oldMaterialCode"], 0, 6);
+            $nineDigit = substr($value["oldMaterialCode"], 0, 9);
+            $finalProductArrayTemp["6digit"] = $sixDigit;
+            $finalProductArrayTemp["id"] = $nineDigit;
+            $siopData = $this->getSoipDetails($value);
+            foreach ($siopData as $key => $data) {
+                if ($key == "ProductCategory") {
+                    $finalProductArrayTemp["SIOP Categories"] = $data;
+                } else {
+                    $finalProductArrayTemp[$key] = $data;
+                }
+            }
+            $certificationImageID = $value["certificationImage"];
+            $certificationDocumentID = $value["document"];
+            $finalProductArrayTemp = array_merge($finalProductArrayTemp, $baseObjectBrickData, $skeletonObjectBrickData, $fertObjectBrickData);
+            $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $sixDigit . "-" . $baseObjectBrickData["sixDigitVirtualCatalogDescription"];
+            $finalProductArrayTemp = array_merge($value, $finalProductArrayTemp);
+            $finalProductArrayTemp["sap_id"] = $value["articleNumber"];
+            $reinforcement = $value["reinforcement"];
+            
+            $GroupingFieldIdNameList = [];
+            if (isset($value["brandName"]) && !empty($value["brandName"])) {
+                
+                if(!isset($this->brandData[$value["brandName"]]))
+                {
+                    $brandData = $this->model->getBrandNameNewAPI($value["brandName"]);
+                    $this->brandData[$value["brandName"]] = $brandData;
+                }
+
+                $brandName = $this->brandData[$value["brandName"]]['BrandName'];
+
+                $GroupingField = $this->brandData[$value["brandName"]]['GroupingField'];
+                $originalValues = $this->brandData[$value["brandName"]]['originalValues'];
+
+                if($GroupingField)
+                {
+                    if($GroupingField == 'reinforcement'){
+                        $reinforcementId = trim($reinforcement,',');
+                        if($reinforcementId)
+                        {
+                            $GroupingFieldIdNameList[] = ($originalValues[$reinforcementId]['alias']) ? $originalValues[$reinforcementId]['alias'] : $originalValues[$reinforcementId]['original'];
+                        }
+                    }
+                    if($GroupingField == 'staticWireType'){
+                        $staticWireTypeValue = $finalProductArrayTemp["staticWireType"];
+                        if($staticWireTypeValue)
+                        {
+                            $GroupingFieldIdNameList[] = ($originalValues[$staticWireTypeValue]['alias']) ? $originalValues[$staticWireTypeValue]['alias'] : $originalValues[$staticWireTypeValue]['original'];
+                        }
+                    }
+                    else if(isset($this->customFields[$GroupingField])){
+                        $GroupingFieldIdName = $this->customFields[$GroupingField];
+                        $GroupingFieldValueList =  $finalProductArrayTemp[$GroupingFieldIdName];
+                        
+                        if($GroupingFieldValueList)
+                        {
+                            foreach ($GroupingFieldValueList as $gfValue) {
+                                $GroupingFieldIdNameList[] = ($originalValues[$gfValue]['alias']) ? $originalValues[$gfValue]['alias'] : $originalValues[$gfValue]['original'];
+                            }
+                        }
+                    }
+                }
+
+                if (!empty($brandName)) {
+                    $finalProductArrayTemp["brandName"] = $brandName;
+                } else {
+                    unset($finalProductArrayTemp["brandName"]);
+                }
+            }
+
+            // unset the temporary variable
+            foreach ($this->customFields as $ckey => $cvalue) {
+                unset($finalProductArrayTemp[$ckey]);
+                unset($finalProductArrayTemp[$cvalue]);
+            }
+
+            $GroupingFieldIdNameStr = $brandName;
+
+            if($GroupingFieldIdNameList)
+            {
+                $GroupingFieldIdNameStr = $brandName . " ". implode(',', $GroupingFieldIdNameList);
+            }
+            $finalProductArrayTemp["_parent_name"] = $GroupingFieldIdNameStr;
+            unset($GroupingFieldIdNameList);
+
+            $documentID = $this->model->getDocumentId($value["oo_id"]);
+            if (!empty($documentID)) {
+                $finalProductArrayTemp["document"] = $documentID;
+            }
+            // Getting all features from object_localized_29_en table
+            if (isset($value["FeaturesBenefitsBulletPoint"]) && !empty($value["FeaturesBenefitsBulletPoint"])) {
+                $classId = $this->appService->getPimcoreClassIdbyName("Features");
+                $featureList = $this->model->getFeatures($value["FeaturesBenefitsBulletPoint"], $classId);
+                if (!empty($featureList)) {
+                    $finalProductArrayTemp["FeaturesBenefitsBulletPoint"] = $featureList;
+                }
+            }
+            unset($finalProductArrayTemp["oo_id"]);
+            unset($finalProductArrayTemp["o_parentId"]);
+            unset($finalProductArrayTemp["mainImage"]);
+            unset($finalProductArrayTemp["frontView"]);
+            unset($finalProductArrayTemp["sideView"]);
+            unset($finalProductArrayTemp["cutView"]);
+            unset($finalProductArrayTemp["articleNumber"]);
+            unset($finalProductArrayTemp["SIOPLevel2"]);
+            unset($finalProductArrayTemp["SIOPLevel3"]);
+            unset($finalProductArrayTemp["SIOPLevel4"]);
+            unset($finalProductArrayTemp["category"]);
+            unset($finalProductArrayTemp["subCategory"]);
+            unset($finalProductArrayTemp["fittingCategory"]);
+            unset($finalProductArrayTemp["fittingSubCategory"]);
+            unset($finalProductArrayTemp["reinforcement"]);
             // Set Images.
             $imageDataArray["fert"] = $value;
             $images = $this->getImagesData($value["images"], $imageDataArray, $value["oldMaterialCode"]);
@@ -378,8 +564,10 @@ class ProductModelService {
      */
 
     private function getProductObjectBrickData($objId, $productType) {
+        // p_r("objectid - $objId, productType - $productType");
         $productObjectBricksData = [];
         $productBrickField = "get" . ucfirst($productType);
+
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->vCatalog["VirtualCatalog"]["ObjectBricks"][ucfirst($productType) ];
         foreach ($objectBricksMap as $bkey => $bvalue) {
@@ -387,22 +575,28 @@ class ProductModelService {
                 foreach ($bvalue["Fields"] as $fieldName => $fieldConfig) {
                     $brickText = "get" . ucfirst($bkey) . ucfirst($productType);
                     $fieldText = "get" . ucfirst($fieldName);
+                    
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
                     $bData = "";
+                    $bDataIds = [];
                     // Get Field Definition.
                     if ($product->$productBrickField()->$brickText()) {
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
                         if (!empty($fieldDef) && $fieldDef->getFieldtype() === "multiselect") {
+                            
                             $bDataTmp = $product->$productBrickField()->$brickText()->$fieldText();
                             $bData = [];
                             if (!empty($bDataTmp)) {
+                                
                                 foreach ($bDataTmp as $mkey => $mvalue) {
                                     if ($fieldName === "brandName") {
                                         $bData[] = $mvalue;
                                     } else {
+                                        
                                         $objectIndv = DataObject::getById($mvalue);
                                         if ($objectIndv) {
+                                            $bDataIds[] = $mvalue;
                                             $bData[] = $objectIndv->getName();
                                         }
                                     }
@@ -418,6 +612,19 @@ class ProductModelService {
                             $bData = round(strval($bData), $decimalPoints);
                         }
                         $productObjectBricksData[$fieldName] = $bData;
+                    }
+
+                    if(isset($this->customFields[$fieldName]))
+                    {
+                        // p_r($bData);
+                        // if($bDataIds)
+                        // {
+                        //     $productObjectBricksData[$this->customFields[$fieldName]] = $bDataIds;
+                        // }
+                        // else{
+                            $productObjectBricksData[$this->customFields[$fieldName]] = $bData;
+                        // }
+                        
                     }
                 }
             }
