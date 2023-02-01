@@ -416,6 +416,15 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input

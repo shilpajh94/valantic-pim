@@ -186,6 +186,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
     <?php
       //  $incr = 1;
+    //   p_r($brandsData);
     // $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($brandsData as $uniqueId => $shortDescrioptionTableData) {
             unset($shortDescrioptionTableData['SortOrder']);
@@ -424,33 +425,29 @@ if (is_array($brandsData) && !empty($brandsData)) {
     <!-- Footer -->
     <!-- End Footer-->
 </section>
-<div class="hide">	
-<?php	
-if(count($partNumbers) > 0)	
-{	
-    $partNumberString = implode(',', $partNumbers);	
-    echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);	
-}	
-if(count($productNumbers) > 0)	
-{	
-    $productNumbersString = implode(',', $productNumbers);	
-    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);	
-}	
-if(count($brandNameList) > 0)	
-{	
-    $brandNameList = array_unique($brandNameList);	
-    $brandNamesText = implode('$$', $brandNameList);	
-    echo $this->textarea('hydraulic_fitting_brand')->setDataFromResource($brandNamesText);	
-}	
-?>	
-</div>
-</div>
-
+<div class="hide">
 <?php
+if(count($partNumbers) > 0)
+{
+    $partNumberString = implode(',', $partNumbers);
+    echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+}
 
-$partNumberString = implode(',', $partNumbers);
-echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+if(count($productNumbers) > 0)
+{
+    $productNumbersString = implode(',', $productNumbers);
+    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
+}
+
+if(count($brandNameList) > 0)
+{
+    $brandNameList = array_unique($brandNameList);
+    $brandNamesText = implode('$$', $brandNameList);
+    echo $this->textarea('hydraulic_fitting_brand')->setDataFromResource($brandNamesText);
+}
 ?>
+</div>
+</div>
 
 <?php if (!$containerRequest): ?>
         <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>

@@ -1113,7 +1113,7 @@ h5 + .pageTitle {
     display: block;
     position: running(tableHeader);
 }
-.table-content h4{margin-top: 20px; color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
+.table-content h4{color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
 .table-content h5{ font-size: 10px; letter-spacing: 1px; font-family: 'ContinentalStagSansLCG-Book'; font-weight: normal !important; color: #000;}
 
 .table-content > article > *{ margin-right: 40px;}
@@ -1359,7 +1359,7 @@ footer .flex > * {
 
 .inh section.content{ display: block;}
 
-.inhsetting1{ /* display: flex; */ }
+.inhsetting1{ display: flex; }
 
 
 .inhsetting-sidebar{
@@ -1858,6 +1858,17 @@ nav > span {
 
 .upper{ text-transform: uppercase; font-size:11px;display: block; padding-bottom:5px; color: #737373;}
 
+.inh-upper{
+    font-size: 12px;
+    font-family: 'ContinentalStagSansLCG-Book';
+    display: block;
+    padding-bottom: 5px;
+}
+
+.inh-subcategory{
+    font-family: 'ContinentalStagSansLCG-Book';
+}
+
 @media print{
     .upper{  color: cmyk(0%, 0%, 0%, 65%);}
 }
@@ -1917,6 +1928,10 @@ div.content_double {
 .content_double .pimcore_block_entry{ padding: 10px; }
 
 .content_double > .flex{
+    justify-content: space-between !important;
+}
+
+#amortizationTable > .flex, #amortizationTable1 >.flex{
     justify-content: space-between !important;
 }
 
@@ -2179,6 +2194,8 @@ margin-right:20px;
     .template{ max-width:100%;}
     .template > *{ display: block;}
     .ptg .grid{padding-bottom: 10px; }
+
+    .inhsetting1{ display: inherit; }
 }
 
 

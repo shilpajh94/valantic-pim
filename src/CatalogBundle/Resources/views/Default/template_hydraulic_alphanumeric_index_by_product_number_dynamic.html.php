@@ -11,7 +11,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <div class="numberTitle">
             <?php if($this->editmode): ?>
                 <?php if($this->input("HHIDN_Heading")->isEmpty()): ?>
-                    <h2><?= $this->input("HHIDN_Heading", ['placeholder'=>"Index Page Title"])->setDataFromResource('Index'); ?></h2>
+                    <h2><?= $this->input("HHIDN_Heading", ['placeholder'=>"Index Page Title"])->setDataFromResource('Alphanumeric Index by Product Number'); ?></h2>
                 <?php else: ?>
                     <h2><?= $this->input("HHIDN_Heading"); ?></h2>
                 <?php endif; ?>
@@ -19,7 +19,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <h2><?= $this->input("HHIDN_Heading") ?></h2>
             <?php endif; ?>
         </div>
-        <div id="amortizationTable" class="content_double single">
+        <div id="amortizationTable" class="<?php if(!$this->editmode){echo "content_double";} ?> single">
             <?php if($this->editmode): ?>
                 <div class="flex">
                     <div class="upper"> 
@@ -28,7 +28,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 if(!$this->input("HHIDN_th_col_1")->isEmpty())
                                     echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"]);
                                 else
-                                    echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Descriptive #');
+                                    echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Product #');
                         }else{
                                 echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"]);
                         }
@@ -109,14 +109,3 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         </div>
     </div>
 </div>
-<style>
-div.content_double {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-
-}
-</style>

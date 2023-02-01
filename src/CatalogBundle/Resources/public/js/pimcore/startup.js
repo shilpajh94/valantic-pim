@@ -337,7 +337,33 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
         let docType             = doc.data.type;
         let template             = doc.data.template;
 
-        if(template ==  'CatalogBundle:Default:template_index_descriptive_number_dynamic.html.php')
+        
+        if(template ==  'CatalogBundle:Default:template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:Default:template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:Default:template_hydraulic_table_of_contents_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:INH:template_industrial_hose_index_by_application_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:INH:template_industrial_hose_index_by_alphabet_dynamic.html.php')
+        {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+            resetTableOfContent.addResetContentButton();
+        }
+        else if(template ==  'CatalogBundle:INH:template_industrial_hose_table_of_contents_dynamic.html.php')
         {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
             resetTableOfContent.addResetContentButton();

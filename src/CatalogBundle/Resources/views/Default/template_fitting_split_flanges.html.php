@@ -15,6 +15,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php 
 endif; 
 $partNumbers = [];
+$productNumbers = [];
 ?>
 <div class="template">
 <div class="segregate">
@@ -260,16 +261,27 @@ $partNumbers = [];
                                         <?php endif; ?>
 
                                         <?php 
-                                            $indexDescriptiveNumber = array_search('Descriptive', $columnList);
-                                            if(($indexDescriptiveNumber !== false) && ($element[$indexDescriptiveNumber]))
+                                            if(isset($element['Descriptive']))
                                             { 
-                                                $descriptiveNumberText = $element[$indexDescriptiveNumber];
+                                                $descriptiveNumberText = $element['Descriptive'];
                                                 $descriptiveNumberList = explode('-', $descriptiveNumberText);
                                                 if(!in_array($descriptiveNumberList[0], $partNumbers))
                                                 {
                                                     $partNumbers[] = $descriptiveNumberList[0];
                                                 }
                                             }
+
+                                            if(isset($element['industryStandard']))
+                                            { 
+                                                $industryStandardText = $element['industryStandard'];
+                                                $industryStandardList = explode('-', $industryStandardText);
+                                                if(!in_array($industryStandardList[0], $productNumbers))
+                                                {
+                                                    $productNumbers[] = $industryStandardList[0];
+                                                }
+                                            }
+
+                                            
                                         ?>
                                                 <?php foreach($element as $ekey => $value): ?>
                                                         <td><?= $value; ?></td>
@@ -291,8 +303,17 @@ $partNumbers = [];
 
 <div class="hide">
         <?php
-        $partNumberString = implode(',', $partNumbers);
-        echo $this->input('product_page_part_number')->setDataFromResource($partNumberString);
+        if(count($partNumbers) > 0)
+        {
+                $partNumberString = implode(',', $partNumbers);
+                echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+        }
+
+        if(count($productNumbers) > 0)
+        {
+                $productNumbersString = implode(',', $productNumbers);
+                echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
+        }
         ?>
 </div>
 
