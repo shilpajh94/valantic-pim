@@ -674,9 +674,12 @@ class IndustrialHoseController extends AbstractController
                 foreach ($brandsData as $key => $brand)
                 {
                     $reinforcementArr = array();
+                    $designFactorArr = array();
+                    $designFactorArray = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
 
+                    $designFactorStr = '';
                     $tubeMaterialStr = '';
                     $coverMaterialStr = '';
                     $BrandingLayline = '';
@@ -735,6 +738,10 @@ class IndustrialHoseController extends AbstractController
                                 $reinforcementArr = array_merge($reinforcementArr, $bvalue[$headerKeysIndex['reinforcement']]);
                             }
 
+                            if($bvalue[$headerKeysIndex['safetyFactor']]) {
+                                $designFactorArr = array_merge($designFactorArr, $bvalue[$headerKeysIndex['safetyFactor']]);
+                            }
+
                             if(!$BrandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
                                 $BrandingLayline = $bvalue[$headerKeysIndex['BrandingLayline']];
                             }
@@ -763,7 +770,7 @@ class IndustrialHoseController extends AbstractController
                                 $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
-                                $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
+                                $temperatureRangeFAndC = "<ul><li>".$bvalue[$headerKeysIndex['temperatureRangeFAndC']];
                             }
 
                             if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
@@ -837,6 +844,13 @@ class IndustrialHoseController extends AbstractController
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 
+                    if($designFactorArr){
+                        $uniqueDesignFactor = array_unique($designFactorArr);
+                        foreach($uniqueDesignFactor as $eachDesignFactor)
+                            $designFactorArray[] = "<ul><li>".$eachDesignFactor;
+                        $designFactorStr = implode(', ',$designFactorArray);
+                    }
+
                     $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                     if(empty($tubeMaterialStr) && $tubeMaterialArr)
                         $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
@@ -849,6 +863,8 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['SIOP4Description'] = $SIOP4Description;
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
                     $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
+                    $newBrandArray[$key]['brandData']['designFactor'] = $designFactorStr;
+                    
                     $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
                     $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
                     $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
@@ -860,6 +876,7 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPointArr);
 
                     unset($reinforcementArr);
+                    unset($designFactorArr);
                     unset($tubeMaterialArr);
                     unset($coverMaterialArr);
                     unset($FeaturesBenefitsBulletPointArr);
