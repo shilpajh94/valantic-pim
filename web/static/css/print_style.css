@@ -2258,3 +2258,33 @@ margin-right:20px;
 .hide{
     display: none;
 }
+.standard-hose-met{
+    padding-right: 15px;
+}
+
+.standard-hose-met-flame{
+    margin-top: 20px;
+    margin-right: 15px;
+}
+
+.custom-specs-text{
+    margin-top: 20px;
+}
+
+.custom-specs-text p{
+    padding-bottom: 0px !important;
+}
+
+.custom-brand-border-style{
+    display: inline-flex;
+}
+
+.custom-brand-border-style p{
+    display: contents;
+}
+
+.custom-brand-border-style span{
+    font-family: 'ContinentalStagSansLCG-Book' !important;
+    padding-right: 5px !important;
+    font-weight: 600 !important;
+}
