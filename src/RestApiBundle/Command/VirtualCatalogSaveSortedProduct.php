@@ -223,7 +223,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             on b.VirtualCatalogApiSorter__id = vcsort.oo_id left join object_VirtualCatalogApiMapper vcmap
             on b.VirtualCatalogApiMapper__id = vcmap.oo_id where p.brandName is not null
             and p.brandName <> ''
-            ORDER BY p.brandName ";
+            ORDER BY b.name";
     // and p.brandName IN (1649, 1646, 1660, 1722) 
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
