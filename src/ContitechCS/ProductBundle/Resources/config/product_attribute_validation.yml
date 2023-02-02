@@ -3,9 +3,6 @@ Material Handling:
         fieldName: LongText
         objectType: class
 Textile Conveyor Belts :
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -18,9 +15,6 @@ Textile Conveyor Belts :
 Fortress XP:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -43,9 +37,6 @@ Fortress XP:
 ContiTitan:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -75,9 +66,6 @@ ContiFlex:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -105,9 +93,6 @@ ContiFlex Plus:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -166,9 +151,6 @@ Wood Sawyer:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -193,9 +175,6 @@ Wood Sawyer Plus:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -225,9 +204,6 @@ Sybercord:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -388,9 +364,6 @@ Flexowell - Corrugated Sidewall Belts :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -409,9 +382,6 @@ Flexowell - Corrugated Sidewall Belts :
 XE:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -440,9 +410,6 @@ XE:
 XOE:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -475,9 +442,6 @@ XE+2:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -505,9 +469,6 @@ XE+2:
 XST:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -537,9 +498,6 @@ Pocketlift :
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -561,9 +519,6 @@ Pocketlift :
 Type II:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -590,9 +545,6 @@ Type III:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -618,9 +570,6 @@ ContiPipe:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Short Text:
         fieldName: ShortText
         objectType: class
@@ -633,9 +582,6 @@ ContiPipe:
 Sicon-Pouch Conveyor Belts:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -658,9 +604,6 @@ Sicon-Pouch Conveyor Belts:
 Sicon 100:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -698,9 +641,6 @@ Sicon 100:
 Sicon 1000:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -746,9 +686,6 @@ Belts for Plant Automation:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -767,9 +704,6 @@ Belts for Plant Automation:
 Sliding belt:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -796,9 +730,6 @@ Supporting belt:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -823,9 +754,6 @@ Supporting belt:
 Skid queuing belt:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -852,9 +780,6 @@ Lifting belt:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -880,9 +805,6 @@ Track belt:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -907,9 +829,6 @@ Track belt:
 Worker conveyance belt:
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -969,9 +888,6 @@ Continental Vacuum filter belt:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -988,9 +904,6 @@ Continental Vacuum filter belt:
         fieldName: ProductClaimSlogan
         objectType: class
 Continental belts for screening conveyors:
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -1071,9 +984,6 @@ Survivor:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -1141,9 +1051,6 @@ Survivor Plus:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1183,9 +1090,6 @@ Stacker:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1227,9 +1131,6 @@ Defender:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1269,9 +1170,6 @@ Defender Plus:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1313,9 +1211,6 @@ Easyrider:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1355,9 +1250,6 @@ Monsterhide:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1399,9 +1291,6 @@ Monsterhide Plus:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1441,9 +1330,6 @@ Stacker Plus:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1633,9 +1519,6 @@ Shield FR-2G:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1675,9 +1558,6 @@ Shield FR-CSA-C:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1719,9 +1599,6 @@ Shield FRAR-2G:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1761,9 +1638,6 @@ Shield FRAR-CSA-C:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -1845,9 +1719,6 @@ Shield ARMA Tough:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1888,9 +1759,6 @@ Shield ARMA Plus:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -1930,9 +1798,6 @@ Shield FRORS-2G:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -2008,9 +1873,6 @@ Pathfinder Supreme:
     Segment:
       fieldName: CSSegment
       objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2048,9 +1910,6 @@ Pathfinder Arctic:
     Segment:
       fieldName: CSSegment
       objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2088,9 +1947,6 @@ Pathfinder CSA:
     Segment:
       fieldName: CSSegment
       objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2130,9 +1986,6 @@ Shield FRHT-2G:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -2174,9 +2027,6 @@ Gold Classic:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2216,9 +2066,6 @@ Gold Plus:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -2260,9 +2107,6 @@ Gold Extreme:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2303,9 +2147,6 @@ Gold Arctic:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2343,9 +2184,6 @@ Gold Arctic Plus:
     Segment:
       fieldName: CSSegment
       objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2426,9 +2264,6 @@ Solar-Shield Classic:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2469,9 +2304,6 @@ Solar-Shield Ultimate:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -2511,9 +2343,6 @@ Solar-Shield Extreme:
       objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
@@ -2589,9 +2418,6 @@ Alumina HOT:
     Segment:
       fieldName: CSSegment
       objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Cut And Gouge Resistance:
         fieldName: CutAndGougeResistance
         objectType: Performance1
@@ -3844,9 +3670,6 @@ CONTI CordProtect:
     # Features:
     #     fieldName: Features
     #     objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4228,9 +4051,6 @@ CONTI CordInspect Service:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4255,9 +4075,6 @@ CONTI WearInspect Service:
         objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -4284,9 +4101,6 @@ CONTI SurfaceInspect Service:
     Applications:
         fieldName: CSProductApplications
         objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Industries:
         fieldName: CSProductIndustries
         objectType: class
@@ -4311,9 +4125,6 @@ CONTI ConveyorInspect Service:
         objectType: class
     Applications:
         fieldName: CSProductApplications
-        objectType: class
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
         objectType: class
     Industries:
         fieldName: CSProductIndustries
@@ -4580,9 +4391,6 @@ Idlers:
         fieldName: EcommerceFlag
         objectType: class
 Field Service:
-    Features and Benefits (combination of text and pic):
-        fieldName: CSProductFeaturesAndBenefits
-        objectType: class
     Short Text:
         fieldName: ShortText
         objectType: class
