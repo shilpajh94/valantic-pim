@@ -353,6 +353,9 @@ class ProductModelService {
                             }
                         }
                     }
+                    else{
+                        $GroupingFieldIdNameList[] = $finalProductArrayTemp[$GroupingField];
+                    }
                 }
 
                 if (!empty($brandName)) {
@@ -373,6 +376,7 @@ class ProductModelService {
             if($GroupingFieldIdNameList)
             {
                 $GroupingFieldIdNameStr = $brandName . " ". implode(',', $GroupingFieldIdNameList);
+                $GroupingFieldIdNameStr = trim($GroupingFieldIdNameStr,' ');
             }
             $finalProductArrayTemp["_parent_name"] = $GroupingFieldIdNameStr;
             unset($GroupingFieldIdNameList);
