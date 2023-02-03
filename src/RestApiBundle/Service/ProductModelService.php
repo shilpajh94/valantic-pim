@@ -335,7 +335,7 @@ class ProductModelService {
                             $GroupingFieldIdNameList[] = ($originalValues[$reinforcementId]['alias']) ? $originalValues[$reinforcementId]['alias'] : $originalValues[$reinforcementId]['original'];
                         }
                     }
-                    if($GroupingField == 'staticWireType'){
+                    else if($GroupingField == 'staticWireType'){
                         $staticWireTypeValue = $finalProductArrayTemp["staticWireType"];
                         if($staticWireTypeValue)
                         {
@@ -616,14 +616,13 @@ class ProductModelService {
 
                     if(isset($this->customFields[$fieldName]))
                     {
-                        // p_r($bData);
-                        // if($bDataIds)
-                        // {
-                        //     $productObjectBricksData[$this->customFields[$fieldName]] = $bDataIds;
-                        // }
-                        // else{
+                        if($bDataIds)
+                        {
+                            $productObjectBricksData[$this->customFields[$fieldName]] = $bDataIds;
+                        }
+                        else{
                             $productObjectBricksData[$this->customFields[$fieldName]] = $bData;
-                        // }
+                        }
                         
                     }
                 }
