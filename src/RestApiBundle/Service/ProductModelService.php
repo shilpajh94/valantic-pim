@@ -307,9 +307,23 @@ class ProductModelService {
             $certificationImageID = $value["certificationImage"];
             $certificationDocumentID = $value["document"];
             $finalProductArrayTemp = array_merge($finalProductArrayTemp, $baseObjectBrickData, $skeletonObjectBrickData, $fertObjectBrickData);
-            $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $sixDigit . "-" . $baseObjectBrickData["sixDigitVirtualCatalogDescription"];
+            
+            if($sixDigit && $baseObjectBrickData["sixDigitVirtualCatalogDescription"])
+            {
+                $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $sixDigit . "-" . $baseObjectBrickData["sixDigitVirtualCatalogDescription"];
+            }
+            else if($sixDigit)
+            {
+                $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $sixDigit;
+            }
+            else if($baseObjectBrickData["sixDigitVirtualCatalogDescription"])
+            {
+                $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $baseObjectBrickData["sixDigitVirtualCatalogDescription"];
+            }
+            
             $finalProductArrayTemp = array_merge($value, $finalProductArrayTemp);
             $finalProductArrayTemp["sap_id"] = $value["articleNumber"];
+            $finalProductArrayTemp["virtualCatalogReadyToGo"] = ($value["virtualCatalogReadyToGo"] == 1) ? 1: 0;
             $reinforcement = $value["reinforcement"];
             
             $GroupingFieldIdNameList = [];
