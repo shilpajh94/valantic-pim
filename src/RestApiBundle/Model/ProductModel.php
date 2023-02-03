@@ -300,17 +300,15 @@ class ProductModel
      */
     public function getConditionStringNewAPI($conditionArray,$productType){
 
-        // $conditionString    =   " ProductType='".$productType."'  AND ";
-        // if(empty($conditionArray)){
-        //     $conditionString    =   trim($conditionString,'  AND ');
-        //     return $conditionString;
-        // }
+        $conditionString    =   " `objlocal`.`ProductType`='".$productType."'  AND ";
+        if(empty($conditionArray)){
+            $conditionString    =   trim($conditionString,'  AND ');
+            return $conditionString;
+        }
 
-        // if($productType=='fert'){
-        //     $conditionString .= " virtualCatalogFlag=1 AND ";
-        // }
-
-        $conditionString = " ";
+        if($productType=='fert'){
+            $conditionString .= " `objlocal`.`virtualCatalogFlag`=1 AND ";
+        }
 
         switch($productType){
             case 'fert':
@@ -554,7 +552,7 @@ class ProductModel
                 LEFT JOIN object_localized_' . $this->classId. '_' . $this->langCode . ' AS `objlocal`
                 ON `vc`.`oo_id` = `objlocal`.`oo_id` '.$whereClause.' '.$limitText."\n\n";
 
-        // $this->sqlArr [$this->fallbackLangCode] = '
+                // $this->sqlArr [$this->fallbackLangCode] = '
         //     SELECT  '.implode(",",$selectStatementAttributeArray).'
         //     FROM object_localized_' . $this->classId. '_' . $this->langCode . '
         //     WHERE '.$conArray['condition'].' '.$limitText."\n\n";
