@@ -133,7 +133,7 @@ class ProductController extends FrontendController
              // Get Virtual catalog fields mapping configuration.
              $vConfig = $this->service->getVirtualCatalogFieldMapping();
              // Get Parameter Array.
-             $conditionArray =   $this->getParameterArray($request);
+             $conditionArray =   $this->getParameterArrayAPI($request);
              // Get Virtual catalog data based on parameter request.
              // $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
              $productDetail  =   $this->service->getProductNewAPI('en',$conditionArray);
@@ -168,6 +168,25 @@ class ProductController extends FrontendController
         $parameterArray['page']= $request->get('page');
         $parameterArray['limit']= $request->get('limit');
         $parameterArray['updatedFrom'] = $request->get('updatedFrom');
+        return  $parameterArray;    
+    }
+
+    /**
+     * Function to fetch parameter details .
+     *
+     * @param Request $request
+     *
+     * @return array $parameterArray Parameters array
+     *
+     * @throws \Exception
+     */    
+    private function getParameterArrayAPI($request){
+        $parameterArray['apiKey'] = $request->headers->get('apiKey');
+        $parameterArray['ids'] = $request->get('ids');
+        $parameterArray['siop']= $request->get('siopCode');
+        $parameterArray['page']= $request->get('page');
+        $parameterArray['limit']= $request->get('limit');
+        $parameterArray['updatedFrom'] = $request->get('updatedAt');
         return  $parameterArray;    
     }
     

@@ -86,7 +86,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                 $sortFieldValue = $brandProducts["sortFieldValue"];
                 $updatedAt = $brandProducts["o_modificationDate"];
 
-                $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, $siopFullcode, $updatedAt) ";
+                $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, '$siopFullcode', $updatedAt) ";
 
             }
 
@@ -266,7 +266,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         `sortFieldValue` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
         `sort_order` int DEFAULT NULL,
         `sapCode` int NOT NULL,
-        `siopFullcode` int NOT NULL,
+        `siopFullcode` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
         `updatedAt` int NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
