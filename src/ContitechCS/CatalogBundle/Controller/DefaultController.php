@@ -957,11 +957,23 @@ class DefaultController extends AbstractController
                                                     if($key == 'MinTemperatureF'){
                                                         $minTemperatureFValue = $bricks->$getBrick()->$getField();
                                                         $minTemperatureCValue = $bricks->$getBrick()->getMinTemperatureC();
-                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . '°F<br>'.'('.$minTemperatureCValue . '°C'.')';
+                                                        if($minTemperatureFValue){
+                                                            $minTemperatureFValue = $minTemperatureFValue . '°F <br>';
+                                                        }
+                                                        if($minTemperatureCValue){
+                                                            $minTemperatureCValue = '('.$minTemperatureCValue . '°C'.')';
+                                                        }
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . $minTemperatureCValue;
                                                     }elseif($key == 'MaxTemperatureF'){
                                                         $maxTemperatureFValue = $bricks->$getBrick()->$getField();
                                                         $maxTemperatureCValue = $bricks->$getBrick()->getMaxTemperatureC();
-                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . '°F<br>'.'('.$maxTemperatureCValue . '°C'.')';
+                                                        if($maxTemperatureFValue){
+                                                            $maxTemperatureFValue = $maxTemperatureFValue . '°F <br>';
+                                                        }
+                                                        if($maxTemperatureCValue){
+                                                            $minTemperatureCValue = '('.$maxTemperatureCValue . '°C'.')';
+                                                        }
+                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . $minTemperatureCValue;
                                                     }
                                                     else{
                                                         $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();

@@ -2956,7 +2956,7 @@ Cover Options:
         OilResistance: Performance1
         FlameResistance: Performance1
         ISO284StaticConductive: Performance1
-        ASTMShoreHardness: Performance2
+        ShoreHardness: Performance2
         MinTensilePSI: Performance1
         MinElongationPercent: Performance1
         DINAbrasion: Performance2
