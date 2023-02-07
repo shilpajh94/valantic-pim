@@ -1,11 +1,10 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-30T12:02:01+05:30
+* Generated at: 2023-02-07T09:56:08+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -149,7 +148,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675060312,
+   'modificationDate' => 1675760165,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8448,6 +8447,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                              'allowedTypes' => 
                             array (
+                              0 => 'IFSEUHoseBase',
                             ),
                              'maxItems' => '',
                              'border' => false,
@@ -11151,6 +11151,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
+                  0 => 'IFSEUHoseSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -11672,6 +11673,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                          'allowedTypes' => 
                         array (
+                          0 => 'IFSEUHoseFert',
                         ),
                          'maxItems' => '',
                          'border' => false,
