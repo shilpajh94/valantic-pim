@@ -397,7 +397,7 @@ $coverCompound = $data['coverCompoundData'];
                     </div>
                 <?php } ?>
                         
-                <div class="environment-quality-sec">
+                <div class="environment-quality-sec environment-quality-sec-temprature">
                     <div class="media my-4">
 
                         <?php
