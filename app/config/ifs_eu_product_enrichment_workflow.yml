@@ -133,7 +133,7 @@ pimcore:
                     from:
                         - in_review
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_APPLICATIONADMINIFSEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_PRODUCTMANAGEMENTIFSEU"))
                     options:
                         label: 'Send to MarCom for Fixes'
                         notes:
@@ -156,7 +156,7 @@ pimcore:
                         - in_review
                         - published
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_APPLICATIONADMINIFSEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_PRODUCTMANAGEMENTIFSEU"))
                     options:
                         label: 'Published'
                         notes:
@@ -244,7 +244,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_APPLICATIONADMINIFSEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_PRODUCTMANAGEMENTIFSEU"))
                     options:
                         label: 'Send to Marcom for Fixes'
                         notes:
@@ -255,7 +255,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: in_editor_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_APPLICATIONADMINIFSEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_PRODUCTMANAGEMENTIFSEU"))
                     options:
                         label: 'Send to Editor for Fixes'
                         notes:
@@ -266,7 +266,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_APPLICATIONADMINIFSEU"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEU") or has_role("ROLE_PRODUCTMANAGEMENTIFSEU"))
                     options:
                         label: 'Published'
                         notes:

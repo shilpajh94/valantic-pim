@@ -10,16 +10,18 @@ use Pimcore\Model\User;
 
 class IFSEUMandatoryValidationService {
 
+    private $productConfig;
+
     public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
         
-        $config = $this->getConfigFromYmlFile(IFSEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH);
+        $config = $this->getConfigFromYmlFile(IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH);
        
         if (!empty($config)) {
             $product->setGetInheritedValues(true);
             $className = $product->getClassName();
             $arr = array('Please fill all mandatory fields');
             $attributeNameArray = [];
-            foreach ($config['MandatoryAttribures'] as $fieldName) {
+            foreach ($config['MandatoryAttributes'] as $fieldName) {
 
                 $method = "get$fieldName"; 
                 $class = DataObject\ClassDefinition::getByName($className);
@@ -27,11 +29,12 @@ class IFSEUMandatoryValidationService {
                 if ($fieldTitle) {
                     $fieldTitle = $fieldTitle->getTitle(); 
                 } else {
-                    $fieldTitle = $fieldName;
+                    // $fieldTitle = $fieldName;
+                    $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
                 }
                 $value = $product->$method();
                 if (empty($value)) {
-                    $arr[$fieldName] = "$fieldTitle in Brand Data";
+                    $arr[$fieldName] = $fieldTitle;
                     $attributeNameArray[] = $fieldName; 
                 }
             }
@@ -46,7 +49,8 @@ class IFSEUMandatoryValidationService {
     if (!empty($reqAttributesByUser)) {
         $newArray = array('Please fill all mandatory fields');
         foreach ($attributeNameArray as $attribute) {
-            if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttribures'])) {
+            if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttributes'])) {
+                // if (array_key_exists($attribute, $reqAttributesByUser['all']) && array_key_exists($attribute, $reqAttributesByUser['byRole'])) {
                 $newArray[] = $arr[$attribute];
             }
         }

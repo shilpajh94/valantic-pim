@@ -15,7 +15,7 @@ class IFSEUProductEnrichmentListener
     private $validationService;
     public function __construct() {
 
-        $this->validationService = \Pimcore::getContainer()->get('PTGEU\ProductBundle\Services\PTGEUMandatoryValidationService');
+        $this->validationService = \Pimcore::getContainer()->get('IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService');
         $wfConfigData = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getIFSEUWorkflowConfig()['parameters'];
         $this->config = isset($wfConfigData['completed']) ? $wfConfigData['completed'] : false;
         $this->transitionConfig = isset($wfConfigData['transition']) ? $wfConfigData['transition'] : false;
@@ -176,7 +176,7 @@ class IFSEUProductEnrichmentListener
                 $reqAttributesByUser = [];
                 if($transitionName != "approved") {
                     $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
-                    $reqAttributesByUser = \PTGEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
+                    $reqAttributesByUser = \IFSEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
                 }
                 $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
         } catch (\Exception $ex) {
