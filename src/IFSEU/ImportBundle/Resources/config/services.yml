@@ -22,3 +22,28 @@ services:
 #            - "@service_id"
 #            - "plain_value"
 #            - "%parameter%"
+
+    # this command will execute the import of SAP plant material
+    IFSEU\ImportBundle\Command\IFSEU_SAPPlantMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:sap-plant-material-import' }
+    
+    ifs_eu_import.sap_plant_material_import:
+        class: IFSEU\ImportBundle\Services\PlantMaterialService
+        public: true
+
+
+    # Helpers
+    ifs_eu_import.common_helper:
+        class: IFSEU\ImportBundle\Helper\Common
+        public: true
+
+    
+    # Services
+    ifs_eu_import.sap_file_feeder_service:
+        class: IFSEU\ImportBundle\Services\SAPFileFeederService
+        public: true
+
+    ifs_eu_import.config_provider_service:
+        class: IFSEU\ImportBundle\Services\ConfigProviderService
+        public: true
