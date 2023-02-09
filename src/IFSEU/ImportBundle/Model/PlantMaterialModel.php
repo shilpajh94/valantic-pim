@@ -81,8 +81,8 @@ class PlantMaterialModel
 	        $valuesArr[] = $this->db->quote($data['o_key']);
 	        $valuesArr[] = $this->db->quote($data['o_path']);
 	        $valuesArr[] = $this->db->quote("1");
-	        $valuesArr[] = $this->db->quote("40");
-	        $valuesArr[] = $this->db->quote("PTGEUPlantMaterialMaster");
+	        $valuesArr[] = $this->db->quote("IFSEUPlantMaterialMaster");
+	        $valuesArr[] = $this->db->quote("IFSEUPlantMaterialMaster");
 	        $valuesArr[] = $this->db->quote(time());
 	        $valuesArr[] = $this->db->quote(time());
 	        $values = " (".implode(', ', $valuesArr).") ";
@@ -120,14 +120,14 @@ class PlantMaterialModel
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                $id = $tempData['SAPMaterialCode'].'$'.$tempData['DeliveringPlantCode'].'$'.$tempData['SalesOrgCode'].'$'.$tempData['DCCode'];
+                $id = $tempData['Material'].'$'.$tempData['Plant'].'$'.$tempData['Sales Organization'].'$'.$tempData['Distribution Channel'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
                 $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
-                    $query = $sql.rtrim($values, ',').$update;
+                    echo $query = $sql.rtrim($values, ',').$update;
                     $this->db->query($query);
                     $values = '';
                 }
@@ -227,18 +227,6 @@ class PlantMaterialModel
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
-    }
-    public function getCountries() {
-        $query = "SELECT code, oo_id FROM `object_9` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
-    }
-    public function getSalessOrganization() {
-        $query = "SELECT code, oo_id FROM `object_6` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
-    }
-    public function getDistributionChannel() {
-        $query = "SELECT code, oo_id FROM `object_8` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
     }
 
     public function createPlantMaterialTable()
