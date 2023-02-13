@@ -7353,701 +7353,6 @@ return [
         ],
         "id" => "IFSEU_MissingAssetsOnProducts"
     ],
-    "IFSEU_TranslationMissingReport" => [
-        "name" => "IFSEU_TranslationMissingReport",
-        "sql" => "",
-        "dataSourceConfig" => [
-            [
-                "sql" => "SELECT \nobject_localized_IFSEUProduct_en.oo_id As ' Id',\n     object_localized_IFSEUProduct_en.legalText As 'Legal Text',\n     object_localized_IFSEUProduct_en.BrandShortText1 As 'Brand Short Text 1',\n     object_localized_IFSEUProduct_en.BrandShortText2 As 'Brand Short Text 2',\n     object_localized_IFSEUProduct_en.BrandShortText3 As 'Brand Short Text 3',\n     object_localized_IFSEUProduct_en.BrandShortText4 As 'Brand Short Text 4',\n     object_localized_IFSEUProduct_en.BrandShortText5 As 'Brand Short Text 5',\n     object_localized_IFSEUProduct_en.shortDescription As 'Short Description',\n     object_localized_IFSEUProduct_en.longDescription As 'Long Description',\n     object_localized_IFSEUProduct_en.sapDescription As 'SAP Description',\n     object_localized_IFSEUProduct_de.legalText As 'Legal Text (de)',\n     object_localized_IFSEUProduct_de.BrandShortText1 As 'Brand Short Text 1 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText2 As 'Brand Short Text 2 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText3 As 'Brand Short Text 3 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText4 As 'Brand Short Text 4 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText5 As 'Brand Short Text 5 (de)',\n     object_localized_IFSEUProduct_de.shortDescription As 'Short Description (de)',\n     object_localized_IFSEUProduct_de.longDescription As 'Long Description (de)',\n     object_localized_IFSEUProduct_de.sapDescription As 'SAP Description (de)',\n     object_localized_IFSEUProduct_it.legalText As 'Legal Text (it)',\n     object_localized_IFSEUProduct_it.BrandShortText1 As 'Brand Short Text 1 (it)',\n     object_localized_IFSEUProduct_it.BrandShortText2 As 'Brand Short Text 2 (it)',\n     object_localized_IFSEUProduct_it.BrandShortText3 As 'Brand Short Text 3 (it)',\n     object_localized_IFSEUProduct_it.BrandShortText4 As 'Brand Short Text 4 (it)',\n     object_localized_IFSEUProduct_it.BrandShortText5 As 'Brand Short Text 5 (it)',\n     object_localized_IFSEUProduct_it.shortDescription As 'Short Description (it)',\n     object_localized_IFSEUProduct_it.longDescription As 'Long Description (it)',\n     object_localized_IFSEUProduct_it.sapDescription As 'SAP Description (it)',\n     object_localized_IFSEUProduct_fr.legalText As 'Legal Text (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText1 As 'Brand Short Text 1 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText2 As 'Brand Short Text 2 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText3 As 'Brand Short Text 3 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText4 As 'Brand Short Text 4 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText5 As 'Brand Short Text 5 (fr)',\n     object_localized_IFSEUProduct_fr.shortDescription As 'Short Description (fr)',\n     object_localized_IFSEUProduct_fr.longDescription As 'Long Description (fr)',\n     object_localized_IFSEUProduct_fr.sapDescription As 'SAP Description (fr)',\n     object_localized_IFSEUProduct_es_ES.legalText As 'Legal Text (es)',\n     object_localized_IFSEUProduct_es_ES.BrandShortText1 As 'Brand Short Text 1 (es)',\n     object_localized_IFSEUProduct_es_ES.BrandShortText2 As 'Brand Short Text 2 (es)',\n     object_localized_IFSEUProduct_es_ES.BrandShortText3 As 'Brand Short Text 3 (es)',\n     object_localized_IFSEUProduct_es_ES.BrandShortText4 As 'Brand Short Text 4 (es)',\n     object_localized_IFSEUProduct_es_ES.BrandShortText5 As 'Brand Short Text 5 (es)',\n     object_localized_IFSEUProduct_es_ES.shortDescription As 'Short Description (es)',\n     object_localized_IFSEUProduct_es_ES.longDescription As 'Long Description (es)',\n     object_localized_IFSEUProduct_es_ES.sapDescription As 'SAP Description (es)',\n     object_localized_IFSEUProduct_ru.legalText As 'Legal Text (ru)',\n     object_localized_IFSEUProduct_ru.BrandShortText1 As 'Brand Short Text 1 (ru)',\n     object_localized_IFSEUProduct_ru.BrandShortText2 As 'Brand Short Text 2 (ru)',\n     object_localized_IFSEUProduct_ru.BrandShortText3 As 'Brand Short Text 3 (ru)',\n     object_localized_IFSEUProduct_ru.BrandShortText4 As 'Brand Short Text 4 (ru)',\n     object_localized_IFSEUProduct_ru.BrandShortText5 As 'Brand Short Text 5 (ru)',\n     object_localized_IFSEUProduct_ru.shortDescription As 'Short Description (ru)',\n     object_localized_IFSEUProduct_ru.longDescription As 'Long Description (ru)',\n     object_localized_IFSEUProduct_ru.sapDescription As 'SAP Description (ru)',\n     object_localized_IFSEUProduct_zh.legalText As 'Legal Text (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText1 As 'Brand Short Text 1 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText2 As 'Brand Short Text 2 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText3 As 'Brand Short Text 3 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText4 As 'Brand Short Text 4 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText5 As 'Brand Short Text 5 (zh)',\n     object_localized_IFSEUProduct_zh.shortDescription As 'Short Description (zh)',\n     object_localized_IFSEUProduct_zh.longDescription As 'Long Description (zh)',\n     object_localized_IFSEUProduct_zh.sapDescription As 'SAP Description (zh)',\n     object_localized_IFSEUProduct_pt_BR.legalText As 'Legal Text (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.BrandShortText1 As 'Brand Short Text 1 (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.BrandShortText2 As 'Brand Short Text 2 (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.BrandShortText3 As 'Brand Short Text 3 (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.BrandShortText4 As 'Brand Short Text 4 (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.BrandShortText5 As 'Brand Short Text 5 (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.shortDescription As 'Short Description (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.longDescription As 'Long Description (pt_BR)',\n     object_localized_IFSEUProduct_pt_BR.sapDescription As 'SAP Description (pt_BR)'",
-                "from" => "FROM  object_localized_IFSEUProduct_en\n    INNER JOIN  object_localized_IFSEUProduct_de ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_de.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_it ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_it.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fr ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fr.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_es_ES ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_es_ES.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_ru ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_ru.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_zh ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_zh.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pt_BR ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pt_BR.oo_id",
-                "where" => "WHERE\n\n    (\n\t object_localized_IFSEUProduct_en.shortDescription is null OR\n\t object_localized_IFSEUProduct_en.longDescription is null OR\n     object_localized_IFSEUProduct_en.webDescription is null OR\n\t object_localized_IFSEUProduct_en.searchKeywords is null OR\n     object_localized_IFSEUProduct_en.legalText is null OR\n     object_localized_IFSEUProduct_en.sapDescription is null OR\n     object_localized_IFSEUProduct_de.shortDescription is null OR\n\t object_localized_IFSEUProduct_de.longDescription is null OR\n     object_localized_IFSEUProduct_de.webDescription is null OR\n\t object_localized_IFSEUProduct_de.searchKeywords is null OR\n     object_localized_IFSEUProduct_de.legalText is null OR\n     object_localized_IFSEUProduct_de.sapDescription is null OR\n     object_localized_IFSEUProduct_it.shortDescription is null OR\n\t object_localized_IFSEUProduct_it.longDescription is null OR\n     object_localized_IFSEUProduct_it.webDescription is null OR\n\t object_localized_IFSEUProduct_it.searchKeywords is null OR\n     object_localized_IFSEUProduct_it.legalText is null OR\n     object_localized_IFSEUProduct_it.sapDescription is null OR\n     object_localized_IFSEUProduct_fr.shortDescription is null OR\n\t object_localized_IFSEUProduct_fr.longDescription is null OR\n     object_localized_IFSEUProduct_fr.webDescription is null OR\n\t object_localized_IFSEUProduct_fr.searchKeywords is null OR\n     object_localized_IFSEUProduct_fr.legalText is null OR\n     object_localized_IFSEUProduct_fr.sapDescription is null OR\n     object_localized_IFSEUProduct_es_ES.shortDescription is null OR\n\t object_localized_IFSEUProduct_es_ES.longDescription is null OR\n     object_localized_IFSEUProduct_es_ES.webDescription is null OR\n\t object_localized_IFSEUProduct_es_ES.searchKeywords is null OR\n     object_localized_IFSEUProduct_es_ES.legalText is null OR\n     object_localized_IFSEUProduct_es_ES.sapDescription is null OR\n     object_localized_IFSEUProduct_ru.shortDescription is null OR\n\t object_localized_IFSEUProduct_ru.longDescription is null OR\n     object_localized_IFSEUProduct_ru.webDescription is null OR\n\t object_localized_IFSEUProduct_ru.searchKeywords is null OR\n     object_localized_IFSEUProduct_ru.legalText is null OR\n     object_localized_IFSEUProduct_ru.sapDescription is null OR\n     object_localized_IFSEUProduct_zh.shortDescription is null OR\n\t object_localized_IFSEUProduct_zh.longDescription is null OR\n     object_localized_IFSEUProduct_zh.webDescription is null OR\n\t object_localized_IFSEUProduct_zh.searchKeywords is null OR\n     object_localized_IFSEUProduct_zh.legalText is null OR\n     object_localized_IFSEUProduct_zh.sapDescription is null OR\n     object_localized_IFSEUProduct_pt_BR.shortDescription is null OR\n\t object_localized_IFSEUProduct_pt_BR.longDescription is null OR\n     object_localized_IFSEUProduct_pt_BR.webDescription is null OR\n\t object_localized_IFSEUProduct_pt_BR.searchKeywords is null OR\n     object_localized_IFSEUProduct_pt_BR.legalText is null OR\n     object_localized_IFSEUProduct_pt_BR.sapDescription is null \n    )\n    ",
-                "groupby" => "",
-                "type" => "sql"
-            ]
-        ],
-        "columnConfiguration" => [
-            [
-                "name" => "Short Description",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-2"
-            ],
-            [
-                "name" => "Long Description",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-3"
-            ],
-            [
-                "name" => "Legal Text",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-6"
-            ],
-            [
-                "name" => "SAP Description",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-7"
-            ],
-            [
-                "name" => "Short Description (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-8"
-            ],
-            [
-                "name" => "Long Description (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-9"
-            ],
-            [
-                "name" => "Legal Text (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-12"
-            ],
-            [
-                "name" => "SAP Description (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-13"
-            ],
-            [
-                "name" => "Short Description (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-14"
-            ],
-            [
-                "name" => "Long Description (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-15"
-            ],
-            [
-                "name" => "Legal Text (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-18"
-            ],
-            [
-                "name" => "SAP Description (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-19"
-            ],
-            [
-                "name" => "Short Description (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-20"
-            ],
-            [
-                "name" => "Long Description (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-21"
-            ],
-            [
-                "name" => "Legal Text (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-24"
-            ],
-            [
-                "name" => "SAP Description (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-25"
-            ],
-            [
-                "name" => "Short Description (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-26"
-            ],
-            [
-                "name" => "Long Description (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-27"
-            ],
-            [
-                "name" => "Legal Text (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-30"
-            ],
-            [
-                "name" => "SAP Description (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-31"
-            ],
-            [
-                "name" => "Short Description (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-32"
-            ],
-            [
-                "name" => "Long Description (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-33"
-            ],
-            [
-                "name" => "Legal Text (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-36"
-            ],
-            [
-                "name" => "SAP Description (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-37"
-            ],
-            [
-                "name" => "Short Description (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-38"
-            ],
-            [
-                "name" => "Long Description (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-39"
-            ],
-            [
-                "name" => "Legal Text (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-42"
-            ],
-            [
-                "name" => "SAP Description (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-43"
-            ],
-            [
-                "name" => "Id",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-50"
-            ],
-            [
-                "name" => "Brand Short Text 1",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-51"
-            ],
-            [
-                "name" => "Brand Short Text 2",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-52"
-            ],
-            [
-                "name" => "Brand Short Text 3",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-53"
-            ],
-            [
-                "name" => "Brand Short Text 4",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-54"
-            ],
-            [
-                "name" => "Brand Short Text 5",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-55"
-            ],
-            [
-                "name" => "Brand Short Text 1 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-56"
-            ],
-            [
-                "name" => "Brand Short Text 2 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-57"
-            ],
-            [
-                "name" => "Brand Short Text 3 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-58"
-            ],
-            [
-                "name" => "Brand Short Text 4 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-59"
-            ],
-            [
-                "name" => "Brand Short Text 5 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-60"
-            ],
-            [
-                "name" => "Brand Short Text 1 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-61"
-            ],
-            [
-                "name" => "Brand Short Text 2 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-62"
-            ],
-            [
-                "name" => "Brand Short Text 3 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-63"
-            ],
-            [
-                "name" => "Brand Short Text 4 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-64"
-            ],
-            [
-                "name" => "Brand Short Text 5 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-65"
-            ],
-            [
-                "name" => "Brand Short Text 1 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-66"
-            ],
-            [
-                "name" => "Brand Short Text 2 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-67"
-            ],
-            [
-                "name" => "Brand Short Text 3 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-68"
-            ],
-            [
-                "name" => "Brand Short Text 4 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-69"
-            ],
-            [
-                "name" => "Brand Short Text 5 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-70"
-            ],
-            [
-                "name" => "Brand Short Text 1 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-71"
-            ],
-            [
-                "name" => "Brand Short Text 2 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-72"
-            ],
-            [
-                "name" => "Brand Short Text 3 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-73"
-            ],
-            [
-                "name" => "Brand Short Text 4 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-74"
-            ],
-            [
-                "name" => "Brand Short Text 5 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-75"
-            ],
-            [
-                "name" => "Brand Short Text 1 (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-76"
-            ],
-            [
-                "name" => "Brand Short Text 2 (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-77"
-            ],
-            [
-                "name" => "Brand Short Text 3 (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-78"
-            ],
-            [
-                "name" => "Brand Short Text 4 (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-79"
-            ],
-            [
-                "name" => "Brand Short Text 5 (ru)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-80"
-            ],
-            [
-                "name" => "Brand Short Text 1 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-81"
-            ],
-            [
-                "name" => "Brand Short Text 2 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-82"
-            ],
-            [
-                "name" => "Brand Short Text 3 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-83"
-            ],
-            [
-                "name" => "Brand Short Text 4 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-84"
-            ],
-            [
-                "name" => "Brand Short Text 5 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-85"
-            ],
-            [
-                "name" => "Legal Text (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-86"
-            ],
-            [
-                "name" => "Brand Short Text 1 (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-87"
-            ],
-            [
-                "name" => "Brand Short Text 2 (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-88"
-            ],
-            [
-                "name" => "Brand Short Text 3 (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-89"
-            ],
-            [
-                "name" => "Brand Short Text 4 (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-90"
-            ],
-            [
-                "name" => "Brand Short Text 5 (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-91"
-            ],
-            [
-                "name" => "Short Description (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-92"
-            ],
-            [
-                "name" => "Long Description (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-93"
-            ],
-            [
-                "name" => "SAP Description (pt_BR)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3463-94"
-            ]
-        ],
-        "niceName" => "IFSEU -  Translations Missing Report",
-        "group" => "IFS_EU",
-        "groupIconClass" => "",
-        "iconClass" => "",
-        "menuShortcut" => FALSE,
-        "reportClass" => "",
-        "chartType" => NULL,
-        "pieColumn" => NULL,
-        "pieLabelColumn" => NULL,
-        "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1675761545,
-        "creationDate" => 1674799022,
-        "shareGlobally" => FALSE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-
-        ],
-        "id" => "IFSEU_TranslationMissingReport"
-    ],
     "IFSEU_WorkflowPendingProducts" => [
         "name" => "IFSEU_WorkflowPendingProducts",
         "sql" => "",
@@ -8339,5 +7644,700 @@ return [
 
         ],
         "id" => "IFSEU_ProductCompleteness"
+    ],
+    "IFSEU_TranslationMissingReport" => [
+        "name" => "IFSEU_TranslationMissingReport",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \nobject_localized_IFSEUProduct_en.oo_id As ' Id',\n     object_localized_IFSEUProduct_en.legalText As 'Legal Text',\n     object_localized_IFSEUProduct_en.BrandShortText1 As 'Brand Short Text 1',\n     object_localized_IFSEUProduct_en.BrandShortText2 As 'Brand Short Text 2',\n     object_localized_IFSEUProduct_en.BrandShortText3 As 'Brand Short Text 3',\n     object_localized_IFSEUProduct_en.BrandShortText4 As 'Brand Short Text 4',\n     object_localized_IFSEUProduct_en.BrandShortText5 As 'Brand Short Text 5',\n     object_localized_IFSEUProduct_en.shortDescription As 'Short Description',\n     object_localized_IFSEUProduct_en.longDescription As 'Long Description',\n     object_localized_IFSEUProduct_en.sapDescription As 'SAP Description',\n     object_localized_IFSEUProduct_de.legalText As 'Legal Text (de)',\n     object_localized_IFSEUProduct_de.BrandShortText1 As 'Brand Short Text 1 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText2 As 'Brand Short Text 2 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText3 As 'Brand Short Text 3 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText4 As 'Brand Short Text 4 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText5 As 'Brand Short Text 5 (de)',\n     object_localized_IFSEUProduct_de.shortDescription As 'Short Description (de)',\n     object_localized_IFSEUProduct_de.longDescription As 'Long Description (de)',\n     object_localized_IFSEUProduct_de.sapDescription As 'SAP Description (de)',\n     object_localized_IFSEUProduct_it_IT.legalText As 'Legal Text (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText1 As 'Brand Short Text 1 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 As 'Brand Short Text 2 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText3 As 'Brand Short Text 3 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText4 As 'Brand Short Text 4 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText5 As 'Brand Short Text 5 (it)',\n     object_localized_IFSEUProduct_it_IT.shortDescription As 'Short Description (it)',\n     object_localized_IFSEUProduct_it_IT.longDescription As 'Long Description (it)',\n     object_localized_IFSEUProduct_it_IT.sapDescription As 'SAP Description (it)',\n     object_localized_IFSEUProduct_fr.legalText As 'Legal Text (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText1 As 'Brand Short Text 1 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText2 As 'Brand Short Text 2 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText3 As 'Brand Short Text 3 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText4 As 'Brand Short Text 4 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText5 As 'Brand Short Text 5 (fr)',\n     object_localized_IFSEUProduct_fr.shortDescription As 'Short Description (fr)',\n     object_localized_IFSEUProduct_fr.longDescription As 'Long Description (fr)',\n     object_localized_IFSEUProduct_fr.sapDescription As 'SAP Description (fr)',\n     object_localized_IFSEUProduct_es.legalText As 'Legal Text (es)',\n     object_localized_IFSEUProduct_es.BrandShortText1 As 'Brand Short Text 1 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText2 As 'Brand Short Text 2 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText3 As 'Brand Short Text 3 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText4 As 'Brand Short Text 4 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText5 As 'Brand Short Text 5 (es)',\n     object_localized_IFSEUProduct_es.shortDescription As 'Short Description (es)',\n     object_localized_IFSEUProduct_es.longDescription As 'Long Description (es)',\n     object_localized_IFSEUProduct_es.sapDescription As 'SAP Description (es)',\n     object_localized_IFSEUProduct_ru_RU.legalText As 'Legal Text (ru)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText1 As 'Brand Short Text 1 (ru)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 As 'Brand Short Text 2 (ru)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText3 As 'Brand Short Text 3 (ru)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText4 As 'Brand Short Text 4 (ru)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText5 As 'Brand Short Text 5 (ru)',\n     object_localized_IFSEUProduct_ru_RU.shortDescription As 'Short Description (ru)',\n     object_localized_IFSEUProduct_ru_RU.longDescription As 'Long Description (ru)',\n     object_localized_IFSEUProduct_ru_RU.sapDescription As 'SAP Description (ru)',\n     object_localized_IFSEUProduct_zh.legalText As 'Legal Text (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText1 As 'Brand Short Text 1 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText2 As 'Brand Short Text 2 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText3 As 'Brand Short Text 3 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText4 As 'Brand Short Text 4 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText5 As 'Brand Short Text 5 (zh)',\n     object_localized_IFSEUProduct_zh.shortDescription As 'Short Description (zh)',\n     object_localized_IFSEUProduct_zh.longDescription As 'Long Description (zh)',\n     object_localized_IFSEUProduct_zh.sapDescription As 'SAP Description (zh)',\n     object_localized_IFSEUProduct_pt.legalText As 'Legal Text (pt_BR)',\n     object_localized_IFSEUProduct_pt.BrandShortText1 As 'Brand Short Text 1 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText2 As 'Brand Short Text 2 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText3 As 'Brand Short Text 3 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText4 As 'Brand Short Text 4 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText5 As 'Brand Short Text 5 (pt)',\n     object_localized_IFSEUProduct_pt.shortDescription As 'Short Description (pt)',\n     object_localized_IFSEUProduct_pt.longDescription As 'Long Description (pt)',\n     object_localized_IFSEUProduct_pt.sapDescription As 'SAP Description (pt)'",
+                "from" => "FROM  object_localized_IFSEUProduct_en\n    INNER JOIN  object_localized_IFSEUProduct_de ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_de.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_it_IT ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_it_IT.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fr ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fr.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_es ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_es.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_ru_RU ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_ru_RU.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_zh ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_zh.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pt ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pt.oo_id",
+                "where" => "WHERE\n    (\n\t object_localized_IFSEUProduct_en.shortDescription is null OR\n\t object_localized_IFSEUProduct_en.longDescription is null OR\n     object_localized_IFSEUProduct_en.webDescription is null OR\n\t object_localized_IFSEUProduct_en.searchKeywords is null OR\n     object_localized_IFSEUProduct_en.legalText is null OR\n     object_localized_IFSEUProduct_en.sapDescription is null OR\n     object_localized_IFSEUProduct_de.shortDescription is null OR\n\t object_localized_IFSEUProduct_de.longDescription is null OR\n     object_localized_IFSEUProduct_de.webDescription is null OR\n\t object_localized_IFSEUProduct_de.searchKeywords is null OR\n     object_localized_IFSEUProduct_de.legalText is null OR\n     object_localized_IFSEUProduct_de.sapDescription is null OR\n     object_localized_IFSEUProduct_it_IT.shortDescription is null OR\n\t object_localized_IFSEUProduct_it_IT.longDescription is null OR\n     object_localized_IFSEUProduct_it_IT.webDescription is null OR\n\t object_localized_IFSEUProduct_it_IT.searchKeywords is null OR\n     object_localized_IFSEUProduct_it_IT.legalText is null OR\n     object_localized_IFSEUProduct_it_IT.sapDescription is null OR\n     object_localized_IFSEUProduct_fr.shortDescription is null OR\n\t object_localized_IFSEUProduct_fr.longDescription is null OR\n     object_localized_IFSEUProduct_fr.webDescription is null OR\n\t object_localized_IFSEUProduct_fr.searchKeywords is null OR\n     object_localized_IFSEUProduct_fr.legalText is null OR\n     object_localized_IFSEUProduct_fr.sapDescription is null OR\n     object_localized_IFSEUProduct_es.shortDescription is null OR\n\t object_localized_IFSEUProduct_es.longDescription is null OR\n     object_localized_IFSEUProduct_es.webDescription is null OR\n\t object_localized_IFSEUProduct_es.searchKeywords is null OR\n     object_localized_IFSEUProduct_es.legalText is null OR\n     object_localized_IFSEUProduct_es.sapDescription is null OR\n     object_localized_IFSEUProduct_ru_RU.shortDescription is null OR\n\t object_localized_IFSEUProduct_ru_RU.longDescription is null OR\n     object_localized_IFSEUProduct_ru_RU.webDescription is null OR\n\t object_localized_IFSEUProduct_ru_RU.searchKeywords is null OR\n     object_localized_IFSEUProduct_ru_RU.legalText is null OR\n     object_localized_IFSEUProduct_ru_RU.sapDescription is null OR\n     object_localized_IFSEUProduct_zh.shortDescription is null OR\n\t object_localized_IFSEUProduct_zh.longDescription is null OR\n     object_localized_IFSEUProduct_zh.webDescription is null OR\n\t object_localized_IFSEUProduct_zh.searchKeywords is null OR\n     object_localized_IFSEUProduct_zh.legalText is null OR\n     object_localized_IFSEUProduct_zh.sapDescription is null OR\n     object_localized_IFSEUProduct_pt.shortDescription is null OR\n\t object_localized_IFSEUProduct_pt.longDescription is null OR\n     object_localized_IFSEUProduct_pt.webDescription is null OR\n\t object_localized_IFSEUProduct_pt.searchKeywords is null OR\n     object_localized_IFSEUProduct_pt.legalText is null OR\n     object_localized_IFSEUProduct_pt.sapDescription is null \n    )\n    ",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-1"
+            ],
+            [
+                "name" => "Legal Text",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-2"
+            ],
+            [
+                "name" => "Brand Short Text 1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-3"
+            ],
+            [
+                "name" => "Brand Short Text 2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-4"
+            ],
+            [
+                "name" => "Brand Short Text 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-5"
+            ],
+            [
+                "name" => "Brand Short Text 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-6"
+            ],
+            [
+                "name" => "Brand Short Text 5",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-7"
+            ],
+            [
+                "name" => "Short Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-8"
+            ],
+            [
+                "name" => "Long Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-9"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-10"
+            ],
+            [
+                "name" => "Legal Text (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-11"
+            ],
+            [
+                "name" => "Brand Short Text 1 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-12"
+            ],
+            [
+                "name" => "Brand Short Text 2 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-13"
+            ],
+            [
+                "name" => "Brand Short Text 3 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-14"
+            ],
+            [
+                "name" => "Brand Short Text 4 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-15"
+            ],
+            [
+                "name" => "Brand Short Text 5 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-16"
+            ],
+            [
+                "name" => "Short Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-17"
+            ],
+            [
+                "name" => "Long Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-18"
+            ],
+            [
+                "name" => "SAP Description (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-19"
+            ],
+            [
+                "name" => "Legal Text (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-20"
+            ],
+            [
+                "name" => "Brand Short Text 1 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-21"
+            ],
+            [
+                "name" => "Brand Short Text 2 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-22"
+            ],
+            [
+                "name" => "Brand Short Text 3 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-23"
+            ],
+            [
+                "name" => "Brand Short Text 4 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-24"
+            ],
+            [
+                "name" => "Brand Short Text 5 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-25"
+            ],
+            [
+                "name" => "Short Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-26"
+            ],
+            [
+                "name" => "Long Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-27"
+            ],
+            [
+                "name" => "SAP Description (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-28"
+            ],
+            [
+                "name" => "Legal Text (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-29"
+            ],
+            [
+                "name" => "Brand Short Text 1 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-30"
+            ],
+            [
+                "name" => "Brand Short Text 2 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-31"
+            ],
+            [
+                "name" => "Brand Short Text 3 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-32"
+            ],
+            [
+                "name" => "Brand Short Text 4 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-33"
+            ],
+            [
+                "name" => "Brand Short Text 5 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-34"
+            ],
+            [
+                "name" => "Short Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-35"
+            ],
+            [
+                "name" => "Long Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-36"
+            ],
+            [
+                "name" => "SAP Description (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-37"
+            ],
+            [
+                "name" => "Legal Text (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-38"
+            ],
+            [
+                "name" => "Brand Short Text 1 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-39"
+            ],
+            [
+                "name" => "Brand Short Text 2 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-40"
+            ],
+            [
+                "name" => "Brand Short Text 3 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-41"
+            ],
+            [
+                "name" => "Brand Short Text 4 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-42"
+            ],
+            [
+                "name" => "Brand Short Text 5 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-43"
+            ],
+            [
+                "name" => "Short Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-44"
+            ],
+            [
+                "name" => "Long Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-45"
+            ],
+            [
+                "name" => "SAP Description (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-46"
+            ],
+            [
+                "name" => "Legal Text (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-47"
+            ],
+            [
+                "name" => "Brand Short Text 1 (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-48"
+            ],
+            [
+                "name" => "Brand Short Text 2 (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-49"
+            ],
+            [
+                "name" => "Brand Short Text 3 (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-50"
+            ],
+            [
+                "name" => "Brand Short Text 4 (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-51"
+            ],
+            [
+                "name" => "Brand Short Text 5 (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-52"
+            ],
+            [
+                "name" => "Short Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-53"
+            ],
+            [
+                "name" => "Long Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-54"
+            ],
+            [
+                "name" => "SAP Description (ru)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-55"
+            ],
+            [
+                "name" => "Legal Text (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-56"
+            ],
+            [
+                "name" => "Brand Short Text 1 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-57"
+            ],
+            [
+                "name" => "Brand Short Text 2 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-58"
+            ],
+            [
+                "name" => "Brand Short Text 3 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-59"
+            ],
+            [
+                "name" => "Brand Short Text 4 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-60"
+            ],
+            [
+                "name" => "Brand Short Text 5 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-61"
+            ],
+            [
+                "name" => "Short Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-62"
+            ],
+            [
+                "name" => "Long Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-63"
+            ],
+            [
+                "name" => "SAP Description (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-64"
+            ],
+            [
+                "name" => "Legal Text (pt_BR)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-65"
+            ],
+            [
+                "name" => "Brand Short Text 1 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-66"
+            ],
+            [
+                "name" => "Brand Short Text 2 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-67"
+            ],
+            [
+                "name" => "Brand Short Text 3 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-68"
+            ],
+            [
+                "name" => "Brand Short Text 4 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-69"
+            ],
+            [
+                "name" => "Brand Short Text 5 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-70"
+            ],
+            [
+                "name" => "Short Description (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-71"
+            ],
+            [
+                "name" => "Long Description (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-72"
+            ],
+            [
+                "name" => "SAP Description (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1770-73"
+            ]
+        ],
+        "niceName" => "IFSEU - Translation Missing Report",
+        "group" => "IFS_EU",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1675955088,
+        "creationDate" => 1675954821,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IFSEU_TranslationMissingReport"
     ]
 ];
