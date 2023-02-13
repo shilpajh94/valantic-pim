@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-07T11:58:29+01:00
+* Generated at: 2023-02-12T19:36:07+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSalesOrganisation',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675767509,
+   'modificationDate' => 1676226967,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -107,7 +107,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => '',
+                 'style' => 'padding:10px 0px 0px 0px;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,

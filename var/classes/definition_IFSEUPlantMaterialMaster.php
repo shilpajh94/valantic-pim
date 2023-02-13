@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-09T13:01:57+01:00
+* Generated at: 2023-02-09T13:21:03+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675944117,
+   'modificationDate' => 1675945263,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -213,7 +213,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'Plant',
+                        'classes' => 'IFSEUPlant',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -575,7 +575,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'SalesOrganisation',
+                        'classes' => 'IFSEUSalesOrganisation',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -618,7 +618,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'DistributionChannel',
+                        'classes' => 'IFSEUDistributionChannel',
                       ),
                     ),
                      'pathFormatterClass' => '',

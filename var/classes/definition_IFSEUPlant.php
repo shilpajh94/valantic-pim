@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-07T11:37:58+01:00
+* Generated at: 2023-02-12T19:35:31+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -25,7 +25,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlant',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675766278,
+   'modificationDate' => 1676226931,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -65,7 +65,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => '',
+         'title' => 'Plant',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -78,13 +78,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
-             'labelWidth' => 100,
+             'labelWidth' => 200,
              'layout' => NULL,
              'border' => false,
              'name' => 'Layout',
              'type' => NULL,
-             'region' => '',
-             'title' => 'Plant',
+             'region' => 'center',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -151,7 +151,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => '',
+                         'style' => 'padding:10px 0px 0px 0px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -303,7 +303,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left:20px;',
+                         'style' => 'padding:10px 0px 0px 0px; margin-left:20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -408,7 +408,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
         ),
          'locked' => false,
-         'icon' => NULL,
+         'icon' => '',
       )),
     ),
      'locked' => false,

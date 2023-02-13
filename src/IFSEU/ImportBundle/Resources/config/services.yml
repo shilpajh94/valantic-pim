@@ -27,11 +27,18 @@ services:
     IFSEU\ImportBundle\Command\IFSEU_SAPPlantMaterialImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:sap-plant-material-import' }
+
+    IFSEU\ImportBundle\Command\IFSEU_SAPSalesMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:sap-sales-material-import' }
     
     ifs_eu_import.sap_plant_material_import:
         class: IFSEU\ImportBundle\Services\PlantMaterialService
         public: true
 
+    ifs_eu_import.sap_sales_material_import:
+        class: IFSEU\ImportBundle\Services\SalesMaterialService
+        public: true
 
     # Helpers
     ifs_eu_import.common_helper:
