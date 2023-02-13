@@ -71,67 +71,74 @@ class SalesMaterialService
     }
 
     public function importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
-        if(count($excelDataNewArray) > 1) {
-           
-            $csvRowCount = count($excelDataNewArray);
+        
+        try {
+        
+            if(count($excelDataNewArray) > 1) {
+            
+                $csvRowCount = count($excelDataNewArray);
 
-            echo "Creating IFS EU sales material tables...".PHP_EOL;
-            $t = new \DateTime();
-            $this->tableImportHelper->createSalesMaterialTable();
-            $td = $t->diff(new \DateTime());
-            echo $td->format("Creating IFS EU sales material tables takes %h hour %i minute %s second").PHP_EOL;
+                echo "Creating IFS EU sales material tables...".PHP_EOL;
+                $t = new \DateTime();
+                $this->tableImportHelper->createSalesMaterialTable();
+                $td = $t->diff(new \DateTime());
+                echo $td->format("Creating IFS EU sales material tables takes %h hour %i minute %s second").PHP_EOL;
+                    
+
+                echo "Truncating temp table...".PHP_EOL; 
+                $t = new \DateTime();
+                $this->tableImportHelper->truncateTempTable();
+                $td = $t->diff(new \DateTime());
+                echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
                 
+                echo "Inserting temp table...".PHP_EOL;
+                $time1 = new \DateTime();
+                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);   
+                $timediff1 = $time1->diff(new \DateTime());
+                echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
+                unset($excelDataNewArray);
 
-            echo "Truncating temp table...".PHP_EOL; 
-            $t = new \DateTime();
-            $this->tableImportHelper->truncateTempTable();
-            $td = $t->diff(new \DateTime());
-            echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-            
-            echo "Inserting temp table...".PHP_EOL;
-            $time1 = new \DateTime();
-            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);   
-            $timediff1 = $time1->diff(new \DateTime());
-            echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
-            unset($excelDataNewArray);
+                echo "Getting deleted records...".PHP_EOL;
+                $time5 = new \DateTime();
+                $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+                $deleteRecordCount = count($deletedRecords);
+                echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+                $this->processDeletedRecords($deletedRecords);
+                unset($deletedRecords);
+                $timediff5 = $time5->diff(new \DateTime());
+                echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
 
-            echo "Getting deleted records...".PHP_EOL;
-            $time5 = new \DateTime();
-            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-            $deleteRecordCount = count($deletedRecords);
-            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-            $this->processDeletedRecords($deletedRecords);
-            unset($deletedRecords);
-            $timediff5 = $time5->diff(new \DateTime());
-            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
-
-            echo "Getting delta records...".PHP_EOL;
-            $t1 = new \DateTime();
-            $excelDataNewArray = $this->tableImportHelper->getDelta();        
-            $td1 = $t1->diff(new \DateTime());
-            echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
-            
-            echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
-            $deltaCount = count($excelDataNewArray);
-            echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-            if($deltaCount > 0) {
-                $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+                echo "Getting delta records...".PHP_EOL;
+                $t1 = new \DateTime();
+                $excelDataNewArray = $this->tableImportHelper->getDelta();        
+                $td1 = $t1->diff(new \DateTime());
+                echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
+                
+                echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
+                $deltaCount = count($excelDataNewArray);
+                echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+                if($deltaCount > 0) {
+                    $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+                } else {
+                    $applicationLogMessage = "No delta records found.";
+                }
+                
+                $time4 = new \DateTime();
+                $this->tableImportHelper->updateMaster();
+                $timediff4 = $time4->diff(new \DateTime());
+                echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
+                
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+                
             } else {
-                $applicationLogMessage = "No delta records found.";
+                $applicationLogMessage = "No record found in file.";
             }
             
-            $time4 = new \DateTime();
-            $this->tableImportHelper->updateMaster();
-            $timediff4 = $time4->diff(new \DateTime());
-            echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-            
-            $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-            
-        } else {
-            $applicationLogMessage = "No record found in file.";
+            echo $applicationLogMessage;
+
+        } catch (\Throwable $th) {
+            p_r($th->getMessage());
         }
-        
-        echo $applicationLogMessage;
 
         $timediff = $time->diff(new \DateTime());
         echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
@@ -274,7 +281,7 @@ class SalesMaterialService
                     if(!empty($this->materialArray[$material])) {
                         $materialObjId = $this->materialArray[$material];
 
-                        $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel.'-'.$plantName; 
+                        $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel; 
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUSalesMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
@@ -485,7 +492,7 @@ class SalesMaterialService
         $object = DataObject\IFSEUDistributionChannel::getByCode($distributionChannelKey, 1);
         if(empty($object)) {
             $object = new DataObject\IFSEUDistributionChannel();
-            $object->setKey($distributionChannelKey."-".$distributionChannelDesc);
+            $object->setKey($distributionChannelKey);
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
             $object->setParentId($distributionChannelFolderId);
@@ -508,7 +515,7 @@ class SalesMaterialService
         $object = DataObject\IFSEUSalesOrganisation::getByCode($salesOrgKey,1);
         if(empty($object)) {
             $object = new DataObject\IFSEUSalesOrganisation();
-            $object->setKey($salesOrgKey."-".$salesOrgDesc);
+            $object->setKey($salesOrgKey);
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);

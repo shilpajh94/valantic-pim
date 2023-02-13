@@ -14,7 +14,6 @@ class PlantMaterialService
 
     private $db;
     private $filePath;
-    private $monitoringItem;
     private $failedCount = 0;
     private $successCount = 0;
     private $createdCount = 0;
@@ -46,9 +45,6 @@ class PlantMaterialService
         $plantMaterialConfig        = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getPlantMaterialConfig();
 
         $this->mappingCsvColumn     = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
-
-        /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
 
     public function import()
@@ -63,10 +59,7 @@ class PlantMaterialService
             $excelDataNewArray  = $csvInfo['data'];
 
             // remove once testing done
-            // $excelDataNewArray = (array_slice($excelDataNewArray, 1, 5));
-
-            $this->monitoringItem->getLogger()->info('File Information');
-            $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
+            $excelDataNewArray = (array_slice($excelDataNewArray, 1, 5));
 
             echo 'Importing File: ' . $this->filePath.PHP_EOL;
             $time = new \DateTime();
@@ -128,7 +121,6 @@ class PlantMaterialService
                 $td1 = $t1->diff(new \DateTime());
                 echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
 
-                $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
                 echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                 $deltaCount = count($excelDataNewArray);
                 echo "Total {$deltaCount} Delta records found...".PHP_EOL;
@@ -193,8 +185,6 @@ class PlantMaterialService
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
             }           
 
-            $this->monitoringItem->getLogger()->info($applicationLogMessage);
-            $this->monitoringItem->setMessage('Finished')->setCompleted();
             $timediff = $time->diff(new \DateTime());
             echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
             \Pimcore::collectGarbage();
@@ -222,7 +212,7 @@ class PlantMaterialService
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord)
         {
-            $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
+            $rowvalue = json_decode($rowvalueRecord['record']);
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
 
             $plantName = $rowvalue[$columnPlant];
@@ -239,6 +229,7 @@ class PlantMaterialService
                     
                     if($materialObjId)
                     {
+                        echo "$plantName, $material, $salesOrg, $distributionChannel".PHP_EOL;
                         $processedRowData = $this->processRowData($plantName, $material, $salesOrg, $distributionChannel);
 
                         $createdOrUpdated   = $processedRowData['createdOrUpdated'];
@@ -275,7 +266,6 @@ class PlantMaterialService
                 $createdUpdatedCount++;
                 $this->successCount++;
                 $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
-                $this->monitoringItem->getLogger()->info($errorsString);
                 $statusCode = 'SUCCESS';
                 $data[$rowCount]['failedReason'] = '';
             }
@@ -285,7 +275,6 @@ class PlantMaterialService
                 $allErrorsInString = implode(' ', $errorsData);
                 $errorsString .= $allErrorsInString;
                 $this->failedCount++;
-                $this->monitoringItem->getLogger()->info($errorsString);
                 $statusCode = 'FAILED';
                 $data[$rowCount]['failedReason'] = $allErrorsInString;
             }
@@ -586,7 +575,6 @@ class PlantMaterialService
         $objectMaterial = $this->db->fetchAll($query);
 
         foreach ($objectMaterial as $material) {
-            $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
             return $material['oo_id'];
         }
 
@@ -597,84 +585,70 @@ class PlantMaterialService
      * return plant object
      */
     public function getPlantObject($plantKey){
-        $objectPlant = new DataObject\IFSEUPlant\Listing();
-        $objectPlant->setCondition("Plant = ?", [$plantKey]);
-        $objectPlant->load();
-        if(empty($objectPlant))
-        {
-            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list.");
-            return '';
+
+        $object = DataObject\IFSEUPlant::getByPlant($plantKey, 1);
+        if(empty($object)) {
+            $object = new DataObject\IFSEUPlant();
+            $object->setKey($plantKey);
+            $object->setPlant($plantKey);
+            $object->setParentId($this->plantFolderId);
+            $object->setPublished(TRUE);   
+            $object->save(); 
         }
-        else{
-            foreach ($objectPlant as $objPlant) {
-                $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
-                return $objPlant->getId();
-            }
-         
-        }
+
+        return $object->getId();
     }
 
     /**
      * return distribution channel object
      */
     public function getDistributionChannelObject($distributionChannelKey){
-        $object = new DataObject\IFSEUDistributionChannel\Listing();
-        $object->setCondition("code = ?", [$distributionChannelKey]);
-        $object->load();
-        if(empty($object))
-        {
-            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created.");
-            return '';
+
+        $object = DataObject\IFSEUDistributionChannel::getByCode($distributionChannelKey, 1);
+        if(empty($object)) {
+            $object = new DataObject\IFSEUDistributionChannel();
+            $object->setKey($distributionChannelKey);
+            $object->setCode($distributionChannelKey);
+            $object->setParentId($this->distributionChannelFolderId);
+            $object->setPublished(TRUE);   
+            $object->save(); 
         }
-        else{
-            foreach ($object as $obj) {
-                $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list.");
-                return $obj->getId();
-            }
-          
-        }
+
+        return $object->getId();
     }
 
     /**
      * return sales organization object
      */
     public function getSalesOrgObject($salesOrgKey){
-        $object = new DataObject\IFSEUSalesOrganisation\Listing();
-        $object->setCondition("code = ?", [$salesOrgKey]);
-        $object->load();
-        if(empty($object))
-        {
-            $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
-            return '';
-        }
-        else{
-            foreach ($object as $obj) {
-                $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
-                return $obj->getId();
-            }
-            
+        $object = DataObject\IFSEUSalesOrganisation::getByCode($salesOrgKey, 1);
+        if(empty($object)) {
+            $object = new DataObject\IFSEUSalesOrganisation();
+            $object->setKey($salesOrgKey);
+            $object->setCode($salesOrgKey);
+            $object->setParentId($this->salesOrganizationsFolderId);
+            $object->setPublished(TRUE);   
+            $object->save(); 
         }
 
+        return $object->getId();
     }
      /**
      * return country object
      */
     public function getCountryObject($countryKey){
-        $object = new DataObject\IFSEUCountries\Listing();
-        $object->setCondition("CountryAbbr = ?", [$countryKey]);
-        $object->load();
-        if(empty($object))
-        {
-            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created");
-            return '';
+     
+        $object = DataObject\IFSEUCountries::getByCountryAbbr($countryKey, 1);
+        if(empty($object)) {
+            $object = new DataObject\IFSEUCountries();
+            $object->setKey($countryKey);
+            $object->setCountryAbbr($countryKey);
+            $object->setParentId($this->countryFolderId);
+            $object->setPublished(TRUE);   
+            $object->save(); 
         }
-        else{
-            foreach ($object as $obj) {
-                $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
-                return $obj->getId();
-            }
 
-        }
+        return $object->getId();
 
     }
 
