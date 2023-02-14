@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-24T07:06:38+01:00
+* Generated at: 2023-02-14T15:03:40+05:30
 * IP: 127.0.0.1
 
 
@@ -11,6 +11,8 @@ Fields Summary:
 - tubeCharacteristic [multiselect]
 - tubeColor [multiselect]
 - tubeMaterial [multiselect]
+- hoseIdDec [numeric]
+- hoseIdMM [numeric]
 - StandardMetTube [multiselect]
 - VirtualCatalogTubeMaterial [wysiwyg]
 - Coupling [input]
@@ -24,14 +26,15 @@ Fields Summary:
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
 - coverMaterial [multiselect]
+- tubeGaugeFractional [input]
 - StandardMetCover [multiselect]
 - VirtualCatalogCoverMaterial [wysiwyg]
 - Packaging [textarea]
 - HelicalWireYN [booleanSelect]
-- safetyFactor [multiselect]
+- designFactor [multiselect]
+- safetyFactorARPMStandard [multiselect]
 - NonStockSizes [input]
 - agencyCompliance [multiselect]
-- acceptableHoseMedia [multiselect]
 */ 
 
 
@@ -841,6 +844,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 2,
+                     'name' => 'hoseIdDec',
+                     'title' => 'Hose ID (in) (Dec.) Nominal ID',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'float:left;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 2,
+                     'name' => 'hoseIdMM',
+                     'title' => 'Hose ID (mm) Nominal ID',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'float:left; margin-right: 20px; clear:left;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -1371,7 +1436,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'fieldtype' => 'wysiwyg',
                      'width' => 295,
@@ -1396,7 +1461,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -1424,7 +1489,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -1452,7 +1517,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -1483,7 +1548,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'fieldtype' => 'wysiwyg',
                      'width' => 295,
@@ -1508,7 +1573,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  11 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -2049,7 +2114,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  12 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3096,6 +3161,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'tubeGaugeFractional',
+                     'title' => 'Tube Gauge (Fractional)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3626,7 +3719,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'fieldtype' => 'wysiwyg',
                      'width' => 295,
@@ -3651,7 +3744,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 300,
@@ -3677,7 +3770,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
@@ -3720,56 +3813,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  9 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
-                      0 => 
-                      array (
-                        'key' => '10:1',
-                        'value' => 3831290,
-                      ),
-                      1 => 
-                      array (
-                        'key' => '2.5:1',
-                        'value' => 5891661,
-                      ),
-                      2 => 
-                      array (
-                        'key' => '20:1',
-                        'value' => 3831291,
-                      ),
-                      3 => 
-                      array (
-                        'key' => '2:1',
-                        'value' => 3831286,
-                      ),
-                      4 => 
-                      array (
-                        'key' => '3:1',
-                        'value' => 3831287,
-                      ),
-                      5 => 
-                      array (
-                        'key' => '4:1',
-                        'value' => 3831288,
-                      ),
-                      6 => 
-                      array (
-                        'key' => '5:1',
-                        'value' => 3831289,
-                      ),
-                      7 => 
-                      array (
-                        'key' => '6:1',
-                        'value' => 4620648,
-                      ),
-                      8 => 
-                      array (
-                        'key' => '8:1',
-                        'value' => 7976301,
-                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -3781,7 +3829,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'text',
                      'phpdocType' => 'array',
                      'dynamicOptions' => false,
-                     'name' => 'safetyFactor',
+                     'name' => 'designFactor',
                      'title' => 'Design Factor',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -3796,7 +3844,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  10 => 
+                  11 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'height' => '',
+                     'maxItems' => 1,
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                     'optionsProviderData' => 'INH-HYD-HOSE',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'safetyFactorARPMStandard',
+                     'title' => 'Safety Factor (ARPM Standard)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -3824,7 +3903,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3907,252 +3986,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'agencyCompliance',
                      'title' => 'Agency Compliance',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  12 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Abrasive Materials',
-                        'value' => 3831293,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Acetylene',
-                        'value' => 13056819,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Acid',
-                        'value' => 3831294,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Agricultural Chemicals',
-                        'value' => 3831295,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'Air',
-                        'value' => 3831296,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'B100',
-                        'value' => 3831297,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'B20',
-                        'value' => 3831298,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'B5',
-                        'value' => 3831299,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Bark',
-                        'value' => 3831300,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'Base',
-                        'value' => 3831301,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'Beer',
-                        'value' => 3831302,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'Cement',
-                        'value' => 3831303,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'Concrete',
-                        'value' => 3831304,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'DEF',
-                        'value' => 3831305,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'Diesel',
-                        'value' => 3831306,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'E10',
-                        'value' => 3831307,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'E100',
-                        'value' => 3831308,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'E25',
-                        'value' => 3831309,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'E85',
-                        'value' => 3831310,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'Fuel Oil',
-                        'value' => 3831311,
-                      ),
-                      20 => 
-                      array (
-                        'key' => 'GASOLINE',
-                        'value' => 3831312,
-                      ),
-                      21 => 
-                      array (
-                        'key' => 'GRASS',
-                        'value' => 3831313,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'HYDROCARBON',
-                        'value' => 3831314,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'Hydrogen',
-                        'value' => 13056821,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'Inert Gas',
-                        'value' => 13056824,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'KEROSENE',
-                        'value' => 3831315,
-                      ),
-                      26 => 
-                      array (
-                        'key' => 'LACQUERS',
-                        'value' => 3831316,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'LPG',
-                        'value' => 3831317,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'M100',
-                        'value' => 3831318,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'Methane/Natural Gas',
-                        'value' => 13056822,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'MULCH',
-                        'value' => 3831319,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'NATURAL GAS',
-                        'value' => 3831320,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'OIL',
-                        'value' => 3831321,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'Oxygen',
-                        'value' => 13056820,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'PAINT',
-                        'value' => 3831322,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'Propylene And Methylacetylene-Propadiene Stabilized',
-                        'value' => 13056823,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'SALT WATER',
-                        'value' => 3831323,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'SEWAGE',
-                        'value' => 3831324,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'STEAM',
-                        'value' => 3831325,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'THINNERS',
-                        'value' => 3831326,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'TURPENTINE',
-                        'value' => 3831327,
-                      ),
-                      41 => 
-                      array (
-                        'key' => 'WATER',
-                        'value' => 3831328,
-                      ),
-                      42 => 
-                      array (
-                        'key' => 'WINE',
-                        'value' => 3831329,
-                      ),
-                    ),
-                     'width' => 300,
-                     'height' => 260,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                     'optionsProviderData' => 'INH-HYD-HOSE',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'acceptableHoseMedia',
-                     'title' => 'Acceptable Hose Media',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
