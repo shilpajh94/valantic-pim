@@ -1,15 +1,11 @@
 <?php
 
-namespace PTGEU\ImportBundle\Services;
+namespace IFSEU\ImportBundle\Services;
 
-use Exception;
-use Throwable;
 use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
-use PTGEU\ImportBundle\Services\ImportService;
-use PTGEU\ImportBundle\Services\ImportConstants;
-use AppBundle\Lib\UnitConversion;
-use PTGEU\ImportBundle\Model\ProductModel;
+use IFSEU\ImportBundle\Services\ImportService;
+use IFSEU\ImportBundle\Model\ProductModel;
 
 class ProductService
 {    
