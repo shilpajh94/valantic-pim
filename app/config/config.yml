@@ -7,6 +7,7 @@ imports:
     - { resource: cs_product_enrichment_workflow.yml }
     - { resource: cs_asset_workflow.yml }
     - { resource: ptg_eu_product_enrichment_workflow.yml }
+    - { resource: ifs_eu_product_enrichment_workflow.yml }
 
 pimcore:
     # IMPORTANT Notice!

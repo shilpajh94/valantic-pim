@@ -594,5 +594,120 @@ return [
         ]
     ],
 
+    'IFSEU_ApplicationAdmin' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+        ]
+    ],
+    
+    'IFSEU_ProductManager' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            
+        ]
+    ],
+    
+    'IFSEU_MarCom' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            
+        ]
+    ],
+    
+    'IFSEU_Editor' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            
+        ]
+    ],
+    
+    'IFSEU_ReadOnlyView' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            
+        ]
+    ],
+    
 
 ];

@@ -47,3 +47,7 @@ services:
     IFSEU\ProductBundle\OneTimeImportCommand\NormMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-norm-master-data-import-command' }
+
+    IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
+        class: IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService
+        public: true

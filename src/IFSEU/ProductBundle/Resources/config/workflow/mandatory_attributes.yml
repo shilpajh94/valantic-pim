@@ -1,0 +1,10 @@
+MandatoryAttributes:
+    - articleNumber
+    - SIOPLevel1
+    - SIOPLevel2
+    - SIOPLevel3
+    - SIOPLevel4
+    - eanUpc
+    - longDescription
+    - webDescription
+    - searchKeywords

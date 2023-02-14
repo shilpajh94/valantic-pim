@@ -32,6 +32,9 @@ define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS
 define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ProductBundle/Resources/config");
 
 
+define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/IFSEU/ProductBundle/Resources/config");
+
+
 /**
  * to include the constants of the required attributes module
  * this is being used for calculating completeness,calculating some validations for export etc.
@@ -138,6 +141,11 @@ define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
 // PTG_EU Constants
 define("PTG_EU_WORKFLOW_CONFIG",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
 define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
+
+// IFS_EU Constants
+define("IFS_EU_WORKFLOW_CONFIG",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+define("IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
+
 
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
 

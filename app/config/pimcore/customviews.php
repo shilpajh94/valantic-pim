@@ -438,5 +438,60 @@ return [
                 ]
             ]
         ],
+
+
+
+        /** custom view for ifseu project **/
+
+        [
+            'treetype' => 'object',
+            'name' => 'Master Data',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
+            'id' => 'contitech_ifseu_master_data',
+            'rootfolder' => '/Contitech_IFSEU/Master Data',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'importCsv' => 0
+                    ]
+                ]
+            ]
+        ],
+
+        [
+            'treetype' => 'object',
+            'name' => 'Products',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
+            'id' => 'contitech_ifseu_product_objects',
+            'rootfolder' => '/Contitech_IFSEU/Products',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0,
+                        'importCsv' => 0
+
+                    ]
+                ]
+            ]
+        ],
     ]
 ];

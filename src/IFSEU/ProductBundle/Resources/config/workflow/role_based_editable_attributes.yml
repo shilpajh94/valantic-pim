@@ -1,0 +1,40 @@
+All:
+    - articleNumber
+    - SIOPLevel1
+    - SIOPLevel2
+    - SIOPLevel3
+    - SIOPLevel4
+    - eanUpc
+    - longDescription
+    - webDescription
+    - searchKeywords   
+ProductManagementIFSEU:
+    - articleNumber
+    - SIOPLevel1
+    - SIOPLevel2
+    - SIOPLevel3
+    - SIOPLevel4
+    - eanUpc
+    - longDescription
+    - webDescription
+    - searchKeywords
+MarComIFSEU:
+    - articleNumber
+    - SIOPLevel1
+    - SIOPLevel2
+    - SIOPLevel3
+    - SIOPLevel4
+    - eanUpc
+    - longDescription
+    - webDescription
+    - searchKeywords
+EditorIFSEU:
+    - articleNumber
+    - SIOPLevel1
+    - SIOPLevel2
+    - SIOPLevel3
+    - SIOPLevel4
+    - eanUpc
+    - longDescription
+    - webDescription
+    - searchKeywords
