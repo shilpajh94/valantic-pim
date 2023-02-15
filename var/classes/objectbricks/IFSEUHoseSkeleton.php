@@ -1,14 +1,16 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-24T07:12:45+01:00
+* Generated at: 2023-02-14T14:51:50+05:30
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- HoseIDNominalIDFrac [input]
+- HoseIDNominalIDFrac1 [input]
 - hoseIdDec [numeric]
 - hoseIdMM [numeric]
+- hoseIdNominalActualId [numeric]
+- hoseIdMMActualId [numeric]
 - hoseOdIn [numeric]
 - hoseOdmm [numeric]
 - HoseFittingFamily [multiselect]
@@ -30,6 +32,7 @@ Fields Summary:
 - hoseDashSize [numeric]
 - VacuumIN [numeric]
 - VacuumMM [numeric]
+- descriptive1 [input]
 */ 
 
 
@@ -115,8 +118,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'regex' => '',
                  'unique' => false,
                  'showCharCount' => false,
-                 'name' => 'HoseIDNominalIDFrac',
-                 'title' => 'Hose ID (in Fract) Nominal ID',
+                 'name' => 'HoseIDNominalIDFrac1',
+                 'title' => 'Hose ID (in Fract) Nominal Id',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -147,7 +150,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'decimalSize' => NULL,
                  'decimalPrecision' => 2,
                  'name' => 'hoseIdDec',
-                 'title' => 'Hose ID (in) (Dec.) Nominal ID',
+                 'title' => 'Hose ID (in) (Dec.) Nominal Id',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -178,7 +181,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'decimalSize' => NULL,
                  'decimalPrecision' => 2,
                  'name' => 'hoseIdMM',
-                 'title' => 'Hose ID (mm) Nominal ID',
+                 'title' => 'Hose ID (mm) Nominal Id',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -194,6 +197,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => 2,
+                 'name' => 'hoseIdNominalActualId',
+                 'title' => 'Hose ID (in Nominal) Actual Id',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => 2,
+                 'name' => 'hoseIdMMActualId',
+                 'title' => 'Hose ID (mm) Actual Id',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left; margin-right: 20px; clear:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -224,7 +289,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              6 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -255,7 +320,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              5 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'fieldtype' => 'multiselect',
                  'options' => 
@@ -798,7 +863,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => '',
+                 'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -1404,6 +1469,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'decimalPrecision' => 2,
                  'name' => 'VacuumMM',
                  'title' => 'Vacuum (mm)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              10 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'descriptive1',
+                 'title' => 'Descriptive #',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
