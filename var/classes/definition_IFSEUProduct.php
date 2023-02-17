@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-17T12:02:23+05:30
+* Generated at: 2023-02-17T15:26:30+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -139,7 +139,6 @@ Fields Summary:
 - Amount [input]
 - CustomsTariffNumber [input]
 - productionLengths [numeric]
-- minimumQuantity [numeric]
 - ConnectionType [input]
 - Note [input]
 - Currency [input]
@@ -177,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676615535,
+   'modificationDate' => 1676627774,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -28822,37 +28821,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                     'fieldtype' => 'numeric',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'double',
-                                     'columnType' => 'double',
-                                     'phpdocType' => 'float',
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'unique' => false,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'minimumQuantity',
-                                     'title' => 'Minimum Quantity',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -28880,7 +28848,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  5 => 
+                                  4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -28908,7 +28876,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  6 => 
+                                  5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -28936,7 +28904,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  7 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Yes',

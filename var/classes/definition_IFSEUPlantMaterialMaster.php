@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-17T14:31:08+05:30
+* Generated at: 2023-02-17T15:26:09+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676624467,
+   'modificationDate' => 1676627769,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
