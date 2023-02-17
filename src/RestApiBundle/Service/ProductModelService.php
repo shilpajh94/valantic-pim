@@ -322,6 +322,14 @@ class ProductModelService {
             }
             
             $finalProductArrayTemp = array_merge($value, $finalProductArrayTemp);
+
+            $brandNameDetail = $finalProductArrayTemp['brandName'];
+            $split = array_search('brandName', array_keys($finalProductArrayTemp));
+            $beforebrandName = array_slice($finalProductArrayTemp, 0, $split);   // first part
+            $afterbrandName = array_slice($finalProductArrayTemp, $split + 1);
+            $finalProductArrayTemp = [];
+            $finalProductArrayTemp = array_merge($beforebrandName, array('brandName' => $brandNameDetail),array('_parent_name' => ''), $afterbrandName);
+
             $finalProductArrayTemp["sap_id"] = $value["articleNumber"];
             $finalProductArrayTemp["virtualCatalogReadyToGo"] = ($value["virtualCatalogReadyToGo"] == 1) ? 1: 0;
             $reinforcement = $value["reinforcement"];

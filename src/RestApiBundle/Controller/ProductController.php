@@ -73,7 +73,7 @@ class ProductController extends FrontendController
      *
      * Method({"GET"})
      *
-     * @Route("/VirtualCatalog/products/")
+     * @Route("/VirtualCatalog/products-old/")
      *
      * @param Request $request
      *
@@ -115,7 +115,7 @@ class ProductController extends FrontendController
      *
      * Method({"GET"})
      *
-     * @Route("/VirtualCatalog/products-new-api/")
+     * @Route("/VirtualCatalog/products/")
      *
      * @param Request $request
      *
