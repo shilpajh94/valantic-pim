@@ -27,9 +27,9 @@ services:
             - { name: kernel.event_listener, event: workflow.ptg_eu_product_enrichment.completed, method: ptgEuWorkflowNotification }
             - { name: kernel.event_listener, event: workflow.ptg_eu_product_enrichment.transition, method: ptgEuWorkflowActions }
     
-    PTGEU\ProductBundle\EventListeners\ObjectsListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+#    PTGEU\ProductBundle\EventListeners\ObjectsListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
 
     PTGEU\ProductBundle\Services\CompletenessPercentageService:
         class: PTGEU\ProductBundle\Services\CompletenessPercentageService
