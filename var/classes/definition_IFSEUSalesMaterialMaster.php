@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-09T13:19:41+01:00
+* Generated at: 2023-02-17T15:26:04+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -10,7 +10,7 @@
 
 Fields Summary: 
 - Material [manyToManyObjectRelation]
-- SalesOrganization [manyToOneRelation]
+- SalesOrg [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - DeliveringPlant [manyToOneRelation]
 - SalesUOM [input]
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675945180,
+   'modificationDate' => 1676627764,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -612,7 +612,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'IFSEU_ProductData',
+   'group' => 'IFSEU_MasterData',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 
