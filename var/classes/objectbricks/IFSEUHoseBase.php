@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-16T15:49:50+05:30
+* Generated at: 2023-02-20T10:54:09+01:00
 * IP: 127.0.0.1
 
 
@@ -195,8 +195,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'phpdocType' => 'boolean',
                      'name' => 'staticWire',
                      'title' => 'Static Wire',
-                     'tooltip' => '
-',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -324,8 +323,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'colorInnerLining',
                      'title' => 'Color - Inner Lining',
-                     'tooltip' => '
-',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -438,7 +436,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -606,7 +604,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -807,7 +805,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => 20,
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -838,7 +836,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -1007,8 +1005,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'CoverOuterLayer',
                      'title' => 'Color - Outer Layer',
-                     'tooltip' => '
-',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -1149,7 +1146,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -1301,7 +1298,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 300,
-                     'height' => 150,
+                     'height' => 120,
                      'maxLength' => NULL,
                      'showCharCount' => false,
                      'excludeFromSearchIndex' => false,
@@ -1395,7 +1392,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -1426,7 +1423,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'width' => 300,
-                     'height' => 180,
+                     'height' => 120,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
@@ -1484,7 +1481,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
