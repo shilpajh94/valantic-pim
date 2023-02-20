@@ -19,7 +19,7 @@ class Constants {
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Product Hierarchy', 'class' => 'CSHierarchy', 'parentType' => 'both', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Regions', 'class' => 'CSRegion', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Segment', 'class' => 'CSSegment', 'parentType' => 'folder', 'allowFolder' => true],
-        ['path' =>'/Contitech_ConveyorSolution/Master Data/Available Belt Width', 'class' => 'CSAvailableBeltWidths', 'parentType' => 'folder', 'allowFolder' => true],
+        ['path' =>'/Contitech_ConveyorSolution/Master Data/Available Pattern Width/Available Belt Width', 'class' => 'CSAvailableBeltWidths', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Available Pattern Width', 'class' => 'CSAvailablePatternWidths', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Material', 'class' => 'CSMaterial', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Performance Categories', 'class' => 'CSPerformanceCategories', 'parentType' => 'folder', 'allowFolder' => true],
