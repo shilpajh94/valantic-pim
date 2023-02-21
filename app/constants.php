@@ -146,10 +146,7 @@ define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CO
 define("IFS_EU_WORKFLOW_CONFIG",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
 define("IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
 
-
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
-
-
 
 // define constants used in PTGEU
 define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ImportBundle/Resources/config");
