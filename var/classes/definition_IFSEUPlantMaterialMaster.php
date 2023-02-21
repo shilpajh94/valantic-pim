@@ -10,9 +10,9 @@
 
 Fields Summary: 
 - Material [manyToManyObjectRelation]
-- Plant [manyToOneRelation]
+- Plants [manyToOneRelation]
 - CountryOfOrigin [manyToOneRelation]
-- PlannedDeliveryTime [numeric]
+- PlannedDeliveryTimeInDays [numeric]
 - CommodityCode [input]
 - MinOrderQuantity [numeric]
 - OrderingQuantityIncrements [numeric]
@@ -20,14 +20,14 @@ Fields Summary:
 - StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifierOrProcurementType [select]
 - AvailabilityCheckCode [input]
-- SalesOrganization [manyToOneRelation]
+- SalesOrg [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - PlantProfitCenter [input]
 - MRPController [input]
-- UnitOfMeasure [input]
 - TotalReplenismentLeadTime [numeric]
 - SafetyStock [numeric]
 - StockIndicator [select]
+- StockIndicatorDescription [input]
 - deletedFlagAtPlantLevel [booleanSelect]
 */ 
 
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675945263,
+   'modificationDate' => 1676627769,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -289,8 +289,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'PlannedDeliveryTime',
-                     'title' => 'Planned Delivery Time',
+                     'name' => 'PlannedDeliveryTimeInDays',
+                     'title' => 'Planned Delivery Time In Days',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -312,7 +312,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
-                     'columnLength' => 16,
+                     'columnLength' => 190,
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -433,7 +433,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
-                     'columnLength' => 16,
+                     'columnLength' => 190,
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -485,7 +485,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'OutsidePurchaseIdentifierOrProcurementType',
-                     'title' => 'Outside Purchase Indicator / Procurement Type',
+                     'title' => 'Outside Purchase Identifier / Procurement Type',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -507,7 +507,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
-                     'columnLength' => 16,
+                     'columnLength' => 190,
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -643,7 +643,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
-                     'columnLength' => 16,
+                     'columnLength' => 190,
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -671,7 +671,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
-                     'columnLength' => 16,
+                     'columnLength' => 190,
                      'phpdocType' => 'string',
                      'regex' => '',
                      'unique' => false,
@@ -693,34 +693,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 350,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 16,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'UnitOfMeasure',
-                     'title' => 'Unit of measure',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'float:left; margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 350,
@@ -751,7 +723,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 350,
@@ -782,7 +754,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
@@ -814,6 +786,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'StockIndicator',
                      'title' => 'Stock Indicator',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'float:left; margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'StockIndicatorDescription',
+                     'title' => 'Stock Indicator Description',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -887,7 +887,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'IFSEU_ProductData',
+   'group' => 'IFSEU_MasterData',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 

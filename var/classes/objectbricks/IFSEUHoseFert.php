@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-14T15:00:18+05:30
+* Generated at: 2023-02-17T10:38:54+05:30
 * IP: 127.0.0.1
 
 
@@ -9,9 +9,9 @@ Fields Summary:
 - totalWeightPerPackage [numeric]
 - hoseLengthFT [numeric]
 - InnerHoseWeightLbs [numeric]
-- assembly [booleanSelect]
+- IsAssembled [booleanSelect]
 - totalWeight [numeric]
-- hoseLengthM [numeric]
+- productionLengths [numeric]
 - InnerHoseWeightKg [numeric]
 - fitting1Type [input]
 - fitting1Size [input]
@@ -38,7 +38,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'IFSEUHoseFert',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Hose (14 Digit)',
+   'title' => 'eHose (14 Digit)',
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -260,8 +260,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'queryColumnType' => 'tinyint(1) null',
                      'columnType' => 'tinyint(1) null',
                      'phpdocType' => 'boolean',
-                     'name' => 'assembly',
-                     'title' => 'Assembly / Not Assembly',
+                     'name' => 'IsAssembled',
+                     'title' => 'is assembled?',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -321,8 +321,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 1,
-                     'name' => 'hoseLengthM',
-                     'title' => 'Hose Length (M)',
+                     'name' => 'productionLengths',
+                     'title' => 'Production Lengths',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,

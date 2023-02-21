@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-09T13:19:41+01:00
+* Generated at: 2023-02-20T11:31:57+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675945180,
+   'modificationDate' => 1676889117,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -416,7 +416,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'epixFlag',
                      'title' => 'Epix Flag / B2B Flag',
-                     'tooltip' => 'Material Group 1 is Apex/B2B flag.',
+                     'tooltip' => 'Material Group 1 is Epix/B2B flag.',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
@@ -612,7 +612,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'IFSEU_ProductData',
+   'group' => 'IFSEU_MasterData',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 

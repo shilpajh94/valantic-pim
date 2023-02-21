@@ -1,0 +1,19 @@
+parameters:
+    Product: 
+        'FeaturesBenefitsBulletPoint': 'Features & Benefits Bullet Points'
+        'legalText': 'Legal Text'
+        'BrandShortText1': 'Brand Short Text 1'
+        'BrandShortText2':
+        'BrandShortText3':
+        'BrandShortText4':
+        'BrandShortText5':
+        'shortDescription':
+        'longDescription':
+        'sapDescription':
+        'CompletenessPercentage':
+        'EmptyFields':
+    Category: 
+        'description': 'Description'
+        'PrintedCatalogDescription': 'Printed Catalog Description'
+        'ConstructionType': 'Construction Type'
+        'longDescription': 'long Description'
