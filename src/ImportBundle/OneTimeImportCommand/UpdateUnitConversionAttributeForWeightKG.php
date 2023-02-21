@@ -19,7 +19,7 @@ class UpdateUnitConversionAttributeForWeightKG extends AbstractCommand
     ];
 
     /*  WeightPerLengthConverter handles conversion only from these source units
-        As per client we are assuming the if Weight unit = KG, we will consider it as KG_PER_M
+        As per client (Mark) we are assuming the if Weight unit = KG, we will consider it as KG_PER_M
         and if Weight unit = LB, we will consider it as LBS_PER_FT
     */
     const GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP = array(

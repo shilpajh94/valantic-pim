@@ -67,7 +67,7 @@ class ProductSQLModel
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
 
-    // According to Mark if Weight Unit is LB then we will consider as LBS_PER_FT & if KG is given then we will consider as KG_PER_M and do their conversion respectively.
+    // According to client(Mark) if Weight Unit is LB then we will consider as LBS_PER_FT & if KG is given then we will consider as KG_PER_M and do their conversion respectively.
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
         "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
