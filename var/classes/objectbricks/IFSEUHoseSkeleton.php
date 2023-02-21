@@ -1,12 +1,12 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-16T15:49:45+05:30
+* Generated at: 2023-02-21T13:11:09+01:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- IdInch [input]
+- IdInch [numeric]
 - IdMM [numeric]
 - hoseIdNominalActualId [numeric]
 - hoseIdMMActualId [numeric]
@@ -17,7 +17,7 @@ Fields Summary:
 - InnerHoseOdInDec [numeric]
 - InnerHoseIdMM [numeric]
 - InnerHoseIdDec [numeric]
-- InnerHoseIDFractional [input]
+- InnerHoseIDFractional [numeric]
 - workingPressureBAR [numeric]
 - workingPressurePSI [numeric]
 - workingPressureMPA [numeric]
@@ -115,24 +115,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 150,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
                  'unique' => false,
-                 'showCharCount' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'name' => 'IdInch',
                  'title' => 'ID (Inch)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -145,7 +148,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -156,7 +159,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'IdMM',
                  'title' => 'ID (mm)',
                  'tooltip' => '',
@@ -176,7 +179,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -187,7 +190,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'hoseIdNominalActualId',
                  'title' => 'Hose ID (in Nominal) Actual Id',
                  'tooltip' => '',
@@ -207,7 +210,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -218,7 +221,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'hoseIdMMActualId',
                  'title' => 'Hose ID (mm) Actual Id',
                  'tooltip' => '',
@@ -238,7 +241,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -249,7 +252,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'OdIn',
                  'title' => 'OD (in)',
                  'tooltip' => '',
@@ -269,7 +272,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -280,7 +283,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'Odmm',
                  'title' => 'OD (mm)',
                  'tooltip' => '',
@@ -823,7 +826,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     'value' => 1829927,
                   ),
                 ),
-                 'width' => 300,
+                 'width' => 150,
                  'height' => '',
                  'maxItems' => '',
                  'renderType' => 'tags',
@@ -871,7 +874,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -882,7 +885,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'InnerHoseOdMM',
                  'title' => 'Inner Hose OD (mm; Decimal)',
                  'tooltip' => '',
@@ -902,7 +905,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -913,7 +916,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'InnerHoseOdInDec',
                  'title' => 'Inner Hose OD (in; Decimal)',
                  'tooltip' => '',
@@ -933,7 +936,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -944,7 +947,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'InnerHoseIdMM',
                  'title' => 'Inner Hose ID (mm; Decimal)',
                  'tooltip' => '',
@@ -964,7 +967,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -975,7 +978,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'InnerHoseIdDec',
                  'title' => 'Inner Hose ID (in; Decimal)',
                  'tooltip' => '',
@@ -993,24 +996,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 150,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
                  'unique' => false,
-                 'showCharCount' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'name' => 'InnerHoseIDFractional',
                  'title' => 'Inner Hose ID (in; Fractional)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1043,7 +1049,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1054,7 +1060,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'workingPressureBAR',
                  'title' => 'Working Pressure (BAR)',
                  'tooltip' => '',
@@ -1074,7 +1080,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1085,7 +1091,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'workingPressurePSI',
                  'title' => 'Working Pressure (psi)',
                  'tooltip' => '',
@@ -1105,7 +1111,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1116,7 +1122,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'workingPressureMPA',
                  'title' => 'Working Pressure (mpa)',
                  'tooltip' => '',
@@ -1156,7 +1162,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1167,7 +1173,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'negativeToleranceIdMM',
                  'title' => 'Negative Tolerance Id (MM)',
                  'tooltip' => '',
@@ -1187,7 +1193,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1198,7 +1204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'PositiveToleranceIdMM',
                  'title' => 'Positive Tolerance Id (MM)',
                  'tooltip' => '',
@@ -1218,7 +1224,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1229,7 +1235,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'negativeToleranceWtMM',
                  'title' => 'Negative Tolerance WT (MM)',
                  'tooltip' => '',
@@ -1249,7 +1255,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1260,7 +1266,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'PositiveToleranceWtMM',
                  'title' => 'Positive Tolerance WT (MM)',
                  'tooltip' => '',
@@ -1280,7 +1286,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1291,7 +1297,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'negativeToleranceOdMM',
                  'title' => 'Negative Tolerance OD (MM)',
                  'tooltip' => '',
@@ -1311,7 +1317,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1322,7 +1328,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'PositiveToleranceOdMM',
                  'title' => 'Positive Tolerance OD (MM)',
                  'tooltip' => '',
@@ -1362,7 +1368,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1393,7 +1399,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1424,7 +1430,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1455,7 +1461,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
@@ -1483,7 +1489,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1514,7 +1520,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1545,7 +1551,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               6 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1556,7 +1562,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'BendingRadiusIN',
                  'title' => 'BendingRadius (in)',
                  'tooltip' => '',
@@ -1576,7 +1582,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1587,7 +1593,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'BendingRadiusMM',
                  'title' => 'Bending Radius (mm)',
                  'tooltip' => '',
@@ -1607,7 +1613,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1618,7 +1624,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'wallThicknessInch',
                  'title' => 'Wall thickness (in)',
                  'tooltip' => '',
@@ -1638,7 +1644,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1649,7 +1655,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'wallThicknessMM',
                  'title' => 'Wall thickness (mm)',
                  'tooltip' => '',
@@ -1669,7 +1675,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               10 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1680,7 +1686,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'VacuumIN',
                  'title' => 'Vacuum (in)',
                  'tooltip' => '',
@@ -1700,7 +1706,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               11 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1711,7 +1717,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'VacuumMM',
                  'title' => 'Vacuum (mm)',
                  'tooltip' => '',
@@ -1731,7 +1737,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               12 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1742,7 +1748,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 2,
+                 'decimalPrecision' => NULL,
                  'name' => 'VacuumBar',
                  'title' => 'Vacuum (Bar)',
                  'tooltip' => '',
@@ -1762,7 +1768,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               13 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
-                 'width' => 300,
+                 'width' => 150,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'double',
                  'columnType' => 'double',
@@ -1773,7 +1779,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => 0,
+                 'decimalPrecision' => NULL,
                  'name' => 'hoseDashSize',
                  'title' => 'Hose Dash Size',
                  'tooltip' => '',

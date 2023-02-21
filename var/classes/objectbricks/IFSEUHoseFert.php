@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-17T10:38:54+05:30
+* Generated at: 2023-02-21T13:14:31+01:00
 * IP: 127.0.0.1
 
 
@@ -119,7 +119,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -133,8 +133,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => 2,
                      'name' => 'totalWeightPerPackage',
                      'title' => 'Total Weight (lbs) / Packaged Weight',
-                     'tooltip' => '
-',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -151,7 +150,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -182,7 +181,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -256,7 +255,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         'value' => -1,
                       ),
                     ),
-                     'width' => 300,
+                     'width' => 200,
                      'queryColumnType' => 'tinyint(1) null',
                      'columnType' => 'tinyint(1) null',
                      'phpdocType' => 'boolean',
@@ -278,7 +277,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -309,7 +308,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -340,7 +339,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 300,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -432,7 +431,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -460,7 +459,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -489,7 +488,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -517,7 +516,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -545,7 +544,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -574,7 +573,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -714,7 +713,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
