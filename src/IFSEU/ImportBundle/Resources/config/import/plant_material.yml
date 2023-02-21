@@ -28,7 +28,7 @@ parameters:
     'Material': 'Material'
     'Plant': 'Plant'
     'CountryOfOrigin': 'Country of Origin'
-    'PlannedDeliveryTime': 'Plan Delivery Time'
+    'PlannedDeliveryTimeInDays': 'Plan Delivery Time'
     'CommodityCode': 'Commodity Code'
     'MinOrderQuantity': 'Min. Order Quantity'
     'OrderingQuantityIncrements': 'Order Qty Inc'

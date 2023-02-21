@@ -1,9 +1,11 @@
 parameters:
   mappingCsvColumn: 
     'Material': 'Material'
+    'MaterialDescLanguage': 'Material Desc Langu'
     'SalesOrganization' : 'Sales Org'
     'DistributionChannel' : 'Distribution Channel'
     'DeliveringPlant' : 'PLANT'
+    'MaterialDescription' : 'Material Description'
     # 'countryOfOriginCode' : 'CountryofOriginCode'
     # 'countryOfOriginName':  'CountryofOriginname'
     # 'epixFlag' : 'EPIXFlag'
