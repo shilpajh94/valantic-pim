@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-20T14:45:24+05:30
+* Generated at: 2023-02-21T12:44:34+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -162,7 +162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676884514,
+   'modificationDate' => 1676963664,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -37888,8 +37888,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   ),
                   59 => 
                   array (
-                    'key' => 'Hose Attribute Table 12',
-                    'value' => 'Hose Attribute Table 12',
+                    'key' => 'Hose Attribute Table 13',
+                    'value' => 'Hose Attribute Table 13',
                   ),
                 ),
                  'width' => 220,
