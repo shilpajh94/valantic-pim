@@ -103,6 +103,11 @@ services:
         tags:
             - { name: 'console.command', command: 'ptgeu-polyVFertBrickMapping-and-dataImport' }
 
+    # this command will execute to save and publish ptgeu products
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUSaveAndPublishCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:save' }
+
 
     # Services
     import.sap_file_feeder_service:
