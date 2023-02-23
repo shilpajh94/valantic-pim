@@ -71,7 +71,18 @@ class MandatoryValidationService {
                         $arr[$fieldName] = "$fieldTitle in Base Data";
                         $attributeNameArray[] = $fieldName;
                     }
-                } else {
+                }elseif($fieldName = 'availableBeltWidthInch'){
+                    $getBrickMethod = "get$objectType";
+                    $brickObject = $product->getProductAttributes()->$getBrickMethod();
+                    if (!empty($brickObject)) {
+                        $blockAttributesArray = $brickObject->getAvailableBeltPatternWidthBlock();
+                        $id = $blockAttributesArray[0][$fieldName]->getData();
+                        if(empty($id)){
+                            $arr[$fieldName] = 'Available Belt Width (in) in Product Dimensions';
+                        }
+                    }
+                }
+                else {
                     $getBrickMethod = "get$objectType";
                     $getBrickAttributeMethod = "get$fieldName";
                     $brickObject = $product->getProductAttributes()->$getBrickMethod();
