@@ -36,10 +36,6 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:sap-product-import' }
 
-    IFSEU\ImportBundle\Command\IFSEU_ExportProductLocationFileCommand:
-        tags:
-            - { name: 'console.command', command: 'contitech:ifd:eu:export_localization_attribute' }
-
     # Helpers
     ifs_eu_import.common_helper:
         class: IFSEU\ImportBundle\Helper\Common
