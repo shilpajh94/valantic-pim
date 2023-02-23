@@ -35,8 +35,8 @@ class FileFeederService
     {
         try
         {
-            // $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
-            // $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
+            // $SFTPConObj = new SFTPConnection(B2B_TRANSLATION_SFTP_HOST, B2B_TRANSLATION_SFTP_PORT);
+            // $SFTPConObj->login(B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
 
             // $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH_PTGEU'));
             // $fileName       = array_pop($filePathInfo);
@@ -57,12 +57,12 @@ class FileFeederService
             //     }
             // }
 
-            // $tmpFilePath    = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            // $tmpFilePath    = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
 
             // $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
             // $this->filePath = $tmpFilePath;
-            // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+            // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, B2B_TRANSLATION_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
             
             $this->filePath = '/var/www/html/cttfse01/var/tmp/salesforceid-externalid.csv';
 
