@@ -45,6 +45,6 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:b2b-salesforceid-import' }
 
-    B2BTranslationBundle\Command\IFSEU_ExportProductLocationFileCommand:
+    B2BTranslationBundle\Command\CreateAndSendB2BTranslationCSVToFTPCommand:
         tags:
             - { name: 'console.command', command: 'contitech:b2b-create-and-send-translation-csv-to-ftp' }

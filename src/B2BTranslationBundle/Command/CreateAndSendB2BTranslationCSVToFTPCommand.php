@@ -4,14 +4,14 @@ namespace B2BTranslationBundle\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use AppBundle\Tool\Utils;
-use AppBundle\Logger\LogLevel;
+use B2BTranslationBundle\Tool\Utils;
+use B2BTranslationBundle\Logger\LogLevel;
 use Pimcore\Db;
 /**
  *
- * @package IFSEU\ExportBundle\Command
+ * @package B2BTranslationBundle\Command
  */
-class IFSEU_ExportProductLocationFileCommand extends Command
+class CreateAndSendB2BTranslationCSVToFTPCommand extends Command
 {
 
     /**
@@ -21,8 +21,8 @@ class IFSEU_ExportProductLocationFileCommand extends Command
     private $db;
     protected function configure()
     {
-        $this->setName('contitech:ifs:eu:export_localization_attribute')
-            ->setDescription('Export IFSEU FileCommand');
+        $this->setName('contitech:b2b-create-and-send-translation-csv-to-ftp')
+            ->setDescription('create and send translation csv to ftp');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
