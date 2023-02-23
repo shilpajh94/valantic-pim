@@ -328,7 +328,7 @@ class ProductModelService {
             $beforebrandName = array_slice($finalProductArrayTemp, 0, $split);   // first part
             $afterbrandName = array_slice($finalProductArrayTemp, $split + 1);
             $finalProductArrayTemp = [];
-            $finalProductArrayTemp = array_merge($beforebrandName, array('brandName' => $brandNameDetail),array('_parent_name' => ''), $afterbrandName);
+            $finalProductArrayTemp = array_merge($beforebrandName, array('brandName' => $brandNameDetail),array('child_name' => ''), $afterbrandName);
 
             $finalProductArrayTemp["sap_id"] = $value["articleNumber"];
             $finalProductArrayTemp["virtualCatalogReadyToGo"] = ($value["virtualCatalogReadyToGo"] == 1) ? 1: 0;
@@ -400,7 +400,7 @@ class ProductModelService {
                 $GroupingFieldIdNameStr = $brandName . " ". implode(',', $GroupingFieldIdNameList);
                 $GroupingFieldIdNameStr = trim($GroupingFieldIdNameStr,' ');
             }
-            $finalProductArrayTemp["_parent_name"] = $GroupingFieldIdNameStr;
+            $finalProductArrayTemp["child_name"] = $GroupingFieldIdNameStr;
             unset($GroupingFieldIdNameList);
 
             $documentID = $this->model->getDocumentId($value["oo_id"]);
