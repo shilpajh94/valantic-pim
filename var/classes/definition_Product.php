@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-15T13:22:38+05:30
+* Generated at: 2023-02-22T21:07:27+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -87,6 +87,7 @@ Fields Summary:
 - rebateFlag [booleanSelect]
 - OutsidePurchaseFlag [checkbox]
 - externalID [input]
+- salesforceID [input]
 - weightg [numeric]
 - weightKg [numeric]
 - WeightLbsPerFTUOM [input]
@@ -162,7 +163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655279554,
+   'modificationDate' => 1677096443,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -19346,7 +19347,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -20595,10 +20596,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'showCharCount' => false,
                                      'name' => 'externalID',
-                                     'title' => 'B2B External ID',
+                                     'title' => 'External ID',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'margin-left:20px;',
@@ -20610,7 +20611,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  7 => 
+                                  8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => NULL,
@@ -20622,18 +20623,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'externalID',
-                                     'title' => 'External ID',
+                                     'name' => 'salesforceID',
+                                     'title' => 'Salesforce ID',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => NULL,
                                      'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
-                                     'invisible' => true,
+                                     'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
