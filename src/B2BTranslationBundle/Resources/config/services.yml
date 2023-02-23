@@ -15,7 +15,9 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
-
+    B2BTranslationBundle\Command\IFSEU_ExportProductLocationFileCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:export_localization_attribute' }
 # add more services, or override services that need manual wiring
 #    B2BTranslationBundle\ExampleClass:
 #        arguments:

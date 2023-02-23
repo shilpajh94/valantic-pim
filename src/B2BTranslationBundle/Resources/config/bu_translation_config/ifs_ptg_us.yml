@@ -1,6 +1,6 @@
 parameters:
-    Product: 
-        'FeaturesBenefitsBulletPoint': 'Features & Benefits Bullet Points'
+    Product:    
+        'FeaturesBenefitsBulletPoint': 'Product'
         'legalText': 'Legal Text'
         'BrandShortText1': 'Brand Short Text 1'
         'BrandShortText2':
@@ -12,6 +12,14 @@ parameters:
         'sapDescription':
         'CompletenessPercentage':
         'EmptyFields':
+        'reinforcement': 
+            'type': 'class'
+            'className': 'MultiselectMaster'
+            'tableName': 'object_localized_data_22'
+        'tubeMaterial': 
+            'type': 'objectbrick'
+            'className': 'HoseBase'
+            'tableName': 'object_brick_query_HoseBase_1'
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'
