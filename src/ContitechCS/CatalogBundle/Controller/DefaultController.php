@@ -1117,6 +1117,21 @@ class DefaultController extends AbstractController
                     $ContiRollConfig = $productDataImportConfig['Common Belt Profile Attributes']['ContiRoll Config'];
         
                     $productChildrenData = $this->getAllRegionChildern($productDetails, $regionId);
+
+                    $allChildObject = [];
+                    foreach ($productChildrenData as $key => $child) {
+                        $children = $child->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                        if($children)
+                        {
+                            unset($productChildrenData[$key]);
+                            $allChildObject = $children;
+                        }
+                    }
+
+                    if(is_array($allChildObject))
+                    {
+                        $productChildrenData = array_merge($productChildrenData, $allChildObject);
+                    }
         
                     $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
                     $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
@@ -1125,270 +1140,297 @@ class DefaultController extends AbstractController
                     if($productChildrenData)
                     {
                         foreach ($productChildrenData as $child) {
-                            $removeField = false;
-                            $data['Name'] = $child->getName();
-                            $data['LongText'] = $child->getShortText();
-                            $data['ProductImage'] = $child->getProductImage();
-                            $data['ApplicationImage'] = $child->getApplicationImage();
-        
-                            $bricks = $child->getProductAttributes();
-                            $rowsData = [];
-                            if($bricks)
-                            {  
-                                foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
-                                    $fieldNameConfigArray = explode('~',$fieldNameConfig);
-                                    $brickName = $fieldNameConfigArray[0];
-                                    $getBrick = 'get' . $brickName;
-                                    $getField = 'get' . $fieldName;
-        
-                                    if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
-                                    {
-                                        if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField) &&  $bricks->$getBrick() && $bricks->$getBrick()->$getField())
-                                        {   
-                                            $fieldNameString = $this->addPrefix($fieldName);
-                                            if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
-                                            {
-                                                $removeField = true;
-                                            }
-                                            $colData[] = $fieldNameString;
-                                            $colData[] = $bricks->$getBrick()->$getField();
-                                            $rowsData[] = $colData;
-                                            unset($colData);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        $fieldBlockName = $fieldNameConfigArray[1];
-                                        $fieldBlockFieldName = $fieldNameConfigArray[2];
-                                        $masterFieldNameString = $fieldNameConfigArray[3];
-                                        
-                                        if($masterFieldNameString)
+
+                            if(1)
+                            {
+                                $removeField = false;
+                                $data['Name'] = $child->getName();
+                                $data['LongText'] = $child->getShortText();
+                                $data['ProductImage'] = $child->getProductImage();
+                                $data['ApplicationImage'] = $child->getApplicationImage();
+            
+                                $bricks = $child->getProductAttributes();
+                                $rowsData = [];
+                                if($bricks)
+                                {  
+                                    foreach ($CommonBeltProfileAttributes as $fieldName => $fieldNameConfig) {
+                                        $fieldNameConfigArray = explode('~',$fieldNameConfig);
+                                        $brickName = $fieldNameConfigArray[0];
+                                        $getBrick = 'get' . $brickName;
+                                        $getField = 'get' . $fieldName;
+            
+                                        if($fieldNameConfigArray && (count($fieldNameConfigArray) == 2))
                                         {
-                                            $masterFieldNameArray = explode('$', $masterFieldNameString);
-                                        }
-        
-                                        
-                                        $getfieldBlockName = 'get' . $fieldBlockName;
-                                        if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
-                                        {
-                                            $fieldData = [];
-                                            $fieldNameWithPrefix = $this->addPrefix($fieldName);
-                                            
-                                            foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
-                                            {
-                                                $colData[] = $fieldNameWithPrefix;
-                                                $fieldData[] = $obj[$fieldBlockFieldName]->getData();
-                                                $colDataMultiSelect = $obj[$fieldBlockFieldName]->getData();
-                                                if(is_array($colDataMultiSelect))
+                                            if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField) &&  $bricks->$getBrick() && $bricks->$getBrick()->$getField())
+                                            {   
+                                                $fieldNameString = $this->addPrefix($fieldName);
+                                                if($fieldName =='AvailableBeltWidthRangeInch' || $fieldName =='AvailableBeltWidthRangeMM')
                                                 {
-                                                    $datum = [];
-                                                    foreach ($colDataMultiSelect as  $id) {
-                                                        if(count($masterFieldNameArray) == 2)
-                                                        {
-                                                            $masterFieldName1 = $masterFieldNameArray[0];
-                                                            $masterFieldName2 = $masterFieldNameArray[1];
-                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName1];
-                                                            if(!trim($fvalue)){
-                                                                $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName2];
-                                                            }
-                                                        }
-                                                        else{
-                                                            $masterFieldName = $masterFieldNameArray[0];
-                                                            $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName];
-                                                        }
-                                                        
-                                                        $colData[] = $fvalue;
-                                                    }
+                                                    $removeField = true;
                                                 }
-                                                else{
-                                                    $id = $obj[$fieldBlockFieldName]->getData();
-                                                    $masterFieldName = $masterFieldNameArray[0];
-                                                    $fvalue = $availableBeltWidthMasterList[$id][$masterFieldName];
-                                                    $colData[] = $fvalue;
-                                                }
-        
+                                                $colData[] = $fieldNameString;
+                                                $colData[] = $bricks->$getBrick()->$getField();
                                                 $rowsData[] = $colData;
                                                 unset($colData);
                                             }
-                                            
                                         }
-                                    }
-                                }
-                            }   
-                            
-                            $modifiedData = [];
-                            $remainingData = [];
-                            $maxColumn = 0;
-                            $maxRow = 0;
-        
-                            foreach ($rowsData as $nvalue) 
-                            {
-                                if(count($nvalue) > 2)
-                                {
-                                    $remainingData[] = $nvalue;
-                                }
-                                else{
-                                    $modifiedData[$nvalue[0]][] = $nvalue[1];
-                                }
-                            }
-        
-                            if($modifiedData)
-                            {
-                                foreach ($modifiedData as $mvalue) {
-                                    if(count($mvalue) > $maxColumn)
-                                    {
-                                        $maxColumn = count($mvalue);
-                                    }
-                                }
-                                
-                            }
-        
-                            // make single column if all columns have same value
-                            if($modifiedData)
-                            {
-                                foreach($modifiedData as $key => $value){
-                                    $arrayCountBeforeUnique = count($value);
-                                    $arrayCount = array_unique($value);
-                                    if(($arrayCountBeforeUnique == $maxColumn) && count($arrayCount) == 1)
-                                    {
-                                        $modifiedData[$key] = array($value[0]);
-                                    }
-                                    else{
-                                        $modifiedData[$key] = $value;
-                                    }
-                                }
-                            }
-        
-                            $remainingModifiedArray = [];
-        
-                            $maxRow = 0;
-                            if($remainingData)
-                            {
-                                foreach($remainingData as $key => $array)
-                                {
-                                    $keyToStore = $array[0];
-                                    unset($array[0]);
-                                    $array = array_values($array);
-        
-                                    if($removeField)
-                                    {
-                                        $remainingModifiedArray[$keyToStore] = $array;
-                                    }
-                                    else{
-                                        $remainingModifiedArray[$keyToStore][] = $array;
-                                    }
-        
-                                    if(count($array) > $maxRow)
-                                    {
-                                        $maxRow = count($array);
-                                    }
-                                }
-                            }
-        
-                            if($remainingModifiedArray && !$removeField)
-                            {
-                                foreach ($remainingModifiedArray as $key => $array) {
-                                    $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
-                                }
-                            }
-        
-                            if($removeField)
-                            {
-                                $maxColumn = 2;
-                                $modifiedData = array_merge($modifiedData, $remainingModifiedArray);
-                            }
-        
-                            if($unitField && !$removeField)
-                            {
-                                foreach ($modifiedData as $key => $value) {
-                                    if (stripos($key, $unitField) === false) {
-                                        unset($modifiedData[$key]);
-                                    }
-                                }
-                            }
-        
-                            $tableArray = [];
-                            if($removeField)
-                            {
-                                $removeFieldArray = $ContiRollConfig['removeField'];
-                                foreach ($removeFieldArray as $rkey1 => $value) {
-                                    $fieldToRemove = $this->addPrefix($rkey1);
-                                    unset($modifiedData[$fieldToRemove]);
-                                }
-        
-                                $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
-                                $concatnateOperator = $ContiRollConfig['concatnateOperator'];
-                                foreach ($groupingAndOrderingArray as $okey1 => $ovalue) {
-                                    $fieldKey = $this->addPrefix($okey1);
-        
-                                    if(is_array($ovalue))
-                                    {
-                                        foreach ($ovalue as $newvalue1) {
-                                            $fieldKeyNew = $this->addPrefix($newvalue1);
-                                            $internalArray = $modifiedData[$fieldKeyNew];
-                                            $arrayValue;
-                                            if(is_array($internalArray))
-                                            {
-                                                $arrayValue[] = implode($concatnateOperator, $internalArray);
-                                            }
-                                            else{
-                                                $arrayValue[] = $internalArray;
-                                            }
-                                        }
-                                        $arrayToPush = array_merge([$fieldKey], $arrayValue);
-                                        unset($arrayValue);
-                                    }
-                                    else{
-                                        $arrayToPush = array_merge([$fieldKey], $modifiedData[$fieldKey]);
-                                    }
-                                    array_push($tableArray, $arrayToPush);
-                                    unset($arrayToPush);
-                                }
-        
-                            }
-        
-                            if($modifiedData && !$removeField)
-                            {
-                                foreach($modifiedData as $key1 => $secondArray)
-                                {
-                                    $datum[] = $key1;
-                                    
-                                    if(is_array($secondArray))
-                                    {
-                                        
-                                        foreach ($secondArray as $key2 => $thirdArray) {
-        
-                                            if(is_array($thirdArray))
-                                            {
-                                                $localArray = [];
-                                                $localArray[] = $key1;
-                                                foreach ($thirdArray as $key3 => $value) {
-                                                    $localArray[] = $value;
-                                                }
-        
-                                                $tableArray[] = $localArray;
-        
-                                            }
-                                            else{
-                                                $datum[] = $thirdArray;
-                                            }
-                                        }
-        
-                                        if(count($datum) > 1)
+                                        else
                                         {
-                                            $tableArray[] = $datum;
+                                            $fieldBlockName = $fieldNameConfigArray[1];
+                                            $fieldBlockFieldName = $fieldNameConfigArray[2];
+                                            $masterFieldNameString = $fieldNameConfigArray[3];
+                                            
+                                            if($masterFieldNameString)
+                                            {
+                                                $masterFieldNameArray = explode('$', $masterFieldNameString);
+                                            }
+            
+                                            
+                                            $getfieldBlockName = 'get' . $fieldBlockName;
+                                            if(method_exists($bricks->$getBrick(),$getfieldBlockName) && $bricks->$getBrick()->$getfieldBlockName())
+                                            {
+                                                $fieldData = [];
+                                                $fieldNameWithPrefix = $this->addPrefix($fieldName);
+                                                
+                                                foreach($bricks->$getBrick()->$getfieldBlockName() as $obj)
+                                                {
+                                                    $colData[] = $fieldNameWithPrefix;
+                                                    $fieldData[] = $obj[$fieldBlockFieldName]->getData();
+                                                    $colDataMultiSelect = $obj[$fieldBlockFieldName]->getData();
+                                                    if(is_array($colDataMultiSelect))
+                                                    {
+                                                        $datum = [];
+                                                        foreach ($colDataMultiSelect as  $id) {
+                                                            if(count($masterFieldNameArray) == 2)
+                                                            {
+                                                                $masterFieldName1 = $masterFieldNameArray[0];
+                                                                $masterFieldName2 = $masterFieldNameArray[1];
+                                                                $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName1];
+                                                                if(!trim($fvalue)){
+                                                                    $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName2];
+                                                                }
+                                                            }
+                                                            else{
+                                                                $masterFieldName = $masterFieldNameArray[0];
+                                                                $fvalue = $availablePatternWidthMasterList[$id][$masterFieldName];
+                                                            }
+                                                            
+                                                            $colData[] = $fvalue;
+                                                        }
+                                                    }
+                                                    else{
+                                                        $id = $obj[$fieldBlockFieldName]->getData();
+                                                        $masterFieldName = $masterFieldNameArray[0];
+                                                        $fvalue = $availableBeltWidthMasterList[$id][$masterFieldName];
+                                                        $colData[] = $fvalue;
+                                                    }
+            
+                                                    $rowsData[] = $colData;
+                                                    unset($colData);
+                                                }
+                                                
+                                            }
                                         }
-                                        
-                                        unset($datum);
+                                    }
+                                }   
+                                
+                                $modifiedData = [];
+                                $remainingData = [];
+                                $maxColumn = 0;
+                                $maxRow = 0;
+            
+                                foreach ($rowsData as $nvalue) 
+                                {
+                                    if(count($nvalue) > 2)
+                                    {
+                                        $remainingData[] = $nvalue;
+                                    }
+                                    else{
+                                        $modifiedData[$nvalue[0]][] = $nvalue[1];
+                                    }
+                                }
+            
+                                if($modifiedData)
+                                {
+                                    foreach ($modifiedData as $mvalue) {
+                                        if(count($mvalue) > $maxColumn)
+                                        {
+                                            $maxColumn = count($mvalue);
+                                        }
                                     }
                                     
                                 }
+            
+                                // make single column if all columns have same value
+                                if($modifiedData)
+                                {
+                                    foreach($modifiedData as $key => $value){
+                                        $arrayCountBeforeUnique = count($value);
+                                        $arrayCount = array_unique($value);
+                                        if(($arrayCountBeforeUnique == $maxColumn) && count($arrayCount) == 1)
+                                        {
+                                            $modifiedData[$key] = array($value[0]);
+                                        }
+                                        else{
+                                            $modifiedData[$key] = $value;
+                                        }
+                                    }
+                                }
+            
+                                $remainingModifiedArray = [];
+            
+                                $maxRow = 0;
+                                if($remainingData)
+                                {
+                                    foreach($remainingData as $key => $array)
+                                    {
+                                        $keyToStore = $array[0];
+                                        unset($array[0]);
+                                        $array = array_values($array);
+            
+                                        if($removeField)
+                                        {
+                                            $remainingModifiedArray[$keyToStore] = $array;
+                                        }
+                                        else{
+                                            $remainingModifiedArray[$keyToStore][] = $array;
+                                        }
+            
+                                        if(count($array) > $maxRow)
+                                        {
+                                            $maxRow = count($array);
+                                        }
+                                    }
+                                }
+            
+                                if($remainingModifiedArray && !$removeField)
+                                {
+                                    foreach ($remainingModifiedArray as $key => $array) {
+                                        $modifiedData[$key] = $this->getTransposeArray($array, $maxRow, $maxColumn);
+                                    }
+                                }
+            
+                                if($removeField)
+                                {
+                                    $maxColumn = 2;
+                                    if(is_array($remainingModifiedArray))
+                                    {
+                                        $modifiedData = array_merge($modifiedData, $remainingModifiedArray);
+                                    }
+                                }
+            
+                                if($unitField && !$removeField)
+                                {
+                                    foreach ($modifiedData as $key => $value) {
+                                        if (stripos($key, $unitField) === false) {
+                                            unset($modifiedData[$key]);
+                                        }
+                                    }
+                                }
+            
+                                $tableArray = [];
+                                if($removeField)
+                                {
+                                    $removeFieldArray = $ContiRollConfig['removeField'];
+                                    foreach ($removeFieldArray as $rkey1 => $value) {
+                                        $fieldToRemove = $this->addPrefix($rkey1);
+                                        unset($modifiedData[$fieldToRemove]);
+                                    }
+            
+                                    $groupingAndOrderingArray = $ContiRollConfig['groupingAndOrdering'];
+                                    $concatnateOperator = $ContiRollConfig['concatnateOperator'];
+                                    foreach ($groupingAndOrderingArray as $okey1 => $ovalue) {
+                                        $fieldKey = $this->addPrefix($okey1);
+            
+                                        if(is_array($ovalue))
+                                        {
+                                            foreach ($ovalue as $newvalue1) {
+                                                $fieldKeyNew = $this->addPrefix($newvalue1);
+                                                $internalArray = $modifiedData[$fieldKeyNew];
+                                                if(is_array($internalArray))
+                                                {
+                                                    if($fieldKeyNew == 'CS_AvailableProfilePatternWidthsMM')
+                                                    {
+                                                        $arrayValue[] = implode('/', $internalArray);
+                                                    }
+                                                    else{
+                                                        $arrayValue[] = implode($concatnateOperator, $internalArray);
+                                                    }
+                                                    
+                                                }
+                                                else{
+                                                    $arrayValue[] = $internalArray;
+                                                }
+                                            }
+
+                                            if(is_array($arrayValue))
+                                            {
+                                                $arrayToPush = array_merge([$fieldKey], $arrayValue);
+                                            }
+                                            else{
+                                                $arrayToPush = array_merge([$fieldKey]);
+                                            }
+                                            
+                                            unset($arrayValue);
+                                        }
+                                        else{
+                                            if(is_array($modifiedData[$fieldKey]))
+                                            {
+                                                $arrayToPush = array_merge([$fieldKey], $modifiedData[$fieldKey]);
+                                            }
+                                            else{
+                                                $arrayToPush = array_merge([$fieldKey]);
+                                            }
+                                        }
+                                        array_push($tableArray, $arrayToPush);
+                                        unset($arrayToPush);
+                                    }
+            
+                                }
+            
+                                if($modifiedData && !$removeField)
+                                {
+                                    foreach($modifiedData as $key1 => $secondArray)
+                                    {
+                                        $datum[] = $key1;
+                                        
+                                        if(is_array($secondArray))
+                                        {
+                                            
+                                            foreach ($secondArray as $key2 => $thirdArray) {
+            
+                                                if(is_array($thirdArray))
+                                                {
+                                                    $localArray = [];
+                                                    $localArray[] = $key1;
+                                                    foreach ($thirdArray as $key3 => $value) {
+                                                        $localArray[] = $value;
+                                                    }
+            
+                                                    $tableArray[] = $localArray;
+            
+                                                }
+                                                else{
+                                                    $datum[] = $thirdArray;
+                                                }
+                                            }
+            
+                                            if(count($datum) > 1)
+                                            {
+                                                $tableArray[] = $datum;
+                                            }
+                                            
+                                            unset($datum);
+                                        }
+                                        
+                                    }
+                                }
+            
+                                $data['tableFieldData'] = $tableArray;
+                                $data['maxColumns'] = $maxColumn;
+                                
+                                $childrenData[] = $data;
                             }
-        
-                            $data['tableFieldData'] = $tableArray;
-                            $data['maxColumns'] = $maxColumn;
-                            
-                            $childrenData[] = $data;
                         }
                     }
                     $productData['childrenData'] = $childrenData;
