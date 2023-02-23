@@ -1,25 +1,53 @@
 parameters:
     Product:    
-        'FeaturesBenefitsBulletPoint': 'Product'
-        'legalText': 'Legal Text'
-        'BrandShortText1': 'Brand Short Text 1'
-        'BrandShortText2':
-        'BrandShortText3':
-        'BrandShortText4':
-        'BrandShortText5':
-        'shortDescription':
-        'longDescription':
-        'sapDescription':
-        'CompletenessPercentage':
-        'EmptyFields':
-        'reinforcement': 
-            'type': 'class'
-            'className': 'MultiselectMaster'
-            'tableName': 'object_localized_data_22'
-        'tubeMaterial': 
-            'type': 'objectbrick'
-            'className': 'HoseBase'
-            'tableName': 'object_brick_query_HoseBase_1'
+        FeaturesBenefitsBulletPoint:
+            fieldName: FeaturesBenefitsBulletPoint
+            fieldLocation: class
+            className: Product
+        legalText:
+            fieldName: legalText
+            fieldLocation: class
+            className: Product
+        BrandShortText1:
+            fieldName: BrandShortText1
+            fieldLocation: class
+            className: Product
+        BrandShortText2:
+            fieldName: BrandShortText2
+            fieldLocation: class
+            className: Product
+        BrandShortText3:
+            fieldName: BrandShortText3
+            fieldLocation: class
+            className: Product
+        BrandShortText4:
+            fieldName: BrandShortText4
+            fieldLocation: class
+            className: Product
+        BrandShortText5:
+            fieldName: BrandShortText5
+            fieldLocation: class
+            className: Product
+        shortDescription:
+            fieldName: shortDescription
+            fieldLocation: class
+            className: Product
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: Product
+        sapDescription:
+            fieldName: sapDescription
+            fieldLocation: class
+            className: Product
+        reinforcement:
+            fieldName: reinforcement
+            fieldLocation: class
+            className: MultiselectMaster
+        tubeMaterial:
+            fieldName: tubeMaterial
+            fieldLocation: objectbrick
+            className: HoseBase
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'

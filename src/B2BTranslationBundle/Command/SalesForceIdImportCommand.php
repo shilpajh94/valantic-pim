@@ -10,13 +10,6 @@ class SalesForceIdImportCommand extends AbstractCommand
 {
     private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS_US', '3' => 'PTG_EU', '4' => 'IFS_EU'];
 
-    private $BUProductClassTableID = [
-        'IFS_PTG_US' => '1',
-        'CS_US' => 'CSProducts',
-        'PTG_EU' => 'PTGEUProduct',
-        'IFS_EU' => 'IFSEUProduct',
-    ];
-
     protected function configure()
     {
         $this->setName('contitech:b2b-salesforceid-import')
@@ -30,9 +23,8 @@ class SalesForceIdImportCommand extends AbstractCommand
         if($optionForBusinessUnit >= 1 &&  $optionForBusinessUnit <=4)
         {
             $bu = $this->BusinessUnits[$optionForBusinessUnit];
-            $classID = $this->BUProductClassTableID[$bu];
             $serviceObj = \Pimcore::getContainer()->get('b2b_translation.salesforceid_import_service');
-            $serviceObj->import($classID);
+            $serviceObj->import($bu);
         }
         else{
             echo "Invalid Business Unit Option.".PHP_EOL;

@@ -39,6 +39,9 @@ services:
         class: B2BTranslationBundle\Services\SalesforceIdImportService
         public: true
 
+    b2b_translation.create_and_send_b2b_translation_csv_to_ftp_service:
+        class: B2BTranslationBundle\Services\CreateAndSendB2BTranslationCSVToFTPService
+        public: true
 
     #command
     B2BTranslationBundle\Command\SalesForceIdImportCommand:

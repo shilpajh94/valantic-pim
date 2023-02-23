@@ -2,7 +2,6 @@
 
 namespace B2BTranslationBundle\Controller;
 
-use B2BTranslationBundle\Services\ConfigProviderService;
 use Pimcore\Model\DataObject;
 use Exception;
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
@@ -11,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use B2BTranslationBundle\B2BTranslationConstants;
 
 /**
  * @Route("/admin/b2_b_translation")
@@ -23,11 +23,6 @@ class DefaultController extends AdminController
     protected const SUCCESS = 'success';
     protected const MESSAGE = 'message';
     protected const B2B_TRANSLATION_MAPPINGS = 'B2B Translation Mappings';
-    protected const B2B_IFS_PTG_US_FILE_NAME = 'ifs_ptg_us';
-    protected const B2B_CS_US_FILE_NAME = 'cs_us';
-    protected const B2B_PTG_EU_FILE_NAME = 'ptg_eu';
-    protected const B2B_IFS_EU_FILE_NAME = 'ifs_us';
-    protected const B2B_ECOMMERCE_FILE_NAME = 'b2b_ecommerce';
 
     public function __construct() {
         $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
@@ -161,19 +156,19 @@ class DefaultController extends AdminController
 
         if($businessUnit == 'IFS_PTG_US')
         {
-            $businessUnitFileName = self::B2B_IFS_PTG_US_FILE_NAME;
+            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
         else if($businessUnit == 'CS_US')
         {
-            $businessUnitFileName = self::B2B_CS_US_FILE_NAME;
+            $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
         else if($businessUnit == 'PTG_EU')
         {
-            $businessUnitFileName = self::B2B_PTG_EU_FILE_NAME;
+            $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
         else if($businessUnit == 'IFS_EU')
         {
-            $businessUnitFileName = self::B2B_IFS_EU_FILE_NAME;
+            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
 
         $b2bTranslationList = [];
@@ -230,7 +225,7 @@ class DefaultController extends AdminController
     public function getAVBDataAction(Request $request)
     {
         $className = $request->get('type');
-        $attributeList = $this->getSalesForceAttribute(self::B2B_ECOMMERCE_FILE_NAME, $className);
+        $attributeList = $this->getSalesForceAttribute(B2BTranslationConstants::B2B_ECOMMERCE_FILE_NAME, $className);
         
         if($attributeList)
         {

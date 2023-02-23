@@ -3,13 +3,18 @@ namespace B2BTranslationBundle\Services;
 
 use Pimcore\Db;
 use B2BTranslationBundle\Services\ImportService;
-use \Pimcore\Model\DataObject;
 
 class SalesforceIdImportService
 {
     private $db;
-    private $classID;
+    private $bu;
     private $filePath;
+    private $bUProductClassTableID = [
+        'IFS_PTG_US' => '1',
+        'CS_US' => 'CSProducts',
+        'PTG_EU' => 'PTGEUProduct',
+        'IFS_EU' => 'IFSEUProduct',
+    ];
 
     public function __construct()
     {
@@ -17,12 +22,12 @@ class SalesforceIdImportService
         
     }
 
-    public function import($classID)
+    public function import($bu)
     {
         try {
             $sapFileFeeder      = \Pimcore::getContainer()->get('b2b_translation.sap_file_feeder_service');
             $this->filePath     = $sapFileFeeder->execFileFeeder('plantMaterial');
-            $this->classID      = $classID;
+            $this->bu                 = $bu;
 
             $csvInfo            = ImportService::getCSVData($this->filePath);
             $header = $csvInfo['header'];
@@ -36,18 +41,7 @@ class SalesforceIdImportService
                 $salesforceID = $record['Salesforce ID'];
 
                 echo 'Processing external ID: ' . $externalID.PHP_EOL;
-
                 $this->updateSalesForceIdByExternalId($salesforceID, $externalID);
-                
-                
-                // # update salesforce ID using object
-                // $myObject = DataObject\Product::getByExternalID($record['External ID'], ['limit' => 1]);
-                // if(isset($myObject)){
-                //     $myObject->setSalesforceID($record['Salesforce ID']); 
-                //     $myObject->save();
-                //     p_r($myObject->getId()); 
-                // }
-                
             } 
         }
         catch (\Exception $e) {
@@ -59,9 +53,11 @@ class SalesforceIdImportService
 
     public function updateSalesForceIdByExternalId($salesforceID, $externalID)
     {
-        $query = "UPDATE object_query_{$this->classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
+        $classID = $this->bUProductClassTableID[$this->bu];
+
+        $query = "UPDATE object_query_{$classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
         $this->db->query($query);
-        $query = "UPDATE object_store_{$this->classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
+        $query = "UPDATE object_store_{$classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
         $this->db->query($query);
     }
 }
