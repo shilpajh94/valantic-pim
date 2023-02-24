@@ -1,25 +1,75 @@
 parameters:
     Product:    
-        'FeaturesBenefitsBulletPoint': 'Product'
-        'legalText': 'Legal Text'
-        'BrandShortText1': 'Brand Short Text 1'
+        'FeaturesBenefitsBulletPoint': 
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
+        'legalText':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
+        'BrandShortText1':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'BrandShortText2':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'BrandShortText3':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'BrandShortText4':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'BrandShortText5':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'shortDescription':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'longDescription':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'sapDescription':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'CompletenessPercentage':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'EmptyFields':
+            'type': 'Product'
+            'className': 'Product'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_1'
         'reinforcement': 
             'type': 'class'
             'className': 'MultiselectMaster'
-            'tableName': 'object_localized_data_22'
+            'tableName': 'object_query_1'
+            'localizedTable': 'object_localized_data_22'
         'tubeMaterial': 
             'type': 'objectbrick'
             'className': 'HoseBase'
             'tableName': 'object_brick_query_HoseBase_1'
+            'localizedTable': 'object_localized_data_22'
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'
