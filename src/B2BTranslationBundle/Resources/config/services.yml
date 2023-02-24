@@ -15,9 +15,7 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
-    B2BTranslationBundle\Command\IFSEU_ExportProductLocationFileCommand:
-        tags:
-            - { name: 'console.command', command: 'contitech:ifs:eu:export_localization_attribute' }
+    
 # add more services, or override services that need manual wiring
 #    B2BTranslationBundle\ExampleClass:
 #        arguments:
@@ -41,8 +39,15 @@ services:
         class: B2BTranslationBundle\Services\SalesforceIdImportService
         public: true
 
+    b2b_translation.create_and_send_b2b_translation_csv_to_ftp_service:
+        class: B2BTranslationBundle\Services\CreateAndSendB2BTranslationCSVToFTPService
+        public: true
 
     #command
     B2BTranslationBundle\Command\SalesForceIdImportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:ifs-ptg:us:b2b-salesforceid-import' }
+            - { name: 'console.command', command: 'contitech:b2b-salesforceid-import' }
+
+    B2BTranslationBundle\Command\CreateAndSendB2BTranslationCSVToFTPCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b-create-and-send-translation-csv-to-ftp' }
