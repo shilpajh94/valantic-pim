@@ -44,10 +44,25 @@ parameters:
             fieldName: reinforcement
             fieldLocation: class
             className: MultiselectMaster
+            masterType: ProductClass~reinforcement
         tubeMaterial:
             fieldName: tubeMaterial
             fieldLocation: objectbrick
-            className: HoseBase
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~tubeMaterial
+        coverMaterial:
+            fieldName: coverMaterial
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~coverMaterial
+        MaterialType:
+            fieldName: MaterialType
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: AccessoriesFert
+            masterType: HYD_ACCESSORIES~MaterialType
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'
