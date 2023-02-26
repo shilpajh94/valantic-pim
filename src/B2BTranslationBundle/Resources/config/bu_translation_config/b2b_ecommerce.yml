@@ -20,6 +20,8 @@ parameters:
         'color': 'PTGFert.color'
         'material': 'PTGBase.material'
         'profile': 'PTGSkeleton.profile'
+        'HydFittingFamily': 'PTGBase.material'
+        'FittingEndFamilyType': 'PTGSkeleton.profile'
     Category: 
         'Description': 'Description'
         'Language': 'Language'

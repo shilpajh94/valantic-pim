@@ -33,9 +33,23 @@ class CreateAndSendB2BTranslationCSVToFTPService
         return $this->db->fetchPairs($sqlMapping);
     }
 
+    public function getFittingFamilyMasterList()
+    {
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_30  oq_30 
+                    left join object_localized_data_30 old_30 ON oq_30.oo_id = old_30.ooo_id";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getFittingEndFamilyTypeMasterList()
+    {
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_31  oq_31 
+                    left join object_localized_data_31 old_31 ON oq_31.oo_id = old_31.ooo_id";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
     public function getMultiSelectMasterList()
     {
-        $sqlMapping = "select oo_id, masterType, language, name, Description, CustomerFacingVersion from object_query_22  oq_22 
+        $sqlMapping = "select oo_id, masterType, language, name from object_query_22  oq_22 
                     left join object_localized_data_22 old_22 ON oq_22.oo_id = old_22.ooo_id";
         return $this->db->fetchAll($sqlMapping);
     }
@@ -140,8 +154,12 @@ class CreateAndSendB2BTranslationCSVToFTPService
             $this->bu = $bu;
 
             $b2bMapping = $this->getB2BTranslationMapping();
+            $fitingFamilyMasters = $this->getFittingFamilyMasterList();
+            $fittingEndFamilyTypeMasters = $this->getFittingEndFamilyTypeMasterList();
             $multiSelectMasters = $this->getMultiSelectMasterList();
             $multiSelectMastersGroupList = [];
+            $fitingFamilyMastersGroupList = [];
+            $fittingEndFamilyTypeGroupList = [];
             if($multiSelectMasters)
             {
                 foreach ($multiSelectMasters as $key => $value) {
@@ -150,19 +168,41 @@ class CreateAndSendB2BTranslationCSVToFTPService
                 unset($multiSelectMasters);
             }
 
+            if($fitingFamilyMasters)
+            {
+                foreach ($fitingFamilyMasters as $key => $value) {
+                    $fitingFamilyMastersGroupList[$value['oo_id']][$value['language']]= $value['Description'];
+                }
+                unset($fitingFamilyMasters);
+            }
+
+            if($fittingEndFamilyTypeMasters)
+            {
+                foreach ($fittingEndFamilyTypeMasters as $key => $value) {
+                    $fittingEndFamilyTypeGroupList[$value['oo_id']][$value['language']]= $value['Description'];
+                }
+                unset($fittingEndFamilyTypeMasters);
+            }
+
             $b2bProductMapping = $b2bMapping['Product'];
             // $b2bCategoryMapping = $b2bMapping['Category'];
             $this->productAttributeConfig = $this->getLocalizedAttribute('Product');
             $productFilteredAttribute = $this->getFilteredAttribute('class', 'Product');
             $productMultiSelectFilteredAttribute = $this->getFilteredAttribute('class', 'MultiselectMaster');
             $productMultiSelectFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', 'MultiselectMaster');
+            $productFittingFamilyFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', 'FittingFamily');
+            $productFittingEndFamilyTypeFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', 'FittingEndFamilyType');
+
+            $fittingAttributeList = array_merge($productFittingFamilyFilteredOjbectbrickAttribute, $productFittingEndFamilyTypeFilteredOjbectbrickAttribute);
+            
+            
 
             $b2bProducts = $this->getAllB2BProduct();
             if($b2bProducts)
             {
                 $areHeadersAlreadyAdded = false;
-                $b2bProducts = array_slice($b2bProducts, 0, 1000);
-                $b2bProductsChucks = array_chunk($b2bProducts,100);
+                $b2bProducts = array_slice($b2bProducts, 0, 10000);
+                $b2bProductsChucks = array_chunk($b2bProducts,1000);
                 
                 $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
                 $file = fopen($filePath,"w+");
@@ -191,11 +231,13 @@ class CreateAndSendB2BTranslationCSVToFTPService
                             {
                                 $result = $this->getRecordsWithFilteredFields($columnsList, $headerMapping, $productIds);
 
+                                $customList = [];
+                                $multiSelectKeys = [];
+
                                 # Getting MultiSelectMaster's localized data for product class field
                                 if($productMultiSelectFilteredAttribute)
                                 {
                                     $mappingAvailableMasters = [];
-                                    $multiSelectKeys = [];
 
                                     foreach ($productMultiSelectFilteredAttribute as $key => $columm) {
 
@@ -207,7 +249,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                                         }
                                     }
 
-                                    $customList = [];
                                     if($mappingAvailableMasters)
                                     {
                                         $result2 = $this->getRecordsWithFilteredMasterFields($mappingAvailableMasters, $productIds);
@@ -225,38 +266,13 @@ class CreateAndSendB2BTranslationCSVToFTPService
                                             }
                                         }
                                     }
-
-                                    if($customList)
-                                    {
-                                        foreach ($result as $key => $value) 
-                                        {
-                                            foreach ($multiSelectKeys as $nkey => $nvalue) {
-                                                $result[$key][$nvalue] = '';
-                                            }
-
-                                            if($customList[$value['ooo_id']])
-                                            {
-                                                foreach ($customList[$value['ooo_id']] as $rkey => $rvalue) {
-                                                    $result[$key][$rkey] = $rvalue[$value['language']];
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        foreach ($result as $key => $value) 
-                                        {
-                                            foreach ($multiSelectKeys as $nkey => $nvalue) {
-                                                $result[$key][$nvalue] = '';
-                                            }
-                                        }
-                                    }
                                 }
 
                                 # Getting MultiSelectMaster's localized data for objectbrick field
                                 if($productMultiSelectFilteredOjbectbrickAttribute)
                                 {
                                     $mappingAvailableMasters = [];
-                                    $multiSelectKeys = [];
+                                    
 
                                     foreach ($productMultiSelectFilteredOjbectbrickAttribute as $key => $columm) {
 
@@ -268,7 +284,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                                         }
                                     }
 
-                                    $customList2 = [];
                                     if($mappingAvailableMasters)
                                     {
                                         $result3 = $this->getRecordsWithFilteredObjectbrickMasterFields($mappingAvailableMasters, $productIds);
@@ -280,35 +295,76 @@ class CreateAndSendB2BTranslationCSVToFTPService
                                                 {
                                                     $master = $multiSelectMastersGroupList[$masterType][$field];
                                                     foreach ($master as $mkey => $value) {
-                                                        $customList2[$fields['o_id']][$fkey][$mkey] = $value;
+                                                        $customList[$fields['o_id']][$fkey][$mkey] = $value;
                                                     }
                                                 }
                                             }
                                         }
                                     }
+                                }
 
-                                    if($customList2)
+                                # Getting MultiSelectMaster's localized data for objectbrick field
+                                if($fittingAttributeList)
+                                {
+                                    $mappingAvailableMasters = [];
+
+                                    foreach ($fittingAttributeList as $key => $columm) {
+
+                                        if(isset($headerMapping[$key]))
+                                        {   
+                                            $alias = $headerMapping[$key];
+                                            $mappingAvailableMasters[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $key) AS $alias";
+                                            $multiSelectKeys[] = $alias;
+                                        }
+                                    }
+                                    
+                                    if($mappingAvailableMasters)
                                     {
-                                        foreach ($result as $key => $value) 
-                                        {
-                                            foreach ($multiSelectKeys as $nkey => $nvalue) {
-                                                $result[$key][$nvalue] = '';
-                                            }
+                                        $result4 = $this->getRecordsWithFilteredObjectbrickMasterFields($mappingAvailableMasters, $productIds);
+                                        foreach ($result4 as $key => $fields) {
+                                            foreach ($fields as $fkey => $field) {
 
-                                            if($customList2[$value['ooo_id']])
-                                            {
-                                                foreach ($customList2[$value['ooo_id']] as $rkey => $rvalue) {
-                                                    $result[$key][$rkey] = $rvalue[$value['language']];
+                                                if(isset($fitingFamilyMastersGroupList[$field]))
+                                                {
+                                                    $master = $fitingFamilyMastersGroupList[$field];
+                                                    foreach ($master as $mkey => $value) {
+                                                        $customList[$fields['o_id']][$fkey][$mkey] = $value;
+                                                    }
+                                                }
+
+                                                if(isset($fittingEndFamilyTypeGroupList[$field]))
+                                                {
+                                                    $master = $fittingEndFamilyTypeGroupList[$field];
+                                                    foreach ($master as $mkey => $value) {
+                                                        $customList[$fields['o_id']][$fkey][$mkey] = $value;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                    else{
-                                        foreach ($result as $key => $value) 
+                                }
+
+                                if($customList)
+                                {
+                                    foreach ($result as $key => $value) 
+                                    {
+                                        foreach ($multiSelectKeys as $nkey => $nvalue) {
+                                            $result[$key][$nvalue] = '';
+                                        }
+
+                                        if($customList[$value['ooo_id']])
                                         {
-                                            foreach ($multiSelectKeys as $nkey => $nvalue) {
-                                                $result[$key][$nvalue] = '';
+                                            foreach ($customList[$value['ooo_id']] as $rkey => $rvalue) {
+                                                $result[$key][$rkey] = $rvalue[$value['language']];
                                             }
+                                        }
+                                    }
+                                }
+                                else{
+                                    foreach ($result as $key => $value) 
+                                    {
+                                        foreach ($multiSelectKeys as $nkey => $nvalue) {
+                                            $result[$key][$nvalue] = '';
                                         }
                                     }
                                 }
@@ -323,7 +379,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                                     }
                                     
                                     foreach($result as $key=>$record){
-
                                         fputcsv($file, $record);
                                     }
                                 }

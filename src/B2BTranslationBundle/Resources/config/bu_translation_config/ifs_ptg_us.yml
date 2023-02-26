@@ -63,6 +63,28 @@ parameters:
             className: MultiselectMaster
             objectBrickClassName: AccessoriesFert
             masterType: HYD_ACCESSORIES~MaterialType
+        Color:
+            fieldName: Color
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: AccessoriesFert
+            masterType: HYD_ACCESSORIES~Color
+        material:
+            fieldName: material
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: PTGBase
+            masterType: PTG~material
+        HydFittingFamily:
+            fieldName: HydFittingFamily
+            fieldLocation: objectbrick
+            className: FittingFamily
+            objectBrickClassName: HydFittingsFert
+        FittingEndFamilyType:
+            fieldName: FittingEndFamilyType
+            fieldLocation: objectbrick
+            className: FittingEndFamilyType
+            objectBrickClassName: HydFittingsFert
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'
