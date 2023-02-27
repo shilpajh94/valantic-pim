@@ -77,7 +77,7 @@ class PriceImportService {
                 $a = time();
                 $j++;
             }
-            // \Pimcore\Cache::clearAll();
+            \Pimcore\Cache::clearAll();
             $this->priceModel->updateMasterTable();
         }
      
