@@ -10,4 +10,13 @@ class Common
             return isset($data['parameters'][$key])?$data['parameters'][$key]:false;       
         }
     }
+
+    public function getExt($fileName)
+    {
+        if (!empty($fileName)) {
+            $arr = explode(".", $fileName);
+            return strtolower(end($arr));
+        }
+        return false;
+    }
 }

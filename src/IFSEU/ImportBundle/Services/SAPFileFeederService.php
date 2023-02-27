@@ -22,7 +22,7 @@ class SAPFileFeederService
     public function __construct()
     {
         $this->datetime = date('Ymdhis');
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
     }
 
     /**
@@ -63,8 +63,7 @@ class SAPFileFeederService
 
             // $this->filePath = $tmpFilePath;
             // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
-            
-            $this->filePath = '/var/www/html/contiTech_CBS/var/tmp/IFSEU_PIM_P23_MaterialPlant_01252023_Copy.csv';
+            $this->filePath = '/var/www/html/ContTech/cttfse01/var/tmp/PIM_ListPrice_02232023.csv';
 
             if($this->validateAllowedFileType()) 
             {
