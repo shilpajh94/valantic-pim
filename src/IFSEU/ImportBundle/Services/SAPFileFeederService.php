@@ -64,7 +64,7 @@ class SAPFileFeederService
             // $this->filePath = $tmpFilePath;
             // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
             
-            $this->filePath = '/var/www/html/contiTech_CBS/var/tmp/IFSEU_PIM_P23_MaterialPlant_01252023_Copy.csv';
+            $this->filePath = '/var/www/html/cttfse01/var/tmp/IFSEU_PIM_P23_MaterialPlant_01252023.csv';
 
             if($this->validateAllowedFileType()) 
             {
