@@ -1,7 +1,7 @@
 <?php
 
 
-namespace IFSEU\ProductBundle\OneTimeImportCommand;
+namespace IFSEU\ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;

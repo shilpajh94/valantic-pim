@@ -1,7 +1,7 @@
 <?php
 
 
-namespace IFSEU\ProductBundle\OneTimeImportCommand;
+namespace IFSEU\ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,16 +9,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
-use Symfony\Component\Yaml\Yaml;
 
-class MediumMasterDataImportCommand extends AbstractCommand
+class CountryMasterDataImportCommand extends AbstractCommand
 {
     private $t;
 
     protected function configure()
     {
-        $this->setName('ifs-eu-medium-master-data-import-command')
-            ->setDescription('Medium master data import script')
+        $this->setName('ifs-eu-country-master-data-import-command')
+            ->setDescription('Country master data import script')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -47,12 +46,12 @@ class MediumMasterDataImportCommand extends AbstractCommand
 
             unset($result);
 
-            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER)->getId();
+            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
-                        $this->insertMediumMasterData($result, $parentFolderID);
+                        $this->insertCountriesMasterData($result, $parentFolderID);
                     }
                 }
             }
@@ -61,30 +60,24 @@ class MediumMasterDataImportCommand extends AbstractCommand
         }
     }
 
-    public function insertMediumMasterData($result, $parentFolderID)
+    public function insertCountriesMasterData($result, $parentFolderID)
     {
 
-        $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']).'-'.trim($result['EN']);
+        $title = trim($result['Name']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
         if ($title) {
 
-            $categoryObj = DataObject\IFSEUMedium::getByPath("/" . ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER . "/" . $validKey);
+            $categoryObj = DataObject\IFSEUCountries::getByPath("/" . ImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER . "/" . $validKey);
 
             if (!$categoryObj) {
-                $obj = new DataObject\IFSEUMedium();
+                $obj = new DataObject\IFSEUCountries();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setMediumID($result['ID']);
-
-                foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$languageConfig)){
-                        $lang = ($languageConfig[$key]['language']);
-                        $obj->setMediumName($result[$key],$lang);
-                    }
-                }
+                $obj->setCountryID($result['ID']);
+                $obj->setCountryName($result['Name']);
+                $obj->setCountryAbbr($result['TwoLetterIso']);
                 $obj->setPublished(true);
                 $obj->setOmitMandatoryCheck(true);
                 $obj->save();
