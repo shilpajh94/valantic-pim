@@ -1,5 +1,8 @@
 parameters:
     Product: 
+        'SAP Number': 'SAP Number'
+        'External ID': 'External ID'
+        'Salesforce ID': 'Salesforce ID'
         'Description': 'Description'
         'Language': 'Language'
         'Name': 'Name'

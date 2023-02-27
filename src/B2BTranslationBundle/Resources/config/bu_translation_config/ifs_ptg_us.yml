@@ -1,90 +1,118 @@
 parameters:
     Product:
-        FeaturesBenefitsBulletPoint:
-            fieldName: FeaturesBenefitsBulletPoint
+        articleNumber:
+            fieldName: articleNumber
             fieldLocation: class
             className: Product
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        salesforceID:
+            fieldName: salesforceID
+            fieldLocation: class
+            className: Product
+            isLocalized: false
         legalText:
             fieldName: legalText
             fieldLocation: class
             className: Product
+            isLocalized: true
         BrandShortText1:
             fieldName: BrandShortText1
             fieldLocation: class
             className: Product
+            isLocalized: true
         BrandShortText2:
             fieldName: BrandShortText2
             fieldLocation: class
             className: Product
+            isLocalized: true
         BrandShortText3:
             fieldName: BrandShortText3
             fieldLocation: class
             className: Product
+            isLocalized: true
         BrandShortText4:
             fieldName: BrandShortText4
             fieldLocation: class
             className: Product
+            isLocalized: true
         BrandShortText5:
             fieldName: BrandShortText5
             fieldLocation: class
             className: Product
+            isLocalized: true
         shortDescription:
             fieldName: shortDescription
             fieldLocation: class
             className: Product
+            isLocalized: true
         longDescription:
             fieldName: longDescription
             fieldLocation: class
             className: Product
+            isLocalized: true
         sapDescription:
             fieldName: sapDescription
             fieldLocation: class
             className: Product
+            isLocalized: true
         reinforcement:
             fieldName: reinforcement
             fieldLocation: class
             className: MultiselectMaster
             masterType: ProductClass~reinforcement
+            isLocalized: true
         tubeMaterial:
             fieldName: tubeMaterial
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
             masterType: INH-HYD-HOSE~tubeMaterial
+            isLocalized: true
         coverMaterial:
             fieldName: coverMaterial
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
             masterType: INH-HYD-HOSE~coverMaterial
+            isLocalized: true
         MaterialType:
             fieldName: MaterialType
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: AccessoriesFert
             masterType: HYD_ACCESSORIES~MaterialType
+            isLocalized: true
         Color:
             fieldName: Color
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: AccessoriesFert
             masterType: HYD_ACCESSORIES~Color
+            isLocalized: true
         material:
             fieldName: material
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: PTGBase
             masterType: PTG~material
+            isLocalized: true
         HydFittingFamily:
             fieldName: HydFittingFamily
             fieldLocation: objectbrick
             className: FittingFamily
             objectBrickClassName: HydFittingsFert
+            isLocalized: true
         FittingEndFamilyType:
             fieldName: FittingEndFamilyType
             fieldLocation: objectbrick
             className: FittingEndFamilyType
             objectBrickClassName: HydFittingsFert
+            isLocalized: true
     Category: 
         'description': 'Description'
         'PrintedCatalogDescription': 'Printed Catalog Description'
