@@ -39,6 +39,31 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductCategoryImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:one-time-import:product-category-import' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\CategoryMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-category-master-data-import-command' }
+    
+    IFSEU\ImportBundle\OneTimeImportCommand\CountryMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-country-master-data-import-command' }
+    
+    IFSEU\ImportBundle\OneTimeImportCommand\ApplicationsMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-applications-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\MediumMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-medium-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\PropertiesMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-properties-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\NormMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-norm-master-data-import-command' }
+
     
     # Helpers
     ifs_eu_import.common_helper:

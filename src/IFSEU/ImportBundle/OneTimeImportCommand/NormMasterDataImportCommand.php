@@ -1,7 +1,7 @@
 <?php
 
 
-namespace IFSEU\ProductBundle\OneTimeImportCommand;
+namespace IFSEU\ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,14 +11,14 @@ use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
 
-class CategoryMasterDataImportCommand extends AbstractCommand
+class NormMasterDataImportCommand extends AbstractCommand
 {
     private $t;
 
     protected function configure()
     {
-        $this->setName('ifs-eu-category-master-data-import-command')
-            ->setDescription('Category master data import script')
+        $this->setName('ifs-eu-norm-master-data-import-command')
+            ->setDescription('Norm master data import script')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -47,12 +47,12 @@ class CategoryMasterDataImportCommand extends AbstractCommand
 
             unset($result);
 
-            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER)->getId();
+            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_NORM_MASTERDATA_FOLDER)->getId();
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
-                        $this->insertCategoryMasterData($result, $parentFolderID);
+                        $this->insertNormMasterData($result, $parentFolderID);
                     }
                 }
             }
@@ -61,29 +61,28 @@ class CategoryMasterDataImportCommand extends AbstractCommand
         }
     }
 
-    public function insertCategoryMasterData($result, $parentFolderID)
+    public function insertNormMasterData($result, $parentFolderID)
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']).'-'.trim($result['EN']);
+        $title = trim($result['ID']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
         if ($title) {
 
-            $categoryObj = DataObject\IFSEUCategory::getByPath("/" . ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER . "/" . $validKey);
+            $categoryObj = DataObject\IFSEUNorm::getByPath("/" . ImportConstants::IFS_EU_NORM_MASTERDATA_FOLDER . "/" . $validKey);
 
             if (!$categoryObj) {
-                $obj = new DataObject\IFSEUCategory();
+                $obj = new DataObject\IFSEUNorm();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setCategoryID($result['ID']);
-                $obj->setIsThermoplastic((trim($result['isThermoplastic'])) == 'yes' ? 1 : 0);
+                $obj->setNormID($result['ID']);
 
                 foreach($result as $key => $eachColumnName){
                     if(array_key_exists($key,$languageConfig)){
                         $lang = ($languageConfig[$key]['language']);
-                        $obj->setCategoryName($result[$key],$lang);
+                        $obj->setNorm($result[$key],$lang);
                     }
                 }
                 $obj->setPublished(true);
