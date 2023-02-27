@@ -36,11 +36,23 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:sap-product-import' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductCategoryImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:one-time-import:product-category-import' }
+    
     # Helpers
     ifs_eu_import.common_helper:
         class: IFSEU\ImportBundle\Helper\Common
         public: true
 
+    ifs_eu_import.category_helper:
+        class: IFSEU\ImportBundle\Helper\Category
+        public: true
+
+    # Validator
+    ifs_eu_import.category_validator_service:
+        class: IFSEU\ImportBundle\Services\Validator\Category
+        public: true
     
     # Services
     ifs_eu_import.sap_file_feeder_service:
@@ -61,4 +73,8 @@ services:
 
     ifs_eu_import.sap_product_import:
         class: IFSEU\ImportBundle\Services\SAPFileFeederService
+        public: true
+
+    ifs_eu_import.category_import_service:
+        class: IFSEU\ImportBundle\Services\CategoryService
         public: true

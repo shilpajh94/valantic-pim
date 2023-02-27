@@ -25,6 +25,12 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH);
     }
 
+    public function getCategoryConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_CATEGORY_CONFIG_FILE_PATH);
+    }
+    
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev

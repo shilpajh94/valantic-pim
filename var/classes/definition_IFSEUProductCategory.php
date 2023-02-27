@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-30T11:21:14+05:30
+* Generated at: 2023-02-23T13:25:39+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1675057874,
+   'modificationDate' => 1677155139,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -447,65 +447,25 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'key' => 'HYD_ACCESSORIES',
-                            'value' => 'HYD_ACCESSORIES',
+                            'key' => 'Hose Base',
+                            'value' => 'IFSEUHoseBase',
                           ),
                           1 => 
                           array (
-                            'key' => 'CONVEYOR-BELT-SOLUTION',
-                            'value' => 'CONVEYOR-BELT-SOLUTION',
+                            'key' => 'Hose Skeleton',
+                            'value' => 'IFSEUHoseSkeleton',
                           ),
                           2 => 
                           array (
-                            'key' => 'Belts',
-                            'value' => 'Belts',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'INH-HYD-HOSE',
-                            'value' => 'INH-HYD-HOSE',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'HYD_FITTINGS',
-                            'value' => 'HYD_FITTINGS',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'IFSEU_Bricks',
-                            'value' => 'IFSEU_Bricks',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'INH_FITTINGS',
-                            'value' => 'INH_FITTINGS',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Metal',
-                            'value' => 'Metal',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'PTG',
-                            'value' => 'PTG',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'PTGEU',
-                            'value' => 'PTGEU',
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'Synchronous',
-                            'value' => 'Synchronous',
+                            'key' => 'Hose Fert',
+                            'value' => 'IFSEUHoseFert',
                           ),
                         ),
                          'width' => 200,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'list',
-                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\ObjectBricks',
+                         'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
