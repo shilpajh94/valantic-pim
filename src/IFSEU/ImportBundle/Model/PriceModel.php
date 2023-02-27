@@ -22,6 +22,7 @@ class PriceModel
         $this->tempTable    = "ifseu_material_list_price_import_temp";
         $this->masterTable  = "ifseu_material_list_price_import_master";
         $this->logTable     = 'ifseu_material_list_price_import_log';
+        $this->createImportTables();
     }
     
     /**
@@ -181,5 +182,37 @@ class PriceModel
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
+    }
+
+    private function createImportTables(){
+        echo "Creating IFS EU price import tables...".PHP_EOL;
+        $query = " CREATE TABLE IF NOT EXISTS `$this->logTable` (
+            `logId` bigint NOT NULL AUTO_INCREMENT,
+            `id` varchar(30) NOT NULL,
+            `record` longtext,
+            `status` char(10) DEFAULT NULL,
+            `reason` varchar(255) DEFAULT NULL,
+            `createdAt` int DEFAULT NULL,
+            PRIMARY KEY (`logId`),
+            UNIQUE KEY `logId` (`logId`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        
+        
+          CREATE TABLE  IF NOT EXISTS `$this->masterTable` (
+            `id` varchar(30) NOT NULL,
+            `record` longtext,
+            `hash` char(32) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        
+        
+          CREATE TABLE  IF NOT EXISTS `$this->tempTable` (
+            `id` varchar(30) NOT NULL,
+            `record` longtext,
+            `hash` char(32) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        $this->db->query($query);
+
     }
 }
