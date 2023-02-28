@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T09:45:52+01:00
+* Generated at: 2023-02-28T15:44:09+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -209,7 +209,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677573947,
+   'modificationDate' => 1677579234,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -13647,7 +13647,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'IFSEUHoseSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
