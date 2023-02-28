@@ -15103,6 +15103,53 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Skeleton',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Skeleton Data',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'fieldtype' => 'objectbricks',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
+                 'allowedTypes' => 
+                array (
+                ),
+                 'maxItems' => '',
+                 'border' => false,
+                 'name' => 'Skeleton',
+                 'title' => 'Skeleton',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
              'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
           )),
           2 => 

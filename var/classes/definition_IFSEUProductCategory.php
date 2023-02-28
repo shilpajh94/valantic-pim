@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T11:55:57+05:30
+* Generated at: 2023-02-28T15:40:42+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -11,6 +11,7 @@
 Fields Summary: 
 - BusinessUnit [select]
 - Level [numeric]
+- RelatedObjectBrick [select]
 - ShowInMenu [checkbox]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
@@ -31,7 +32,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677565556,
+   'modificationDate' => 1677579041,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -208,6 +209,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'IFSEU_Bricks',
+                            'value' => 'IFSEU_Bricks',
+                          ),
+                        ),
+                         'width' => 200,
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'RelatedObjectBrick',
+                         'title' => 'Related Classification Name',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'fieldtype' => 'checkbox',
                          'defaultValue' => 0,

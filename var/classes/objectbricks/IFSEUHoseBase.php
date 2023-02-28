@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-27T14:03:15+05:30
+* Generated at: 2023-02-28T15:02:20+05:30
 * IP: 127.0.0.1
 
 
@@ -46,11 +46,6 @@ Fields Summary:
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
-    0 => 
-    array (
-      'classname' => 'IFSEUProduct',
-      'fieldname' => 'Base',
-    ),
   ),
    'dao' => NULL,
    'key' => 'IFSEUHoseBase',
