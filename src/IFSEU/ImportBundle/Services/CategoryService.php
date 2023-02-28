@@ -187,7 +187,6 @@ class CategoryService
             $catObj->setKey(\Pimcore\Model\Element\Service::getValidKey($objKey, 'object'));
             /* Updating Object Here */
             $catObj->setBusinessUnit($levelInfo['bu']);
-            $catObj->setIndustry('');
             $catObj->setLevel($levelInfo['level']);
             $catObj->setCode($levelInfo['code']);
             $catObj->setFullCode($levelInfo['levelFullCode']);
@@ -219,7 +218,7 @@ class CategoryService
             /* Set related object brick here */
             if (!empty($this->reader['attributeList'])) {
                 $attributeList = $this->reader['attributeList'];
-                $attributeList = explode(',', $attributeList);
+                // $attributeList = explode(',', $attributeList);
                 $catObj->setRelatedObjectBrick($attributeList);
             }
     
