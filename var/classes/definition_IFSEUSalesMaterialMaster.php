@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-27T12:15:27+01:00
+* Generated at: 2023-02-28T15:28:34+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677496527,
+   'modificationDate' => 1677578313,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -704,7 +704,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -732,7 +732,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,

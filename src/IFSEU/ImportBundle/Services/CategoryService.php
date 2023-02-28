@@ -217,11 +217,11 @@ class CategoryService
             }
     
             /* Set related object brick here */
-            // if (!empty($this->reader['attributeList'])) {
-            //     $attributeList = $this->reader['attributeList'];
-            //     $attributeList = explode(',', $attributeList);
-            //     $catObj->setRelatedObjectBrick($attributeList);
-            // }
+            if (!empty($this->reader['attributeList'])) {
+                $attributeList = $this->reader['attributeList'];
+                $attributeList = explode(',', $attributeList);
+                $catObj->setRelatedObjectBrick($attributeList);
+            }
     
             $catObj->setPublished(1);
             $catObj->save();

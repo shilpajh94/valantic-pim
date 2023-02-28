@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-21T13:14:31+01:00
+* Generated at: 2023-02-28T11:09:45+01:00
 * IP: 127.0.0.1
 
 
@@ -38,7 +38,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'IFSEUHoseFert',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'eHose (14 Digit)',
+   'title' => 'Weight',
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(

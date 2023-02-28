@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-21T13:11:09+01:00
+* Generated at: 2023-02-28T15:43:38+05:30
 * IP: 127.0.0.1
 
 
@@ -47,11 +47,6 @@ Fields Summary:
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
-    0 => 
-    array (
-      'classname' => 'IFSEUProduct',
-      'fieldname' => 'Skeleton',
-    ),
   ),
    'dao' => NULL,
    'key' => 'IFSEUHoseSkeleton',
@@ -135,7 +130,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1016,7 +1011,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',

@@ -73,10 +73,6 @@ services:
         class: IFSEU\ImportBundle\Helper\Category
         public: true
 
-    ifs_eu_import.category_helper:
-        class: IFSEU\ImportBundle\Helper\Category
-        public: true
-
     # Validator
     ifs_eu_import.category_validator_service:
         class: IFSEU\ImportBundle\Services\Validator\Category
