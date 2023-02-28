@@ -453,9 +453,18 @@ class CreateAndSendB2BTranslationCSVToFTPService
                         
                         if($finalPritingList)
                         {
+                            // p_r($this->headerMapping);
+                            // p_r($finalPritingList[0]);
                             if(!$areHeadersAlreadyAdded)
                             {
-                                fputcsv($file, $this->headerMapping);
+                                $keys = array_keys($finalPritingList[0]);
+                                $displayKeys = [];
+
+                                foreach ($keys as $keyIndex => $keyName) {
+                                    $displayKeys[$keyName] = (isset($this->headerMapping[$keyName])) ? $this->headerMapping[$keyName] : 'Language';
+                                }
+
+                                fputcsv($file, $displayKeys);
                                 $areHeadersAlreadyAdded = true;
                             }
                             
