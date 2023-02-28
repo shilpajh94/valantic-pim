@@ -1,8 +1,8 @@
 parameters:
   # Csv header information
   sheet:
-    columnName: ['Code', 'Text']
-    lastColName: 'C'
+    columnName: ['Code', 'Text', 'level']
+    lastColName: 'D'
   # Root information
   root:
     type: 'dataObject'

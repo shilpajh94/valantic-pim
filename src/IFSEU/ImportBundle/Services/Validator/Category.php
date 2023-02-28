@@ -57,10 +57,10 @@ class Category
                 $exception = 'Column for level is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
             }
         }
-        if ($flag && array_key_exists('description', $reader)) {
-            if (!$this->validateDescription($reader['description'])) {
+        if ($flag && array_key_exists('Text', $reader)) {
+            if (!$this->validateDescription($reader['Text'])) {
                 $flag = false;
-                $exception = 'Column for description is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+                $exception = 'Column for text is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
             }
         }
 
