@@ -33,6 +33,7 @@ class SAPFileFeederService
      */
     public function execFileFeeder($commandType)
     {
+        return $this->filePath = '/var/www/html/ContTech/cttfse01/var/tmp/PIM_P23_Material_01252023.csv';
         try
         {
             // $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);

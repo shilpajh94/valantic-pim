@@ -40,6 +40,9 @@ services:
     ifs_eu_import.common_helper:
         class: IFSEU\ImportBundle\Helper\Common
         public: true
+    ifs_eu_import.category_helper:
+        class: IFSEU\ImportBundle\Helper\Category
+        public: true
 
     
     # Services
@@ -60,5 +63,11 @@ services:
         public: true
 
     ifs_eu_import.sap_product_import:
-        class: IFSEU\ImportBundle\Services\SAPFileFeederService
+        class: IFSEU\ImportBundle\Services\ProductService
+        public: true
+    ifs_eu_import.product_helper:
+        class: IFSEU\ImportBundle\Helper\Product
+        public: true
+    ifs_eu_import.category_brick_mapping_service:
+        class:  IFSEU\ImportBundle\Services\CategoryBrickMappingService
         public: true

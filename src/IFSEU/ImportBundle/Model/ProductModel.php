@@ -1,6 +1,6 @@
 <?php
 
-namespace PTGEU\ImportBundle\Model;
+namespace IFSEU\ImportBundle\Model;
 
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
@@ -24,7 +24,8 @@ class ProductModel
     public function __construct()
     {
         $this->db = Db::get();
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+        $this->createImportTables();
     }
     
     /**
@@ -317,7 +318,7 @@ class ProductModel
             foreach ($deletedProducts as $product) {
                 $keysArray[] = "'".$product['id']."'";
             }
-            $obj = new DataObject\PTGEUProduct\Listing();
+            $obj = new DataObject\IFSEUProduct\Listing();
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
             $obj->load();
             foreach($obj as $product) {
@@ -337,5 +338,40 @@ class ProductModel
             return true; 
         }
         return false; 
+    }
+    private function createImportTables(){
+        {
+            $query = "
+            CREATE TABLE IF NOT EXISTS `ifseu_material_import_log` (
+                `logId` bigint NOT NULL AUTO_INCREMENT,
+                `id` varchar(30) NOT NULL,
+                `siopfullcode` varchar(30) DEFAULT NULL,
+                `record` longtext,
+                `statusCode` char(10) DEFAULT NULL,
+                `failedReason` varchar(255) DEFAULT NULL,
+                `createdAt` int DEFAULT NULL,
+                PRIMARY KEY (`logId`),
+                UNIQUE KEY `logId` (`logId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            
+            
+            CREATE TABLE IF NOT EXISTS `ifseu_material_import_master` (
+                `id` varchar(30) NOT NULL,
+                `siopfullcode` varchar(30) DEFAULT NULL,
+                `record` longtext,
+                `hash` char(32) DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            
+            
+            CREATE TABLE IF NOT EXISTS `ifseu_material_import_temp` (
+                `id` varchar(30) NOT NULL,
+                `siopfullcode` varchar(30) DEFAULT NULL,
+                `record` longtext,
+                `hash` char(32) DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+             $this->db->query($query);
+        }
     }
 }

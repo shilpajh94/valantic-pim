@@ -6,6 +6,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Model\ProductModel;
+use Exception;
 
 class ProductService
 {    
@@ -31,21 +32,24 @@ class ProductService
     private $baseSiopMismatchLog;
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
-    
+    public $productHelper ;
+    public $catConfigData;
+    public $businessUnit;
+    public $emailService;
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
-        $this->common               = \Pimcore::getContainer()->get('import.common_helper');
+        $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
+        $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->productModel         = new ProductModel;
-        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
-        $this->productHelper        = \Pimcore::getContainer()->get('import.product_helper');
+        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->productHelper        = \Pimcore::getContainer()->get('ifs_eu_import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
+        $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
     }
@@ -94,7 +98,7 @@ class ProductService
     
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
+        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
@@ -158,10 +162,10 @@ class ProductService
                         $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
-                        throw \Exception("Base SIOP mismatch email template not found.");
+                        throw new Exception("Base SIOP mismatch email template not found.");
                     }
                 } else {
-                    throw \Exception("Base SIOP mismatch email template not configured.");
+                    throw new Exception("Base SIOP mismatch email template not configured.");
                 }
             }
         } catch (\Throwable $th) {
