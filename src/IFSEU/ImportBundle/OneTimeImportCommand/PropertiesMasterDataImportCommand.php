@@ -52,7 +52,8 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
-                        $this->insertPropertiesMasterData($result, $parentFolderID);
+                        $childTypeFolderId = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER.'/'.ucfirst($result['UI Name']))->getId();
+                        $this->insertPropertiesMasterData($result, $childTypeFolderId);
                     }
                 }
             }
@@ -61,7 +62,7 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
         }
     }
 
-    public function insertPropertiesMasterData($result, $parentFolderID)
+    public function insertPropertiesMasterData($result, $childTypeFolderId)
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
@@ -76,7 +77,7 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
             if (!$categoryObj) {
                 $obj = new DataObject\IFSEUProperties();
                 $obj->setKey($validKey);
-                $obj->setParentID($parentFolderID);
+                $obj->setParentID($childTypeFolderId);
                 $obj->setPropertyID($result['ID']);
                 $obj->setTypeName($result['TypeName']);
                 foreach($result as $key => $eachColumnName){
