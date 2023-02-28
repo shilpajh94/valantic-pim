@@ -18,9 +18,9 @@ class ImportConstants
     const IMPORT_BATCH_SIZE = 1000;
 
     /* Product Master */
-    const PRODUCTS_MASTER_FOLDER = 'Products Masterssssss';
+    const PRODUCTS_MASTER_FOLDER = 'Master List';
     /* End */
 
     /* Category Object Master */
-    const IFSEU_MASTERDATA_PRODUCT_HIERARCHY_FOLDER = self::MASTER_LIST_FOLDER . '/Product Hierarchy';
+    const IFSEU_MASTERDATA_PRODUCT_CATEGORY_FOLDER = self::MASTER_LIST_FOLDER . '/Product Category';
 }

@@ -111,7 +111,7 @@ class Category
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
-            $obj = new DataObject\PTGEUProductHierarchy\Listing;
+            $obj = new DataObject\IFSEUProductCategory\Listing;
             $obj->setCondition("fullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);
             $obj->load();
@@ -128,7 +128,7 @@ class Category
 
     public function getCategories()
     {
-        $catListing = new DataObject\PTGEUProductHierarchy\Listing;
+        $catListing = new DataObject\IFSEUProductCategory\Listing;
         foreach($catListing as $cat) {
             $fullCode = $cat->getFullCode();
             $this->siopCodes[$fullCode] = array(

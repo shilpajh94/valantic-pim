@@ -28,10 +28,12 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
     }
+
     public function getCategoryConfig()
     {
         return $this->getConfigFromYmlFile(IFS_EU_CATEGORY_CONFIG_FILE_PATH);
     }
+    
 
     /**
      * get yml config for the given file

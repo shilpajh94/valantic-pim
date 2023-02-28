@@ -1,7 +1,7 @@
 <?php
 
 
-namespace IFSEU\ProductBundle\OneTimeImportCommand;
+namespace IFSEU\ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,14 +11,14 @@ use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
 
-class PropertiesMasterDataImportCommand extends AbstractCommand
+class CategoryMasterDataImportCommand extends AbstractCommand
 {
     private $t;
 
     protected function configure()
     {
-        $this->setName('ifs-eu-properties-master-data-import-command')
-            ->setDescription('Properties master data import script')
+        $this->setName('ifs-eu-category-master-data-import-command')
+            ->setDescription('Category master data import script')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -47,12 +47,12 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
 
             unset($result);
 
-            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER)->getId();
+            $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER)->getId();
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
-                        $this->insertPropertiesMasterData($result, $parentFolderID);
+                        $this->insertCategoryMasterData($result, $parentFolderID);
                     }
                 }
             }
@@ -61,7 +61,7 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
         }
     }
 
-    public function insertPropertiesMasterData($result, $parentFolderID)
+    public function insertCategoryMasterData($result, $parentFolderID)
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
@@ -71,18 +71,19 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
 
         if ($title) {
 
-            $categoryObj = DataObject\IFSEUProperties::getByPath("/" . ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER . "/" . $validKey);
+            $categoryObj = DataObject\IFSEUCategory::getByPath("/" . ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER . "/" . $validKey);
 
             if (!$categoryObj) {
-                $obj = new DataObject\IFSEUProperties();
+                $obj = new DataObject\IFSEUCategory();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setPropertyID($result['ID']);
-                $obj->setTypeName($result['TypeName']);
+                $obj->setCategoryID($result['ID']);
+                $obj->setIsThermoplastic((trim($result['isThermoplastic'])) == 'yes' ? 1 : 0);
+
                 foreach($result as $key => $eachColumnName){
                     if(array_key_exists($key,$languageConfig)){
                         $lang = ($languageConfig[$key]['language']);
-                        $obj->setPropertyName($result[$key],$lang);
+                        $obj->setCategoryName($result[$key],$lang);
                     }
                 }
                 $obj->setPublished(true);

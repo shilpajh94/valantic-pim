@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-09T13:21:03+01:00
+* Generated at: 2023-02-27T12:24:12+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -10,7 +10,7 @@
 
 Fields Summary: 
 - Material [manyToManyObjectRelation]
-- Plants [manyToOneRelation]
+- Plant [manyToOneRelation]
 - CountryOfOrigin [manyToOneRelation]
 - PlannedDeliveryTimeInDays [numeric]
 - CommodityCode [input]
@@ -20,7 +20,9 @@ Fields Summary:
 - StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifierOrProcurementType [select]
 - AvailabilityCheckCode [input]
-- SalesOrg [manyToOneRelation]
+- ProfitCenter [input]
+- UnitOfMeasure [input]
+- SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - PlantProfitCenter [input]
 - MRPController [input]
@@ -37,7 +39,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676627769,
+   'modificationDate' => 1677497052,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -514,6 +516,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'showCharCount' => false,
                      'name' => 'AvailabilityCheckCode',
                      'title' => 'Availability Check Code',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  10 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'ProfitCenter',
+                     'title' => 'Profit Center',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  11 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'UnitOfMeasure',
+                     'title' => 'Unit of measure',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,

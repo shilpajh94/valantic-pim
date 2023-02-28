@@ -1,0 +1,37 @@
+parameters:
+  # Csv header information
+  sheet:
+    columnName: ['Code', 'Text', 'level']
+    lastColName: 'D'
+  # Root information
+  root:
+    type: 'dataObject'
+    subType:  'object'
+    fullPath: '/Contitech_IFSEU/Master List/Product Category'
+    id: 30
+  # SIOP code length for each level
+  codeLength:
+    1:  2
+    2:  2
+    3:  2
+    4:  2
+    5:  3
+    6:  2
+    7:  3
+  # SIOP full code length for each level
+  levelLength:
+    1:  2
+    2:  4
+    3:  6
+    4:  8
+    5:  11
+    6:  13
+    7:  16
+    
+  # Valid Business Unit
+  businessUnit:
+    30: 'IFSEU'
+    
+  # SIOP relation field names in productClass
+  # these fields are managed in config to keep the system from performance issue
+  siopRelationFieldsInProductClass: ['hierarchyLevel1', 'hierarchyLevel2', 'hierarchyLevel3', 'hierarchyLevel4', 'hierarchyLevel5', 'hierarchyLevel6', 'hierarchyLevel7']
