@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T16:56:27+05:30
+* Generated at: 2023-03-01T12:21:04+05:30
 * IP: 127.0.0.1
 
 
@@ -465,7 +465,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'showCharCount' => false,
                          'name' => 'fitting1Material',
-                         'title' => 'Fitting 1 Material',
+                         'title' => 'Fitting Material 2',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -549,7 +549,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'showCharCount' => false,
                          'name' => 'fitting2Material',
-                         'title' => 'Fitting 2 Material',
+                         'title' => 'Fitting Material 2',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,

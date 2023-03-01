@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T15:40:42+05:30
+* Generated at: 2023-03-01T12:22:56+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -32,7 +32,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677579041,
+   'modificationDate' => 1677653576,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -234,7 +234,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => true,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -413,7 +413,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => 'boolean',
                          'name' => 'CatalogFlag',
                          'title' => 'Catalog Flag',
-                         'tooltip' => 'Check to show this category in industrial hose catalog menu.',
+                         'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,

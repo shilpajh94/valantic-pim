@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T16:54:48+05:30
+* Generated at: 2023-03-01T12:09:46+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -12,8 +12,8 @@ Fields Summary:
 - productBrandName [select]
 - brandConstruction [select]
 - catalogLayline [input]
+- FeaturesBenefitsBulletPoint [multiselect]
 - localizedfields [localizedfields]
--- FeaturesBenefitsBulletPoint [multiselect]
 -- legalText [input]
 -- BrandShortText1 [input]
 -- BrandShortText2 [input]
@@ -244,7 +244,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677583472,
+   'modificationDate' => 1677652766,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8452,6 +8452,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
+                                  2 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'catalogLayline',
+                                     'title' => 'Catalog Layline',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:10px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -8475,19 +8503,1378 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                     'fieldtype' => 'multiselect',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => '1/2 Bend Radius',
+                                        'value' => 3187,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => '1000hr Steam Rack Tested',
+                                        'value' => 3063,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => '10:1 Safety Factor',
+                                        'value' => 3062,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => '20:1 Safety Factor',
+                                        'value' => 3064,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => '25 to 30 percent higher power ratings than classical v-belts',
+                                        'value' => 759991,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => '2:1 Safety Factor',
+                                        'value' => 10822383,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => '3-A 18-02 Certified',
+                                        'value' => 759935,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => '3A 18-03 Certified',
+                                        'value' => 3065,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => '3A Compliant Tube',
+                                        'value' => 3066,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => '4 percent more energy efficient than traditional v-belts',
+                                        'value' => 759992,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => '4:1 Safety Factor',
+                                        'value' => 759936,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => '500,000 Impulse Cycles Tested',
+                                        'value' => 3067,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Abrasion resistant tube',
+                                        'value' => 3068,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => 'ABS Certified',
+                                        'value' => 3069,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => 'Air Conditioning',
+                                        'value' => 3070,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => 'Armorcoat™ Abrasion-Resistant Cover',
+                                        'value' => 3071,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => 'Available in raw-edge, molded cog and envelope constructions',
+                                        'value' => 759993,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => 'Available with cogs for increased flexibility and heat dissipation',
+                                        'value' => 759994,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => 'Avilable in cut-edge or envelope construction',
+                                        'value' => 759995,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => 'B100 Fuel Compatibility',
+                                        'value' => 3072,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => 'B20 Fuel Compatibility',
+                                        'value' => 3073,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => 'Barber Pole Design',
+                                        'value' => 3188,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => 'Beats the heat, operates continuous at temperatures up to 210 F',
+                                        'value' => 759996,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => 'Better Cover Adhesion',
+                                        'value' => 759937,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => 'Better Flame Resistance',
+                                        'value' => 759938,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => 'Braided Construction - Greater Fitting Retention',
+                                        'value' => 759939,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => 'Braided Construction - Kink Resistant',
+                                        'value' => 759940,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => 'Braided Construction - Reeling Durability',
+                                        'value' => 759941,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => 'Braided Construction - Superior Durability',
+                                        'value' => 759942,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => 'Braided Construction - Twist Resistant',
+                                        'value' => 759943,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => 'Built In Couplings Available',
+                                        'value' => 3074,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => 'Built On Chrome Mandrel',
+                                        'value' => 759989,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => 'Chemical Resistant',
+                                        'value' => 3075,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => 'Chemical resistant cover',
+                                        'value' => 3833622,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => 'Chrome Mandrel Built',
+                                        'value' => 3076,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => 'Cogged for cooler running',
+                                        'value' => 759997,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => 'Conductive',
+                                        'value' => 3077,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => 'Conductive Cover',
+                                        'value' => 3078,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => 'Conductive Tube',
+                                        'value' => 3079,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => 'Conductive Tube & Cover',
+                                        'value' => 3080,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => 'Consistent performance',
+                                        'value' => 759998,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => 'Consistent, reliable and predictable over the life of belt',
+                                        'value' => 759999,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => 'Constant Pressure Rating',
+                                        'value' => 3081,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => 'Continuous Lengths Available',
+                                        'value' => 3082,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => 'Cost effective',
+                                        'value' => 760000,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => 'Coupled Assembly Available',
+                                        'value' => 3083,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => 'Crimp Specs Available',
+                                        'value' => 3084,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => 'Crimped Solution Available',
+                                        'value' => 759944,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => 'Crush Resistant',
+                                        'value' => 3085,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => 'Cut Lengths Available',
+                                        'value' => 3086,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => 'Decreased component wear',
+                                        'value' => 760001,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => 'Decreased drive weight',
+                                        'value' => 760002,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => 'Decreased system weight',
+                                        'value' => 760003,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => 'Designed for high-capacity performance',
+                                        'value' => 760004,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => 'Dissipates heat',
+                                        'value' => 760005,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => 'Drinking Water Safe',
+                                        'value' => 3087,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => 'Dual purpose for classical and FHP',
+                                        'value' => 760006,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => 'Dual-sided classical profile',
+                                        'value' => 760007,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => 'Durability that goes the distance',
+                                        'value' => 760008,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => 'E25 Fuel Compatibility',
+                                        'value' => 3088,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => 'E85 Fuel Compatibility',
+                                        'value' => 3089,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => 'Ease of Coupling',
+                                        'value' => 3090,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => 'Ease of Handling',
+                                        'value' => 3091,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => 'Easy installation',
+                                        'value' => 760009,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => 'Economical and trouble-free',
+                                        'value' => 760010,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => 'Economical Solution',
+                                        'value' => 3092,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => 'EI 1529-7th Edition, 2014 Compliant',
+                                        'value' => 3093,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => 'Eliminates chirps, squeaks and squeals',
+                                        'value' => 760011,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => 'EN 1361 Compliant',
+                                        'value' => 3094,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => 'Energy saving',
+                                        'value' => 760012,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => 'Engineered to universal metric profiles',
+                                        'value' => 760013,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => 'Exceeds ASME B30.27-2009. 2:1 WP to Burst Ratio',
+                                        'value' => 3095,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => 'Exceptional Durability',
+                                        'value' => 3096,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => 'Exceptional lengthwise flexibility allows for small pulleys',
+                                        'value' => 760014,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => 'Extended Life™ Cover',
+                                        'value' => 3186,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => 'Extreme Flexibility',
+                                        'value' => 3097,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => 'FDA / USDA Certified Tube',
+                                        'value' => 3189,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => 'FDA / USDA Compliant Tube',
+                                        'value' => 3190,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => 'Fiberglass tension cords for excellent resistance to shrinkage/elongation',
+                                        'value' => 760066,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => 'Field Attachable Coupling',
+                                        'value' => 3098,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => 'Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service',
+                                        'value' => 4552263,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => 'Fits smaller pulleys',
+                                        'value' => 760015,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => 'Full Vacuum Rating',
+                                        'value' => 3099,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => 'Good Flexibility',
+                                        'value' => 3100,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => 'Greater Abrasion Resistance In The Tube',
+                                        'value' => 759946,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => 'Greater Abrasion Resistance On The Cover',
+                                        'value' => 759947,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => 'Greater Ozone Resistance',
+                                        'value' => 759948,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => 'Handles 90% of Common Chemicals',
+                                        'value' => 3101,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => 'Handles 98% of Common Chemicals',
+                                        'value' => 3102,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => 'Handles common industry chemicals',
+                                        'value' => 4552265,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => 'Handles Common Industry Chemicals ',
+                                        'value' => 3191,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => 'Handles High Aromatic Hydrocarbons',
+                                        'value' => 3103,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => 'Heat and oil resistant',
+                                        'value' => 760016,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => 'Heat, ozone and abrasion resistant',
+                                        'value' => 760017,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => 'Helicog profile for quiet operation',
+                                        'value' => 760018,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => 'High & Low Temperature Rating',
+                                        'value' => 3104,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => 'High Oil Resistance Cover',
+                                        'value' => 3105,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => 'High Oil Resistance Tube',
+                                        'value' => 3106,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => 'High Oil Resistance Tube & Cover',
+                                        'value' => 3107,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => 'High Pressure Rating',
+                                        'value' => 3108,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => 'High Temperature Rating',
+                                        'value' => 3109,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => 'High Temperature Rating',
+                                        'value' => 3833587,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'High-strength aramid tensile members',
+                                        'value' => 760020,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'Higher Maximum Temperature Rating',
+                                        'value' => 759949,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Higher Vacuum Rating',
+                                        'value' => 759950,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'Higher Working Pressure',
+                                        'value' => 759951,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Highly versital',
+                                        'value' => 760019,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Homogeneous, Extruded Tube',
+                                        'value' => 3110,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Ideal for lumber applications',
+                                        'value' => 760021,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Increase belt life',
+                                        'value' => 760022,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Increased belt and sheave life',
+                                        'value' => 760023,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Increased belt life',
+                                        'value' => 760024,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Increased belt life up to 4 times',
+                                        'value' => 760025,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Increased efficiency',
+                                        'value' => 760026,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Increased flexibility, abrasion and heat resistance',
+                                        'value' => 760027,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Increased power',
+                                        'value' => 760028,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Internal Expansion For Expanded Flow',
+                                        'value' => 759952,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'ISO1825:2010 Type E Grade 2 Compliant',
+                                        'value' => 3111,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Keeps you running in a pinch',
+                                        'value' => 760029,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Kink Resistance',
+                                        'value' => 3112,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'Lightweight Construction',
+                                        'value' => 3113,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Limited Oil Resistance Cover',
+                                        'value' => 3114,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Limited Oil Resistance Tube',
+                                        'value' => 3115,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Limited Oil Resistance Tube & Cover',
+                                        'value' => 3116,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Lloyd\'s Certified',
+                                        'value' => 3117,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Longer life',
+                                        'value' => 760030,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Low Coefficient Of Friction For Ease Of Maneuverability',
+                                        'value' => 759953,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Low Computer Creep',
+                                        'value' => 3118,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Low Drag Resistance',
+                                        'value' => 3119,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Low Extraction Tube',
+                                        'value' => 3120,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Low Extraction Tube To Reduce Contamination',
+                                        'value' => 759954,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Low Force to Bend',
+                                        'value' => 3121,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Low Temperature Flexibility',
+                                        'value' => 3122,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'Low Temperature Rating',
+                                        'value' => 3123,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Low Termperature Rating',
+                                        'value' => 4552262,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Low vibration for low noise',
+                                        'value' => 760031,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Lower Computer Creep',
+                                        'value' => 759955,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Lower Force To Bend',
+                                        'value' => 759956,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Lower Minimum Temperature Rating',
+                                        'value' => 759957,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Lower noise generation',
+                                        'value' => 760032,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Lower Weight Per Foot',
+                                        'value' => 759958,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Made in USA',
+                                        'value' => 3124,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Made in USA',
+                                        'value' => 760033,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Maintenance Free',
+                                        'value' => 3125,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Maximum Abrasion Resistant Cover',
+                                        'value' => 3126,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Medium Oil Resistance Cover',
+                                        'value' => 3127,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Medium Oil Resistance Tube',
+                                        'value' => 3128,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Medium Oil Resistance Tube & Cover',
+                                        'value' => 3129,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Meets ARPM IP-7 2011 Guidelines',
+                                        'value' => 759959,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Meets ARPM IP-7 Standards',
+                                        'value' => 4552264,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Meets ARPM IP-7 Standards ',
+                                        'value' => 3192,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Meets CARB requirements',
+                                        'value' => 3130,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Meets CGA E-1 Standards',
+                                        'value' => 3131,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Meets CGA Requirements',
+                                        'value' => 759961,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Meets DOT Requirements',
+                                        'value' => 3132,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Meets EN 12115:2011',
+                                        'value' => 3133,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Meets EPA requirements for low permeation Class A1-15 marine fuel lines',
+                                        'value' => 3833595,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Meets EVR Requirements',
+                                        'value' => 3134,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Meets ISO 22241-2 Immersion Test',
+                                        'value' => 3135,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Meets ISO 22241-2 Standard',
+                                        'value' => 759962,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Meets ISO 7840 Type A1',
+                                        'value' => 3136,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Meets ISO 7840 Type A2',
+                                        'value' => 3137,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Meets ISO 7840 Type B2',
+                                        'value' => 3138,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Meets Low Permeation Requirements',
+                                        'value' => 759963,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Meets ORVR requirements',
+                                        'value' => 3139,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Microban Cover',
+                                        'value' => 3140,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Microban Cover - Anti-Microbial Protection',
+                                        'value' => 759965,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Microban Cover Option Available',
+                                        'value' => 3141,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Mild Chemical Resistance',
+                                        'value' => 3142,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Military Applications',
+                                        'value' => 3143,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'More narrow drive',
+                                        'value' => 760034,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'MSHA Flame Resistant Cover',
+                                        'value' => 3144,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'MSHA Flame Resistant Cover Available',
+                                        'value' => 3145,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'MSHA Flame Resistant Tube & Cover',
+                                        'value' => 3146,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'MSHA Rated Cover',
+                                        'value' => 759966,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Multiple Colors Available',
+                                        'value' => 3147,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'NFPA Bulletin #407 Compliant',
+                                        'value' => 3148,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Nitrile Tube Designed for Jet Fuel',
+                                        'value' => 3193,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc',
+                                        'value' => 759967,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Non-Conductive Cover',
+                                        'value' => 3149,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Non-Conductive Tube',
+                                        'value' => 3150,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'Non-Conductive Tube & Cover',
+                                        'value' => 3151,
+                                      ),
+                                      182 => 
+                                      array (
+                                        'key' => 'Non-Damming Cover',
+                                        'value' => 3152,
+                                      ),
+                                      183 => 
+                                      array (
+                                        'key' => 'Non-Marking Cover',
+                                        'value' => 3153,
+                                      ),
+                                      184 => 
+                                      array (
+                                        'key' => 'Non-Porous Tube',
+                                        'value' => 3154,
+                                      ),
+                                      185 => 
+                                      array (
+                                        'key' => 'Non-Skive Crimped Solution',
+                                        'value' => 759968,
+                                      ),
+                                      186 => 
+                                      array (
+                                        'key' => 'Not Pin-Pricked, Eliminating Path Of Moisture To Reinforcement',
+                                        'value' => 759969,
+                                      ),
+                                      187 => 
+                                      array (
+                                        'key' => 'NSF-61 Listed Material',
+                                        'value' => 3155,
+                                      ),
+                                      188 => 
+                                      array (
+                                        'key' => 'Oil Resistant',
+                                        'value' => 3156,
+                                      ),
+                                      189 => 
+                                      array (
+                                        'key' => 'Oil, heat, ozone and abrasion resistant',
+                                        'value' => 760035,
+                                      ),
+                                      190 => 
+                                      array (
+                                        'key' => 'Outperforms On Flex Fatigue Testing',
+                                        'value' => 759970,
+                                      ),
+                                      191 => 
+                                      array (
+                                        'key' => 'Passes 1000 Hour Steam Rack Test',
+                                        'value' => 759988,
+                                      ),
+                                      192 => 
+                                      array (
+                                        'key' => 'Peace of mind',
+                                        'value' => 760036,
+                                      ),
+                                      193 => 
+                                      array (
+                                        'key' => 'Peroxide cured',
+                                        'value' => 3157,
+                                      ),
+                                      194 => 
+                                      array (
+                                        'key' => 'Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose',
+                                        'value' => 759971,
+                                      ),
+                                      195 => 
+                                      array (
+                                        'key' => 'Pin-Pricked Cover',
+                                        'value' => 3158,
+                                      ),
+                                      196 => 
+                                      array (
+                                        'key' => 'Premium Ozone Resistance',
+                                        'value' => 3159,
+                                      ),
+                                      197 => 
+                                      array (
+                                        'key' => 'Provides accurate positioning',
+                                        'value' => 760037,
+                                      ),
+                                      198 => 
+                                      array (
+                                        'key' => 'Quiet Channel Technology',
+                                        'value' => 760038,
+                                      ),
+                                      199 => 
+                                      array (
+                                        'key' => 'Quiet tooth engagement',
+                                        'value' => 760039,
+                                      ),
+                                      200 => 
+                                      array (
+                                        'key' => 'Reduce maintenance',
+                                        'value' => 760040,
+                                      ),
+                                      201 => 
+                                      array (
+                                        'key' => 'Reduced costs',
+                                        'value' => 760041,
+                                      ),
+                                      202 => 
+                                      array (
+                                        'key' => 'Reduced drive cost',
+                                        'value' => 760042,
+                                      ),
+                                      203 => 
+                                      array (
+                                        'key' => 'Reduced drive weight',
+                                        'value' => 760043,
+                                      ),
+                                      204 => 
+                                      array (
+                                        'key' => 'Reduced inventory',
+                                        'value' => 760044,
+                                      ),
+                                      205 => 
+                                      array (
+                                        'key' => 'Reduced maintenance',
+                                        'value' => 760045,
+                                      ),
+                                      206 => 
+                                      array (
+                                        'key' => 'Reduced maintenance provided by its resistance to elongation',
+                                        'value' => 760046,
+                                      ),
+                                      207 => 
+                                      array (
+                                        'key' => 'Reduced operating noise up to 6 dB',
+                                        'value' => 760047,
+                                      ),
+                                      208 => 
+                                      array (
+                                        'key' => 'Reduced overall costs',
+                                        'value' => 760048,
+                                      ),
+                                      209 => 
+                                      array (
+                                        'key' => 'Reduced stretch and shrinkage',
+                                        'value' => 760049,
+                                      ),
+                                      210 => 
+                                      array (
+                                        'key' => 'Reduced vibration and operating noise',
+                                        'value' => 760050,
+                                      ),
+                                      211 => 
+                                      array (
+                                        'key' => 'Reduced vibration and turn over',
+                                        'value' => 760051,
+                                      ),
+                                      212 => 
+                                      array (
+                                        'key' => 'Reeling Durability',
+                                        'value' => 3160,
+                                      ),
+                                      213 => 
+                                      array (
+                                        'key' => 'Resistance up to 10% Xylene',
+                                        'value' => 3161,
+                                      ),
+                                      214 => 
+                                      array (
+                                        'key' => 'Resistant to Animal Fats',
+                                        'value' => 3162,
+                                      ),
+                                      215 => 
+                                      array (
+                                        'key' => 'Ribbed top for transverse rigidity, flexibility and cool running conditions',
+                                        'value' => 760052,
+                                      ),
+                                      216 => 
+                                      array (
+                                        'key' => 'Rust Resistant Wire Reinforcement',
+                                        'value' => 3163,
+                                      ),
+                                      217 => 
+                                      array (
+                                        'key' => 'Self tensioning technology',
+                                        'value' => 760053,
+                                      ),
+                                      218 => 
+                                      array (
+                                        'key' => 'Silicone free raw materials and production',
+                                        'value' => 760054,
+                                      ),
+                                      219 => 
+                                      array (
+                                        'key' => 'Smooth Cover For Low Drag Resistance',
+                                        'value' => 759972,
+                                      ),
+                                      220 => 
+                                      array (
+                                        'key' => 'Smooth operation due to precision belt characteristics',
+                                        'value' => 760055,
+                                      ),
+                                      221 => 
+                                      array (
+                                        'key' => 'Static Conductive',
+                                        'value' => 3164,
+                                      ),
+                                      222 => 
+                                      array (
+                                        'key' => 'Static conductive',
+                                        'value' => 760056,
+                                      ),
+                                      223 => 
+                                      array (
+                                        'key' => 'Static Dissipating Cover',
+                                        'value' => 3165,
+                                      ),
+                                      224 => 
+                                      array (
+                                        'key' => 'Static Dissipating Tube',
+                                        'value' => 3166,
+                                      ),
+                                      225 => 
+                                      array (
+                                        'key' => 'Static Dissipating Tube & Cover',
+                                        'value' => 3167,
+                                      ),
+                                      226 => 
+                                      array (
+                                        'key' => 'Static Pressure Rating',
+                                        'value' => 12472320,
+                                      ),
+                                      227 => 
+                                      array (
+                                        'key' => 'Static Wire',
+                                        'value' => 3168,
+                                      ),
+                                      228 => 
+                                      array (
+                                        'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
+                                        'value' => 759973,
+                                      ),
+                                      229 => 
+                                      array (
+                                        'key' => 'Static Wire Option Available',
+                                        'value' => 3169,
+                                      ),
+                                      230 => 
+                                      array (
+                                        'key' => 'Suitable for drinking  water',
+                                        'value' => 759974,
+                                      ),
+                                      231 => 
+                                      array (
+                                        'key' => 'Superior Abrasion Resistant Cover',
+                                        'value' => 3170,
+                                      ),
+                                      232 => 
+                                      array (
+                                        'key' => 'Superior Abrasion Resistant Tube',
+                                        'value' => 3171,
+                                      ),
+                                      233 => 
+                                      array (
+                                        'key' => 'Superior Abrasion Resistant Tube & Cover',
+                                        'value' => 3172,
+                                      ),
+                                      234 => 
+                                      array (
+                                        'key' => 'Superior Bend Radius',
+                                        'value' => 759975,
+                                      ),
+                                      235 => 
+                                      array (
+                                        'key' => 'Superior Cold Weather Flexibility',
+                                        'value' => 759976,
+                                      ),
+                                      236 => 
+                                      array (
+                                        'key' => 'Superior Cover Adhesion',
+                                        'value' => 3173,
+                                      ),
+                                      237 => 
+                                      array (
+                                        'key' => 'Superior Crush-Resistance',
+                                        'value' => 759977,
+                                      ),
+                                      238 => 
+                                      array (
+                                        'key' => 'Superior Durability',
+                                        'value' => 759978,
+                                      ),
+                                      239 => 
+                                      array (
+                                        'key' => 'Superior efficiency for improved performance',
+                                        'value' => 760057,
+                                      ),
+                                      240 => 
+                                      array (
+                                        'key' => 'Superior Fitting Retention',
+                                        'value' => 3174,
+                                      ),
+                                      241 => 
+                                      array (
+                                        'key' => 'Superior Kink Resistance',
+                                        'value' => 759979,
+                                      ),
+                                      242 => 
+                                      array (
+                                        'key' => 'Superior Oil Resistance In The Tube',
+                                        'value' => 759980,
+                                      ),
+                                      243 => 
+                                      array (
+                                        'key' => 'Superior Oil Resistance On The Cover',
+                                        'value' => 759981,
+                                      ),
+                                      244 => 
+                                      array (
+                                        'key' => 'Superior Oil Resistance Tube And Cover',
+                                        'value' => 759982,
+                                      ),
+                                      245 => 
+                                      array (
+                                        'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
+                                        'value' => 759983,
+                                      ),
+                                      246 => 
+                                      array (
+                                        'key' => 'Survivor Compound Available',
+                                        'value' => 3194,
+                                      ),
+                                      247 => 
+                                      array (
+                                        'key' => 'Tapered Nozzle Available',
+                                        'value' => 3175,
+                                      ),
+                                      248 => 
+                                      array (
+                                        'key' => 'Taste & Odorless Tube',
+                                        'value' => 3176,
+                                      ),
+                                      249 => 
+                                      array (
+                                        'key' => 'Tolerates misalignment',
+                                        'value' => 760058,
+                                      ),
+                                      250 => 
+                                      array (
+                                        'key' => 'Transmit power from both sides',
+                                        'value' => 760059,
+                                      ),
+                                      251 => 
+                                      array (
+                                        'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
+                                        'value' => 760060,
+                                      ),
+                                      252 => 
+                                      array (
+                                        'key' => 'Twist Resistant',
+                                        'value' => 3177,
+                                      ),
+                                      253 => 
+                                      array (
+                                        'key' => 'U.S. Coast Guard Certified',
+                                        'value' => 3178,
+                                      ),
+                                      254 => 
+                                      array (
+                                        'key' => 'UL / CUL 330 Certified ',
+                                        'value' => 759987,
+                                      ),
+                                      255 => 
+                                      array (
+                                        'key' => 'UL / CUL Certified',
+                                        'value' => 3195,
+                                      ),
+                                      256 => 
+                                      array (
+                                        'key' => 'UL 330A Approved',
+                                        'value' => 3179,
+                                      ),
+                                      257 => 
+                                      array (
+                                        'key' => 'UL 330B Approved',
+                                        'value' => 3180,
+                                      ),
+                                      258 => 
+                                      array (
+                                        'key' => 'UL 94Hb Approved',
+                                        'value' => 759984,
+                                      ),
+                                      259 => 
+                                      array (
+                                        'key' => 'UL Certified',
+                                        'value' => 759985,
+                                      ),
+                                      260 => 
+                                      array (
+                                        'key' => 'Ultra-Low Permeation',
+                                        'value' => 3181,
+                                      ),
+                                      261 => 
+                                      array (
+                                        'key' => 'Uniform cross section means less drive wear',
+                                        'value' => 760061,
+                                      ),
+                                      262 => 
+                                      array (
+                                        'key' => 'Universal Fuel Compatibility',
+                                        'value' => 3182,
+                                      ),
+                                      263 => 
+                                      array (
+                                        'key' => 'Universal tooth profile drops into existing sprockets',
+                                        'value' => 760062,
+                                      ),
+                                      264 => 
+                                      array (
+                                        'key' => 'Universal tooth profile fits into existing RPP sprockets',
+                                        'value' => 760063,
+                                      ),
+                                      265 => 
+                                      array (
+                                        'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
+                                        'value' => 760064,
+                                      ),
+                                      266 => 
+                                      array (
+                                        'key' => 'USDA / FDA Certified',
+                                        'value' => 759986,
+                                      ),
+                                      267 => 
+                                      array (
+                                        'key' => 'Vacuum Rated',
+                                        'value' => 3183,
+                                      ),
+                                      268 => 
+                                      array (
+                                        'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
+                                        'value' => 3184,
+                                      ),
+                                      269 => 
+                                      array (
+                                        'key' => 'Visibility of Flow',
+                                        'value' => 3185,
+                                      ),
+                                      270 => 
+                                      array (
+                                        'key' => 'Withstand high loading forces',
+                                        'value' => 760065,
+                                      ),
+                                    ),
                                      'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'catalogLayline',
-                                     'title' => 'Catalog Layline',
+                                     'height' => 130,
+                                     'maxItems' => '',
+                                     'renderType' => 'tags',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'text',
+                                     'columnType' => 'text',
+                                     'phpdocType' => 'array',
+                                     'dynamicOptions' => false,
+                                     'name' => 'FeaturesBenefitsBulletPoint',
+                                     'title' => 'Features & Benefits Bullet Points',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -8500,7 +9887,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -8553,1392 +9939,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'childs' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                         'fieldtype' => 'multiselect',
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => '1/2 Bend Radius',
-                                            'value' => 3187,
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => '1000hr Steam Rack Tested',
-                                            'value' => 3063,
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => '10:1 Safety Factor',
-                                            'value' => 3062,
-                                          ),
-                                          3 => 
-                                          array (
-                                            'key' => '20:1 Safety Factor',
-                                            'value' => 3064,
-                                          ),
-                                          4 => 
-                                          array (
-                                            'key' => '25 to 30 percent higher power ratings than classical v-belts',
-                                            'value' => 759991,
-                                          ),
-                                          5 => 
-                                          array (
-                                            'key' => '2:1 Safety Factor',
-                                            'value' => 10822383,
-                                          ),
-                                          6 => 
-                                          array (
-                                            'key' => '3-A 18-02 Certified',
-                                            'value' => 759935,
-                                          ),
-                                          7 => 
-                                          array (
-                                            'key' => '3A 18-03 Certified',
-                                            'value' => 3065,
-                                          ),
-                                          8 => 
-                                          array (
-                                            'key' => '3A Compliant Tube',
-                                            'value' => 3066,
-                                          ),
-                                          9 => 
-                                          array (
-                                            'key' => '4 percent more energy efficient than traditional v-belts',
-                                            'value' => 759992,
-                                          ),
-                                          10 => 
-                                          array (
-                                            'key' => '4:1 Safety Factor',
-                                            'value' => 759936,
-                                          ),
-                                          11 => 
-                                          array (
-                                            'key' => '500,000 Impulse Cycles Tested',
-                                            'value' => 3067,
-                                          ),
-                                          12 => 
-                                          array (
-                                            'key' => 'Abrasion resistant tube',
-                                            'value' => 3068,
-                                          ),
-                                          13 => 
-                                          array (
-                                            'key' => 'ABS Certified',
-                                            'value' => 3069,
-                                          ),
-                                          14 => 
-                                          array (
-                                            'key' => 'Air Conditioning',
-                                            'value' => 3070,
-                                          ),
-                                          15 => 
-                                          array (
-                                            'key' => 'Armorcoat™ Abrasion-Resistant Cover',
-                                            'value' => 3071,
-                                          ),
-                                          16 => 
-                                          array (
-                                            'key' => 'Available in raw-edge, molded cog and envelope constructions',
-                                            'value' => 759993,
-                                          ),
-                                          17 => 
-                                          array (
-                                            'key' => 'Available with cogs for increased flexibility and heat dissipation',
-                                            'value' => 759994,
-                                          ),
-                                          18 => 
-                                          array (
-                                            'key' => 'Avilable in cut-edge or envelope construction',
-                                            'value' => 759995,
-                                          ),
-                                          19 => 
-                                          array (
-                                            'key' => 'B100 Fuel Compatibility',
-                                            'value' => 3072,
-                                          ),
-                                          20 => 
-                                          array (
-                                            'key' => 'B20 Fuel Compatibility',
-                                            'value' => 3073,
-                                          ),
-                                          21 => 
-                                          array (
-                                            'key' => 'Barber Pole Design',
-                                            'value' => 3188,
-                                          ),
-                                          22 => 
-                                          array (
-                                            'key' => 'Beats the heat, operates continuous at temperatures up to 210 F',
-                                            'value' => 759996,
-                                          ),
-                                          23 => 
-                                          array (
-                                            'key' => 'Better Cover Adhesion',
-                                            'value' => 759937,
-                                          ),
-                                          24 => 
-                                          array (
-                                            'key' => 'Better Flame Resistance',
-                                            'value' => 759938,
-                                          ),
-                                          25 => 
-                                          array (
-                                            'key' => 'Braided Construction - Greater Fitting Retention',
-                                            'value' => 759939,
-                                          ),
-                                          26 => 
-                                          array (
-                                            'key' => 'Braided Construction - Kink Resistant',
-                                            'value' => 759940,
-                                          ),
-                                          27 => 
-                                          array (
-                                            'key' => 'Braided Construction - Reeling Durability',
-                                            'value' => 759941,
-                                          ),
-                                          28 => 
-                                          array (
-                                            'key' => 'Braided Construction - Superior Durability',
-                                            'value' => 759942,
-                                          ),
-                                          29 => 
-                                          array (
-                                            'key' => 'Braided Construction - Twist Resistant',
-                                            'value' => 759943,
-                                          ),
-                                          30 => 
-                                          array (
-                                            'key' => 'Built In Couplings Available',
-                                            'value' => 3074,
-                                          ),
-                                          31 => 
-                                          array (
-                                            'key' => 'Built On Chrome Mandrel',
-                                            'value' => 759989,
-                                          ),
-                                          32 => 
-                                          array (
-                                            'key' => 'Chemical Resistant',
-                                            'value' => 3075,
-                                          ),
-                                          33 => 
-                                          array (
-                                            'key' => 'Chemical resistant cover',
-                                            'value' => 3833622,
-                                          ),
-                                          34 => 
-                                          array (
-                                            'key' => 'Chrome Mandrel Built',
-                                            'value' => 3076,
-                                          ),
-                                          35 => 
-                                          array (
-                                            'key' => 'Cogged for cooler running',
-                                            'value' => 759997,
-                                          ),
-                                          36 => 
-                                          array (
-                                            'key' => 'Conductive',
-                                            'value' => 3077,
-                                          ),
-                                          37 => 
-                                          array (
-                                            'key' => 'Conductive Cover',
-                                            'value' => 3078,
-                                          ),
-                                          38 => 
-                                          array (
-                                            'key' => 'Conductive Tube',
-                                            'value' => 3079,
-                                          ),
-                                          39 => 
-                                          array (
-                                            'key' => 'Conductive Tube & Cover',
-                                            'value' => 3080,
-                                          ),
-                                          40 => 
-                                          array (
-                                            'key' => 'Consistent performance',
-                                            'value' => 759998,
-                                          ),
-                                          41 => 
-                                          array (
-                                            'key' => 'Consistent, reliable and predictable over the life of belt',
-                                            'value' => 759999,
-                                          ),
-                                          42 => 
-                                          array (
-                                            'key' => 'Constant Pressure Rating',
-                                            'value' => 3081,
-                                          ),
-                                          43 => 
-                                          array (
-                                            'key' => 'Continuous Lengths Available',
-                                            'value' => 3082,
-                                          ),
-                                          44 => 
-                                          array (
-                                            'key' => 'Cost effective',
-                                            'value' => 760000,
-                                          ),
-                                          45 => 
-                                          array (
-                                            'key' => 'Coupled Assembly Available',
-                                            'value' => 3083,
-                                          ),
-                                          46 => 
-                                          array (
-                                            'key' => 'Crimp Specs Available',
-                                            'value' => 3084,
-                                          ),
-                                          47 => 
-                                          array (
-                                            'key' => 'Crimped Solution Available',
-                                            'value' => 759944,
-                                          ),
-                                          48 => 
-                                          array (
-                                            'key' => 'Crush Resistant',
-                                            'value' => 3085,
-                                          ),
-                                          49 => 
-                                          array (
-                                            'key' => 'Cut Lengths Available',
-                                            'value' => 3086,
-                                          ),
-                                          50 => 
-                                          array (
-                                            'key' => 'Decreased component wear',
-                                            'value' => 760001,
-                                          ),
-                                          51 => 
-                                          array (
-                                            'key' => 'Decreased drive weight',
-                                            'value' => 760002,
-                                          ),
-                                          52 => 
-                                          array (
-                                            'key' => 'Decreased system weight',
-                                            'value' => 760003,
-                                          ),
-                                          53 => 
-                                          array (
-                                            'key' => 'Designed for high-capacity performance',
-                                            'value' => 760004,
-                                          ),
-                                          54 => 
-                                          array (
-                                            'key' => 'Dissipates heat',
-                                            'value' => 760005,
-                                          ),
-                                          55 => 
-                                          array (
-                                            'key' => 'Drinking Water Safe',
-                                            'value' => 3087,
-                                          ),
-                                          56 => 
-                                          array (
-                                            'key' => 'Dual purpose for classical and FHP',
-                                            'value' => 760006,
-                                          ),
-                                          57 => 
-                                          array (
-                                            'key' => 'Dual-sided classical profile',
-                                            'value' => 760007,
-                                          ),
-                                          58 => 
-                                          array (
-                                            'key' => 'Durability that goes the distance',
-                                            'value' => 760008,
-                                          ),
-                                          59 => 
-                                          array (
-                                            'key' => 'E25 Fuel Compatibility',
-                                            'value' => 3088,
-                                          ),
-                                          60 => 
-                                          array (
-                                            'key' => 'E85 Fuel Compatibility',
-                                            'value' => 3089,
-                                          ),
-                                          61 => 
-                                          array (
-                                            'key' => 'Ease of Coupling',
-                                            'value' => 3090,
-                                          ),
-                                          62 => 
-                                          array (
-                                            'key' => 'Ease of Handling',
-                                            'value' => 3091,
-                                          ),
-                                          63 => 
-                                          array (
-                                            'key' => 'Easy installation',
-                                            'value' => 760009,
-                                          ),
-                                          64 => 
-                                          array (
-                                            'key' => 'Economical and trouble-free',
-                                            'value' => 760010,
-                                          ),
-                                          65 => 
-                                          array (
-                                            'key' => 'Economical Solution',
-                                            'value' => 3092,
-                                          ),
-                                          66 => 
-                                          array (
-                                            'key' => 'EI 1529-7th Edition, 2014 Compliant',
-                                            'value' => 3093,
-                                          ),
-                                          67 => 
-                                          array (
-                                            'key' => 'Eliminates chirps, squeaks and squeals',
-                                            'value' => 760011,
-                                          ),
-                                          68 => 
-                                          array (
-                                            'key' => 'EN 1361 Compliant',
-                                            'value' => 3094,
-                                          ),
-                                          69 => 
-                                          array (
-                                            'key' => 'Energy saving',
-                                            'value' => 760012,
-                                          ),
-                                          70 => 
-                                          array (
-                                            'key' => 'Engineered to universal metric profiles',
-                                            'value' => 760013,
-                                          ),
-                                          71 => 
-                                          array (
-                                            'key' => 'Exceeds ASME B30.27-2009. 2:1 WP to Burst Ratio',
-                                            'value' => 3095,
-                                          ),
-                                          72 => 
-                                          array (
-                                            'key' => 'Exceptional Durability',
-                                            'value' => 3096,
-                                          ),
-                                          73 => 
-                                          array (
-                                            'key' => 'Exceptional lengthwise flexibility allows for small pulleys',
-                                            'value' => 760014,
-                                          ),
-                                          74 => 
-                                          array (
-                                            'key' => 'Extended Life™ Cover',
-                                            'value' => 3186,
-                                          ),
-                                          75 => 
-                                          array (
-                                            'key' => 'Extreme Flexibility',
-                                            'value' => 3097,
-                                          ),
-                                          76 => 
-                                          array (
-                                            'key' => 'FDA / USDA Certified Tube',
-                                            'value' => 3189,
-                                          ),
-                                          77 => 
-                                          array (
-                                            'key' => 'FDA / USDA Compliant Tube',
-                                            'value' => 3190,
-                                          ),
-                                          78 => 
-                                          array (
-                                            'key' => 'Fiberglass tension cords for excellent resistance to shrinkage/elongation',
-                                            'value' => 760066,
-                                          ),
-                                          79 => 
-                                          array (
-                                            'key' => 'Field Attachable Coupling',
-                                            'value' => 3098,
-                                          ),
-                                          80 => 
-                                          array (
-                                            'key' => 'Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service',
-                                            'value' => 4552263,
-                                          ),
-                                          81 => 
-                                          array (
-                                            'key' => 'Fits smaller pulleys',
-                                            'value' => 760015,
-                                          ),
-                                          82 => 
-                                          array (
-                                            'key' => 'Full Vacuum Rating',
-                                            'value' => 3099,
-                                          ),
-                                          83 => 
-                                          array (
-                                            'key' => 'Good Flexibility',
-                                            'value' => 3100,
-                                          ),
-                                          84 => 
-                                          array (
-                                            'key' => 'Greater Abrasion Resistance In The Tube',
-                                            'value' => 759946,
-                                          ),
-                                          85 => 
-                                          array (
-                                            'key' => 'Greater Abrasion Resistance On The Cover',
-                                            'value' => 759947,
-                                          ),
-                                          86 => 
-                                          array (
-                                            'key' => 'Greater Ozone Resistance',
-                                            'value' => 759948,
-                                          ),
-                                          87 => 
-                                          array (
-                                            'key' => 'Handles 90% of Common Chemicals',
-                                            'value' => 3101,
-                                          ),
-                                          88 => 
-                                          array (
-                                            'key' => 'Handles 98% of Common Chemicals',
-                                            'value' => 3102,
-                                          ),
-                                          89 => 
-                                          array (
-                                            'key' => 'Handles common industry chemicals',
-                                            'value' => 4552265,
-                                          ),
-                                          90 => 
-                                          array (
-                                            'key' => 'Handles Common Industry Chemicals ',
-                                            'value' => 3191,
-                                          ),
-                                          91 => 
-                                          array (
-                                            'key' => 'Handles High Aromatic Hydrocarbons',
-                                            'value' => 3103,
-                                          ),
-                                          92 => 
-                                          array (
-                                            'key' => 'Heat and oil resistant',
-                                            'value' => 760016,
-                                          ),
-                                          93 => 
-                                          array (
-                                            'key' => 'Heat, ozone and abrasion resistant',
-                                            'value' => 760017,
-                                          ),
-                                          94 => 
-                                          array (
-                                            'key' => 'Helicog profile for quiet operation',
-                                            'value' => 760018,
-                                          ),
-                                          95 => 
-                                          array (
-                                            'key' => 'High & Low Temperature Rating',
-                                            'value' => 3104,
-                                          ),
-                                          96 => 
-                                          array (
-                                            'key' => 'High Oil Resistance Cover',
-                                            'value' => 3105,
-                                          ),
-                                          97 => 
-                                          array (
-                                            'key' => 'High Oil Resistance Tube',
-                                            'value' => 3106,
-                                          ),
-                                          98 => 
-                                          array (
-                                            'key' => 'High Oil Resistance Tube & Cover',
-                                            'value' => 3107,
-                                          ),
-                                          99 => 
-                                          array (
-                                            'key' => 'High Pressure Rating',
-                                            'value' => 3108,
-                                          ),
-                                          100 => 
-                                          array (
-                                            'key' => 'High Temperature Rating',
-                                            'value' => 3109,
-                                          ),
-                                          101 => 
-                                          array (
-                                            'key' => 'High Temperature Rating',
-                                            'value' => 3833587,
-                                          ),
-                                          102 => 
-                                          array (
-                                            'key' => 'High-strength aramid tensile members',
-                                            'value' => 760020,
-                                          ),
-                                          103 => 
-                                          array (
-                                            'key' => 'Higher Maximum Temperature Rating',
-                                            'value' => 759949,
-                                          ),
-                                          104 => 
-                                          array (
-                                            'key' => 'Higher Vacuum Rating',
-                                            'value' => 759950,
-                                          ),
-                                          105 => 
-                                          array (
-                                            'key' => 'Higher Working Pressure',
-                                            'value' => 759951,
-                                          ),
-                                          106 => 
-                                          array (
-                                            'key' => 'Highly versital',
-                                            'value' => 760019,
-                                          ),
-                                          107 => 
-                                          array (
-                                            'key' => 'Homogeneous, Extruded Tube',
-                                            'value' => 3110,
-                                          ),
-                                          108 => 
-                                          array (
-                                            'key' => 'Ideal for lumber applications',
-                                            'value' => 760021,
-                                          ),
-                                          109 => 
-                                          array (
-                                            'key' => 'Increase belt life',
-                                            'value' => 760022,
-                                          ),
-                                          110 => 
-                                          array (
-                                            'key' => 'Increased belt and sheave life',
-                                            'value' => 760023,
-                                          ),
-                                          111 => 
-                                          array (
-                                            'key' => 'Increased belt life',
-                                            'value' => 760024,
-                                          ),
-                                          112 => 
-                                          array (
-                                            'key' => 'Increased belt life up to 4 times',
-                                            'value' => 760025,
-                                          ),
-                                          113 => 
-                                          array (
-                                            'key' => 'Increased efficiency',
-                                            'value' => 760026,
-                                          ),
-                                          114 => 
-                                          array (
-                                            'key' => 'Increased flexibility, abrasion and heat resistance',
-                                            'value' => 760027,
-                                          ),
-                                          115 => 
-                                          array (
-                                            'key' => 'Increased power',
-                                            'value' => 760028,
-                                          ),
-                                          116 => 
-                                          array (
-                                            'key' => 'Internal Expansion For Expanded Flow',
-                                            'value' => 759952,
-                                          ),
-                                          117 => 
-                                          array (
-                                            'key' => 'ISO1825:2010 Type E Grade 2 Compliant',
-                                            'value' => 3111,
-                                          ),
-                                          118 => 
-                                          array (
-                                            'key' => 'Keeps you running in a pinch',
-                                            'value' => 760029,
-                                          ),
-                                          119 => 
-                                          array (
-                                            'key' => 'Kink Resistance',
-                                            'value' => 3112,
-                                          ),
-                                          120 => 
-                                          array (
-                                            'key' => 'Lightweight Construction',
-                                            'value' => 3113,
-                                          ),
-                                          121 => 
-                                          array (
-                                            'key' => 'Limited Oil Resistance Cover',
-                                            'value' => 3114,
-                                          ),
-                                          122 => 
-                                          array (
-                                            'key' => 'Limited Oil Resistance Tube',
-                                            'value' => 3115,
-                                          ),
-                                          123 => 
-                                          array (
-                                            'key' => 'Limited Oil Resistance Tube & Cover',
-                                            'value' => 3116,
-                                          ),
-                                          124 => 
-                                          array (
-                                            'key' => 'Lloyd\'s Certified',
-                                            'value' => 3117,
-                                          ),
-                                          125 => 
-                                          array (
-                                            'key' => 'Longer life',
-                                            'value' => 760030,
-                                          ),
-                                          126 => 
-                                          array (
-                                            'key' => 'Low Coefficient Of Friction For Ease Of Maneuverability',
-                                            'value' => 759953,
-                                          ),
-                                          127 => 
-                                          array (
-                                            'key' => 'Low Computer Creep',
-                                            'value' => 3118,
-                                          ),
-                                          128 => 
-                                          array (
-                                            'key' => 'Low Drag Resistance',
-                                            'value' => 3119,
-                                          ),
-                                          129 => 
-                                          array (
-                                            'key' => 'Low Extraction Tube',
-                                            'value' => 3120,
-                                          ),
-                                          130 => 
-                                          array (
-                                            'key' => 'Low Extraction Tube To Reduce Contamination',
-                                            'value' => 759954,
-                                          ),
-                                          131 => 
-                                          array (
-                                            'key' => 'Low Force to Bend',
-                                            'value' => 3121,
-                                          ),
-                                          132 => 
-                                          array (
-                                            'key' => 'Low Temperature Flexibility',
-                                            'value' => 3122,
-                                          ),
-                                          133 => 
-                                          array (
-                                            'key' => 'Low Temperature Rating',
-                                            'value' => 3123,
-                                          ),
-                                          134 => 
-                                          array (
-                                            'key' => 'Low Termperature Rating',
-                                            'value' => 4552262,
-                                          ),
-                                          135 => 
-                                          array (
-                                            'key' => 'Low vibration for low noise',
-                                            'value' => 760031,
-                                          ),
-                                          136 => 
-                                          array (
-                                            'key' => 'Lower Computer Creep',
-                                            'value' => 759955,
-                                          ),
-                                          137 => 
-                                          array (
-                                            'key' => 'Lower Force To Bend',
-                                            'value' => 759956,
-                                          ),
-                                          138 => 
-                                          array (
-                                            'key' => 'Lower Minimum Temperature Rating',
-                                            'value' => 759957,
-                                          ),
-                                          139 => 
-                                          array (
-                                            'key' => 'Lower noise generation',
-                                            'value' => 760032,
-                                          ),
-                                          140 => 
-                                          array (
-                                            'key' => 'Lower Weight Per Foot',
-                                            'value' => 759958,
-                                          ),
-                                          141 => 
-                                          array (
-                                            'key' => 'Made in USA',
-                                            'value' => 3124,
-                                          ),
-                                          142 => 
-                                          array (
-                                            'key' => 'Made in USA',
-                                            'value' => 760033,
-                                          ),
-                                          143 => 
-                                          array (
-                                            'key' => 'Maintenance Free',
-                                            'value' => 3125,
-                                          ),
-                                          144 => 
-                                          array (
-                                            'key' => 'Maximum Abrasion Resistant Cover',
-                                            'value' => 3126,
-                                          ),
-                                          145 => 
-                                          array (
-                                            'key' => 'Medium Oil Resistance Cover',
-                                            'value' => 3127,
-                                          ),
-                                          146 => 
-                                          array (
-                                            'key' => 'Medium Oil Resistance Tube',
-                                            'value' => 3128,
-                                          ),
-                                          147 => 
-                                          array (
-                                            'key' => 'Medium Oil Resistance Tube & Cover',
-                                            'value' => 3129,
-                                          ),
-                                          148 => 
-                                          array (
-                                            'key' => 'Meets ARPM IP-7 2011 Guidelines',
-                                            'value' => 759959,
-                                          ),
-                                          149 => 
-                                          array (
-                                            'key' => 'Meets ARPM IP-7 Standards',
-                                            'value' => 4552264,
-                                          ),
-                                          150 => 
-                                          array (
-                                            'key' => 'Meets ARPM IP-7 Standards ',
-                                            'value' => 3192,
-                                          ),
-                                          151 => 
-                                          array (
-                                            'key' => 'Meets CARB requirements',
-                                            'value' => 3130,
-                                          ),
-                                          152 => 
-                                          array (
-                                            'key' => 'Meets CGA E-1 Standards',
-                                            'value' => 3131,
-                                          ),
-                                          153 => 
-                                          array (
-                                            'key' => 'Meets CGA Requirements',
-                                            'value' => 759961,
-                                          ),
-                                          154 => 
-                                          array (
-                                            'key' => 'Meets DOT Requirements',
-                                            'value' => 3132,
-                                          ),
-                                          155 => 
-                                          array (
-                                            'key' => 'Meets EN 12115:2011',
-                                            'value' => 3133,
-                                          ),
-                                          156 => 
-                                          array (
-                                            'key' => 'Meets EPA requirements for low permeation Class A1-15 marine fuel lines',
-                                            'value' => 3833595,
-                                          ),
-                                          157 => 
-                                          array (
-                                            'key' => 'Meets EVR Requirements',
-                                            'value' => 3134,
-                                          ),
-                                          158 => 
-                                          array (
-                                            'key' => 'Meets ISO 22241-2 Immersion Test',
-                                            'value' => 3135,
-                                          ),
-                                          159 => 
-                                          array (
-                                            'key' => 'Meets ISO 22241-2 Standard',
-                                            'value' => 759962,
-                                          ),
-                                          160 => 
-                                          array (
-                                            'key' => 'Meets ISO 7840 Type A1',
-                                            'value' => 3136,
-                                          ),
-                                          161 => 
-                                          array (
-                                            'key' => 'Meets ISO 7840 Type A2',
-                                            'value' => 3137,
-                                          ),
-                                          162 => 
-                                          array (
-                                            'key' => 'Meets ISO 7840 Type B2',
-                                            'value' => 3138,
-                                          ),
-                                          163 => 
-                                          array (
-                                            'key' => 'Meets Low Permeation Requirements',
-                                            'value' => 759963,
-                                          ),
-                                          164 => 
-                                          array (
-                                            'key' => 'Meets ORVR requirements',
-                                            'value' => 3139,
-                                          ),
-                                          165 => 
-                                          array (
-                                            'key' => 'Microban Cover',
-                                            'value' => 3140,
-                                          ),
-                                          166 => 
-                                          array (
-                                            'key' => 'Microban Cover - Anti-Microbial Protection',
-                                            'value' => 759965,
-                                          ),
-                                          167 => 
-                                          array (
-                                            'key' => 'Microban Cover Option Available',
-                                            'value' => 3141,
-                                          ),
-                                          168 => 
-                                          array (
-                                            'key' => 'Mild Chemical Resistance',
-                                            'value' => 3142,
-                                          ),
-                                          169 => 
-                                          array (
-                                            'key' => 'Military Applications',
-                                            'value' => 3143,
-                                          ),
-                                          170 => 
-                                          array (
-                                            'key' => 'More narrow drive',
-                                            'value' => 760034,
-                                          ),
-                                          171 => 
-                                          array (
-                                            'key' => 'MSHA Flame Resistant Cover',
-                                            'value' => 3144,
-                                          ),
-                                          172 => 
-                                          array (
-                                            'key' => 'MSHA Flame Resistant Cover Available',
-                                            'value' => 3145,
-                                          ),
-                                          173 => 
-                                          array (
-                                            'key' => 'MSHA Flame Resistant Tube & Cover',
-                                            'value' => 3146,
-                                          ),
-                                          174 => 
-                                          array (
-                                            'key' => 'MSHA Rated Cover',
-                                            'value' => 759966,
-                                          ),
-                                          175 => 
-                                          array (
-                                            'key' => 'Multiple Colors Available',
-                                            'value' => 3147,
-                                          ),
-                                          176 => 
-                                          array (
-                                            'key' => 'NFPA Bulletin #407 Compliant',
-                                            'value' => 3148,
-                                          ),
-                                          177 => 
-                                          array (
-                                            'key' => 'Nitrile Tube Designed for Jet Fuel',
-                                            'value' => 3193,
-                                          ),
-                                          178 => 
-                                          array (
-                                            'key' => 'Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc',
-                                            'value' => 759967,
-                                          ),
-                                          179 => 
-                                          array (
-                                            'key' => 'Non-Conductive Cover',
-                                            'value' => 3149,
-                                          ),
-                                          180 => 
-                                          array (
-                                            'key' => 'Non-Conductive Tube',
-                                            'value' => 3150,
-                                          ),
-                                          181 => 
-                                          array (
-                                            'key' => 'Non-Conductive Tube & Cover',
-                                            'value' => 3151,
-                                          ),
-                                          182 => 
-                                          array (
-                                            'key' => 'Non-Damming Cover',
-                                            'value' => 3152,
-                                          ),
-                                          183 => 
-                                          array (
-                                            'key' => 'Non-Marking Cover',
-                                            'value' => 3153,
-                                          ),
-                                          184 => 
-                                          array (
-                                            'key' => 'Non-Porous Tube',
-                                            'value' => 3154,
-                                          ),
-                                          185 => 
-                                          array (
-                                            'key' => 'Non-Skive Crimped Solution',
-                                            'value' => 759968,
-                                          ),
-                                          186 => 
-                                          array (
-                                            'key' => 'Not Pin-Pricked, Eliminating Path Of Moisture To Reinforcement',
-                                            'value' => 759969,
-                                          ),
-                                          187 => 
-                                          array (
-                                            'key' => 'NSF-61 Listed Material',
-                                            'value' => 3155,
-                                          ),
-                                          188 => 
-                                          array (
-                                            'key' => 'Oil Resistant',
-                                            'value' => 3156,
-                                          ),
-                                          189 => 
-                                          array (
-                                            'key' => 'Oil, heat, ozone and abrasion resistant',
-                                            'value' => 760035,
-                                          ),
-                                          190 => 
-                                          array (
-                                            'key' => 'Outperforms On Flex Fatigue Testing',
-                                            'value' => 759970,
-                                          ),
-                                          191 => 
-                                          array (
-                                            'key' => 'Passes 1000 Hour Steam Rack Test',
-                                            'value' => 759988,
-                                          ),
-                                          192 => 
-                                          array (
-                                            'key' => 'Peace of mind',
-                                            'value' => 760036,
-                                          ),
-                                          193 => 
-                                          array (
-                                            'key' => 'Peroxide cured',
-                                            'value' => 3157,
-                                          ),
-                                          194 => 
-                                          array (
-                                            'key' => 'Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose',
-                                            'value' => 759971,
-                                          ),
-                                          195 => 
-                                          array (
-                                            'key' => 'Pin-Pricked Cover',
-                                            'value' => 3158,
-                                          ),
-                                          196 => 
-                                          array (
-                                            'key' => 'Premium Ozone Resistance',
-                                            'value' => 3159,
-                                          ),
-                                          197 => 
-                                          array (
-                                            'key' => 'Provides accurate positioning',
-                                            'value' => 760037,
-                                          ),
-                                          198 => 
-                                          array (
-                                            'key' => 'Quiet Channel Technology',
-                                            'value' => 760038,
-                                          ),
-                                          199 => 
-                                          array (
-                                            'key' => 'Quiet tooth engagement',
-                                            'value' => 760039,
-                                          ),
-                                          200 => 
-                                          array (
-                                            'key' => 'Reduce maintenance',
-                                            'value' => 760040,
-                                          ),
-                                          201 => 
-                                          array (
-                                            'key' => 'Reduced costs',
-                                            'value' => 760041,
-                                          ),
-                                          202 => 
-                                          array (
-                                            'key' => 'Reduced drive cost',
-                                            'value' => 760042,
-                                          ),
-                                          203 => 
-                                          array (
-                                            'key' => 'Reduced drive weight',
-                                            'value' => 760043,
-                                          ),
-                                          204 => 
-                                          array (
-                                            'key' => 'Reduced inventory',
-                                            'value' => 760044,
-                                          ),
-                                          205 => 
-                                          array (
-                                            'key' => 'Reduced maintenance',
-                                            'value' => 760045,
-                                          ),
-                                          206 => 
-                                          array (
-                                            'key' => 'Reduced maintenance provided by its resistance to elongation',
-                                            'value' => 760046,
-                                          ),
-                                          207 => 
-                                          array (
-                                            'key' => 'Reduced operating noise up to 6 dB',
-                                            'value' => 760047,
-                                          ),
-                                          208 => 
-                                          array (
-                                            'key' => 'Reduced overall costs',
-                                            'value' => 760048,
-                                          ),
-                                          209 => 
-                                          array (
-                                            'key' => 'Reduced stretch and shrinkage',
-                                            'value' => 760049,
-                                          ),
-                                          210 => 
-                                          array (
-                                            'key' => 'Reduced vibration and operating noise',
-                                            'value' => 760050,
-                                          ),
-                                          211 => 
-                                          array (
-                                            'key' => 'Reduced vibration and turn over',
-                                            'value' => 760051,
-                                          ),
-                                          212 => 
-                                          array (
-                                            'key' => 'Reeling Durability',
-                                            'value' => 3160,
-                                          ),
-                                          213 => 
-                                          array (
-                                            'key' => 'Resistance up to 10% Xylene',
-                                            'value' => 3161,
-                                          ),
-                                          214 => 
-                                          array (
-                                            'key' => 'Resistant to Animal Fats',
-                                            'value' => 3162,
-                                          ),
-                                          215 => 
-                                          array (
-                                            'key' => 'Ribbed top for transverse rigidity, flexibility and cool running conditions',
-                                            'value' => 760052,
-                                          ),
-                                          216 => 
-                                          array (
-                                            'key' => 'Rust Resistant Wire Reinforcement',
-                                            'value' => 3163,
-                                          ),
-                                          217 => 
-                                          array (
-                                            'key' => 'Self tensioning technology',
-                                            'value' => 760053,
-                                          ),
-                                          218 => 
-                                          array (
-                                            'key' => 'Silicone free raw materials and production',
-                                            'value' => 760054,
-                                          ),
-                                          219 => 
-                                          array (
-                                            'key' => 'Smooth Cover For Low Drag Resistance',
-                                            'value' => 759972,
-                                          ),
-                                          220 => 
-                                          array (
-                                            'key' => 'Smooth operation due to precision belt characteristics',
-                                            'value' => 760055,
-                                          ),
-                                          221 => 
-                                          array (
-                                            'key' => 'Static Conductive',
-                                            'value' => 3164,
-                                          ),
-                                          222 => 
-                                          array (
-                                            'key' => 'Static conductive',
-                                            'value' => 760056,
-                                          ),
-                                          223 => 
-                                          array (
-                                            'key' => 'Static Dissipating Cover',
-                                            'value' => 3165,
-                                          ),
-                                          224 => 
-                                          array (
-                                            'key' => 'Static Dissipating Tube',
-                                            'value' => 3166,
-                                          ),
-                                          225 => 
-                                          array (
-                                            'key' => 'Static Dissipating Tube & Cover',
-                                            'value' => 3167,
-                                          ),
-                                          226 => 
-                                          array (
-                                            'key' => 'Static Pressure Rating',
-                                            'value' => 12472320,
-                                          ),
-                                          227 => 
-                                          array (
-                                            'key' => 'Static Wire',
-                                            'value' => 3168,
-                                          ),
-                                          228 => 
-                                          array (
-                                            'key' => 'Static Wire Allowing For Static Continuity In Crimped Assembly',
-                                            'value' => 759973,
-                                          ),
-                                          229 => 
-                                          array (
-                                            'key' => 'Static Wire Option Available',
-                                            'value' => 3169,
-                                          ),
-                                          230 => 
-                                          array (
-                                            'key' => 'Suitable for drinking  water',
-                                            'value' => 759974,
-                                          ),
-                                          231 => 
-                                          array (
-                                            'key' => 'Superior Abrasion Resistant Cover',
-                                            'value' => 3170,
-                                          ),
-                                          232 => 
-                                          array (
-                                            'key' => 'Superior Abrasion Resistant Tube',
-                                            'value' => 3171,
-                                          ),
-                                          233 => 
-                                          array (
-                                            'key' => 'Superior Abrasion Resistant Tube & Cover',
-                                            'value' => 3172,
-                                          ),
-                                          234 => 
-                                          array (
-                                            'key' => 'Superior Bend Radius',
-                                            'value' => 759975,
-                                          ),
-                                          235 => 
-                                          array (
-                                            'key' => 'Superior Cold Weather Flexibility',
-                                            'value' => 759976,
-                                          ),
-                                          236 => 
-                                          array (
-                                            'key' => 'Superior Cover Adhesion',
-                                            'value' => 3173,
-                                          ),
-                                          237 => 
-                                          array (
-                                            'key' => 'Superior Crush-Resistance',
-                                            'value' => 759977,
-                                          ),
-                                          238 => 
-                                          array (
-                                            'key' => 'Superior Durability',
-                                            'value' => 759978,
-                                          ),
-                                          239 => 
-                                          array (
-                                            'key' => 'Superior efficiency for improved performance',
-                                            'value' => 760057,
-                                          ),
-                                          240 => 
-                                          array (
-                                            'key' => 'Superior Fitting Retention',
-                                            'value' => 3174,
-                                          ),
-                                          241 => 
-                                          array (
-                                            'key' => 'Superior Kink Resistance',
-                                            'value' => 759979,
-                                          ),
-                                          242 => 
-                                          array (
-                                            'key' => 'Superior Oil Resistance In The Tube',
-                                            'value' => 759980,
-                                          ),
-                                          243 => 
-                                          array (
-                                            'key' => 'Superior Oil Resistance On The Cover',
-                                            'value' => 759981,
-                                          ),
-                                          244 => 
-                                          array (
-                                            'key' => 'Superior Oil Resistance Tube And Cover',
-                                            'value' => 759982,
-                                          ),
-                                          245 => 
-                                          array (
-                                            'key' => 'Superior Resistance To Oil, Grease And Animal Fat',
-                                            'value' => 759983,
-                                          ),
-                                          246 => 
-                                          array (
-                                            'key' => 'Survivor Compound Available',
-                                            'value' => 3194,
-                                          ),
-                                          247 => 
-                                          array (
-                                            'key' => 'Tapered Nozzle Available',
-                                            'value' => 3175,
-                                          ),
-                                          248 => 
-                                          array (
-                                            'key' => 'Taste & Odorless Tube',
-                                            'value' => 3176,
-                                          ),
-                                          249 => 
-                                          array (
-                                            'key' => 'Tolerates misalignment',
-                                            'value' => 760058,
-                                          ),
-                                          250 => 
-                                          array (
-                                            'key' => 'Transmit power from both sides',
-                                            'value' => 760059,
-                                          ),
-                                          251 => 
-                                          array (
-                                            'key' => 'True dimensional stability and higher horsepower capacity for long belt life',
-                                            'value' => 760060,
-                                          ),
-                                          252 => 
-                                          array (
-                                            'key' => 'Twist Resistant',
-                                            'value' => 3177,
-                                          ),
-                                          253 => 
-                                          array (
-                                            'key' => 'U.S. Coast Guard Certified',
-                                            'value' => 3178,
-                                          ),
-                                          254 => 
-                                          array (
-                                            'key' => 'UL / CUL 330 Certified ',
-                                            'value' => 759987,
-                                          ),
-                                          255 => 
-                                          array (
-                                            'key' => 'UL / CUL Certified',
-                                            'value' => 3195,
-                                          ),
-                                          256 => 
-                                          array (
-                                            'key' => 'UL 330A Approved',
-                                            'value' => 3179,
-                                          ),
-                                          257 => 
-                                          array (
-                                            'key' => 'UL 330B Approved',
-                                            'value' => 3180,
-                                          ),
-                                          258 => 
-                                          array (
-                                            'key' => 'UL 94Hb Approved',
-                                            'value' => 759984,
-                                          ),
-                                          259 => 
-                                          array (
-                                            'key' => 'UL Certified',
-                                            'value' => 759985,
-                                          ),
-                                          260 => 
-                                          array (
-                                            'key' => 'Ultra-Low Permeation',
-                                            'value' => 3181,
-                                          ),
-                                          261 => 
-                                          array (
-                                            'key' => 'Uniform cross section means less drive wear',
-                                            'value' => 760061,
-                                          ),
-                                          262 => 
-                                          array (
-                                            'key' => 'Universal Fuel Compatibility',
-                                            'value' => 3182,
-                                          ),
-                                          263 => 
-                                          array (
-                                            'key' => 'Universal tooth profile drops into existing sprockets',
-                                            'value' => 760062,
-                                          ),
-                                          264 => 
-                                          array (
-                                            'key' => 'Universal tooth profile fits into existing RPP sprockets',
-                                            'value' => 760063,
-                                          ),
-                                          265 => 
-                                          array (
-                                            'key' => 'Universal tooth profile, fits into existing HTD and RPP sprockets',
-                                            'value' => 760064,
-                                          ),
-                                          266 => 
-                                          array (
-                                            'key' => 'USDA / FDA Certified',
-                                            'value' => 759986,
-                                          ),
-                                          267 => 
-                                          array (
-                                            'key' => 'Vacuum Rated',
-                                            'value' => 3183,
-                                          ),
-                                          268 => 
-                                          array (
-                                            'key' => 'Versatile Chemical Hose that Handles Petroleum Based Products',
-                                            'value' => 3184,
-                                          ),
-                                          269 => 
-                                          array (
-                                            'key' => 'Visibility of Flow',
-                                            'value' => 3185,
-                                          ),
-                                          270 => 
-                                          array (
-                                            'key' => 'Withstand high loading forces',
-                                            'value' => 760065,
-                                          ),
-                                        ),
-                                         'width' => 300,
-                                         'height' => 150,
-                                         'maxItems' => '',
-                                         'renderType' => 'tags',
-                                         'optionsProviderClass' => '',
-                                         'optionsProviderData' => '',
-                                         'queryColumnType' => 'text',
-                                         'columnType' => 'text',
-                                         'phpdocType' => 'array',
-                                         'dynamicOptions' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint',
-                                         'title' => 'Features & Benefits Bullet Points',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
-                                      1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -9966,7 +9966,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      2 => 
+                                      1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -9994,7 +9994,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      3 => 
+                                      2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10022,7 +10022,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      4 => 
+                                      3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10050,7 +10050,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      5 => 
+                                      4 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10078,7 +10078,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      6 => 
+                                      5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10106,7 +10106,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      7 => 
+                                      6 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10134,7 +10134,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      8 => 
+                                      7 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10162,7 +10162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      9 => 
+                                      8 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -15750,7 +15750,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -15778,7 +15778,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -15806,7 +15806,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                                      'fieldtype' => 'manyToOneRelation',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'assetUploadPath' => '',
                                      'relationType' => true,
                                      'queryColumnType' => 
@@ -15849,7 +15849,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                                      'fieldtype' => 'manyToOneRelation',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'assetUploadPath' => '',
                                      'relationType' => true,
                                      'queryColumnType' => 
@@ -15892,7 +15892,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -15920,7 +15920,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
@@ -15951,7 +15951,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
@@ -16000,7 +16000,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 'KG',
                                       ),
                                     ),
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -16028,7 +16028,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -16077,7 +16077,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 200,
+                                     'width' => 250,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -16120,7 +16120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 200,
+                                     'width' => 250,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -16163,7 +16163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 200,
+                                     'width' => 250,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -16198,7 +16198,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 'PTG',
                                       ),
                                     ),
-                                     'width' => 200,
+                                     'width' => 250,
                                      'defaultValue' => 'IFS',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -16608,7 +16608,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
-                                     'width' => 220,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
@@ -16639,7 +16639,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
-                                     'width' => 220,
+                                     'width' => 250,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
@@ -16684,7 +16684,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => NULL,
                                  'collapsible' => false,
                                  'collapsed' => false,
-                                 'bodyStyle' => '',
+                                 'bodyStyle' => 'margin-left: 30px;',
                                  'datatype' => 'layout',
                                  'permissions' => NULL,
                                  'childs' => 
@@ -16708,7 +16708,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 45px;',
+                                     'style' => 'margin-left: 50px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -16754,7 +16754,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 45px;',
+                                     'style' => 'margin-left: 50px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
