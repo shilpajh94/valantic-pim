@@ -1,0 +1,1855 @@
+staticWire:
+  fieldName: staticWire
+  fieldType: booleanselect
+  brickLevel: Base
+  brickName: HoseBase
+staticWireType:
+  fieldName: staticWireType
+  fieldType: select
+  brickLevel: Base
+  brickName: HoseBase
+tubeCharacteristic:
+  fieldName: tubeCharacteristic
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+tubeColor:
+  fieldName: tubeColor
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+tubeMaterial:
+  fieldName: tubeMaterial
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+StandardMetTube:
+  fieldName: StandardMetTube
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+VirtualCatalogTubeMaterial:
+  fieldName: VirtualCatalogTubeMaterial
+  fieldType: wysiwyg
+  brickLevel: Base
+  brickName: HoseBase
+Coupling:
+  fieldName: Coupling
+  fieldType: input
+  brickLevel: Base
+  brickName: HoseBase
+sixDigitVirtualCatalogDescription:
+  fieldName: sixDigitVirtualCatalogDescription
+  fieldType: input
+  brickLevel: Base
+  brickName: HoseBase
+numberOfPlies:
+  fieldName: numberOfPlies
+  fieldType: number
+  brickLevel: Base
+  brickName: HoseBase
+standardMetHoseComment:
+  fieldName: standardMetHoseComment
+  fieldType: wysiwyg
+  brickLevel: Base
+  brickName: HoseBase
+standardMetHose:
+  fieldName: standardMetHose
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+IFSApplications:
+  fieldName: IFSApplications
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: Applications
+numberOfHelixWires:
+  fieldName: numberOfHelixWires
+  fieldType: number
+  brickLevel: Base
+  brickName: HoseBase
+LayFlatHoseYN:
+  fieldName: LayFlatHoseYN
+  fieldType: booleanselect
+  brickLevel: Base
+  brickName: HoseBase
+coverCharacteristic:
+  fieldName: coverCharacteristic
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+coverColor:
+  fieldName: coverColor
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+coverMaterial:
+  fieldName: coverMaterial
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+StandardMetCover:
+  fieldName: StandardMetCover
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+VirtualCatalogCoverMaterial:
+  fieldName: VirtualCatalogCoverMaterial
+  fieldType: wysiwyg
+  brickLevel: Base
+  brickName: HoseBase
+Packaging:
+  fieldName: Packaging
+  fieldType: textarea
+  brickLevel: Base
+  brickName: HoseBase
+HelicalWireYN:
+  fieldName: HelicalWireYN
+  fieldType: booleanselect
+  brickLevel: Base
+  brickName: HoseBase
+safetyFactor:
+  fieldName: safetyFactor
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+NonStockSizes:
+  fieldName: NonStockSizes
+  fieldType: input
+  brickLevel: Base
+  brickName: HoseBase
+agencyCompliance:
+  fieldName: agencyCompliance
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+acceptableHoseMedia:
+  fieldName: acceptableHoseMedia
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: HoseBase
+  class: MultiselectMaster
+descriptive:
+  fieldName: descriptive
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+totalWeightPerPackage:
+  fieldName: totalWeightPerPackage
+  fieldType: number
+  brickLevel: Fert
+  brickName: HoseFert
+InnerHoseWeightLbs:
+  fieldName: InnerHoseWeightLbs
+  fieldType: number
+  brickLevel: Fert
+  brickName: HoseFert
+assembly:
+  fieldName: assembly
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HoseFert
+totalWeight:
+  fieldName: totalWeight
+  fieldType: number
+  brickLevel: Fert
+  brickName: HoseFert
+hoseLengthM:
+  fieldName: hoseLengthM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HoseFert
+InnerHoseWeightKg:
+  fieldName: InnerHoseWeightKg
+  fieldType: number
+  brickLevel: Fert
+  brickName: HoseFert
+fitting1Type:
+  fieldName: fitting1Type
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+fitting1Size:
+  fieldName: fitting1Size
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+fitting1Material:
+  fieldName: fitting1Material
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+fitting2Type:
+  fieldName: fitting2Type
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+fitting2Size:
+  fieldName: fitting2Size
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+fitting2Material:
+  fieldName: fitting2Material
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+CompleteFittingText:
+  fieldName: CompleteFittingText
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: HoseFert
+bendRestrictorType:
+  fieldName: bendRestrictorType
+  fieldType: input
+  brickLevel: Fert
+  brickName: HoseFert
+bendRestrictor:
+  fieldName: bendRestrictor
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HoseFert
+HoseIDNominalIDFrac:
+  fieldName: HoseIDNominalIDFrac
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+hoseIdDec:
+  fieldName: hoseIdDec
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+hoseIdMM:
+  fieldName: hoseIdMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+hoseOdIn:
+  fieldName: hoseOdIn
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+hoseOdmm:
+  fieldName: hoseOdmm
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+HoseFittingFamily:
+  fieldName: HoseFittingFamily
+  fieldType: multiselectmaster
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+  class: FittingFamily
+InnerHoseIDFractional:
+  fieldName: InnerHoseIDFractional
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+InnerHoseIdDec:
+  fieldName: InnerHoseIdDec
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+InnerHoseIdMM:
+  fieldName: InnerHoseIdMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+InnerHoseOdInDec:
+  fieldName: InnerHoseOdInDec
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+InnerHoseOdMM:
+  fieldName: InnerHoseOdMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+workingPressureBAR:
+  fieldName: workingPressureBAR
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+workingPressurePSI:
+  fieldName: workingPressurePSI
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+workingPressureMPA:
+  fieldName: workingPressureMPA
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+minBurstPressurePSI:
+  fieldName: minBurstPressurePSI
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+minBurstPressurempa:
+  fieldName: minBurstPressurempa
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+BendRadiusIN:
+  fieldName: BendRadiusIN
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+BendRadiusMM:
+  fieldName: BendRadiusMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+tubeGaugeIN:
+  fieldName: tubeGaugeIN
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+tubeGaugeMM:
+  fieldName: tubeGaugeMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+tubeGaugeFractional:
+  fieldName: tubeGaugeFractional
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+hoseDashSize:
+  fieldName: hoseDashSize
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+VacuumIN:
+  fieldName: VacuumIN
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+VacuumMM:
+  fieldName: VacuumMM
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: HoseSkeleton
+ClampingDiameterInFract:
+  fieldName: ClampingDiameterInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+ClampingDiameterInDec:
+  fieldName: ClampingDiameterInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+ClampingDiameterMM:
+  fieldName: ClampingDiameterMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+MaterialType:
+  fieldName: MaterialType
+  fieldType: multiselectmaster
+  brickLevel: Fert
+  brickName: AccessoriesFert
+  class: MultiselectMaster
+ORingIdInDec:
+  fieldName: ORingIdInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+ORingIdMM:
+  fieldName: ORingIdMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+PortHoleIDFract:
+  fieldName: PortHoleIDFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+PortHoleIDInAndMMDecimal:
+  fieldName: PortHoleIDInAndMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+ORingWidthInAndMMDecimal:
+  fieldName: ORingWidthInAndMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+SleevingWidthInAndMMDecimal:
+  fieldName: SleevingWidthInAndMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+SleevingIDInDecimal:
+  fieldName: SleevingIDInDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+Color:
+  fieldName: Color
+  fieldType: multiselectmaster
+  brickLevel: Fert
+  brickName: AccessoriesFert
+  class: MultiselectMaster
+LengthIN:
+  fieldName: LengthIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+LengthMM:
+  fieldName: LengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+HoseIdDecIN:
+  fieldName: HoseIdDecIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+HoseIdDecMM:
+  fieldName: HoseIdDecMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+HoseIdFractIN:
+  fieldName: HoseIdFractIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+# Descriptive:
+#   fieldName: Descriptive
+#   fieldType: input
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ThreadDashSize1:
+#   fieldName: ThreadDashSize1
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ThreadDashSize2:
+#   fieldName: ThreadDashSize2
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ThreadDashSize3:
+#   fieldName: ThreadDashSize3
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ThreadDashSize4:
+#   fieldName: ThreadDashSize4
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ORingThicknessInDec:
+#   fieldName: ORingThicknessInDec
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+# ORingThicknessMM:
+#   fieldName: ORingThicknessMM
+#   fieldType: number
+#   brickLevel: Fert
+#   brickName: AccessoriesFert
+AccessoryId:
+  fieldName: AccessoryId
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+BoltHoleSizeInFract:
+  fieldName: BoltHoleSizeInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+BoltHoleSizeInDec:
+  fieldName: BoltHoleSizeInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+BoltHoleSizeMM:
+  fieldName: BoltHoleSizeMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+Width:
+  fieldName: Width
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+DashSize:
+  fieldName: DashSize
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+FlatWidthIn:
+  fieldName: FlatWidthIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+FlangePatternDimensionAInAndMMDecimal:
+  fieldName: FlangePatternDimensionAInAndMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+FlangePatternDimensionBInAndMMDecimal:
+  fieldName: FlangePatternDimensionBInAndMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+RecommendedGrade8Bolt:
+  fieldName: RecommendedGrade8Bolt
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+Hardness:
+  fieldName: Hardness
+  fieldType: input
+  brickLevel: Fert
+  brickName: AccessoriesFert
+AccessoriesWorkingPressureMPA:
+  fieldName: AccessoriesWorkingPressureMPA
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+AccessoriesWorkingPressurePSI:
+  fieldName: AccessoriesWorkingPressurePSI
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+AccessoriesWorkingPressureBAR:
+  fieldName: AccessoriesWorkingPressureBAR
+  fieldType: number
+  brickLevel: Fert
+  brickName: AccessoriesFert
+ColorDescription:
+  fieldName: ColorDescription
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: AccessoriesFert
+LengthINDescription:
+  fieldName: LengthINDescription
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: AccessoriesFert
+LengthMMDescription:
+  fieldName: LengthMMDescription
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: AccessoriesFert
+effectiveLengthUOM:
+  fieldName: effectiveLengthUOM
+  fieldType: select
+  brickLevel: Fert
+  brickName: BeltsFert
+insideLengthIN:
+  fieldName: insideLengthIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+datumLengthIn:
+  fieldName: datumLengthIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+outsideLengthIN:
+  fieldName: outsideLengthIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+productEffectiveLengthIN:
+  fieldName: productEffectiveLengthIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+numberOfBands:
+  fieldName: numberOfBands
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+insideLengthMM:
+  fieldName: insideLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+datumLengtMM:
+  fieldName: datumLengtMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+outsideLengtMM:
+  fieldName: outsideLengtMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+productEffectiveLengthMM:
+  fieldName: productEffectiveLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: BeltsFert
+DescriptivePartNumber:
+  fieldName: DescriptivePartNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HydFittingFamily:
+  fieldName: HydFittingFamily
+  fieldType: multiselectmaster
+  brickLevel: Fert
+  brickName: HydFittingsFert
+  class: FittingFamily
+HydThreadDescription:
+  fieldName: HydThreadDescription
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+nomenclatureDetails:
+  fieldName: nomenclatureDetails
+  fieldType: advancedmanytomanyobjectrelation
+  brickLevel: Fert
+  brickName: HydFittingsFert
+AssemblyRevisionNumber:
+  fieldName: AssemblyRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+AssemblyVendor:
+  fieldName: AssemblyVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ReleasedToProduction:
+  fieldName: ReleasedToProduction
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SocketWrenchSizeInFract:
+  fieldName: SocketWrenchSizeInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SocketWrenchSizeInDec:
+  fieldName: SocketWrenchSizeInDec
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FittingWeight:
+  fieldName: FittingWeight
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+DualGripStyle:
+  fieldName: DualGripStyle
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SAEStandard:
+  fieldName: SAEStandard
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SkiveType:
+  fieldName: SkiveType
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+NutType:
+  fieldName: NutType
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ReleasedToProductionDate:
+  fieldName: ReleasedToProductionDate
+  fieldType: date
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Comments:
+  fieldName: Comments
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FittingEndFamilyType:
+  fieldName: FittingEndFamilyType
+  fieldType: selectmaster
+  brickLevel: Fert
+  brickName: HydFittingsFert
+  class: FittingEndFamilyType
+SocketWrenchSizeMM:
+  fieldName: SocketWrenchSizeMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FittingSizeInFract:
+  fieldName: FittingSizeInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+UniCrimpStyle:
+  fieldName: UniCrimpStyle
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+DualSeatYN:
+  fieldName: DualSeatYN
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+AssemblyMaterial:
+  fieldName: AssemblyMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+CatalogDescription:
+  fieldName: CatalogDescription
+  fieldType: textarea
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeIDInFract:
+  fieldName: FlangeIDInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeIDMM:
+  fieldName: FlangeIDMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeODInDec:
+  fieldName: FlangeODInDec
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeIDInDec:
+  fieldName: FlangeIDInDec
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeODInFract:
+  fieldName: FlangeODInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FlangeODMM:
+  fieldName: FlangeODMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeIDInFract:
+  fieldName: TubeIDInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeLengthMM:
+  fieldName: TubeLengthMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeLengthInDec:
+  fieldName: TubeLengthInDec
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeODInDec:
+  fieldName: TubeODInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OrificeTubeODInDecimal:
+  fieldName: OrificeTubeODInDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OrificeTubeLengthInDecimal:
+  fieldName: OrificeTubeLengthInDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeIDInDec:
+  fieldName: TubeIDInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeIDMM:
+  fieldName: TubeIDMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeODInFract:
+  fieldName: TubeODInFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+TubeODMM:
+  fieldName: TubeODMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OrificeTubeODMMDecimal:
+  fieldName: OrificeTubeODMMDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OrificeTubeLengthMMDecimal:
+  fieldName: OrificeTubeLengthMMDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSize1inFraction:
+  fieldName: ValveSize1inFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSizeInDec:
+  fieldName: ValveSizeInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSizeMM:
+  fieldName: ValveSizeMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveStyle:
+  fieldName: ValveStyle
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSize2inFraction:
+  fieldName: ValveSize2inFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSize2InDec:
+  fieldName: ValveSize2InDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveSize2MM:
+  fieldName: ValveSize2MM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ValveStyle2:
+  fieldName: ValveStyle2
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OverallLengthIN:
+  fieldName: OverallLengthIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+RunLengthIN:
+  fieldName: RunLengthIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+CutOffLengthIN:
+  fieldName: CutOffLengthIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+InsertionDepthIN:
+  fieldName: InsertionDepthIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+DropLengthIN:
+  fieldName: DropLengthIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+OverallLengthMm:
+  fieldName: OverallLengthMm
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+RunLengthMM:
+  fieldName: RunLengthMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+DropLengthMM:
+  fieldName: DropLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID1InFract:
+  fieldName: HoseID1InFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID1InDec:
+  fieldName: HoseID1InDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID1MM:
+  fieldName: HoseID1MM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID3InFract:
+  fieldName: HoseID3InFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID3InDec:
+  fieldName: HoseID3InDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID2InFract:
+  fieldName: HoseID2InFract
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID2InDec:
+  fieldName: HoseID2InDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+HoseID2MM:
+  fieldName: HoseID2MM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+# HoseDashSize:
+#   fieldName: HoseDashSize
+#   fieldType: number
+#   brickLevel: Fert
+  # brickName: HydFittingsFert
+HoseID3MM:
+  fieldName: HoseID3MM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex1WrenchSizeIN:
+  fieldName: Hex1WrenchSizeIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex2WrenchSizeIN:
+  fieldName: Hex2WrenchSizeIN
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex1WrenchSizeFraction:
+  fieldName: Hex1WrenchSizeFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex2WrenchSizeFraction:
+  fieldName: Hex2WrenchSizeFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex1WrenchSizeMM:
+  fieldName: Hex1WrenchSizeMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Hex2WrenchSizeMM:
+  fieldName: Hex2WrenchSizeMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SingleHexYN:
+  fieldName: SingleHexYN
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Thread1:
+  fieldName: Thread1
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Thread3:
+  fieldName: Thread3
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadSize1InMMDecimal:
+  fieldName: ThreadSize1InMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadSize2InMMDecimal:
+  fieldName: ThreadSize2InMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadSize3InMMDecimal:
+  fieldName: ThreadSize3InMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadDashSize1:
+  fieldName: ThreadDashSize1
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadDashSize3:
+  fieldName: ThreadDashSize3
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Thread2:
+  fieldName: Thread2
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+Thread4:
+  fieldName: Thread4
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadSize4InMMDecimal:
+  fieldName: ThreadSize4InMMDecimal
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadDashSize2:
+  fieldName: ThreadDashSize2
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadDashSize4:
+  fieldName: ThreadDashSize4
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemComponentNumber:
+  fieldName: StemComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemComponentThreadType:
+  fieldName: StemComponentThreadType
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemHexinchDecimal:
+  fieldName: StemHexinchDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemHexMM:
+  fieldName: StemHexMM
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemRevDate:
+  fieldName: StemRevDate
+  fieldType: date
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemComponentSAPNumber:
+  fieldName: StemComponentSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemComponentVendor:
+  fieldName: StemComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemHexinchFraction:
+  fieldName: StemHexinchFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemMaterial:
+  fieldName: StemMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+StemRevisionNumber:
+  fieldName: StemRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleComponentNumber:
+  fieldName: FerruleComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleComponentVendor:
+  fieldName: FerruleComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleMaterial:
+  fieldName: FerruleMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleIDInDec:
+  fieldName: FerruleIDInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleODInDec:
+  fieldName: FerruleODInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleLengthInDec:
+  fieldName: FerruleLengthInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleRevDate:
+  fieldName: FerruleRevDate
+  fieldType: date
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleComponentSAPNumber:
+  fieldName: FerruleComponentSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleRevisionNumber:
+  fieldName: FerruleRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleIDMM:
+  fieldName: FerruleIDMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleODMM:
+  fieldName: FerruleODMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+FerruleLengthMM:
+  fieldName: FerruleLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutComponentNumber:
+  fieldName: SwivelNutComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutComponentThreadType:
+  fieldName: SwivelNutComponentThreadType
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutHexinchFraction:
+  fieldName: SwivelNutHexinchFraction
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutMaterial:
+  fieldName: SwivelNutMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutRevisionNumber:
+  fieldName: SwivelNutRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutComponentSAPNumber:
+  fieldName: SwivelNutComponentSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutComponentVendor:
+  fieldName: SwivelNutComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutinchDecimal:
+  fieldName: SwivelNutinchDecimal
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SwivelNutRevDate:
+  fieldName: SwivelNutRevDate
+  fieldType: date
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThrustWireComponentNumber:
+  fieldName: ThrustWireComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThrustWireMaterial:
+  fieldName: ThrustWireMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThrustWireRevisionNumber:
+  fieldName: ThrustWireRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingBOMSAPNumber:
+  fieldName: ORingBOMSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingComponentSAPNumber:
+  fieldName: ORingComponentSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingMaterial:
+  fieldName: ORingMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingIDInDec:
+  fieldName: ORingIDInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingThicknessInDec:
+  fieldName: ORingThicknessInDec
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingComponentNumber:
+  fieldName: ORingComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingComponentVendor:
+  fieldName: ORingComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingRevisionNumber:
+  fieldName: ORingRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingIDMM:
+  fieldName: ORingIDMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ORingThicknessMM:
+  fieldName: ORingThicknessMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: HydFittingsFert
+InternalORingComponentNumber:
+  fieldName: InternalORingComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+InternalORingSAPNumber:
+  fieldName: InternalORingSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+InternalORingRev:
+  fieldName: InternalORingRev
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+InternalORingVendor:
+  fieldName: InternalORingVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+BackUpORingComponentVendor:
+  fieldName: BackUpORingComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+BackUpORingMaterial:
+  fieldName: BackUpORingMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+BackUpORingSAPNumber:
+  fieldName: BackUpORingSAPNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+BackUpORingComponentNumber:
+  fieldName: BackUpORingComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+BackUpORingRevisionNumber:
+  fieldName: BackUpORingRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SlipNutRetainingRingComponentNumber:
+  fieldName: SlipNutRetainingRingComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SlipNutRetainingRingComponentVendor:
+  fieldName: SlipNutRetainingRingComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SlipNutRetainingRingMaterial:
+  fieldName: SlipNutRetainingRingMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SlipNutRetainingRingSAPComponentNumber:
+  fieldName: SlipNutRetainingRingSAPComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+SlipNutRevisionNumber:
+  fieldName: SlipNutRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadProtectorComponentNumber:
+  fieldName: ThreadProtectorComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadProtectorComponentVendor:
+  fieldName: ThreadProtectorComponentVendor
+  fieldType: multiselect
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadProtectorMaterial:
+  fieldName: ThreadProtectorMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadProtectorRevisionNumber:
+  fieldName: ThreadProtectorRevisionNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+ThreadProtectorSAPComponentNumber:
+  fieldName: ThreadProtectorSAPComponentNumber
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+PackagingBoxSize:
+  fieldName: PackagingBoxSize
+  fieldType: select
+  brickLevel: Fert
+  brickName: HydFittingsFert
+PackagingQuantityPerBox:
+  fieldName: PackagingQuantityPerBox
+  fieldType: input
+  brickLevel: Fert
+  brickName: HydFittingsFert
+material:
+  fieldName: material
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: PTGBase
+  class: MultiselectMaster
+PTGApplications:
+  fieldName: PTGApplications
+  fieldType: multiselectmaster
+  brickLevel: Base
+  brickName: PTGBase
+  class: Applications
+color:
+  fieldName: color
+  fieldType: select
+  brickLevel: Fert
+  brickName: PTGFert
+widthmm:
+  fieldName: widthmm
+  fieldType: number
+  brickLevel: Fert
+  brickName: PTGFert
+CADLink:
+  fieldName: CADLink
+  fieldType: input
+  brickLevel: Fert
+  brickName: PTGFert
+PDFDrawing:
+  fieldName: PDFDrawing
+  fieldType: booleanselect
+  brickLevel: Fert
+  brickName: PTGFert
+AdditionalInformation:
+  fieldName: AdditionalInformation
+  fieldType: input
+  brickLevel: Fert
+  brickName: PTGFert
+customerProductFamily:
+  fieldName: customerProductFamily
+  fieldType: input
+  brickLevel: Fert
+  brickName: PTGFert
+widthIn:
+  fieldName: widthIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: PTGFert
+CADFile:
+  fieldName: CADFile
+  fieldType: select
+  brickLevel: Fert
+  brickName: PTGFert
+PDFLink:
+  fieldName: PDFLink
+  fieldType: input
+  brickLevel: Fert
+  brickName: PTGFert
+profile:
+  fieldName: profile
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+heightIn:
+  fieldName: heightIn
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+staticConductive:
+  fieldName: staticConductive
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+beltAngle:
+  fieldName: beltAngle
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+heightMm:
+  fieldName: heightMm
+  fieldType: number
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+heatOilResistant:
+  fieldName: heatOilResistant
+  fieldType: input
+  brickLevel: Skeleton
+  brickName: PTGSkeleton
+pitchUOM:
+  fieldName: pitchUOM
+  fieldType: select
+  brickLevel: Fert
+  brickName: SynchronousFert
+pitchIN:
+  fieldName: pitchIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: SynchronousFert
+pitchMM:
+  fieldName: pitchMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: SynchronousFert
+numberOfTeeth:
+  fieldName: numberOfTeeth
+  fieldType: number
+  brickLevel: Fert
+  brickName: SynchronousFert
+pitchLengthUOM:
+  fieldName: pitchLengthUOM
+  fieldType: select
+  brickLevel: Fert
+  brickName: SynchronousFert
+pitchLengthIN:
+  fieldName: pitchLengthIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: SynchronousFert
+pitchLengthMM:
+  fieldName: pitchLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: SynchronousFert
+SizeInchesFraction:
+  fieldName: SizeInchesFraction
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+SizeEnd1Inches:
+  fieldName: SizeEnd1Inches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+AdapterType:
+  fieldName: AdapterType
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+AdapterGenderEnd2:
+  fieldName: AdapterGenderEnd2
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketMaterial:
+  fieldName: GasketMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketIDInches:
+  fieldName: GasketIDInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketODMM:
+  fieldName: GasketODMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+PressureRatingPSI:
+  fieldName: PressureRatingPSI
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+OverallLengthInches:
+  fieldName: OverallLengthInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+OverallLengthMM:
+  fieldName: OverallLengthMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MinimumIDInches:
+  fieldName: MinimumIDInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+ExposedLengthInches:
+  fieldName: ExposedLengthInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+HoseID:
+  fieldName: HoseID
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+NPTFThread:
+  fieldName: NPTFThread
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+OverallLength:
+  fieldName: OverallLength
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+FlowDiameter:
+  fieldName: FlowDiameter
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+LBSPer100Pcs:
+  fieldName: LBSPer100Pcs
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MaximumODIN:
+  fieldName: MaximumODIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+ODWithCamArmsExtendedIN:
+  fieldName: ODWithCamArmsExtendedIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+FittingMaterial:
+  fieldName: FittingMaterial
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+SizeEnd2Inches:
+  fieldName: SizeEnd2Inches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+AdapterGenderEnd1:
+  fieldName: AdapterGenderEnd1
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketColor:
+  fieldName: GasketColor
+  fieldType: select
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketIDMM:
+  fieldName: GasketIDMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketODInches:
+  fieldName: GasketODInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketThicknessInches:
+  fieldName: GasketThicknessInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+GasketThicknessMM:
+  fieldName: GasketThicknessMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+DistanceChainLugExtendsfromBodyIN:
+  fieldName: DistanceChainLugExtendsfromBodyIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+DistanceChainLugExtendsfromBodyMM:
+  fieldName: DistanceChainLugExtendsfromBodyMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MaximumWidthAcrossAdapterInches:
+  fieldName: MaximumWidthAcrossAdapterInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MaximumWidthwithCamArmsClosedInches:
+  fieldName: MaximumWidthwithCamArmsClosedInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MaximumWidthwithCamArmsExtendedInches:
+  fieldName: MaximumWidthwithCamArmsExtendedInches
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+ThreadSize:
+  fieldName: ThreadSize
+  fieldType: input
+  brickLevel: Fert
+  brickName: INHFittingsFert
+BarbLength:
+  fieldName: BarbLength
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+HexSize:
+  fieldName: HexSize
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+MaximumODMM:
+  fieldName: MaximumODMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: INHFittingsFert
+boreType:
+  fieldName: boreType
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+finish:
+  fieldName: finish
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+flangeMaterial:
+  fieldName: flangeMaterial
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+overallThicknessIn:
+  fieldName: overallThicknessIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+hubDiameterIn:
+  fieldName: hubDiameterIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+pulleyDiameterIN:
+  fieldName: pulleyDiameterIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+maxBoreSizeIN:
+  fieldName: maxBoreSizeIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+overAllLengthIn:
+  fieldName: overAllLengthIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+beltWidth:
+  fieldName: beltWidth
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+pitchDiameterIn:
+  fieldName: pitchDiameterIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+outsideDiameterIn:
+  fieldName: outsideDiameterIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+flangeDiameterIn:
+  fieldName: flangeDiameterIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+faceWidthIn:
+  fieldName: faceWidthIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+minBoreIn:
+  fieldName: minBoreIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+insideDiameterIn:
+  fieldName: insideDiameterIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+stockThicknessIn:
+  fieldName: stockThicknessIn
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+DatumDiameterIN:
+  fieldName: DatumDiameterIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+BoreIN:
+  fieldName: BoreIN
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+MaxRPM:
+  fieldName: MaxRPM
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+GroovesPerTooth:
+  fieldName: GroovesPerTooth
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+flange:
+  fieldName: flange
+  fieldType: checkbox
+  brickLevel: Fert
+  brickName: MetalFert
+beltType:
+  fieldName: beltType
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+setScrew:
+  fieldName: setScrew
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+overallThicknessMM:
+  fieldName: overallThicknessMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+hubDiameterMm:
+  fieldName: hubDiameterMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+pulleyDiameterMM:
+  fieldName: pulleyDiameterMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+maxBoreSizeMM:
+  fieldName: maxBoreSizeMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+overAllLengthMm:
+  fieldName: overAllLengthMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+beltWidthUOM:
+  fieldName: beltWidthUOM
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
+pitchDiameterMm:
+  fieldName: pitchDiameterMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+outsideDiameterMm:
+  fieldName: outsideDiameterMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+flangeDiameterMm:
+  fieldName: flangeDiameterMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+faceWidthMm:
+  fieldName: faceWidthMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+minBoreMm:
+  fieldName: minBoreMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+insideDiameterMm:
+  fieldName: insideDiameterMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+stockThicknessMm:
+  fieldName: stockThicknessMm
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+DatumDiameterMM:
+  fieldName: DatumDiameterMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+BoreMM:
+  fieldName: BoreMM
+  fieldType: number
+  brickLevel: Fert
+  brickName: MetalFert
+Bushing:
+  fieldName: Bushing
+  fieldType: input
+  brickLevel: Fert
+  brickName: MetalFert
