@@ -142,21 +142,21 @@ class S3Listener
                 }
                 $key = $this->asset->getRealFullPath();
 
-                if($this->checkIfMakeAssetPublicinS3()) {
-                    try {
-                        //if(!$this->asset->getProperty("isPublicInS3")) {
-                        $this->makeAssetPublicInS3('assets'.$key);
-                        //}
-                    } catch(\Exception $e) {
-                        // do nothing
-                    }
-                } else {
-                    try {
-                        $this->makeAssetPrivateInS3('assets'.$key);
-                    } catch(\Exception $e) {
-                        // do nothing
-                    }
-                }
+                // if($this->checkIfMakeAssetPublicinS3()) {
+                //     try {
+                //         //if(!$this->asset->getProperty("isPublicInS3")) {
+                //         $this->makeAssetPublicInS3('assets'.$key);
+                //         //}
+                //     } catch(\Exception $e) {
+                //         // do nothing
+                //     }
+                // } else {
+                //     try {
+                //         $this->makeAssetPrivateInS3('assets'.$key);
+                //     } catch(\Exception $e) {
+                //         // do nothing
+                //     }
+                // }
 
             }
         }
@@ -170,13 +170,13 @@ class S3Listener
                 $this->asset = $e->getAsset();
                 $key = $this->asset->getRealFullPath();
 
-                if($this->checkIfMakeAssetPublicinS3()) {
-                    try {
-                        $this->makeAssetPublicInS3('assets'.$key);
-                    } catch(\Exception $e) {
-                        // do nothing
-                    }
-                }
+                // if($this->checkIfMakeAssetPublicinS3()) {
+                //     try {
+                //         $this->makeAssetPublicInS3('assets'.$key);
+                //     } catch(\Exception $e) {
+                //         // do nothing
+                //     }
+                // }
             }
         }
 
