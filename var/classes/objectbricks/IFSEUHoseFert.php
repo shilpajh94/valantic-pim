@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-01T13:48:37+05:30
+* Generated at: 2023-03-01T12:31:43+01:00
 * IP: 127.0.0.1
 
 
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'IFSEUHoseFert',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Attributes',
+   'title' => 'Weight',
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -66,9 +66,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'border' => false,
          'name' => 'Layout',
          'type' => NULL,
-         'region' => NULL,
+         'region' => '',
          'title' => '',
-         'width' => NULL,
+         'width' => 1100,
          'height' => NULL,
          'collapsible' => false,
          'collapsed' => false,
@@ -265,7 +265,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 140px;',
+                     'style' => 'margin-left: 80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -295,7 +295,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 140px;',
+                     'style' => 'margin-left: 80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -326,7 +326,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 140px;',
+                     'style' => 'margin-left: 80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -604,7 +604,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 140px;',
+                         'style' => 'margin-left: 80px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -761,7 +761,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 140px;',
+                         'style' => 'margin-left: 80px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
