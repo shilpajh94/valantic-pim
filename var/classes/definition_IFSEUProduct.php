@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-01T12:20:16+01:00
+* Generated at: 2023-03-02T13:47:04+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -107,11 +107,9 @@ Fields Summary:
 - WeightLbsPerFTUOM [input]
 - ProductType [select]
 - shelfLife [input]
-- TRGS [input]
 - ConflictMinerals [multiselect]
 - additionalInformation [input]
 - substitutePartNumber [input]
-- SVHC [input]
 - numberOfItems [numeric]
 - UnitsInPackage [input]
 - SalesOrgData [reverseManyToManyObjectRelation]
@@ -173,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677669613,
+   'modificationDate' => 1677745006,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -13761,34 +13759,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'TRGS',
-                                     'title' => 'TRGS',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
@@ -13839,7 +13809,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  3 => 
+                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -13918,34 +13888,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'SVHC',
-                                     'title' => 'SVHC',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
                                      'width' => 220,
@@ -13976,7 +13918,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  3 => 
+                                  2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,

@@ -1,12 +1,12 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-01T10:52:46+01:00
+* Generated at: 2023-03-02T13:46:06+05:30
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- Reinforcement [multiselect]
+- Reinforcement [select]
 - staticWire [booleanSelect]
 - staticWireType [select]
 - tubeCharacteristic [select]
@@ -135,20 +135,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'Reinforcement',
                      'title' => 'Reinforcement',
@@ -156,7 +155,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -164,6 +163,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -899,7 +899,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
