@@ -52,6 +52,7 @@ class NormMasterDataImportCommand extends AbstractCommand
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
                     if (isset($result) && is_array($result)) {
+                        $result['EN'] == "" ? $result['EN'] = $result['DE'] : $result['EN'];
                         $this->insertNormMasterData($result, $parentFolderID);
                     }
                 }
@@ -65,7 +66,8 @@ class NormMasterDataImportCommand extends AbstractCommand
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']);
+        // $title = trim($result['ID']);
+        $title = trim($result['EN']  ?  $result['EN'] :  $result['DE']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
