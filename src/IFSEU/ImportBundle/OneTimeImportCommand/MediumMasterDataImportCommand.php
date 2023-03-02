@@ -65,24 +65,25 @@ class MediumMasterDataImportCommand extends AbstractCommand
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']).'-'.trim($result['EN']);
+        //$title = trim($result['ID']).'-'.trim($result['EN']);
+        $title = trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
         if ($title) {
 
-            $categoryObj = DataObject\IFSEUMedium::getByPath("/" . ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER . "/" . $validKey);
+            $categoryObj = DataObject\IFSEUFlowMedium::getByPath("/" . ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER . "/" . $validKey);
 
             if (!$categoryObj) {
-                $obj = new DataObject\IFSEUMedium();
+                $obj = new DataObject\IFSEUFlowMedium();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setMediumID($result['ID']);
+                //$obj->setMediumID($result['ID']);
 
                 foreach($result as $key => $eachColumnName){
                     if(array_key_exists($key,$languageConfig)){
                         $lang = ($languageConfig[$key]['language']);
-                        $obj->setMediumName($result[$key],$lang);
+                        $obj->setFlowMedium($result[$key],$lang);
                     }
                 }
                 $obj->setPublished(true);
