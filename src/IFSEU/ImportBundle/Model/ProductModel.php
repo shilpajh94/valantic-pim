@@ -180,7 +180,8 @@ class ProductModel
     public function getDelta()
     {
         try {
-            $catLength  = 18;
+            // $catLength  = 18;
+            $catLength  = 4;
             $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
             return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
@@ -292,7 +293,7 @@ class ProductModel
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_39` ";
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_IFSEUProductCategory` ";
         return $this->db->fetchAll($query);
     }
 
@@ -331,7 +332,7 @@ class ProductModel
     
     public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
     {
-        $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
+        $sql = "SELECT `fullCode` FROM object_IFSEUProductCategory WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
         $resultArray = $this->db->fetchAll($sql);
         if(!empty($resultArray))
         {

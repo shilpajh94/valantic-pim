@@ -254,7 +254,7 @@ class Product
     }
 
     public function isValidCategoryCode($siopCode) {
-        if (strlen($siopCode) == 18) {
+        if (strlen($siopCode) == 4) {
             return true;
         }
         return false;

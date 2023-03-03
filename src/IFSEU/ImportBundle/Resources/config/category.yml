@@ -7,7 +7,7 @@ parameters:
   root:
     type: 'dataObject'
     subType:  'object'
-    fullPath: '/Contitech_PTGEU/Master List/Product Hierarchy'
+    fullPath: '/Contitech_IFSEU/Master List/Product Hierarchy'
     id: 39
   # SIOP code length for each level
   codeLength:
@@ -30,7 +30,7 @@ parameters:
     
   # Valid Business Unit
   businessUnit:
-    50: 'PTGEU'
+    50: 'IFSEU'
     
   # SIOP relation field names in productClass
   # these fields are managed in config to keep the system from performance issue
