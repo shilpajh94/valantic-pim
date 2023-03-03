@@ -31,6 +31,10 @@ services:
     IFSEU\ImportBundle\Command\IFSEU_SAPSalesMaterialImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:sap-sales-material-import' }
+    
+    IFSEU\ImportBundle\Command\IFSEU_SAPPriceImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:sap-price-import' }
 
     IFSEU\ImportBundle\Command\IFSEU_SAPProductImportCommand:
         tags:
@@ -94,6 +98,9 @@ services:
 
     ifs_eu_import.sap_sales_material_import:
         class: IFSEU\ImportBundle\Services\SalesMaterialService
+        public: true
+    ifs_eu_import.sap_price_import:
+        class: IFSEU\ImportBundle\Services\PriceImportService
         public: true
 
     ifs_eu_import.sap_product_import:
