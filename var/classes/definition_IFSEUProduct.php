@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-01T12:09:46+05:30
+* Generated at: 2023-03-03T07:01:42+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -244,7 +244,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677652766,
+   'modificationDate' => 1677823268,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -11817,7 +11817,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => 120,
                                      'maxItems' => '',
                                      'renderType' => 'tags',
-                                     'optionsProviderClass' => '',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
@@ -14073,75 +14073,80 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           89 => 
                           array (
+                            'key' => 'UCT',
+                            'value' => 15065545,
+                          ),
+                          90 => 
+                          array (
                             'key' => 'UT',
                             'value' => 1829862,
                           ),
-                          90 => 
+                          91 => 
                           array (
                             'key' => 'VA',
                             'value' => 1829938,
                           ),
-                          91 => 
+                          92 => 
                           array (
                             'key' => 'VCORE',
                             'value' => 1829940,
                           ),
-                          92 => 
+                          93 => 
                           array (
                             'key' => 'XB2',
                             'value' => 1829916,
                           ),
-                          93 => 
+                          94 => 
                           array (
                             'key' => 'XDG',
                             'value' => 1829917,
                           ),
-                          94 => 
+                          95 => 
                           array (
                             'key' => 'XDG3',
                             'value' => 1829918,
                           ),
-                          95 => 
+                          96 => 
                           array (
                             'key' => 'XDGF1',
                             'value' => 1829919,
                           ),
-                          96 => 
+                          97 => 
                           array (
                             'key' => 'XDGF2',
                             'value' => 1829920,
                           ),
-                          97 => 
+                          98 => 
                           array (
                             'key' => 'XDGF3',
                             'value' => 1829921,
                           ),
-                          98 => 
+                          99 => 
                           array (
                             'key' => 'XS6',
                             'value' => 1829922,
                           ),
-                          99 => 
+                          100 => 
                           array (
                             'key' => 'XS6C',
                             'value' => 1829923,
                           ),
-                          100 => 
+                          101 => 
                           array (
                             'key' => 'XSC',
                             'value' => 1829924,
                           ),
-                          101 => 
+                          102 => 
                           array (
                             'key' => 'XSG',
                             'value' => 1829925,
                           ),
-                          102 => 
+                          103 => 
                           array (
                             'key' => 'XUC',
                             'value' => 1829926,
                           ),
-                          103 => 
+                          104 => 
                           array (
                             'key' => 'XUCF',
                             'value' => 1829927,
