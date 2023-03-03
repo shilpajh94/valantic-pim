@@ -62,8 +62,8 @@ class CountryMasterDataImportCommand extends AbstractCommand
 
     public function insertCountriesMasterData($result, $parentFolderID)
     {
-
-        $title = trim($result['Name']);
+        //$title = trim($result['Name']);
+        $title = trim($result['TwoLetterIso']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 

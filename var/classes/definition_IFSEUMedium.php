@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-25T07:52:20+01:00
+* Generated at: 2023-03-01T10:40:03+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,9 +9,8 @@
 
 
 Fields Summary: 
-- MediumID [numeric]
 - localizedfields [localizedfields]
--- MediumName [input]
+-- FlowMedium [input]
 */ 
 
 
@@ -20,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUMedium',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674629540,
+   'modificationDate' => 1677663603,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -74,37 +73,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'fieldtype' => 'numeric',
-             'width' => 250,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'double',
-             'columnType' => 'double',
-             'phpdocType' => 'float',
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
-             'name' => 'MediumID',
-             'title' => 'Medium ID',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'fieldtype' => 'localizedfields',
              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -122,8 +90,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'regex' => '',
                  'unique' => false,
                  'showCharCount' => false,
-                 'name' => 'MediumName',
-                 'title' => 'Medium',
+                 'name' => 'FlowMedium',
+                 'title' => 'Flow Medium',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,

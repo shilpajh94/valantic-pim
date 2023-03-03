@@ -66,7 +66,8 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']).'-'.trim($result['EN']);
+        //$title = trim($result['ID']).'-'.trim($result['EN']);
+        $title = trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
