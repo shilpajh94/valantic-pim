@@ -1,57 +1,62 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T15:02:20+05:30
+* Generated at: 2023-03-02T13:46:06+05:30
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- Reinforcement [multiselect]
+- Reinforcement [select]
 - staticWire [booleanSelect]
 - staticWireType [select]
-- tubeCharacteristic [multiselect]
-- colorInnerLining [multiselect]
-- InnerLining [multiselect]
+- tubeCharacteristic [select]
+- colorInnerLining [select]
+- InnerLining [select]
 - hoseIdDec [numeric]
 - hoseIdMM [numeric]
-- propertiesInnerLayer [multiselect]
-- VirtualCatalogTubeMaterial [wysiwyg]
+- propertiesInnerLayer [select]
 - Coupling [input]
 - sixDigitVirtualCatalogDescription [input]
 - numberOfPlies [numeric]
-- standardMetHoseComment [wysiwyg]
 - standards [multiselect]
 - FieldsOfApplication [multiselect]
 - Note2BelowTable [multiselect]
-- numberOfHelixWires [numeric]
-- LayFlatHoseYN [booleanSelect]
-- Haptic [multiselect]
-- CoverOuterLayer [multiselect]
-- ColorOuterLayer [multiselect]
-- designFactor [multiselect]
-- tubeGaugeFractional [input]
-- safetyFactorARPMStandard [multiselect]
-- PropertiesOuterLayer [multiselect]
-- VirtualCatalogCoverMaterial [wysiwyg]
 - withHelix [booleanSelect]
 - Helix [input]
-- NonStockSizes [input]
-- Packaging [textarea]
 - agencyCompliance [multiselect]
-- flowMedium [multiselect]
 - FlowMediumStability [booleanSelect]
+- flowMedium [multiselect]
+- Packaging [input]
+- numberOfHelixWires [numeric]
+- LayFlatHoseYN [booleanSelect]
+- Haptic [select]
+- CoverOuterLayer [select]
+- ColorOuterLayer [select]
+- designFactor [select]
+- tubeGaugeFractional [input]
+- safetyFactorARPMStandard [select]
+- PropertiesOuterLayer [select]
+- NonStockSizes [input]
+- VirtualCatalogCoverMaterial [wysiwyg]
+- VirtualCatalogTubeMaterial [wysiwyg]
+- standardMetHoseComment [wysiwyg]
 */ 
 
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
+    0 => 
+    array (
+      'classname' => 'IFSEUProduct',
+      'fieldname' => 'Base',
+    ),
   ),
    'dao' => NULL,
    'key' => 'IFSEUHoseBase',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'eHose (6 Digit)',
+   'title' => 'Attributes',
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -130,20 +135,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'Reinforcement',
                      'title' => 'Reinforcement',
@@ -151,7 +155,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -159,6 +163,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -245,8 +250,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                       0 => 
@@ -276,14 +281,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'tubeCharacteristic',
                      'title' => 'Tube Characteristic',
@@ -299,22 +303,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'colorInnerLining',
                      'title' => 'Color - Inner Lining',
@@ -330,22 +334,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'InnerLining',
                      'title' => 'Inner Lining',
@@ -361,6 +365,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -425,20 +430,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'propertiesInnerLayer',
                      'title' => 'Properties Inner Layer',
@@ -454,33 +458,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 295,
-                     'height' => 150,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'VirtualCatalogTubeMaterial',
-                     'title' => 'Virtual Catalog Tube Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:205px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -508,7 +488,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -536,7 +516,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -567,40 +547,15 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 295,
-                     'height' => 150,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'standardMetHoseComment',
-                     'title' => 'Standard Met- Hose "Comment"',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:205px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  14 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
+                     'height' => '',
+                     'maxItems' => 10,
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
@@ -623,15 +578,15 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  15 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => 120,
-                     'maxItems' => 20,
+                     'height' => '',
+                     'maxItems' => 10,
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
@@ -654,15 +609,15 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  16 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
+                     'height' => '',
+                     'maxItems' => 10,
                      'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
@@ -684,6 +639,275 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                  )),
+                  15 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Empty',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => 300,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
+                     'name' => 'withHelix',
+                     'title' => 'With Helix',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  16 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Helix',
+                     'title' => 'Helix',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  17 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => '3-A 18-03',
+                        'value' => 2587,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'CARB',
+                        'value' => 2595,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'CSA',
+                        'value' => 2594,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'CUL',
+                        'value' => 2596,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'FDA',
+                        'value' => 2585,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'FMVSS',
+                        'value' => 2589,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'MIL -AA59565 (compressed air)',
+                        'value' => 2593,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'MSHA',
+                        'value' => 2590,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'NIOSH (Air Breathing)',
+                        'value' => 2592,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'NMMA (Marine Hose)',
+                        'value' => 2591,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'NSF',
+                        'value' => 2597,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'UL',
+                        'value' => 2588,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'USDA',
+                        'value' => 2586,
+                      ),
+                    ),
+                     'width' => 300,
+                     'height' => '',
+                     'maxItems' => 10,
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'agencyCompliance',
+                     'title' => 'Agency Compliance',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  18 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Empty',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => 300,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
+                     'name' => 'FlowMediumStability',
+                     'title' => 'Flow Medium - Stability',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  19 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'height' => '',
+                     'maxItems' => 10,
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'flowMedium',
+                     'title' => 'Flow Medium',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  20 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Packaging',
+                     'title' => 'Packaging',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -782,20 +1006,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'Haptic',
                      'title' => 'Haptic',
@@ -811,22 +1034,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'CoverOuterLayer',
                      'title' => 'Color - Outer Layer',
@@ -842,22 +1065,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'ColorOuterLayer',
                      'title' => 'Cover - Outer Layer',
@@ -873,22 +1096,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'designFactor',
                      'title' => 'Design Factor',
@@ -904,6 +1127,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -934,20 +1158,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => '',
-                     'maxItems' => 1,
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'safetyFactorARPMStandard',
                      'title' => 'Safety Factor (ARPM Standard)',
@@ -963,22 +1186,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
                      'options' => 
                     array (
                     ),
                      'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
+                     'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
                      'dynamicOptions' => false,
                      'name' => 'PropertiesOuterLayer',
                      'title' => 'Properties Outer Layer',
@@ -994,104 +1217,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                  )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 295,
-                     'height' => 150,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'VirtualCatalogCoverMaterial',
-                     'title' => 'Virtual Catalog Cover Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:225px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'withHelix',
-                     'title' => 'With Helix',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Helix',
-                     'title' => 'Helix',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -1119,25 +1247,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                     'fieldtype' => 'textarea',
-                     'width' => 300,
-                     'height' => 120,
-                     'maxLength' => NULL,
-                     'showCharCount' => false,
-                     'excludeFromSearchIndex' => false,
+                  10 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'fieldtype' => 'wysiwyg',
+                     'width' => 295,
+                     'height' => 150,
                      'queryColumnType' => 'longtext',
                      'columnType' => 'longtext',
                      'phpdocType' => 'string',
-                     'name' => 'Packaging',
-                     'title' => 'Packaging',
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'name' => 'VirtualCatalogCoverMaterial',
+                     'title' => 'Virtual Catalog Cover Material',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 20px;',
+                     'style' => 'margin-left:225px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1145,95 +1272,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  14 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => '3-A 18-03',
-                        'value' => 2587,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'CARB',
-                        'value' => 2595,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'CSA',
-                        'value' => 2594,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'CUL',
-                        'value' => 2596,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'FDA',
-                        'value' => 2585,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'FMVSS',
-                        'value' => 2589,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'MIL -AA59565 (compressed air)',
-                        'value' => 2593,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'MSHA',
-                        'value' => 2590,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'NIOSH (Air Breathing)',
-                        'value' => 2592,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'NMMA (Marine Hose)',
-                        'value' => 2591,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'NSF',
-                        'value' => 2597,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'UL',
-                        'value' => 2588,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'USDA',
-                        'value' => 2586,
-                      ),
-                    ),
-                     'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'agencyCompliance',
-                     'title' => 'Agency Compliance',
+                  11 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'fieldtype' => 'wysiwyg',
+                     'width' => 295,
+                     'height' => 150,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'name' => 'VirtualCatalogTubeMaterial',
+                     'title' => 'Virtual Catalog Tube Material',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 20px;',
+                     'style' => 'margin-left:225px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -1241,73 +1297,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  15 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                    ),
-                     'width' => 300,
-                     'height' => 120,
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'flowMedium',
-                     'title' => 'Flow Medium',
+                  12 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'fieldtype' => 'wysiwyg',
+                     'width' => 295,
+                     'height' => 150,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'name' => 'standardMetHoseComment',
+                     'title' => 'Standard Met- Hose "Comment"',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  16 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'FlowMediumStability',
-                     'title' => 'Flow Medium - Stability',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
+                     'style' => 'margin-left:225px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
