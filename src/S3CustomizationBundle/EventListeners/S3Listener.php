@@ -67,6 +67,9 @@ class S3Listener
      */
     protected function makeAssetPublicInS3($assetPath, $isTmp = false)
     {
+        // Returning from here, as we can't make folder public after applying some
+        // security rules by client. Throwing error while creating folder. 
+        return;
         // get the S3 path of asset from pimcore_s3 path mapping
         $s3CustomizationService = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class);
         $assetPath = $s3CustomizationService->getS3PathForPimcorePath($assetPath,true);
@@ -206,7 +209,7 @@ class S3Listener
 
                 $key = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", "/", $fileSystemPath);
                 try {
-                    $this->makeAssetPublicInS3('tmp'.$key, true);
+                    // $this->makeAssetPublicInS3('tmp'.$key, true);
                 } catch(\Exception $e) {
                     // do nothing
                 }
