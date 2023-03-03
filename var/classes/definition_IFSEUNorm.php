@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-25T10:12:09+01:00
+* Generated at: 2023-03-02T06:26:31+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,6 +12,7 @@ Fields Summary:
 - NormID [numeric]
 - localizedfields [localizedfields]
 -- Norm [input]
+- NormsImage [image]
 */ 
 
 
@@ -20,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUNorm',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674637929,
+   'modificationDate' => 1677734790,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -166,6 +167,53 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => true,
              'visibleSearch' => true,
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => 'east',
+             'title' => '',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                 'fieldtype' => 'image',
+                 'width' => 600,
+                 'height' => '',
+                 'uploadPath' => '',
+                 'queryColumnType' => 'int(11)',
+                 'columnType' => 'int(11)',
+                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                 'name' => 'NormsImage',
+                 'title' => 'Icon',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'padding-left:205px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
+             'icon' => '',
           )),
         ),
          'locked' => false,
