@@ -78,6 +78,10 @@ services:
         class: IFSEU\ImportBundle\Helper\Category
         public: true
 
+    ifs_eu_import.product_helper:
+        class: IFSEU\ImportBundle\Helper\Product
+        public: true
+
     # Validator
     ifs_eu_import.category_validator_service:
         class: IFSEU\ImportBundle\Services\Validator\Category
@@ -104,7 +108,7 @@ services:
         public: true
 
     ifs_eu_import.sap_product_import:
-        class: IFSEU\ImportBundle\Services\SAPFileFeederService
+        class: IFSEU\ImportBundle\Services\ProductService
         public: true
 
     ifs_eu_import.category_import_service:

@@ -37,11 +37,11 @@ class ProductService
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
-        $this->common               = \Pimcore::getContainer()->get('import.common_helper');
+        $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
+        $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->productModel         = new ProductModel;
-        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
-        $this->productHelper        = \Pimcore::getContainer()->get('import.product_helper');
+        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->productHelper        = \Pimcore::getContainer()->get('ifs_eu_import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');

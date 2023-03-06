@@ -1,6 +1,6 @@
 <?php
 
-namespace PTGEU\ImportBundle\Model;
+namespace IFSEU\ImportBundle\Model;
 
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
