@@ -66,10 +66,12 @@ class ProductSQLModel
     const FILE_LAST_COL = 'D';
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
+
+    // According to client(Mark) if Weight Unit is LB then we will consider as LBS_PER_FT & if KG is given then we will consider as KG_PER_M and do their conversion respectively.
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
-        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_FT,
-        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
+        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
+        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT,
     ];
     
     public function __construct()
@@ -523,7 +525,6 @@ class ProductSQLModel
                 return $objId;
             }
             $this->products[$currentLevelPath] = $objId;
-            
             $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getStoreTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getRelationTableData($objId, $record, $levelInfo, 4, $type);
@@ -549,6 +550,7 @@ class ProductSQLModel
         } else {
             $objId = $this->products[$currentLevelPath];
         }
+
         echo "ID: = ".$objId.PHP_EOL;
         return [$objId, $currentLevelPath];
     }
@@ -813,6 +815,7 @@ class ProductSQLModel
             'externalID' => null,
             'WeightLbsPerFTUOM' => null
         ];
+
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record['0']);
             $queryTableData['baseUOM'] = trim($record['5']);
