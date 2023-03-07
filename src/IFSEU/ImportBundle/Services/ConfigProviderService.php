@@ -29,8 +29,25 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_CATEGORY_CONFIG_FILE_PATH);
     }
-    
 
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
+    }
+
+    public function getBrickMappingConfig(){
+        return $this->getConfigFromYmlFile(IFS_EU_BRICK_MAPPING_CONFIG_FILE_PATH);
+    }
+
+    public function getUnitConversionConfig()
+    {
+        return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
+    }
+    
+    public function getEditableProductAttributesImportConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH);
+    }
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev

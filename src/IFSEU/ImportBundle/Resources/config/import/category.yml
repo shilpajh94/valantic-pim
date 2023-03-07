@@ -7,7 +7,7 @@ parameters:
   root:
     type: 'dataObject'
     subType:  'object'
-    fullPath: '/Contitech_IFSEU/Master List/Product Category'
+    fullPath: '/Contitech_IFS_EMEA/Master Data/Product Category'
     id: 30
   # SIOP code length for each level
   codeLength:
