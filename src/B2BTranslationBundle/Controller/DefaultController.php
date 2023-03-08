@@ -130,10 +130,15 @@ class DefaultController extends AdminController
             $gridData = [];
             if (!empty($data)) {
                 $dataArray = (array)json_decode($data);
-                // p_r($dataArray);
                 foreach ($dataArray as $row) {
                     $rowArray = (array)$row;
-                    $gridData[] = [$rowArray['name'], $rowArray['avbName']];
+                    if($rowArray['avbName'] == '1')
+                    {
+                        $gridData[] = [$rowArray['name'], ''];
+                    }
+                    else{
+                        $gridData[] = [$rowArray['name'], $rowArray['avbName']];
+                    }
                 }
                 $mappingObject->setAVBVendorData($gridData);
             }
@@ -230,6 +235,7 @@ class DefaultController extends AdminController
         if($attributeList)
         {
             $data = [];
+            $data[] = array('id'=>'1','name'=>'(Empty)');
             foreach ($attributeList as $key => $record) {
                 $data[] = array('id'=>$key,'name'=>$key);
             }

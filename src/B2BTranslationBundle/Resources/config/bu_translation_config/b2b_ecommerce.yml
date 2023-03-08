@@ -40,7 +40,8 @@ parameters:
         B2B_EffectiveLengthUOM__c:	B2B_EffectiveLengthUOM__c
         B2B_PitchUOM__c:	B2B_PitchUOM__c
     Category: 
-        'Description': 'Description'
-        'Language': 'Language'
-        'Name': 'Name'
-        'ParentId': 'ParentId'
+        Description: Description
+        B2B_External_Id__c: 'B2B_External_Id__c'
+        Language: Language
+        Name: 'Name'
+        ParentId: ParentId

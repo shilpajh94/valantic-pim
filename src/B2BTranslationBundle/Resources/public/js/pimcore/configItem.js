@@ -328,7 +328,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                 this.mappingGrid = Ext.create('Ext.grid.Panel', {
                     store: vendorDataStore,
                     width: 1000,
-                    height: 800,
+                    height: 600,
 
                     columns: [{
                         text: 'PIM Attribute Name',

@@ -17,6 +17,11 @@ class ConfigProviderService
      */
     public function getBusinessUnitTranslationConfig($filePath)
     {
-        return Utils::getYmlConfig(B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY."/bu_translation_config/".$filePath.".yml");
+        try {
+            return Utils::getYmlConfig(B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY."/bu_translation_config/".$filePath.".yml");
+        } catch (\Throwable $th) {
+            p_r($th->getMessage());
+        }
+        
     }
 }

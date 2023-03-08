@@ -59,6 +59,32 @@ class CreateAndSendB2BTranslationCSVToFTPService
         return $this->db->fetchAll($sqlMapping);
     }
 
+    public function getFeaturesMasterList()
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $sqlMapping = "select oo_id, language, name from object_query_29  oq_29 
+                    left join object_localized_data_29 old_29 ON oq_29.oo_id = old_29.ooo_id AND old_29.language IN ($languages)";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getNomenClatureList()
+    {
+        $sqlMapping = "select oo_id, TRIM(BOTH ',' FROM Thread) AS Thread, swivel, elbowType, gender1,  TRIM(BOTH ',' FROM FittingFamily) AS FittingFamily from object_query_20";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getThreadList()
+    {
+        $sqlMapping = "select oo_id, Name from object_query_32";
+        return $this->db->fetchPairs($sqlMapping);
+    }
+
+    public function getFittingFamilyList()
+    {
+        $sqlMapping = "select oo_id, Name from object_query_30";
+        return $this->db->fetchPairs($sqlMapping);
+    }
+
     public function getLocalizedAttribute($className)
     {
         $businessUnitFileName = '';
@@ -95,7 +121,10 @@ class CreateAndSendB2BTranslationCSVToFTPService
             foreach ($this->productAttributeConfig as $key => $attributeConfig) {
                 if($attributeConfig['fieldLocation'] == $fieldLocation && $attributeConfig['className'] == $className && $attributeConfig['isLocalized'] == $isLocalized)
                 {
-                    $filteredAttribute[$key] = $attributeConfig;
+                    if(isset($this->headerMapping[$key]))
+                    {
+                        $filteredAttribute[$key] = $attributeConfig;
+                    }
                 }
             }
         }
@@ -107,12 +136,7 @@ class CreateAndSendB2BTranslationCSVToFTPService
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
         $selectedFields = [];
         foreach ($columnsList as $key => $columm) {
-
-            if(isset($this->headerMapping[$columm]))
-            {   
-                // $alias = $this->headerMapping[$columm];
-                $selectedFields[] = "$columm";
-            }
+            $selectedFields[] = "$columm";
         }
 
         $columnsString = implode(',', $selectedFields);
@@ -121,12 +145,32 @@ class CreateAndSendB2BTranslationCSVToFTPService
         return $this->db->fetchAll($sql);
     }
 
+    public function getRecordsWithFilteredFieldsCategory($columnsList, $b2bProducts)
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $selectedFields = [];
+        foreach ($columnsList as $key => $columm) {
+            $selectedFields[] = "$columm";
+        }
+
+        $columnsString = implode(',', $selectedFields);
+        $ids = implode(',', $b2bProducts);
+        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_2 where ooo_id IN ($ids) AND language IN ($languages)";
+        return $this->db->fetchAll($sql);
+    }
+
     public function getRecordsWithFilteredMasterFields($fields, $b2bProducts)
     {
         $config = $this->bUProductClassTableID[$this->bu];
         $productClassId = $config['productClassId'];
 
-        $columnsString = implode(',', $fields);
+        $columnsString = 'oo_id';
+
+        if($fields)
+        {
+            $columnsString .= ",". implode(',', $fields);
+        }
+        
         $ids = implode(',', $b2bProducts);
         $sql = "select oo_id, {$columnsString} from object_query_{$productClassId} where oo_id IN ($ids)";
         return $this->db->fetchAll($sql);
@@ -165,9 +209,16 @@ class CreateAndSendB2BTranslationCSVToFTPService
             $fitingFamilyMasters = $this->getFittingFamilyMasterList();
             $fittingEndFamilyTypeMasters = $this->getFittingEndFamilyTypeMasterList();
             $multiSelectMasters = $this->getMultiSelectMasterList();
+            $featuresMasters = $this->getFeaturesMasterList();
+            $nomenClatures = $this->getNomenClatureList();
+            $threadMastersList = $this->getThreadList();
+            $fittingFamilyMastersList = $this->getFittingFamilyList();
+            
             $multiSelectMastersGroupList = [];
             $fitingFamilyMastersGroupList = [];
             $fittingEndFamilyTypeGroupList = [];
+            $featuresMastersGroupList = [];
+            $nomenClatureList = [];
             if($multiSelectMasters)
             {
                 foreach ($multiSelectMasters as $key => $value) {
@@ -192,6 +243,22 @@ class CreateAndSendB2BTranslationCSVToFTPService
                 unset($fittingEndFamilyTypeMasters);
             }
 
+            if($featuresMasters)
+            {
+                foreach ($featuresMasters as $key => $value) {
+                    $featuresMastersGroupList[$value['oo_id']][$value['language']]= $value['name'];
+                }
+                unset($featuresMasters);
+            }
+
+            if($nomenClatures)
+            {
+                foreach ($nomenClatures as $key => $value) {
+                    $nomenClatureList[$value['oo_id']] = $value;
+                }
+                unset($nomenClatures);
+            }
+
             $b2bProductMapping = $b2bMapping['Product'];
 
             $b2bProductMappingRows = explode(PHP_EOL,$b2bProductMapping);
@@ -207,20 +274,26 @@ class CreateAndSendB2BTranslationCSVToFTPService
                     }
                 }
             }
-
+            
             $this->headerMapping = $headerMapping;
-
+            
             // $b2bCategoryMapping = $b2bMapping['Category'];
             $this->productAttributeConfig = $this->getLocalizedAttribute('Product');
-            
+
             # Product's non localized field
             $productNonLocalisedSelectFilteredAttribute = $this->getFilteredAttribute('class', 'Product', false);
-
+            
             # Product's localized field
             $productFilteredAttribute = $this->getFilteredAttribute('class', 'Product');
-
+            
             # Product's localized multiselect localized field
             $productMultiSelectFilteredAttribute = $this->getFilteredAttribute('class', 'MultiselectMaster');
+
+            # Products attached objectbrick's localized multiselect localized field
+            $productNonLocalizedFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', '', false);
+            
+            # Products attached objectbrick's localized multiselect localized field
+            $productNomenClatureRelationalNonLocalizedAttribute = $this->getFilteredAttribute('relational', '', false);
 
             # Products attached objectbrick's localized multiselect localized field
             $productMultiSelectFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', 'MultiselectMaster');
@@ -235,13 +308,14 @@ class CreateAndSendB2BTranslationCSVToFTPService
             
             # Fetch all products satisfying condition "salesMaster.epixFlag = '001' AND salesMaster.o_published = 1 AND product.o_published = 1"
             $b2bProducts = $this->getAllB2BProduct();
+            // $b2bCategories = $this->getAllB2BCategory();
 
             if($b2bProducts)
             {
                 $areHeadersAlreadyAdded = false;
-                $b2bProducts = array_slice($b2bProducts, 0, 10000);
+                $b2bProducts = array_slice($b2bProducts, 7000, 5);
                 $b2bProductsChucks = array_chunk($b2bProducts,1000);
-                
+                // $b2bProductsChucks[] = [1840236,1840247];
                 $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
                 $file = fopen($filePath,"w+");
 
@@ -254,7 +328,7 @@ class CreateAndSendB2BTranslationCSVToFTPService
                         # Product's non localized field
                         $productNonLocalisedSelectFilteredAttributeField = array_keys($productNonLocalisedSelectFilteredAttribute);
                         $result0 = $this->getRecordsWithFilteredMasterFields($productNonLocalisedSelectFilteredAttributeField, $productIds);
-
+                        
                         # Product's localized field data
                         $localizeData1 = [];
                         $productFilteredAttributeField = array_keys($productFilteredAttribute);
@@ -263,7 +337,28 @@ class CreateAndSendB2BTranslationCSVToFTPService
                             foreach ($fields as $fkey => $field) {
                                 if(!in_array($fkey, ['ooo_id','language']))
                                 {
-                                    $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = $field;
+
+                                    if($fkey == 'FeaturesBenefitsBulletPoint')
+                                    {
+                                        $featureStringList = [];
+                                        if($field)
+                                        {
+                                            $featureFields = explode(',', $field);
+                                            
+                                            foreach ($featureFields as $key => $featureId) {
+                                                if(isset($featuresMastersGroupList[$featureId]))
+                                                {
+                                                    $featureStringList[] = $featuresMastersGroupList[$featureId][$fields['language']];
+                                                }
+                                            }
+                                        }
+
+                                        $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = ($featureStringList) ? implode("|", $featureStringList) : '';
+                                    }
+                                    else{
+                                        $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = $field;
+                                    }
+                                    
                                 }
                             }
                         }
@@ -272,10 +367,12 @@ class CreateAndSendB2BTranslationCSVToFTPService
                         $localizeData2 = [];
                         $objectBricksLocalisedFields = [];
                         foreach ($productMultiSelectFilteredAttribute as $key => $columm) {
-                            $objectBricksLocalisedFields[] = "TRIM(BOTH ',' FROM $key) AS $key";
+                            $fkey = $columm['fieldName'];
+                            $objectBricksLocalisedFields[] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                         }
+                        
                         $result2 = $this->getRecordsWithFilteredMasterFields($objectBricksLocalisedFields, $productIds);
-
+                        
                         foreach ($result2 as $key => $fields) {
                             foreach ($fields as $fkey => $field) {
                                 $masterType = $productMultiSelectFilteredAttribute[$fkey]['masterType'];
@@ -289,11 +386,110 @@ class CreateAndSendB2BTranslationCSVToFTPService
                             }
                         }
                         
+                        $localizeDataNonLocalized = [];
+                        $objectBricksNonLocalisedFields = [];
+                        foreach ($productNonLocalizedFilteredOjbectbrickAttribute as $key => $columm) {
+                            $fkey = $columm['fieldName'];
+                            $localizeDataNonLocalized[$key] = '';
+                            $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
+                        }
+                        $resultNonLocalized = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksNonLocalisedFields, $productIds);
+                        if($resultNonLocalized)
+                        {
+                            foreach ($result0 as $key1 => $value1) {
+                                $dataFound = [];
+                                foreach ($resultNonLocalized as $key2 => $value2) {
+                                    if($value1['oo_id'] == $value2['o_id'])
+                                    {
+                                        $dataFound = $value2;
+                                        break;
+                                    }
+                                }
+
+                                if($dataFound)
+                                {
+                                    unset($dataFound['o_id']);
+                                    $result0[$key1] = array_merge($value1,$dataFound);
+                                }
+                                else{
+                                    $result0[$key1] = array_merge($value1,$localizeDataNonLocalized);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach ($result0 as $key => $value) {
+                                $result0[$key] = array_merge($value,$localizeDataNonLocalized);
+                            }
+                        }
+                        
+                        if($productNomenClatureRelationalNonLocalizedAttribute)
+                        {
+                            $localizeDataNonLocalized = [];
+                            $objectBricksNonLocalisedFields = [];
+                            foreach ($productNomenClatureRelationalNonLocalizedAttribute as $key => $columm) {
+                                $localizeDataNonLocalized[$key] = '';
+                            }
+                            
+                            $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM nomenclatureDetails) AS nomenclatureDetails";
+                            $nomenClature = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksNonLocalisedFields, $productIds);
+
+                            if($nomenClature)
+                            {
+                                foreach ($result0 as $key1 => $value1) {
+
+                                    $dataFound = [];
+                                    foreach ($nomenClature as $key2 => $value2) 
+                                    {
+                                        if($value1['oo_id'] == $value2['o_id'])
+                                        {
+                                            $dataFound = $value2;
+                                            break;
+                                        }
+                                    }
+                                    if($dataFound)
+                                    {
+                                        if(isset($nomenClatureList[$dataFound['nomenclatureDetails']]))
+                                        {
+                                            $nomenClatureValues = $nomenClatureList[$dataFound['nomenclatureDetails']];
+
+                                            if(isset($nomenClatureValues['Thread']))
+                                            {
+                                                $threadId = $nomenClatureValues['Thread'];
+                                                $nomenClatureValues['Thread'] = $threadMastersList[$threadId];
+                                            }
+
+                                            if(isset($nomenClatureValues['FittingFamily']))
+                                            {
+                                                $fittingFamilyId = $nomenClatureValues['FittingFamily'];
+                                                $nomenClatureValues['FittingFamily'] = $fittingFamilyMastersList[$fittingFamilyId];
+                                            }
+
+                                            unset($nomenClatureValues['oo_id']);
+                                            $result0[$key1] = array_merge($value1,$nomenClatureValues);
+                                        }
+                                        else{
+                                            $result0[$key1] = array_merge($value1,$localizeDataNonLocalized);
+                                        }
+                                    }
+                                    else{
+                                        $result0[$key1] = array_merge($value1,$localizeDataNonLocalized);
+                                    }
+                                }
+                            }
+                            else{
+                                foreach ($result0 as $key => $value) {
+                                    $result0[$key] = array_merge($value,$localizeDataNonLocalized);
+                                }
+                            }
+                        }
+                        
                         # Products attached objectbrick's localized multiselect localized field
                         $localizeData3 = [];
                         $objectBricksLocalisedFields = [];
                         foreach ($productMultiSelectFilteredOjbectbrickAttribute as $key => $columm) {
-                            $objectBricksLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $key) AS $key";
+                            $fkey = $columm['fieldName'];
+                            $objectBricksLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                         }
                         $result3 = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksLocalisedFields, $productIds);
 
@@ -314,7 +510,8 @@ class CreateAndSendB2BTranslationCSVToFTPService
                         $localizeData4 = [];
                         $objectBricksLocalisedFittingFields = [];
                         foreach ($fittingAttributeList as $key => $columm) {
-                            $objectBricksLocalisedFittingFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $key) AS $key";
+                            $fkey = $columm['fieldName'];
+                            $objectBricksLocalisedFittingFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                         }
                         $result4 = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksLocalisedFittingFields, $productIds);
 
@@ -453,8 +650,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                         
                         if($finalPritingList)
                         {
-                            // p_r($this->headerMapping);
-                            // p_r($finalPritingList[0]);
                             if(!$areHeadersAlreadyAdded)
                             {
                                 $keys = array_keys($finalPritingList[0]);
@@ -476,6 +671,50 @@ class CreateAndSendB2BTranslationCSVToFTPService
                 }
                 fclose($file);
             }
+
+            // if($b2bCategories)
+            // {
+
+            //     $areHeadersAlreadyAdded = false;
+            //     // $b2bProducts = array_slice($b2bCategories, 0, 10000);
+            //     $b2bProductsChucks = array_chunk($b2bCategories,50);
+            //     // $b2bProductsChucks[] = [1840236,1840247];
+            //     $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
+            //     $file = fopen($filePath,"w+");
+
+            //     foreach ($b2bProductsChucks as $batchNum => $categoryIds) 
+            //     {
+
+            //         // $b2bCategoryMapping = $b2bMapping['Category'];
+            //         $this->productAttributeConfig = $this->getLocalizedAttribute('Category');
+            //         // p_r($this->productAttributeConfig);
+
+            //         # Product's localized field
+            //         $categoryFilteredAttribute = $this->getFilteredAttribute('class', 'ProductCategory');
+            //         // p_r($b2bCategories);
+            //         // p_r($categoryFilteredAttribute);
+
+
+            //         # Product's localized field data
+            //         $localData1 = [];
+            //         $categoryFilteredAttributeField = array_keys($categoryFilteredAttribute);
+                    
+            //         $result1 = $this->getRecordsWithFilteredFieldsCategory($categoryFilteredAttributeField, $categoryIds);
+            //         p_r($result1);
+            //         die;
+
+            //         foreach ($result1 as $key => $fields) {
+            //             foreach ($fields as $fkey => $field) {
+            //                 if(!in_array($fkey, ['ooo_id','language']))
+            //                 {
+            //                     $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = $field;
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            //     die;
+            // }
             
         } catch(\Throwable $e) {
             $message = $e->getMessage();
@@ -485,27 +724,36 @@ class CreateAndSendB2BTranslationCSVToFTPService
         }
     }    
 
+    public function getAllB2BCategory()
+    {
+        $sql = "SELECT o_id FROM salesforce_integration_b2b_category_master";
+        return $this->db->fetchCol($sql);
+    }
     public function getAllB2BProduct()
     {
-        $config = $this->bUProductClassTableID[$this->bu];
-        $productClassId = $config['productClassId'];
-        $salesMaterialMasterClassId = $config['salesMaterialMasterClassId'];
-        
-        $sql = "SELECT DISTINCT
-                    product.o_id  
-                FROM
-                    object_{$salesMaterialMasterClassId} salesMaster
-                        JOIN
-                    object_{$productClassId} product ON product.o_id = SUBSTRING(salesMaster.Material,
-                        2,
-                        (LENGTH(salesMaster.Material) - 2))
-                WHERE
-                    salesMaster.epixFlag = '001'
-                        AND salesMaster.o_published = 1
-                        AND product.o_published = 1
-                ORDER BY product.o_id ASC;";
 
+        $sql = "SELECT o_id FROM salesforce_integration_b2b_product_master";
         return $this->db->fetchCol($sql);
+
+        // $config = $this->bUProductClassTableID[$this->bu];
+        // $productClassId = $config['productClassId'];
+        // $salesMaterialMasterClassId = $config['salesMaterialMasterClassId'];
+        
+        // $sql = "SELECT DISTINCT
+        //             product.o_id  
+        //         FROM
+        //             object_{$salesMaterialMasterClassId} salesMaster
+        //                 JOIN
+        //             object_{$productClassId} product ON product.o_id = SUBSTRING(salesMaster.Material,
+        //                 2,
+        //                 (LENGTH(salesMaster.Material) - 2))
+        //         WHERE
+        //             salesMaster.epixFlag = '001'
+        //                 AND salesMaster.o_published = 1
+        //                 AND product.o_published = 1
+        //         ORDER BY product.o_id ASC;";
+
+        // return $this->db->fetchCol($sql);
     }
     
     public function logMessage(String $msg, LogLevel $logLevel)
