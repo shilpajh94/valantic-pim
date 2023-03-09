@@ -1,0 +1,146 @@
+# sheet: Sheet Information
+#     columnName: ['Material', 'Language', 'Material Description', 'Material Group', 'Prod Hier',
+#             'Base UOM', 'Old Material', 'Prod Hier 1', 'Prod Hier 1 Desc', 'Prod Hier 2', 'Prod Hier 2 Desc', 'Prod Hier 3',
+#             'Prod Hier 3 Desc', 'Prod Hier 4', 'Prod Hier 4 Desc', 'Prod Hier 5', 'Prod Hier 5 Desc', 'Prod Hier 6', 'Prod Hier 6 Desc', 
+#             'Industry Standard #', 'Manufacter', 'Manufacter Part Numb', 'EAN_UPC', 'STCC Code', 'Gross Weight', 'Net Weight', 'Weight Unit'] List of column name which will be map with row of sheet
+#     lastColName: 'Q' // Last column of the sheet which will be used to log row status of the sheet
+#     startRow: 2 // Row number to start the reading sheet
+#     importIdConfig: ['materialCode'] // This field will be used to create primary key structure of temp table.
+
+
+parameters:
+  # Csv header information
+  sheet:
+    columnName: 
+      material: 'SAPMaterialCode'
+      language: 'Language'
+      description:  'Material Description'
+      group:  'Material Group'
+      code: 'Prod Hier'
+      baseUOM:  'BaseUOM'
+      oldMaterial:  'Old Material'
+      prodHier1:  'Prod Hier 1'
+      prodHier1Desc:  'Prod Hier 1 Desc'
+      prodHier2:  'Prod Hier 2'
+      prodHier2Desc:  'Prod Hier 2 Desc'
+      prodHier3:  'Prod Hier 3'
+      prodHier3Desc:  'Prod Hier 3 Desc'
+      prodHier4:  'Prod Hier 4'
+      prodHier4Desc:  'Prod Hier 4 Desc'
+      prodHier5:  'Prod Hier 5'
+      prodHier5Desc:  'Prod Hier 5 Desc'
+      prodHier6:  'Prod Hier 6'
+      prodHier6Desc:  'Prod Hier 6 Desc'
+      prodHier7:  'Prod Hier 7'
+      prodHier7Desc:  'Prod Hier 7 Desc'
+      industryStandard: 'Industry Standard #'
+      manufacture:  'Manufacter'
+      manufacturePartNumber:  'Manufacter Part Numb'
+      eanUPC: 'EAN_UPC'
+      grossWeight:  'Gross Weight'
+      netWeight:  'Net Weight'
+      weightUnit: 'Weight Unit'
+      profile: 'Profile'
+      ProductName: 'Product Name'
+      Color: 'Color'
+      fabricType: 'Fabric Type'
+      fabricColor: 'Fabric Color'
+      quality: 'Quality'
+      performance: 'Performance'
+      beltAngle: 'Belt/Flank Angle'
+      beltType: 'Belt Type'
+      materialCompound: 'Material / Compound'
+      nominalLength: 'Nominal Length'
+      reinforcement: 'Reinforcement / Cord'
+      maxSpeed: 'Max Speed'
+      matchMakerLL: 'Match Maker L=L'
+      din: 'DIN'
+      heatAndOilResistant: 'Heat & Oil Resistant'
+      minimumTemperatureC: 'Min Temp C (-)'
+      minimumTemperatureF: 'Min. Temp. F (-)'
+      maximumTemperatureC: 'Max Temp C (+)'
+      maximumTemperatureF: 'Max. Temp. F (+)'
+      staticConductive: 'Static Conductive'
+      beltHardness: 'Belt Hardness'
+      beltTolerance: 'Belt Tolerance'
+      minPulleyDia: 'Min. pulley dia.\n[mm]'
+      minOutsidePulleyDia: 'Min. outside pulley dia.\n[mm]'
+      priceRef: 'Price Ref. Mat'
+      materialType: 'Material type'
+      vtlStatus: 'Status'
+    lastColName: 'CQ'
+    startRow: 1
+    readFrom: 2
+    keyColumns: ['material']
+    baseSIOPMismatchEmailTemplate: "/EmailTemplate/SIOPMismatchReport"
+  
+  # Root information
+  root:
+    type: 'dataObject'
+    subType:  'object'
+    fullPath: '/Contitech_IFS_EMEA/Products'
+  
+  # Base / Brand info
+  base:
+    length: 12
+
+  # Skeleton / Product Specification info
+  skeleton:
+    length: 18
+
+  # Variant (SKU) info
+  variant:
+    length: 18
+    
+  # Product Type
+  productType:
+    12:  'base'
+    18:  'skeleton'
+    18fert: 'fert'
+
+  # SIOP Code Level Info
+  level:
+    1:  
+      codeLength: 2
+      fullCodeLength: 2
+      key: 'hierarchyLevel1'
+    2:  
+      codeLength: 2
+      fullCodeLength: 4
+      key: 'hierarchyLevel2'
+    3:  
+      codeLength: 2
+      fullCodeLength: 6
+      key: 'hierarchyLevel3'
+    4:  
+      codeLength: 2
+      fullCodeLength: 8
+      key: 'hierarchyLevel4'
+    5:  
+      codeLength: 3
+      fullCodeLength: 11
+      key: 'hierarchyLevel5'
+    6:  
+      codeLength: 2
+      fullCodeLength: 13
+      key: 'hierarchyLevel6'
+    7:  
+      codeLength: 3
+      fullCodeLength: 16
+      key: 'hierarchyLevel7'
+
+  # List of table which will use while import
+  table:
+      tempTable: 'ifseu_material_import_temp'
+      masterTable:  'ifseu_material_import_master'
+      logTable: 'ifseu_material_import_log'
+
+  # Number of level allowed to create into SAP hierarchy for SIOP
+  allowedLevel:
+    IFSEU: 4
+  # productTypeLevel 
+  #   5:  12 --- 5 is SIOP level and 12 is stand for 12 digit product type
+  #   7:  18 --- 7 is SIOP level and 18 is stand for 18 digit product type
+  productTypeLevel:
+  #  5:  12 # base 
+  #  7:  18 # skeleton
