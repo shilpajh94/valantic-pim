@@ -24,6 +24,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH);
     }
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
+    }
 
     public function getCategoryConfig()
     {

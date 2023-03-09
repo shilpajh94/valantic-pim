@@ -6,6 +6,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Model\ProductModel;
+use Exception;
 
 class ProductService
 {    
@@ -31,7 +32,10 @@ class ProductService
     private $baseSiopMismatchLog;
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
-    
+    public $productHelper ;
+    public $catConfigData;
+    public $businessUnit;
+    public $emailService;
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
     public function __construct()
@@ -45,7 +49,7 @@ class ProductService
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
+        $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
     }
@@ -94,7 +98,7 @@ class ProductService
     
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
+        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
@@ -139,7 +143,7 @@ class ProductService
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
-                $fileName = "PTGEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
+                $fileName = "IFSEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
                 $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
@@ -158,10 +162,10 @@ class ProductService
                         $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
-                        throw \Exception("Base SIOP mismatch email template not found.");
+                        throw new Exception("Base SIOP mismatch email template not found.");
                     }
                 } else {
-                    throw \Exception("Base SIOP mismatch email template not configured.");
+                    throw new Exception("Base SIOP mismatch email template not configured.");
                 }
             }
         } catch (\Throwable $th) {
@@ -176,7 +180,7 @@ class ProductService
         $deltaCount = count($delta);
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Product Delta count: ".$deltaCount);
         $j = 1;
-        
+
         $this->logArray = [];
         $i = 0;
         $length = 1000;
@@ -268,7 +272,7 @@ class ProductService
         return $this->csvHeader[$this->columnName[$key]];
     }
 
-    public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) 
+    public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type) 
     {
         
         $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
@@ -322,8 +326,8 @@ class ProductService
             }
             $objId = $this->productModel->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
-            $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTGEU');
-            $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTGEU');
+            $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
+            $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
@@ -337,7 +341,6 @@ class ProductService
             }
         } else {
 
-            echo "GGGGGG\n\n";
             $objId = $this->products[$currentLevelPath];
         }
         unset($objectIndex, $currentLevelCode, $fertLevelCode, $categoryPath, $type, $currentLevelArray, $objectKey, $objectArr, $parentPath);
@@ -354,8 +357,7 @@ class ProductService
         if (array_key_exists($siopCode, $this->categories)) {
             
             if ($this->productHelper->isValidCategoryCode($siopCode)) {
-
-                if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
+                // if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
                     
                     if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
@@ -371,11 +373,11 @@ class ProductService
                     } else {
                         $msg = 'Material Group code can not be empty.';
                     }
-                }
-                else
-                {
-                    $msg = '5th or 7th level hierarchy does not exists.'; 
-                }
+                // }
+                // else
+                // {
+                //     $msg = '5th or 7th level hierarchy does not exists.'; 
+                // }
             } else {
                 $msg = 'Siop Category code and its length does not match.';
             }
@@ -420,15 +422,15 @@ class ProductService
             } else {
                 $folderId = $this->products[$folderPath];
             }
-            $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+            $levelArray = $this->createIFSEUObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
             if (!$errorFlag) {
                 $this->updatedArticlesArray[] = $levelArray[0]; 
             }
-            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+            $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
             if (!$errorFlag) {
                 $this->updatedArticlesArray[] = $levelArray[0]; 
             }
-            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+            $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
             
             $status = 'Success';
             $msg = 'Object Id is: '.$levelArray[0];
@@ -480,7 +482,7 @@ class ProductService
         }
     }
 
-    public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'PTGEU') {
+    public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFSEU') {
         $siopData = [];
         for ($k=1; $k<=7; $k++) {
             $index = 'hierarchyLevel'.$k;
@@ -498,7 +500,7 @@ class ProductService
         $queryTableData = [
             'oo_id' => $objId,
             'oo_classId' => 38,
-            'oo_className' => 'PTGEUProduct',
+            'oo_className' => 'IFSEUProduct',
             'productType' => strtolower($productType),
             'businessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
@@ -566,60 +568,61 @@ class ProductService
             $beltType                   = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['beltType'] = $this->getBeltTypeId($beltType); 
 
-            $baseObject = DataObject\PTGEUProduct::getById($objId, true);
-
+            $baseObject = DataObject\IFSEUProduct::getById($objId, true);
             $reinforcementValuesToBeMapped = [];
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
             $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
-                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
-                    }
-                }
+            // reinforcement is moved in ehose ??
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     foreach($reinforcementValueArr as $eachReinforcementValue){
+            //         if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+            //             array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+            //         }
+            //     }
                 
-            }
+            // }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $queryTableData['reinforcement'] = $reinforcements;
 
             $performance = trim($record[$this->getRecordIndexByKey('performance')]);
             $fd = $baseObject->getClass()->getFieldDefinition("performance");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($performance)){
-                    echo $eachOptions['value'].PHP_EOL;
-                    $queryTableData['performance'] = trim($eachOptions['value']);
-                }
-            }
-
-            $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("material");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $materialCompound){
-                    $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-                }
-            }
-
-            $color = trim($record[$this->getRecordIndexByKey('Color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("Color");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $queryTableData['Color'] = trim($eachOptions['value']);
-                }
-            }
-
-            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                    $queryTableData['staticConductive'] = trim($eachOptions['value']);
-                }
-            }
+            // Performance column not available (not in class and not in sheet)
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($performance)){
+            //         echo $eachOptions['value'].PHP_EOL;
+            //         $queryTableData['performance'] = trim($eachOptions['value']);
+            //     }
+            // }
+                // materialCompound column not available (not in class and not in sheet)
+            // $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("material");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if($eachOptions['value'] == $materialCompound){
+            //         $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            //     }
+            // }
+                //Color column not available (not in class and not in sheet)  
+            // $color = trim($record[$this->getRecordIndexByKey('Color')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($color)){
+            //         $queryTableData['Color'] = trim($eachOptions['value']);
+            //     }
+            // }
+                // staticConductive column not available (not in class and not in sheet)
+            // $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+            //         $queryTableData['staticConductive'] = trim($eachOptions['value']);
+            //     }
+            // }
 
         }
 
@@ -754,56 +757,59 @@ class ProductService
             $reinforcementValuesToBeMapped = [];
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
             $reinforcementValueArr  = explode('|', $reinforcementValue);
-            $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
-                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
-                    }
-                }
+            //reinforcement is moved in ehose class attr
+            // $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     foreach($reinforcementValueArr as $eachReinforcementValue){
+            //         if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+            //             array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+            //         }
+            //     }
                 
-            }
+            // }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $storeTableDataArray['reinforcement'] = $reinforcements;
 
 
             $performance = trim($record[$this->getRecordIndexByKey('performance')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("performance");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($performance)){
-                    $storeTableDataArray['performance'] = trim($eachOptions['value']);
-                }
-            }
-
-            $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("material");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
-                    $storeTableDataArray['material'] = trim($eachOptions['value']);
-                }
+            // Performance column not available (not in class and not in sheet)
+            // $fd = $baseObject->getClass()->getFieldDefinition("performance");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($performance)){
+            //         $storeTableDataArray['performance'] = trim($eachOptions['value']);
+            //     }
+            // }
+                // materialCompound column not available (not in class and not in sheet)
+            // $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("material");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
+            //         $storeTableDataArray['material'] = trim($eachOptions['value']);
+            //     }
                 
-            }
+            // }
+// Color column not available (not in class and not in sheet)
+            // $color = trim($record[$this->getRecordIndexByKey('Color')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($color)){
+            //         $storeTableDataArray['Color'] = trim($eachOptions['value']);
+            //     }
+            // }
 
-            $color = trim($record[$this->getRecordIndexByKey('Color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("Color");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $storeTableDataArray['Color'] = trim($eachOptions['value']);
-                }
-            }
-
-            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
-            $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                    $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
-                }
-            }
+            // staticConductive column not available (not in class and not in sheet)
+            // $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            // $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
+            // $options = $fd->getOptions();
+            // foreach($options as $eachOptions){
+            //     if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+            //         $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
+            //     }
+            // }
         }
 
         if (strtolower($productType) == 'skeleton') {
