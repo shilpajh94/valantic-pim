@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-10T11:04:13+01:00
+* Generated at: 2023-03-10T13:13:59+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -140,6 +140,7 @@ Fields Summary:
 - sideView [image]
 - cutView [image]
 - epixImage [image]
+- TeaserImage [image]
 - Images360 [imageGallery]
 - altImage1 [image]
 - altImage2 [image]
@@ -158,7 +159,8 @@ Fields Summary:
 - LeftPrintCatalogImage [image]
 - RightPrintCatalogImage [image]
 - DrawingPictureForCatalog [image]
-- TeaserImage [image]
+- Certificate1 [advancedManyToManyRelation]
+- Certificate2 [advancedManyToManyRelation]
 - priceData [table]
 */ 
 
@@ -168,7 +170,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1678442649,
+   'modificationDate' => 1678450436,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -28777,6 +28779,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'fieldtype' => 'image',
+                         'width' => 300,
+                         'height' => '',
+                         'uploadPath' => '',
+                         'queryColumnType' => 'int(11)',
+                         'columnType' => 'int(11)',
+                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                         'name' => 'TeaserImage',
+                         'title' => 'Teaser Image',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'float:left; clear:right;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'fieldtype' => 'imageGallery',
                          'queryColumnType' => 
@@ -29400,26 +29426,231 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                         'fieldtype' => 'image',
-                         'width' => 300,
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Certification',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Certification',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'id' => 'extModel2946-1',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'id' => 'extModel2946-2',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'id' => 'extModel2946-3',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
+                          3 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 4,
+                            'key' => 'CertificationDocument',
+                            'id' => 'extModel7263-1',
+                            'label' => 'Certification Document',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
+                          3 => 'CertificationDocument',
+                        ),
+                         'fieldtype' => 'advancedManyToManyRelation',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                         'optimizedAdminLoading' => false,
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                         'width' => '',
                          'height' => '',
-                         'uploadPath' => '',
-                         'queryColumnType' => 'int(11)',
-                         'columnType' => 'int(11)',
-                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                         'name' => 'TeaserImage',
-                         'title' => 'Teaser Image',
+                         'maxItems' => 20,
+                         'assetUploadPath' => '',
+                         'queryColumnType' => 'text',
+                         'relationType' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          2 => 
+                          array (
+                            'assetTypes' => 'video',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'name' => 'Certificate1',
+                         'title' => 'Certificate 1',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right:20px; clear:left;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
-                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'id' => 'extModel2946-1',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'id' => 'extModel2946-2',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'id' => 'extModel2946-3',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
+                          3 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 4,
+                            'key' => 'CertificationDocument',
+                            'id' => 'extModel7263-1',
+                            'label' => 'Certification Document',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
+                          3 => 'CertificationDocument',
+                        ),
+                         'fieldtype' => 'advancedManyToManyRelation',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                         'optimizedAdminLoading' => false,
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                         'width' => '',
+                         'height' => '',
+                         'maxItems' => 20,
+                         'assetUploadPath' => '',
+                         'queryColumnType' => 'text',
+                         'relationType' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          2 => 
+                          array (
+                            'assetTypes' => 'video',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'Certificate2',
+                         'title' => 'Certificate 2',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
