@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-10T10:33:23+01:00
+* Generated at: 2023-03-10T11:04:13+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -168,7 +168,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1678440799,
+   'modificationDate' => 1678442649,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -12385,7 +12385,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -27931,25 +27931,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'assetsAllowed' => false,
                                      'assetTypes' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'assetTypes' => '',
-                                      ),
                                     ),
                                      'documentsAllowed' => false,
                                      'documentTypes' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'documentTypes' => '',
-                                      ),
                                     ),
                                      'classes' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'classes' => '',
-                                      ),
                                     ),
                                      'pathFormatterClass' => '',
                                      'name' => 'Gallery',
@@ -27958,7 +27946,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left: 50px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -29253,17 +29241,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Document',
@@ -29306,17 +29286,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'BrandingLaylineAssets',
