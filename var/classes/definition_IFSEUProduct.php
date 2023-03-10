@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-02T13:47:04+05:30
+* Generated at: 2023-03-09T13:57:56+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -12,18 +12,17 @@ Fields Summary:
 - productBrandName [select]
 - brandConstruction [select]
 - catalogLayline [input]
+- Category [select]
+- Sub_Category [select]
 - FeaturesBenefitsBulletPoint [multiselect]
+- TPCode [input]
 - localizedfields [localizedfields]
+-- headlineWeb [input]
 -- legalText [input]
 -- BrandShortText1 [input]
 -- BrandShortText2 [input]
--- BrandShortText3 [input]
--- BrandShortText4 [input]
--- BrandShortText5 [input]
--- Marking1 [input]
 -- Marking2 [input]
--- searchKeywords [input]
--- headlineWeb [wysiwyg]
+-- searchKeywords [multiselect]
 -- commercialDescription [wysiwyg]
 -- technicalDescription [wysiwyg]
 -- sapDescription [textarea]
@@ -33,22 +32,19 @@ Fields Summary:
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
 - Base [objectbricks]
-- minimumTemperatureF [numeric]
-- maximumTemperatureF [numeric]
+- minimumTemperatureC [numeric]
+- maximumTemperatureC [numeric]
 - rangeTemperatureF [input]
 - rangeTemperatureC [input]
 - temperatureRangeApplication [input]
 - temperatureRangeApplication1 [input]
 - temperatureRangeApplication2 [input]
-- temperatureRangeApplication3 [input]
-- temperatureRangeApplication4 [input]
-- temperatureRangeApplication5 [input]
 - temporaryUntilC [numeric]
 - DampableUntil1C [numeric]
 - DampableUntil2C [numeric]
 - justTemporarily [booleanSelect]
-- minimumTemperatureC [numeric]
-- maximumTemperatureC [numeric]
+- minimumTemperatureF [numeric]
+- maximumTemperatureF [numeric]
 - temperatureRangeFAndC [input]
 - temperatureNote [input]
 - temperatureRangeApplicationFAndC1 [input]
@@ -171,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677745006,
+   'modificationDate' => 1678366669,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -309,7 +305,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => 'Features and Marketing Data',
+                         'title' => 'Hose Base Data',
                          'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
@@ -8407,6 +8403,68 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
+                                  3 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                    ),
+                                     'width' => 300,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'Category',
+                                     'title' => 'Category',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => 'margin-left:10px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  4 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                    ),
+                                     'width' => 300,
+                                     'defaultValue' => '',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'Sub_Category',
+                                     'title' => 'Sub-Category',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => 'margin-left:10px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -9815,6 +9873,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'TPCode',
+                                     'title' => 'TP Code',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -9877,6 +9963,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'regex' => '',
                                          'unique' => false,
                                          'showCharCount' => false,
+                                         'name' => 'headlineWeb',
+                                         'title' => 'Headline (Web)',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => NULL,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
+                                      )),
+                                      1 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'defaultValue' => NULL,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
                                          'name' => 'legalText',
                                          'title' => 'Legal Text',
                                          'tooltip' => '',
@@ -9893,7 +10007,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      1 => 
+                                      2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -9921,7 +10035,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      2 => 
+                                      3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -9949,119 +10063,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      3 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'BrandShortText3',
-                                         'title' => 'Brand Short Text 3',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
                                       4 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'BrandShortText4',
-                                         'title' => 'Brand Short Text 4',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      5 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'BrandShortText5',
-                                         'title' => 'Brand Short Text 5',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      6 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'Marking1',
-                                         'title' => 'Marking 1',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      7 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -10089,25 +10091,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      8 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
+                                      5 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                         'fieldtype' => 'multiselect',
+                                         'options' => 
+                                        array (
+                                        ),
                                          'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
+                                         'height' => '',
+                                         'maxItems' => '',
+                                         'renderType' => 'tags',
+                                         'optionsProviderClass' => '',
+                                         'optionsProviderData' => '',
+                                         'queryColumnType' => 'text',
+                                         'columnType' => 'text',
+                                         'phpdocType' => 'array',
+                                         'dynamicOptions' => false,
                                          'name' => 'searchKeywords',
                                          'title' => 'Search Keywords',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => false,
+                                         'locked' => NULL,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -10115,7 +10121,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
                                       )),
                                     ),
                                      'locked' => false,
@@ -10149,31 +10154,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'phpdocType' => 'string',
                                          'toolbarConfig' => '',
                                          'excludeFromSearchIndex' => false,
-                                         'name' => 'headlineWeb',
-                                         'title' => 'Headline (Web)',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => 'margin-left:20px;',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                                         'fieldtype' => 'wysiwyg',
-                                         'width' => 500,
-                                         'height' => 125,
-                                         'queryColumnType' => 'longtext',
-                                         'columnType' => 'longtext',
-                                         'phpdocType' => 'string',
-                                         'toolbarConfig' => '',
-                                         'excludeFromSearchIndex' => false,
                                          'name' => 'commercialDescription',
                                          'title' => 'Commercial Description',
                                          'tooltip' => '',
@@ -10189,7 +10169,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
                                       )),
-                                      2 => 
+                                      1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
                                          'width' => 500,
@@ -10395,7 +10375,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => '',
                                  'height' => '',
                                  'maxTabs' => NULL,
-                                 'labelWidth' => 200,
+                                 'labelWidth' => 100,
                                  'border' => false,
                                  'provideSplitView' => false,
                                  'tabPosition' => NULL,
@@ -10485,7 +10465,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => '',
                                  'height' => '',
                                  'maxTabs' => NULL,
-                                 'labelWidth' => 200,
+                                 'labelWidth' => 100,
                                  'border' => false,
                                  'provideSplitView' => false,
                                  'tabPosition' => NULL,
@@ -10533,7 +10513,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 'IFSEUHoseBase',
                         ),
                          'maxItems' => '',
-                         'border' => false,
+                         'border' => true,
                          'name' => 'Base',
                          'title' => '',
                          'tooltip' => '',
@@ -10618,9 +10598,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => 3,
-                                     'name' => 'minimumTemperatureF',
-                                     'title' => 'Min Temp °F',
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'minimumTemperatureC',
+                                     'title' => 'Min Temp °C',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -10649,9 +10629,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => 3,
-                                     'name' => 'maximumTemperatureF',
-                                     'title' => 'Max temp °F',
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'maximumTemperatureC',
+                                     'title' => 'Max temp °C',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -10807,90 +10787,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   7 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'temperatureRangeApplication3',
-                                     'title' => 'Temperature Range Applications 3',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:10px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  8 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'temperatureRangeApplication4',
-                                     'title' => 'Temperature Range Applications 4',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:10px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  9 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'temperatureRangeApplication5',
-                                     'title' => 'Temperature Range Applications 5',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:10px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  10 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
                                      'width' => 300,
@@ -10921,7 +10817,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  11 => 
+                                  8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
                                      'width' => 300,
@@ -10952,7 +10848,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  12 => 
+                                  9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
                                      'width' => 300,
@@ -10983,7 +10879,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  13 => 
+                                  10 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Yes',
@@ -11062,9 +10958,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'minimumTemperatureC',
-                                     'title' => 'Min Temp °C',
+                                     'decimalPrecision' => 3,
+                                     'name' => 'minimumTemperatureF',
+                                     'title' => 'Min Temp °F',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -11093,9 +10989,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'maximumTemperatureC',
-                                     'title' => 'Max temp °C',
+                                     'decimalPrecision' => 3,
+                                     'name' => 'maximumTemperatureF',
+                                     'title' => 'Max temp °F',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -12018,7 +11914,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => 'Finished Goods Data',
-             'width' => 1100,
+             'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
              'collapsed' => false,
@@ -12037,7 +11933,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'region' => NULL,
                  'title' => '',
                  'width' => NULL,
-                 'height' => 1200,
+                 'height' => NULL,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -12055,7 +11951,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Finished Good Attributes',
-                     'width' => 1100,
+                     'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
@@ -12104,12 +12000,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 150,
+                         'labelWidth' => 100,
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Catalog Flags',
-                         'width' => 1100,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -12362,12 +12258,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 150,
+                         'labelWidth' => 100,
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Web',
-                         'width' => 1100,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -12540,8 +12436,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Imported From SAP',
-                     'width' => 1050,
-                     'height' => 1000,
+                     'width' => NULL,
+                     'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
@@ -12560,7 +12456,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => '',
-                         'width' => 1050,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
@@ -12580,7 +12476,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Global Data Points',
-                         'width' => 1050,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -13438,7 +13334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Calculated',
-                         'width' => 1050,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -13666,7 +13562,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Packaging Attributes',
-                     'width' => 900,
+                     'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
@@ -13678,13 +13574,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 220,
+                         'labelWidth' => 100,
                          'name' => 'Additional Information',
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Additional Information',
-                         'width' => 1000,
-                         'height' => 300,
+                         'width' => NULL,
+                         'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
                          'bodyStyle' => '',
@@ -14101,13 +13997,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 200,
+                         'labelWidth' => 100,
                          'name' => 'Chemical Items',
                          'type' => NULL,
                          'region' => NULL,
                          'title' => '',
-                         'width' => 1000,
-                         'height' => 600,
+                         'width' => NULL,
+                         'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
                          'bodyStyle' => 'border:0',
@@ -27964,8 +27860,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => '',
-                         'width' => 1000,
-                         'height' => 600,
+                         'width' => NULL,
+                         'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
                          'bodyStyle' => '',
@@ -28590,7 +28486,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'width' => '',
                              'height' => '',
                              'maxTabs' => NULL,
-                             'labelWidth' => 200,
+                             'labelWidth' => 100,
                              'border' => false,
                              'provideSplitView' => false,
                              'tabPosition' => NULL,
@@ -28637,7 +28533,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'region' => NULL,
              'title' => 'Digital Assets',
              'width' => NULL,
-             'height' => 1100,
+             'height' => NULL,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
@@ -28674,7 +28570,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'region' => NULL,
                      'title' => 'Product Images',
                      'width' => NULL,
-                     'height' => 1000,
+                     'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
@@ -29497,43 +29393,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'key' => '0',
                     'label' => 'Unique ID',
-                    'id' => 'extModel46616-1',
                   ),
                   1 => 
                   array (
                     'key' => '1',
                     'label' => 'Sales Organization',
-                    'id' => 'extModel46616-2',
                   ),
                   2 => 
                   array (
                     'key' => '2',
                     'label' => 'Distribution Channel',
-                    'id' => 'extModel46616-3',
                   ),
                   3 => 
                   array (
                     'key' => '3',
                     'label' => 'Validity End Date',
-                    'id' => 'extModel46616-4',
                   ),
                   4 => 
                   array (
                     'key' => '4',
                     'label' => 'Validity Start Date',
-                    'id' => 'extModel46616-5',
                   ),
                   5 => 
                   array (
                     'key' => '5',
                     'label' => 'Rate',
-                    'id' => 'extModel46616-6',
                   ),
                   6 => 
                   array (
                     'key' => '6',
                     'label' => 'Rate Unit',
-                    'id' => 'extModel46616-7',
                   ),
                 ),
                  'queryColumnType' => 'longtext',
@@ -29645,7 +29534,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'height' => '',
                  'maxTabs' => NULL,
-                 'labelWidth' => 200,
+                 'labelWidth' => 100,
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
