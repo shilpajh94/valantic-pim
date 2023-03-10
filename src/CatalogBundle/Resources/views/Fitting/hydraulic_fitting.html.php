@@ -316,6 +316,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 </tr>
                                             <?php endif; ?>
                                             <tr class="head">
+
                                                 <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c2data): ?>
                                                     <?php
                                                     $columnWidth = '';
@@ -330,7 +331,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                                             <?php if ($tableRows['articleData']['subHeaderRequired'] == 'YES'): ?>
                                                 <tr class="head">
-                                                    <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data): ?>
+                                                    <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data):  ?>
                                                         <?php foreach ($c3data as $c3key => $c3value): 
                                                             $columnList[] = $c3key;
                                                             if ($c3value['unitName']): ?>
@@ -364,10 +365,33 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                     }
                                                 ?>
                                                 <tr class="<?= $activeClass; ?>" data-id="<?= "$oldValue = $shortedRows[$HoseID1InFractIndex]" ?>">
-                                                    <?php 	
+                                                    <?php 
+                                                        $nutTypeSuperText = '';
+                                                        $nutType = $tableRows['articleData']['NutType'];
+                                                        if(in_array('Thrust Nut', $nutType)){
+                                                            $nutTypeSuperText = 'T';
+                                                        }
+
+                                                        $singleHexSuperText = '';
+                                                        $singleHex = $tableRows['articleData']['SingleHexYN'];
+                                                        if(in_array('true', $singleHex)){
+                                                            $singleHexSuperText = '1';
+                                                        }
+
+                                                        if($nutTypeSuperText && $singleHexSuperText){
+                                                            $partNumberSuperText = 'T,1';
+                                                        }
+                                                        elseif($nutTypeSuperText && !$singleHexSuperText){
+                                                            $partNumberSuperText = 'T';
+                                                        }
+                                                        else{
+                                                            $partNumberSuperText = '1';
+                                                        }
+
                                                         $indexDescriptiveNumber = array_search('DescriptivePartNumber', $columnList);	
                                                         if(($indexDescriptiveNumber !== false) && ($shortedRows[$indexDescriptiveNumber]))	
                                                         { 	
+
                                                             $descriptiveNumberText = $shortedRows[$indexDescriptiveNumber];	
                                                             $descriptiveNumberList = explode('-', $descriptiveNumberText);	
                                                             if(count($descriptiveNumberList) > 1)	
@@ -379,6 +403,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                                 $partNumbers[] = $descriptiveText;	
                                                             }	
                                                         }	
+
                                                         $industryStandard = array_search('industryStandard', $columnList);	
                                                         if(($industryStandard !== false) && ($shortedRows[$industryStandard]))	
                                                         { 	
@@ -390,8 +415,14 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                             }	
                                                         }	
                                                     ?>
-                                                    <?php foreach ($shortedRows as $ekey => $value): ?>
-                                                        <td><?= $value ?></td>
+                                                    <?php foreach ($shortedRows as $ekey => $value): 
+                                                        if($ekey == 0): ?>
+                                                            <td><?= $value . "<sup>".$partNumberSuperText."</sup>" ?></td>
+                                                        <?php else: ?>
+                                                            <td><?= $value ?></td>
+                                                        <?php
+                                                            endif;
+                                                        ?>   
                                                     <?php endforeach; ?>
                                                 </tr>
                                             <?php
