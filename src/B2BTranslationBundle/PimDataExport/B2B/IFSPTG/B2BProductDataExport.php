@@ -1,20 +1,21 @@
 <?php
-namespace B2BTranslationBundle\Services;
+
+namespace B2BTranslationBundle\PimDataExport\B2B\IFSPTG;
+
 
 use Pimcore\Db;
 use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
-use \Pimcore\Model\DataObject;
+use B2BTranslationBundle\PimDataExport\IDataExport;
 
-class CreateAndSendB2BTranslationCSVToFTPService
+class B2BProductDataExport implements IDataExport
 {
     private $db;
     private $bu;
     private $common;
     private $languages;
     private $productAttributeConfig;
-    private $categoryAttributeConfig;
     private $headerMapping;
     private $bUProductClassTableID = [
         'IFS_PTG_US' => array('productClassId'=>'1', 'salesMaterialMasterClassId'=>'10'),
@@ -23,189 +24,22 @@ class CreateAndSendB2BTranslationCSVToFTPService
         'IFS_EU' => 'IFSEUProduct',
     ];
 
-    public function __construct()
+    public function __construct($bu)
     {
+        $this->bu = $bu;
         $this->db = Db::get();
         $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
     }
-    
-    public function getB2BTranslationMapping()
+
+    public function exportData()
     {
-        $sqlMapping="select TranslationDataType, AVBVendorData from object_query_B2BTranslationMapping Where BusinessUnit='{$this->bu}'";
-        return $this->db->fetchPairs($sqlMapping);
-    }
-
-    public function getFittingFamilyMasterList()
-    {   
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_30  oq_30 
-                    left join object_localized_data_30 old_30 ON oq_30.oo_id = old_30.ooo_id AND old_30.language IN ($languages)";
-        return $this->db->fetchAll($sqlMapping);
-    }
-
-    public function getFittingEndFamilyTypeMasterList()
-    {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_31  oq_31 
-                    left join object_localized_data_31 old_31 ON oq_31.oo_id = old_31.ooo_id AND old_31.language IN ($languages)";
-        return $this->db->fetchAll($sqlMapping);
-    }
-
-    public function getMultiSelectMasterList()
-    {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, masterType, language, name from object_query_22  oq_22 
-                    left join object_localized_data_22 old_22 ON oq_22.oo_id = old_22.ooo_id AND old_22.language IN ($languages)";
-        return $this->db->fetchAll($sqlMapping);
-    }
-
-    public function getFeaturesMasterList()
-    {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, language, name from object_query_29  oq_29 
-                    left join object_localized_data_29 old_29 ON oq_29.oo_id = old_29.ooo_id AND old_29.language IN ($languages)";
-        return $this->db->fetchAll($sqlMapping);
-    }
-
-    public function getNomenClatureList()
-    {
-        $sqlMapping = "select oo_id, TRIM(BOTH ',' FROM Thread) AS Thread, swivel, elbowType, gender1,  TRIM(BOTH ',' FROM FittingFamily) AS FittingFamily from object_query_20";
-        return $this->db->fetchAll($sqlMapping);
-    }
-
-    public function getThreadList()
-    {
-        $sqlMapping = "select oo_id, Name from object_query_32";
-        return $this->db->fetchPairs($sqlMapping);
-    }
-
-    public function getFittingFamilyList()
-    {
-        $sqlMapping = "select oo_id, Name from object_query_30";
-        return $this->db->fetchPairs($sqlMapping);
-    }
-
-    public function getLocalizedAttribute($className)
-    {
-        $businessUnitFileName = '';
-
-        if($this->bu == 'IFS_PTG_US')
-        {
-            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
-        }
-        else if($this->bu == 'CS_US')
-        {
-            $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
-        }
-        else if($this->bu == 'PTG_EU')
-        {
-            $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
-        }
-        else if($this->bu == 'IFS_EU')
-        {
-            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
-        }
-
-        $b2bTranslationList = [];
-        $b2bTranslationConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBusinessUnitTranslationConfig($businessUnitFileName);
-        $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $className);
-
-        return $b2bTranslationList;
-    }
-
-    public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
-    {
-        $filteredAttribute = [];
-        if($this->productAttributeConfig)
-        {
-            foreach ($this->productAttributeConfig as $key => $attributeConfig) {
-                if($attributeConfig['fieldLocation'] == $fieldLocation && $attributeConfig['className'] == $className && $attributeConfig['isLocalized'] == $isLocalized)
-                {
-                    if(isset($this->headerMapping[$key]))
-                    {
-                        $filteredAttribute[$key] = $attributeConfig;
-                    }
-                }
-            }
-        }
-        return $filteredAttribute;
-    }
-
-    public function getRecordsWithFilteredFields($columnsList, $b2bProducts)
-    {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $selectedFields = [];
-        foreach ($columnsList as $key => $columm) {
-            $selectedFields[] = "$columm";
-        }
-
-        $columnsString = implode(',', $selectedFields);
-        $ids = implode(',', $b2bProducts);
-        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_1 where ooo_id IN ($ids) AND language IN ($languages)";
-        return $this->db->fetchAll($sql);
-    }
-
-    public function getRecordsWithFilteredFieldsCategory($columnsList, $b2bProducts)
-    {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $selectedFields = [];
-        foreach ($columnsList as $key => $columm) {
-            $selectedFields[] = "$columm";
-        }
-
-        $columnsString = implode(',', $selectedFields);
-        $ids = implode(',', $b2bProducts);
-        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_2 where ooo_id IN ($ids) AND language IN ($languages)";
-        return $this->db->fetchAll($sql);
-    }
-
-    public function getRecordsWithFilteredMasterFields($fields, $b2bProducts)
-    {
-        $config = $this->bUProductClassTableID[$this->bu];
-        $productClassId = $config['productClassId'];
-
-        $columnsString = 'oo_id';
-
-        if($fields)
-        {
-            $columnsString .= ",". implode(',', $fields);
-        }
-        
-        $ids = implode(',', $b2bProducts);
-        $sql = "select oo_id, {$columnsString} from object_query_{$productClassId} where oo_id IN ($ids)";
-        return $this->db->fetchAll($sql);
-    }
-
-    public function getRecordsWithFilteredObjectbrickMasterFields($multiObjectbrickColumnsList, $b2bProducts)
-    {
-        $allObjectBrickData = [];
-        $config = $this->bUProductClassTableID[$this->bu];
-        $productClassId = $config['productClassId'];
-
-        foreach ($multiObjectbrickColumnsList as $brickName => $fields) {
-            $columnsString = implode(',', $fields);
-            $ids = implode(',', $b2bProducts);
-            $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where o_id IN ($ids)";
-            $resultSet = $this->db->fetchAll($sql);
-
-            $allObjectBrickData = array_merge($allObjectBrickData, $resultSet);
-        }
-
-        return $allObjectBrickData;
-    }
-
-    
-
-    public function import($bu)
-    {
+            
         $this->logMessage('Script Execution Started', LogLevel::DEBUG());
         try{
 
-            $this->bu = $bu;
-
             # Get valid languages
             $this->languages = \Pimcore\Tool::getValidLanguages(); 
-            $b2bMapping = $this->getB2BTranslationMapping();
+            $b2bProductMapping = $this->getB2BTranslationMapping('Product');
             $fitingFamilyMasters = $this->getFittingFamilyMasterList();
             $fittingEndFamilyTypeMasters = $this->getFittingEndFamilyTypeMasterList();
             $multiSelectMasters = $this->getMultiSelectMasterList();
@@ -259,8 +93,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                 unset($nomenClatures);
             }
 
-            $b2bProductMapping = $b2bMapping['Product'];
-
             $b2bProductMappingRows = explode(PHP_EOL,$b2bProductMapping);
             $headerMapping = [];
             if($b2bProductMappingRows)
@@ -277,7 +109,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
             
             $this->headerMapping = $headerMapping;
             
-            // $b2bCategoryMapping = $b2bMapping['Category'];
             $this->productAttributeConfig = $this->getLocalizedAttribute('Product');
 
             # Product's non localized field
@@ -308,8 +139,7 @@ class CreateAndSendB2BTranslationCSVToFTPService
             
             # Fetch all products satisfying condition "salesMaster.epixFlag = '001' AND salesMaster.o_published = 1 AND product.o_published = 1"
             $b2bProducts = $this->getAllB2BProduct();
-            // $b2bCategories = $this->getAllB2BCategory();
-
+            
             if($b2bProducts)
             {
                 $areHeadersAlreadyAdded = false;
@@ -671,50 +501,6 @@ class CreateAndSendB2BTranslationCSVToFTPService
                 }
                 fclose($file);
             }
-
-            // if($b2bCategories)
-            // {
-
-            //     $areHeadersAlreadyAdded = false;
-            //     // $b2bProducts = array_slice($b2bCategories, 0, 10000);
-            //     $b2bProductsChucks = array_chunk($b2bCategories,50);
-            //     // $b2bProductsChucks[] = [1840236,1840247];
-            //     $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
-            //     $file = fopen($filePath,"w+");
-
-            //     foreach ($b2bProductsChucks as $batchNum => $categoryIds) 
-            //     {
-
-            //         // $b2bCategoryMapping = $b2bMapping['Category'];
-            //         $this->productAttributeConfig = $this->getLocalizedAttribute('Category');
-            //         // p_r($this->productAttributeConfig);
-
-            //         # Product's localized field
-            //         $categoryFilteredAttribute = $this->getFilteredAttribute('class', 'ProductCategory');
-            //         // p_r($b2bCategories);
-            //         // p_r($categoryFilteredAttribute);
-
-
-            //         # Product's localized field data
-            //         $localData1 = [];
-            //         $categoryFilteredAttributeField = array_keys($categoryFilteredAttribute);
-                    
-            //         $result1 = $this->getRecordsWithFilteredFieldsCategory($categoryFilteredAttributeField, $categoryIds);
-            //         p_r($result1);
-            //         die;
-
-            //         foreach ($result1 as $key => $fields) {
-            //             foreach ($fields as $fkey => $field) {
-            //                 if(!in_array($fkey, ['ooo_id','language']))
-            //                 {
-            //                     $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = $field;
-            //                 }
-            //             }
-            //         }
-            //     }
-
-            //     die;
-            // }
             
         } catch(\Throwable $e) {
             $message = $e->getMessage();
@@ -722,13 +508,160 @@ class CreateAndSendB2BTranslationCSVToFTPService
             $this->logMessage($message, LogLevel::CRITICAL());
             return;
         }
-    }    
-
-    public function getAllB2BCategory()
-    {
-        $sql = "SELECT o_id FROM salesforce_integration_b2b_category_master";
-        return $this->db->fetchCol($sql);
+           
     }
+    
+    public function getB2BTranslationMapping($type)
+    {
+        $sqlMapping="select AVBVendorData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY oo_id DESC";
+        return $this->db->fetchOne($sqlMapping);
+    }
+
+    public function getFittingFamilyMasterList()
+    {   
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_30  oq_30 
+                    left join object_localized_data_30 old_30 ON oq_30.oo_id = old_30.ooo_id AND old_30.language IN ($languages)";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getFittingEndFamilyTypeMasterList()
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_31  oq_31 
+                    left join object_localized_data_31 old_31 ON oq_31.oo_id = old_31.ooo_id AND old_31.language IN ($languages)";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getMultiSelectMasterList()
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $sqlMapping = "select oo_id, masterType, language, name from object_query_22  oq_22 
+                    left join object_localized_data_22 old_22 ON oq_22.oo_id = old_22.ooo_id AND old_22.language IN ($languages)";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getFeaturesMasterList()
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $sqlMapping = "select oo_id, language, name from object_query_29  oq_29 
+                    left join object_localized_data_29 old_29 ON oq_29.oo_id = old_29.ooo_id AND old_29.language IN ($languages)";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getNomenClatureList()
+    {
+        $sqlMapping = "select oo_id, TRIM(BOTH ',' FROM Thread) AS Thread, swivel, elbowType, gender1,  TRIM(BOTH ',' FROM FittingFamily) AS FittingFamily from object_query_20";
+        return $this->db->fetchAll($sqlMapping);
+    }
+
+    public function getThreadList()
+    {
+        $sqlMapping = "select oo_id, Name from object_query_32";
+        return $this->db->fetchPairs($sqlMapping);
+    }
+
+    public function getFittingFamilyList()
+    {
+        $sqlMapping = "select oo_id, Name from object_query_30";
+        return $this->db->fetchPairs($sqlMapping);
+    }
+
+    public function getLocalizedAttribute($className)
+    {
+        $businessUnitFileName = '';
+
+        if($this->bu == 'IFS_PTG_US')
+        {
+            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
+        }
+        else if($this->bu == 'CS_US')
+        {
+            $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
+        }
+        else if($this->bu == 'PTG_EU')
+        {
+            $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
+        }
+        else if($this->bu == 'IFS_EU')
+        {
+            $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
+        }
+
+        $b2bTranslationList = [];
+        $b2bTranslationConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBusinessUnitTranslationConfig($businessUnitFileName);
+        $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $className);
+
+        return $b2bTranslationList;
+    }
+
+    public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
+    {
+        $filteredAttribute = [];
+        if($this->productAttributeConfig)
+        {
+            foreach ($this->productAttributeConfig as $key => $attributeConfig) {
+                if($attributeConfig['fieldLocation'] == $fieldLocation && $attributeConfig['className'] == $className && $attributeConfig['isLocalized'] == $isLocalized)
+                {
+                    if(isset($this->headerMapping[$key]))
+                    {
+                        $filteredAttribute[$key] = $attributeConfig;
+                    }
+                }
+            }
+        }
+        return $filteredAttribute;
+    }
+
+    public function getRecordsWithFilteredFields($columnsList, $b2bProducts)
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $selectedFields = [];
+        foreach ($columnsList as $key => $columm) {
+            $selectedFields[] = "$columm";
+        }
+
+        $columnsString = implode(',', $selectedFields);
+        $ids = implode(',', $b2bProducts);
+        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_1 where ooo_id IN ($ids) AND language IN ($languages)";
+        return $this->db->fetchAll($sql);
+    }
+    
+    public function getRecordsWithFilteredMasterFields($fields, $b2bProducts)
+    {
+        $config = $this->bUProductClassTableID[$this->bu];
+        $productClassId = $config['productClassId'];
+
+        $columnsString = 'oo_id';
+
+        if($fields)
+        {
+            $columnsString .= ",". implode(',', $fields);
+        }
+        
+        $ids = implode(',', $b2bProducts);
+        $sql = "select oo_id, {$columnsString} from object_query_{$productClassId} where oo_id IN ($ids)";
+        return $this->db->fetchAll($sql);
+    }
+
+    public function getRecordsWithFilteredObjectbrickMasterFields($multiObjectbrickColumnsList, $b2bProducts)
+    {
+        $allObjectBrickData = [];
+        $config = $this->bUProductClassTableID[$this->bu];
+        $productClassId = $config['productClassId'];
+
+        foreach ($multiObjectbrickColumnsList as $brickName => $fields) {
+            $columnsString = implode(',', $fields);
+            $ids = implode(',', $b2bProducts);
+            $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where o_id IN ($ids)";
+            $resultSet = $this->db->fetchAll($sql);
+
+            $allObjectBrickData = array_merge($allObjectBrickData, $resultSet);
+        }
+
+        return $allObjectBrickData;
+    }
+
     public function getAllB2BProduct()
     {
 

@@ -39,15 +39,11 @@ services:
         class: B2BTranslationBundle\Services\SalesforceIdImportService
         public: true
 
-    b2b_translation.create_and_send_b2b_translation_csv_to_ftp_service:
-        class: B2BTranslationBundle\Services\CreateAndSendB2BTranslationCSVToFTPService
-        public: true
-
     #command
-    B2BTranslationBundle\Command\SalesForceIdImportCommand:
+    B2BTranslationBundle\Command\PimDataImportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:b2b-salesforceid-import' }
+            - { name: 'console.command', command: 'contitech:b2b:pim-data-import-command' }
 
-    B2BTranslationBundle\Command\CreateAndSendB2BTranslationCSVToFTPCommand:
+    B2BTranslationBundle\Command\PimDataExportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:b2b-create-and-send-translation-csv-to-ftp' }
+            - { name: 'console.command', command: 'contitech:b2b:pim-data-export-command' }
