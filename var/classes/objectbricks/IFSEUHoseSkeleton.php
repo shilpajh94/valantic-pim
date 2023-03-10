@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-01T13:48:32+05:30
+* Generated at: 2023-03-10T07:39:02+01:00
 * IP: 127.0.0.1
 
 
@@ -13,11 +13,6 @@ Fields Summary:
 - OdIn [numeric]
 - Odmm [numeric]
 - FittingFamily [multiselect]
-- InnerHoseOdMM [numeric]
-- InnerHoseOdInDec [numeric]
-- InnerHoseIdMM [numeric]
-- InnerHoseIdDec [numeric]
-- InnerHoseIDFractional [numeric]
 - workingPressureBAR [numeric]
 - workingPressurePSI [numeric]
 - workingPressureMPA [numeric]
@@ -858,181 +853,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
              'fieldtype' => 'fieldset',
              'labelWidth' => 220,
-             'name' => 'Layout',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Inner Hose',
-             'width' => NULL,
-             'height' => NULL,
-             'collapsible' => true,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'permissions' => NULL,
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'InnerHoseOdMM',
-                 'title' => 'Inner Hose OD (mm; Decimal)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'InnerHoseOdInDec',
-                 'title' => 'Inner Hose OD (in; Decimal)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'InnerHoseIdMM',
-                 'title' => 'Inner Hose ID (mm; Decimal)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'InnerHoseIdDec',
-                 'title' => 'Inner Hose ID (in; Decimal)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'InnerHoseIDFractional',
-                 'title' => 'Inner Hose ID (in; Fractional)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-            ),
-             'locked' => false,
-          )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-             'fieldtype' => 'fieldset',
-             'labelWidth' => 220,
              'name' => 'Working Pressure',
              'type' => NULL,
              'region' => NULL,
@@ -1142,7 +962,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'locked' => false,
           )),
-          3 => 
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
              'fieldtype' => 'fieldset',
              'labelWidth' => 220,
@@ -1348,7 +1168,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'locked' => false,
           )),
-          4 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
              'fieldtype' => 'fieldset',
              'labelWidth' => 220,

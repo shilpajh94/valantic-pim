@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-09T14:38:32+01:00
+* Generated at: 2023-03-10T07:36:06+01:00
 * IP: 127.0.0.1
 
 
@@ -11,10 +11,8 @@ Fields Summary:
 - tubeCharacteristic [select]
 - hoseIdDec [numeric]
 - hoseIdMM [numeric]
-- FieldsOfApplication [multiselect]
 - Note2BelowTable [multiselect]
 - FlowMediumStability [booleanSelect]
-- flowMedium [multiselect]
 - numberOfHelixWires [numeric]
 - tubeGaugeFractional [input]
 - NonStockSizes [input]
@@ -25,12 +23,14 @@ Fields Summary:
 - InnerLining [select]
 - colorInnerLining [select]
 - Reinforcement [select]
-- Helix [input]
+- Helix [select]
 - propertiesInnerLayer [select]
 - CoverOuterLayer [select]
 - ColorOuterLayer [select]
 - Haptic [select]
 - PropertiesOuterLayer [select]
+- FieldsOfApplication [multiselect]
+- flowMedium [multiselect]
 */ 
 
 
@@ -343,37 +343,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'text',
                      'phpdocType' => 'array',
                      'dynamicOptions' => false,
-                     'name' => 'FieldsOfApplication',
-                     'title' => 'Fields Of Application',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                    ),
-                     'width' => 300,
-                     'height' => '',
-                     'maxItems' => 10,
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
                      'name' => 'Note2BelowTable',
                      'title' => 'Note 2 (Below Table)',
                      'tooltip' => '',
@@ -389,7 +358,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
@@ -419,37 +388,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'phpdocType' => 'boolean',
                      'name' => 'FlowMediumStability',
                      'title' => 'Flow Medium - Stability',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                    ),
-                     'width' => 300,
-                     'height' => '',
-                     'maxItems' => 10,
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'flowMedium',
-                     'title' => 'Flow Medium',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -764,7 +702,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
-                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #28a050 !important;border-color: #bce8f1 !important',
+                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
                      'permissions' => NULL,
                      'childs' => 
@@ -885,24 +823,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                        ),
                          'width' => 300,
-                         'defaultValue' => NULL,
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
                          'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'dynamicOptions' => false,
                          'name' => 'Helix',
                          'title' => 'Helix',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1006,7 +947,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'height' => NULL,
                      'collapsible' => false,
                      'collapsed' => false,
-                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #28a050 !important;border-color: #bce8f1 !important',
+                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
                      'permissions' => NULL,
                      'childs' => 
@@ -1156,6 +1097,248 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                ),
+                 'locked' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+             'fieldtype' => 'fieldcontainer',
+             'labelWidth' => 200,
+             'layout' => 'hbox',
+             'fieldLabel' => '',
+             'name' => 'Field Container',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => '',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 200,
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                     'fieldtype' => 'text',
+                     'html' => 'Fields of applications',
+                     'renderingClass' => '',
+                     'renderingData' => '',
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 190,
+                     'layout' => NULL,
+                     'border' => true,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => '',
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => 10,
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'FieldsOfApplication',
+                         'title' => 'Fields Of Application',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
+                  )),
+                ),
+                 'locked' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 100,
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => 20,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                ),
+                 'locked' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 200,
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                     'fieldtype' => 'text',
+                     'html' => 'Flow Medium',
+                     'renderingClass' => '',
+                     'renderingData' => '',
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 190,
+                     'layout' => NULL,
+                     'border' => true,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => '',
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => 10,
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'flowMedium',
+                         'title' => 'Flow Medium',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,
