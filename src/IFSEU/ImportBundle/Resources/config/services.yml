@@ -68,6 +68,10 @@ services:
         tags:
             - { name: 'console.command', command: 'ifs-eu-norm-master-data-import-command' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\OtherPropertiesMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-other-properties-master-data-import-command' }
+
     
     # Helpers
     ifs_eu_import.common_helper:
