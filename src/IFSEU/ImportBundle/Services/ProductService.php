@@ -9,7 +9,6 @@ use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
-use Exception;
 
 class ProductService
 {

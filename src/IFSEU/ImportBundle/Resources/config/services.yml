@@ -119,10 +119,6 @@ services:
         class: IFSEU\ImportBundle\Services\ProductService
         public: true
         
-    ifs_eu_import.category_brick_mapping_service:
-        class:  IFSEU\ImportBundle\Services\CategoryBrickMappingService
-        public: true
-
     ifs_eu_import.category_import_service:
         class: IFSEU\ImportBundle\Services\CategoryService
         public: true
