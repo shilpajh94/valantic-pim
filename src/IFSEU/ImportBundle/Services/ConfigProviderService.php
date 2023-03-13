@@ -29,7 +29,16 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_CATEGORY_CONFIG_FILE_PATH);
     }
-    
+
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
+    }
+
+    public function getBrickMappingConfig(){
+        return $this->getConfigFromYmlFile(IFS_EU_BRICK_MAPPING_CONFIG_FILE_PATH);
+    }
+
 
     /**
      * get yml config for the given file

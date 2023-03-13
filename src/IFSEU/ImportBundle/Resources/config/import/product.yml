@@ -1,0 +1,125 @@
+# sheet: Sheet Information
+#     columnName: ['Material', 'Language', 'Material Description', 'Material Group', 'Prod Hier',
+#             'Base UOM', 'Old Material', 'Prod Hier 1', 'Prod Hier 1 Desc', 'Prod Hier 2', 'Prod Hier 2 Desc', 'Prod Hier 3',
+#             'Prod Hier 3 Desc', 'Prod Hier 4', 'Prod Hier 4 Desc', 'Prod Hier 5', 'Prod Hier 5 Desc', 'Prod Hier 6', 'Prod Hier 6 Desc', 
+#             'Industry Standard #', 'Manufacter', 'Manufacter Part Numb', 'EAN_UPC', 'STCC Code', 'Gross Weight', 'Net Weight', 'Weight Unit'] List of column name which will be map with row of sheet
+#     lastColName: 'Q' // Last column of the sheet which will be used to log row status of the sheet
+#     startRow: 2 // Row number to start the reading sheet
+#     importIdConfig: ['materialCode'] // This field will be used to create primary key structure of temp table.
+
+
+parameters:
+  # Csv header information
+  sheet:
+    columnName: 
+      material: 'Material number'
+      language: 'Language'
+      description:  'Material Desc.'
+      group:  'Material Group'
+      code: 'Ext. Mat Code'
+      baseUOM:  'BaseUOM'
+      oldMaterial:  'Old Material'
+      prodHier1:  'Level 1'
+      # prodHier1Desc:  'Prod Hier 1 Desc'
+      prodHier2:  'Level 2'
+      prodHier2Desc:  'Level 2 Text'
+      prodHier3:  'Level 3'
+      prodHier3Desc:  'Level 3 Text'
+      prodHier4:  'Level 4'
+      prodHier4Desc:  'Level 4 Text'
+      prodHier5:  'Level 5'
+      prodHier5Desc:  'Level 5 Text'
+      prodHier6:  'Level 6'
+      prodHier6Desc:  'Level 6 Text'
+      prodHier7:  'Level 7'
+      prodHier7Desc:  'Level 7 Text'
+      industryStandard: 'Industry Standard #'
+      manufacture:  'Manufacter'
+      manufacturePartNumber:  'Manufacter Part Numb'
+      EANCode: 'EAN_UPC'
+      grossWeight:  'Gross Weight'
+      netWeight:  'Net Weight'
+      weightUnit: 'Weight Unit'
+      # externalID: 'External ID'
+      # reinforcement: 'Reinforcement / Cord'
+      # minimumTemperatureC: 'Min Temp C (-)'
+      # minimumTemperatureF: 'Min. Temp. F (-)'
+      # maximumTemperatureC: 'Max Temp C (+)'
+      # maximumTemperatureF: 'Max. Temp. F (+)'
+    lastColName: 'AN'
+    startRow: 1
+    readFrom: 2
+    keyColumns: ['material']
+    baseSIOPMismatchEmailTemplate: "/EmailTemplate/SIOPMismatchReport"
+  
+  # Root information
+  root:
+    type: 'dataObject'
+    subType:  'object'
+    fullPath: '/Contitech_IFS_EMEA/Products'
+  
+  # Base / Brand info
+  base:
+    length: 13
+
+  # Skeleton / Product Specification info
+  skeleton:
+    length: 16
+
+  # Variant (SKU) info
+  variant:
+    length: 16
+    
+  # Product Type
+  productType:
+    13:  'base'
+    16:  'skeleton'
+    16fert: 'fert'
+
+  # SIOP Code Level Info
+  level:
+    1:  
+      codeLength: 2
+      fullCodeLength: 2
+      key: 'hierarchyLevel1'
+    2:  
+      codeLength: 2
+      fullCodeLength: 4
+      key: 'hierarchyLevel2'
+    3:  
+      codeLength: 2
+      fullCodeLength: 6
+      key: 'hierarchyLevel3'
+    4:  
+      codeLength: 2
+      fullCodeLength: 8
+      key: 'hierarchyLevel4'
+    5:  
+      codeLength: 3
+      fullCodeLength: 11
+      key: 'hierarchyLevel5'
+    6:  
+      codeLength: 2
+      fullCodeLength: 13
+      key: 'hierarchyLevel6'
+    7:  
+      codeLength: 3
+      fullCodeLength: 16
+      key: 'hierarchyLevel7'
+
+  # List of table which will use while import
+  table:
+      tempTable: 'ifseu_material_import_temp'
+      masterTable:  'ifseu_material_import_master'
+      logTable: 'ifseu_material_import_log'
+
+  # Number of level allowed to create into SAP hierarchy for SIOP
+  allowedLevel:
+    IFSEU: 5
+  # Mapping product type on siop level 5 & 7. In PTG case only
+  # productTypeLevel 
+  #   5:  12 --- 5 is SIOP level and 12 is stand for 12 digit product type
+  #   7:  18 --- 7 is SIOP level and 18 is stand for 18 digit product type
+  productTypeLevel:
+    6:  13 # base 
+    7:  16 # skeleton

@@ -41,8 +41,8 @@ class ProductModel
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
     
-    public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_38` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `productType` = 'fert'";
+    public function checkIfArticleExists($materialNumber) {
+        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `materialNumber`, `oldMaterialCode`  FROM `object_IFSEUProduct` WHERE `materialNumber` = ".$this->db->quote(trim($materialNumber)) ." AND `productType` = 'fert'";
         return $this->db->fetchAll($sql);
     }
 
@@ -78,8 +78,8 @@ class ProductModel
             $valuesArr[] = $this->db->quote($data['o_key']);
             $valuesArr[] = $this->db->quote($data['path']);
             $valuesArr[] = $this->db->quote("1");
-            $valuesArr[] = $this->db->quote("38");
-            $valuesArr[] = $this->db->quote("PTGEUProduct");
+            $valuesArr[] = $this->db->quote("IFSEUProduct");
+            $valuesArr[] = $this->db->quote("IFSEUProduct");
             $valuesArr[] = $this->db->quote(time());
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";
@@ -179,7 +179,7 @@ class ProductModel
     public function getDelta()
     {
         try {
-            $catLength  = 18;
+            $catLength  = 16;
             $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
             return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
@@ -191,7 +191,7 @@ class ProductModel
         if (count($dataArray)>0) {
             foreach ($dataArray as $fieldName => $objectIds) {
                 $ids = implode(", ", $objectIds);
-                $sql = "Delete from `object_relations_38` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
+                $sql = "Delete from `object_relations_IFSEUProduct` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
                 try {
                     $this->db->query($sql);
                 } catch (\Exception $e) {
@@ -291,22 +291,22 @@ class ProductModel
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_39` ";
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_IFSEUProductCategory` ";
         return $this->db->fetchAll($query);
     }
 
     public function getMaterialGroupData() {
-        $query = "SELECT oo_id, code FROM `object_PTGEUMaterialGroup` ";
+        $query = "SELECT oo_id, code FROM `object_21` ";
         return $this->db->fetchAll($query);
     }
     
     public function getProducts() {
-        $query = "SELECT oo_id, o_key, o_path FROM `object_38` ";
+        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` ";
         return $this->db->fetchAll($query);
     }
     
     public function getObjectsTableData() {
-        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '38'";
+        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = 'IFSEUProduct'";
         return $this->db->fetchAll($query);
     }
 
@@ -317,20 +317,20 @@ class ProductModel
             foreach ($deletedProducts as $product) {
                 $keysArray[] = "'".$product['id']."'";
             }
-            $obj = new DataObject\PTGEUProduct\Listing();
-            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+            $obj = new DataObject\IFSEUProduct\Listing();
+            $obj->setCondition("materialNumber IN (". implode(', ' , $keysArray).")");
             $obj->load();
             foreach($obj as $product) {
-                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                echo "Mark Product unpublished for id = ".$product->getId()." and material number = ".$product->getMaterialNumber().PHP_EOL;
                 $product->setPublished(false);
                 $product->save();
             }
         }
     }
     
-    public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
+    public function checkHierarchyExistAtLevel($fullCode, $level=6) : bool
     {
-        $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
+        $sql = "SELECT `fullCode` FROM object_IFSEUProductCategory WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
         $resultArray = $this->db->fetchAll($sql);
         if(!empty($resultArray))
         {

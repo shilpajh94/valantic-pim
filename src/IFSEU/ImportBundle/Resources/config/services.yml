@@ -96,6 +96,10 @@ services:
         class: IFSEU\ImportBundle\Services\ConfigProviderService
         public: true
 
+    ifs_eu_import.category_brick_mapping_service:
+        class: IFSEU\ImportBundle\Services\CategoryBrickMappingService
+        public: true
+
     ifs_eu_import.sap_plant_material_import:
         class: IFSEU\ImportBundle\Services\PlantMaterialService
         public: true
