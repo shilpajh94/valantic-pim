@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-02T13:47:04+05:30
+* Generated at: 2023-03-13T18:16:23+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -68,6 +68,7 @@ Fields Summary:
 - SIOPLevel4 [manyToManyObjectRelation]
 - SIOPLevel5 [manyToManyObjectRelation]
 - SIOPLevel6 [manyToManyObjectRelation]
+- SIOPLevel7 [manyToManyObjectRelation]
 - mainCategory [manyToManyObjectRelation]
 - subCategory [manyToManyObjectRelation]
 - fittingCategory [manyToManyObjectRelation]
@@ -171,7 +172,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677745006,
+   'modificationDate' => 1678711574,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -11778,6 +11779,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'code,fullCode,description',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'IFSEUProductCategory',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'SIOPLevel7',
+                         'title' => 'SIOP Level 7',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
@@ -12708,7 +12746,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'classes' => 'MaterialGroup',
+                                        'classes' => 'IFSEUMaterialGroup',
                                       ),
                                     ),
                                      'pathFormatterClass' => '',
@@ -12751,7 +12789,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'classes' => 'PTGEUCountryOfOrigin',
+                                        'classes' => 'IFSEUCountries',
                                       ),
                                     ),
                                      'pathFormatterClass' => '',

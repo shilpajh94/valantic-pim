@@ -164,7 +164,6 @@ class CategoryBrickMappingService
     private function manageBrickForProductAtLevel(IFSEUProduct $product, array $selectedClassificationNames, string $level): IFSEUProduct
     {
         $shouldBeAttachedBrickKeys = $this->getMappedBrickKeys($selectedClassificationNames, $level);
-
         $brickFieldName = $this->getBrickFieldNameInProductByLevel($level);
         $brickFromProductGetter = "get" . ucfirst($brickFieldName);
         $brickCollectionData = $product->$brickFromProductGetter();

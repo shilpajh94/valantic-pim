@@ -135,7 +135,6 @@ class ProductModel
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-             
                 $this->db->query($query);
             }
         } catch (\Exception $e) {
@@ -152,7 +151,7 @@ class ProductModel
         foreach ($arrData as $data) {
             $newData= $data;
             $id     = $data[0];
-            $siopfullcode = $data[6];
+            $siopfullcode = $data[9];
             $record = addslashes(json_encode($newData, true));
             $hash   = md5($record);
             $values.= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
@@ -296,7 +295,7 @@ class ProductModel
     }
 
     public function getMaterialGroupData() {
-        $query = "SELECT oo_id, code FROM `object_21` ";
+        $query = "SELECT oo_id, code FROM `object_IFSEUMaterialGroup` ";
         return $this->db->fetchAll($query);
     }
     

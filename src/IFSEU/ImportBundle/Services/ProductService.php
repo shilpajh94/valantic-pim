@@ -215,6 +215,7 @@ class ProductService
     }    
     
     public function initiateProductsProcess() {
+
         $a = time();
         $delta = $this->productModel->getDelta();
         $this->setVariablesToEmpty();
@@ -225,6 +226,8 @@ class ProductService
         $this->logArray = [];
         $i = 0;
         $length = 1000;
+        // p_r($deltaCount);die;
+
         while ($i<$deltaCount) {
             $diff = $deltaCount-$i;
             if ($diff < $length) {
@@ -379,6 +382,7 @@ class ProductService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+
                 $this->setBricksData($objId, $bricksList, $type, $record);
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
@@ -496,7 +500,7 @@ class ProductService
         foreach ($this->langArr as $lang) {
             $value = null;
             if ($lang == 'en' && strtolower($productType) == 'fert') {
-                $value = $record['2'];
+                $value = $record[$this->getRecordIndexByKey('description')];
             }
             $this->localisedDataTableDataArray[] = [
                 'ooo_id' => $objId,
@@ -522,7 +526,7 @@ class ProductService
                 $siopData[$index] = null;
             }
         }
-        $siopFullCode = trim($record['4']);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -548,13 +552,13 @@ class ProductService
             'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
-            // 'externalID' => null,
+            'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
-            $queryTableData['materialNumber'] = trim($record['0']);
-            $queryTableData['baseUOM'] = trim($record['5']);
-            $queryTableData['oldMaterialCode'] = trim($record['6']);
+            $queryTableData['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
+            $queryTableData['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
+            $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
@@ -569,7 +573,7 @@ class ProductService
             $queryTableData['grossWeight'] = $grossWeight;
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $queryTableData['weightUnit'] = $weightUnit;
-            // $queryTableData['externalID'] = trim($record[$this->getRecordIndexByKey('externalID')]);
+            $queryTableData['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
@@ -582,7 +586,7 @@ class ProductService
                 $queryTableData['WeightLbsPerFTUOM'] = null;
             }
             
-            $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
+            $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record[$this->getRecordIndexByKey('group')]));
             if(!empty($materialGrpId)) {
                 $queryTableData['materialGroup__id'] = $materialGrpId;
                 $queryTableData['materialGroup__type'] = 'object';
@@ -592,7 +596,7 @@ class ProductService
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
-        $siopFullCode = trim($record['4']);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -614,13 +618,13 @@ class ProductService
             'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
-            // 'externalID' => null,
+            'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
-            $storeTableDataArray['materialNumber'] = trim($record['0']);
-            $storeTableDataArray['baseUOM'] = trim($record['5']);
-            $storeTableDataArray['oldMaterialCode'] = trim($record['6']);
+            $storeTableDataArray['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
+            $storeTableDataArray['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
+            $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
@@ -635,7 +639,7 @@ class ProductService
             $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $storeTableDataArray['weightUnit'] = $weightUnit;
-            // $storeTableDataArray['externalID'] = trim($record[$this->getRecordIndexByKey('externalID')]);
+            $storeTableDataArray['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
                     $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
@@ -669,7 +673,7 @@ class ProductService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record['3']);
+            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
                 $this->relationTableDataArray[] = [
@@ -698,7 +702,8 @@ class ProductService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record['3']);
+            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
+            // p_r($materialGroupCode);die;
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
                 $this->dependencyTableDataArray[] = [
@@ -712,7 +717,6 @@ class ProductService
     }
     
     public function setBricksData($objId, $bricks, $type) {
-        
         foreach ($bricks as $brick) {
             if (in_array($brick, $this->allBricksList)) {
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
