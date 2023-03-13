@@ -16,6 +16,10 @@ class Product
     private $prdConfigData;
     private $productType;
     public $siopCodes;
+    public $catHelper;
+    public $levelLength;
+    public $level;
+    public $siop;
     private $configProviderService;
 
     public function __construct()

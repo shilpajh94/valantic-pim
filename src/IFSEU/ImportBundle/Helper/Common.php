@@ -1,7 +1,7 @@
 <?php
 
 namespace IFSEU\ImportBundle\Helper;
-
+use Exception;
 class Common
 {
     public function getParameter($data, $key) {

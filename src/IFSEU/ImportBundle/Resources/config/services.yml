@@ -68,12 +68,15 @@ services:
         tags:
             - { name: 'console.command', command: 'ifs-eu-norm-master-data-import-command' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\OtherPropertiesMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-other-properties-master-data-import-command' }
+
     
     # Helpers
     ifs_eu_import.common_helper:
         class: IFSEU\ImportBundle\Helper\Common
         public: true
-
     ifs_eu_import.category_helper:
         class: IFSEU\ImportBundle\Helper\Category
         public: true
@@ -107,12 +110,17 @@ services:
     ifs_eu_import.sap_sales_material_import:
         class: IFSEU\ImportBundle\Services\SalesMaterialService
         public: true
+        
     ifs_eu_import.sap_price_import:
         class: IFSEU\ImportBundle\Services\PriceImportService
         public: true
 
     ifs_eu_import.sap_product_import:
         class: IFSEU\ImportBundle\Services\ProductService
+        public: true
+        
+    ifs_eu_import.category_brick_mapping_service:
+        class:  IFSEU\ImportBundle\Services\CategoryBrickMappingService
         public: true
 
     ifs_eu_import.category_import_service:

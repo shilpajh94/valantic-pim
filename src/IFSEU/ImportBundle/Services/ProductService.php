@@ -9,6 +9,7 @@ use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
+use Exception;
 
 class ProductService
 {
@@ -183,7 +184,7 @@ class ProductService
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
-                $fileName = "SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
+                $fileName = "IFSEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
                 $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['materialNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedMatrialNumber']);
@@ -202,10 +203,10 @@ class ProductService
                         $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
-                        throw \Exception("Base SIOP mismatch email template not found.");
+                        throw new Exception("Base SIOP mismatch email template not found.");
                     }
                 } else {
-                    throw \Exception("Base SIOP mismatch email template not configured.");
+                    throw new Exception("Base SIOP mismatch email template not configured.");
                 }
             }
         } catch (\Throwable $th) {
@@ -222,7 +223,7 @@ class ProductService
         $deltaCount = count($delta);
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Product Delta count: ".$deltaCount);
         $j = 1;
-        
+
         $this->logArray = [];
         $i = 0;
         $length = 1000;
@@ -317,7 +318,6 @@ class ProductService
     private function getRecordIndexByKey($key) {
         return $this->csvHeader[$this->columnName[$key]];
     }
-    
     public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type) 
     {
         
