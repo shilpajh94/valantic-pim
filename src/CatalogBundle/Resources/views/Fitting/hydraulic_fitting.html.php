@@ -384,9 +384,9 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                         elseif($nutTypeSuperText && !$singleHexSuperText){
                                                             $partNumberSuperText = 'T';
                                                         }
-                                                        else{
-                                                            $partNumberSuperText = '1';
-                                                        }
+                                                        // else{
+                                                        //     $partNumberSuperText = '1';
+                                                        // }
 
                                                         $indexDescriptiveNumber = array_search('DescriptivePartNumber', $columnList);	
                                                         if(($indexDescriptiveNumber !== false) && ($shortedRows[$indexDescriptiveNumber]))	
