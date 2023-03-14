@@ -2,11 +2,8 @@
 namespace IFSEU\ImportBundle\Services;
 
 use Exception;
-use Throwable;
 use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
-use ImportBundle\Services\Import;
-use ImportBundle\Services\ImportConstants;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
 
@@ -19,46 +16,22 @@ class ProductService
     public $archiveDir;
     public $failedDir;
     public $configuredData; // We will pull the data from configured class for this variable
-    private $mappedService;
-    private $validatorService;
     private $logFileName;
-    private $monitoringItem;
-    private $totalSteps;
-    private $currentStep;
-    private $currentLevel;
-    private $errors;
-    private $reader;
-    private $level;
-    private $cek; // Current Error Key
     private $productModel;
-    private $siop;
-    private $catInstance;
-    private $instance;
-    private $catHelper;
-    private $rowStatus;
-    private $prdHelper;
     private $materialConfigData;
     private $common;
-    private $startRow;
     private $columnName;
     private $csvHeader;
-    private $data;
-    private $bricks;
     private $brickMappingService;
-    private $fileHandle;
     private $langArr;
     private $allBricksList;
     private $brickTablePrefixArray;
     private $categories;
     private $products;
     private $materialGroup;
-    private $baseSIOPMapping;
-    private $baseSIOPArticleMapping;
     private $baseSiopMismatchLog;
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
-    private $allBaseProducts;
-    private $appService;
     private $weightConversionService;
     private $configProviderService;
     private $productHelper;
@@ -66,14 +39,21 @@ class ProductService
     private $businessUnit;
     private $emailService;
     private $logArray;
+    private $objectsTableData;
+    private $queryTableDataArray;
+    private $storeTableDataArray;
+    private $localisedQueryTableDataArray;
+    private $localisedDataTableDataArray;
+    private $relationTableDataArray;
+    private $relationTableDataDeleteArray;
+    private $dependencyTableDataArray;
+    private $bricksDataArray;
+
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
-    // const FILE_LAST_COL = 'D';
-    // const MAX_TOP_CAT_LVL = 6;
-    // const MIN_TOP_CAT_LVL = 4;
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
-        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_FT,
+        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
@@ -90,6 +70,8 @@ class ProductService
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
         $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
+        $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
+
         $this->baseSiopMismatchLog  = [];
     }
     
@@ -226,7 +208,6 @@ class ProductService
         $this->logArray = [];
         $i = 0;
         $length = 1000;
-        // p_r($deltaCount);die;
 
         while ($i<$deltaCount) {
             $diff = $deltaCount-$i;
@@ -247,8 +228,6 @@ class ProductService
             $j++;
         }
     }    
-    
-    
     
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData, $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray, $this->localisedDataTableDataArray, $this->dependencyTableDataArray);
@@ -340,6 +319,7 @@ class ProductService
             }
             $objectKey = \Pimcore\Model\Element\Service::getValidKey($objectKey, 'object');
             $objectIndex = count($levelInfo);
+
         }
         $objectArr = [
             'parentId' => $parentId,
@@ -348,7 +328,7 @@ class ProductService
             'o_className' => 'IFSEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
-                
+
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
                 // Need to check the current path of fert, changed or not
@@ -365,17 +345,18 @@ class ProductService
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
-                    //$objectArr['parentId'] = $data[0]['o_parentId'];
                     $objectArr['parentId'] = $currentPathId;
                 }
             }
             $objId = $this->productModel->insertInObjects($objectArr);
+
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
             $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
+
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
             $groupNames = trim($groupNames, ',');
             if (!empty($groupNames)) {
@@ -383,12 +364,15 @@ class ProductService
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
 
                 $this->setBricksData($objId, $bricksList, $type, $record);
+
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
             $objId = $this->products[$currentLevelPath];
         }
+
         unset($objectIndex, $currentLevelCode, $fertLevelCode, $categoryPath, $type, $currentLevelArray, $objectKey, $objectArr, $parentPath);
+
         return [$objId, $currentLevelPath];
     }
 
@@ -413,8 +397,8 @@ class ProductService
                             'description'   =>  $recData[$this->getRecordIndexByKey('description')],
                             'material'  =>  $recData[$this->getRecordIndexByKey('material')]
                         );
-
                         $result = $this->processLevelInfo($record, $recData, $errorFlag);
+
                         $status = $result['status'];
                         $msg    = $result['msg'];
                     } else {
@@ -455,7 +439,9 @@ class ProductService
 
     private function processLevelInfo($record, $recData, $errorFlag) 
     {
+
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+
         if ($levelInfo['status']) {
             $folderIndex = count($levelInfo['levels'])-2;
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
@@ -469,16 +455,19 @@ class ProductService
             } else {
                 $folderId = $this->products[$folderPath];
             }
+
             $levelArray = $this->createIFSEUObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
             if (!$errorFlag) {
                 $this->updatedArticlesArray[] = $levelArray[0]; 
             }
+
             $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
             if (!$errorFlag) {
                 $this->updatedArticlesArray[] = $levelArray[0]; 
             }
+
             $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-            
+
             $status = 'Success';
             $msg = 'Object Id is: '.$levelArray[0];
 
@@ -488,7 +477,6 @@ class ProductService
             $this->updatedArticlesArray = array_unique($this->updatedArticlesArray);
         }
         unset($record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
-
         return ['status' => $status,
                 'msg' => $msg
             ];
@@ -561,6 +549,7 @@ class ProductService
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+
             if (!empty(trim($record[$this->getRecordIndexByKey('EANCode')]))) {
                 $queryTableData['EANCode'] = "0".trim($record[$this->getRecordIndexByKey('EANCode')]);
             } else {
@@ -573,8 +562,11 @@ class ProductService
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $queryTableData['weightUnit'] = $weightUnit;
             $queryTableData['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
+
             if (!empty($grossWeight)) {
+
                 if (!empty($weightUnit)) {
+
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
                     $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
                     $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
@@ -584,12 +576,14 @@ class ProductService
                 $queryTableData['weightg'] = null;
                 $queryTableData['WeightLbsPerFTUOM'] = null;
             }
+
             
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record[$this->getRecordIndexByKey('group')]));
             if(!empty($materialGrpId)) {
                 $queryTableData['materialGroup__id'] = $materialGrpId;
                 $queryTableData['materialGroup__type'] = 'object';
             }
+
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -702,7 +696,6 @@ class ProductService
         }
         if (strtolower($productType) == 'fert') {
             $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
-            // p_r($materialGroupCode);die;
             $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
             if (!empty($materialGroupId)) {
                 $this->dependencyTableDataArray[] = [

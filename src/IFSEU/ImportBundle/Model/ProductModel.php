@@ -79,8 +79,8 @@ class ProductModel
             $valuesArr[] = $this->db->quote($data['o_key']);
             $valuesArr[] = $this->db->quote($data['path']);
             $valuesArr[] = $this->db->quote("1");
-            $valuesArr[] = $this->db->quote("IFSEUProduct");
-            $valuesArr[] = $this->db->quote("IFSEUProduct");
+            $valuesArr[] = $this->db->quote("IFSEUProduct");  // Class Identifier
+            $valuesArr[] = $this->db->quote("IFSEUProduct"); // Class Name
             $valuesArr[] = $this->db->quote(time());
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";

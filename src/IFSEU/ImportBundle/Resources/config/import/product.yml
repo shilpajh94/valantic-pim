@@ -1,9 +1,7 @@
 # sheet: Sheet Information
-#     columnName: ['Material', 'Language', 'Material Description', 'Material Group', 'Prod Hier',
-#             'Base UOM', 'Old Material', 'Prod Hier 1', 'Prod Hier 1 Desc', 'Prod Hier 2', 'Prod Hier 2 Desc', 'Prod Hier 3',
-#             'Prod Hier 3 Desc', 'Prod Hier 4', 'Prod Hier 4 Desc', 'Prod Hier 5', 'Prod Hier 5 Desc', 'Prod Hier 6', 'Prod Hier 6 Desc', 
-#             'Industry Standard #', 'Manufacter', 'Manufacter Part Numb', 'EAN_UPC', 'STCC Code', 'Gross Weight', 'Net Weight', 'Weight Unit'] List of column name which will be map with row of sheet
-#     lastColName: 'Q' // Last column of the sheet which will be used to log row status of the sheet
+#     columnName: left hand signifies the name used as an indentifier in product service for required columns present in the sheet,  
+#                 right hand side name siginifies column  name present in the import sheet
+#     lastColName: 'AC' // Last column of the sheet which will be used to log row status of the sheet
 #     startRow: 2 // Row number to start the reading sheet
 #     importIdConfig: ['materialCode'] // This field will be used to create primary key structure of temp table.
 
@@ -12,41 +10,37 @@ parameters:
   # Csv header information
   sheet:
     columnName: 
-      material: 'Material number'
+      material: 'Material'
       language: 'Language'
-      description:  'Material Desc.'
+      description:  'Material Description'
       group:  'Material Group'
-      code: 'Ext. Mat Code'
+      code: 'Prod Hier'
       baseUOM:  'Base UOM'
       oldMaterial:  'Old Material'
-      prodHier1:  'Level 1'
-      # prodHier1Desc:  'Prod Hier 1 Desc'
-      prodHier2:  'Level 2'
-      prodHier2Desc:  'Level 2 Text'
-      prodHier3:  'Level 3'
-      prodHier3Desc:  'Level 3 Text'
-      prodHier4:  'Level 4'
-      prodHier4Desc:  'Level 4 Text'
-      prodHier5:  'Level 5'
-      prodHier5Desc:  'Level 5 Text'
-      prodHier6:  'Level 6'
-      prodHier6Desc:  'Level 6 Text'
-      prodHier7:  'Level 7'
-      prodHier7Desc:  'Level 7 Text'
+      prodHier1:  'Prod Hier 1'
+      prodHier1Desc:  'Prod Hier 1 Desc'
+      prodHier2:  'Prod Hier 2'
+      prodHier2Desc:  'Prod Hier 2 Desc'
+      prodHier3:  'Prod Hier 3'
+      prodHier3Desc:  'Prod Hier 3 Desc'
+      prodHier4:  'Prod Hier 4'
+      prodHier4Desc:  'Prod Hier 4 Desc'
+      prodHier5:  'Prod Hier 5'
+      prodHier5Desc:  'Prod Hier 5 Desc'
+      prodHier6:  'Prod Hier 6'
+      prodHier6Desc:  'Prod Hier 6 Desc'
+      prodHier7:  'Prod Hier 7'
+      prodHier7Desc:  'Prod Hier 7 Desc'
       industryStandard: 'Industry Standard #'
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       EANCode: 'EAN_UPC'
+      stccCode: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
       b2BexternalID: 'External ID'
-      # reinforcement: 'Reinforcement / Cord'
-      # minimumTemperatureC: 'Min Temp C (-)'
-      # minimumTemperatureF: 'Min. Temp. F (-)'
-      # maximumTemperatureC: 'Max Temp C (+)'
-      # maximumTemperatureF: 'Max. Temp. F (+)'
-    lastColName: 'AN'
+    lastColName: 'AC'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
@@ -116,10 +110,6 @@ parameters:
   # Number of level allowed to create into SAP hierarchy for SIOP
   allowedLevel:
     IFSEU: 5
-  # Mapping product type on siop level 5 & 7. In PTG case only
-  # productTypeLevel 
-  #   5:  12 --- 5 is SIOP level and 12 is stand for 12 digit product type
-  #   7:  18 --- 7 is SIOP level and 18 is stand for 18 digit product type
   productTypeLevel:
-    6:  13 # base 
-    7:  16 # skeleton
+    6:  13 # base --- 6 is SIOP level and 13 is stand for siopfullcode length for base
+    7:  16 # skeleton  --- 7 is SIOP level and 16 is stand for siopfullcode length for base
