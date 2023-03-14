@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-13T10:55:44+01:00
+* Generated at: 2023-03-14T07:03:08+01:00
 * IP: 127.0.0.1
 
 
@@ -1452,11 +1452,61 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'select',
                          'options' => 
                         array (
+                          0 => 
+                          array (
+                            'key' => 'With integrated steel wire helix',
+                            'value' => 368,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'With integrated plastic helix',
+                            'value' => 369,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'With 2 spiralled copper strands',
+                            'value' => 511,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'With copper wire',
+                            'value' => 512,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'With spring wire spiral',
+                            'value' => 513,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'With galvanised spring steel helix',
+                            'value' => 531,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'With steel helix from DN 25',
+                            'value' => 2653,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'With steel wire braid',
+                            'value' => 2661,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'With antistatic wire',
+                            'value' => 2717,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'With integrated steel wire spiral and antistatic wire',
+                            'value' => 2718,
+                          ),
                         ),
                          'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'helix',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
