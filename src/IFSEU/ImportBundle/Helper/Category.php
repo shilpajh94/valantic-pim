@@ -12,6 +12,7 @@ class Category
     public $businessUnit;
     private $catConfigData;
     public $siopCodes;
+    public $levelLength;
     public function __construct()
     {
         /* Initiate common helper */
@@ -26,7 +27,7 @@ class Category
 
     public function getLevels($code, $kn = "")
     {
-        $buCode = $this->root['id'];
+        $buCode = '50';
         $bu     = $this->businessUnit[$buCode];
 
         if (!$this->isValideCodeLength($code)) {

@@ -12,13 +12,13 @@ parameters:
   # Csv header information
   sheet:
     columnName: 
-      material: 'SAPMaterialCode'
+      materialNumber: 'Material'
       language: 'Language'
       description:  'Material Description'
       group:  'Material Group'
       code: 'Prod Hier'
-      baseUOM:  'BaseUOM'
-      oldMaterial:  'Old Material'
+      baseUOM:  'Base UOM'
+      oldMaterialCode:  'Old Material'
       prodHier1:  'Prod Hier 1'
       prodHier1Desc:  'Prod Hier 1 Desc'
       prodHier2:  'Prod Hier 2'
@@ -37,9 +37,11 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       eanUPC: 'EAN_UPC'
+      STCC Code: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
+      External ID: 'External ID'
       profile: 'Profile'
       ProductName: 'Product Name'
       Color: 'Color'

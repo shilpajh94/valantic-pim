@@ -16,6 +16,10 @@ class Product
     private $prdConfigData;
     private $productType;
     public $siopCodes;
+    public $catHelper;
+    public $levelLength;
+    public $level;
+    public $siop;
     private $configProviderService;
 
     public function __construct()
@@ -82,7 +86,7 @@ class Product
 
     public function getLevels($code, $reader = array())
     {
-        $buCode = '50';
+        $buCode = '30';
         $bu     = $this->businessUnit[$buCode];
 
         /* Replace product hierarchy descrioption for level 1 with business unit*/
@@ -250,7 +254,7 @@ class Product
     }
 
     public function isValidCategoryCode($siopCode) {
-        if (strlen($siopCode) == 18) {
+        if (strlen($siopCode) == 4) {
             return true;
         }
         return false;
