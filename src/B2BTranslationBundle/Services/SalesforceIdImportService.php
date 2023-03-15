@@ -55,9 +55,9 @@ class SalesforceIdImportService
     {
         $classID = $this->bUProductClassTableID[$this->bu];
 
-        $query = "UPDATE object_query_{$classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
+        $query = "UPDATE object_query_{$classID} SET SalesForce_ID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
         $this->db->query($query);
-        $query = "UPDATE object_store_{$classID} SET salesforceID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
+        $query = "UPDATE object_store_{$classID} SET SalesForce_ID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
         $this->db->query($query);
     }
 }
