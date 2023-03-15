@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-15T08:27:47+01:00
+* Generated at: 2023-03-15T08:32:01+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -87,7 +87,7 @@ Fields Summary:
 - rebateFlag [booleanSelect]
 - OutsidePurchaseFlag [checkbox]
 - externalID [input]
-- salesforceID [input]
+- SalesForce_ID [input]
 - weightg [numeric]
 - weightKg [numeric]
 - WeightLbsPerFTUOM [input]
@@ -163,7 +163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1678865261,
+   'modificationDate' => 1678865516,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -21468,7 +21468,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'salesforceID',
+                                     'name' => 'SalesForce_ID',
                                      'title' => 'Salesforce ID',
                                      'tooltip' => '',
                                      'mandatory' => false,
