@@ -10,8 +10,8 @@ parameters:
             fieldLocation: class
             className: Product
             isLocalized: false
-        salesforceID:
-            fieldName: salesforceID
+        SalesForce_ID:
+            fieldName: SalesForce_ID
             fieldLocation: class
             className: Product
             isLocalized: false
