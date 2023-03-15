@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-15T08:06:38+01:00
+* Generated at: 2023-03-15T08:27:47+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -163,7 +163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1678863990,
+   'modificationDate' => 1678865261,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
