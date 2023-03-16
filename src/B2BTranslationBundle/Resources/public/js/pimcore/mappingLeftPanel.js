@@ -36,7 +36,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
             var store = Ext.create('Ext.data.TreeStore', {
                 proxy: {
                     type: 'ajax',
-                    url: '/admin/b2_b_translation/tree',
+                    url: '/admin/b2b_translation/tree',
                 },
                 // root: {
                 //     text: 'Eatables',
@@ -208,7 +208,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
         }
         pimcore.helpers.loadingShow();
         Ext.Ajax.request({
-            url: "/admin/b2_b_translation/get",
+            url: "/admin/b2b_translation/get",
             params: {
                 id: id
             },
@@ -264,7 +264,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
             if(typeof value !="undefined" && value!=null && value!='') {
                 if (pimcore.helpers.isValidFilename(value)) {
                     Ext.Ajax.request({
-                        url: "/admin/b2_b_translation/add",
+                        url: "/admin/b2b_translation/add",
                         params: {
                             name: value
                         },
@@ -297,7 +297,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
         Ext.Msg.confirm(t('b2b_translation_delete_channel'), t("b2b_translation_delete_confirm"), function (btnText) {
             if (btnText === "yes") {
                 Ext.Ajax.request({
-                    url: "/admin/b2_b_translation/delete",
+                    url: "/admin/b2b_translation/delete",
                     params: {
                         id: record.data.id
                     },success: function (response) {
@@ -369,7 +369,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
         let regresult = options.default.match(/[a-zA-Z0-9_.\-~]+/);
         if (options.default.length >= 1 && regresult == options.default) {
             Ext.Ajax.request({
-                url: "/admin/b2_b_translation/clone",
+                url: "/admin/b2b_translation/clone",
                 params: {
                     name: options.default,
                     id: options.id
@@ -402,7 +402,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                 const newName = pimcore.helpers.getValidFilename(value, "object");
 
                 Ext.Ajax.request({
-                    url: "/admin/b2_b_translation/rename",
+                    url: "/admin/b2b_translation/rename",
                     params: {
                         id: id,
                         name: newName

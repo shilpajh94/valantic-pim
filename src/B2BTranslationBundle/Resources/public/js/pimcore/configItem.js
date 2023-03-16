@@ -10,7 +10,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
         this.allAVBData = new Array();
         if (this.data.data.vendor && this.data.data.type) {
             Ext.Ajax.request({
-                url: '/admin/b2_b_translation/getAVBData?vendor='+this.data.data.vendor+'&type='+this.data.data.type,
+                url: '/admin/b2b_translation/getAVBData?vendor='+this.data.data.vendor+'&type='+this.data.data.type,
                 method: "get",
                 async: false,
                 success: function (response) {
@@ -160,7 +160,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
             };
 ////            
             Ext.Ajax.request({
-                url: "/admin/b2_b_translation/update",
+                url: "/admin/b2b_translation/update",
                 params: saveData,
 //                jsonData: gridData,
                 waitMsg: 'Saving Columns Config....',
@@ -209,7 +209,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
 //    },
     updateGrid: function() {
         if (this.comboMappingType.getValue()) {
-            var url = '/admin/b2_b_translation/getAVBData?vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
+            var url = '/admin/b2b_translation/getAVBData?vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
             var avbDataStore = new Ext.data.Store({
                 autoLoad:true,
                 proxy: {
@@ -238,7 +238,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                 });
             }
             
-            var url = '/admin/b2_b_translation/getVendorData?mappingId='+this.pimId+'&vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
+            var url = '/admin/b2b_translation/getVendorData?mappingId='+this.pimId+'&vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
             var vendorDataStore = new Ext.data.Store({
                 model: 'VendorData',
                 autoLoad:true,
@@ -275,7 +275,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
 //                    ]
 //                });
 //            }
-            var url = '/admin/b2_b_translation/getAVBData?vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
+            var url = '/admin/b2b_translation/getAVBData?vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
             var avbDataStore = new Ext.data.Store({
                 autoLoad:true,
                 proxy: {
@@ -304,7 +304,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                 });
             }
             
-            var url = '/admin/b2_b_translation/getVendorData?mappingId='+this.pimId+'&vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
+            var url = '/admin/b2b_translation/getVendorData?mappingId='+this.pimId+'&vendor='+this.comboVendors.getValue()+'&type='+this.comboMappingType.getValue();
             var vendorDataStore = new Ext.data.Store({
                 model: 'VendorData',
                 autoLoad:true,
@@ -423,7 +423,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
 
     save: function () {
         Ext.Ajax.request({
-            url: "/admin/b2_b_translation/mapping/save",
+            url: "/admin/b2b_translation/mapping/save",
             params: {
                 data: saveData,
                 modificationDate: this.modificationDate

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use B2BTranslationBundle\B2BTranslationConstants;
 
 /**
- * @Route("/admin/b2_b_translation")
+ * @Route("/admin/b2b_translation")
  */
 
 class DefaultController extends AdminController
@@ -33,7 +33,27 @@ class DefaultController extends AdminController
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world from b2_b_translation');
+        return new Response('Hello world from b2b_translation');
+    }
+
+    /**
+     * @Route("/import")
+     */
+    public function translationImportAction(Request $request)
+    {
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-import-command";
+        shell_exec($cmd);
+        return new Response('Executed');
+    }
+
+    /**
+     * @Route("/export")
+     */
+    public function translationExportAction(Request $request)
+    {
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-export-command";
+        shell_exec($cmd);
+        return new Response('Executed');
     }
     
     /**
