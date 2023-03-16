@@ -271,20 +271,20 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                             <!-- Starting grid here -->
                             <?php
-
                             foreach ($skiveTypeSortKeys as $skiveTypekey => $skiveTypekValue) {
                                 $showTitle = (count($tableRowsSkiveType) > 1) ? true : false;
                                 $tableRows = $tableRowsSkiveType[$skiveTypekValue];
+
                                 $uniqueId2 = md5($uniqueId.$shortDescrioptionKey.$tableName.$skiveTypekey);
-                                
+
                                 if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
                                     $skiveTypeTableTitle = '';
                                     $columnList = array();
-                                    if($skiveTypekey == 'Non-Skive')
+                                    if($skiveTypekey == 'Non-Skive' || $skiveTypekey == 'NS' )
                                     {
                                         $skiveTypeTableTitle = 'Uni-Crimp™ Style';
                                     }
-                                    else if($skiveTypekey == 'Dual-Grip'){
+                                    else if($skiveTypekey == 'Dual-Grip' || $skiveTypekey == 'DG'){
                                         $skiveTypeTableTitle = 'Dual-Grip Style';
                                     }
 
