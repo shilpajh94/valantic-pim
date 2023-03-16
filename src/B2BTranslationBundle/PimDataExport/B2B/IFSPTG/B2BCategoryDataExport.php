@@ -133,7 +133,7 @@ class B2BCategoryDataExport implements IDataExport
 
     public function getB2BTranslationMapping($type)
     {
-        $sqlMapping="select AVBVendorData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY oo_id DESC";
+        $sqlMapping="select PIMB2BMappingData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY o_modificationDate DESC";
         return $this->db->fetchOne($sqlMapping);
     }
 
@@ -145,7 +145,7 @@ class B2BCategoryDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($this->bu == 'CS_US')
+        else if($this->bu == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
@@ -153,7 +153,7 @@ class B2BCategoryDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($this->bu == 'IFS_EU')
+        else if($this->bu == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }

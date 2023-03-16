@@ -513,7 +513,7 @@ class B2BProductDataExport implements IDataExport
     
     public function getB2BTranslationMapping($type)
     {
-        $sqlMapping="select AVBVendorData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY oo_id DESC";
+        $sqlMapping="select PIMB2BMappingData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY o_modificationDate DESC";
         return $this->db->fetchOne($sqlMapping);
     }
 

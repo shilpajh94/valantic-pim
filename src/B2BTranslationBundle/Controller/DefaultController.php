@@ -123,12 +123,8 @@ class DefaultController extends AdminController
             'text' => $channel->getName(),
             'vendor' => $channel->getBusinessUnit(),
             'type' => $channel->getTranslationDataType(),
-            'gridData' => $channel->getAVBVendorData()
+            'gridData' => $channel->getPIMB2BMappingData()
         ];
-
-        // 'vendor' => $channel->getVendorList(),
-        //     'type' => $channel->getMappingType(),
-        //     'gridData' => $channel->getAVBVendorData()
     }
 
     /**
@@ -162,7 +158,7 @@ class DefaultController extends AdminController
                         $gridData[] = [$rowArray['name'], $rowArray['avbName']];
                     }
                 }
-                $mappingObject->setAVBVendorData($gridData);
+                $mappingObject->setPIMB2BMappingData($gridData);
             }
             $mappingObject->save();
         }
@@ -220,7 +216,7 @@ class DefaultController extends AdminController
         $mappingObject = DataObject\B2BTranslationMapping::getById($request->get('mappingId'));
         $mappingArray = [];
         if (!empty($mappingObject) && $mappingObject instanceof DataObject\B2BTranslationMapping) {
-            $mappingData = $mappingObject->getAVBVendorData();
+            $mappingData = $mappingObject->getPIMB2BMappingData();
             if (!empty($mappingData)) {
                 foreach ($mappingData as $mData) {
                     $mappingArray[$mData['PIM Attribute Name']] = $mData['B2B SalesForce Attribute Name'];
