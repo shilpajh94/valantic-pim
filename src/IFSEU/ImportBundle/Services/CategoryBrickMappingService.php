@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 class CategoryBrickMappingService
 {
     /**
-     * @var \PTGEU\ImportBundle\Services\ConfigProviderService
+     * @var \IFSEU\ImportBundle\Services\ConfigProviderService
      */
     private $configProviderService;
 
     /**
      * CategoryBrickMappingService constructor.
-     * @param \PTGEU\ImportBundle\Services\ConfigProviderService $configProviderService
+     * @param \IFSEU\ImportBundle\Services\ConfigProviderService $configProviderService
      */
     public function __construct()
     {
@@ -119,7 +119,7 @@ class CategoryBrickMappingService
      * get the level of the SIOP relational field for the given full code length
      *
      * @param string $fullCode
-     * @return int : 1|2|3|4|5|6
+     * @return int : 1|2|3|4|5|6|7
      */
     private function getSIOPLevelBySIOPFullCode(?string $fullCode): ?int
     {
@@ -164,7 +164,6 @@ class CategoryBrickMappingService
     private function manageBrickForProductAtLevel(IFSEUProduct $product, array $selectedClassificationNames, string $level): IFSEUProduct
     {
         $shouldBeAttachedBrickKeys = $this->getMappedBrickKeys($selectedClassificationNames, $level);
-
         $brickFieldName = $this->getBrickFieldNameInProductByLevel($level);
         $brickFromProductGetter = "get" . ucfirst($brickFieldName);
         $brickCollectionData = $product->$brickFromProductGetter();
@@ -258,7 +257,7 @@ class CategoryBrickMappingService
      * get the category object at the given SIOP level
      *
      * @param IFSEUProduct $product
-     * @param int $level :     1|2|3|4|5|6
+     * @param int $level :     1|2|3|4|5|6|7
      * @return null|ProductCategory
      * @throws \Exception
      */
@@ -273,7 +272,7 @@ class CategoryBrickMappingService
     /**
      * get the name of the SIOP category field for the given SIOP level
      *
-     * @param int $level : 1|2|3|4|5|6
+     * @param int $level : 1|2|3|4|5|6|7
      * @return string
      */
     private function getCategoryFieldNameByCategoryLevel(int $level): string
