@@ -1,9 +1,7 @@
 # sheet: Sheet Information
-#     columnName: ['Material', 'Language', 'Material Description', 'Material Group', 'Prod Hier',
-#             'Base UOM', 'Old Material', 'Prod Hier 1', 'Prod Hier 1 Desc', 'Prod Hier 2', 'Prod Hier 2 Desc', 'Prod Hier 3',
-#             'Prod Hier 3 Desc', 'Prod Hier 4', 'Prod Hier 4 Desc', 'Prod Hier 5', 'Prod Hier 5 Desc', 'Prod Hier 6', 'Prod Hier 6 Desc', 
-#             'Industry Standard #', 'Manufacter', 'Manufacter Part Numb', 'EAN_UPC', 'STCC Code', 'Gross Weight', 'Net Weight', 'Weight Unit'] List of column name which will be map with row of sheet
-#     lastColName: 'Q' // Last column of the sheet which will be used to log row status of the sheet
+#     columnName: left hand signifies the name used as an indentifier in product service for required columns present in the sheet,  
+#                 right hand side name siginifies column  name present in the import sheet
+#     lastColName: 'AC' // Last column of the sheet which will be used to log row status of the sheet
 #     startRow: 2 // Row number to start the reading sheet
 #     importIdConfig: ['materialCode'] // This field will be used to create primary key structure of temp table.
 
@@ -12,13 +10,13 @@ parameters:
   # Csv header information
   sheet:
     columnName: 
-      materialNumber: 'Material'
+      material: 'Material'
       language: 'Language'
       description:  'Material Description'
       group:  'Material Group'
       code: 'Prod Hier'
       baseUOM:  'Base UOM'
-      oldMaterialCode:  'Old Material'
+      oldMaterial:  'Old Material'
       prodHier1:  'Prod Hier 1'
       prodHier1Desc:  'Prod Hier 1 Desc'
       prodHier2:  'Prod Hier 2'
@@ -36,41 +34,13 @@ parameters:
       industryStandard: 'Industry Standard #'
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
-      eanUPC: 'EAN_UPC'
-      STCC Code: 'STCC Code'
+      EANCode: 'EAN_UPC'
+      stccCode: 'STCC Code'
       grossWeight:  'Gross Weight'
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
-      External ID: 'External ID'
-      profile: 'Profile'
-      ProductName: 'Product Name'
-      Color: 'Color'
-      fabricType: 'Fabric Type'
-      fabricColor: 'Fabric Color'
-      quality: 'Quality'
-      performance: 'Performance'
-      beltAngle: 'Belt/Flank Angle'
-      beltType: 'Belt Type'
-      materialCompound: 'Material / Compound'
-      nominalLength: 'Nominal Length'
-      reinforcement: 'Reinforcement / Cord'
-      maxSpeed: 'Max Speed'
-      matchMakerLL: 'Match Maker L=L'
-      din: 'DIN'
-      heatAndOilResistant: 'Heat & Oil Resistant'
-      minimumTemperatureC: 'Min Temp C (-)'
-      minimumTemperatureF: 'Min. Temp. F (-)'
-      maximumTemperatureC: 'Max Temp C (+)'
-      maximumTemperatureF: 'Max. Temp. F (+)'
-      staticConductive: 'Static Conductive'
-      beltHardness: 'Belt Hardness'
-      beltTolerance: 'Belt Tolerance'
-      minPulleyDia: 'Min. pulley dia.\n[mm]'
-      minOutsidePulleyDia: 'Min. outside pulley dia.\n[mm]'
-      priceRef: 'Price Ref. Mat'
-      materialType: 'Material type'
-      vtlStatus: 'Status'
-    lastColName: 'CQ'
+      b2BexternalID: 'External ID'
+    lastColName: 'AC'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
@@ -84,21 +54,21 @@ parameters:
   
   # Base / Brand info
   base:
-    length: 12
+    length: 13
 
   # Skeleton / Product Specification info
   skeleton:
-    length: 18
+    length: 16
 
   # Variant (SKU) info
   variant:
-    length: 18
+    length: 16
     
   # Product Type
   productType:
-    12:  'base'
-    18:  'skeleton'
-    18fert: 'fert'
+    13:  'base'
+    16:  'skeleton'
+    16fert: 'fert'
 
   # SIOP Code Level Info
   level:
@@ -139,10 +109,7 @@ parameters:
 
   # Number of level allowed to create into SAP hierarchy for SIOP
   allowedLevel:
-    IFSEU: 4
-  # productTypeLevel 
-  #   5:  12 --- 5 is SIOP level and 12 is stand for 12 digit product type
-  #   7:  18 --- 7 is SIOP level and 18 is stand for 18 digit product type
+    IFSEU: 5
   productTypeLevel:
-  #  5:  12 # base 
-  #  7:  18 # skeleton
+    6:  13 # base --- 6 is SIOP level and 13 is stand for siopfullcode length for base
+    7:  16 # skeleton  --- 7 is SIOP level and 16 is stand for siopfullcode length for base

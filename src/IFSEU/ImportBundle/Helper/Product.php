@@ -49,7 +49,7 @@ class Product
     }
 
     /**
-     * Set 6digi, 9digit and final product object SIOP Code
+     * Set 13digit, 16digit and final product object SIOP Code
      */
     public function setSiop($siops, \Pimcore\Model\DataObject\IFSEUProduct $targetObject)
     {
@@ -152,74 +152,6 @@ class Product
         }
         return $path;
     }
-
-    /**
-     * return type is product or category object
-     * @param $fullCode is the SIOP full code
-     * Des: It will create maximum allowed hierarchy for business unit
-     * In case of PTG it will create base and skeleton level after creating maximum allowed siop level
-     * In case of PTG last 2 level of SIOP will be use as base and skeleton
-     */
-
-    public function createCategoryHierarchy($fullCode)
-    {
-        /** Loading list of siop code */
-        $parentObj = false;
-        $this->catHelper->getCategories();
-        $code = $fullCode;
-        $len = strlen($code);
-        $topLvl = $this->catHelper->getLevelByLength($len);
-        $buCode = $this->catHelper->isValidCategoryFormat($code);
-        $bu = $this->businessUnit[$buCode];
-        $allowedLevel = $this->common->getParameterItem($this->prdConfigData, 'allowedLevel', $bu);
-        if (!empty($allowedLevel) && $allowedLevel < $topLvl) {
-            $code = $this->catHelper->extractFullCodeLevelWise($allowedLevel, $fullCode);
-        }
-        $fullPath = $this->catHelper->getCategoryFullPathByFullCode($code);
-        $extractedPath = $this->extractCategoryPath($fullPath, $bu);
-        $prdCatFullPath = $this->root['fullPath'] . '/' . $extractedPath;
-        $parentObj = DataObject\Service::createFolderByPath($prdCatFullPath);
-        
-        if ($allowedLevel < $topLvl) {
-            for ($l = ($allowedLevel + 1); $l <= $topLvl; $l++) {
-                $code = $this->catHelper->extractFullCodeLevelWise($l, $fullCode);
-                $parentObj = $this->createCategoryObjectHierarchy($code, $parentObj, $l, $bu);
-            }
-        }
-        return $parentObj;
-    }
-
-    private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
-    {
-        $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
-        $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
-        if (!empty($catObj)) {
-            $keyName = $catObj->getKey();
-            $prdFullPath = $parentObj->getFullPath() . '/' . $keyName;
-            $prdObj = DataObject::getByPath($prdFullPath);
-            if (empty($prdObj)) {
-                $prdObj = new DataObject\PTGEUProduct;
-                $prdObj->setKey($keyName);
-                $prdObj->setParentId($parentObj->getId());
-            }
-            $productTypeKey = $this->common->getParameterItem($this->prdConfigData, 'productTypeLevel', $siopLevel);
-            $prodType = $this->getProductType($productTypeKey);
-            $prdObj->setProductType($prodType);
-            $prdObj->setSiopFullCode($code);
-            $this->updateSiop($prdObj);
-            $this->setSiop($this->siop, $prdObj);
-            $brickMappingService->manageBricksForSIOPRelationChange($prdObj);
-            $prdObj->setPublished(1);
-            $prdObj->save();
-            unset($keyName,
-            $prdFullPath,
-            $productTypeKey,
-            $productTyp,
-            $this->siop);
-            return $prdObj;
-        }
-        return false;
-    }
     
     public function extractCategoryPath($path, $bu)
     {
@@ -254,14 +186,14 @@ class Product
     }
 
     public function isValidCategoryCode($siopCode) {
-        if (strlen($siopCode) == 4) {
+        if (strlen($siopCode) == 16) {
             return true;
         }
         return false;
     }
 
     public function convertCategoryPathToProduct($categoryPath) {
-        $search = '/Master List/Product Hierarchy';
+        $search = '/Master Data/Product Category';
         $replace = '/Products';
         return str_replace($search, $replace, $categoryPath);
     }

@@ -79,8 +79,8 @@ class ProductModel
             $valuesArr[] = $this->db->quote($data['o_key']);
             $valuesArr[] = $this->db->quote($data['path']);
             $valuesArr[] = $this->db->quote("1");
-            $valuesArr[] = $this->db->quote("IFSEUProduct"); // 38
-            $valuesArr[] = $this->db->quote("IFSEUProduct");
+            $valuesArr[] = $this->db->quote("IFSEUProduct");  // Class Identifier
+            $valuesArr[] = $this->db->quote("IFSEUProduct"); // Class Name
             $valuesArr[] = $this->db->quote(time());
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";
@@ -136,7 +136,6 @@ class ProductModel
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-             
                 $this->db->query($query);
             }
         } catch (\Exception $e) {
@@ -180,8 +179,7 @@ class ProductModel
     public function getDelta()
     {
         try {
-            // $catLength  = 18;
-            $catLength  = 4;
+            $catLength  = 16;
             $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
             return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
@@ -293,12 +291,12 @@ class ProductModel
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_IFSEUProductCategory` ";
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_IFSEUProductCategory` ";
         return $this->db->fetchAll($query);
     }
 
     public function getMaterialGroupData() {
-        $query = "SELECT oo_id, code FROM `object_PTGEUMaterialGroup` ";
+        $query = "SELECT oo_id, code FROM `object_IFSEUMaterialGroup` ";
         return $this->db->fetchAll($query);
     }
     
@@ -323,14 +321,14 @@ class ProductModel
             $obj->setCondition("materialNumber IN (". implode(', ' , $keysArray).")");
             $obj->load();
             foreach($obj as $product) {
-                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getMaterialNumber().PHP_EOL;
+                echo "Mark Product unpublished for id = ".$product->getId()." and material number = ".$product->getMaterialNumber().PHP_EOL;
                 $product->setPublished(false);
                 $product->save();
             }
         }
     }
     
-    public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
+    public function checkHierarchyExistAtLevel($fullCode, $level=6) : bool
     {
         $sql = "SELECT `fullCode` FROM object_IFSEUProductCategory WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
         $resultArray = $this->db->fetchAll($sql);
