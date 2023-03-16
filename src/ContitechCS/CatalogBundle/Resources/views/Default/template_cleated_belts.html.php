@@ -59,22 +59,22 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="p-medium">
                 <p>
                 <?php if($this->editmode):?>
-                    <div class="attr-font">Attribute Name = Long Text</div>
+                    <div class="attr-font">Attribute Name = Short Text</div>
                 <?php endif;?>
                 <?php if($this->editmode): ?>
                         <?php if($this->textarea("CB_LongText")->isEmpty()): ?>
-                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text'])->setDataFromResource($data['LongText']) ?>
+                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Short Text'])->setDataFromResource($data['ShortText']) ?>
                         <?php else: ?>
-                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text']); ?>
+                                <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Short Text']); ?>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Long Text']) ?>
+                        <?= $this->textarea("CB_LongText",['placeholder' => 'Enter Short Text']) ?>
                 <?php endif; ?>
                 </p>
             </div>
             
             <?php 
-            if($data['childrenData'])
+            if($data['cleatedProducts'])
             {
             ?>
                 <h2 class="orange mb-4 pt-4">
@@ -94,7 +94,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="row profile-option">
                     
                     <?php 
-                    foreach ($data['childrenData'] as $key => $child) 
+                    foreach ($data['cleatedProducts'] as $key => $child) 
                     {
                         $md5Key = md5($child['Name']);
                     ?>
@@ -320,7 +320,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
             <?php endif;?>
             
-            <?php if($data['childrenData']): ?>
+            <?php if($data['normalProductsDetails']['childData']): ?>
                 <div class="page-break"></div>
 
                 <div class="cleated-belts">
@@ -356,13 +356,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                     <div class="table construction-tab">
                         <?php 
-                            foreach ($data['childrenData'] as $key => $child) { 
+                            foreach ($data['normalProductsDetails']['childData'] as $key => $child) { 
 
                                 $md5Key = md5($child['Name']);
                             
                         ?>
                             
-                        <table width="100%" class="mt-4 mb-5">
+                        <table width="100%" class="mt-4 mb-5 parentTable">
                             <thead>
                                 <th colspan="3" class="text-left">
                                 <?php if($this->editmode):?>
@@ -385,11 +385,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 <tr class="grip-col">
                                     <td width="50%" class="pr-5">
                                     <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = Long Text</div>
+                                        <div class="attr-font">Child Attribute Name = Short Text</div>
                                     <?php endif;?>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
-                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
+                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['ShortText']) ?>
                                                 <?php else: ?>
                                                         <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
                                                 <?php endif; ?>
@@ -457,82 +457,284 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     </td>
 
                                 </tr>
-
-                                <?php if($child['tableFieldData']): ?>
                                 <tr>
-                                    <td class="border-b" colspan="3">
-                                        <table class="w-80">
-                                            <tbody>
+                                    <td colspan="2">
+                                    <table class="normal-cleated-product">
+                                                <tbody>
+                                                    <?php if(isset($child['CS_CleatHeightInch'])){ ?>
+                                                    <tr>
+                                                        <th class="orange text-right">
+                                                            <?= $this->translate($child['CS_CleatHeightInch']); ?>
+                                                        </th>
+                                                    
+                                                        <td colspan="<?= $child['maxColumnLenth'] ?>">
+                                                            <?= $child['CS_CleatHeightInchVal'] . " ". $this->translate('CS_Unit_in'); ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php } ?>
 
-                                                <?php 
-                                                    $maxColumns = $child['maxColumns'] + 1;
-                                                    foreach ($child['tableFieldData'] as $fieldName => $rowArray) {
-                                                        $colspan = ($maxColumns - count($rowArray));
-                                                        $colspanStr = '';
-                                                        if($colspan > 0)
-                                                        {
-                                                            $colspan += 1;
-                                                            $colspanStr = "colspan='{$colspan}'";
-                                                        }
-                                                        $firstKey = array_key_first($rowArray);
+                                                    <?php if(isset($child['CS_AvailableBeltWidthInch'])){ ?>
+                                                    <tr>
+                                                        <th class="orange text-right">
+                                                            <?= $this->translate($child['CS_AvailableBeltWidthInch']); ?>
+                                                        </th>
+                                                    
+                                                        <?php foreach ($child['CS_AvailableBeltWidthInchList'] as $key => $value) { ?>
+                                                            <td>
+                                                                <?= $value . " ". $this->translate('CS_Unit_in'); ?>
+                                                            </td>
+                                                        <?php } ?>
+                                                        
+                                                    </tr>
+                                                    <?php } ?>
 
-                                                        ?>
-
-                                                        <tr>
-
-                                                        <?php
-                                                        foreach ($rowArray as $rkey => $rvalue) {
-                                                            
-                                                            $unit = "CS_Unit_in";
-                                                            $translatedUnit = '';
-
-                                                            if(($rowArray[0] == 'CS_profileWidth' || $rowArray[0] == 'CS_beltWidthRange') && $rkey == 2)
-                                                            {
-                                                                $unit = "CS_Unit_mm";
-                                                            }
-
-                                                            if($firstKey == $rkey)
-                                                            {
-                                                                if($rvalue == 'CS_CleatHeightMM')
-                                                                {
-                                                                    $unit = "CS_Unit_mm";
-                                                                }
-                                                                
-                                                                
-
-                                                                ?>
+                                                    <?php if($child['CS_AvailableProfilePatternWidthsInch']){ ?>
+                                                        <?php foreach ($child['CS_AvailableProfilePatternWidthsInch'] as $key => $rows) { ?>
+                                                            <tr>
                                                                 <th class="orange text-right">
-                                                                    <?= $this->translate($rvalue); ?>
+                                                                    <?= $this->translate('CS_AvailableProfilePatternWidthsInch'); ?>
                                                                 </th>
-                                                            <?php
-                                                            }
-                                                            else{
-                                                                if(!$colspan)
-                                                                {
-                                                                    $translatedUnit = $this->translate($unit);
-                                                                }
-                                                                else{
-                                                                    if(is_numeric($rvalue))
-                                                                    {
-                                                                        $translatedUnit = $this->translate($unit);
-                                                                    }
-                                                                }
+                                                                <?php 
                                                                 
+                                                                $firstIndexData = array_unique($child['CS_AvailableProfilePatternWidthsInch'][0]);
                                                                 
-                                                                ?>
-                                                                <td <?= $colspanStr ?>>
-                                                                    <?= ($rvalue) ? $rvalue.' '.$translatedUnit: '-'; ?>
-                                                                </td>
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                ?>
+                                                                if($child['maxRowLength'] == 1 && count($firstIndexData) == 1  && !is_numeric($firstIndexData[0])){ ?>
+                                                                    <td colspan="<?= $child['maxColumnLenth'] ?>"><?= $rows[0] ?></td>
+                                                                <?php }else{ ?>
+                                                                <?php foreach ($rows as $key => $value) { ?>
+                                                                    <td>
+                                                                        <?php
+                                                                            if($value)
+                                                                            {
+                                                                                echo $value . " ". $this->translate('CS_Unit_in'); 
+                                                                            }
+                                                                            else{
+                                                                                echo '&#8209';
+                                                                            }
+                                                                         
+                                                                         ?>
+                                                                    </td>
+                                                                <?php } ?>
+                                                                <?php } ?>
+                                                                
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php } ?>
+
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if($data['contiRollProductsDetails']['childData']): ?>
+                <!-- <div style="page-break-before:avoid"></div> -->
+
+                <div class="cleated-belts" style="page-break-before:always">
+                    <?php if($this->editmode):?>
+                        <div class="attr-font">Attribute Name = Name</div>
+                    <?php endif;?>
+                    <h2 class="orange heading-info pt-4">
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CB_ContiRollProductNameProfileOptions")->isEmpty()): ?>
+                                        <?= $this->input("CB_ContiRollProductNameProfileOptions",['placeholder' => 'Enter Name'])->setDataFromResource($data['Name']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CB_ContiRollProductNameProfileOptions",['placeholder' => 'Enter Name']); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ContiRollProductNameProfileOptions",['placeholder' => 'Enter Name']) ?>
+                        <?php endif; ?> 
+
+                        <span class="sub-title">
+                    
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->input("CB_ContiRollProductNameProfileOptionsLabel")->isEmpty()): ?>
+                                            <?= $this->input("CB_ContiRollProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("CB_ContiRollProductNameProfileOptionsLabel"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->input("CB_ContiRollProductNameProfileOptionsLabel") ?>
+                            <?php endif; ?>
+                        
+                        </span>
+
+                    </h2>
+
+                    <div class="contiRoll90">
+                        <?php if($this->editmode):?>
+                            <div class="attr-font">Child Attribute Name = Name</div>
+                        <?php endif;?> 
+                        <h2 class="mb-0">
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CB_contiRollParentProfile_{$md5Key}")->isEmpty()): ?>
+                                        <?= $this->input("CB_contiRollParentProfile_{$md5Key}", ['placeholder'=>'ContiRoll Belt Profiles'])->setDataFromResource($data['contiRollProductsDetails']['parentData']['Name']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CB_contiRollParentProfile_{$md5Key}"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_contiRollParentProfile_{$md5Key}") ?>
+                        <?php endif; ?>
+                        </h2>
+
+                        <?php if($this->editmode):?>
+                            <div class="attr-font">Child Attribute Name = Short Text</div>
+                        <?php endif;?>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->textarea("CB_contiRollParentProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                        <?= $this->textarea("CB_contiRollParentProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($data['contiRollProductsDetails']['parentData']['ShortText']) ?>
+                                <?php else: ?>
+                                        <?= $this->textarea("CB_contiRollParentProfileDesc_{$md5Key}"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->textarea("CB_contiRollParentProfileDesc_{$md5Key}") ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="table construction-tab ml50">
+                        <?php 
+                            foreach ($data['contiRollProductsDetails']['childData'] as $key => $child) { 
+
+                                $md5Key = md5($child['Name']);
+                            
+                        ?>
+                            
+                        <table width="100%" class="mt-4 mb-5">
+                            <thead>
+                                <th colspan="2" class="text-left">
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font">Child Attribute Name = Name</div>
+                                <?php endif;?> 
+                                    <h2 class="mb-0">
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->input("CB_ContiRollProfile_{$md5Key}")->isEmpty()): ?>
+                                                    <?= $this->input("CB_ContiRollProfile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("CB_ContiRollProfile_{$md5Key}"); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("CB_ContiRollProfile_{$md5Key}") ?>
+                                    <?php endif; ?>
+                                    </h2>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr class="grip-col">
+                                    <td class="pr-5 contiRollChild">
+
+                                    <table>
+                                            <tbody>
+                                                <?php if(isset($child['CS_profileWidth'])){ ?>
+                                                <tr>
+                                                    <th class="orange text-right">
+                                                        <?= $this->translate($child['CS_profileWidth']); ?>
+                                                    </th>
+                                                
+                                                    <td>
+                                                        <?= $child['CS_profileWidthInch'] . " ". $this->translate('CS_Unit_in'); ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?= $child['CS_profileWidthMm'] . " ". $this->translate('CS_Unit_mm'); ?>
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+
+                                                <?php if(isset($child['CS_beltWidthRange'])){ ?>
+                                                <tr>
+                                                    <th class="orange text-right">
+                                                        <?= $this->translate($child['CS_beltWidthRange']); ?>
+                                                    </th>
+                                                
+                                                    <td>
+                                                        <?= $child['CS_beltWidthRangeInch'] . " ". $this->translate('CS_Unit_in'); ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?= $child['CS_beltWidthRangeMm'] . " ". $this->translate('CS_Unit_mm'); ?>
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+
+                                                <?php if(isset($child['CS_AdditionalInformation'])){ ?>
+                                                <tr>
+                                                    <th class="orange text-right">
+                                                        <?= $this->translate($child['CS_AdditionalInformation']); ?>
+                                                    </th>
+                                                
+                                                    <td colspan="2">
+                                                        <?= $child['CS_AdditionalInformationValue'] ; ?>
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
+                                        
+                                    </td>
+                                    <td>
+                                    
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = Product Image</div>
+                                    <?php endif;?>
+                                    <?php
+                                        if($this->editmode)
+                                        {
+                                            if($this->image("CB_ContiRollProfileOptionImage1_{$md5Key}")->isEmpty())
+                                            {
+                                                echo $this->image("CB_ContiRollProfileOptionImage1_{$md5Key}",["height" => 120])->setImage($child['ProductImage']);
+                                            }
+                                            else{
+                                                echo $this->image("CB_ContiRollProfileOptionImage1_{$md5Key}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $CB_ProfileOptionImage1Obj =  $this->image("CB_ContiRollProfileOptionImage1_{$md5Key}");
+
+                                            if(!empty($CB_ProfileOptionImage1Obj->getId()))
+                                            {
+                                            ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage1Obj, $this->imageWidth); ?>" alt="" style="height:120px; width:auto;"/>
+                                            <?php
+                                            }
+                                        }
+                                    ?>
+
+                                    <?php if($this->editmode):?>
+                                        <div class="attr-font">Child Attribute Name = Application Image</div>
+                                    <?php endif;?>
+                                    <?php
+                                        if($this->editmode)
+                                        {
+                                            if($this->image("CB_ContiRollProfileOptionImage2_{$md5Key}")->isEmpty())
+                                            {
+                                                echo $this->image("CB_ContiRollProfileOptionImage2_{$md5Key}", ["height" => 120])->setImage($child['ApplicationImage']);
+                                            }
+                                            else{
+                                                echo $this->image("CB_ContiRollProfileOptionImage2_{$md5Key}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $CB_ProfileOptionImage2Obj =  $this->image("CB_ContiRollProfileOptionImage2_{$md5Key}");
+                                            if(!empty($CB_ProfileOptionImage2Obj->getId()))
+                                            {
+                                            ?>
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage2Obj, $this->imageWidth); ?>" alt="" style="height:120px; width:auto;"/>
+                                            <?php
+                                            }
+                                        }
+                                    ?>
                                     </td>
                                 </tr>
-                                <?php endif; ?>
                             </tbody>
                         </table>
                         <?php } ?>
@@ -544,3 +746,59 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
    
 </div>
 <?php endif; ?>
+
+<style>
+    .parentTable tr td:first-child {
+        font-size: 12px;
+    }
+    .parentTable tr td {
+        border: none;
+    }
+    .contiRoll90{
+        width: 90%;
+        padding-bottom: 20px;
+    }
+    .ml50{
+        margin-left: 40px;
+    }
+    .contiRollChild {
+        width:60%
+    }
+    .contiRollChild table{
+        width:100%;
+        margin-top: 40px;
+    }
+    .contiRollChild tr:not(:last-child){
+        border-bottom: 1px solid black;
+    }
+
+    .contiRollChild tr th{
+        padding-bottom: 1px;
+        vertical-align: bottom;
+        border-bottom: none;
+    }
+
+    .contiRollChild tr td{
+        text-align: center;
+        padding-top: 0;
+    }
+    .normal-cleated-product{
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .normal-cleated-product tr:not(:last-child){
+        border-bottom: 1px solid black;
+    }
+
+    .normal-cleated-product tr th{
+        padding-bottom: 1px;
+        vertical-align: bottom;
+        border-bottom: none;
+    }
+
+    .normal-cleated-product tr td{
+        text-align: center;
+        padding-top: 0;
+    }
+</style>
