@@ -291,10 +291,10 @@ class DefaultController extends AdminController
         // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
+
             if (!$object instanceof DataObject\B2BTranslationMapping) {
-                // $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
-                $parentId = 10980879;
+                $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
                 $newObject = new DataObject\B2BTranslationMapping;
                 $newObject->setName(trim($name));
                 $newObject->setKey(\Pimcore\Model\Element\Service::getValidKey(trim($name), 'object'));
@@ -321,7 +321,7 @@ class DefaultController extends AdminController
         // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
             if (!$object instanceof DataObject\B2BTranslationMapping) {
                 $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
                 $newObject = new DataObject\B2BTranslationMapping;
@@ -371,7 +371,7 @@ class DefaultController extends AdminController
         try {
             $id = intval($request->query->get('id'));
             $name = trim($request->query->get('name'));
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
             if (!$object instanceof DataObject\B2BTranslationMapping) {
                 $object = DataObject\B2BTranslationMapping::getById($id);
                 $object->setName($name);
