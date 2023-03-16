@@ -15,9 +15,9 @@ class CategoryDataImport implements IDataImport
     private $filePath;
     private $bUProductClassTableID = [
         'IFS_PTG_US' => '2',
-        'CS_US' => 'CSHierarchy',
+        'CS' => 'CSHierarchy',
         'PTG_EU' => 'PTGEUProductHierarchy',
-        'IFS_EU' => 'IFSEUProductCategory',
+        'IFS_EMEA' => 'IFSEUProductCategory',
     ];
 
     public function __construct($bu)
@@ -31,6 +31,7 @@ class CategoryDataImport implements IDataImport
     {
         $customFileName = $this->bu."_Category_".date('M').".csv";
         $this->filePath = $this->helper->downloadFile($customFileName);
+        // $this->filePath = "/var/www/html/cttfse01/var/tmp/salesforceid-externalid.csv";
     }
 
     public function importData()

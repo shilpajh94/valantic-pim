@@ -55,7 +55,7 @@ class B2BCategoryDataExport implements IDataExport
             if($b2bCategories)
             {
                 $b2bCategoriesChucks = array_chunk($b2bCategories,50);
-                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M').".csv";
+                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
                 $file = fopen($filePath,"w+");
                 $areHeadersAlreadyAdded = false;
                 foreach ($b2bCategoriesChucks as $batchNum => $categoryIds) 

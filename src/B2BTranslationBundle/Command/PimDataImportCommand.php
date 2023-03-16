@@ -10,14 +10,14 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class PimDataImportCommand extends AbstractCommand
 {
-    private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS_US', '3' => 'PTG_EU', '4' => 'IFS_EU'];
+    private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
     private $bu;
 
     protected function configure()
     {
         $this->setName('contitech:b2b:pim-data-import-command')
             ->setDescription('Salesforce id updation respective to externalid using CSV import')
-            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter '1' for 'IFS/PTG US', '2' for 'Conveyor Solution', '3' for 'PTG EU' and '4' for 'IFS EU'");
+            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter '1' for 'IFS/PTG US', '2' for 'Conveyor Solution', '3' for 'PTG EU' and '4' for 'IFS EMEA'");
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

@@ -146,7 +146,7 @@ class B2BProductDataExport implements IDataExport
                 $b2bProducts = array_slice($b2bProducts, 7000, 5);
                 $b2bProductsChucks = array_chunk($b2bProducts,1000);
                 // $b2bProductsChucks[] = [1840236,1840247];
-                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
+                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
                 $file = fopen($filePath,"w+");
 
                 foreach ($b2bProductsChucks as $batchNum => $productIds) 
