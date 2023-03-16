@@ -126,7 +126,8 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_PASSWORD", "R@H!T@4321");
     define("B2B_TRANSLATION_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
     define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    define("B2B_TRANSLATION_SFTP_ARCHIVE_FOLDER_PATH", B2B_TRANSLATION_SFTP_PATH."/archive/");
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
 
     define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/vsftpd/rohit.sriwastva/bw");
 

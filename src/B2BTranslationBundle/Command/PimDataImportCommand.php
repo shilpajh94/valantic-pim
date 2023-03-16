@@ -2,6 +2,8 @@
 namespace B2BTranslationBundle\Command;
 
 use Pimcore\Console\AbstractCommand;
+use B2BTranslationBundle\PimDataImport\B2B\ProductDataImport;
+use B2BTranslationBundle\PimDataImport\B2B\CategoryDataImport;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class PimDataImportCommand extends AbstractCommand
 {
     private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS_US', '3' => 'PTG_EU', '4' => 'IFS_EU'];
+    private $bu;
 
     protected function configure()
     {
@@ -19,16 +22,37 @@ class PimDataImportCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        echo "Script execution started.".PHP_EOL.PHP_EOL;
         $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
         if($optionForBusinessUnit >= 1 &&  $optionForBusinessUnit <=4)
         {
-            $bu = $this->BusinessUnits[$optionForBusinessUnit];
-            $serviceObj = \Pimcore::getContainer()->get('b2b_translation.salesforceid_import_service');
-            $serviceObj->import($bu);
+            $this->bu = $this->BusinessUnits[$optionForBusinessUnit];
+            echo "Business Unit - {$this->bu}".PHP_EOL.PHP_EOL;
+            $this->importDataForB2BShop();
         }
         else{
             echo "Invalid Business Unit Option.".PHP_EOL;
         }
+
+        echo PHP_EOL;
+        echo "Script execution stopped.".PHP_EOL;
+    }
+
+    private function importDataForB2BShop()
+    {
+        echo "Products salesforce id data import started.".PHP_EOL;
+        $executor = new ProductDataImport($this->bu);
+        $executor->downloadFile();
+        $executor->importData();
+        echo PHP_EOL;
+        echo "Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
+
+        echo "Product categories salesforce id data import started.".PHP_EOL;
+        $executor = new CategoryDataImport($this->bu);
+        $executor->downloadFile();
+        $executor->importData();
+        echo PHP_EOL;
+        echo "Product categories salesforce id data import stopped.".PHP_EOL;
     }
 }
 ?>
