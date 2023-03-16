@@ -270,11 +270,6 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                         },
                         success: function (response) {
                             const result = Ext.decode(response.responseText);
-                            console.log("result.success");
-                            console.log(result.success);
-
-                            console.log("result.id");
-                            console.log(result.id);
 
                             if (result.success) {
                                 this.openTabPanel(result.id, 0);

@@ -8,12 +8,14 @@ use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
 use B2BTranslationBundle\PimDataExport\IDataExport;
+use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 
-class B2BCategoryDataExport implements IDataExport
+class CategoryDataExport implements IDataExport
 {
     private $db;
     private $bu;
     private $common;
+    private $helper; 
     private $languages;
     private $categoryAttributeConfig;
     private $headerMapping;
@@ -22,6 +24,7 @@ class B2BCategoryDataExport implements IDataExport
     {
         $this->bu = $bu;
         $this->db = Db::get();
+        $this->helper = new PimDataExportHelper;
         $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
     }
 
@@ -97,6 +100,12 @@ class B2BCategoryDataExport implements IDataExport
             $this->logMessage($message, LogLevel::CRITICAL());
             return;
         }
+    }
+
+    public function uploadFile()
+    {
+        $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+        $this->helper->uploadFile($customFileName);
     }
 
     public function getRecordsWithFilteredFieldsCategory($columnsList, $b2bProducts)

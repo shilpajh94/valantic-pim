@@ -16,7 +16,7 @@ class ProductDataImport implements IDataImport
     private $bUProductClassTableID = [
         'IFS_PTG_US' => '1',
         'CS' => 'CSProducts',
-        'PTG_EU' => 'PTGEUProduct',
+        'PTG_EU' => '38',
         'IFS_EMEA' => 'IFSEUProduct',
     ];
 
