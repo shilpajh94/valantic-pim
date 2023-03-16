@@ -120,6 +120,15 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "R@H!T@4321");
     define("BW_SAP_IMPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
 
+    define("B2B_TRANSLATION_SFTP_HOST", "upload.pimcoreclient.com");
+    define("B2B_TRANSLATION_SFTP_PORT", 22);
+    define("B2B_TRANSLATION_SFTP_USERNAME", "rohit.sriwastva");
+    define("B2B_TRANSLATION_SFTP_PASSWORD", "R@H!T@4321");
+    define("B2B_TRANSLATION_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
+    define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
+
     define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/vsftpd/rohit.sriwastva/bw");
 
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
