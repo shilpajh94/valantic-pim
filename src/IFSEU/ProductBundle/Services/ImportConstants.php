@@ -11,4 +11,6 @@ class ImportConstants
     const IFS_EU_MEDIUM_MASTERDATA_FOLDER = self::IFS_EU_MASTERDATA_FOLDER . '/Flow Medium';
     const IFS_EU_PROPERTIES_MASTERDATA_FOLDER = self::IFS_EU_MASTERDATA_FOLDER . '/Properties';
     const IFS_EU_NORM_MASTERDATA_FOLDER = self::IFS_EU_MASTERDATA_FOLDER . '/Standards';
+    const IFS_EU_BRAND_MASTERDATA_FOLDER = self::IFS_EU_MASTERDATA_FOLDER . '/Brand';
+
 }
