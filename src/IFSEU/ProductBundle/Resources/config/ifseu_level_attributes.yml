@@ -1,0 +1,161 @@
+Base:
+  productBrandName: "Product Brand Name"
+  brandConstruction: "Brand Construction"
+  catalogLayline: "Catalog Layline"
+  Category: "Category"
+  Sub_Category: "Sub-Category"
+  FeaturesBenefitsBulletPoint: "Features & Benefits Bullet Points"
+  TPCode: "TP Code"
+  localizedfields:
+    headlineWeb: "Headline (Web)"
+    legalText: "Legal Text"
+    BrandShortText1: "Brand Short Text 1"
+    BrandShortText2: "Brand Short Text 2"
+    Marking2: "Marking2"
+    searchKeywords: "Search Keywords"
+    commercialDescription : "Commercial Description"
+    technicalDescription: "Technical Description"
+  # 25 brics attr
+  Base:
+    ColorOuterLayer: 'Color'
+    Coupling: ""
+    CoverOuterLayer: ""
+    FieldsOfApplication: ''
+    FlowMediumStability: ''
+    Haptic: ""
+    Helix: ''
+    InnerLining: ''
+    NonStockSizes: ''
+    Note2BelowTable: ''
+    PropertiesOuterLayer: ''
+    Reinforcement: ''
+    colorInnerLining: ''
+    flowMedium: ''
+    hoseIdDec: 'Hose ID (in):'
+    hoseIdMM: ''
+    numberOfHelixWires: ''
+    numberOfPlies: ''
+    propertiesInnerLayer: ' '
+    standards: ''
+    staticWire: 'Static Wire'
+    staticWireType: 'Static Wire Type'
+    tubeCharacteristic: 'Tube Characteristic'
+    tubeGaugeFractional: ''
+    withHelix: ''
+  # end base brics(technical data)
+  # SIOP Data
+  siopFullCode: ''
+  SIOPLevel1: ''
+  SIOPLevel2: ''
+  SIOPLevel3: ''
+  SIOPLevel4: ''
+  SIOPLevel5: ''
+  SIOPLevel6: ''
+  # Category Data
+  mainCategory: ''
+  subCategory: ''
+  fittingCategory: ''
+  fittingSubCategory: ''
+
+Skeleton:
+# 29 brics attr
+  IdInch: ''
+  IdMM: ''
+  wallThicknessInch: ''
+  wallThicknessMM: ''
+  OdIn: ''
+  Odmm: ''
+  hoseIdNominalActualId: ''
+  hoseIdMMActualId: ''
+  FittingFamily: ''
+  workingPressureBAR: ''
+  workingPressurePSI: ''
+  workingPressureMPA: ''
+  VacuumBar: ''
+  VacuumMM: ''
+  VacuumIN: ''
+  testPressureBar: ''
+  testPressurePSI: ''
+  BurstPressureBar: ''
+  BurstPressurePSI: ''
+  BurstPressurempa: ''
+  BendingRadiusIN: ''
+  BendingRadiusMM: ''
+  descriptive: ''
+  negativeToleranceIdMM: ''
+  PositiveToleranceIdMM: ''
+  negativeToleranceWtMM: ''
+  PositiveToleranceWtMM: ''
+  negativeToleranceOdMM: ''
+  PositiveToleranceOdMM: ''
+
+Fert:
+    B2CCategory: ''
+    printedCatalogFlag: ''
+    B2CStoreFlag: ''
+    virtualCatalogFlag: ''
+    newItemFlagForCatalog: ''
+    webDescription: ''
+    WebsiteLink: ''
+    amazonTitle: ''
+    materialNumber: ''
+    EANCode: ''
+    materialGroup: ''
+    countryOfOrigin: ''
+    baseUOM: ''
+    grossWeight: ''
+    netWeight: ''
+    weightUnit: 
+    industryStandard: ''
+    succesorFlag: ''
+    deletedFlagAtClientLevel: ''
+    rebateFlag: ''
+    BusinessUnit: IFS
+    Spezi: ''
+    oldMaterialCode: ''
+    manufacturer: ''
+    stccCode: ''
+    manufacturerPartNumber: ''
+    returnFlag: ''
+    OutsidePurchaseFlag: ''
+    CustomsTariffNumber: ''
+    b2BexternalID: ''
+    sapDescriptionLanguage: ''
+    weightg: ''
+    weightKg: ''
+    WeightLbsPerFTUOM: ''
+    ProductType: ''
+    shelfLife: ''
+    ConflictMinerals: ''
+    additionalInformation: ''
+    substitutePartNumber: ''
+    numberOfItems: ''
+    UnitsInPackage: ''
+    SalesOrgData: ''
+    Plants: ''
+    rohs: ''
+    reach: ''
+    proposition65WarningAttributesRequired: ''
+    prop65Message: ''
+    warningIcon: ''
+    californiaProposition65ChemicalName1: ''
+    californiaProposition65ChemicalName2: ''
+    californiaProposition65ChemicalName3: ''
+    nitrosamines: ''
+    Gallery: ''
+    merchantDiscount: ''
+    Discount: ''
+    GrossPrice: ''
+    Department: ''
+    listPrice: ''
+    OnStock: ''
+    Amount: ''
+    productionLengths: ''
+    ConnectionType: ''
+    Note: ''
+    Currency: ''
+    publishedOnline: ''
+    shippingConditions: ''
+    Conditions: ''
+    manufacturingLength: ''
+    minimumOrder: ''

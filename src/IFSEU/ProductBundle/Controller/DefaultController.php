@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Tool\Utils;
+use Exception;
 use Pimcore\Cache;
 use Pimcore\Model\DataObject;
 
@@ -56,13 +57,27 @@ class DefaultController extends FrontendController
      * @param Request $request
      * @return JsonResponse
      */
-    public function getObjectType(Request $request){
-        $idPath = $request->get('idPath');
-        // $objIds=array_reverse( explode('/',$idPath));
-        $objIds=explode('/',$idPath);
-        // $listIFSEUproducts = DataObject\IFSEUProduct::getById($pathids[0]);
+    public function getObjectLevelInfo(Request $request){
+        try{
+            $idPath = $request->get('idPath');
+            // $objIds=array_reverse( explode('/',$idPath));
+            $objIds=explode('/',$idPath);
+            $objectinfodb =$this->getProductLevelInfoFromDb($objIds);
+            if(!empty($objectinfodb['ProdcutsIdAndType'])){
+                $objectinfodb['success']=true; 
+            }else{
+                $objectinfodb['success']=false;
+                $objectinfodb['msg'] ="Unable to find IFSEUProduct info ";
+            }
+        }catch(Exception $e){
+            $objectinfodb['success']=false;
+            $objectinfodb['msg'] ="Unable to find IFSEUProduct info ";
+        }
+        return $this->json($objectinfodb);  
+    }
+    private function getProductLevelInfoFromDb(array $objIds){
         $ProdcutsIdAndType = [];
-        $productLevel =['base','Skeleton','fert']; 
+        $productLevel =['base','skeleton','fert']; 
         $level =-1;
         foreach($objIds as $objId){
             $query = "SELECT `o_id`,`o_type` FROM objects where o_id =".$this->db->quote(trim($objId));
@@ -84,9 +99,12 @@ class DefaultController extends FrontendController
             }
 
         }
-            
-        return $this->json(["success"=>true,'ProdcutsIdAndType'=>$ProdcutsIdAndType,"level"=>$productLevel[$level]]);
-        
+        if(!empty($ProdcutsIdAndType)){
+
+        }else{
+
+        }
+        return ['ProdcutsIdAndType'=>$ProdcutsIdAndType,"level"=>$productLevel[$level]];
     }
     private function getAttributesAccordingToLevel(){
         return array_keys( $this->configFile[$this->levelName]);
