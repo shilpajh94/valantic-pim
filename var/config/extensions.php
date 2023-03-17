@@ -17,6 +17,7 @@ return [
         "EmailNotificationBundle\\EmailNotificationBundle" => TRUE,
         "PTGEU\\ProductBundle\\PTGEUProductBundle" => TRUE,
         "PTGEU\\ImportBundle\\PTGEUImportBundle" => TRUE,
-        "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE
+        "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,
+        "B2BTranslationBundle\\B2BTranslationBundle" => TRUE
     ]
 ];
