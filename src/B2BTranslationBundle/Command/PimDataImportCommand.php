@@ -16,22 +16,17 @@ class PimDataImportCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('contitech:b2b:pim-data-import-command')
-            ->setDescription('Salesforce id updation respective to externalid using CSV import')
-            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter '1' for 'IFS/PTG US', '2' for 'Conveyor Solution', '3' for 'PTG EU' and '4' for 'IFS EMEA'");
+            ->setDescription('Salesforce id updation respective to externalid using CSV import');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         echo "Script execution started.".PHP_EOL.PHP_EOL;
-        $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
-        if($optionForBusinessUnit >= 1 &&  $optionForBusinessUnit <=4)
-        {
-            $this->bu = $this->BusinessUnits[$optionForBusinessUnit];
+
+        for ($i=1; $i <= 4; $i++) { 
+            $this->bu = $this->BusinessUnits[$i];
             echo "Business Unit - {$this->bu}".PHP_EOL.PHP_EOL;
             $this->importDataForB2BShop();
-        }
-        else{
-            echo "Invalid Business Unit Option.".PHP_EOL;
         }
 
         echo PHP_EOL;

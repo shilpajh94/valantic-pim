@@ -42,7 +42,7 @@ class ProductDataExport implements IDataExport
 
             # Get valid languages
             $this->languages = \Pimcore\Tool::getValidLanguages(); 
-            $b2bProductMapping = $this->getB2BTranslationMapping('Product');
+            $b2bProductMapping = $this->helper->getB2BTranslationMapping('Product', $this->bu);
             $fitingFamilyMasters = $this->getFittingFamilyMasterList();
             $fittingEndFamilyTypeMasters = $this->getFittingEndFamilyTypeMasterList();
             $multiSelectMasters = $this->getMultiSelectMasterList();
@@ -520,12 +520,6 @@ class ProductDataExport implements IDataExport
         $this->helper->uploadFile($customFileName);
     }
 
-    public function getB2BTranslationMapping($type)
-    {
-        $sqlMapping="select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY o_modificationDate DESC";
-        return $this->db->fetchOne($sqlMapping);
-    }
-
     public function getFittingFamilyMasterList()
     {   
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
@@ -584,7 +578,7 @@ class ProductDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($this->bu == 'CS_US')
+        else if($this->bu == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
@@ -592,7 +586,7 @@ class ProductDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($this->bu == 'IFS_EU')
+        else if($this->bu == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }

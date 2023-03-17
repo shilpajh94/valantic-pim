@@ -1,0 +1,32 @@
+parameters:
+    Category: 
+        o_parentId:
+            fieldName: o_parentId
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        description:
+            fieldName: description
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true
+        PrintedCatalogDescription:
+            fieldName: PrintedCatalogDescription
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true
+        ConstructionType:
+            fieldName: ConstructionType
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true

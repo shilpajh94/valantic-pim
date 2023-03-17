@@ -181,7 +181,7 @@ class DefaultController extends AdminController
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($businessUnit == 'CS_US')
+        else if($businessUnit == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
@@ -189,7 +189,7 @@ class DefaultController extends AdminController
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($businessUnit == 'IFS_EU')
+        else if($businessUnit == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }

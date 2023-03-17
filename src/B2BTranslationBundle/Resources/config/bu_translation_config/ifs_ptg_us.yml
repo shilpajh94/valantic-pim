@@ -899,6 +899,16 @@ parameters:
             objectBrickClassName: SynchronousFert
             isLocalized: false
     Category: 
+        o_parentId:
+            fieldName: o_parentId
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
         description:
             fieldName: description
             fieldLocation: class
