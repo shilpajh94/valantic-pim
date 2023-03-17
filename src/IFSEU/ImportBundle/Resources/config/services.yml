@@ -71,6 +71,11 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\OtherPropertiesMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-other-properties-master-data-import-command' }
+    
+    IFSEU\ImportBundle\OneTimeImportCommand\BrandMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-brand-master-data-import-command' }
+
 
     
     # Helpers

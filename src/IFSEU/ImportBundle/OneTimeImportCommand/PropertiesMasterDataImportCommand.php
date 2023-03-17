@@ -3,6 +3,7 @@
 
 namespace IFSEU\ImportBundle\OneTimeImportCommand;
 
+use Exception;
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -70,29 +71,32 @@ class PropertiesMasterDataImportCommand extends AbstractCommand
         $title = trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
+        try{
+            if ($title) {
 
-        if ($title) {
+                $categoryObj = DataObject\IFSEUProperties::getByPath("/" . ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER . "/" . $validKey);
 
-            $categoryObj = DataObject\IFSEUProperties::getByPath("/" . ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER . "/" . $validKey);
-
-            if (!$categoryObj) {
-                $obj = new DataObject\IFSEUProperties();
-                $obj->setKey($validKey);
-                $obj->setParentID($childTypeFolderId);
-                $obj->setPropertyID($result['ID']);
-                $obj->setTypeName($result['TypeName']);
-                foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$languageConfig)){
-                        $lang = ($languageConfig[$key]['language']);
-                        $obj->setPropertyName($result[$key],$lang);
+                if (!$categoryObj) {
+                    $obj = new DataObject\IFSEUProperties();
+                    $obj->setKey($validKey);
+                    $obj->setParentID($childTypeFolderId);
+                    $obj->setPropertyID($result['ID']);
+                    $obj->setTypeName($result['TypeName']);
+                    foreach($result as $key => $eachColumnName){
+                        if(array_key_exists($key,$languageConfig)){
+                            $lang = ($languageConfig[$key]['language']);
+                            $obj->setPropertyName($result[$key],$lang);
+                        }
                     }
-                }
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } 
-        } else {
-            echo "Invalid Key";
+                    $obj->setPublished(true);
+                    $obj->setOmitMandatoryCheck(true);
+                    $obj->save();
+                } 
+            } else {
+                echo "Invalid Key" . $title. PHP_EOL;
+            }
+        }catch(Exception $ex){
+            p_r($ex->getMessage());
         }
     }
 

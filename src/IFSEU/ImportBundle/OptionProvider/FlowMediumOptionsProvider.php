@@ -21,7 +21,7 @@ class FlowMediumOptionsProvider implements SelectOptionsProviderInterface {
     public function getOptions($context, $fieldDefinition) {
          $optionsData = [];
    
-        $flowMediumList = new DataObject\IFSEUMedium\Listing(); 
+        $flowMediumList = new DataObject\IFSEUFlowMedium\Listing(); 
       
        
         // $flowMediumList->setOrderKey('name');
@@ -29,9 +29,9 @@ class FlowMediumOptionsProvider implements SelectOptionsProviderInterface {
        
         foreach($flowMediumList as $listItem)
         {
-            if($listItem instanceof DataObject\IFSEUMedium)
+            if($listItem instanceof DataObject\IFSEUFlowMedium)
             {
-            $optionsData[] = array ('key' => $listItem->getMediumName(),'value' => $listItem->getMediumID());
+            $optionsData[] = array ('key' => $listItem->getFlowMedium(),'value' => $listItem->getID());
             }
         }
 

@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
+use Exception;
 
 class NormMasterDataImportCommand extends AbstractCommand
 {
@@ -64,35 +65,38 @@ class NormMasterDataImportCommand extends AbstractCommand
 
     public function insertNormMasterData($result, $parentFolderID)
     {
+        try{
+            $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
+            // $title = trim($result['ID']);
+            $title = trim($result['EN']  ?  $result['EN'] :  $result['DE']);
 
-        $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        // $title = trim($result['ID']);
-        $title = trim($result['EN']  ?  $result['EN'] :  $result['DE']);
+            $validKey = DataObject\Service::getValidKey($title, "object");
 
-        $validKey = DataObject\Service::getValidKey($title, "object");
+            if ($title) {
 
-        if ($title) {
+                $categoryObj = DataObject\IFSEUNorm::getByPath("/" . ImportConstants::IFS_EU_NORM_MASTERDATA_FOLDER . "/" . $validKey);
 
-            $categoryObj = DataObject\IFSEUNorm::getByPath("/" . ImportConstants::IFS_EU_NORM_MASTERDATA_FOLDER . "/" . $validKey);
+                if (!$categoryObj) {
+                    $obj = new DataObject\IFSEUNorm();
+                    $obj->setKey($validKey);
+                    $obj->setParentID($parentFolderID);
+                    $obj->setNormID($result['ID']);
 
-            if (!$categoryObj) {
-                $obj = new DataObject\IFSEUNorm();
-                $obj->setKey($validKey);
-                $obj->setParentID($parentFolderID);
-                $obj->setNormID($result['ID']);
-
-                foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$languageConfig)){
-                        $lang = ($languageConfig[$key]['language']);
-                        $obj->setNorm($result[$key],$lang);
+                    foreach($result as $key => $eachColumnName){
+                        if(array_key_exists($key,$languageConfig)){
+                            $lang = ($languageConfig[$key]['language']);
+                            $obj->setNorm($result[$key],$lang);
+                        }
                     }
-                }
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } 
-        } else {
-            echo "Invalid Key";
+                    $obj->setPublished(true);
+                    $obj->setOmitMandatoryCheck(true);
+                    $obj->save();
+                } 
+            } else {
+                echo "Invalid Key";
+            }
+        }catch(Exception $ex){
+            p_r($ex->getMessage());
         }
     }
 
