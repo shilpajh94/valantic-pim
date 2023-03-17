@@ -35,9 +35,9 @@ services:
         class: B2BTranslationBundle\Services\ConfigProviderService
         public: true
 
-    b2b_translation.salesforceid_import_service:
-        class: B2BTranslationBundle\Services\SalesforceIdImportService
-        public: true
+    # b2b_translation.salesforceid_import_service:
+    #     class: B2BTranslationBundle\Services\SalesforceIdImportService
+    #     public: true
 
     #command
     B2BTranslationBundle\Command\PimDataImportCommand:
@@ -47,3 +47,7 @@ services:
     B2BTranslationBundle\Command\PimDataExportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:b2b:pim-data-export-command' }
+
+    B2BTranslationBundle\OneTimeCommand\ImportExternalIDForCategoryCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b:onetime:import-external_id-for-category-command' }
