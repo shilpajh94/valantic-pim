@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-17T21:37:42+01:00
+* Generated at: 2023-03-16T14:55:41+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,7 +12,7 @@ Fields Summary:
 - Name [input]
 - BusinessUnit [select]
 - TranslationDataType [select]
-- AVBVendorData [table]
+- PIMB2BMappingData [table]
 */ 
 
 
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'B2BTranslationMapping',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676666261,
+   'modificationDate' => 1678974941,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -133,8 +133,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   ),
                   1 => 
                   array (
-                    'key' => 'CS US',
-                    'value' => 'CS_US',
+                    'key' => 'CS',
+                    'value' => 'CS',
                   ),
                   2 => 
                   array (
@@ -143,8 +143,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   ),
                   3 => 
                   array (
-                    'key' => 'IFS EU',
-                    'value' => 'IFS_EU',
+                    'key' => 'IFS EMEA',
+                    'value' => 'IFS_EMEA',
                   ),
                 ),
                  'width' => '',
@@ -263,7 +263,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'queryColumnType' => 'longtext',
                  'columnType' => 'longtext',
                  'phpdocType' => 'array',
-                 'name' => 'AVBVendorData',
+                 'name' => 'PIMB2BMappingData',
                  'title' => 'PIM & B2B Salesforce Attribute Mapping',
                  'tooltip' => '',
                  'mandatory' => false,

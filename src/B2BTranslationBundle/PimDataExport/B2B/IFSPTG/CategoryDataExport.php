@@ -8,12 +8,14 @@ use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
 use B2BTranslationBundle\PimDataExport\IDataExport;
+use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 
-class B2BCategoryDataExport implements IDataExport
+class CategoryDataExport implements IDataExport
 {
     private $db;
     private $bu;
     private $common;
+    private $helper; 
     private $languages;
     private $categoryAttributeConfig;
     private $headerMapping;
@@ -22,6 +24,7 @@ class B2BCategoryDataExport implements IDataExport
     {
         $this->bu = $bu;
         $this->db = Db::get();
+        $this->helper = new PimDataExportHelper;
         $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
     }
 
@@ -55,7 +58,7 @@ class B2BCategoryDataExport implements IDataExport
             if($b2bCategories)
             {
                 $b2bCategoriesChucks = array_chunk($b2bCategories,50);
-                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M').".csv";
+                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
                 $file = fopen($filePath,"w+");
                 $areHeadersAlreadyAdded = false;
                 foreach ($b2bCategoriesChucks as $batchNum => $categoryIds) 
@@ -99,6 +102,12 @@ class B2BCategoryDataExport implements IDataExport
         }
     }
 
+    public function uploadFile()
+    {
+        $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+        $this->helper->uploadFile($customFileName);
+    }
+
     public function getRecordsWithFilteredFieldsCategory($columnsList, $b2bProducts)
     {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
@@ -133,7 +142,7 @@ class B2BCategoryDataExport implements IDataExport
 
     public function getB2BTranslationMapping($type)
     {
-        $sqlMapping="select AVBVendorData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY oo_id DESC";
+        $sqlMapping="select PIMB2BMappingData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY o_modificationDate DESC";
         return $this->db->fetchOne($sqlMapping);
     }
 
@@ -145,7 +154,7 @@ class B2BCategoryDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($this->bu == 'CS_US')
+        else if($this->bu == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
@@ -153,7 +162,7 @@ class B2BCategoryDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($this->bu == 'IFS_EU')
+        else if($this->bu == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }

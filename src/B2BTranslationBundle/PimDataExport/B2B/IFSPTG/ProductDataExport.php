@@ -8,12 +8,14 @@ use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
 use B2BTranslationBundle\PimDataExport\IDataExport;
+use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 
-class B2BProductDataExport implements IDataExport
+class ProductDataExport implements IDataExport
 {
     private $db;
     private $bu;
     private $common;
+    private $helper; 
     private $languages;
     private $productAttributeConfig;
     private $headerMapping;
@@ -28,6 +30,7 @@ class B2BProductDataExport implements IDataExport
     {
         $this->bu = $bu;
         $this->db = Db::get();
+        $this->helper = new PimDataExportHelper;
         $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
     }
 
@@ -146,7 +149,7 @@ class B2BProductDataExport implements IDataExport
                 $b2bProducts = array_slice($b2bProducts, 7000, 5);
                 $b2bProductsChucks = array_chunk($b2bProducts,1000);
                 // $b2bProductsChucks[] = [1840236,1840247];
-                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M').".csv";
+                $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
                 $file = fopen($filePath,"w+");
 
                 foreach ($b2bProductsChucks as $batchNum => $productIds) 
@@ -511,9 +514,15 @@ class B2BProductDataExport implements IDataExport
            
     }
     
+    public function uploadFile()
+    {
+        $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+        $this->helper->uploadFile($customFileName);
+    }
+
     public function getB2BTranslationMapping($type)
     {
-        $sqlMapping="select AVBVendorData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY oo_id DESC";
+        $sqlMapping="select PIMB2BMappingData from object_query_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$this->bu}' ORDER BY o_modificationDate DESC";
         return $this->db->fetchOne($sqlMapping);
     }
 

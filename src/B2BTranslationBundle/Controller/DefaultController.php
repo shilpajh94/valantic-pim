@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use B2BTranslationBundle\B2BTranslationConstants;
 
 /**
- * @Route("/admin/b2_b_translation")
+ * @Route("/admin/b2b_translation")
  */
 
 class DefaultController extends AdminController
@@ -33,7 +33,29 @@ class DefaultController extends AdminController
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world from b2_b_translation');
+        return new Response('Hello world from b2b_translation');
+    }
+
+    /**
+     * @Route("/import")
+     */
+    public function translationImportAction(Request $request)
+    {
+        $bu_id = $request->get('bu_id');
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-import-command {$bu_id}";
+        shell_exec($cmd);
+        return new Response('Executed');
+    }
+
+    /**
+     * @Route("/export")
+     */
+    public function translationExportAction(Request $request)
+    {
+        $bu_id = $request->get('bu_id');
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-export-command {$bu_id}";
+        shell_exec($cmd);
+        return new Response('Executed');
     }
     
     /**
@@ -101,12 +123,8 @@ class DefaultController extends AdminController
             'text' => $channel->getName(),
             'vendor' => $channel->getBusinessUnit(),
             'type' => $channel->getTranslationDataType(),
-            'gridData' => $channel->getAVBVendorData()
+            'gridData' => $channel->getPIMB2BMappingData()
         ];
-
-        // 'vendor' => $channel->getVendorList(),
-        //     'type' => $channel->getMappingType(),
-        //     'gridData' => $channel->getAVBVendorData()
     }
 
     /**
@@ -140,7 +158,7 @@ class DefaultController extends AdminController
                         $gridData[] = [$rowArray['name'], $rowArray['avbName']];
                     }
                 }
-                $mappingObject->setAVBVendorData($gridData);
+                $mappingObject->setPIMB2BMappingData($gridData);
             }
             $mappingObject->save();
         }
@@ -198,7 +216,7 @@ class DefaultController extends AdminController
         $mappingObject = DataObject\B2BTranslationMapping::getById($request->get('mappingId'));
         $mappingArray = [];
         if (!empty($mappingObject) && $mappingObject instanceof DataObject\B2BTranslationMapping) {
-            $mappingData = $mappingObject->getAVBVendorData();
+            $mappingData = $mappingObject->getPIMB2BMappingData();
             if (!empty($mappingData)) {
                 foreach ($mappingData as $mData) {
                     $mappingArray[$mData['PIM Attribute Name']] = $mData['B2B SalesForce Attribute Name'];
@@ -273,10 +291,10 @@ class DefaultController extends AdminController
         // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
+
             if (!$object instanceof DataObject\B2BTranslationMapping) {
-                // $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
-                $parentId = 10980879;
+                $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
                 $newObject = new DataObject\B2BTranslationMapping;
                 $newObject->setName(trim($name));
                 $newObject->setKey(\Pimcore\Model\Element\Service::getValidKey(trim($name), 'object'));
@@ -303,7 +321,7 @@ class DefaultController extends AdminController
         // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
             if (!$object instanceof DataObject\B2BTranslationMapping) {
                 $parentId = DataObject\Service::createFolderByPath(self::B2B_TRANSLATION_MAPPINGS)->getId();
                 $newObject = new DataObject\B2BTranslationMapping;
@@ -353,7 +371,7 @@ class DefaultController extends AdminController
         try {
             $id = intval($request->query->get('id'));
             $name = trim($request->query->get('name'));
-            $object = DataObject\B2BTranslationMapping::getByName(trim($name));
+            $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
             if (!$object instanceof DataObject\B2BTranslationMapping) {
                 $object = DataObject\B2BTranslationMapping::getById($id);
                 $object->setName($name);

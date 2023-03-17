@@ -15,9 +15,9 @@ class ProductDataImport implements IDataImport
     private $filePath;
     private $bUProductClassTableID = [
         'IFS_PTG_US' => '1',
-        'CS_US' => 'CSProducts',
-        'PTG_EU' => 'PTGEUProduct',
-        'IFS_EU' => 'IFSEUProduct',
+        'CS' => 'CSProducts',
+        'PTG_EU' => '38',
+        'IFS_EMEA' => 'IFSEUProduct',
     ];
 
     public function __construct($bu)
