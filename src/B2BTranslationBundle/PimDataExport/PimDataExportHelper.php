@@ -16,19 +16,26 @@ class PimDataExportHelper
         'IFS_EMEA' => ''
     ];
 
+    private $bUCategoryClassTableID = [
+        'IFS_PTG_US' => array('categoryClassId'=>'2'),
+        'CS' => array('categoryClassId'=>'CSHierarchy'),
+        'PTG_EU' => array('categoryClassId'=>'39'),
+        'IFS_EMEA' => array('categoryClassId'=>'IFSEUProductCategory'),
+    ];
+
     public function uploadFile($customFileName)
     {
         try {
-            $SFTPConObj = new SFTPConnection(B2B_TRANSLATION_SFTP_HOST, B2B_TRANSLATION_SFTP_PORT);
-            $SFTPConObj->login(B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
-            
             $localFile    = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
             if(!file_exists($localFile)) 
             {
                 echo "ERROR: Looking for file - ".$customFileName. ". But file not created in folder - '".B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."'";
+                echo PHP_EOL;
                 return null;
             }
             else{
+                $SFTPConObj = new SFTPConnection(B2B_TRANSLATION_SFTP_HOST, B2B_TRANSLATION_SFTP_PORT);
+                $SFTPConObj->login(B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
                 $remoteFile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH."/".$customFileName;
                 $SFTPConObj->uploadFile($localFile, $remoteFile);
             }
@@ -90,6 +97,42 @@ class PimDataExportHelper
         $b2bTranslationList = $common->getParameter($b2bTranslationConfig, $className);
 
         return $b2bTranslationList;
+    }
+
+    public function getRecordsWithFilteredMasterFields($bu, $fields, $b2bProducts)
+    {
+        $db = Db::get();
+        $config = $this->bUCategoryClassTableID[$bu];
+        $categoryClassId = $config['categoryClassId'];
+
+        $columnsString = 'o_id';
+
+        if($fields)
+        {
+            $columnsString .= ",". implode(',', $fields);
+        }
+        
+        $ids = implode(',', $b2bProducts);
+        $sql = "select {$columnsString} from object_{$categoryClassId} where o_id IN ($ids)";
+        return $db->fetchAll($sql);
+    }
+
+    public function getRecordsWithFilteredFieldsCategory($bu, $validLanguage, $columnsList, $b2bProducts)
+    {
+        $db = Db::get();
+        $config = $this->bUCategoryClassTableID[$bu];
+        $categoryClassId = $config['categoryClassId'];
+
+        $languages = "'" . implode ( "', '", $validLanguage ) . "'";
+        $selectedFields = [];
+        foreach ($columnsList as $key => $columm) {
+            $selectedFields[] = "$columm";
+        }
+
+        $columnsString = implode(',', $selectedFields);
+        $ids = implode(',', $b2bProducts);
+        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_{$categoryClassId} where ooo_id IN ($ids) AND language IN ($languages)";
+        return $db->fetchAll($sql);
     }
 
     public function logMessage(String $msg, LogLevel $logLevel)

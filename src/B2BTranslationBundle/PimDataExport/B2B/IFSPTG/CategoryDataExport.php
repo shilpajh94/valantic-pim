@@ -2,31 +2,21 @@
 
 namespace B2BTranslationBundle\PimDataExport\B2B\IFSPTG;
 
-
-use Pimcore\Db;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\PimDataExport\IDataExport;
 use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 
 class CategoryDataExport implements IDataExport
 {
-    private $db;
     private $bu;
     private $helper; 
     private $languages;
     private $categoryAttributeConfig;
     private $headerMapping;
-    private $bUCategoryClassTableID = [
-        'IFS_PTG_US' => array('categoryClassId'=>'2'),
-        'CS' => array('categoryClassId'=>'CSHierarchy'),
-        'PTG_EU' => array('categoryClassId'=>'39'),
-        'IFS_EMEA' => array('categoryClassId'=>'IFSEUProductCategory'),
-    ];
-
+    
     public function __construct($bu)
     {
         $this->bu = $bu;
-        $this->db = Db::get();
         $this->helper = new PimDataExportHelper;
     }
 
@@ -80,17 +70,14 @@ class CategoryDataExport implements IDataExport
                             {
                                 # Categories's non-localized field
                                 $nonLocalizedResultSet = [];
-                                // if($categoryFilteredNonLocalizedAttributeField)
-                                // {
-                                    $nonLocalizedResultSet = $this->getRecordsWithFilteredMasterFields($categoryFilteredNonLocalizedAttributeField, $categoryIds);
-                                // }
+                                $nonLocalizedResultSet = $this->helper->getRecordsWithFilteredMasterFields($this->bu, $categoryFilteredNonLocalizedAttributeField, $categoryIds);
 
                                 # Categories's localized field
                                 $localizedResultSet = [];
                                 $localizeData1 = [];
                                 if($categoryFilteredAttributeField)
                                 {
-                                    $localizedResultSet = $this->getRecordsWithFilteredFieldsCategory($categoryFilteredAttributeField, $categoryIds);
+                                    $localizedResultSet = $this->helper->getRecordsWithFilteredFieldsCategory($this->bu, $this->languages, $categoryFilteredAttributeField, $categoryIds);
                                 }
 
                                 foreach ($localizedResultSet as $key => $fields) {
@@ -151,7 +138,7 @@ class CategoryDataExport implements IDataExport
                                         $finalPritingList[] = $rvalue;
                                     }
                                 }
-                                // p_r($finalPritingList);
+
                                 if($finalPritingList)
                                 {
                                     if(!$areHeadersAlreadyAdded)
@@ -176,31 +163,37 @@ class CategoryDataExport implements IDataExport
                             fclose($file);
 
                             echo $message = "{$this->bu}: B2B category data csv file created";
+                            echo PHP_EOL;
                             $this->helper->logMessage($message, LogLevel::INFO());
                         }
                         else{
                             echo $message = "{$this->bu}: B2B category data not found to export";
+                            echo PHP_EOL;
                             $this->helper->logMessage($message, LogLevel::ERROR());
                         }
                     }
                     else{
                         echo $message = "{$this->bu}: B2B salesforce attribute not mapped to any of the PIM category";
+                        echo PHP_EOL;
                         $this->helper->logMessage($message, LogLevel::ERROR());
                     }
                 }
                 else{
                     echo $message = "{$this->bu}: B2B category salesforce mapping not found";
+                    echo PHP_EOL;
                     $this->helper->logMessage($message, LogLevel::ERROR());
                 }
             }
             else{
                 echo $message = "{$this->bu}: B2B Category config not found";
+                echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::ERROR());
             }
             
         } catch(\Throwable $e) {
             $message = $e->getMessage();
             echo $message = "{$this->bu}: Exception while trying to export the data"." ".$message;
+            echo PHP_EOL;
             $this->helper->logMessage($message, LogLevel::CRITICAL());
             return;
         }
@@ -208,42 +201,8 @@ class CategoryDataExport implements IDataExport
 
     public function uploadFile()
     {
-        $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+        $customFileName = "{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
         $this->helper->uploadFile($customFileName);
-    }
-
-    public function getRecordsWithFilteredMasterFields($fields, $b2bProducts)
-    {
-        $config = $this->bUCategoryClassTableID[$this->bu];
-        $categoryClassId = $config['categoryClassId'];
-
-        $columnsString = 'o_id';
-
-        if($fields)
-        {
-            $columnsString .= ",". implode(',', $fields);
-        }
-        
-        $ids = implode(',', $b2bProducts);
-        $sql = "select {$columnsString} from object_{$categoryClassId} where o_id IN ($ids)";
-        return $this->db->fetchAll($sql);
-    }
-
-    public function getRecordsWithFilteredFieldsCategory($columnsList, $b2bProducts)
-    {
-        $config = $this->bUCategoryClassTableID[$this->bu];
-        $categoryClassId = $config['categoryClassId'];
-
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $selectedFields = [];
-        foreach ($columnsList as $key => $columm) {
-            $selectedFields[] = "$columm";
-        }
-
-        $columnsString = implode(',', $selectedFields);
-        $ids = implode(',', $b2bProducts);
-        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_{$categoryClassId} where ooo_id IN ($ids) AND language IN ($languages)";
-        return $this->db->fetchAll($sql);
     }
 
     public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
