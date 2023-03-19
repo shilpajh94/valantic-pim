@@ -1,4 +1,35 @@
 parameters:
+    Product:
+        articleNumber:
+            fieldName: articleNumber
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        industryStandard:
+            fieldName: industryStandard
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        eanUpc:
+            fieldName: eanUpc
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        webDiscription:
+            fieldName: webDiscription
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        sapDescription:
+            fieldName: sapDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true
     Category: 
         o_parentId:
             fieldName: o_parentId

@@ -173,7 +173,7 @@ class CategoryDataExport implements IDataExport
                         }
                     }
                     else{
-                        echo $message = "{$this->bu}: B2B salesforce attribute not mapped to any of the PIM category";
+                        echo $message = "{$this->bu}: B2B salesforce attribute not mapped to any of the PIM category attribute";
                         echo PHP_EOL;
                         $this->helper->logMessage($message, LogLevel::ERROR());
                     }

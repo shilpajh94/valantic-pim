@@ -9,7 +9,14 @@ use B2BTranslationBundle\B2BTranslationConstants;
 
 class PimDataExportHelper
 {
-    private $b2bTable = [
+    private $b2bProductTable = [
+        'IFS_PTG_US' => 'salesforce_integration_b2b_product_master',
+        'CS' => '',
+        'PTG_EU' => '', 
+        'IFS_EMEA' => ''
+    ];
+
+    private $b2bCategoryTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_category_master',
         'CS' => '',
         'PTG_EU' => '', 
@@ -55,10 +62,24 @@ class PimDataExportHelper
         return $db->fetchOne($sqlMapping);
     }
 
+    public function getAllB2BProduct($bu)
+    {
+        $db = Db::get();
+        $table = $this->b2bProductTable[$bu];
+
+        $ids = [];
+        if($table)
+        {
+            $sql = "SELECT o_id FROM $table";
+            $ids = $db->fetchCol($sql);
+        }
+
+        return $ids;
+    }
     public function getAllB2BCategory($bu)
     {
         $db = Db::get();
-        $table = $this->b2bTable[$bu];
+        $table = $this->b2bCategoryTable[$bu];
 
         $ids = [];
         if($table)

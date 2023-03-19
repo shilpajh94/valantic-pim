@@ -51,14 +51,14 @@ class PimDataExportCommand extends AbstractCommand
 
     private function exportDataForB2BShop()
     {
-        // echo $msg = "Products translation data export started.".PHP_EOL;
-        // $this->helper->logMessage($msg, LogLevel::INFO());
-        // $executor = new IFSPTG\ProductDataExport($this->bu);
-        // $executor->exportData();
-        // $executor->uploadFile();
-        // echo $msg = "Products translation data export stopped.".PHP_EOL.PHP_EOL;
-        // $this->helper->logMessage($msg, LogLevel::INFO());
-        // echo PHP_EOL;
+        echo $msg = "{$this->bu}: Products translation data export started.".PHP_EOL;
+        $this->helper->logMessage($msg, LogLevel::INFO());
+        $executor = new IFSPTG\ProductDataExport($this->bu);
+        $executor->exportData();
+        $executor->uploadFile();
+        echo $msg = "{$this->bu}: Products translation data export stopped.".PHP_EOL.PHP_EOL;
+        $this->helper->logMessage($msg, LogLevel::INFO());
+        echo PHP_EOL;
 
         echo $msg = "{$this->bu}: Product categories translation data export started.".PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());

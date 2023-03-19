@@ -35,10 +35,6 @@ services:
         class: B2BTranslationBundle\Services\ConfigProviderService
         public: true
 
-    # b2b_translation.salesforceid_import_service:
-    #     class: B2BTranslationBundle\Services\SalesforceIdImportService
-    #     public: true
-
     #command
     B2BTranslationBundle\Command\PimDataImportCommand:
         tags:

@@ -41,8 +41,7 @@ class DefaultController extends AdminController
      */
     public function translationImportAction(Request $request)
     {
-        $bu_id = $request->get('bu_id');
-        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-import-command {$bu_id}";
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-import-command";
         shell_exec($cmd);
         return new Response('Executed');
     }
@@ -52,8 +51,7 @@ class DefaultController extends AdminController
      */
     public function translationExportAction(Request $request)
     {
-        $bu_id = $request->get('bu_id');
-        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-export-command {$bu_id}";
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-export-command";
         shell_exec($cmd);
         return new Response('Executed');
     }
