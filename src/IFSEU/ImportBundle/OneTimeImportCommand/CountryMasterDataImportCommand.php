@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
+use Exception;
 
 class CountryMasterDataImportCommand extends AbstractCommand
 {
@@ -66,24 +67,27 @@ class CountryMasterDataImportCommand extends AbstractCommand
         $title = trim($result['TwoLetterIso']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
+        try{
+            if ($title) {
 
-        if ($title) {
+                $categoryObj = DataObject\IFSEUCountries::getByPath("/" . ImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER . "/" . $validKey);
 
-            $categoryObj = DataObject\IFSEUCountries::getByPath("/" . ImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER . "/" . $validKey);
-
-            if (!$categoryObj) {
-                $obj = new DataObject\IFSEUCountries();
-                $obj->setKey($validKey);
-                $obj->setParentID($parentFolderID);
-                $obj->setCountryID($result['ID']);
-                $obj->setCountryName($result['Name']);
-                $obj->setCountryAbbr($result['TwoLetterIso']);
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } 
-        } else {
-            echo "Invalid Key";
+                if (!$categoryObj) {
+                    $obj = new DataObject\IFSEUCountries();
+                    $obj->setKey($validKey);
+                    $obj->setParentID($parentFolderID);
+                    $obj->setCountryID($result['ID']);
+                    $obj->setCountryName($result['Name']);
+                    $obj->setCountryAbbr($result['TwoLetterIso']);
+                    $obj->setPublished(true);
+                    $obj->setOmitMandatoryCheck(true);
+                    $obj->save();
+                } 
+            } else {
+                echo "Invalid Key";
+            }
+        }catch(Exception $ex){
+            p_r($ex->getMessage());
         }
     }
 
