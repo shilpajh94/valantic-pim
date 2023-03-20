@@ -30,8 +30,8 @@ class CategoryDataImport implements IDataImport
     public function downloadFile()
     {
         $customFileName = $this->bu."_Category_".date('M').".csv";
-        // $this->filePath = $this->helper->downloadFile($customFileName);
-        $this->filePath = "/var/www/html/cttfse01/var/tmp/salesforceid-externalid.csv";
+        $this->filePath = $this->helper->downloadFile($customFileName);
+        // $this->filePath = "/var/www/html/cttfse01/var/tmp/salesforceid-externalid.csv";
     }
 
     public function importData()
