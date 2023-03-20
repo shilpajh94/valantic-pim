@@ -333,15 +333,15 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                     columns: [{
                         text: 'PIM Attribute Name',
                         dataIndex: 'name',
-                        width: '40%',
+                        width: '50%',
                     }, {
                         text: 'B2B SalesForce Attribute Name',
                         dataIndex: 'avbName',
-                        width: '40%',
+                        width: '49.75%',
                         editor: {
                             xtype: 'combobox',
                             name:'cmbAVBData',
-                            forceSelection: true,
+                            // forceSelection: true,
                             store: avbDataStore, //assigning the store
                             triggerAction: 'all',			
         //                    editable:false,
