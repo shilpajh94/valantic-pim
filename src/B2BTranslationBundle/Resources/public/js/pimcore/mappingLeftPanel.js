@@ -18,7 +18,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                         title:t('b2b_translation_my_mapping'),
                         region: 'west',
                         width: 300,
-                        id: 'menu_tree_ch',
+                        id: 'menu_tree_mapping',
                         split: true,
 //                        layout: 'accordion',
                         header: false,
