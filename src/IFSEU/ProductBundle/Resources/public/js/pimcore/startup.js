@@ -20,17 +20,20 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         // object.edit.layout.query('[name=Fert]') //get tab by name
         //object ,object.data.childdata.data.general.o_key //tab name
         // object.dependencies.element.data //all field
+         //Ext.getCmp('productBrandName');//Ext.select('.highcharts-container');
+
+         addMaskForClasses=['.objectlayout_element_hoseBaseData','.objectlayout_element_Temperatures'];
         if(object.data.general.o_className=="IFSEUProduct"){
             productLevel =this.productAjax('/IFSEU/product/get/level/info','POST',{ idPath: object.data.idPath });
             if(productLevel.level =='skeleton'){
                 parms ={ levelName: 'base' };
                 baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',parms);
-                this.disableAttributes(object,baseAttributes);
+                this.disableAttributes(object,baseAttributes,addMaskForClasses);
             }
             if(productLevel.level =='fert'){
                 baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
                 skeletonAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
-                this.disableAttributes(object,baseAttributes);
+                this.disableAttributes(object,baseAttributes,addMaskForClasses);
                 this.disableAttributes(object,skeletonAttributes);
             }
             var tabPanell = object.edit.layout.items.items[0];
@@ -39,7 +42,7 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
                 if(productLevel.level =='fert'){
                     baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
                     baseAttributes.attributes.push('Skeleton');
-                    this.disableAttributes(object,baseAttributes);
+                    this.disableAttributes(object,baseAttributes,addMaskForClasses);
                     
                 }
     
@@ -71,21 +74,33 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         });
         return resp;
     },
-    disableAttributes:function(object,attributes){
-        // class attributes take to load so we use timeout function
+    disableAttributes:function(object,attributes,hideTabClassNames=null){
+
+        // class attributes take some time  to load so we use timeout function
         setTimeout(function(){
+
+            if(hideTabClassNames !== null){
+                if(attributes.level=='base'){
+                    hideTabClassNames.forEach((hideTabClassName)=>{
+                        Ext.select(hideTabClassName).removeCls('x-mask');
+                    })
+                }else{
+                    hideTabClassNames.forEach((hideTabClassName)=>{
+                        Ext.select(hideTabClassName).addCls('x-mask');
+                    })
+                }
+               
+            }
             for(attribute  of attributes.attributes ){
                 object.edit.dataFields[attribute].component.setDisabled(true);
                 if(attribute == 'localizedfields'){
                     object.edit.dataFields[attribute].component.setDisabled(true);
-                    console.log(object.edit.dataFields[attribute],attribute);
                 }
                 if(attribute=='Base'){
                     object.edit.dataFields[attribute].component.setDisabled(true)
-                    console.log(object.edit.dataFields[attribute].component.setDisabled(true),attribute);
                 }
             }
-        },30);
+        },10);
     }
 });
 
