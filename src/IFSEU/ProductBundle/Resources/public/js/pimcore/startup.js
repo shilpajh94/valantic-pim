@@ -20,52 +20,34 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         // object.edit.layout.query('[name=Fert]') //get tab by name
         //object ,object.data.childdata.data.general.o_key //tab name
         // object.dependencies.element.data //all field
-
-        // object.edit.dataFields['DampableUntil1C'].component.setReadOnly(true);
-        productLevel =this.productAjax('/IFSEU/product/get/level/info','POST',{ idPath: object.data.idPath });
-        if(productLevel.level =='skeleton'){
-            parms ={ levelName: 'base' };
-            baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',parms);
-            setTimeout(function(){
-                // object.edit.dataFields['DampableUntil1C'].component.setReadOnly(true);
-                for(baseAttribute  of baseAttributes.attributes ){
-                    // console.log(object.edit.dataFields[baseAttribute],baseAttribute);
-                    if(baseAttribute == 'localizedfields'){
-                        object.edit.dataFields[baseAttribute].component.setDisabled(true);
-                        console.log(object.edit.dataFields[baseAttribute],baseAttribute);
-                    }
-                    if(baseAttribute=='Base'){
-                        object.edit.dataFields[baseAttribute].component.setDisabled(true)
-                        console.log(object.edit.dataFields[baseAttribute].component.setDisabled(true),baseAttribute);
-                    }
-                }
-                // object.edit.dataFields.Base.component.setdisabled(true)
-                console.log(object.edit.layout.items.items[0]);
-                // localizedfields.component.setDisabled(true)
-            },30);
-                
-                console.log( object);
-        }
-        else if(productLevel.level =='fert'){
-            attributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
-        }
-        var tabPanell = object.edit.layout.items.items[0];
-        tabPanell.on("tabchange", function (tabObject) {
-            object.edit.dataFields.DampableUntil1C.component.setReadOnly(true);
-            let tabName=tabObject.activeTab.config.name;
-            let tabattributes=this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: tabName });
-            if(tabObject.activeTab.config.name=='Skeleton'){
-                
+        if(object.data.general.o_className=="IFSEUProduct"){
+            productLevel =this.productAjax('/IFSEU/product/get/level/info','POST',{ idPath: object.data.idPath });
+            if(productLevel.level =='skeleton'){
+                parms ={ levelName: 'base' };
+                baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',parms);
+                this.disableAttributes(object,baseAttributes);
             }
-            console.log(tabObject.activeTab.config.name);
-            // alert(tabObject.activeTab);
-
-        }.bind(this));
-        innertabPanell = object.edit.layout.items.items[0].items.items[0];
-
-        innertabPanell.on('tabchange',function (tabObject){alert()});
+            if(productLevel.level =='fert'){
+                baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
+                skeletonAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
+                this.disableAttributes(object,baseAttributes);
+                this.disableAttributes(object,skeletonAttributes);
+            }
+            var tabPanell = object.edit.layout.items.items[0];
+            tabPanell.on("tabchange", function (tabObject) {
+                let tabName =tabObject.activeTab.config.name.toLowerCase();
+                if(productLevel.level =='fert'){
+                    baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
+                    baseAttributes.attributes.push('Skeleton');
+                    this.disableAttributes(object,baseAttributes);
+                    
+                }
+    
+            }.bind(this));
+        }
+        
     },
-    productAjax:function(url,method,parms,callback ){
+    productAjax:function(url,method,parms ){
         var resp ='';
         Ext.Ajax.request({
             url: url,
@@ -89,6 +71,22 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         });
         return resp;
     },
+    disableAttributes:function(object,attributes){
+        // class attributes take to load so we use timeout function
+        setTimeout(function(){
+            for(attribute  of attributes.attributes ){
+                object.edit.dataFields[attribute].component.setDisabled(true);
+                if(attribute == 'localizedfields'){
+                    object.edit.dataFields[attribute].component.setDisabled(true);
+                    console.log(object.edit.dataFields[attribute],attribute);
+                }
+                if(attribute=='Base'){
+                    object.edit.dataFields[attribute].component.setDisabled(true)
+                    console.log(object.edit.dataFields[attribute].component.setDisabled(true),attribute);
+                }
+            }
+        },30);
+    }
 });
 
 var IFSEUProductBundlePlugin = new pimcore.plugin.IFSEUProductBundle();
