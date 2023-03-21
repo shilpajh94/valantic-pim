@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-20T10:55:35+01:00
+* Generated at: 2023-03-21T07:49:16+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679306128,
+   'modificationDate' => 1679381344,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -306,7 +306,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
                          'labelWidth' => 220,
-                         'name' => 'Layout',
+                         'name' => 'hoseBaseData',
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Hose Base Data',
@@ -4722,26 +4722,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Tantalum',
-                                        'value' => NULL,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Tin',
-                                        'value' => NULL,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Gold',
-                                        'value' => NULL,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Tungsten',
-                                        'value' => NULL,
-                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -5079,56 +5059,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
-                              0 => 
-                              array (
-                                'key' => 'Cadmium (Cd): < 100 ppm,Cadmium (Cd): < 100 ppm',
-                                'value' => NULL,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Lead (Pb): < 1000 ppm,Lead (Pb): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'Mercury (Hg): < 1000 ppm,Mercury (Hg): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              3 => 
-                              array (
-                                'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm,Hexavalent Chromium: (Cr VI) < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              4 => 
-                              array (
-                                'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm,Polybrominated Biphenyls (PBB): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              5 => 
-                              array (
-                                'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm,Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              6 => 
-                              array (
-                                'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm,Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              7 => 
-                              array (
-                                'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm,Benzyl butyl phthalate (BBP): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              8 => 
-                              array (
-                                'key' => 'Dibutyl phthalate (DBP): < 1000 ppm,Dibutyl phthalate (DBP): < 1000 ppm',
-                                'value' => NULL,
-                              ),
-                              9 => 
-                              array (
-                                'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm,Diisobutyl phthalate (DIBP): < 1000 ppm',
-                                'value' => NULL,
-                              ),
                             ),
                              'width' => 710,
                              'defaultValue' => '',
@@ -5160,316 +5090,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
-                              0 => 
-                              array (
-                                'key' => '1-methyl-2-pyrrolidone (NMP)',
-                                'value' => NULL,
-                              ),
-                              1 => 
-                              array (
-                                'key' => '1,1-Dichloroethene',
-                                'value' => NULL,
-                              ),
-                              2 => 
-                              array (
-                                'key' => '1,1,1,2-Tetrachloroethane',
-                                'value' => NULL,
-                              ),
-                              3 => 
-                              array (
-                                'key' => '1,1,2-Trichloroethane',
-                                'value' => NULL,
-                              ),
-                              4 => 
-                              array (
-                                'key' => '1,1,2,2-Tetrachloroethane',
-                                'value' => NULL,
-                              ),
-                              5 => 
-                              array (
-                                'key' => '1,4-Dichlorobenzene',
-                                'value' => NULL,
-                              ),
-                              6 => 
-                              array (
-                                'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
-                                'value' => NULL,
-                              ),
-                              7 => 
-                              array (
-                                'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
-                                'value' => NULL,
-                              ),
-                              8 => 
-                              array (
-                                'key' => '2-naphthylamine and salts,',
-                                'value' => NULL,
-                              ),
-                              9 => 
-                              array (
-                                'key' => '4-Aminobiphenyl xenylamine and salts',
-                                'value' => NULL,
-                              ),
-                              10 => 
-                              array (
-                                'key' => '4-Nitrobiphenyl',
-                                'value' => NULL,
-                              ),
-                              11 => 
-                              array (
-                                'key' => 'Acrylamide',
-                                'value' => NULL,
-                              ),
-                              12 => 
-                              array (
-                                'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
-                                'value' => NULL,
-                              ),
-                              13 => 
-                              array (
-                                'key' => 'Arsenic and compounds',
-                                'value' => NULL,
-                              ),
-                              14 => 
-                              array (
-                                'key' => 'Asbestos fibers',
-                                'value' => NULL,
-                              ),
-                              15 => 
-                              array (
-                                'key' => 'Azocolourants and Azodyes',
-                                'value' => NULL,
-                              ),
-                              16 => 
-                              array (
-                                'key' => 'Benzene',
-                                'value' => NULL,
-                              ),
-                              17 => 
-                              array (
-                                'key' => 'Benzidine and salts',
-                                'value' => NULL,
-                              ),
-                              18 => 
-                              array (
-                                'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
-                                'value' => NULL,
-                              ),
-                              19 => 
-                              array (
-                                'key' => 'Bisphenol A',
-                                'value' => NULL,
-                              ),
-                              20 => 
-                              array (
-                                'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
-                                'value' => NULL,
-                              ),
-                              21 => 
-                              array (
-                                'key' => 'Cadmium and compounds',
-                                'value' => NULL,
-                              ),
-                              22 => 
-                              array (
-                                'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
-                                'value' => NULL,
-                              ),
-                              23 => 
-                              array (
-                                'key' => 'Chloroform',
-                                'value' => NULL,
-                              ),
-                              24 => 
-                              array (
-                                'key' => 'Chromium VI and compounds',
-                                'value' => NULL,
-                              ),
-                              25 => 
-                              array (
-                                'key' => 'CMR substances in textiles',
-                                'value' => NULL,
-                              ),
-                              26 => 
-                              array (
-                                'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
-                                'value' => NULL,
-                              ),
-                              27 => 
-                              array (
-                                'key' => 'Cyclohexane',
-                                'value' => NULL,
-                              ),
-                              28 => 
-                              array (
-                                'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
-                                'value' => NULL,
-                              ),
-                              29 => 
-                              array (
-                                'key' => 'Dichloromethane',
-                                'value' => NULL,
-                              ),
-                              30 => 
-                              array (
-                                'key' => 'Dimethylfumarate (DMF)',
-                                'value' => NULL,
-                              ),
-                              31 => 
-                              array (
-                                'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
-                                'value' => NULL,
-                              ),
-                              32 => 
-                              array (
-                                'key' => 'Directive 1999/45/EC dangerous liquids,Directive 1999-45-EC dangerous liquids',
-                                'value' => NULL,
-                              ),
-                              33 => 
-                              array (
-                                'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
-                                'value' => NULL,
-                              ),
-                              34 => 
-                              array (
-                                'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
-                                'value' => NULL,
-                              ),
-                              35 => 
-                              array (
-                                'key' => 'Hexachloroethane',
-                                'value' => NULL,
-                              ),
-                              36 => 
-                              array (
-                                'key' => 'Lead and compounds',
-                                'value' => NULL,
-                              ),
-                              37 => 
-                              array (
-                                'key' => 'Mercury and compounds',
-                                'value' => NULL,
-                              ),
-                              38 => 
-                              array (
-                                'key' => 'Methanol',
-                                'value' => NULL,
-                              ),
-                              39 => 
-                              array (
-                                'key' => 'Methylenediphenyl diisocyanate (MDI)',
-                                'value' => NULL,
-                              ),
-                              40 => 
-                              array (
-                                'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141),',
-                                'value' => NULL,
-                              ),
-                              41 => 
-                              array (
-                                'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
-                                'value' => NULL,
-                              ),
-                              42 => 
-                              array (
-                                'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21),',
-                                'value' => NULL,
-                              ),
-                              43 => 
-                              array (
-                                'key' => 'Nickel and compounds',
-                                'value' => NULL,
-                              ),
-                              44 => 
-                              array (
-                                'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates,',
-                                'value' => NULL,
-                              ),
-                              45 => 
-                              array (
-                                'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
-                                'value' => NULL,
-                              ),
-                              46 => 
-                              array (
-                                'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
-                                'value' => NULL,
-                              ),
-                              47 => 
-                              array (
-                                'key' => 'Organostannic compounds',
-                                'value' => NULL,
-                              ),
-                              48 => 
-                              array (
-                                'key' => 'Pentachloroethane',
-                                'value' => NULL,
-                              ),
-                              49 => 
-                              array (
-                                'key' => 'Pentachlorophenol and salts, esters',
-                                'value' => NULL,
-                              ),
-                              50 => 
-                              array (
-                                'key' => 'Perfluorooctanoic acid (PFOA) and salts',
-                                'value' => NULL,
-                              ),
-                              51 => 
-                              array (
-                                'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
-                                'value' => NULL,
-                              ),
-                              52 => 
-                              array (
-                                'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-is',
-                                'value' => NULL,
-                              ),
-                              53 => 
-                              array (
-                                'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
-                                'value' => NULL,
-                              ),
-                              54 => 
-                              array (
-                                'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
-                                'value' => NULL,
-                              ),
-                              55 => 
-                              array (
-                                'key' => 'Polychlorinated terphenyls (PCTs)',
-                                'value' => NULL,
-                              ),
-                              56 => 
-                              array (
-                                'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[',
-                                'value' => NULL,
-                              ),
-                              57 => 
-                              array (
-                                'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
-                                'value' => NULL,
-                              ),
-                              58 => 
-                              array (
-                                'key' => 'Toluene',
-                                'value' => NULL,
-                              ),
-                              59 => 
-                              array (
-                                'key' => 'Trichlorobenzene',
-                                'value' => NULL,
-                              ),
-                              60 => 
-                              array (
-                                'key' => 'Tris (2,3 dibromopropyl) phosphate',
-                                'value' => NULL,
-                              ),
-                              61 => 
-                              array (
-                                'key' => 'Tris(aziridinyl) phosphinoxide',
-                                'value' => NULL,
-                              ),
                             ),
                              'width' => 710,
                              'defaultValue' => '',
