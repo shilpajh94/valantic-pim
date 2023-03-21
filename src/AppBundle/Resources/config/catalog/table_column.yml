@@ -541,14 +541,14 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
                 fieldType: Input
-                columnWidth: 98
+                # columnWidth: 98
                 parent:
                     name: HydFittingsFert
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
-                columnWidth: 75
+                # columnWidth: 75
                 parent: 
                     name: Product
             articleNumber:
@@ -560,7 +560,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID 1 In Fract
                 groupName: HoseID1InFract
-                columnWidth: 50
+                # columnWidth: 50
                 unitName: fract
                 fieldType: Input
                 parent:
@@ -673,7 +673,7 @@ parameters:
                 groupName: ThreadSize1InMMDecimal
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 105
+                # columnWidth: 105
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
