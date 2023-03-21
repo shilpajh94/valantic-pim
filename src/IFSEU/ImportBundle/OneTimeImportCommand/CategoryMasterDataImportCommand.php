@@ -65,20 +65,22 @@ class CategoryMasterDataImportCommand extends AbstractCommand
     {
 
         $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/IFSEU/ProductBundle/Resources/config/language.yml');
-        $title = trim($result['ID']).'-'.trim($result['EN']);
+       // $title = trim($result['ID']).'-'.trim($result['EN']);
+        $title = trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
         if ($title) {
 
             $categoryObj = DataObject\IFSEUCategory::getByPath("/" . ImportConstants::IFS_EU_CATEGORY_MASTERDATA_FOLDER . "/" . $validKey);
-
+           
             if (!$categoryObj) {
                 $obj = new DataObject\IFSEUCategory();
                 $obj->setKey($validKey);
                 $obj->setParentID($parentFolderID);
-                $obj->setCategoryID($result['ID']);
-                $obj->setIsThermoplastic((trim($result['isThermoplastic'])) == 'yes' ? 1 : 0);
+                $obj->setCategoryCode($result['Code']);
+               
+                //  $obj->setIsThermoplastic((trim($result['isThermoplastic'])) == 'yes' ? 1 : 0);
 
                 foreach($result as $key => $eachColumnName){
                     if(array_key_exists($key,$languageConfig)){
@@ -86,6 +88,7 @@ class CategoryMasterDataImportCommand extends AbstractCommand
                         $obj->setCategoryName($result[$key],$lang);
                     }
                 }
+              
                 $obj->setPublished(true);
                 $obj->setOmitMandatoryCheck(true);
                 $obj->save();
