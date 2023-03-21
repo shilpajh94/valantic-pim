@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-20T10:02:08+01:00
+* Generated at: 2023-03-21T07:49:16+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679302918,
+   'modificationDate' => 1679381344,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -452,10 +452,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'MBM - Machine Building & Manufacturing',
+                                        'value' => 10,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'SMH - Solid & Material Handling',
+                                        'value' => 20,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'PCH - Fuels & Chemicals',
+                                        'value' => 30,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'FBWM - Food',
+                                        'value' => 40,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'FCHA - Fitting',
+                                        'value' => 50,
+                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
-                                     'optionsProviderClass' => '',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\CategoryOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -483,10 +508,70 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Railway',
+                                        'value' => 37,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Potable Water',
+                                        'value' => 42,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Fitting & Coupling',
+                                        'value' => 51,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Food & Beverage',
+                                        'value' => 41,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Industrial Cooling',
+                                        'value' => 44,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Water ',
+                                        'value' => 43,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Accessories',
+                                        'value' => 52,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'Air & Gas',
+                                        'value' => 11,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Chemical',
+                                        'value' => 33,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Engines',
+                                        'value' => 36,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => 'Steam',
+                                        'value' => 34,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Abrasive',
+                                        'value' => 22,
+                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
-                                     'optionsProviderClass' => '',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\SubCategoryOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
