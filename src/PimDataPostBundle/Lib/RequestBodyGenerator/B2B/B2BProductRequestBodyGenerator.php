@@ -87,6 +87,40 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                     if($key === "oldMaterialCode" && trim($value) === "N/A" ){
                         $value = null;
                     }
+                    if($key === "B2B_Proposition65warningattribusrequired__c"){
+                        if(trim($value) ==1)
+                        {
+                            $value = 'Yes';
+                          
+                        }else if(trim($value) ==-1){
+                            $value = 'No';
+                        }
+                    }
+                    if($key === "B2B_StaticWireYN__c"){
+                        if(trim($value) ==1)
+                        {
+                            $value = 'Yes';
+                        }else if(trim($value) ==-1){
+                            $value = 'No';
+                        }
+                    }
+                    if($key === "B2B_AssemblyNotAssembly__c"){
+                        if(trim($value) ==1)
+                        {
+                            $value = 'Yes';
+                        }else if(trim($value) ==-1){
+                            $value = 'No';
+                        }
+                    }
+                    if($key === "B2B_BendRestrictorYN__c"){
+                        if(trim($value) ==1)
+                        {
+                            $value = 'Yes';
+                        }else if(trim($value) ==-1){
+                            $value = 'No';
+                        }
+                    }
+
                     if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
                         $value = Util::formatWysiwygValue($value);
                     }
