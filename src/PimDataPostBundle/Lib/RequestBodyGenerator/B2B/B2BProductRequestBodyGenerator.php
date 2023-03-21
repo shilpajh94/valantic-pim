@@ -121,6 +121,15 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
                         }
                     }
 
+                    if($key === "B2B_SwivelYN__c"){
+                        if(trim($value) =='Swivel')
+                        {
+                            $value = 'Yes';
+                        }else if(trim($value) ==''){
+                            $value = 'No';
+                        }
+                    }
+
                     if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
                         $value = Util::formatWysiwygValue($value);
                     }
