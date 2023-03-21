@@ -34,7 +34,7 @@ class DefaultController extends FrontendController
         // return new Response('Hello world from ifseu_product');
     }
      /**
-     * @Route("/get/level/attributes")
+     * @Route("/get/level/attributes", methods={"post"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -52,7 +52,7 @@ class DefaultController extends FrontendController
         
     }
         /**
-     * @Route("/get/level/info")
+     * @Route("/get/level/info", methods={"post"})
      *
      * @param Request $request
      * @return JsonResponse
