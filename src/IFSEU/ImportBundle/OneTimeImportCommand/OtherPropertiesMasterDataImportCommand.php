@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
+use Exception;
 
 class OtherPropertiesMasterDataImportCommand extends AbstractCommand
 {
@@ -51,7 +52,6 @@ class OtherPropertiesMasterDataImportCommand extends AbstractCommand
                $dt['typeName'] = $dataArr[1]; 
                 $finalData[] = $dt;
             }
-           
             $fileName = basename($dataArr[0], ".csv");
             unset($result);
 
@@ -78,39 +78,42 @@ class OtherPropertiesMasterDataImportCommand extends AbstractCommand
         $title = trim($result['Name']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
+        try{
+            if ($title) {
 
-        if ($title) {
+                $categoryObj = DataObject\IFSEUProperties::getByPath("/" . ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER . "/" . $validKey);
 
-            $categoryObj = DataObject\IFSEUProperties::getByPath("/" . ImportConstants::IFS_EU_PROPERTIES_MASTERDATA_FOLDER . "/" . $validKey);
-
-            if (!$categoryObj) {
-                $obj = new DataObject\IFSEUProperties();
-                $obj->setKey($validKey);
-                $obj->setParentID($childTypeFolderId);
-                // $obj->setPropertyID($result['ID']);
-                
-                $obj->setTypeName($result['typeName']);
-                foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$languageConfig)){
-                        $lang = ($languageConfig[$key]['language']);
-                        $obj->setPropertyName($result[$key],$lang);
-                        $obj->setDescription($result[$key],$lang);
-                    $obj->setPropertiesCustomerFacingVersion($result[$key],$lang);
-                    }
-                    $obj->setPropertyName($result['Name'],$lang);
-                    $obj->setDescription($result['Name'],$lang);
-                    $obj->setPropertiesCustomerFacingVersion($result['Name'],$lang);
-                   
+                if (!$categoryObj) {
+                    $obj = new DataObject\IFSEUProperties();
+                    $obj->setKey($validKey);
+                    $obj->setParentID($childTypeFolderId);
+                    // $obj->setPropertyID($result['ID']);
                     
+                    $obj->setTypeName($result['typeName']);
+                    foreach($result as $key => $eachColumnName){
+                        if(array_key_exists($key,$languageConfig)){
+                            $lang = ($languageConfig[$key]['language']);
+                            $obj->setPropertyName($result[$key],$lang);
+                            $obj->setDescription($result[$key],$lang);
+                        $obj->setPropertiesCustomerFacingVersion($result[$key],$lang);
+                        }
+                        $obj->setPropertyName($result['Name'],$lang);
+                        $obj->setDescription($result['Name'],$lang);
+                        $obj->setPropertiesCustomerFacingVersion($result['Name'],$lang);
+                    
+                        
 
 
-                }
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } 
-        } else {
-            echo "Invalid Key";
+                    }
+                    $obj->setPublished(true);
+                    $obj->setOmitMandatoryCheck(true);
+                    $obj->save();
+                } 
+            } else {
+                echo "Invalid Key";
+            }
+        }catch(Exception $ex){
+            p_r($ex->getMessage());
         }
     }
 

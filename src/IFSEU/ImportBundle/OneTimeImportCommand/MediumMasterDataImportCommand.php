@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
+use Exception;
 
 class MediumMasterDataImportCommand extends AbstractCommand
 {
@@ -69,29 +70,32 @@ class MediumMasterDataImportCommand extends AbstractCommand
         $title = trim($result['EN']);
 
         $validKey = DataObject\Service::getValidKey($title, "object");
+        try{
+            if ($title) {
 
-        if ($title) {
+                $categoryObj = DataObject\IFSEUFlowMedium::getByPath("/" . ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER . "/" . $validKey);
 
-            $categoryObj = DataObject\IFSEUFlowMedium::getByPath("/" . ImportConstants::IFS_EU_MEDIUM_MASTERDATA_FOLDER . "/" . $validKey);
+                if (!$categoryObj) {
+                    $obj = new DataObject\IFSEUFlowMedium();
+                    $obj->setKey($validKey);
+                    $obj->setParentID($parentFolderID);
+                    //$obj->setMediumID($result['ID']);
 
-            if (!$categoryObj) {
-                $obj = new DataObject\IFSEUFlowMedium();
-                $obj->setKey($validKey);
-                $obj->setParentID($parentFolderID);
-                //$obj->setMediumID($result['ID']);
-
-                foreach($result as $key => $eachColumnName){
-                    if(array_key_exists($key,$languageConfig)){
-                        $lang = ($languageConfig[$key]['language']);
-                        $obj->setFlowMedium($result[$key],$lang);
+                    foreach($result as $key => $eachColumnName){
+                        if(array_key_exists($key,$languageConfig)){
+                            $lang = ($languageConfig[$key]['language']);
+                            $obj->setFlowMedium($result[$key],$lang);
+                        }
                     }
-                }
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } 
-        } else {
-            echo "Invalid Key";
+                    $obj->setPublished(true);
+                    $obj->setOmitMandatoryCheck(true);
+                    $obj->save();
+                } 
+            } else {
+                echo "Invalid Key";
+            }
+        }catch(Exception $ex){
+            p_r($ex->getMessage());
         }
     }
 

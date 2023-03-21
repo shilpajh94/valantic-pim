@@ -23,6 +23,7 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
 
+
     IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
         class: IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService
         public: true

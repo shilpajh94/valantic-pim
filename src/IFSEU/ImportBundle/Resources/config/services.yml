@@ -47,6 +47,10 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\CategoryMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-category-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\SubCategoryMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-sub-category-master-data-import-command' }
     
     IFSEU\ImportBundle\OneTimeImportCommand\CountryMasterDataImportCommand: 
         tags:
@@ -71,6 +75,11 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\OtherPropertiesMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-other-properties-master-data-import-command' }
+    
+    IFSEU\ImportBundle\OneTimeImportCommand\BrandMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-brand-master-data-import-command' }
+
 
     
     # Helpers

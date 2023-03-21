@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-01-25T07:29:50+01:00
+* Generated at: 2023-03-20T08:13:11+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,8 +9,7 @@
 
 
 Fields Summary: 
-- CategoryID [numeric]
-- isThermoplastic [booleanSelect]
+- CategoryCode [numeric]
 - localizedfields [localizedfields]
 -- CategoryName [input]
 */ 
@@ -21,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1674628190,
+   'modificationDate' => 1679296390,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -89,8 +88,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'unique' => false,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
-             'name' => 'CategoryID',
-             'title' => 'Category ID',
+             'name' => 'CategoryCode',
+             'title' => 'Category Code',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -106,49 +105,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-             'fieldtype' => 'booleanSelect',
-             'yesLabel' => 'yes',
-             'noLabel' => 'no',
-             'emptyLabel' => 'empty',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'empty',
-                'value' => 0,
-              ),
-              1 => 
-              array (
-                'key' => 'yes',
-                'value' => 1,
-              ),
-              2 => 
-              array (
-                'key' => 'no',
-                'value' => -1,
-              ),
-            ),
-             'width' => 250,
-             'queryColumnType' => 'tinyint(1) null',
-             'columnType' => 'tinyint(1) null',
-             'phpdocType' => 'boolean',
-             'name' => 'isThermoplastic',
-             'title' => 'Is Thermoplastic',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-          )),
-          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'fieldtype' => 'localizedfields',
              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',

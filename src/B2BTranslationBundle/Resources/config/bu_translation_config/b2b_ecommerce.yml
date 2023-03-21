@@ -1,0 +1,47 @@
+parameters:
+    Product: 
+        Description:	Description
+        Language:	Language
+        Name:	Name
+        ParentId:	ParentId
+        B2B_External_Id__c:	B2B_External_Id__c
+        B2B_Part_Number__c:	B2B_Part_Number__c
+        B2B_SAP_material_number__c:	B2B_SAP_material_number__c
+        B2B_EANUPC__c:	B2B_EANUPC__c
+        B2B_BaseUOM__c:	B2B_BaseUOM__c
+        B2B_Proposition65warningattribusrequired__c:	B2B_Proposition65warningattribusrequired__c
+        B2B_BoltSizeinFraction__c:	B2B_BoltSizeinFraction__c
+        B2B_ClampingDiameterinFraction__c:	B2B_ClampingDiameterinFraction__c
+        B2B_DashSize__c:	B2B_DashSize__c
+        B2B_Descriptive_HydFittings__c:	B2B_Descriptive_HydFittings__c
+        B2B_FlangeSizeFraction__c:	B2B_FlangeSizeFraction__c
+        B2B_HoseIDFraction__c:	B2B_HoseIDFraction__c
+        B2B_OringMaterial__c:	B2B_OringMaterial__c
+        B2B_SwivelYN__c:	B2B_SwivelYN__c
+        B2B_ThreadDashSize__c:	B2B_ThreadDashSize__c
+        B2B_HoseDashSize__c:	B2B_HoseDashSize__c
+        B2B_AdapterGenderEnd1__c:	B2B_AdapterGenderEnd1__c
+        B2B_AdapterGenderEnd2__c:	B2B_AdapterGenderEnd2__c
+        B2B_Descriptrive__c:	B2B_Descriptrive__c
+        B2B_GasketColor__c:	B2B_GasketColor__c
+        B2B_GasketMaterial__c:	B2B_GasketMaterial__c
+        B2B_Material__c:	B2B_Material__c
+        B2B_NPTFThread__c:	B2B_NPTFThread__c
+        B2B_SizeInchesFraction__c:	B2B_SizeInchesFraction__c
+        B2B_ThreadSize__c:	B2B_ThreadSize__c
+        B2B_BendRestrictorType__c:	B2B_BendRestrictorType__c
+        B2B_Descriptive_HoseFert__c:	B2B_Descriptive_HoseFert__c
+        B2B_Fitting1Material__c:	B2B_Fitting1Material__c
+        B2B_Fitting1Sizein__c:	B2B_Fitting1Sizein__c
+        B2B_Fitting1Type__c:	B2B_Fitting1Type__c
+        B2B_Fitting2Material__c:	B2B_Fitting2Material__c
+        B2B_Fitting2Size__c:	B2B_Fitting2Size__c
+        B2B_Fitting2Type__c:	B2B_Fitting2Type__c
+        B2B_EffectiveLengthUOM__c:	B2B_EffectiveLengthUOM__c
+        B2B_PitchUOM__c:	B2B_PitchUOM__c
+    Category: 
+        Description: Description
+        B2B_External_Id__c: 'B2B_External_Id__c'
+        Language: Language
+        Name: 'Name'
+        ParentId: ParentId
