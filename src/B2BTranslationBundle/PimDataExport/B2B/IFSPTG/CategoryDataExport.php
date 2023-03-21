@@ -5,6 +5,7 @@ namespace B2BTranslationBundle\PimDataExport\B2B\IFSPTG;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\PimDataExport\IDataExport;
 use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
+use \Pimcore\Model\Asset;
 
 class CategoryDataExport implements IDataExport
 {
@@ -72,6 +73,22 @@ class CategoryDataExport implements IDataExport
                                 $nonLocalizedResultSet = [];
                                 $nonLocalizedResultSet = $this->helper->getRecordsWithFilteredMasterFields($this->bu, $categoryFilteredNonLocalizedAttributeField, $categoryIds);
 
+                                if($this->headerMapping['image'])
+                                {
+                                    foreach ($nonLocalizedResultSet as $key => $value) {
+                                        if(isset($value['image']) && $value['image'])
+                                        {
+                                            $asset = Asset::getById($value['image']);
+                                            $sourcePath = '';
+                                            if($asset)
+                                            {
+                                                $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+                                            }
+                                            $nonLocalizedResultSet[$key]['image'] = $sourcePath;
+                                        }
+                                    }
+                                }
+                                
                                 # Categories's localized field
                                 $localizedResultSet = [];
                                 $localizeData1 = [];
@@ -197,6 +214,16 @@ class CategoryDataExport implements IDataExport
             $this->helper->logMessage($message, LogLevel::CRITICAL());
             return;
         }
+    }
+
+    public function getAssetPublicPath(Asset $asset, $imageTransformationSize = null): string
+    {
+        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        if( ($asset instanceof Image) && $imageTransformationSize){
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . strval($imageTransformationSize)));
+        }
+        return $sourcePath;
     }
 
     public function uploadFile()

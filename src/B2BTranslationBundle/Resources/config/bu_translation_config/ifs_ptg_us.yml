@@ -909,18 +909,13 @@ parameters:
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
-        description:
-            fieldName: description
-            fieldLocation: class
-            className: ProductCategory
-            isLocalized: true
+        # description:
+        #     fieldName: description
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: true
         PrintedCatalogDescription:
             fieldName: PrintedCatalogDescription
-            fieldLocation: class
-            className: ProductCategory
-            isLocalized: true
-        ConstructionType:
-            fieldName: ConstructionType
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
@@ -929,3 +924,18 @@ parameters:
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
+        SortOrder:
+            fieldName: SortOrder
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        ShowInMenu:
+            fieldName: ShowInMenu
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        image:
+            fieldName: image
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
