@@ -148,12 +148,12 @@ class DefaultController extends AdminController
                 $dataArray = (array)json_decode($data);
                 foreach ($dataArray as $row) {
                     $rowArray = (array)$row;
-                    if($rowArray['avbName'] == '1')
+                    if($rowArray['b2bName'] == '1')
                     {
                         $gridData[] = [$rowArray['name'], ''];
                     }
                     else{
-                        $gridData[] = [$rowArray['name'], $rowArray['avbName']];
+                        $gridData[] = [$rowArray['name'], $rowArray['b2bName']];
                     }
                 }
                 $mappingObject->setPIMB2BMappingData($gridData);
@@ -201,12 +201,12 @@ class DefaultController extends AdminController
 
 
     /**
-     * get vendors information
-     * @Route("/getVendorData")
+     * get pim information
+     * @Route("/getPIMData")
      * @param Request $request
      * @return JsonResponse
      */
-    public function getVendorDataAction(Request $request)
+    public function getPIMDataAction(Request $request)
     {
         $className = $request->get('type');
         $businessUnit = $request->get('vendor');
@@ -228,22 +228,22 @@ class DefaultController extends AdminController
         if($attributeList)
         {
             foreach ($attributeList as $attributeKey => $record) {
-                $avbData = '';
+                $b2bData = '';
                 if (array_key_exists($attributeKey, $mappingArray)) {
-                    $avbData = $mappingArray[$attributeKey];
+                    $b2bData = $mappingArray[$attributeKey];
                 }
-                $data[] = array('id'=>$i++,'name'=>$attributeKey, 'avbName' => $avbData);
+                $data[] = array('id'=>$i++,'name'=>$attributeKey, 'b2bName' => $b2bData);
             }
         }
         return $this->json(['data' => $data]);
     }
     /**
-     * get AVB Data information
-     * @Route("/getAVBData")
+     * get B2B Data information
+     * @Route("/getB2BData")
      * @param Request $request
      * @return JsonResponse
      */
-    public function getAVBDataAction(Request $request)
+    public function getB2BDataAction(Request $request)
     {
         $className = $request->get('type');
         $attributeList = $this->getSalesForceAttribute(B2BTranslationConstants::B2B_ECOMMERCE_FILE_NAME, $className);

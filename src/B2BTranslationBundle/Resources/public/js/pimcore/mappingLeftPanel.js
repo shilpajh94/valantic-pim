@@ -20,7 +20,6 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                         width: 300,
                         id: 'menu_tree_mapping',
                         split: true,
-//                        layout: 'accordion',
                         header: false,
                         items:[this.getMappingTableTree()]
                     }, this.getChannelEditContainer()]
@@ -38,71 +37,16 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                     type: 'ajax',
                     url: '/admin/b2b_translation/tree',
                 },
-                // root: {
-                //     text: 'Eatables',
-                //     id: 'root_node',
-                //     expanded: true
-                // },
                 folderSort: true,
                 sorters: [{
                     property: 'text',
                     direction: 'ASC'
                 }]
             });
-            // console.log(store);
-
-            // var tree = Ext.create('Ext.tree.Panel', {
-            //     store: store,
-            //     renderTo: 'tree_el',
-            //     height: 300,
-            //     width: 250,
-            //     title: 'Eatables'
-            // });
-
-
-            // let channelStore = Ext.create('pimcore.plugin.avbvendormapping.helpers.customPagingTreeStore', {
-            //     autoLoad: true,
-            //     autoSync: false,
-            //     proxy: {
-            //         type: 'ajax',
-            //         url: '/admin/mapping-config/tree',
-            //         reader: {
-            //             type: 'json',
-            //             totalProperty: 'total',
-            //             rootProperty: 'nodes'
-            //         },
-            //         extraParams: {
-            //             limit: 15,
-            //         }
-            //     },
-            //     pageSize: 15,
-            // });
-            // var store = Ext.create('Ext.data.TreeStore', {
-            //     root: {
-            //         expanded: true,
-            //         children: [
-            //             { text: 'detention', leaf: true },
-            //             { text: 'homework', expanded: true, children: [
-            //                 { text: 'book report', leaf: true },
-            //                 { text: 'algebra', leaf: true}
-            //             ] },
-            //             { text: 'buy lottery tickets', leaf: true }
-            //         ]
-            //     }
-            // });
             
             this.tree = Ext.create('Ext.tree.Panel', {
-//                title: 'Simple Tree',
                 store: store,
                 rootVisible: true,
-//                autoScroll: true,
-//                containerScroll: true,
-                // viewConfig: {
-                //             listeners: {
-                                
-                //             },
-                //             xtype: 'custompimcoretreeview'
-                //         },
                 root: {
                         id: '0',
                         iconCls: "pimcore_icon_home",
@@ -121,39 +65,6 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
                         }]
                     }
             });
-
-            
-            // channelStore = [];
-            // this.tree = Ext.create('Ext.tree.Panel', {
-            //     title: t('avbAttributeMapping_my_mapping'),
-            //     store: channelStore,
-            //     rootVisible: true,
-            //     autoScroll: true,
-            //     containerScroll: true,
-            //     viewConfig: {
-            //         listeners: {
-                        
-            //         },
-            //         xtype: 'custompimcoretreeview'
-            //     },
-            //     root: {
-            //         id: '0',
-            //         iconCls: "pimcore_icon_home",
-            //         text: t('home'),
-            //         expanded: true,
-            //         reload: true,
-            //         draggable: false,
-            //         allowChildren: true
-            //     },
-            //     listeners: this.getTreeNodeListeners(),
-            //     tbar: {
-            //         items: [{
-            //             text: t('avbAttributeMapping_add_mapping'),
-            //             iconCls: "pimcore_icon_add",
-            //             handler: this.addNewMappingForm.bind(this)
-            //         }]
-            //     }
-            // });
         }
         return this.tree;
     },
@@ -444,4 +355,3 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
         }
     },
 });
-

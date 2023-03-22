@@ -43,5 +43,5 @@ parameters:
     'TotalReplenismentLeadTime': 'Total Repl Lead Time'
     'SafetyStock': 'Safety Stock'
     'StockIndicator': 'Stock Indicator'
-    'UnitOfMeasure': 'Unit of measure'
-  keyColumns: ['material','plant','salesOrg','distributionChannel']
+    #'UnitOfMeasure': 'Unit of measure'
+  keyColumns: ['material','plant','salesOrg','distributionChannel'] 

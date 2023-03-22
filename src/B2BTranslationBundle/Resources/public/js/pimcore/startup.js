@@ -10,7 +10,6 @@ pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
     },
 
     pimcoreReady: function (params, broker) {
-        // alert("B2BTranslationBundle ready!");
         let user = pimcore.globalmanager.get("user");
         if (user.admin) {
             this.leftNavigation();
