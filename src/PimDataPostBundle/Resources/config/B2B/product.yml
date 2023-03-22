@@ -1149,7 +1149,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_ThreadDashSize__c
-            pim_attribute_type: numeric
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
@@ -1244,7 +1244,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_HoseDashSize__c
-            pim_attribute_type: numeric
+            pim_attribute_type: input
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
