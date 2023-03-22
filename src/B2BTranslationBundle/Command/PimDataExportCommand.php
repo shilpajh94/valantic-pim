@@ -18,8 +18,8 @@ class PimDataExportCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('contitech:b2b:pim-data-export-command')
-            ->setDescription('Create and send translation csv to ftp');
-            // ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter '1' for 'IFS/PTG US', '2' for 'Conveyor Solution', '3' for 'PTG EU' and '4' for 'IFS EMEA'");
+            ->setDescription('Create and send translation csv to ftp')
+            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution', 'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -29,20 +29,15 @@ class PimDataExportCommand extends AbstractCommand
         echo $msg = "Script execution started.".PHP_EOL.PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
 
-        for ($i=1; $i <= 4; $i++) { 
-            $this->bu = $this->BusinessUnits[$i];
+        $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
+        if(in_array($optionForBusinessUnit,$this->BusinessUnits))
+        {
+            $this->bu = $optionForBusinessUnit;
             $this->exportDataForB2BShop();
         }
-
-        // $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
-        // if($optionForBusinessUnit >= 1 &&  $optionForBusinessUnit <=4)
-        // {
-        //     $this->bu = $this->BusinessUnits[$optionForBusinessUnit];
-        //     $this->exportDataForB2BShop();
-        // }
-        // else{
-        //     echo "Invalid Business Unit Option.".PHP_EOL;
-        // }
+        else{
+            echo "Invalid Business Unit Option.".PHP_EOL;
+        }
 
         echo PHP_EOL;
         echo $msg = "Script execution stopped.".PHP_EOL;

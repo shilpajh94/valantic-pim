@@ -223,6 +223,12 @@ class DefaultController extends AdminController
         }
 
         $attributeList = $this->getLocalizedAttribute($businessUnit, $className);
+
+        if($attributeList)
+        {
+            ksort($attributeList,SORT_LOCALE_STRING);
+        }
+        
         $data = [];
         $i = 1;
         if($attributeList)
@@ -247,6 +253,11 @@ class DefaultController extends AdminController
     {
         $className = $request->get('type');
         $attributeList = $this->getSalesForceAttribute(B2BTranslationConstants::B2B_ECOMMERCE_FILE_NAME, $className);
+        
+        if($attributeList)
+        {
+            ksort($attributeList,SORT_LOCALE_STRING);
+        }
         
         if($attributeList)
         {

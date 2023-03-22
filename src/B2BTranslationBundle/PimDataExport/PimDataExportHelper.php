@@ -146,13 +146,15 @@ class PimDataExportHelper
 
         $languages = "'" . implode ( "', '", $validLanguage ) . "'";
         $selectedFields = [];
+        $selectedFields[] = 'ooo_id';
+        $selectedFields[] = 'language';
         foreach ($columnsList as $key => $columm) {
             $selectedFields[] = "$columm";
         }
 
         $columnsString = implode(',', $selectedFields);
         $ids = implode(',', $b2bProducts);
-        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_{$categoryClassId} where ooo_id IN ($ids) AND language IN ($languages)";
+        $sql = "select {$columnsString} from object_localized_data_{$categoryClassId} where ooo_id IN ($ids) AND language IN ($languages)";
         return $db->fetchAll($sql);
     }
 

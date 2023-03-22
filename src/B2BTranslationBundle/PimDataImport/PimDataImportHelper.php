@@ -24,7 +24,7 @@ class PimDataImportHelper
             }
         } catch (\Throwable $th) {
             echo PHP_EOL;
-            echo "ERROR: File not download from the server.";
+            echo "ERROR: File '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName."' not downloaded from the server.";
             echo PHP_EOL;
             echo "ERROR: ". $th->getMessage();
             echo PHP_EOL;
