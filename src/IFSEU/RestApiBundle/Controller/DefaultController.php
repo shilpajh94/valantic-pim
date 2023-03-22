@@ -14,7 +14,6 @@ class DefaultController extends FrontendController
      */
     public function indexAction(Request $request)
     {
-        dd(\Pimcore::getContainer());
         return new Response('Hello world fromss rest_api');
     }
 }

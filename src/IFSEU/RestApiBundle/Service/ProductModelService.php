@@ -502,7 +502,8 @@ class ProductModelService
     public function getVirtualCatalogFieldMapping()
     {
         $vcFieldMapping = array();
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yml";
+        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/IFSEU/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yml";
+        
 
         $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
 

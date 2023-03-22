@@ -235,8 +235,6 @@ class ProductModel
 
     private function createSelectStatementAttributeArray($conArray)
     {
-        echo "<pre>";
-        print_r($conArray);
         $selectStatementAttributes = [];
         $fieldConfigs = $conArray["fields"];
         foreach($fieldConfigs as $fieldName => $fieldConfig){
