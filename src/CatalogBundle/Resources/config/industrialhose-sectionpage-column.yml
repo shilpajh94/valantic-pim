@@ -333,28 +333,34 @@ parameters:
         title: Page Number
         type: attr
         mode: editable
+        colWidth: 20
       oxygen:
         title: Oxygen
         type: hoseMedia
         fieldName: acceptableHoseMedia
         hoseMedia: Oxygen
+        colWidth: 50
       acetylene:
         title: Acetylene
         type: hoseMedia
         fieldName: acceptableHoseMedia
         hoseMedia: Acetylene
+        colWidth: 40
       fuelGasesRed:
         title: Fuel Gases (Red)
         type: hoseMedia
         fieldName: acceptableHoseMedia
         hoseMedia: Fuel Gases (Red)
+        colWidth: 50
       flameAndOilResistantTube:
         title: Flame & Oil Resistant Tube
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Flame & Oil Resistant Tube
+        colWidth: 60
       flameAndOilResistantCover:
         title: Flame & Oil Resistant Cover
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Flame & Oil Resistant Cover
+        colWidth: 60
