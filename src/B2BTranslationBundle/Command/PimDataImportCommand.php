@@ -16,17 +16,22 @@ class PimDataImportCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('contitech:b2b:pim-data-import-command')
-            ->setDescription('Salesforce id updation respective to externalid using CSV import');
+            ->setDescription('Salesforce id updation respective to externalid using CSV import')
+            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution', 'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         echo "Script execution started.".PHP_EOL.PHP_EOL;
 
-        for ($i=1; $i <= 4; $i++) { 
-            $this->bu = $this->BusinessUnits[$i];
-            echo "Business Unit - {$this->bu}".PHP_EOL.PHP_EOL;
+        $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
+        if(in_array($optionForBusinessUnit,$this->BusinessUnits))
+        {
+            $this->bu = $optionForBusinessUnit;
             $this->importDataForB2BShop();
+        }
+        else{
+            echo "Invalid Business Unit Option.".PHP_EOL;
         }
 
         echo PHP_EOL;
@@ -35,19 +40,19 @@ class PimDataImportCommand extends AbstractCommand
 
     private function importDataForB2BShop()
     {
-        echo "Products salesforce id data import started.".PHP_EOL;
+        echo "{$this->bu}: Products salesforce id data import started.".PHP_EOL;
         $executor = new ProductDataImport($this->bu);
         $executor->downloadFile();
         $executor->importData();
         echo PHP_EOL;
-        echo "Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
+        echo "{$this->bu}: Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
 
-        echo "Product categories salesforce id data import started.".PHP_EOL;
+        echo "{$this->bu}: Product categories salesforce id data import started.".PHP_EOL;
         $executor = new CategoryDataImport($this->bu);
         $executor->downloadFile();
         $executor->importData();
         echo PHP_EOL;
-        echo "Product categories salesforce id data import stopped.".PHP_EOL;
+        echo "{$this->bu}: Product categories salesforce id data import stopped.".PHP_EOL;
     }
 }
 ?>
