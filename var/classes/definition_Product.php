@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-15T08:32:01+01:00
+* Generated at: 2023-03-23T09:14:23+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -83,11 +83,11 @@ Fields Summary:
 - oldMaterialCode [input]
 - manufacturer [input]
 - manufacturerPartNumber [input]
+- SalesForce_ID [input]
 - returnFlag [booleanSelect]
 - rebateFlag [booleanSelect]
 - OutsidePurchaseFlag [checkbox]
 - externalID [input]
-- SalesForce_ID [input]
 - weightg [numeric]
 - weightKg [numeric]
 - WeightLbsPerFTUOM [input]
@@ -163,7 +163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1678865516,
+   'modificationDate' => 1679559258,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -21258,6 +21258,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   3 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 200,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 64,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'SalesForce_ID',
+                                     'title' => 'Salesforce ID',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                                      'fieldtype' => 'localizedfields',
                                      'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -21319,7 +21347,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => true,
                                      'visibleSearch' => true,
                                   )),
-                                  4 => 
+                                  5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Y',
@@ -21362,7 +21390,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  5 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Y',
@@ -21405,7 +21433,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  6 => 
+                                  7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                                      'fieldtype' => 'checkbox',
                                      'defaultValue' => NULL,
@@ -21417,34 +21445,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  7 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => NULL,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 32,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'externalID',
-                                     'title' => 'External ID',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'margin-left:20px;',
@@ -21468,13 +21468,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'SalesForce_ID',
-                                     'title' => 'Salesforce ID',
+                                     'name' => 'externalID',
+                                     'title' => 'External ID',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
