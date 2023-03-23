@@ -111,8 +111,10 @@ class ProductImportService
         }
         $this->materialGroup = [];
         $this->countryOrigin = [];
+        $this->BaseLevelCategory = [];
         $materialGrpList = $this->productModel->getMaterialGroupData();
         $countryOriginList = $this->productModel->getCountryOriginData();
+        $baseLevelCategoryList = $this->productModel->getCatagoryData();
         foreach($materialGrpList as $materialGrp) {
             $code = $materialGrp['code'];
             $this->materialGroup[$code] = $materialGrp['oo_id'];
@@ -122,6 +124,11 @@ class ProductImportService
             $countryName = $countryOriginData['CountryName'];
             $this->countryOrigin[$countryName] = $countryOriginData['oo_id'];
             unset($countryName);
+        }
+        foreach($baseLevelCategoryList as $baseLevelCategoryData) {
+            $categoryName = $baseLevelCategoryData['o_key'];
+            $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['CategoryCode'];
+            unset($categoryName);
         }
     }
       
@@ -625,7 +632,13 @@ class ProductImportService
                 $queryTableData['countryOfOrigin__id'] = $countryOriginId;
                 $queryTableData['countryOfOrigin__type'] = 'object';
             }
+        }
+        if(strtolower($productType) == 'base'){
 
+            $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
+            if(!empty($getCatagoryID)) {
+                $queryTableData['Category'] = $getCatagoryID;
+            }
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -707,6 +720,12 @@ class ProductImportService
                 $storeTableDataArray['weightKg'] = null;
                 $storeTableDataArray['weightg'] = null;
                 $storeTableDataArray['WeightLbsPerFTUOM'] = null;
+            }
+        }
+        if(strtolower($productType) == 'base'){
+            $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
+            if(!empty($getCatagoryID)) {
+                $storeTableDataArray['Category'] = $getCatagoryID;
             }
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
@@ -831,6 +850,15 @@ class ProductImportService
         if (!empty($countryOriginName)) {
             if (!empty($this->countryOrigin[$countryOriginName])) {
                 return $this->countryOrigin[$countryOriginName];
+            } 
+        }
+        return null;
+    }
+    public function getCategoryCodeId($categoryName){
+    
+        if (!empty($categoryName)) {
+            if (!empty($this->BaseLevelCategory[$categoryName])) {
+                return $this->BaseLevelCategory[$categoryName];
             } 
         }
         return null;

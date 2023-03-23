@@ -665,7 +665,7 @@ class PlantMaterialService
         }
 
         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUPlant` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
+        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUPlantMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchRow($query);
 
         

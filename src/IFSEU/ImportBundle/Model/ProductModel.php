@@ -304,6 +304,10 @@ class ProductModel
         $query = "SELECT oo_id, CountryName FROM `object_IFSEUCountries` ";
         return $this->db->fetchAll($query);
     }
+    public function getCatagoryData() {
+        $query = "SELECT oo_id, o_key,CategoryCode FROM `object_IFSEUCategory` ";
+        return $this->db->fetchAll($query);
+    }
 
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` ";

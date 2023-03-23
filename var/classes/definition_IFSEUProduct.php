@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-22T07:47:44+01:00
+* Generated at: 2023-03-23T09:33:07+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679467651,
+   'modificationDate' => 1679560372,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -450,250 +450,25 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'key' => 'Water Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Hoses for Beverage / Food / Cosmetics / Pharmacy',
-                                        'value' => NULL,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Steam and Cleaning Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Compressed Air Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Gas Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Multi-Purpose Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Construction and Transport Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'Big-bore Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Hydraulic Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Chemical and Refueling Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'Miscellaneous Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Oil Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'Fuel Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      13 => 
-                                      array (
-                                        'key' => 'Air-conditioning hoses',
-                                        'value' => NULL,
-                                      ),
-                                      14 => 
-                                      array (
-                                        'key' => 'Railroad hoses',
-                                        'value' => NULL,
-                                      ),
-                                      15 => 
-                                      array (
-                                        'key' => 'Air Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      16 => 
-                                      array (
-                                        'key' => 'Chemical & Refueling Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      17 => 
-                                      array (
-                                        'key' => 'Steam & Cleaning Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      18 => 
-                                      array (
-                                        'key' => 'Beverage & Foodstuff Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      19 => 
-                                      array (
-                                        'key' => 'Water Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      20 => 
-                                      array (
-                                        'key' => 'Material Handling & Mining Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      21 => 
-                                      array (
-                                        'key' => 'Autogenous Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      22 => 
-                                      array (
-                                        'key' => 'Specialty Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      23 => 
-                                      array (
-                                        'key' => 'Vacuum Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      24 => 
-                                      array (
-                                        'key' => 'Marine Hoses',
-                                        'value' => NULL,
-                                      ),
-                                      25 => 
-                                      array (
-                                        'key' => 'Coupling Systems ',
-                                        'value' => NULL,
-                                      ),
-                                      26 => 
-                                      array (
-                                        'key' => 'ARCHIV',
-                                        'value' => NULL,
-                                      ),
-                                      27 => 
-                                      array (
-                                        'key' => 'Special hoses',
-                                        'value' => NULL,
-                                      ),
-                                      28 => 
-                                      array (
-                                        'key' => 'Rig Supply hoses',
-                                        'value' => NULL,
-                                      ),
-                                      29 => 
-                                      array (
-                                        'key' => 'Dredge hoses',
-                                        'value' => NULL,
-                                      ),
-                                      30 => 
-                                      array (
-                                        'key' => 'Rig Supply hoses',
-                                        'value' => NULL,
-                                      ),
-                                      31 => 
-                                      array (
-                                        'key' => 'Spiralati',
-                                        'value' => NULL,
-                                      ),
-                                      32 => 
-                                      array (
-                                        'key' => 'Aria',
-                                        'value' => NULL,
-                                      ),
-                                      33 => 
-                                      array (
-                                        'key' => 'Armorvin',
-                                        'value' => NULL,
-                                      ),
-                                      34 => 
-                                      array (
-                                        'key' => 'DragonTail',
-                                        'value' => NULL,
-                                      ),
-                                      35 => 
-                                      array (
-                                        'key' => 'Jamaica',
-                                        'value' => NULL,
-                                      ),
-                                      36 => 
-                                      array (
-                                        'key' => 'Retinati',
-                                        'value' => NULL,
-                                      ),
-                                      37 => 
-                                      array (
-                                        'key' => 'Spiralina',
-                                        'value' => NULL,
-                                      ),
-                                      38 => 
-                                      array (
-                                        'key' => 'Superflex',
-                                        'value' => NULL,
-                                      ),
-                                      39 => 
-                                      array (
-                                        'key' => 'Vacupress',
-                                        'value' => NULL,
-                                      ),
-                                      40 => 
-                                      array (
-                                        'key' => 'Thermoplastic Hose',
-                                        'value' => NULL,
-                                      ),
-                                      41 => 
-                                      array (
-                                        'key' => 'DragonTail',
-                                        'value' => NULL,
-                                      ),
-                                      42 => 
-                                      array (
-                                        'key' => 'Marine hoses',
-                                        'value' => NULL,
-                                      ),
-                                      43 => 
-                                      array (
-                                        'key' => 'High pressure hoses',
-                                        'value' => NULL,
-                                      ),
-                                      44 => 
-                                      array (
-                                        'key' => 'Sea Water Intake',
-                                        'value' => NULL,
-                                      ),
-                                      45 => 
-                                      array (
                                         'key' => 'MBM - Machine Building & Manufacturing',
                                         'value' => 10,
                                       ),
-                                      46 => 
+                                      1 => 
                                       array (
                                         'key' => 'SMH - Solid & Material Handling',
                                         'value' => 20,
                                       ),
-                                      47 => 
+                                      2 => 
                                       array (
                                         'key' => 'PCH - Fuels & Chemicals',
                                         'value' => 30,
                                       ),
-                                      48 => 
+                                      3 => 
                                       array (
                                         'key' => 'FBWM - Food',
                                         'value' => 40,
                                       ),
-                                      49 => 
+                                      4 => 
                                       array (
                                         'key' => 'FCHA - Fitting',
                                         'value' => 50,
@@ -5940,7 +5715,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ReverseManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'reverseManyToManyObjectRelation',
-                         'ownerClassName' => 'PlantMaterialMaster',
+                         'ownerClassName' => 'IFSEUPlantMaterialMaster',
                          'ownerClassId' => NULL,
                          'ownerFieldName' => 'Material',
                          'lazyLoading' => true,
