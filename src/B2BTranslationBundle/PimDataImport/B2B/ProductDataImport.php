@@ -29,9 +29,10 @@ class ProductDataImport implements IDataImport
 
     public function downloadFile()
     {
-        $customFileName = $this->bu."_Product_".date('M').".csv";
-        // $this->filePath = $this->helper->downloadFile($customFileName);
-        $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_EXTRACT.csv";
+        // $customFileName = $this->bu."_Product_".date('M').".csv";
+        $customFileName = "SF_PRODUCT_EXTRACT.csv";
+        $this->filePath = $this->helper->downloadFile($customFileName);
+        // $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_EXTRACT.csv";
     }
 
     public function importData()
