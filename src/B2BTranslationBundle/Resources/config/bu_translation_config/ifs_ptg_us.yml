@@ -909,6 +909,11 @@ parameters:
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
+        SalesForce_ID:
+            fieldName: SalesForce_ID
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
         # description:
         #     fieldName: description
         #     fieldLocation: class

@@ -3,6 +3,7 @@ parameters:
         Description:	Description
         Language:	Language
         Name:	Name
+        Id: Id
         ParentId:	ParentId
         B2B_External_Id__c:	B2B_External_Id__c
         B2B_Part_Number__c:	B2B_Part_Number__c
@@ -40,6 +41,7 @@ parameters:
         B2B_EffectiveLengthUOM__c:	B2B_EffectiveLengthUOM__c
         B2B_PitchUOM__c:	B2B_PitchUOM__c
     Category: 
+        Id: Id
         Description: Description
         B2B_External_Id__c: 'B2B_External_Id__c'
         Language: Language
