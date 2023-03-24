@@ -188,6 +188,11 @@ parameters:
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
+        DashSize:
+            fieldName: DashSize
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false
         HoseIDNominalIDFrac:
             fieldName: HoseIDNominalIDFrac
             fieldLocation: objectbrick
