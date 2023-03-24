@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-06-14T12:01:16+05:30
+* Generated at: 2023-03-22T10:28:04+01:00
 * IP: 127.0.0.1
 
 
@@ -27,7 +27,7 @@ Fields Summary:
 - tubeGaugeIN [numeric]
 - tubeGaugeMM [numeric]
 - tubeGaugeFractional [input]
-- hoseDashSize [numeric]
+- hoseDashSize [input]
 - VacuumIN [numeric]
 - VacuumMM [numeric]
 */ 
@@ -482,295 +482,305 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   ),
                   44 => 
                   array (
+                    'key' => 'N/A',
+                    'value' => 14424799,
+                  ),
+                  45 => 
+                  array (
                     'key' => 'NEEDS NOMENCLATURE ADDED',
                     'value' => 5356953,
                   ),
-                  45 => 
+                  46 => 
                   array (
                     'key' => 'NP',
                     'value' => 1829883,
                   ),
-                  46 => 
+                  47 => 
                   array (
                     'key' => 'NS',
                     'value' => 1829884,
                   ),
-                  47 => 
+                  48 => 
                   array (
                     'key' => 'OB',
                     'value' => 1829885,
                   ),
-                  48 => 
+                  49 => 
                   array (
                     'key' => 'OF',
                     'value' => 1829886,
                   ),
-                  49 => 
+                  50 => 
                   array (
                     'key' => 'OI',
                     'value' => 1829933,
                   ),
-                  50 => 
+                  51 => 
                   array (
                     'key' => 'OIM',
                     'value' => 1829936,
                   ),
-                  51 => 
+                  52 => 
                   array (
                     'key' => 'OSWCH',
                     'value' => 1830419,
                   ),
-                  52 => 
+                  53 => 
                   array (
                     'key' => 'OT',
                     'value' => 1829934,
                   ),
-                  53 => 
+                  54 => 
                   array (
                     'key' => 'OTC',
                     'value' => 1829935,
                   ),
-                  54 => 
+                  55 => 
                   array (
                     'key' => 'PB',
                     'value' => 1829887,
                   ),
-                  55 => 
+                  56 => 
                   array (
                     'key' => 'PLIERS',
                     'value' => 1830438,
                   ),
-                  56 => 
+                  57 => 
                   array (
                     'key' => 'PPT',
                     'value' => 1829888,
                   ),
-                  57 => 
+                  58 => 
                   array (
                     'key' => 'R2',
                     'value' => 1829896,
                   ),
-                  58 => 
+                  59 => 
                   array (
                     'key' => 'RA',
                     'value' => 1829897,
                   ),
-                  59 => 
+                  60 => 
                   array (
                     'key' => 'S4',
                     'value' => 1829898,
                   ),
-                  60 => 
+                  61 => 
                   array (
                     'key' => 'S6',
                     'value' => 1829857,
                   ),
-                  61 => 
+                  62 => 
                   array (
                     'key' => 'SE',
                     'value' => 1829858,
                   ),
-                  62 => 
+                  63 => 
                   array (
                     'key' => 'SF',
                     'value' => 1829864,
                   ),
-                  63 => 
+                  64 => 
                   array (
                     'key' => 'SG',
                     'value' => 1829855,
                   ),
-                  64 => 
+                  65 => 
                   array (
                     'key' => 'SH',
                     'value' => 1829899,
                   ),
-                  65 => 
+                  66 => 
                   array (
                     'key' => 'SI',
                     'value' => 1829889,
                   ),
-                  66 => 
+                  67 => 
                   array (
                     'key' => 'SRT',
                     'value' => 1829900,
                   ),
-                  67 => 
+                  68 => 
                   array (
                     'key' => 'ST',
                     'value' => 1829890,
                   ),
-                  68 => 
+                  69 => 
                   array (
                     'key' => 'SWCN',
                     'value' => 1829937,
                   ),
-                  69 => 
+                  70 => 
                   array (
                     'key' => 'T7',
                     'value' => 1829866,
                   ),
-                  70 => 
+                  71 => 
                   array (
                     'key' => 'T8',
                     'value' => 1829856,
                   ),
-                  71 => 
+                  72 => 
                   array (
                     'key' => 'UC',
                     'value' => 1829860,
                   ),
-                  72 => 
+                  73 => 
                   array (
                     'key' => 'UCF1',
                     'value' => 1829901,
                   ),
-                  73 => 
+                  74 => 
                   array (
                     'key' => 'UCF10',
                     'value' => 1829902,
                   ),
-                  74 => 
+                  75 => 
                   array (
                     'key' => 'UCF11',
                     'value' => 1829903,
                   ),
-                  75 => 
+                  76 => 
                   array (
                     'key' => 'UCF2',
                     'value' => 1829904,
                   ),
-                  76 => 
+                  77 => 
                   array (
                     'key' => 'UCF3',
                     'value' => 1829905,
                   ),
-                  77 => 
+                  78 => 
                   array (
                     'key' => 'UCF4',
                     'value' => 1829906,
                   ),
-                  78 => 
+                  79 => 
                   array (
                     'key' => 'UCF5',
                     'value' => 1829907,
                   ),
-                  79 => 
+                  80 => 
                   array (
                     'key' => 'UCF6',
                     'value' => 1829908,
                   ),
-                  80 => 
+                  81 => 
                   array (
                     'key' => 'UCF7',
                     'value' => 1829909,
                   ),
-                  81 => 
+                  82 => 
                   array (
                     'key' => 'UCF8',
                     'value' => 1831134,
                   ),
-                  82 => 
+                  83 => 
                   array (
                     'key' => 'UCF9',
                     'value' => 1829910,
                   ),
-                  83 => 
+                  84 => 
                   array (
                     'key' => 'UCFB2',
                     'value' => 1829911,
                   ),
-                  84 => 
+                  85 => 
                   array (
                     'key' => 'UCFSG',
                     'value' => 1829912,
                   ),
-                  85 => 
+                  86 => 
                   array (
                     'key' => 'UCH',
                     'value' => 1829913,
                   ),
-                  86 => 
+                  87 => 
                   array (
                     'key' => 'UCSC',
                     'value' => 1829914,
                   ),
-                  87 => 
+                  88 => 
                   array (
                     'key' => 'UCSG',
                     'value' => 1829915,
                   ),
-                  88 => 
+                  89 => 
+                  array (
+                    'key' => 'UCT',
+                    'value' => 15065545,
+                  ),
+                  90 => 
                   array (
                     'key' => 'UT',
                     'value' => 1829862,
                   ),
-                  89 => 
+                  91 => 
                   array (
                     'key' => 'VA',
                     'value' => 1829938,
                   ),
-                  90 => 
+                  92 => 
                   array (
                     'key' => 'VCORE',
                     'value' => 1829940,
                   ),
-                  91 => 
+                  93 => 
                   array (
                     'key' => 'XB2',
                     'value' => 1829916,
                   ),
-                  92 => 
+                  94 => 
                   array (
                     'key' => 'XDG',
                     'value' => 1829917,
                   ),
-                  93 => 
+                  95 => 
                   array (
                     'key' => 'XDG3',
                     'value' => 1829918,
                   ),
-                  94 => 
+                  96 => 
                   array (
                     'key' => 'XDGF1',
                     'value' => 1829919,
                   ),
-                  95 => 
+                  97 => 
                   array (
                     'key' => 'XDGF2',
                     'value' => 1829920,
                   ),
-                  96 => 
+                  98 => 
                   array (
                     'key' => 'XDGF3',
                     'value' => 1829921,
                   ),
-                  97 => 
+                  99 => 
                   array (
                     'key' => 'XS6',
                     'value' => 1829922,
                   ),
-                  98 => 
+                  100 => 
                   array (
                     'key' => 'XS6C',
                     'value' => 1829923,
                   ),
-                  99 => 
+                  101 => 
                   array (
                     'key' => 'XSC',
                     'value' => 1829924,
                   ),
-                  100 => 
+                  102 => 
                   array (
                     'key' => 'XSG',
                     'value' => 1829925,
                   ),
-                  101 => 
+                  103 => 
                   array (
                     'key' => 'XUC',
                     'value' => 1829926,
                   ),
-                  102 => 
+                  104 => 
                   array (
                     'key' => 'XUCF',
                     'value' => 1829927,
@@ -1310,7 +1320,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1321,27 +1331,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
                  'width' => 300,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
                  'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => 0,
+                 'showCharCount' => false,
                  'name' => 'hoseDashSize',
                  'title' => 'Hose Dash Size',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
