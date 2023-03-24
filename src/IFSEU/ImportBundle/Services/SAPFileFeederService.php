@@ -63,9 +63,7 @@ class SAPFileFeederService
 
             $this->filePath = $tmpFilePath;
             $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
-
-            $this->filePath = $tmpFilePath;
-
+            
             if($this->validateAllowedFileType()) 
             {
                 return realpath($this->filePath);

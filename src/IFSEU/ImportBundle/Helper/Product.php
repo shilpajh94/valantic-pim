@@ -225,17 +225,38 @@ class Product
         foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
         { 
             $fieldName  = $brickAttributeConfig['fieldName'];
+            $fieldType = $brickAttributeConfig['fieldType'];
             $objectType = $brickAttributeConfig['objectType'];
             $attributeLabel  = trim($attributeLabel);
             if($objectType==$brick)
             {
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
+                if($fieldType=='Boolean Select')
+                {
+                    $fieldValue = $this->getBooleanValue($fieldValue);
+                }
+                
                 $bricksData[$fieldName] = $fieldValue;
             }
         }
         return $bricksData;
     }
 
+    private function getBooleanValue($data)
+    {
+        switch ($data) {
+            case 'Y':
+                return 1;
+            case 'N':
+                return 0;
+            case 'FALSE':
+                return 0;
+            case 'TRUE':
+                return 1;
+            default:
+                return;
+        }
+    } 
     public function processBricksUnitData()
     {
         $bricksUnits     = [];

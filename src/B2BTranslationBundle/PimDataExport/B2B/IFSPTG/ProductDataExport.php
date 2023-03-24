@@ -153,7 +153,7 @@ class ProductDataExport implements IDataExport
                             
                             
                             $areHeadersAlreadyAdded = false;
-                            $b2bProducts = array_slice($b2bProducts, 0, 10000);
+                            $b2bProducts = array_slice($b2bProducts, 0, 10);
                             $b2bProductsChucks = array_chunk($b2bProducts,1000);
                             // $b2bProductsChucks[] = [1840236,1840247];
                             $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
@@ -706,13 +706,15 @@ class ProductDataExport implements IDataExport
     {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
         $selectedFields = [];
+        $selectedFields[] = 'ooo_id';
+        $selectedFields[] = 'language';
         foreach ($columnsList as $key => $columm) {
             $selectedFields[] = "$columm";
         }
 
         $columnsString = implode(',', $selectedFields);
         $ids = implode(',', $b2bProducts);
-        $sql = "select ooo_id, language, {$columnsString} from object_localized_data_1 where ooo_id IN ($ids) AND language IN ($languages)";
+        $sql = "select {$columnsString} from object_localized_data_1 where ooo_id IN ($ids) AND language IN ($languages)";
         return $this->db->fetchAll($sql);
     }
     
