@@ -42,7 +42,7 @@ services:
 
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductImportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:ifs:eu:product-import' }
+            - { name: 'console.command', command: 'contitech:ifs:eu:ehose-product-import' }
 
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductCategoryImportCommand:
         tags:
