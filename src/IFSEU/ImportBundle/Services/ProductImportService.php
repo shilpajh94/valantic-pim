@@ -134,8 +134,8 @@ class ProductImportService
       
     public function import()
     {
-        $productFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.product_file_feeder_service');
-        $this->filePath = $productFileFeeder->execFileFeeder('product');
+        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
+        $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
             $this->csvHeader = array_flip($csvInfo['header']);
