@@ -55,7 +55,7 @@ class SalesMaterialService
         unset($csvImportedData);
 
         // remove once testing done
-        $excelDataNewArray = (array_slice($excelDataNewArray, 300, 5));
+        //$excelDataNewArray = (array_slice($excelDataNewArray, 300, 5));
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
@@ -74,7 +74,7 @@ class SalesMaterialService
         
         try {
         
-            if(count($excelDataNewArray) > 1) {
+            if(count($excelDataNewArray) >= 1) {
             
                 $csvRowCount = count($excelDataNewArray);
 
@@ -459,7 +459,7 @@ class SalesMaterialService
      * return material object or false
      */
     public function getMaterialObject($MaterialKey) {
-        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAll($query);
         
         foreach ($objectMaterial as $material) {
