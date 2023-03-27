@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-23T09:33:07+01:00
+* Generated at: 2023-03-24T10:45:38+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679560372,
+   'modificationDate' => 1679651125,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5678,7 +5678,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ReverseManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'reverseManyToManyObjectRelation',
-                         'ownerClassName' => 'SalesMaterialMaster',
+                         'ownerClassName' => 'IFSEUSalesMaterialMaster',
                          'ownerClassId' => NULL,
                          'ownerFieldName' => 'Material',
                          'lazyLoading' => true,
