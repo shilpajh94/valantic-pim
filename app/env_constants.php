@@ -46,6 +46,14 @@ if (CUSTOM_ENV == "prod") {
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "Prod-ImageThumbnails");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 
+    define("B2B_TRANSLATION_SFTP_HOST", "10.77.40.101");
+    define("B2B_TRANSLATION_SFTP_PORT", 21);
+    define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
+    define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
+    define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
+
 } elseif (CUSTOM_ENV == "stage") {
 
     define("CDN_ENABLE", 1);
@@ -92,6 +100,14 @@ if (CUSTOM_ENV == "prod") {
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "stage-ImageThumbnails");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
 
+    define("B2B_TRANSLATION_SFTP_HOST", "10.77.40.101");
+    define("B2B_TRANSLATION_SFTP_PORT", 21);
+    define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
+    define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
+    define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
+
 } elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc") {
 
     define("CDN_ENABLE", 0);
@@ -120,15 +136,6 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "R@H!T@4321");
     define("BW_SAP_IMPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
 
-    define("B2B_TRANSLATION_SFTP_HOST", "upload.pimcoreclient.com");
-    define("B2B_TRANSLATION_SFTP_PORT", 22);
-    define("B2B_TRANSLATION_SFTP_USERNAME", "rohit.sriwastva");
-    define("B2B_TRANSLATION_SFTP_PASSWORD", "R@H!T@4321");
-    define("B2B_TRANSLATION_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
-    define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
-    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
-
     define("BW_SAP_IMPORT_SFTP_PATH_PTGEU", "/vsftpd/rohit.sriwastva/bw");
 
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
@@ -149,4 +156,13 @@ if (CUSTOM_ENV == "prod") {
     define("APPLICATION_HOST","localhost");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_NAME", "dev-ImageThumbnails");
     define("IMAGE_TRANSFORMATION_LAMBDA_FUNCTION_REGION", "eu-central-1");
+
+    define("B2B_TRANSLATION_SFTP_HOST", "10.77.40.101");
+    define("B2B_TRANSLATION_SFTP_PORT", 21);
+    define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
+    define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
+    define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/V5AS017/Salesforce/PIM/Outbound"); #location where PIM can find extract from salesforce.
+
 }

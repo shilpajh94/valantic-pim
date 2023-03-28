@@ -4,8 +4,8 @@ namespace IFSEU\ImportBundle\Services;
 
 class ImportConstants
 {
-    const IFSEU_FOLDER = 'Contitech_IFSEU';
-    const MASTER_LIST_FOLDER = self::IFSEU_FOLDER . '/Master List';
+    const IFSEU_FOLDER = 'Contitech_IFS_EMEA';
+    const MASTER_LIST_FOLDER = self::IFSEU_FOLDER . '/Master Data';
     const MASTER_LIST_PLANTS_FOLDER = self::MASTER_LIST_FOLDER .'/Delivering Plant';
     const MASTER_LIST_COUNTRY_FOLDER = self::MASTER_LIST_FOLDER .'/Country of Origin';
     const MASTER_LIST_SALES_ORGANIZATIONS_FOLDER = self::MASTER_LIST_FOLDER .'/Sales Organization';
@@ -18,7 +18,7 @@ class ImportConstants
     const IMPORT_BATCH_SIZE = 1000;
 
     /* Product Master */
-    const PRODUCTS_MASTER_FOLDER = 'Master List';
+    const PRODUCTS_MASTER_FOLDER = 'Master Data';
     /* End */
 
     /* Category Object Master */
