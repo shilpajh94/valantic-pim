@@ -80,7 +80,7 @@ class ProductDataImport implements IDataImport
                     p_r('--------------Total Execution Time---------------');
                     p_r('Processing completed after: ' . (abs(time() - $t1) / 60) . ' mnt');
 
-                    \Pimcore\Model\Version::disable(); 
+                    \Pimcore\Model\Version::enable(); 
                 }
                 else{
                     echo PHP_EOL;
