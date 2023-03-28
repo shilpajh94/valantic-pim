@@ -25,7 +25,7 @@ class PimDataImportHelper
                 die("FTP connection has failed !");
             }
 
-            if(ftp_fget($conn, $localfile, $remotefile, FTP_BINARY)){
+            if(ftp_get($conn, $localfile, $remotefile, FTP_BINARY)){
                 echo PHP_EOL;
                 echo "File - '{$remotefile}' downloaded from server.";
                 echo PHP_EOL;
