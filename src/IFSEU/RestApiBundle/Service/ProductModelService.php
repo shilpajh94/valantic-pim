@@ -60,15 +60,13 @@ class ProductModelService
 
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
-        
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'=> ['string']];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
-        
-
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
+        // $products = $this->model->fetchProduct($langCode, $parameterArray,'base',$this->vCatalog);
         if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
@@ -366,6 +364,9 @@ class ProductModelService
 
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
+        if(empty($objectBricksMap)){
+            return;
+        }
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
                 foreach($bvalue['Fields'] as $fieldName=>$fieldConfig){
@@ -374,15 +375,16 @@ class ProductModelService
                     $fieldText = "get".ucfirst($fieldName);
 
                     //receiving data of a Objectbrick
-                    $product = DataObject\Product::getById($objId);
+                    $product = DataObject\IFSEUProduct::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
 
                     if($product->$productBrickField()->$brickText()){
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
-
+                    
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
+                            //  dd($product->$productBrickField()->$brickText());
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
@@ -390,8 +392,10 @@ class ProductModelService
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
-                                    if($objectIndv) {
-                                        $bData[] = $objectIndv->getName();
+                                    // print_r( $objectIndv);
+                                    if($objectIndv instanceof DataObject\IFSEUApplications) {
+                                        // dd(get_class_methods($objectIndv) );
+                                        $bData[] = $objectIndv->getApplicationName();
                                     }
                                    }
                                 }
@@ -485,7 +489,7 @@ class ProductModelService
         $i=0;
         foreach($productData as $key=>$value){
             $formattedArray[$i] =$value;
-            $formattedArray[$i]['9digit'] =array_values($value['9digit']);
+            // $formattedArray[$i]['9digit'] =array_values($value['9digit']);
             if(is_array($value['images'])){
                 $formattedArray[$i]['images'] =array_values($value['images']);
             }

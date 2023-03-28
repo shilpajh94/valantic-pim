@@ -12,33 +12,38 @@ VirtualCatalog:
                 - string
             o_parentId:
                 - string
+            productBrandName:
+                - string
+            brandConstruction:
+                - string
+            catalogLayline:
+                - string
+            Category:
+                - string
+            Sub_Category:
+                - string
+            FeaturesBenefitsBulletPoint:
+                - string
+            TPCode:
+                - string
+            SIOPLevel1:
+                - string
             SIOPLevel2:
                 - string
             SIOPLevel3:
                 - string
             SIOPLevel4:
                 - string
-            category:
+            SIOPLevel5:
                 - string
-            subCategory:
+            SIOPLevel6:
                 - string
-            fittingCategory:
-                - string
-            fittingSubCategory:
-                - string
-            mainImage:
-                - string
-            frontView:
-                - string
-            sideView:
-                - string
-            cutView:
-                - string
-            brandName:
+            SIOPLevel7:
                 - string
             minimumTemperatureF:
                 - numeric: 2
             maximumTemperatureF:
+                - numeric: 2
                 - numeric: 2
             minimumTemperatureC:
                 - numeric: 2
@@ -48,12 +53,50 @@ VirtualCatalog:
                 - string
             rangeTemperatureC:
                 - string
-            VirtualCatalogReinforcement:
+            temperatureRangeApplication:
                 - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            # VirtualCatalogReinforcement:
+            #     - string
             o_published:
                 - string
-            FeaturesBenefitsBulletPoint:
-                - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
             certificationImage:
                 - string
             document:
@@ -65,6 +108,11 @@ VirtualCatalog:
             - cutView
         Object:
             ProductCategory:
+                SIOPLevel1:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
                 SIOPLevel2:
                     Fields:
                         - Level
@@ -74,12 +122,27 @@ VirtualCatalog:
                     Fields:
                         - Level
                         - Code
-                        - PrintedCatalogDescription
+                        - Description
                 SIOPLevel4:
                     Fields:
                         - Level
                         - Code
-                        - PrintedCatalogDescription
+                        - Description
+                SIOPLevel5:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel6:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel7:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
             Category:
                 category:
                     Fields:
@@ -88,134 +151,153 @@ VirtualCatalog:
                 subCategory:
                     Fields:
                         - Name
-            FittingCategory:
-                fittingCategory:
-                    Fields:
-                        - Name
-            FittingSubCategory:
-                fittingSubCategory:
-                    Fields:
-                        - Name
         ObjectBricks:
-            Hose:
+            IFSEUHose:
                 Fields:
-                    VirtualCatalogTubeMaterial:
-                        - string
-                    tubeColor:
-                        - string
-                    VirtualCatalogCoverMaterial:
-                        - string
-                    coverColor:
-                        - string
-                    agencyCompliance:
-                        - string
-                    StandardMetTube:
-                        - string
-                    StandardMetCover:
-                        - string
-                    standardMetHose:
-                        - string
-                    safetyFactor:
+                    ColorOuterLayer:
                         - string
                     Coupling:
                         - string
-                    Packaging:
+                    CoverOuterLayer:
+                        - string
+                    FieldsOfApplication:
+                        - string
+                    FlowMediumStability:
+                        - string
+                    Haptic:
+                        - string
+                    Helix:
+                        - string
+                    InnerLining:
                         - string
                     NonStockSizes:
                         - string
-                    IFSApplications:
+                    Note2BelowTable:
                         - string
-                    sixDigitVirtualCatalogDescription:
+                    PropertiesOuterLayer:
                         - string
-            PTG:
+                    Reinforcement:
+                        - string
+                    colorInnerLining:
+                        - string
+                    flowMedium:
+                        - string
+                    hoseIdDec:
+                        - string
+                    hoseIdMM: 
+                        - string
+                    numberOfHelixWires:
+                        - string
+                    numberOfPlies:
+                        - string
+                    propertiesInnerLayer:
+                        - string
+                    standards: 
+                        - string
+                    staticWire: 
+                        - string
+                    staticWireType:
+                        - string
+                    tubeCharacteristic:
+                        - string
+                    tubeGaugeFractional:
+                        - string
+                    withHelix:
+                        - string
     Skeleton:
         Fields:
             oo_id:
                 - string
             o_parentId:
                 - string
-            mainImage:
+            productBrandName:
                 - string
-            frontView:
+            brandConstruction:
                 - string
-            sideView:
+            catalogLayline:
                 - string
-            cutView:
+            Category:
                 - string
-            prop65Message:
+            Sub_Category:
                 - string
-            BrandingLayline:
+            FeaturesBenefitsBulletPoint:
                 - string
-            longDescription:
+            TPCode:
                 - string
-            grossWeight:
+            SIOPLevel1:
+                - string
+            SIOPLevel2:
+                - string
+            SIOPLevel3:
+                - string
+            SIOPLevel4:
+                - string
+            SIOPLevel5:
+                - string
+            SIOPLevel6:
+                - string
+            SIOPLevel7:
+                - string
+            minimumTemperatureF:
                 - numeric: 2
+            maximumTemperatureF:
+                - numeric: 2
+                - numeric: 2
+            minimumTemperatureC:
+                - numeric: 2
+            maximumTemperatureC:
+                - numeric: 2
+            rangeTemperatureF:
+                - string
+            rangeTemperatureC:
+                - string
+            temperatureRangeApplication:
+                - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            # VirtualCatalogReinforcement:
+            #     - string
             o_published:
                 - string
-        Images:
-            - mainImage
-            - frontView
-            - sideView
-            - cutView    
-        Object:
-        ObjectBricks:
-            Hose:
-                Fields:
-                    tubeGaugeIN:
-                        - numeric: 2
-                    tubeGaugeMM:
-                        - numeric: 2
-                    BendRadiusIN:
-                        - numeric: 2
-                    BendRadiusMM:
-                        - numeric: 2
-                    VacuumIN:
-                        - numeric: 2
-                    VacuumMM:
-                        - numeric: 2
-                    workingPressureMPA:
-                        - numeric: 2
-                    workingPressurePSI:
-                        - numeric: 2
-                    minBurstPressurePSI:
-                        - numeric: 2
-                    minBurstPressurempa:
-                        - numeric: 2
-                    HoseIDNominalIDFrac:
-                        - string
-                    hoseIdMM:
-                        - numeric: 2
-                    hoseOdIn:
-                        - numeric: 2
-                    hoseOdmm:
-                        - numeric: 2
-                    HoseFittingFamily:
-                        - string
-            PTG:
-                Fields:
-    Fert:
-        Fields:
-            oo_id:
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            certificationImage:
                 - string
-            o_parentId:
-                - string
-            mainImage:
-                - string
-            frontView:
-                - string
-            sideView:
-                - string
-            cutView:
-                - string
-            materialNumber:
-                - string
-            oldMaterialCode:
-                - string
-            weightKg:
-                - numeric: 2
-            WeightLbsPerFTUOM:
-                - string
-            o_published:
+            document:
                 - string
         Images:
             - mainImage
@@ -223,32 +305,335 @@ VirtualCatalog:
             - sideView
             - cutView
         Object:
+            ProductCategory:
+                SIOPLevel1:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel2:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel3:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel4:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel5:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel6:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel7:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+            Category:
+                category:
+                    Fields:
+                        - Name
+            SubCategory:
+                subCategory:
+                    Fields:
+                        - Name
         ObjectBricks:
-            Accessories:
+            IFSEUHose:
                 Fields:
-            Belts:
-                Fields:
-            Hose:
-                Fields:
-                    hoseLengthFT:
+                    IdInch:
                         - numeric: 2
-                    CompleteFittingText:
+                    IdMM:
+                        - numeric: 2
+                    wallThicknessInch:
+                        - numeric: 2
+                    wallThicknessMM:
+                        - numeric: 2
+                    OdIn:
+                        - numeric: 2
+                    Odmm:
+                        - numeric: 2
+                    hoseIdNominalActualId:
+                        - numeric: 2
+                    hoseIdMMActualId:
+                        - numeric: 2
+                    FittingFamily:
                         - string
-                    fitting1Type:
-                        - string
+                    workingPressureBAR:
+                        - numeric: 2
+                    workingPressurePSI:
+                        - numeric: 2
+                    workingPressureMPA:
+                        - numeric: 2
+                    VacuumBar:
+                        - numeric: 2
+                    VacuumMM:
+                        - numeric: 2
+                    VacuumIN:
+                        - numeric: 2
+                    testPressureBar: 
+                        - numeric: 2
+                    testPressurePSI:
+                        - numeric: 2
+                    BurstPressureBar:
+                        - numeric: 2
+                    BurstPressurePSI:
+                        - numeric: 2
+                    BurstPressurempa: 
+                        - numeric: 2
+                    BendingRadiusIN: 
+                        - numeric: 2
+                    BendingRadiusMM:
+                        - numeric: 2
                     descriptive:
                         - string
-                    InnerHoseWeightLbs:
+                    negativeToleranceIdMM:
                         - numeric: 2
-                    InnerHoseWeightKg:
+                    PositiveToleranceIdMM:
                         - numeric: 2
-            HydFittings:
-                Fields:
-            INHFittings:
-                Fields:
-            Metal:
-                Fields:
-            PTG:
-                Fields:
-            Synchronous:
-                Fields:
+                    negativeToleranceWtMM:
+                        - numeric: 2
+                    PositiveToleranceWtMM:
+                        - numeric: 2
+                    negativeToleranceOdMM:
+                        - numeric: 2
+                    PositiveToleranceOdMM:
+                        - numeric: 2
+    Fert:
+        Fields:
+            oo_id:
+                - string
+            o_parentId:
+                - string
+            productBrandName:
+                - string
+            brandConstruction:
+                - string
+            catalogLayline:
+                - string
+            Category:
+                - string
+            Sub_Category:
+                - string
+            FeaturesBenefitsBulletPoint:
+                - string
+            TPCode:
+                - string
+            SIOPLevel1:
+                - string
+            SIOPLevel2:
+                - string
+            SIOPLevel3:
+                - string
+            SIOPLevel4:
+                - string
+            SIOPLevel5:
+                - string
+            SIOPLevel6:
+                - string
+            SIOPLevel7:
+                - string
+            minimumTemperatureF:
+                - numeric: 2
+            maximumTemperatureF:
+                - numeric: 2
+                - numeric: 2
+            minimumTemperatureC:
+                - numeric: 2
+            maximumTemperatureC:
+                - numeric: 2
+            rangeTemperatureF:
+                - string
+            rangeTemperatureC:
+                - string
+            temperatureRangeApplication:
+                - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            # VirtualCatalogReinforcement:
+            #     - string
+            o_published:
+                - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            certificationImage:
+                - string
+            document:
+                - string
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+        Object:
+            ProductCategory:
+                SIOPLevel1:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel2:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel3:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel4:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel5:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel6:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel7:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+            Category:
+                category:
+                    Fields:
+                        - Name
+            SubCategory:
+                subCategory:
+                    Fields:
+                        - Name
+        # ObjectBricks:
+        #     IFSEUHose:
+        #         Fields:
+        #             ColorOuterLayer:
+        #                 - string
+        #             Coupling:
+        #                 - string
+        #             CoverOuterLayer:
+        #                 - string
+        #             FieldsOfApplication:
+        #                 - string
+        #             FlowMediumStability:
+        #                 - string
+        #             Haptic:
+        #                 - string
+        #             Helix:
+        #                 - string
+        #             InnerLining:
+        #                 - string
+        #             NonStockSizes:
+        #                 - string
+        #             Note2BelowTable:
+        #                 - string
+        #             PropertiesOuterLayer:
+        #                 - string
+        #             Reinforcement:
+        #                 - string
+        #             colorInnerLining:
+        #                 - string
+        #             flowMedium:
+        #                 - string
+        #             hoseIdDec:
+        #                 - string
+        #             hoseIdMM: 
+        #                 - string
+        #             numberOfHelixWires:
+        #                 - string
+        #             numberOfPlies:
+        #                 - string
+        #             propertiesInnerLayer:
+        #                 - string
+        #             standards: 
+        #                 - string
+        #             staticWire: 
+        #                 - string
+        #             staticWireType:
+        #                 - string
+        #             tubeCharacteristic:
+        #                 - string
+        #             tubeGaugeFractional:
+        #                 - string
+        #             withHelix:
+        #                 - string
+    
+        #     Accessories:
+        #         Fields:
+        #     Belts:
+        #         Fields:
+        #     # Hose:
+        #     #     Fields:
+        #     #         hoseLengthFT:
+        #     #             - numeric: 2
+        #     #         CompleteFittingText:
+        #     #             - string
+        #     #         fitting1Type:
+        #     #             - string
+        #     #         descriptive:
+        #     #             - string
+        #     #         InnerHoseWeightLbs:
+        #     #             - numeric: 2
+        #     #         InnerHoseWeightKg:
+        #     #             - numeric: 2
+        #     HydFittings:
+        #         Fields:
+        #     INHFittings:
+        #         Fields:
+        #     Metal:
+        #         Fields:
+        #     PTG:
+        #         Fields:
+        #     Synchronous:
+        #         Fields:

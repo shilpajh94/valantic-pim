@@ -33,7 +33,6 @@ class ProductModel
     {
         // Get Condition String.
         $conditionString = $this->getConditionString($conditionArray,$productType);
-
         // Get Field String.
         $fieldString = $vCatalogMap['VirtualCatalog'][ucfirst($productType)]['Fields'];
 
