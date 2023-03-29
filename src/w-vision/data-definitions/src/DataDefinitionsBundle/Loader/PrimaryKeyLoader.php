@@ -27,26 +27,31 @@ class PrimaryKeyLoader implements LoaderInterface
      */
     public function load(string $class, $data, DataDefinitionInterface $definition, $params): ?Concrete
     {
+
         $this->db = \Pimcore\Db::get();
         $classObject = '\Pimcore\Model\DataObject\\'.ucfirst($class);
         $classList = '\Pimcore\Model\DataObject\\'.ucfirst($class).'\Listing';
 
         $list = new $classList();
 
-        if ($list instanceof Listing && $class != 'CSProducts' && (!empty($data['SAP Code / Material Number']) || !empty($data['SAPMaterialCode']) )) {
+        if ($list instanceof Listing && $class != 'CSProducts' && (!empty($data['SAP Code / Material Number']) || !empty($data['SAPMaterialCode']) || !empty($data['Material']) )) {
             $condition = [];
             $conditionValues = [];
-            $condition[] = '`articleNumber` = ?';
             if($class == 'PTGEUProduct'){
                 $conditionValues[] = $data['SAPMaterialCode'];
+                $condition[] = '`articleNumber` = ?';
             }
             elseif($class == 'Product'){
                 $conditionValues[] = $data['SAP Code / Material Number'];
+                $condition[] = '`articleNumber` = ?';
+            }
+            elseif($class == 'IFSEUProduct'){
+                $conditionValues[] = $data['Material'];
+                $condition[] = '`materialNumber` = ?';    
             }
             if (\count($condition) === 0) {
                 throw new \InvalidArgumentException('No primary identifier defined!');
             }
-
             $list->setUnpublished(true);
             $list->setCondition(implode(' AND ', $condition), $conditionValues);
             $list->setObjectTypes([

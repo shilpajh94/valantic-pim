@@ -419,6 +419,9 @@ final class Importer implements ImporterInterface
             elseif($definition->getClass() == 'PTGEUProduct'){
                 $primaryKey = $row['SAPMaterialCode'];
             }
+            elseif($definition->getClass() == 'IFSEUProduct'){
+                $primaryKey = $row['Material'];
+            }    
             elseif($definition->getClass() == 'CSProducts'){
                 $region = '';
                 if($row['Region']){
@@ -458,6 +461,11 @@ final class Importer implements ImporterInterface
                         $failedReason  = 'Path does not exist';
                         $status = 'Failure';
                     }
+                    elseif($definition->getClass() == 'IFSEUProduct'){
+                        $failedReason  = 'Material Number does not exist';
+                        $status = 'Failure';
+                    }
+
                 }
 
                 if (($count + 1) % $countToClean === 0) {
@@ -836,7 +844,7 @@ final class Importer implements ImporterInterface
         }
 
         $obj = $loader->load($class, $data, $definition, $params);
-        if(($class == 'Product' || $class == 'PTGEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
+        if(($class == 'Product' || $class == 'PTGEUProduct' || $class == 'IFSEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
             throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
         }else{
             if($definition->importLevel == 'Skeleton'){
