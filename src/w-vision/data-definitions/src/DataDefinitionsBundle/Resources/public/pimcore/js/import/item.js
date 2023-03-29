@@ -227,7 +227,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value, 'primaryKeyData'));
                             this.configForm.getForm().findField('primaryKey').setReadOnly(false);
 
-                            if (data.value == 'Product' || data.value == 'PTGEUProduct') {
+                            if (data.value == 'Product' || data.value == 'PTGEUProduct' || data.value == 'IFSEUProduct') {
                                 this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value, 'importLevelData'));
                                 this.configForm.getForm().findField('importLevel').setReadOnly(false);
                                 this.configForm.getForm().findField('importLevel').allowBlank = false;
