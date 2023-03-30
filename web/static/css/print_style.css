@@ -223,6 +223,7 @@ header.dark img {
 .borderBottom {
     border-bottom: 1px solid #939597;
     display:inline-block;
+    padding-bottom: 15px;
 }
 .borderBottom.block{ display: block;}
 
@@ -309,7 +310,7 @@ sup {
 }
 
 .marginBottom5 {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .marginBottom10 {
@@ -2214,9 +2215,15 @@ margin-right:20px;
 .relative{ position: relative;}
 .small.relative{ margin-bottom: 20px;}
 
+.small {
+    margin-top: 20px;
+}
 @media print{
     .small.relative{ margin-top: 20px;}
+    
 }
+
+
 
 .marginTop{ margin-top:20px;}
 

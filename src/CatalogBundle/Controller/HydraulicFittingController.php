@@ -63,7 +63,6 @@ class HydraulicFittingController extends AbstractController
             $headerKeysIndex = array_flip($headerKeys);
 
             $objColumnsData = $obj->getColumns();
-
             $this->iconRequired = 'YES';
             $this->columnsData = json_decode($objColumnsData, true);
 
@@ -156,6 +155,21 @@ class HydraulicFittingController extends AbstractController
                             $RightPrintCatalogImageObj = '';
                             foreach ($articlesGroups as $agkey => $articles) 
                             {
+                                if($articles[$headerKeysIndex['NutType']]){
+                                    $nutType = $articles[$headerKeysIndex['NutType']];
+                                }
+                                else{
+                                    $nutType = '';
+                                }
+                                if($articles[$headerKeysIndex['SingleHexYN']])
+                                {
+                                    $singleHex = $articles[$headerKeysIndex['SingleHexYN']];
+                                }
+                                else
+                                {
+                                    $singleHex = '';
+                                }
+
                                 $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
                                 if(is_array($FittingTableKeys))
                                 {
@@ -179,7 +193,6 @@ class HydraulicFittingController extends AbstractController
                                     $this->subHeaderRequired = 'NO';
 
                                     $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
-                                    // p_r($columnsDataWithImages);
                                     // Getting order of the keys
                                     $orderKeys = array();
 
@@ -219,6 +232,8 @@ class HydraulicFittingController extends AbstractController
                                     }
 
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['articles'][] = $articlesData;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['NutType'][] = $nutType;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['SingleHexYN'][] = $singleHex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
