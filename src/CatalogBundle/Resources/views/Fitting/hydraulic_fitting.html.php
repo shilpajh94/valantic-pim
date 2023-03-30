@@ -325,7 +325,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                     if($first2Array['columnWidth'])
                                                             $columnWidth = "width=".$first2Array['columnWidth']
                                                     ?>
-                                                    <td colspan="<?= $g2count; ?>" <?php //echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
+                                                    <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
                                                 <?php endforeach; ?>
                                             </tr>
 

@@ -171,6 +171,8 @@ class HydraulicFittingController extends AbstractController
                                 }
 
                                 $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                                $fittingTableColWidths = $fittingTableColumn[$FittingTableName]['widthSetting'];
+                                
                                 if(is_array($FittingTableKeys))
                                 {
                                     if($articles[$headerKeysIndex['HydFittingFamily']][0]) {
@@ -191,8 +193,7 @@ class HydraulicFittingController extends AbstractController
 
                                     $articlesData = array();
                                     $this->subHeaderRequired = 'NO';
-
-                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
+                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys, $fittingTableColWidths);
                                     // Getting order of the keys
                                     $orderKeys = array();
 
@@ -298,8 +299,7 @@ class HydraulicFittingController extends AbstractController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
-
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths){
         $columnsDataWithImages = array();
 
         if($isTableNameColumnRequired)
@@ -308,15 +308,18 @@ class HydraulicFittingController extends AbstractController
             {
                 if(in_array($dkey,$tableNameColumns))
                 {
+                    if(array_key_exists($dkey, $fittingTableColWidths)){
+                        $colWidth = $fittingTableColWidths[$dkey];
+                    }
                     $groupColumnName = $value['columnName'];
                     if(isset($value['groupName']) && $value['groupName'])
                     {
+
                         $groupColumnName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
-
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $colWidth;
                     $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
