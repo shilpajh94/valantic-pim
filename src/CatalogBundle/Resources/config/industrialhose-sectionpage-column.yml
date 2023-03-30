@@ -333,17 +333,21 @@ parameters:
         title: Page Number
         type: attr
         mode: editable
-      superiorAbrasionResistantCover: 
-        title: SARC
-        type: feature
-        fieldName: FeaturesBenefitsBulletPoint
-        feature: Superior Abrasion Resistant Cover
-      StandardMetCover:
-        title: Resistance Cover
-        type: attr
-      StandardMetTube:
-        title: Oil Resistance Tub
-        type: attr
+      oxygen:
+        title: Oxygen
+        type: hoseMedia
+        fieldName: acceptableHoseMedia
+        hoseMedia: Oxygen
+      acetylene:
+        title: Acetylene
+        type: hoseMedia
+        fieldName: acceptableHoseMedia
+        hoseMedia: Acetylene
+      fuelGasesRed:
+        title: Fuel Gases (Red)
+        type: hoseMedia
+        fieldName: acceptableHoseMedia
+        hoseMedia: Fuel Gases (Red)
       flameAndOilResistantTube:
         title: Flame & Oil Resistant Tube
         type: feature
@@ -354,15 +358,3 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Flame & Oil Resistant Cover
-      tubeMaterial:
-        title: Tube Material
-        type: attr
-      temperatureRangeFAndC:
-        title: Temperature Range (°F & C°)
-        type: attr
-      workingPressurePSI:
-        title: WP (PSI)
-        type: attr
-      acceptableHoseMedia:
-        title: Fuel Gases (Red)
-        type: attr

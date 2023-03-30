@@ -667,6 +667,18 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
+            NutType:
+                fieldLevel: objectBrick
+                fieldLabel: Nut Type
+                fieldType: Select
+                parent:
+                    name: HydFittingsFert
+            SingleHexYN:
+                fieldLevel: objectBrick
+                fieldLabel: Single Hex
+                fieldType: Boolean Select
+                parent:
+                    name: HydFittingsFert
             ThreadSize1InMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Thread Size 1 (in & mm) Decimal

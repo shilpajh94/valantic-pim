@@ -114,7 +114,7 @@ if (!isset($this->parentContainer)) {
                                     <p class=" borderBottom block">
 
                                     <?php
-                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200]);
+                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 300, "height" => 180]);
                                     ?>
                                     </p>
                                     <?php
@@ -129,7 +129,7 @@ if (!isset($this->parentContainer)) {
                                         if($imgSrcObj)
                                         {
                                         ?>
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" width="600" height="200"/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" width="300" height="180"/>
                                         <?php } ?>
                                         </p>
                                         <?php
@@ -167,7 +167,8 @@ if (!isset($this->parentContainer)) {
                                         $i++;
                                         echo "<tr class='$active'>";
                                         echo "<td>{$brandName}</td>";
-                                        foreach ($data['dispColumns'] as $key => $colInfo) { //p_r($colInfo);die;
+                                        foreach ($data['dispColumns'] as $key => $colInfo) { 
+                                            // p_r($colInfo);
                                             $td = false;
                                             if (isset($row[$key])) {
                                                 if ($colInfo['type'] == 'attr') {
@@ -179,7 +180,14 @@ if (!isset($this->parentContainer)) {
                                                     $td = true;
                                                 }
                                             } else if ($colInfo['type'] == 'feature' && isset($row[$colInfo['fieldName']])) {
+
                                                 if (in_array($colInfo['feature'], $row[$colInfo['fieldName']])) {
+                                                    echo "<td>Yes</td>";
+                                                    $td = true;
+                                                }
+                                            }
+                                            else if ($colInfo['type'] == 'hoseMedia' && isset($row[$colInfo['fieldName']])) {
+                                                if (in_array($colInfo['hoseMedia'], $row[$colInfo['fieldName']])) {
                                                     echo "<td>Yes</td>";
                                                     $td = true;
                                                 }
@@ -201,10 +209,10 @@ if (!isset($this->parentContainer)) {
 
                             </table>
                             <?php if($this->editmode) {?>
-                            <p class="small">*<?php echo $this->input('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
+                            <p class="small">&nbsp;<?php echo $this->wysiwyg('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
                             <?php }?>
-                            <?php if(!$this->editmode && !$this->input('INH_PP_'.md5($tableName))->isEmpty()) { ?>
-                                <p class="small">*<?php echo $this->input('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
+                            <?php if(!$this->editmode && !$this->wysiwyg('INH_PP_'.md5($tableName))->isEmpty()) { ?>
+                                <p class="small">&nbsp;<?php echo $this->wysiwyg('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
                             <?php }?>
                         </div>
 
