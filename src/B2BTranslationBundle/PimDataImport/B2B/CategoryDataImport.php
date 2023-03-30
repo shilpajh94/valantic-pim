@@ -30,8 +30,8 @@ class CategoryDataImport implements IDataImport
     public function downloadFile()
     {
         $customFileName = $this->bu."_Category_".date('M').".csv";
-        $this->filePath = $this->helper->downloadFile($customFileName);
-        // $this->filePath = "/var/www/html/cttfse01/var/tmp/salesforceid-externalid.csv";
+        // $this->filePath = $this->helper->downloadFile($customFileName);
+        $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_CATEGORY_EXTRACT.csv";
     }
 
     public function importData()
@@ -53,8 +53,8 @@ class CategoryDataImport implements IDataImport
                     
                     foreach($data as $row){   
                         $record = array_combine($header, $row);
-                        $externalIDStr = $record['External ID'];
-                        $salesforceID = $record['Salesforce ID'];
+                        $externalIDStr = $record['B2B_EXTERNAL_ID__C'];
+                        $salesforceID = $record['ID'];
 
                         echo 'Processing external ID: ' . $externalIDStr.PHP_EOL;
 

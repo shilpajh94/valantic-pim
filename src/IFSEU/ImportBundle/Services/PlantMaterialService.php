@@ -196,7 +196,7 @@ class PlantMaterialService
     }    
 
     public function processSlicedData($data) {
-	    $time2 = new \DateTime();
+        $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
         $storeTableDataArray = array();
@@ -209,7 +209,7 @@ class PlantMaterialService
         $columnPlant = $this->mappingCsvColumn['Plant'];
         $columnMaterial = $this->mappingCsvColumn['Material'];
 
-	    $dataCount = count($data);
+        $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord)
         {
             $rowvalue = json_decode($rowvalueRecord['record']);
@@ -330,7 +330,7 @@ class PlantMaterialService
     {
         $columnPlant = $this->mappingCsvColumn['Plant'];
         $columnCountryOfOrigin = $this->mappingCsvColumn['CountryOfOrigin'];
-        $columnPlannedDeliveryTime = $this->mappingCsvColumn['PlannedDeliveryTime'];
+        $columnPlannedDeliveryTime = $this->mappingCsvColumn['PlannedDeliveryTimeInDays'];
         $columnCommodityCode = $this->mappingCsvColumn['CommodityCode'];
         $columnMinOrderQty = $this->mappingCsvColumn['MinOrderQuantity'];
         $columnOrderQtyInc = $this->mappingCsvColumn['OrderingQuantityIncrements'];
@@ -345,7 +345,7 @@ class PlantMaterialService
         $columnTotalReplenismentLeadTime =  $this->mappingCsvColumn['TotalReplenismentLeadTime'];
         $columnSafetyStock = $this->mappingCsvColumn['SafetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
-        $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
+        //$columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
         
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
@@ -364,7 +364,7 @@ class PlantMaterialService
         $totalReplenismentLeadTime =  $rowvalue[$columnTotalReplenismentLeadTime];
         $safetyStock =  $rowvalue[$columnSafetyStock];
         $stockIndicator =  $rowvalue[$columnStockIndicator];
-        $unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
+        //$unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
 
         $plantObjId = $this->getPlantObjectId($plantName);
         $salesOrgObjId = $this->getSalesOrgObjectId($salesOrg);
@@ -373,7 +373,7 @@ class PlantMaterialService
 
         $storeTableData = [
             'oo_id' => $objId,
-            'PlannedDeliveryTime' => $plannedDeliveryTime,
+            'PlannedDeliveryTimeInDays' => $plannedDeliveryTime,
             'CommodityCode' => $commodityCode,
             'MinOrderQuantity' => $minOrderQty,
             'OrderingQuantityIncrements' => $orderQtyInc,
@@ -386,7 +386,7 @@ class PlantMaterialService
             'TotalReplenismentLeadTime' => $totalReplenismentLeadTime,
             'SafetyStock' => $safetyStock,
             'StockIndicator' => $stockIndicator,
-            'UnitOfMeasure' => $unitOfMeasure,
+            //'UnitOfMeasure' => $unitOfMeasure,
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [
@@ -571,7 +571,7 @@ class PlantMaterialService
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAll($query);
 
         foreach ($objectMaterial as $material) {
@@ -665,7 +665,7 @@ class PlantMaterialService
         }
 
         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUPlant` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
+        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUPlantMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchRow($query);
 
         

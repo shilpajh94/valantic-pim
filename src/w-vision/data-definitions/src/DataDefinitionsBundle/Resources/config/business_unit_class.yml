@@ -38,3 +38,19 @@ config:
           [
               "articleNumber"
           ]
+    IFS_EMEA:
+        Class:
+          [
+              IFSEUProduct: "IFS EMEA",
+          ]
+        PRODUCT_TYPE:
+          [
+              "Base",
+              "Skeleton",
+              "Fert"
+          ]
+        PrimaryKey:
+          [
+              "materialNumber"
+          ]
+

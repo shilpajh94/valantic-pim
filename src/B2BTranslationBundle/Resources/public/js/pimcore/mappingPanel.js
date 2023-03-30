@@ -12,11 +12,9 @@ pimcore.plugin.b2btranslation.mappingPanel = Class.create({
                 id : "b2b_translation_attribute_mapping",
                 title : t("b2b_translation_toolbar"),
                 iconCls : "pimcore_nav_icon_translations",
-                //bodyStyle : "padding: 10px;",
                 layout : "fit",
                 closable : true,
                 items : [ editor.getTabPanel() ]
-                // items : []
             });
             const tabPanel = Ext.getCmp("pimcore_panel_tabs");
             tabPanel.add(this.panel);

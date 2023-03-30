@@ -28,6 +28,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
     }
+    public function getProductImportConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_IMPORT_CONFIG_FILE_PATH);
+    }
 
     public function getCategoryConfig()
     {
@@ -73,6 +77,14 @@ class ConfigProviderService
             Cache::save($config, $cacheKey);
         }
         return $config;
+    }
+    public function getUnitValueConfig()
+    {
+        //return $this->getConfigFromYmlFile(PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
+    }
+    public function getBrickAttributesConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH);
     }
 
 }

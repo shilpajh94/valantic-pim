@@ -406,7 +406,7 @@ class ImportDefinitionController extends ResourceController
         $buConfig       = $this->getBusinessUnitClassFromConfig();
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
-        if ($className == 'Product' || $className == 'PTGEUProduct') {
+        if ($className == 'Product' || $className == 'PTGEUProduct' || $className == 'IFSEUProduct') {
             foreach ($importLevels as $importType) {
                 $importTypeArray = array();
                 $importTypeArray['name'] = $importType;

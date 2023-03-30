@@ -282,6 +282,7 @@ class SalesMaterialModel
 
     public function createSalesMaterialTable()
     {
+
         $query = "
         CREATE TABLE IF NOT EXISTS `ifseu_material_sales_import_log` (
           `logId` bigint(20) NOT NULL AUTO_INCREMENT,
