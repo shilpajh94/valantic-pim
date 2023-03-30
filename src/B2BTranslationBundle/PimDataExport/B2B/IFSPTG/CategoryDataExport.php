@@ -169,21 +169,37 @@ class CategoryDataExport implements IDataExport
                                 {
                                     if(!$areHeadersAlreadyAdded)
                                     {
+                                        //dd($headerMapping);
                                         $keys = array_keys($finalPritingList[0]);
                                         $displayKeys = [];
-
-                                        foreach ($keys as $keyIndex => $keyName) {
-                                            $displayKeys[$keyName] = (isset($this->headerMapping[$keyName])) ? $this->headerMapping[$keyName] : 'Language';
+                                        $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                        foreach ($headerMapping as $headerIndex => $headerName) {
+                                                $displayKeys[$headerIndex] = $headerName;
                                         }
-
+                                        $displayKeys=array_merge($staticHeaderMappingArr,$displayKeys);
                                         fputcsv($file1, $displayKeys);
                                         fputcsv($file2, $displayKeys);
                                         $areHeadersAlreadyAdded = true;
                                     }
-                                    
+
                                     foreach($finalPritingList as $key=>$record){
+                                        foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
+                                            if(array_key_exists($keyHeader,$record)){
+                                                $mapping_record[$keyHeaderValue] = $record[$keyHeader];
+                                                if($keyHeader!='SalesForce_ID'){
+                                                    unset($record[$keyHeader]);
+                                                }
+                                                
+                                            }else if($keyHeaderValue=='BussinessUnit'){
+                                                $mapping_record[$keyHeaderValue]=$this->bu;
+                                            }else if($keyHeaderValue=='Language'){
+                                                $mapping_record[$keyHeaderValue]='';
+                                            }
+                                        }
+                                        $record=array_merge($mapping_record,$record);
                                         if($record['SalesForce_ID'])
                                         {
+                                            unset($record['SalesForce_ID']);
                                             fputcsv($file2, $record);
                                         }
                                         else{

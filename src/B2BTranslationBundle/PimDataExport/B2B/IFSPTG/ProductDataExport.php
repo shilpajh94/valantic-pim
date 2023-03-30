@@ -545,11 +545,14 @@ class ProductDataExport implements IDataExport
                                         if(!$areHeadersAlreadyAdded)
                                         {
                                             $keys = array_keys($finalPritingList[0]);
+                                            
                                             $displayKeys = [];
-
-                                            foreach ($keys as $keyIndex => $keyName) {
-                                                $displayKeys[$keyName] = (isset($this->headerMapping[$keyName])) ? $this->headerMapping[$keyName] : 'Language';
+                                            $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                            $booleanFields=$this->getBooleanAttribute();
+                                            foreach ($headerMapping as $headerIndex => $headerName) {
+                                                $displayKeys[$headerIndex] = $headerName;
                                             }
+                                            $displayKeys=array_merge($staticHeaderMappingArr,$displayKeys);
 
                                             fputcsv($file1, $displayKeys);
                                             fputcsv($file2, $displayKeys);
@@ -557,6 +560,25 @@ class ProductDataExport implements IDataExport
                                         }
                                         
                                         foreach($finalPritingList as $key=>$record){
+                                            foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
+                                                if(array_key_exists($keyHeader,$record)){
+                                                    $mapping_record[$keyHeaderValue] = $record[$keyHeader];
+                                                    if(array_key_exists($keyHeader,$booleanFields)){
+                                                        $booleanValue=$record[$keyHeader];
+                                                        $fieldBooleanValue=$this->getBooleanValue($booleanValue);
+                                                        $mapping_record[$keyHeaderValue] = $fieldBooleanValue;
+                                                    }
+                                                    if($keyHeader!='SalesForce_ID'){
+                                                        unset($record[$keyHeader]);
+                                                    }
+                                                    
+                                                }else if($keyHeaderValue=='BussinessUnit'){
+                                                    $mapping_record[$keyHeaderValue]=$this->bu;
+                                                }else if($keyHeaderValue=='Language'){
+                                                    $mapping_record[$keyHeaderValue]='';
+                                                }
+                                            }
+                                            $record=array_merge($mapping_record,$record);
 
                                             if($record['SalesForce_ID'])
                                             {
@@ -809,5 +831,38 @@ class ProductDataExport implements IDataExport
     public function logMessage(String $msg, LogLevel $logLevel)
     {
         Utils::log(PRODUCT_LOCALIZATION_EXPORT_LOG_FILE, $msg, $logLevel);
+    }
+    public function getBooleanValue($data)
+    {
+        $value='';
+        if($value!=''){
+            dd($data);
+        }
+        switch ($data) {
+            case 'Y':
+                $value='Yes';
+                return $value;
+            case 'N':
+                $value='No';
+                return $value;
+            case 1:
+                $value='Yes';
+                return $value;
+            case -1:
+                $value='No';
+                return $value;
+            default:
+                $value='';
+                return $value;
+        }
+        return $value;
+    }
+     public function getBooleanAttribute()
+    {
+        $b2bAttributeBooleanList = [];
+        $b2bAttributeBooleanConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBooleanConfigFile();
+        $b2bAttributeBooleanList = $this->common->getBooleanParameter($b2bAttributeBooleanConfig);
+
+        return $b2bAttributeBooleanList;
     }
 }

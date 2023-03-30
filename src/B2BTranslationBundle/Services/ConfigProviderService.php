@@ -25,4 +25,12 @@ class ConfigProviderService
         }
         
     }
+    public function getBooleanConfigFile(){
+        try {
+            $fileNamefullPath = B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY."/bu_translation_config/boolean_attribute_config.yml";
+            return Utils::getYmlConfig($fileNamefullPath);
+        } catch (\Throwable $th) {
+            p_r($th->getMessage());
+        }
+    }
 }

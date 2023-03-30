@@ -19,4 +19,9 @@ class Common
             return isset($data['parameters'][$key])&&isset($data['parameters'][$key][$item])?$data['parameters'][$key][$item]:false;       
         }
     }
+    public function getBooleanParameter($data) {
+        if(!empty($data) && isset($data['parameters'])) {
+            return isset($data['parameters'])?$data['parameters']:false;       
+        }
+    }
 }
