@@ -5,132 +5,132 @@ parameters:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         send_to_marcom_again:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
-                    # - MarComIFSEU
+                    # - MarComIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         # send_to_marcom_for_review:
         #     templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for Fixes'
         #     notificationTo: 
         #         users: 
         #             # - ProductOwner
         #         roles:
-        #             - MarComIFSEU
+        #             - MarComIFSEMEA
         send_to_editor_for_fixes:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Editor for Fixes'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - EditorIFSEU
+                    - EditorIFSEMEA
         send_to_marcom_for_fixes:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Marcom for Fixes'
             notificationTo: 
                 users:
-                    # - MarComIFSEU
+                    # - MarComIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         send_to_pm_for_review:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - ProductManagementIFSEU
+                    - ProductManagementIFSEMEA
         approved:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Notification for Publish Product'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - ProductManagementIFSEU
-                    - EditorIFSEU
-                    - MarComIFSEU
+                    - ProductManagementIFSEMEA
+                    - EditorIFSEMEA
+                    - MarComIFSEMEA
         # published:
         #     templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for Fixes'
         #     notificationTo: 
         #         users:
         #             # - RnDUser
         #         roles:
-        #             - ProductManagementIFSEU
+        #             - ProductManagementIFSEMEA
         in_editor_edit_after_publish:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send for Enrichment to Editor'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - EditorIFSEU
+                    - EditorIFSEMEA
         in_marcom_edit_after_publish:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Marcom for Fixes'
             notificationTo: 
                 users:
-                    # - MarComIFSEU
+                    # - MarComIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         in_pm_review_after_editor_edit:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Notification for Publish Product'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - ProductManagementIFSEU
-                    - EditorIFSEU
-                    - MarComIFSEU
+                    - ProductManagementIFSEMEA
+                    - EditorIFSEMEA
+                    - MarComIFSEMEA
         in_editor_edit_after_marcom_review:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Editor for Fixes'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - EditorIFSEU
+                    - EditorIFSEMEA
         in_pm_review_after_marcom:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - ProductManagementIFSEU
+                    - ProductManagementIFSEMEA
         in_marcom_edit_after_editor_fixes:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send for Enrichment to Marcom'
             notificationTo: 
                 users:
-                    # - MarComIFSEU
+                    # - MarComIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         in_pm_review_after_editor:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - ProductManagementIFSEU
+                    - ProductManagementIFSEMEA
         in_marcom_edit_after_pm_review:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Marcom for Fixes'
             notificationTo: 
                 users:
-                    # - MarComIFSEU
+                    # - MarComIFSEMEA
                 roles:
-                    - MarComIFSEU
+                    - MarComIFSEMEA
         in_editor_edit_after_pm_review:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Send to Editor for Fixes'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                    - EditorIFSEU
+                    - EditorIFSEMEA
         in_pm_review:
             templatePath: '/Contitech_IFSEU/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
-                    # - ProductManagementIFSEU
+                    # - ProductManagementIFSEMEA
                 roles:
-                     - ProductManagementIFSEU
+                     - ProductManagementIFSEMEA
     transition: 
         send_to_marcom:
             condition:

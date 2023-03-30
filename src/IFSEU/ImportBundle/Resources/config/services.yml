@@ -131,3 +131,9 @@ services:
     ifs_eu_import.category_import_service:
         class: IFSEU\ImportBundle\Services\CategoryService
         public: true
+
+    IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
+        public: true
+
+    Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
+            class: IFSEU\ProductBundle\Controller\ClassController
