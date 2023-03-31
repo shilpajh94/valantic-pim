@@ -31,7 +31,7 @@ class CategoryOptionsProvider implements SelectOptionsProviderInterface {
         {
             if($listItem instanceof DataObject\IFSEUCategory)
             {
-            $optionsData[] = array ('key' => $listItem->getCategoryName(),'value' => $listItem->getCategoryCode());
+            $optionsData[] = array ('key' => $listItem->getCategoryName(),'value' => $listItem->getID());
             }
         }
 
