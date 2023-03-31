@@ -16,6 +16,11 @@ parameters:
     # 'privateBrand': 'MaterialGroup5'
     'SalesUOM': 'Sales Unit'
     'deletedFlagAtDistributionChainLevel' : 'Dist Chain Status'
+    'MaterialGroup1': 'Material Group 1'
+    'MaterialGroup2': 'Material Group 2'
+    'MaterialGroup3': 'Material Group 3'
+    'MaterialGroup4': 'Material Group 4'
+    'MaterialGroup5': 'Material Group 5'
     
     # These below are not the Sales Material Master attributes. These are for sales and distribution channel attribute that we are 
     # creating using this script

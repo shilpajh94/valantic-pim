@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-28T15:28:34+05:30
+* Generated at: 2023-03-30T19:22:06+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677578313,
+   'modificationDate' => 1680184326,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -212,7 +212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'classes' => 'IFSEUSalesOrganisation',
                       ),
                     ),
-                     'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
+                     'pathFormatterClass' => '',
                      'name' => 'SalesOrganization',
                      'title' => 'Sales Organization',
                      'tooltip' => '',
@@ -255,7 +255,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'classes' => 'IFSEUDistributionChannel',
                       ),
                     ),
-                     'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
+                     'pathFormatterClass' => '',
                      'name' => 'DistributionChannel',
                      'title' => 'Distribution Channel',
                      'tooltip' => '',
@@ -505,7 +505,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'epixFlag',
                      'title' => 'Epix Flag / B2B Flag',
-                     'tooltip' => 'Material Group 1 is Epix/B2B flag.',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
@@ -556,7 +556,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'name' => 'pricePageFlag',
                      'title' => 'Price Page Flag',
-                     'tooltip' => 'Material Group 2 is a price page flag. ',
+                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
