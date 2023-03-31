@@ -496,7 +496,7 @@ return [
 
         [
             'treetype' => 'object',
-            'name' => 'Products',
+            'name' => 'Material Master',
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
             'id' => 'contitech_ifseu_material_master_list',
