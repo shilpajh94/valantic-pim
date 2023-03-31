@@ -562,7 +562,7 @@ class ProductDataExport implements IDataExport
                                         foreach($finalPritingList as $key=>$record){
                                             foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
                                                 if(array_key_exists($keyHeader,$record)){
-                                                    $mapping_record[$keyHeaderValue] = $record[$keyHeader];
+                                                    $mapping_record[$keyHeaderValue] = strip_tags($record[$keyHeader]);
                                                     if(array_key_exists($keyHeader,$booleanFields)){
                                                         $booleanValue=$record[$keyHeader];
                                                         $fieldBooleanValue=$this->getBooleanValue($booleanValue);
