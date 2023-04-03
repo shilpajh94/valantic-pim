@@ -828,7 +828,6 @@ menu figure figcaption b {
     flex: 1;
 }
 
-
 /* ------------------- GRID ----------------------- */
 
 .grid {
@@ -881,6 +880,9 @@ menu figure figcaption b {
     word-wrap: break-all;
     text-wrap: normal;
     white-space: normal;
+    border-bottom: 1px solid #737373;
+    height: 30px;
+
 }
 
 .grid .sub-head {
@@ -917,6 +919,22 @@ h3 .pimcore_tag_input.empty {
     width: 200px;
 }
 
+.weldingSectionPageTable {
+    width: 90%;
+    margin-top: 0px;
+    border-bottom: 1px solid #000000;
+
+}
+.weldingSectionPageBlock {
+    width: 530px;
+    border-bottom: 1px solid #000000;
+
+}
+.weldingSectionPageHeader{
+    width: 530px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 
 /* ------------------- PRODUCT ----------------------- */
 
@@ -1534,15 +1552,19 @@ footer .flex > * {
 .inhRight{ width:100%; }
 .inh .grid{  margin-bottom: 0px;}
 
-.inhRight h1{ font-size: 30px; padding-left: 15px !important;}
+.inhRight h1{ 
+    font-size: 30px; 
+    /* padding-left: 15px !important; */
+}
 .inhRight aside p{  padding-left: 15px !important;}
 
 .inhsettingRight, .inhsettingLeft{ display: flex; }
 .inhsettingRight{ /* flex-direction: row-reverse; */ }
 
 .sidebar {
-    width: 100%;
+    width: 90%;
     font-size: 10px;
+    text-align: right;
 
 }
 .inhsettingRight .inhsetting-sidebar{
