@@ -73,6 +73,7 @@ class ProductImportService
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
 
         $this->baseSiopMismatchLog  = [];
+        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
     }
     
     /**

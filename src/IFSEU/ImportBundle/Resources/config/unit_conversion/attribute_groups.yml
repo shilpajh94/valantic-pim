@@ -1,0 +1,9 @@
+# for all valid units refer AppBundle\Lib\UnitConversion\Unit.php
+
+#    IFSEUHoseSkeleton
+Id_group:
+    IdInch: 'IN'
+    IdMM: 'MM'
+
+
+
