@@ -47,7 +47,6 @@ class MandatoryValidationService {
     }
     
     public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
-        
         // $applyvalidation = false;
         if (!empty($this->productConfig)) {
             $product->setGetInheritedValues(true);
@@ -71,7 +70,7 @@ class MandatoryValidationService {
                         $arr[$fieldName] = "$fieldTitle in Base Data";
                         $attributeNameArray[] = $fieldName;
                     }
-                }elseif($fieldName = 'availableBeltWidthInch'){
+                }elseif($fieldName == 'availableBeltWidthInch'){
                     $getBrickMethod = "get$objectType";
                     $brickObject = $product->getProductAttributes()->$getBrickMethod();
                     if (!empty($brickObject)) {
