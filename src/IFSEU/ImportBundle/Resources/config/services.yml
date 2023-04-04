@@ -42,7 +42,7 @@ services:
 
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductImportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:ifs:eu:product-import' }
+            - { name: 'console.command', command: 'contitech:ifs:eu:ehose-product-import' }
 
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductCategoryImportCommand:
         tags:
@@ -107,10 +107,6 @@ services:
     ifs_eu_import.sap_file_feeder_service:
         class: IFSEU\ImportBundle\Services\SAPFileFeederService
         public: true
-    ifs_eu_import.product_file_feeder_service:
-        class: IFSEU\ImportBundle\Services\ProductFileFeederService
-        public: true
-
     ifs_eu_import.config_provider_service:
         class: IFSEU\ImportBundle\Services\ConfigProviderService
         public: true

@@ -10,7 +10,7 @@ class IFSEU_ProductImportCommand extends AbstractCommand
 {
     protected function configure()
     {
-        $this->setName('contitech:ifs:eu:product-import')
+        $this->setName('contitech:ifs:eu:ehose-product-import')
             ->setDescription('Product Import');
     }
 
