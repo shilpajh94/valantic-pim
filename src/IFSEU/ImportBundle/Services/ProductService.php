@@ -84,7 +84,7 @@ class ProductService
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT'];
+        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl','sv_SE','en_GB'];
         $tables = $this->common->getParameter($this->materialConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
