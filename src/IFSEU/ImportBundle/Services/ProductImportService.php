@@ -6,6 +6,8 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
+use IFSEU\ProductBundle\Services\CompletenessPercentageService;
+
 
 class ProductImportService
 {
@@ -48,7 +50,7 @@ class ProductImportService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
-
+    private $percentageCompletionService;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const GROSS_WEIGHT_UNITS = [
@@ -57,9 +59,10 @@ class ProductImportService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct()
-    {
-        /* Initilize monitoring item and set the number of steps will take to complete the task */
+    public function __construct(
+        CompletenessPercentageService $percentageCompletionService
+    ) {
+        $this->percentageCompletionService = $percentageCompletionService;        /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->productModel         = new ProductModel;
@@ -139,7 +142,6 @@ class ProductImportService
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
             $this->csvHeader = array_flip($csvInfo['header']);
-    
             try {
                 $this->initImportTable();
                 Logger::log(self::LOGGER_MODULE)->info("Product import started"); 
@@ -869,7 +871,8 @@ class ProductImportService
             if (!empty($objectId)) {
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
-                    $object->save();
+                    // $object->save();
+                    $this->percentageCompletionService->completenessPercentage($object);
                 }
             }
         }
