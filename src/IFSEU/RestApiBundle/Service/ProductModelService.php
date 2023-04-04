@@ -71,6 +71,7 @@ class ProductModelService
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
+            
             $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
@@ -122,7 +123,9 @@ class ProductModelService
                 // Get Base Object Bricks Data.
                 $baseObjectBrickData = array();
                 if(!empty($nineDigitData)){
+                    
                     $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['o_parentId'],'base');
+                    
                 }
                 if(!empty($baseObjectBrickData)){
                     $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);
@@ -288,13 +291,31 @@ class ProductModelService
         $baseDetail = [];
         $brandName = '';
         $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
+       
         // Getting brand name from object_query_3 table
-        if(isset($baseDetail['brandName']) && !empty($baseDetail['brandName'])) {
-            $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
+        if(isset($baseDetail['productBrandName']) && !empty($baseDetail['productBrandName'])) {
+            $brandName  =   $this->model->getBrandName($baseDetail['productBrandName']);
             if(!empty($brandName)){
-                $baseDetail['brandName'] = $brandName;
+                $baseDetail['productBrandName'] = $brandName;
             }else{
-                unset($baseDetail['brandName']);
+                unset($baseDetail['productBrandName']);
+            }
+        }
+        if(isset($baseDetail['brandConstruction']) && !empty($baseDetail['brandConstruction'])) {
+            $brandConstruction  =   $this->model->getBrandName($baseDetail['brandConstruction']);
+            if(!empty($brandConstruction)){
+                $baseDetail['brandConstruction'] = $brandConstruction;
+            }else{
+                unset($baseDetail['brandConstruction']);
+            }
+        }
+       
+        if(isset($baseDetail['Sub_Category']) && !empty($baseDetail['Sub_Category'])) {
+            $subCategory  =   $this->model->getSubCategoryName($baseDetail['Sub_Category']);
+            if(!empty($subCategory)){
+                $baseDetail['Sub_Category'] = $subCategory;
+            }else{
+                unset($baseDetail['Sub_Category']);
             }
         }
         // Getting document URL from object_metadata_1 table
@@ -304,8 +325,9 @@ class ProductModelService
         }
         // Getting all features from object_localized_29_en table
         if(isset($baseDetail['FeaturesBenefitsBulletPoint']) && !empty($baseDetail['FeaturesBenefitsBulletPoint'])) {
-            $classId = $this->appService->getPimcoreClassIdbyName('Features');
+            $classId = $this->appService->getPimcoreClassIdbyName('IFSEUProperties');
             $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint'], $classId);
+           
             if(!empty($featureList)){
                 $baseDetail['FeaturesBenefitsBulletPoint'] = $featureList;
             }
@@ -380,11 +402,15 @@ class ProductModelService
                     // Get Field Definition.
 
                     if($product->$productBrickField()->$brickText()){
+
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
                     
+                       
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
+                            
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
-                            //  dd($product->$productBrickField()->$brickText());
+                              //dd($product->$productBrickField()->$brickText());
+                              
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
@@ -392,25 +418,50 @@ class ProductModelService
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
-                                    // print_r( $objectIndv);
+                                    
                                     if($objectIndv instanceof DataObject\IFSEUApplications) {
                                         // dd(get_class_methods($objectIndv) );
                                         $bData[] = $objectIndv->getApplicationName();
                                     }
+                                    if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
+                                        // dd(get_class_methods($objectIndv) );
+                                        $bData[] = $objectIndv->getFlowMedium();
+                                    }
+                                    
                                    }
                                 }
                              }
 
-                       }else{
+                       }
+                       else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
+                       {
+                        $bData = $product->$productBrickField()->$brickText()->$fieldText();
+                        $objectIndv = DataObject::getById($bData);
+                        // echo "<pre>";
+                        // print_r($fieldName);
+                        // print_r($bData);
+                        $bData = $objectIndv->getPropertyName();
+                        // dd($bData);
+                        
+                       }
+                       else{
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
+                          
+                          
                        }
                     }
-                    if(!empty($bData) || $bData===0){            
+                    if(!empty($bData) || $bData===0){  
+                        
                         if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
                             $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                            dd($bData);
                             $bData = round(strval($bData), $decimalPoints);
+                            
                         }
+                        
+                            
                         $productObjectBricksData[$fieldName] = $bData;
+                         
                     }
                 }
             }

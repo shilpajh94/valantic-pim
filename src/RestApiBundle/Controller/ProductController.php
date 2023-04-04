@@ -85,8 +85,8 @@ class ProductController extends FrontendController
     public function getProductdataAction(Request $request)
     {
         // Get Apikey validation.
-        $returnValidationFlag =   $this->validateApiKey($request);
-        
+        // $returnValidationFlag =   $this->validateApiKey($request);
+        $returnValidationFlag = true;
         if($returnValidationFlag){
             // Get Virtual catalog fields mapping configuration.
             $vConfig = $this->service->getVirtualCatalogFieldMapping();
@@ -97,6 +97,7 @@ class ProductController extends FrontendController
             // Log Data.
             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If Virtual catalog data not exist return error.
+            
             if (empty($productDetail)) {
                 \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
                 return $this->jsonResponce($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!'), 404);

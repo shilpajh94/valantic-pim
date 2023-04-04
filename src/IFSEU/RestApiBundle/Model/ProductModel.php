@@ -275,7 +275,7 @@ class ProductModel
      * @param int $id object Id
      */
     public function getBrandName(int $id) : ?string {
-        $query = 'SELECT name as BrandName FROM object_query_3 WHERE oo_id = '.$id;
+        $query = 'SELECT name as `name` FROM object_query_IFSEUBrand WHERE oo_id = '.$id;
         $brandName = $this->db->fetchOne($query);
         return $brandName;
     }
@@ -293,19 +293,49 @@ class ProductModel
     }
 
     /**
-     * Method to get the Features from object_localized_29_en table based on oo_id
+     * Method to get the Features from object_IFSEUProduct_en table based on PropertyID
      *
      * @param string $oo_id object Id
      * 
-     * @param int $classId object Id
+     * @param string $classId object Id
      */
-    public function getFeatures(string $oo_id, int $classId) : ?string {
+    public function getFeatures(string $oo_id, string $classId) : ?string {
         //Removing comma from begining and end
         $oo_id = substr($oo_id,1,-1);
-        $query = 'SELECT o_key FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `PropertyID` IN ('.$oo_id.')';
         $features = $this->db->fetchCol($query);
         $featureList = implode(", ",$features);
         return $featureList;
+    }
+
+      /**
+     * Method to get the Property from object_IFSEUProduct_en table based on PropertyID
+     *
+     * @param string $oo_id object Id
+     * 
+     * @param string $classId object Id
+     */
+    public function getPropertyName(string $oo_id, string $classId) : ?string {
+        //Removing comma from begining and end
+        $oo_id = substr($oo_id,1,-1);
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `o_id` ='.$oo_id;
+        
+        $propertyName = $this->db->fetchOne($query);
+        return $propertyName;
+    }
+
+    /**
+     * Method to get the SubCategory from object_IFSEUSubCategory table based on oo_id
+     *
+     * @param string $oo_id object Id
+     * 
+     * @param string $classId object Id
+     */
+    public function getSubCategoryName(int $oo_id) : ?string
+    {
+        $query = 'SELECT o_key FROM object_IFSEUSubCategory WHERE `SubCategoryCode` = '.$oo_id;
+        $subCategory = $this->db->fetchOne($query);
+        return $subCategory;
     }
 
 }
