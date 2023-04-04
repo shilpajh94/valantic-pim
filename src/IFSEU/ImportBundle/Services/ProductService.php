@@ -6,6 +6,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
+use IFSEU\ProductBundle\Services\CompletenessPercentageService;
 
 class ProductService
 {
@@ -48,6 +49,7 @@ class ProductService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
+    private $percentageCompletionService;
 
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
@@ -57,8 +59,10 @@ class ProductService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct()
-    {
+    public function __construct(
+        CompletenessPercentageService $percentageCompletionService
+    ) {
+        $this->percentageCompletionService = $percentageCompletionService;        
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
@@ -132,7 +136,7 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
+                // $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -381,7 +385,7 @@ class ProductService
         $recData =  (array) json_decode($row['record']);
         $status = 'Failed';
         $errorFlag = false;
-        $prodHier6 = $recData[$this->getRecordIndexByKey('prodHier6')];
+        $prodHier6 = substr($recData[$this->getRecordIndexByKey('prodHier7')],0,13);
         $prodHier7 = $recData[$this->getRecordIndexByKey('prodHier7')];
 
         if (array_key_exists($siopCode, $this->categories)) {
@@ -439,7 +443,6 @@ class ProductService
 
     private function processLevelInfo($record, $recData, $errorFlag) 
     {
-
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
 
         if ($levelInfo['status']) {
@@ -566,7 +569,6 @@ class ProductService
             if (!empty($grossWeight)) {
 
                 if (!empty($weightUnit)) {
-
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
                     $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
                     $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
@@ -736,7 +738,8 @@ class ProductService
             if (!empty($objectId)) {
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
-                    $object->save();
+                    // $object->save();
+                    $this->percentageCompletionService->completenessPercentage($object);
                 }
             }
         }
