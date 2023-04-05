@@ -28,6 +28,7 @@ class Product
         $this->common           = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->catHelper        = \Pimcore::getContainer()->get('ifs_eu_import.category_helper');
         $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
         $this->catConfigData    = $this->configProviderService->getCategoryConfig();
         $this->prdConfigData    = $this->configProviderService->getProductConfig();
         $this->root             = $this->common->getParameter($this->prdConfigData, 'root');
@@ -222,6 +223,7 @@ class Product
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
+        $conversionAttributeArr=[];
         foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
         { 
             $fieldName  = $brickAttributeConfig['fieldName'];
@@ -230,13 +232,21 @@ class Product
             $attributeLabel  = trim($attributeLabel);
             if($objectType==$brick)
             {
+                
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
+                if($attributeGroupName && !empty($fieldValue)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
+                }
                 if($fieldType=='Boolean Select')
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
                 }
-                
-                $bricksData[$fieldName] = $fieldValue;
+                if(array_key_exists($fieldName, $conversionAttributeArr)){
+                    $bricksData= $conversionAttributeArr;
+                }else{
+                    $bricksData[$fieldName] = $fieldValue;
+                }
             }
         }
         return $bricksData;

@@ -76,6 +76,7 @@ class ProductImportService
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
 
         $this->baseSiopMismatchLog  = [];
+        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
     }
     
     /**
@@ -377,7 +378,6 @@ class ProductImportService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-
                 $this->setBricksData($objId, $bricksList, $type, $record);
 
                 unset($groupNames, $groupNamesArray, $bricksList);

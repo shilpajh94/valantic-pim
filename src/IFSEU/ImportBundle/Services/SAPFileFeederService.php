@@ -35,7 +35,7 @@ class SAPFileFeederService
     {
         try
         {
-            $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
+            /*$SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
             $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
 
             $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH_PTGEU'));
@@ -62,7 +62,12 @@ class SAPFileFeederService
             $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
             $this->filePath = $tmpFilePath;
-            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);*/
+
+            $fileName='Import_eHose_Product_16_march.csv';
+
+            $tmpFilePath    = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            $this->filePath = $tmpFilePath;
             
             if($this->validateAllowedFileType()) 
             {
