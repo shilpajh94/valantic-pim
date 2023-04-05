@@ -143,3 +143,8 @@ services:
 
     Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
             class: IFSEU\ProductBundle\Controller\ClassController
+
+    IFSEU\ProductBundle\Workflow\IFSEUProductEnrichmentListener:
+        tags:
+            - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.completed, method: ifsEuWorkflowNotification }
+            - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.transition, method: ifsEuWorkflowActions }
