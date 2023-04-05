@@ -140,3 +140,8 @@ services:
     ifs_eu_import.unit_conversion_import_service:
         class: IFSEU\ImportBundle\Services\UnitConverterService
         public: true
+    IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
+        public: true
+
+    Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
+            class: IFSEU\ProductBundle\Controller\ClassController
