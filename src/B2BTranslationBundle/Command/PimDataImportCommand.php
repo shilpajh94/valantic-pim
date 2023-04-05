@@ -40,19 +40,19 @@ class PimDataImportCommand extends AbstractCommand
 
     private function importDataForB2BShop()
     {
-        echo "{$this->bu}: Products salesforce id data import started.".PHP_EOL;
-        $executor = new ProductDataImport($this->bu);
-        $executor->downloadFile();
-        $executor->importData();
-        echo PHP_EOL;
-        echo "{$this->bu}: Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
-
         echo "{$this->bu}: Product categories salesforce id data import started.".PHP_EOL;
         $executor = new CategoryDataImport($this->bu);
         $executor->downloadFile();
         $executor->importData();
         echo PHP_EOL;
         echo "{$this->bu}: Product categories salesforce id data import stopped.".PHP_EOL;
+
+        echo "{$this->bu}: Products salesforce id data import started.".PHP_EOL;
+        $executor = new ProductDataImport($this->bu);
+        $executor->downloadFile();
+        $executor->importData();
+        echo PHP_EOL;
+        echo "{$this->bu}: Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
     }
 }
 ?>

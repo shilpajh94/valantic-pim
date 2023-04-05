@@ -153,11 +153,18 @@ class ProductDataExport implements IDataExport
                             
                             
                             $areHeadersAlreadyAdded = false;
-                            $b2bProducts = array_slice($b2bProducts, 0, 10);
+                            // $b2bProducts = array_slice($b2bProducts, 0, 10);
                             $b2bProductsChucks = array_chunk($b2bProducts,1000);
                             // $b2bProductsChucks[] = [1840236,1840247];
-                            $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
-                            $file = fopen($filePath,"w+");
+                            // $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+                            // $file = fopen($filePath,"w+");
+
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
+                            $file1 = fopen($filePath1,"w+");
+
+                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_UPDATE.csv";
+                            $file2 = fopen($filePath2,"w+");
+
 
                             foreach ($b2bProductsChucks as $batchNum => $productIds) 
                             {
@@ -538,24 +545,61 @@ class ProductDataExport implements IDataExport
                                         if(!$areHeadersAlreadyAdded)
                                         {
                                             $keys = array_keys($finalPritingList[0]);
+                                            
                                             $displayKeys = [];
-
-                                            foreach ($keys as $keyIndex => $keyName) {
-                                                $displayKeys[$keyName] = (isset($this->headerMapping[$keyName])) ? $this->headerMapping[$keyName] : 'Language';
+                                            $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                            $booleanFields=$this->getBooleanAttribute();
+                                            foreach ($headerMapping as $headerIndex => $headerName) {
+                                                $displayKeys[$headerIndex] = $headerName;
                                             }
+                                            $displayKeys=array_merge($staticHeaderMappingArr,$displayKeys);
 
-                                            fputcsv($file, $displayKeys);
+                                            fputcsv($file1, $displayKeys);
+                                            fputcsv($file2, $displayKeys);
                                             $areHeadersAlreadyAdded = true;
                                         }
                                         
                                         foreach($finalPritingList as $key=>$record){
-                                            fputcsv($file, $record);
+                                            foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
+                                                if(array_key_exists($keyHeader,$record)){
+                                                    $mapping_record[$keyHeaderValue] = strip_tags($record[$keyHeader]);
+                                                    if(array_key_exists($keyHeader,$booleanFields)){
+                                                        $booleanValue=$record[$keyHeader];
+                                                        $fieldBooleanValue=$this->getBooleanValue($booleanValue);
+                                                        $mapping_record[$keyHeaderValue] = $fieldBooleanValue;
+                                                    }
+                                                    if($keyHeader!='SalesForce_ID'){
+                                                        unset($record[$keyHeader]);
+                                                    }
+                                                    
+                                                }else if($keyHeaderValue=='BussinessUnit'){
+                                                    $mapping_record[$keyHeaderValue]=$this->bu;
+                                                }else if($keyHeaderValue=='Language'){
+                                                    $mapping_record[$keyHeaderValue]='';
+                                                }
+                                            }
+                                            $record=array_merge($mapping_record,$record);
+
+                                            if($record['SalesForce_ID'])
+                                            {
+                                                unset($record['SalesForce_ID']);
+                                                fputcsv($file2, $record);
+                                            }
+                                            else{
+                                                unset($record['SalesForce_ID']);
+                                                fputcsv($file1, $record);
+                                            }
                                         }
                                     }
                                 }
                             }
 
-                            fclose($file);
+                            // $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+                            // $file = fopen($filePath,"w+");
+
+                            // fclose($file);
+                            fclose($file1);
+                            fclose($file2);
 
                             echo $message = "{$this->bu}: B2B product data csv file created";
                             echo PHP_EOL;
@@ -596,8 +640,14 @@ class ProductDataExport implements IDataExport
     
     public function uploadFile()
     {
-        $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
-        $this->helper->uploadFile($customFileName);
+        // $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
+        // $this->helper->uploadFile($customFileName);
+
+        $customFileName1 = "SFPIM_PRODUCT_TRANSLATION_UPDATE.csv";
+        $this->helper->uploadFile($customFileName1);
+
+        $customFileName2 = "SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
+        $this->helper->uploadFile($customFileName2);
     }
 
     public function getFittingFamilyMasterList()
@@ -783,5 +833,38 @@ class ProductDataExport implements IDataExport
     public function logMessage(String $msg, LogLevel $logLevel)
     {
         Utils::log(PRODUCT_LOCALIZATION_EXPORT_LOG_FILE, $msg, $logLevel);
+    }
+    public function getBooleanValue($data)
+    {
+        $value='';
+        if($value!=''){
+            dd($data);
+        }
+        switch ($data) {
+            case 'Y':
+                $value='Yes';
+                return $value;
+            case 'N':
+                $value='No';
+                return $value;
+            case 1:
+                $value='Yes';
+                return $value;
+            case -1:
+                $value='No';
+                return $value;
+            default:
+                $value='';
+                return $value;
+        }
+        return $value;
+    }
+     public function getBooleanAttribute()
+    {
+        $b2bAttributeBooleanList = [];
+        $b2bAttributeBooleanConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBooleanConfigFile();
+        $b2bAttributeBooleanList = $this->common->getBooleanParameter($b2bAttributeBooleanConfig);
+
+        return $b2bAttributeBooleanList;
     }
 }
