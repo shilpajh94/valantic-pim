@@ -6,6 +6,8 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
+use IFSEU\ProductBundle\Services\CompletenessPercentageService;
+
 
 class ProductImportService
 {
@@ -48,7 +50,7 @@ class ProductImportService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
-
+    private $percentageCompletionService;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const GROSS_WEIGHT_UNITS = [
@@ -57,9 +59,10 @@ class ProductImportService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct()
-    {
-        /* Initilize monitoring item and set the number of steps will take to complete the task */
+    public function __construct(
+        CompletenessPercentageService $percentageCompletionService
+    ) {
+        $this->percentageCompletionService = $percentageCompletionService;        /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->productModel         = new ProductModel;
@@ -80,7 +83,7 @@ class ProductImportService
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl','sv_SE','en_GB'];
+        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl_PL','sv_SE','en_GB'];
         $tables = $this->common->getParameter($this->materialConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
@@ -127,7 +130,7 @@ class ProductImportService
         }
         foreach($baseLevelCategoryList as $baseLevelCategoryData) {
             $categoryName = $baseLevelCategoryData['o_key'];
-            $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['CategoryCode'];
+            $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['oo_id'];
             unset($categoryName);
         }
     }
@@ -139,7 +142,6 @@ class ProductImportService
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
             $this->csvHeader = array_flip($csvInfo['header']);
-    
             try {
                 $this->initImportTable();
                 Logger::log(self::LOGGER_MODULE)->info("Product import started"); 
@@ -375,7 +377,6 @@ class ProductImportService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-
                 $this->setBricksData($objId, $bricksList, $type, $record);
 
                 unset($groupNames, $groupNamesArray, $bricksList);
@@ -634,7 +635,6 @@ class ProductImportService
             }
         }
         if(strtolower($productType) == 'base'){
-
             $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
@@ -856,7 +856,7 @@ class ProductImportService
         return null;
     }
     public function getCategoryCodeId($categoryName){
-    
+
         if (!empty($categoryName)) {
             if (!empty($this->BaseLevelCategory[$categoryName])) {
                 return $this->BaseLevelCategory[$categoryName];
@@ -870,7 +870,8 @@ class ProductImportService
             if (!empty($objectId)) {
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
-                    $object->save();
+                    // $object->save();
+                    $this->percentageCompletionService->completenessPercentage($object);
                 }
             }
         }

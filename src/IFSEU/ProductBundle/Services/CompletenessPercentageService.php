@@ -5,6 +5,7 @@ namespace IFSEU\ProductBundle\Services;
 use IFSEU\ImportBundle\Model\ProductModel;
 use Pimcore\Model\DataObject\ClassDefinition;
 use IFSEU\ProductBundle\Services\SkippedFieldList;
+use Pimcore\Model\DataObject\AbstractObject;
 
 
 class CompletenessPercentageService
@@ -16,6 +17,9 @@ class CompletenessPercentageService
 
     public function completenessPercentage($object)
     {
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
         $this->productModel =  new ProductModel;
         $this->localisedDataTableDataArray = [];
         $count = 0;
@@ -40,6 +44,7 @@ class CompletenessPercentageService
                 $fieldTitle = $field->getTitle();
                 $fieldType = $field->getFieldType();
                 $isInvisible = $field->getInvisible();
+
                 if (!$isInvisible) {
                     if ($fieldType != "localizedfields") {
                         if ($fieldType == "objectbricks") {
@@ -56,6 +61,7 @@ class CompletenessPercentageService
                                 $skippedField = SkippedFieldList::CompletenessPercentageList();
                                 if (!in_array($key, $skippedField)) {
                                     $fieldValue = $object->{'get' . ucfirst($fieldName)}();
+
                                     if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
                                         $fieldValue = $fieldValue->getItems();
                                     }
@@ -73,7 +79,6 @@ class CompletenessPercentageService
                     }
                 }
             }
-
             $completedPercentage = round((($count / $totalFields) * 100), 2);
             // $object->setCompletenessPercentage($completedPercentage, $lang);
             // $object->setEmptyFields($emptyAttributes . $emptyObjectBrickAttributes . $emptyAttributesLocalized, $lang);
@@ -94,9 +99,13 @@ class CompletenessPercentageService
             $emptyObjectBrickAttributesCounter = 0;
             $emptyAttributesLocalized  = '';
         }
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
     private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
     {
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $emptyFieldLabels = '';
         foreach ($classDefinition->getFieldDefinition($fieldName)->getFieldDefinitions() as $localizedField) {
@@ -122,10 +131,14 @@ class CompletenessPercentageService
                 $emptyAttributesLocalized .= $emptyFieldLabels;
             }
         }
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
 
     private function objectbricks($bricks, $lang, $attributes, &$count, &$totalFields, &$emptyObjectBrickAttributes, &$emptyObjectBrickAttributesCounter, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
     {
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $heading = "\n\n [ CATEGORY SPECIFIC ATTRIBUTES ]";
         $emptyLocalizedFieldLabels = '';
@@ -185,5 +198,6 @@ class CompletenessPercentageService
                 }
             }
         }
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
 }
