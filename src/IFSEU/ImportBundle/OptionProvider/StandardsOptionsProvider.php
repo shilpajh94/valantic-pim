@@ -31,7 +31,7 @@ class StandardsOptionsProvider implements SelectOptionsProviderInterface {
         {
             if($listItem instanceof DataObject\IFSEUNorm)
             {
-            $optionsData[] = array ('key' => $listItem->getNorm(),'value' => $listItem->getNormID());
+            $optionsData[] = array ('key' => $listItem->getNorm(),'value' => $listItem->getID());
             }
         }
 

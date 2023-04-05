@@ -1,73 +1,118 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 namespace IFSEU\ProductBundle\Services;
 
-use Pimcore\Model\Element\ValidationException;
 use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Tool\Utils;
 use Pimcore\Cache;
 use Pimcore\Model\User;
+use Pimcore\Model\Element\ValidationException;
+
+/**
+ * Description of IFSEUMandatoryValidationService
+ *
+ */
 
 class IFSEUMandatoryValidationService {
 
     private $productConfig;
 
-    public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
-        
+    public function checkValidationApplicability($product) {
         $config = $this->getConfigFromYmlFile(IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH);
-       
-        if (!empty($config)) {
+        $applyValidation = false;
+        if (isset($config['MandatoryAttributes']) && !empty($config['MandatoryAttributes'])) {
+            $this->productConfig = $config['MandatoryAttributes'];
+            $applyValidation = true;
+        } else {
+            $parent = $product->getParent();
+            while ($parent->getType()=='folder' && $parent->getFullPath() != "/Contitech_IFS_EMEA/Products") {
+                $parent = $parent->getParent();
+            }
+            if ($parent->getType() != 'folder' && $parent instanceof DataObject\IFSEUProduct) {
+                if (isset($config['MandatoryAttributes']) && !empty($config['MandatoryAttributes'])) {
+                    $applyValidation = true;
+                    $this->productConfig = $config['MandatoryAttributes'];
+                }
+            }
+        }
+        return $applyValidation;
+    }
+
+    public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
+            
+        if (!empty($this->productConfig)) {
             $product->setGetInheritedValues(true);
             $className = $product->getClassName();
             $arr = array('Please fill all mandatory fields');
             $attributeNameArray = [];
-            foreach ($config['MandatoryAttributes'] as $fieldName) {
-
-                $method = "get$fieldName"; 
-                $class = DataObject\ClassDefinition::getByName($className);
-                $fieldTitle = $class->getFieldDefinition("localizedfields")->getFieldDefinition($fieldName);
-                if ($fieldTitle) {
-                    $fieldTitle = $fieldTitle->getTitle(); 
-                } else {
-                    // $fieldTitle = $fieldName;
-                    $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
-                }
-                $value = $product->$method();
-                if (empty($value)) {
-                    $arr[$fieldName] = $fieldTitle;
-                    $attributeNameArray[] = $fieldName; 
-                }
+            foreach ($this->productConfig as $fieldName) {
+                    if($fieldName!= 'FieldsOfApplication'){
+                        $method = "get$fieldName";
+                        $class = DataObject\ClassDefinition::getByName($className);
+                        $fieldTitle = $class->getFieldDefinition($fieldName);
+                        if ($fieldTitle) {
+                            $fieldTitle = $fieldTitle->getTitle();
+                        } else {
+                            $fieldTitle = $fieldName;
+                        }
+                        $value = $product->$method();
+                        if (empty($value) && ($value != false || $value != '0')) {
+                            if($fieldTitle == 'Proposition65WarningAttributesRequired'){
+                                $arr[$fieldName] = "$fieldTitle in Finished Goods Data";
+                            }else{
+                                $arr[$fieldName] = "$fieldTitle in Brand Data";
+                            }
+                            $attributeNameArray[] = $fieldName;
+                        }
+                    }
+                    else{
+                        $getBrickMethod = "getIFSEUHoseBase";
+                        $getBrickAttributeMethod = "get$fieldName";
+                        $brickObject = $product->getBase()->$getBrickMethod();
+                        if (!empty($brickObject)) {
+                            $v = $product->getBase()->$getBrickMethod()->$getBrickAttributeMethod();
+                            $brickClass =  DataObject\Objectbrick\Definition::getByKey('IFSEUHoseBase');
+                            $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
+                            $objectTitle = $brickClass->getTitle();
+                            if (empty($v)) {
+                                $arr[$fieldName] = "$brickfieldTitle in $objectTitle";
+                                $attributeNameArray[] = $fieldName;
+                            }
+                        }
+                    }
+                   
             }
+
             if (count($arr) > 1) {
-                $this->attributesValidation($reqAttributesByUser, $attributeNameArray, $arr);
+                if (!empty($reqAttributesByUser) && count($reqAttributesByUser)>0) {
+                    $newArray = array('Please fill all mandatory fields');
+                    foreach ($attributeNameArray as $attribute) {        
+                        if (array_key_exists($attribute, $reqAttributesByUser['all'])) {              
+                            $newArray[] = $arr[$attribute];
+                        }
+                    }
+                    if (count($newArray)>1) {
+                        $msg = join("<br />- ", $newArray);
+                        throw new ValidationException($msg, 1234);
+                    }
+                } else {
+                    $msg = join("<br />- ", $arr);
+                    throw new ValidationException($msg, 1234);
+                }
             }
-        }
-    }
-
-    public function attributesValidation($reqAttributesByUser, $attributeNameArray, $arr) {
-
-    if (!empty($reqAttributesByUser)) {
-        $newArray = array('Please fill all mandatory fields');
-        foreach ($attributeNameArray as $attribute) {
-            if (array_key_exists($attribute, $reqAttributesByUser['MandatoryAttributes'])) {
-                // if (array_key_exists($attribute, $reqAttributesByUser['all']) && array_key_exists($attribute, $reqAttributesByUser['byRole'])) {
-                $newArray[] = $arr[$attribute];
-            }
-        }
-        if (count($newArray)>1) {
-            $msg = join("<br />- ", $newArray);
-            throw new ValidationException($msg, 1234);
-        }
-        } else {
-            $msg = join("<br />- ", $arr);
-            throw new ValidationException($msg, 1234);
         }
     }
 
      
     public function checkForParentUnpublishValidation($product) {
         $parent = $product->getParent();
-        while($parent->getFullPath() != '/Contitech_IFSEU/Products') {
+        while($parent->getFullPath() != '/Contitech_IFS_EMEA/Products') {
             if ($parent->getType() != 'folder' && $parent->isPublished() == 0) {
                 throw new \Pimcore\Model\Element\ValidationException("Cannot publish product if parent product is unpublished");
             }

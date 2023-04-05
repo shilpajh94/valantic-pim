@@ -345,7 +345,7 @@ class PlantMaterialService
         $columnTotalReplenismentLeadTime =  $this->mappingCsvColumn['TotalReplenismentLeadTime'];
         $columnSafetyStock = $this->mappingCsvColumn['SafetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
-        //$columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
+        $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
         
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
@@ -364,7 +364,7 @@ class PlantMaterialService
         $totalReplenismentLeadTime =  $rowvalue[$columnTotalReplenismentLeadTime];
         $safetyStock =  $rowvalue[$columnSafetyStock];
         $stockIndicator =  $rowvalue[$columnStockIndicator];
-        //$unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
+        $unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
 
         $plantObjId = $this->getPlantObjectId($plantName);
         $salesOrgObjId = $this->getSalesOrgObjectId($salesOrg);
@@ -386,7 +386,7 @@ class PlantMaterialService
             'TotalReplenismentLeadTime' => $totalReplenismentLeadTime,
             'SafetyStock' => $safetyStock,
             'StockIndicator' => $stockIndicator,
-            //'UnitOfMeasure' => $unitOfMeasure,
+            'UnitOfMeasure' => $unitOfMeasure,
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [

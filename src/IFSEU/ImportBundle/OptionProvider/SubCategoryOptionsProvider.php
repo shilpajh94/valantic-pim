@@ -31,7 +31,7 @@ class SubCategoryOptionsProvider implements SelectOptionsProviderInterface {
         {
             if($listItem instanceof DataObject\IFSEUSubCategory)
             {
-            $optionsData[] = array ('key' => $listItem->getSubCategoryName(),'value' => $listItem->getSubCategoryCode());
+            $optionsData[] = array ('key' => $listItem->getSubCategoryName(),'value' => $listItem->getID());
             }
         }
 

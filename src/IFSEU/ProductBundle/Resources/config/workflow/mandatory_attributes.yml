@@ -1,10 +1,13 @@
 MandatoryAttributes:
-    - articleNumber
+    - MaterialNumber 
     - SIOPLevel1
     - SIOPLevel2
     - SIOPLevel3
     - SIOPLevel4
-    - eanUpc
-    - longDescription
-    - webDescription
-    - searchKeywords
+    - EANCode
+    - CommercialDescription 
+    - WebDescription
+    - SearchKeywords
+    - FeaturesBenefitsBulletPoint
+    - FieldsOfApplication 
+    - Proposition65WarningAttributesRequired

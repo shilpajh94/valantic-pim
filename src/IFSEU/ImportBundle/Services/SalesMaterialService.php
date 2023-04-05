@@ -223,7 +223,12 @@ class SalesMaterialService
         $columnPlant = $this->mappingCsvColumn['DeliveringPlant']; 
         $columnSalesUnit = $this->mappingCsvColumn['SalesUOM'];
         $columnDistChainStatus = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
-        
+        $columnMaterialGroup1 = $this->mappingCsvColumn['MaterialGroup1'];
+        $columnMaterialGroup2 = $this->mappingCsvColumn['MaterialGroup2'];
+        $columnMaterialGroup3 = $this->mappingCsvColumn['MaterialGroup3'];
+        $columnMaterialGroup4 = $this->mappingCsvColumn['MaterialGroup4'];
+        $columnMaterialGroup5 = $this->mappingCsvColumn['MaterialGroup5'];
+
         
         $columnSalesOrgDesc = $this->mappingCsvColumn['SalesOrgDesc'];
         
@@ -327,7 +332,11 @@ class SalesMaterialService
                         $epixFlag = '';
                         $deletionFlag = '';
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
-                        $materialGroup5Value = '';
+                        $materialGroup1 = $rowvalue[$columnMaterialGroup1];
+                        $materialGroup2 = $rowvalue[$columnMaterialGroup2];
+                        $materialGroup3 = $rowvalue[$columnMaterialGroup3];
+                        $materialGroup4 = $rowvalue[$columnMaterialGroup4];
+                        $materialGroup5 = $rowvalue[$columnMaterialGroup5];
                         $privateOrGenericBrand = '';
                         
                         $this->productUpdateArray[$materialId] = $material;
@@ -347,6 +356,11 @@ class SalesMaterialService
                             'privateBrand' => $privateOrGenericBrand,
                             'Material' => ",".$materialObjId.",",
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'MaterialGroup1' => $materialGroup1,
+                            'MaterialGroup2' => $materialGroup2,
+                            'MaterialGroup3' => $materialGroup3,
+                            'MaterialGroup4' => $materialGroup4,
+                            'MaterialGroup5' => $materialGroup5,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
                         
@@ -357,6 +371,11 @@ class SalesMaterialService
                             'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'MaterialGroup1' => $materialGroup1,
+                            'MaterialGroup2' => $materialGroup2,
+                            'MaterialGroup3' => $materialGroup3,
+                            'MaterialGroup4' => $materialGroup4,
+                            'MaterialGroup5' => $materialGroup5,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
                         
