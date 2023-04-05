@@ -203,6 +203,7 @@ class CategoryDataExport implements IDataExport
                                             fputcsv($file2, $record);
                                         }
                                         else{
+                                            unset($record['SalesForce_ID']);
                                             fputcsv($file1, $record);
                                         }
                                     }

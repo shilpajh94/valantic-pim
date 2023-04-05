@@ -582,9 +582,11 @@ class ProductDataExport implements IDataExport
 
                                             if($record['SalesForce_ID'])
                                             {
+                                                unset($record['SalesForce_ID']);
                                                 fputcsv($file2, $record);
                                             }
                                             else{
+                                                unset($record['SalesForce_ID']);
                                                 fputcsv($file1, $record);
                                             }
                                         }
