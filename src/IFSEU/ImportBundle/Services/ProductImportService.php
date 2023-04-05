@@ -83,7 +83,7 @@ class ProductImportService
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl','sv_SE','en_GB'];
+        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl_PL','sv_SE','en_GB'];
         $tables = $this->common->getParameter($this->materialConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
@@ -130,7 +130,7 @@ class ProductImportService
         }
         foreach($baseLevelCategoryList as $baseLevelCategoryData) {
             $categoryName = $baseLevelCategoryData['o_key'];
-            $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['CategoryCode'];
+            $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['oo_id'];
             unset($categoryName);
         }
     }
@@ -377,7 +377,6 @@ class ProductImportService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-
                 $this->setBricksData($objId, $bricksList, $type, $record);
 
                 unset($groupNames, $groupNamesArray, $bricksList);
@@ -636,7 +635,6 @@ class ProductImportService
             }
         }
         if(strtolower($productType) == 'base'){
-
             $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
@@ -858,7 +856,7 @@ class ProductImportService
         return null;
     }
     public function getCategoryCodeId($categoryName){
-    
+
         if (!empty($categoryName)) {
             if (!empty($this->BaseLevelCategory[$categoryName])) {
                 return $this->BaseLevelCategory[$categoryName];
