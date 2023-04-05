@@ -146,14 +146,11 @@ services:
     ifs_eu_import.unit_conversion_import_service:
         class: IFSEU\ImportBundle\Services\UnitConverterService
         public: true
-<<<<<<< Updated upstream
     IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
         public: true
 
     Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
             class: IFSEU\ProductBundle\Controller\ClassController
-=======
     ifs_eu_import.appServices:
         class: IFSEU\ImportBundle\Services\AppService
         public: true
->>>>>>> Stashed changes
