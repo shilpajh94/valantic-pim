@@ -50,6 +50,14 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         }
         
     },
+    postSaveObject: function(object){
+        // reload product on save
+        if(object.data.general.o_className =="IFSEUProduct"){
+            setTimeout(function(){
+            object.reload();
+            },100);
+        }
+    },
     productAjax:function(url,method,parms ){
         var resp ='';
         Ext.Ajax.request({

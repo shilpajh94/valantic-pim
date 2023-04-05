@@ -376,7 +376,6 @@ class ProductImportService
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-
                 $this->setBricksData($objId, $bricksList, $type, $record);
 
                 unset($groupNames, $groupNamesArray, $bricksList);

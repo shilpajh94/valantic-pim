@@ -223,7 +223,7 @@ class Product
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
-        
+        $conversionAttributeArr=[];
         foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
         { 
             $fieldName  = $brickAttributeConfig['fieldName'];
@@ -234,18 +234,20 @@ class Product
             {
                 
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
-                $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue)); 
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
+                if($attributeGroupName && !empty($fieldValue)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
+                }
                 if($fieldType=='Boolean Select')
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
                 }
-                
-                $bricksData[$fieldName] = $fieldValue;
+                if(array_key_exists($fieldName, $conversionAttributeArr)){
+                    $bricksData= $conversionAttributeArr;
+                }else{
+                    $bricksData[$fieldName] = $fieldValue;
+                }
             }
-        }
-        if($brick=='IFSEUHoseSkeleton')
-        {
-            dd($bricksData);
         }
         return $bricksData;
     }

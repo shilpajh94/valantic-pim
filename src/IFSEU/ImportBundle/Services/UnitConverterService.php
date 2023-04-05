@@ -17,7 +17,7 @@ class UnitConverterService
     /**
      * cache key for attribute to attribute group map
      */
-    CONST CACHE_KEY = 'attribute_to_attribute_group_map';
+    CONST CACHE_KEY = 'attribute_to_attribute_group_map_eu';
 
     /**
      * @var ConfigProviderService
@@ -108,7 +108,7 @@ class UnitConverterService
      * @param string $attributeName
      * @return null|string
      */
-    private function getAttributeGroupName(string $attributeName): ?string
+    public function getAttributeGroupName(string $attributeName): ?string
     {
         $returnValue = null;
         $map = \Pimcore\Cache::load(self::CACHE_KEY);
