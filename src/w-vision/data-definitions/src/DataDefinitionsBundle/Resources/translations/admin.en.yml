@@ -19,6 +19,7 @@ data_error_saving: "An unexpected error occurred while saving."
 data_file_not_valid: "Uploaded file not valid."
 data_name_not_valid: "File name should not contain space or special characters."
 config_name_not_valid: "Configuration name should not contain space or special characters."
+data_definitions_file_not_uploaded: "Upload csv file in Provider Settings Tab"
 data_definitions_csv_enclosure: 'Enclosure'
 data_definitions_csv_delimiter: 'Delimiter'
 data_definitions_excel_headers: 'Excel headers'
@@ -109,6 +110,7 @@ data_definitions_interpreter_generic_field: 'Match by field'
 data_definitions_interpreter_generic_match_unpublished: 'Match unpublished'
 data_definition_warning: 'Warning'
 data_definition_config_exists: 'Name already exists! Please provide a different name.'
+data_definition_name_required: 'Channel name cannot be empty'
 data_definition_not_found_relaod_admin: 'Data definition could not be found. Please reload the admin interface.'
 data_definition_import_processing: 'Processing... '
 data_definition_mandatory_field_check_failed: 'Could not get all the mandatory fields. Check application logger for more details.'

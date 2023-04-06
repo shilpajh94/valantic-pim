@@ -15,7 +15,7 @@ class CompletenessPercentageService
     private $productModel;
     private $localisedDataTableDataArray;
 
-    public function completenessPercentage($object)
+    public function completenessPercentage($object, $task)
     {
         $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
         AbstractObject::setGetInheritedValues(true);
@@ -80,15 +80,18 @@ class CompletenessPercentageService
                 }
             }
             $completedPercentage = round((($count / $totalFields) * 100), 2);
-            // $object->setCompletenessPercentage($completedPercentage, $lang);
-            // $object->setEmptyFields($emptyAttributes . $emptyObjectBrickAttributes . $emptyAttributesLocalized, $lang);
-            $this->localisedDataTableDataArray[] = [
-                'ooo_id' => $object->getId(),
-                'language' => $lang,
-                'CompletenessPercentage' => $completedPercentage,
-                'EmptyFields'=>$emptyAttributes.$emptyObjectBrickAttributes.$emptyAttributesLocalized,];
-               if (!empty($this->localisedDataTableDataArray)) {
-              $this->productModel->insertIntoProductTable($this->localisedDataTableDataArray, 'object_localized_data_IFSEUProduct');
+            if($task == 'save'){
+                $object->setCompletenessPercentage($completedPercentage, $lang);
+                $object->setEmptyFields($emptyAttributes . $emptyObjectBrickAttributes . $emptyAttributesLocalized, $lang);
+            }else{
+                $this->localisedDataTableDataArray[] = [
+                    'ooo_id' => $object->getId(),
+                    'language' => $lang,
+                    'CompletenessPercentage' => $completedPercentage,
+                    'EmptyFields'=>$emptyAttributes.$emptyObjectBrickAttributes.$emptyAttributesLocalized,];
+                   if (!empty($this->localisedDataTableDataArray)) {
+                  $this->productModel->insertIntoProductTable($this->localisedDataTableDataArray, 'object_localized_data_IFSEUProduct');
+                }    
             }
             $emptyFieldCounter = 0;
             $emptyFieldLocalizedCounter = 0;

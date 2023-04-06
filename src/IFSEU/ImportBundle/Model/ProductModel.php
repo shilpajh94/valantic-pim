@@ -152,7 +152,7 @@ class ProductModel
         foreach ($arrData as $data) {
             $newData= $data;
             $id     = $data[0];
-            $siopfullcode = $data[28];
+            $siopfullcode = $data[29];
             $record = addslashes(json_encode($newData, true));
             $hash   = md5($record);
             $values.= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
