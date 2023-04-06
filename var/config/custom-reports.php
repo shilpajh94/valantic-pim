@@ -7398,14 +7398,94 @@ return [
         "dataSourceConfig" => [
             [
                 "sql" => "SELECT \no1.`o_key` as `Key`,\no1.`materialNumber` AS `Material Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nen.`EmptyFields`as `Empty Fields`, \nen.CompletenessPercentage \"COMPLETED (%)\",\no1.`ProductType` AS `Product Type`,\no1.`o_id` as  `Id`",
-                "from" => "object_IFSEUProduct o1 \nLEFT JOIN `object_localized_IFSEUProduct_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`",
-                "where" => "WHERE\n    (o1.`o_published` =1) AND (en.`CompletenessPercentage`  != \"\")",
+                "from" => "object_IFSEUProduct o1 \nLEFT JOIN `object_localized_data_IFSEUProduct` en \n\tON `en`.`ooo_id` = `o1`.`o_id`",
+                "where" => "WHERE\n    (o1.`o_published` =1) AND (en.`CompletenessPercentage`  != \"\") AND (en.`language` LIKE 'en')",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-
+            [
+                "name" => "Key",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-1"
+            ],
+            [
+                "name" => "Material Number",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-2"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-3"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-4"
+            ],
+            [
+                "name" => "Path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-5"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-6"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-7"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-8"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-9"
+            ]
         ],
         "niceName" => "IFSEU - ProductCompleteness",
         "group" => "IFS_EU",
@@ -7420,7 +7500,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1678774632,
+        "modificationDate" => 1680786933,
         "creationDate" => 1675059262,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
