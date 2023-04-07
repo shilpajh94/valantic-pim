@@ -241,6 +241,9 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 }
                                             }
                                             
+                                            $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdDG);
+                                            $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdDG);
+
                                             if($this->editmode): 
                                                 if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
                                                     if($this->input('dualgrip' . $uniqueIdDG)->isEmpty()): 
@@ -289,6 +292,9 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 <?php
                                                 }
                                             }
+
+                                            $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdNS);
+                                            $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdNS);
 
                                             if($this->editmode): 
                                                 if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
