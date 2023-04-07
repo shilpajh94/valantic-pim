@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-13T11:00:46+01:00
+* Generated at: 2023-04-07T06:32:45+02:00
 * IP: 127.0.0.1
 
 
@@ -15,6 +15,7 @@ Fields Summary:
 - hoseIdNominalActualId [numeric]
 - hoseIdMMActualId [numeric]
 - FittingFamily [multiselect]
+- SkeletonBrickMapping [input]
 - workingPressureBAR [numeric]
 - workingPressurePSI [numeric]
 - workingPressureMPA [numeric]
@@ -364,27 +365,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   array (
                     'key' => 'Aluminum',
-                    'value' => NULL,
+                    'value' => 14699797,
                   ),
                   1 => 
                   array (
                     'key' => 'Stainless Steel',
-                    'value' => NULL,
+                    'value' => 14699798,
                   ),
                   2 => 
                   array (
                     'key' => 'Brass',
-                    'value' => NULL,
+                    'value' => 14699799,
                   ),
                   3 => 
                   array (
                     'key' => 'Carbon Steel',
-                    'value' => NULL,
+                    'value' => 14699800,
                   ),
                   4 => 
                   array (
                     'key' => 'Steel',
-                    'value' => NULL,
+                    'value' => 14699801,
                   ),
                 ),
                  'width' => 200,
@@ -411,6 +412,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+              )),
+              9 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'SkeletonBrickMapping',
+                 'title' => 'SkeletonBrickMapping',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
