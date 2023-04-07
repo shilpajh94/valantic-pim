@@ -240,8 +240,22 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 <?php
                                                 }
                                             }
+                                            
+                                            if($this->editmode): 
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    if($this->input('dualgrip' . $uniqueIdDG)->isEmpty()): 
+                                                        echo $this->input('dualgrip' . $uniqueIdDG)->setDataFromResource('Dual-Grip Style');
+                                                    else: 
+                                                    echo $this->input('dualgrip' . $uniqueIdDG); 
+                                                    endif; 
+                                                endif;
+                                            else:
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    echo $this->input('dualgrip' . $uniqueIdDG);
+                                                endif; 
+                                            endif; 
                                             ?>
-                                            Dual-Grip Style 
+                                             
                                         </span>
                                         
                                         <span>
@@ -275,8 +289,23 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 <?php
                                                 }
                                             }
+
+                                            if($this->editmode): 
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    if($this->input('unicrimp' . $uniqueIdNS)->isEmpty()): 
+                                                        echo $this->input('unicrimp' . $uniqueIdNS)->setDataFromResource('Uni-Crimp™ Style');
+                                                    else: 
+                                                    echo $this->input('unicrimp' . $uniqueIdNS); 
+                                                    endif; 
+                                                endif;
+                                            else:
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    echo $this->input('unicrimp' . $uniqueIdNS);
+                                                endif; 
+                                            endif; 
+
                                             ?>
-                                            Uni-Crimp™ Style
+                                            
                                         </span>
                                         
                                         <?php
