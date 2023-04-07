@@ -19,11 +19,13 @@ use Pimcore\Model\Element\ValidationException;
  *
  */
 
-class IFSEUMandatoryValidationService {
+class IFSEUMandatoryValidationService
+{
 
     private $productConfig;
 
-    public function checkValidationApplicability($product) {
+    public function checkValidationApplicability($product)
+    {
         $config = $this->getConfigFromYmlFile(IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH);
         $applyValidation = false;
         if (isset($config['MandatoryAttributes']) && !empty($config['MandatoryAttributes'])) {
@@ -31,7 +33,7 @@ class IFSEUMandatoryValidationService {
             $applyValidation = true;
         } else {
             $parent = $product->getParent();
-            while ($parent->getType()=='folder' && $parent->getFullPath() != "/Contitech_IFS_EMEA/Products") {
+            while ($parent->getType() == 'folder' && $parent->getFullPath() != "/Contitech_IFS_EMEA/Products") {
                 $parent = $parent->getParent();
             }
             if ($parent->getType() != 'folder' && $parent instanceof DataObject\IFSEUProduct) {
@@ -44,15 +46,21 @@ class IFSEUMandatoryValidationService {
         return $applyValidation;
     }
 
-    public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
-            
+    public function checkForMandatoryValidation($product, $reqAttributesByUser = [])
+    {
         if (!empty($this->productConfig)) {
             $product->setGetInheritedValues(true);
             $className = $product->getClassName();
             $arr = array('Please fill all mandatory fields');
             $attributeNameArray = [];
-            foreach ($this->productConfig as $fieldName) {
-                    if($fieldName!= 'FieldsOfApplication'){
+            $attributeNameArrayValidate = [];
+            $productType = $product->getProductType();
+            foreach ($this->productConfig as $cnf) {
+                $fieldName = $cnf['fieldName'];
+                $fieldLevel = $cnf['fieldLevel'];
+                $fieldType = $cnf['fieldType'];
+                if($fieldLevel == $productType){
+                    if($fieldType != 'objectBrick'){
                         $method = "get$fieldName";
                         $class = DataObject\ClassDefinition::getByName($className);
                         $fieldTitle = $class->getFieldDefinition($fieldName);
@@ -63,21 +71,17 @@ class IFSEUMandatoryValidationService {
                         }
                         $value = $product->$method();
                         if (empty($value) && ($value != false || $value != '0')) {
-                            if($fieldTitle == 'Proposition65WarningAttributesRequired'){
-                                $arr[$fieldName] = "$fieldTitle in Finished Goods Data";
-                            }else{
-                                $arr[$fieldName] = "$fieldTitle in Brand Data";
-                            }
+                            $arr[$fieldName] = "$fieldTitle in ".$productType." data";
                             $attributeNameArray[] = $fieldName;
                         }
-                    }
-                    else{
-                        $getBrickMethod = "getIFSEUHoseBase";
+                    }else{
+                        $objectBrickName=$cnf['objectBrickName'];
+                        $getBrickMethod = "get".$objectBrickName;
                         $getBrickAttributeMethod = "get$fieldName";
                         $brickObject = $product->getBase()->$getBrickMethod();
                         if (!empty($brickObject)) {
                             $v = $product->getBase()->$getBrickMethod()->$getBrickAttributeMethod();
-                            $brickClass =  DataObject\Objectbrick\Definition::getByKey('IFSEUHoseBase');
+                            $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectBrickName);
                             $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
                             $objectTitle = $brickClass->getTitle();
                             if (empty($v)) {
@@ -86,37 +90,38 @@ class IFSEUMandatoryValidationService {
                             }
                         }
                     }
-                   
+                }   
             }
-
-            if (count($arr) > 1) {
-                if (!empty($reqAttributesByUser) && count($reqAttributesByUser)>0) {
-                    $newArray = array('Please fill all mandatory fields');
-                    foreach ($attributeNameArray as $attribute) {        
-                        if (array_key_exists($attribute, $reqAttributesByUser['all'])) {              
-                            $newArray[] = $arr[$attribute];
+            
+            if(count($arr) > 1){
+                if (!empty($reqAttributesByUser) && count($reqAttributesByUser) > 0) {
+                    $attributeNameArrayValidate = array('Please fill all mandatory fields');
+                    foreach ($attributeNameArray as $attribute) {
+                        if (array_key_exists($attribute, $reqAttributesByUser['all'])) {
+                            $attributeNameArrayValidate[] = $arr[$attribute];
                         }
                     }
-                    if (count($newArray)>1) {
-                        $msg = join("<br />- ", $newArray);
+                    if (count($attributeNameArrayValidate) > 1) {
+                        $msg = join("<br />- ", $attributeNameArrayValidate);
                         throw new ValidationException($msg, 1234);
                     }
-                } else {
-                    $msg = join("<br />- ", $arr);
-                    throw new ValidationException($msg, 1234);
                 }
-            }
+                else {
+                        $msg = join("<br />- ", $arr);
+                        throw new ValidationException($msg, 1234);
+                }
+            }        
         }
     }
 
-     
-    public function checkForParentUnpublishValidation($product) {
+
+    public function checkForParentUnpublishValidation($product)
+    {
         $parent = $product->getParent();
-        while($parent->getFullPath() != '/Contitech_IFS_EMEA/Products') {
+        while ($parent->getFullPath() != '/Contitech_IFS_EMEA/Products') {
             if ($parent->getType() != 'folder' && $parent->isPublished() == 0) {
                 throw new \Pimcore\Model\Element\ValidationException("Cannot publish product if parent product is unpublished");
-            }
-            else{
+            } else {
                 $parent = $parent->getParent();
             }
         }

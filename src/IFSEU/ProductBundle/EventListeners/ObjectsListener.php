@@ -28,7 +28,7 @@ class ObjectsListener
             
             if ($className == 'IFSEUProduct') 
             {
-                $this->percentageCompletionService->completenessPercentage($object);
+                $this->percentageCompletionService->completenessPercentage($object, 'save');
             }
         }
     } 

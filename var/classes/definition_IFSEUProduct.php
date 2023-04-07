@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-04T13:14:09+05:30
+* Generated at: 2023-04-06T13:37:38+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680594240,
+   'modificationDate' => 1680768443,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1220,28 +1220,213 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'key' => 'MBM - Machine Building & Manufacturing',
-                                        'value' => 14709067,
+                                        'key' => 'Water Hoses',
+                                        'value' => 14715053,
                                       ),
                                       1 => 
                                       array (
-                                        'key' => 'SMH - Solid & Material Handling',
-                                        'value' => 14709068,
+                                        'key' => 'Hoses for Beverage / Food / Cosmetics / Pharmacy',
+                                        'value' => 14715054,
                                       ),
                                       2 => 
                                       array (
-                                        'key' => 'PCH - Fuels & Chemicals',
-                                        'value' => 14709069,
+                                        'key' => 'Steam and Cleaning Hoses',
+                                        'value' => 14715055,
                                       ),
                                       3 => 
                                       array (
-                                        'key' => 'FBWM - Food',
-                                        'value' => 14709070,
+                                        'key' => 'Compressed Air Hoses',
+                                        'value' => 14715056,
                                       ),
                                       4 => 
                                       array (
-                                        'key' => 'FCHA - Fitting',
-                                        'value' => 14709071,
+                                        'key' => 'Gas Hoses',
+                                        'value' => 14715057,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Multi-Purpose Hoses',
+                                        'value' => 14715058,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Construction and Transport Hoses',
+                                        'value' => 14715059,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'Big-bore Hoses',
+                                        'value' => 14715060,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Hydraulic Hoses',
+                                        'value' => 14715061,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Chemical and Refueling Hoses',
+                                        'value' => 14715062,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => 'Miscellaneous Hoses',
+                                        'value' => 14715063,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Oil Hoses',
+                                        'value' => 14715064,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Fuel Hoses',
+                                        'value' => 14715065,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => 'Air-conditioning hoses',
+                                        'value' => 14715066,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => 'Railroad hoses',
+                                        'value' => 14715067,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => 'Air Hoses',
+                                        'value' => 14715068,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => 'Chemical & Refueling Hoses',
+                                        'value' => 14715069,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => 'Steam & Cleaning Hoses',
+                                        'value' => 14715070,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => 'Beverage & Foodstuff Hoses',
+                                        'value' => 14715071,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => 'Material Handling & Mining Hoses',
+                                        'value' => 14715072,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => 'Autogenous Hoses',
+                                        'value' => 14715073,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => 'Specialty Hoses',
+                                        'value' => 14715074,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => 'Vacuum Hoses',
+                                        'value' => 14715075,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => 'Marine Hoses',
+                                        'value' => 14715076,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => 'Coupling Systems ',
+                                        'value' => 14715077,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => 'ARCHIV',
+                                        'value' => 14715078,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => 'Special hoses',
+                                        'value' => 14715079,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => 'Rig Supply hoses',
+                                        'value' => 14715080,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => 'Dredge hoses',
+                                        'value' => 14715081,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => 'Spiralati',
+                                        'value' => 14715082,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => 'Aria',
+                                        'value' => 14715083,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => 'Armorvin',
+                                        'value' => 14715084,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => 'DragonTail',
+                                        'value' => 14715085,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => 'Jamaica',
+                                        'value' => 14715086,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => 'Retinati',
+                                        'value' => 14715087,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => 'Spiralina',
+                                        'value' => 14715088,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => 'Superflex',
+                                        'value' => 14715089,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => 'Vacupress',
+                                        'value' => 14715090,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => 'Thermoplastic Hose',
+                                        'value' => 14715091,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => 'Marine hoses',
+                                        'value' => 14715092,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => 'High pressure hoses',
+                                        'value' => 14715093,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => 'Sea Water Intake',
+                                        'value' => 14715094,
                                       ),
                                     ),
                                      'width' => 300,
@@ -5497,17 +5682,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'key' => 'IFS',
-                                        'value' => 'IFS',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'PTG',
-                                        'value' => 'PTG',
+                                        'key' => 'IFSEU',
+                                        'value' => 'IFSEU',
                                       ),
                                     ),
                                      'width' => 250,
-                                     'defaultValue' => 'IFS',
+                                     'defaultValue' => 'IFSEU',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'varchar',

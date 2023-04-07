@@ -84,7 +84,7 @@ class ProductService
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl','sv_SE','en_GB'];
+        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl_PL','sv_SE','en_GB'];
         $tables = $this->common->getParameter($this->materialConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
@@ -136,7 +136,7 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                // $this->productModel->processDeletedProducts();
+                $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -516,7 +516,7 @@ class ProductService
                 $siopData[$index] = null;
             }
         }
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -591,7 +591,7 @@ class ProductService
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -739,7 +739,7 @@ class ProductService
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
                     // $object->save();
-                    $this->percentageCompletionService->completenessPercentage($object);
+                    $this->percentageCompletionService->completenessPercentage($object, 'import');
                 }
             }
         }
