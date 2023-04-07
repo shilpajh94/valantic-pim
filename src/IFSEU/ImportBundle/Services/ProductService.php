@@ -516,7 +516,7 @@ class ProductService
                 $siopData[$index] = null;
             }
         }
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -591,7 +591,7 @@ class ProductService
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -739,7 +739,7 @@ class ProductService
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
                     // $object->save();
-                    $this->percentageCompletionService->completenessPercentage($object);
+                    $this->percentageCompletionService->completenessPercentage($object, 'import');
                 }
             }
         }
