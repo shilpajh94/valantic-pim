@@ -1,0 +1,8 @@
+parameters:
+    Attribute:  
+        MainImage:
+            db_column_name: mainImage
+        FrontView:
+            db_column_name: frontView
+        
+            

@@ -84,6 +84,10 @@ services:
         tags:
             - { name: 'console.command', command: 'ifs-eu-brand-master-data-import-command' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\IFSEUProductAssetImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:one-time-import:product-asset-import' }
+
 
     
     # Helpers
@@ -109,6 +113,10 @@ services:
         public: true
     ifs_eu_import.config_provider_service:
         class: IFSEU\ImportBundle\Services\ConfigProviderService
+        public: true
+
+    ifs_eu_import.sap_product_asset_service:
+        class: IFSEU\ImportBundle\Services\ProductAssetMappingService
         public: true
 
     ifs_eu_import.category_brick_mapping_service:
