@@ -155,3 +155,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.completed, method: ifsEuWorkflowNotification }
             - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.transition, method: ifsEuWorkflowActions }
+
+    ifs_eu_import.appServices:
+        class: IFSEU\ImportBundle\Services\AppService
+        public: true
