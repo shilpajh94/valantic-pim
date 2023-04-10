@@ -346,19 +346,19 @@ parameters:
             widthSetting:
                 DescriptivePartNumber: ''
                 industryStandard: ''
-                articleNumber: ''
-                HoseID1InFract: ''
-                ThreadSize1InMMDecimal: ''
-                Hex1WrenchSizeIN: ''
-                Hex1WrenchSizeMM: ''
+                articleNumber: 55
+                HoseID1InFract: 60
+                ThreadSize1InMMDecimal: 77
+                Hex1WrenchSizeIN: 77
+                Hex1WrenchSizeMM: 77
                 Hex1WrenchSizeFraction: ''
-                DropLengthIND: ''
-                ropLengthMM: ''
-                CutOffLengthIN: ''
-                CutOffLengthMM: ''
-                OverallLengthIN: ''
-                OverallLengthMm: ''
-                SkiveType: ''
+                DropLengthIND: 77
+                ropLengthMM: 77
+                CutOffLengthIN: 77
+                CutOffLengthMM: 77
+                OverallLengthIN: 77
+                OverallLengthMm: 77
+                SkiveType: 45
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex1WrenchSizeFraction', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
         Fitting-Ferrule:
             widthSetting:
@@ -582,35 +582,35 @@ parameters:
             widthSetting:
                 DescriptivePartNumber: ''
                 industryStandard: ''
-                articleNumber: ''
-                HoseID1InFract: ''
+                articleNumber: 55
+                HoseID1InFract: 60
                 ThreadSize1InMMDecimal: ''
-                Hex1WrenchSizeIN: ''
-                Hex1WrenchSizeMM: ''
+                Hex1WrenchSizeIN: 77
+                Hex1WrenchSizeMM: 77
                 Hex1WrenchSizeFraction: ''
-                CutOffLengthIN: ''
-                CutOffLengthMM: ''
-                OverallLengthIN: ''
-                OverallLengthMm: ''
-                SkiveType: ''
+                CutOffLengthIN: 77
+                CutOffLengthMM: 77
+                OverallLengthIN: 77
+                OverallLengthMm: 77
+                SkiveType: 45
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex1WrenchSizeFraction', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
         Fitting-Straight Skive 2:
             widthSetting:
                 DescriptivePartNumber: ''
                 industryStandard: ''
-                articleNumber: ''
-                HoseID1InFract: ''
+                articleNumber: 60
+                HoseID1InFract: 60
                 ThreadSize1InMMDecimal: ''
-                Hex1WrenchSizeIN: ''
-                Hex1WrenchSizeMM: ''
+                Hex1WrenchSizeIN: 77
+                Hex1WrenchSizeMM: 77
                 Hex1WrenchSizeFraction: ''
-                Hex2WrenchSizeIN: ''
-                Hex2WrenchSizeMM: ''
-                CutOffLengthIN: ''
-                CutOffLengthMM: ''
-                OverallLengthIN: ''
-                OverallLengthMm: ''
-                SkiveType: ''
+                Hex2WrenchSizeIN: 77
+                Hex2WrenchSizeMM: 77
+                CutOffLengthIN: 77
+                CutOffLengthMM: 77
+                OverallLengthIN: 77
+                OverallLengthMm: 77
+                SkiveType: 50
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex1WrenchSizeFraction','Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
         Fitting-Union:
             widthSetting:
