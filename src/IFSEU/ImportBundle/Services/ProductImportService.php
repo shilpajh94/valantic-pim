@@ -50,6 +50,7 @@ class ProductImportService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
+    private $mapBricksArray;
     private $percentageCompletionService;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
@@ -260,6 +261,7 @@ class ProductImportService
         $this->relationTableDataDeleteArray = [];
         $this->dependencyTableDataArray = [];
         $this->bricksDataArray = [];
+        $this->mapBricksArray = [];
         foreach ($this->langArr as $lang) {
             $this->localisedQueryTableDataArray[$lang] = [];    
         }
@@ -302,6 +304,13 @@ class ProductImportService
         if (!empty($this->dependencyTableDataArray)) {
             $this->productModel->insertIntoProductTable($this->dependencyTableDataArray, 'dependencies');
         }
+        if (!empty($this->mapBricksArray)) {
+            foreach ($this->mapBricksArray as $tbl => $data) {
+                if (!empty($data)) {
+                    $this->productModel->insertIntoProductTable($data, $tbl);
+                }
+            }
+        }
         if (!empty($this->bricksDataArray)) {
             foreach ($this->bricksDataArray as $tbl => $data) {
                 if (!empty($data)) {
@@ -322,7 +331,6 @@ class ProductImportService
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
         
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
-        
         if ($type == 'base' || $type == 'skeleton') {
             $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
             $currentLevelArray = explode('/', $currentLevelPath);
@@ -344,7 +352,6 @@ class ProductImportService
             'o_className' => 'IFSEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
-
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
                 // Need to check the current path of fert, changed or not
@@ -365,13 +372,13 @@ class ProductImportService
                 }
             }
             $objId = $this->productModel->insertInObjects($objectArr);
-
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
             $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
+            $this->getBricksDataForMapping($objId);
 
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
             $groupNames = trim($groupNames, ',');
@@ -379,7 +386,6 @@ class ProductImportService
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
                 $this->setBricksData($objId, $bricksList, $type, $record);
-
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
@@ -405,7 +411,7 @@ class ProductImportService
 
                 if($this->productModel->checkHierarchyExistAtLevel($prodHier6, 6) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
                     
-                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                    // if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
                         $record = array(
                             'code'  =>  $siopCode,
@@ -417,9 +423,9 @@ class ProductImportService
 
                         $status = $result['status'];
                         $msg    = $result['msg'];
-                    } else {
-                        $msg = 'Material Group code can not be empty.';
-                    }
+                    // } else {
+                    //     $msg = 'Material Group code can not be empty.';
+                    // }
                 }
                 else
                 {
@@ -816,10 +822,15 @@ class ProductImportService
             }
         }
     }
-    
+    public function getBricksDataForMapping($objId){
+        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+
+        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+    }
     public function setBricksData($objId, $bricks, $type,$record) {
         try{
-            
             $csvHeader      = array_flip($this->csvHeader); 
             $rowData        = array_combine($csvHeader, $record);
             foreach ($bricks as $brick) {

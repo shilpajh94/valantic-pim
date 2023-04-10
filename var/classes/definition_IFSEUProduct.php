@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-06T13:37:38+05:30
+* Generated at: 2023-04-10T14:23:49+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680768443,
+   'modificationDate' => 1681116815,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5419,7 +5419,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => true,
+                                     'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -5450,7 +5450,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => true,
+                                     'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -6158,7 +6158,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => true,
+                                     'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -6189,7 +6189,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => true,
+                                     'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -6560,7 +6560,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => true,
+                                     'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -21890,7 +21890,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
-                         'invisible' => true,
+                         'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
