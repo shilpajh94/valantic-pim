@@ -7140,9 +7140,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\no1.`o_key` as `Key`,\n o1.`materialNumber` AS `Material Number`, \nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code` ,\nIF(o1.`mainImage` IS NOT NULL, \"True\", \"False\") AS `Main Image`, \nIF(o1.`frontView` IS NOT NULL, \"True\", \"False\") AS `Front View Image`,\nIF(o1.`sideView` IS NOT NULL, \"True\", \"False\") AS `Side View Image`,\nIF(o1.`cutView` IS NOT NULL, \"True\", \"False\") AS `Cut View Image`,\nIF(o1.`epixImage` IS NOT NULL, \"True\", \"False\") AS `Epix Image`,\nIF(o1.`altImage1` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 1`,\nIF(o1.`altImage2` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 2`,\nIF(o1.`altImage3` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 3`,\nIF(o1.`altImage4` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 4`,\nIF(o1.`altImage5` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 5`,\nIF(o1.`altImage6` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 6`,\nIF(o1.`altImage7` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 7`,\nIF(o1.`altImage8` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 8`,\nIF(o1.`certificationImage` IS NOT NULL, \"True\", \"False\") AS `Certification Image`,\nIF(o1.`TeaserImage` IS NOT NULL, \"True\", \"False\") AS `Teaser Image`,\nIF(o1.`Images360__images` IS NOT NULL, \"True\", \"False\") AS `Images 360`,\nIF(o1.`LeftPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Left Image`,\nIF(o1.`RightPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Right Image`,\no1.`ProductType` AS `Product Type`,\no1.`o_id`",
+                "sql" => "SELECT\no1.`o_key` as `Key`,\n o1.`materialNumber` AS `Material Number`, \nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code` ,\nIF(o1.`mainImage` IS NOT NULL, \"True\", \"False\") AS `Main Image`, \nIF(o1.`frontView` IS NOT NULL, \"True\", \"False\") AS `Front View Image`,\nIF(o1.`sideView` IS NOT NULL, \"True\", \"False\") AS `Side View Image`,\nIF(o1.`cutView` IS NOT NULL, \"True\", \"False\") AS `Cut View Image`,\nIF(o1.`epixImage` IS NOT NULL, \"True\", \"False\") AS `Epix Image`,\nIF(o1.`altImage1` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 1`,\nIF(o1.`altImage2` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 2`,\nIF(o1.`altImage3` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 3`,\nIF(o1.`altImage4` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 4`,\nIF(o1.`altImage5` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 5`,\nIF(o1.`altImage6` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 6`,\nIF(o1.`altImage7` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 7`,\nIF(o1.`altImage8` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 8`,\nIF(o1.`certificationImage` IS NOT NULL, \"True\", \"False\") AS `Certification Image`,\nIF(o1.`TeaserImage` IS NOT NULL, \"True\", \"False\") AS `Teaser Image`,\nIF(o1.`Images360__images` IS NOT NULL, \"True\", \"False\") AS `Images 360`,\nIF(o1.`LeftPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Left Image`,\nIF(o1.`RightPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Right Image`,\nIF(o1.`DrawingPictureForCatalog` IS NOT NULL, \"True\", \"False\") AS `Drawing Picture`,\no1.`ProductType` AS `Product Type`,\no1.`o_id`",
                 "from" => "FROM object_IFSEUProduct o1 \nLEFT JOIN `object_localized_IFSEUProduct_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_IFSEUCategory_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat7 \n\tON cat7.ooo_id = SUBSTRING(o1.SIOPLevel7,2,(LENGTH(o1.SIOPLevel7) - 2))",
-                "where" => "WHERE (\n\to1.`mainImage` IS NULL OR \n\to1.`frontView` IS NULL OR \n\to1.`sideView` IS NULL OR \n\to1.`cutView` IS NULL OR \n\to1.`epixImage` IS NULL OR \n\to1.`altImage1` IS NULL OR \n\to1.`altImage2` IS NULL OR \n\to1.`altImage3` IS NULL OR \n\to1.`altImage4` IS NULL OR \n\to1.`altImage5` IS NULL OR \n\to1.`altImage6` IS NULL OR \n\to1.`altImage7` IS NULL OR \n\to1.`altImage8` IS NULL OR \n\to1.`certificationImage` IS NULL OR\n\to1.`TeaserImage` IS NULL OR\n\to1.`Images360__images` IS NULL OR\n\to1.`LeftPrintCatalogImage` IS NULL OR\n\to1.`RightPrintCatalogImage` IS NULL) AND \n\t(o1.`o_published` =1)\t",
+                "where" => "WHERE (\n\to1.`mainImage` IS NULL OR \n\to1.`frontView` IS NULL OR \n\to1.`sideView` IS NULL OR \n\to1.`cutView` IS NULL OR \n\to1.`epixImage` IS NULL OR \n\to1.`altImage1` IS NULL OR \n\to1.`altImage2` IS NULL OR \n\to1.`altImage3` IS NULL OR \n\to1.`altImage4` IS NULL OR \n\to1.`altImage5` IS NULL OR \n\to1.`altImage6` IS NULL OR \n\to1.`altImage7` IS NULL OR \n\to1.`altImage8` IS NULL OR \n\to1.`certificationImage` IS NULL OR\n\to1.`TeaserImage` IS NULL OR\n\to1.`Images360__images` IS NULL OR\n\to1.`LeftPrintCatalogImage` IS NULL OR\n\to1.`RightPrintCatalogImage` IS NULL OR\n\to1.`DrawingPictureForCatalog` IS NULL ) AND \n\t(o1.`o_published` =1)\t",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -7155,7 +7155,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-1"
+                "id" => "extModel461-1"
             ],
             [
                 "name" => "Material Number",
@@ -7164,7 +7164,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-2"
+                "id" => "extModel461-2"
             ],
             [
                 "name" => "SAP Description",
@@ -7173,7 +7173,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-3"
+                "id" => "extModel461-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -7182,7 +7182,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-4"
+                "id" => "extModel461-4"
             ],
             [
                 "name" => "Main Image",
@@ -7191,7 +7191,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-5"
+                "id" => "extModel461-5"
             ],
             [
                 "name" => "Front View Image",
@@ -7200,7 +7200,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-6"
+                "id" => "extModel461-6"
             ],
             [
                 "name" => "Side View Image",
@@ -7209,7 +7209,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-7"
+                "id" => "extModel461-7"
             ],
             [
                 "name" => "Cut View Image",
@@ -7218,7 +7218,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-8"
+                "id" => "extModel461-8"
             ],
             [
                 "name" => "Epix Image",
@@ -7227,7 +7227,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-9"
+                "id" => "extModel461-9"
             ],
             [
                 "name" => "Alternate Image 1",
@@ -7236,7 +7236,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-10"
+                "id" => "extModel461-10"
             ],
             [
                 "name" => "Alternate Image 2",
@@ -7245,7 +7245,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-11"
+                "id" => "extModel461-11"
             ],
             [
                 "name" => "Alternate Image 3",
@@ -7254,7 +7254,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-12"
+                "id" => "extModel461-12"
             ],
             [
                 "name" => "Alternate Image 4",
@@ -7263,7 +7263,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-13"
+                "id" => "extModel461-13"
             ],
             [
                 "name" => "Alternate Image 5",
@@ -7272,7 +7272,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-14"
+                "id" => "extModel461-14"
             ],
             [
                 "name" => "Alternate Image 6",
@@ -7281,7 +7281,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-15"
+                "id" => "extModel461-15"
             ],
             [
                 "name" => "Alternate Image 7",
@@ -7290,7 +7290,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-16"
+                "id" => "extModel461-16"
             ],
             [
                 "name" => "Alternate Image 8",
@@ -7299,7 +7299,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-17"
+                "id" => "extModel461-17"
             ],
             [
                 "name" => "Certification Image",
@@ -7308,7 +7308,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-18"
+                "id" => "extModel461-18"
             ],
             [
                 "name" => "Teaser Image",
@@ -7317,7 +7317,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-19"
+                "id" => "extModel461-19"
             ],
             [
                 "name" => "Images 360",
@@ -7326,7 +7326,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-20"
+                "id" => "extModel461-20"
             ],
             [
                 "name" => "Left Image",
@@ -7335,7 +7335,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-21"
+                "id" => "extModel461-21"
             ],
             [
                 "name" => "Right Image",
@@ -7344,7 +7344,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-22"
+                "id" => "extModel461-22"
             ],
             [
                 "name" => "Product Type",
@@ -7353,7 +7353,16 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3001-23"
+                "id" => "extModel461-23"
+            ],
+            [
+                "name" => "Drawing Picture",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel461-25"
             ],
             [
                 "name" => "o_id",
@@ -7363,7 +7372,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel3001-24"
+                "id" => "extModel461-24"
             ]
         ],
         "niceName" => "IFSEU - Missing Assets On Products",
@@ -7379,7 +7388,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1680966426,
+        "modificationDate" => 1681117005,
         "creationDate" => 1674647902,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-08T12:09:27+05:30
+* Generated at: 2023-04-10T14:23:49+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680935947,
+   'modificationDate' => 1681116815,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -21890,7 +21890,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
-                         'invisible' => true,
+                         'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
