@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-27T12:24:12+01:00
+* Generated at: 2023-04-08T19:39:13+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,7 +20,6 @@ Fields Summary:
 - StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifierOrProcurementType [select]
 - AvailabilityCheckCode [input]
-- ProfitCenter [input]
 - UnitOfMeasure [input]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
@@ -39,7 +38,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1677497052,
+   'modificationDate' => 1680962952,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -531,34 +530,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 350,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'ProfitCenter',
-                     'title' => 'Profit Center',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 350,

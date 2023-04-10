@@ -59,9 +59,6 @@ class PlantMaterialService
             $this->fileColumns = $csvInfo['header'];
             $excelDataNewArray  = $csvInfo['data'];
 
-            // remove once testing done
-            $excelDataNewArray = (array_slice($excelDataNewArray, 1, 5));
-
             echo 'Importing File: ' . $this->filePath.PHP_EOL;
             $time = new \DateTime();
             

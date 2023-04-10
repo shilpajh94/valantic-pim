@@ -249,6 +249,9 @@ class SalesMaterialService
         foreach ($data as $rowCount => $rowvalueRecord) {
             
             $rowvalue = json_decode($rowvalueRecord['record']);
+            if($rowvalue == null){
+                continue;
+            }
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
 
             $plantName = $rowvalue[$columnPlant];
