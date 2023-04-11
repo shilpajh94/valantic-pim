@@ -212,7 +212,7 @@ class Product
     public function getObjectIndex($type, $levelInfo) 
     {
         if ($type == 'base') {
-            $objectIndex = count($levelInfo)-2;
+            $objectIndex = count($levelInfo)-1;
         } elseif ($type == 'skeleton' || $type == 'fert') {
             $objectIndex = count($levelInfo);
         }
