@@ -449,7 +449,7 @@ return [
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
             'id' => 'contitech_ifseu_master_data',
-            'rootfolder' => '/Contitech_IFSEU/Master Data',
+            'rootfolder' => '/Contitech_IFS_EMEA/Master Data',
             'showroot' => true,
             'classes' => '',
             'position' => 'left',
@@ -471,7 +471,36 @@ return [
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
             'id' => 'contitech_ifseu_product_objects',
-            'rootfolder' => '/Contitech_IFSEU/Products',
+            'rootfolder' => '/Contitech_IFS_EMEA/Products',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0,
+                        'importCsv' => 0
+
+                    ]
+                ]
+            ]
+        ],
+
+        [
+            'treetype' => 'object',
+            'name' => 'Material Master',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
+            'id' => 'contitech_ifseu_material_master_list',
+            'rootfolder' => '/Contitech_IFS_EMEA/MaterialMaster',
             'showroot' => true,
             'classes' => '',
             'position' => 'left',

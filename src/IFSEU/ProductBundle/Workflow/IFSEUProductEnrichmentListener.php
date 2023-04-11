@@ -13,8 +13,9 @@ class IFSEUProductEnrichmentListener
     private $config;
     private $transitionConfig;
     private $validationService;
+   
     public function __construct() {
-
+       
         $this->validationService = \Pimcore::getContainer()->get('IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService');
         $wfConfigData = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getIFSEUWorkflowConfig()['parameters'];
         $this->config = isset($wfConfigData['completed']) ? $wfConfigData['completed'] : false;
@@ -30,6 +31,92 @@ class IFSEUProductEnrichmentListener
         return $link;
     }
 
+
+    public function checkIfChildPublished($product, $transitionName) {
+        $list = new DataObject\IFSEUProduct\Listing();
+        $list->setIgnoreLocalizedFields(true);
+        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`o_published` = 1) ');
+        if (count($list)>0) {
+            return ['success' => false, 'msg' => 'Not able to archive/pause as all childs are not archived/paused.'];
+        } else {
+            return ['success' => true];
+        }
+    }
+
+    public function checkForMandatoryValidation($product, $transitionName) {
+        $success = true;
+        $msg = '';
+        try {
+            $validationApplicability = $this->validationService->checkValidationApplicability($product);  
+            if ($validationApplicability) {
+                $reqAttributesByUser = []; 
+                if($transitionName != "publish_product") {   
+                    $currentUser = \Pimcore\Tool\Admin::getCurrentUser(); 
+                    $reqAttributesByUser = \IFSEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);     
+                }  
+                $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
+            }
+        } catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+
+
+    public function checkIfParentUnPublished($product, $transitionName) {
+        $success = true;
+        $msg = '';
+        try {
+            $this->validationService->checkForParentUnpublishValidation($product);
+        }  catch (\Exception $ex) {
+            $success = false;
+            $msg = $ex->getMessage();
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+    
+    
+    public function ifsEuWorkflowActions(TransitionEvent $event) {
+        
+        $transition = $event->getTransition();
+        $transitionName = $transition->getName();
+        $product = $event->getSubject();
+        if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
+            $transitionConfig = $this->transitionConfig[$transitionName];
+            if (!empty($transitionConfig)) {
+                $this->transitionCondition($transitionConfig, $product,$transitionName);
+                $this->transitionAction($transitionConfig, $product);
+            }
+        }
+    }
+
+    public function transitionCondition($transitionConfig, $product,$transitionName) {
+        if (!empty($transitionConfig['condition'])) {
+
+            $validationMethods = $transitionConfig['condition']['methods'];
+           
+            foreach ($validationMethods as $method) {
+                $response = $this->$method($product, $transitionName);
+                if (empty($response['success'])) {
+                    throw new ValidationException($response['msg']);
+                }
+            }
+        }
+    }
+
+    public function transitionAction($transitionConfig, $product) {
+        if (!empty($transitionConfig['action'])) {
+            \Pimcore\Model\Version::disable(); 
+                foreach($transitionConfig['action'] as $key => $value) {
+                    $setter = "set".ucfirst($key);
+                    $product->$setter($value);
+                }
+                $product->save(false);
+            \Pimcore\Model\Version::enable();
+        }
+    }
+
     public function ifsEuWorkflowNotification(Event $event) 
     {
         $transition = $event->getTransition();
@@ -41,24 +128,43 @@ class IFSEUProductEnrichmentListener
         if (!empty($transitionName) && !empty($this->config) && !empty($this->config[$transitionName])) {
             
             $transitionConfig = $this->config[$transitionName];
+            if (!empty($transitionConfig['action'])) {
+                \Pimcore\Model\Version::disable(); 
+                foreach($transitionConfig['action'] as $key => $value) {
+                    $setter = "set".ucfirst($key);
+                    $product->$setter($value);
+                }
+                $product->save(false);
+                \Pimcore\Model\Version::enable();
+            }
             $template = $transitionConfig['templatePath'];
             $to = $transitionConfig['notificationTo'];
-            $cc = $transitionConfig['notificationCC'];
+            // $cc = $transitionConfig['notificationCC'];
             $toEmails = $this->getUserEmailsListByRoles($to, $product);
-            $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
+            // $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
             $actionRemark = $this->getActionRemarks($product);
             $params = [
                 'template' => $template,
                 'toEmails' => $toEmails,
-                'ccEmails' => $ccEmails,
                 'params' => [
                     'deeplink' => $deepLink,
                     'actionRemark' => $actionRemark
                 ]
             ];
+
             $this->sendMail($params);
         }
 
+    }
+
+    public function getActionRemarks($product) {
+        $db = \Pimcore\Db::get();
+        $sql = "SELECT description FROM notes WHERE cid='".$product->getId()."' ORDER BY `date` DESC LIMIT 1";
+        $result = $db->fetchOne($sql);
+        if (!empty($result)) {
+            return $result;
+        }
+        return '';
     }
 
     public function getUserEmailsListByRoles($userRolesArray, $product = []) {
@@ -117,18 +223,10 @@ class IFSEUProductEnrichmentListener
         return $emailIds;
     }
 
-    public function getActionRemarks($product) {
-        $db = \Pimcore\Db::get();
-        $sql = "SELECT description FROM notes WHERE cid='".$product->getId()."' ORDER BY `date` DESC LIMIT 1";
-        $result = $db->fetchOne($sql);
-        if (!empty($result)) {
-            return $result;
-        }
-        return '';
-    }
 
     private function sendMail($params)
     {
+        
         $mail = new \Pimcore\Mail();
         if (!empty($params['template'])) {
 
@@ -157,82 +255,5 @@ class IFSEUProductEnrichmentListener
         
         return false;
     }
-
-     public function checkIfChildPublished($product, $transitionName) {
-        $list = new DataObject\IFSEUProduct\Listing();
-        $list->setIgnoreLocalizedFields(true);
-        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`o_published` = 1) ');
-        if (count($list)>0) {
-            return ['success' => false, 'msg' => 'Not able to archive/pause as all childs are not archived/paused.'];
-        } else {
-            return ['success' => true];
-        }
-    }
-    
-    public function checkForMandatoryValidation($product, $transitionName) {
-        $success = true;
-        $msg = '';
-        try {
-                $reqAttributesByUser = [];
-                if($transitionName != "approved") {
-                    $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
-                    $reqAttributesByUser = \IFSEU\ProductBundle\Helper\CommonHelper::getEditableFieldsByUser($currentUser);
-                }
-                $this->validationService->checkForMandatoryValidation($product, $reqAttributesByUser);
-        } catch (\Exception $ex) {
-            $success = false;
-            $msg = $ex->getMessage();
-        }
-        return ['success' => $success, 'msg' => $msg];
-    }
-    
-    public function checkIfParentUnPublished($product, $transitionName) {
-        $success = true;
-        $msg = '';
-        try {
-            $this->validationService->checkForParentUnpublishValidation($product);
-        }  catch (\Exception $ex) {
-            $success = false;
-            $msg = $ex->getMessage();
-        }
-        return ['success' => $success, 'msg' => $msg];
-    }
-    
-    
-    public function ifsEuWorkflowActions(TransitionEvent $event) {
-        $transition = $event->getTransition();
-        $transitionName = $transition->getName();
-        $product = $event->getSubject();
-        if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
-            $transitionConfig = $this->transitionConfig[$transitionName];
-            if (!empty($transitionConfig)) {
-                $this->transitionCondition($transitionConfig, $product,$transitionName);
-                $this->transitionAction($transitionConfig, $product);
-            }
-        }
-    }
-
-    public function transitionCondition($transitionConfig, $product,$transitionName) {
-        if (!empty($transitionConfig['condition'])) {
-            $validationMethods = $transitionConfig['condition']['methods'];
-            foreach ($validationMethods as $method) {
-                $response = $this->$method($product, $transitionName);
-                if (empty($response['success'])) {
-                    throw new ValidationException($response['msg']);
-                }
-            }
-        }
-    }
-
-    public function transitionAction($transitionConfig, $product) {
-        if (!empty($transitionConfig['action'])) {
-            \Pimcore\Model\Version::disable(); 
-                foreach($transitionConfig['action'] as $key => $value) {
-                    $setter = "set".ucfirst($key);
-                    $product->$setter($value);
-                }
-                $product->save(false);
-            \Pimcore\Model\Version::enable();
-        }
-    }
 }
+    

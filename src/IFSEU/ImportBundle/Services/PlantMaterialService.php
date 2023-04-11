@@ -7,6 +7,7 @@ use Elements\Bundle\ProcessManagerBundle;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Model\PlantMaterialModel;
+use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 
 class PlantMaterialService
 {
@@ -58,9 +59,6 @@ class PlantMaterialService
             $this->fileColumns = $csvInfo['header'];
             $excelDataNewArray  = $csvInfo['data'];
 
-            // remove once testing done
-            $excelDataNewArray = (array_slice($excelDataNewArray, 1, 5));
-
             echo 'Importing File: ' . $this->filePath.PHP_EOL;
             $time = new \DateTime();
             
@@ -74,7 +72,7 @@ class PlantMaterialService
             $this->plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
             $this->salesOrganizationsFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER)->getId();
             $this->distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
-            $this->countryFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
+            $this->countryFolderId= DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
             DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER);
 
             $applicationLogMessage = "No record found in file.";
@@ -345,7 +343,7 @@ class PlantMaterialService
         $columnTotalReplenismentLeadTime =  $this->mappingCsvColumn['TotalReplenismentLeadTime'];
         $columnSafetyStock = $this->mappingCsvColumn['SafetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
-        //$columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
+        $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
         
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
@@ -364,7 +362,7 @@ class PlantMaterialService
         $totalReplenismentLeadTime =  $rowvalue[$columnTotalReplenismentLeadTime];
         $safetyStock =  $rowvalue[$columnSafetyStock];
         $stockIndicator =  $rowvalue[$columnStockIndicator];
-        //$unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
+        $unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
 
         $plantObjId = $this->getPlantObjectId($plantName);
         $salesOrgObjId = $this->getSalesOrgObjectId($salesOrg);
@@ -386,7 +384,7 @@ class PlantMaterialService
             'TotalReplenismentLeadTime' => $totalReplenismentLeadTime,
             'SafetyStock' => $safetyStock,
             'StockIndicator' => $stockIndicator,
-            //'UnitOfMeasure' => $unitOfMeasure,
+            'UnitOfMeasure' => $unitOfMeasure,
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [

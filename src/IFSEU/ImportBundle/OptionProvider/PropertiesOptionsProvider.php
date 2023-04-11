@@ -29,7 +29,6 @@ class PropertiesOptionsProvider implements SelectOptionsProviderInterface {
         {
             if($listItem instanceof DataObject\IFSEUProperties)
             {
-            // $optionsData[] = array ('key' => $listItem->getPropertyName(),'value' => $listItem->getPropertyID());
             $optionsData[] = array ('key' => $listItem->getPropertyName(),'value' => $listItem->getID());
             }
         }

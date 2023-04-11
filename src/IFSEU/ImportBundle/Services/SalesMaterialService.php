@@ -6,6 +6,7 @@ use IFSEU\ImportBundle\Model\SalesMaterialModel;
 use Elements\Bundle\ProcessManagerBundle;
 use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
+use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 use Pimcore\Model\DataObject;
 
 
@@ -65,7 +66,7 @@ class SalesMaterialService
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
         $salesOrganizationsFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER)->getId();
         $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
-        $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
+        $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
     }
@@ -223,7 +224,12 @@ class SalesMaterialService
         $columnPlant = $this->mappingCsvColumn['DeliveringPlant']; 
         $columnSalesUnit = $this->mappingCsvColumn['SalesUOM'];
         $columnDistChainStatus = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
-        
+        $columnMaterialGroup1 = $this->mappingCsvColumn['MaterialGroup1'];
+        $columnMaterialGroup2 = $this->mappingCsvColumn['MaterialGroup2'];
+        $columnMaterialGroup3 = $this->mappingCsvColumn['MaterialGroup3'];
+        $columnMaterialGroup4 = $this->mappingCsvColumn['MaterialGroup4'];
+        $columnMaterialGroup5 = $this->mappingCsvColumn['MaterialGroup5'];
+
         
         $columnSalesOrgDesc = $this->mappingCsvColumn['SalesOrgDesc'];
         
@@ -243,6 +249,9 @@ class SalesMaterialService
         foreach ($data as $rowCount => $rowvalueRecord) {
             
             $rowvalue = json_decode($rowvalueRecord['record']);
+            if($rowvalue == null){
+                continue;
+            }
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
 
             $plantName = $rowvalue[$columnPlant];
@@ -327,7 +336,11 @@ class SalesMaterialService
                         $epixFlag = '';
                         $deletionFlag = '';
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
-                        $materialGroup5Value = '';
+                        $materialGroup1 = $rowvalue[$columnMaterialGroup1];
+                        $materialGroup2 = $rowvalue[$columnMaterialGroup2];
+                        $materialGroup3 = $rowvalue[$columnMaterialGroup3];
+                        $materialGroup4 = $rowvalue[$columnMaterialGroup4];
+                        $materialGroup5 = $rowvalue[$columnMaterialGroup5];
                         $privateOrGenericBrand = '';
                         
                         $this->productUpdateArray[$materialId] = $material;
@@ -347,6 +360,11 @@ class SalesMaterialService
                             'privateBrand' => $privateOrGenericBrand,
                             'Material' => ",".$materialObjId.",",
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'MaterialGroup1' => $materialGroup1,
+                            'MaterialGroup2' => $materialGroup2,
+                            'MaterialGroup3' => $materialGroup3,
+                            'MaterialGroup4' => $materialGroup4,
+                            'MaterialGroup5' => $materialGroup5,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
                         
@@ -357,6 +375,11 @@ class SalesMaterialService
                             'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'MaterialGroup1' => $materialGroup1,
+                            'MaterialGroup2' => $materialGroup2,
+                            'MaterialGroup3' => $materialGroup3,
+                            'MaterialGroup4' => $materialGroup4,
+                            'MaterialGroup5' => $materialGroup5,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
                         

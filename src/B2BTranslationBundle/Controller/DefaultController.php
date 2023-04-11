@@ -144,9 +144,19 @@ class DefaultController extends AdminController
             $mappingObject->setBusinessUnit($vendorId);
             $mappingObject->setTranslationDataType($mappingType);
             $gridData = [];
+            $checkDuplicate=[];
+            $duplicateCount=0;
+            $duplicateFieldName=[];
             if (!empty($data)) {
                 $dataArray = (array)json_decode($data);
                 foreach ($dataArray as $row) {
+
+                    if(in_array($rowArray['b2bName'],$checkDuplicate) && !empty($rowArray['b2bName'])){
+                        $duplicateCount=1;
+                        $duplicateFieldName[]=$rowArray['b2bName'];
+                    }else{
+                        $checkDuplicate[]=$rowArray['b2bName'];
+                    }
                     $rowArray = (array)$row;
                     if($rowArray['b2bName'] == '1')
                     {
@@ -156,9 +166,17 @@ class DefaultController extends AdminController
                         $gridData[] = [$rowArray['name'], $rowArray['b2bName']];
                     }
                 }
+
                 $mappingObject->setPIMB2BMappingData($gridData);
             }
-            $mappingObject->save();
+            if($duplicateCount>0){
+                $duplicateFieldNameStr=implode(',',$duplicateFieldName);
+                $msg="Duplicate Mapping of B2B Attribute Fields : ".$duplicateFieldNameStr;
+                return $this->json([self::SUCCESS => false, self::MESSAGE => $msg]);
+                
+            }else{
+                $mappingObject->save();
+            }
         }
         return $this->json(["success" => true]);
     }

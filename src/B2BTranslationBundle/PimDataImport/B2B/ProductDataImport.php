@@ -6,6 +6,7 @@ use Pimcore\Db;
 use B2BTranslationBundle\Services\ImportService;
 use B2BTranslationBundle\PimDataImport\IDataImport;
 use B2BTranslationBundle\PimDataImport\PimDataImportHelper;
+use \Pimcore\Model\DataObject;
 
 class ProductDataImport implements IDataImport
 {
@@ -29,9 +30,10 @@ class ProductDataImport implements IDataImport
 
     public function downloadFile()
     {
-        $customFileName = $this->bu."_Product_".date('M').".csv";
-        // $this->filePath = $this->helper->downloadFile($customFileName);
-        $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_EXTRACT.csv";
+        // $customFileName = $this->bu."_Product_".date('M').".csv";
+        $customFileName = "SF_PRODUCT_EXTRACT.csv";
+        $this->filePath = $this->helper->downloadFile($customFileName);
+        // $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_EXTRACT.csv";
     }
 
     public function importData()
@@ -45,20 +47,40 @@ class ProductDataImport implements IDataImport
             {
                 if(file_exists($this->filePath))
                 {
+                    \Pimcore\Model\Version::disable(); 
+
                     $csvInfo            = ImportService::getCSVData($this->filePath);
                     $header = $csvInfo['header'];
                     $data  = $csvInfo['data'];
 
                     echo 'Importing File: ' . $this->filePath.PHP_EOL;
-                    
-                    foreach($data as $row){   
+                    echo "No of Records: ". count($data). PHP_EOL;
+
+                    $t1 = time();
+                    p_r('Processing started at: ' . date('h:i:s', $t1));
+                    p_r('------------------------------------------------');
+                    foreach($data as $key => $row){   
                         $record = array_combine($header, $row);
+                        
                         $externalID = $record['B2B_EXTERNAL_ID__C'];
                         $salesforceID = $record['ID'];
 
-                        echo 'Processing external ID: ' . $externalID.PHP_EOL;
-                        $this->updateSalesForceIdByExternalId($salesforceID, $externalID);
-                    } 
+                        echo "Processing ". ($key + 1) .": B2B_EXTERNAL_ID__C- ". $externalID. PHP_EOL;
+                        if($externalID)
+                        {
+                            $product = DataObject\Product::getByExternalID($externalID, 1);
+                            if($product)
+                            {
+                                $product->setSalesForce_ID($salesforceID);
+                                $product->save();
+                            }
+                        }
+                    }
+
+                    p_r('--------------Total Execution Time---------------');
+                    p_r('Processing completed after: ' . (abs(time() - $t1) / 60) . ' mnt');
+
+                    \Pimcore\Model\Version::enable(); 
                 }
                 else{
                     echo PHP_EOL;
@@ -71,15 +93,5 @@ class ProductDataImport implements IDataImport
             echo $e->getMessage();
         }
            
-    }
-
-    public function updateSalesForceIdByExternalId($salesforceID, $externalID)
-    {
-        $classID = $this->bUProductClassTableID[$this->bu];
-
-        $query = "UPDATE object_query_{$classID} SET SalesForce_ID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
-        $this->db->query($query);
-        $query = "UPDATE object_store_{$classID} SET SalesForce_ID = '{$salesforceID}' WHERE externalID ='{$externalID}'";
-        $this->db->query($query);
     }
 }

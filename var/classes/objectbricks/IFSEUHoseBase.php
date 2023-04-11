@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-17T10:58:44+05:30
+* Generated at: 2023-04-08T12:11:36+05:30
 * IP: 127.0.0.1
 
 
@@ -13,6 +13,7 @@ Fields Summary:
 - hoseIdMM [numeric]
 - Note2BelowTable [input]
 - FlowMediumStability [booleanSelect]
+- BaseBrickMapping [input]
 - numberOfHelixWires [numeric]
 - tubeGaugeFractional [input]
 - NonStockSizes [input]
@@ -214,6 +215,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Corrugated',
+                        'value' => 14705867,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Rough Bore',
+                        'value' => 14705868,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Smooth',
+                        'value' => 14705869,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Standard',
+                        'value' => 14705870,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Wrapped',
+                        'value' => 14705871,
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -249,7 +275,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -280,7 +306,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -373,6 +399,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => NULL,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'BaseBrickMapping',
+                     'title' => 'BaseBrickMapping',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => true,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -404,7 +458,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -490,417 +544,417 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       array (
                         'key' => 'Made in Germany',
-                        'value' => 489,
+                        'value' => 14701508,
                       ),
                       1 => 
                       array (
                         'key' => '74310',
-                        'value' => 490,
+                        'value' => 14701509,
                       ),
                       2 => 
                       array (
                         'key' => '20018-1',
-                        'value' => 491,
+                        'value' => 14701510,
                       ),
                       3 => 
                       array (
                         'key' => '5510-2',
-                        'value' => 492,
+                        'value' => 14701511,
                       ),
                       4 => 
                       array (
                         'key' => '6257.70',
-                        'value' => 493,
+                        'value' => 14701512,
                       ),
                       5 => 
                       array (
                         'key' => '6257.72',
-                        'value' => 494,
+                        'value' => 14701513,
                       ),
                       6 => 
                       array (
                         'key' => '6257.21',
-                        'value' => 495,
+                        'value' => 14701514,
                       ),
                       7 => 
                       array (
                         'key' => '853',
-                        'value' => 496,
+                        'value' => 14701515,
                       ),
                       8 => 
                       array (
                         'key' => '854',
-                        'value' => 497,
+                        'value' => 14701516,
                       ),
                       9 => 
                       array (
                         'key' => '856',
-                        'value' => 498,
+                        'value' => 14701517,
                       ),
                       10 => 
                       array (
                         'key' => '857',
-                        'value' => 499,
+                        'value' => 14701518,
                       ),
                       11 => 
                       array (
                         'key' => '45545-2 HL3 (R22+R23)',
-                        'value' => 500,
+                        'value' => 14701519,
                       ),
                       12 => 
                       array (
                         'key' => '14593/14594',
-                        'value' => 501,
+                        'value' => 14701520,
                       ),
                       13 => 
                       array (
                         'key' => '16436-1:2016  CLASS-2 (10 bar)',
-                        'value' => 502,
+                        'value' => 14701521,
                       ),
                       14 => 
                       array (
                         'key' => '12115:2011',
-                        'value' => 503,
+                        'value' => 14701522,
                       ),
                       15 => 
                       array (
                         'key' => '1761',
-                        'value' => 504,
+                        'value' => 14701523,
                       ),
                       16 => 
                       array (
                         'key' => '250',
-                        'value' => 505,
+                        'value' => 14701524,
                       ),
                       17 => 
                       array (
                         'key' => '6134-1A',
-                        'value' => 507,
+                        'value' => 14701525,
                       ),
                       18 => 
                       array (
                         'key' => '6134-2A',
-                        'value' => 508,
+                        'value' => 14701526,
                       ),
                       19 => 
                       array (
                         'key' => '6134-2B',
-                        'value' => 509,
+                        'value' => 14701527,
                       ),
                       20 => 
                       array (
                         'key' => '2398:2017 3C/L-T',
-                        'value' => 510,
+                        'value' => 14701528,
                       ),
                       21 => 
                       array (
                         'key' => '2398:2017 2C/L-T',
-                        'value' => 511,
+                        'value' => 14701529,
                       ),
                       22 => 
                       array (
                         'key' => '333 N1W',
-                        'value' => 512,
+                        'value' => 14701530,
                       ),
                       23 => 
                       array (
                         'key' => '333 N1',
-                        'value' => 513,
+                        'value' => 14701531,
                       ),
                       24 => 
                       array (
                         'key' => '830-1/V',
-                        'value' => 514,
+                        'value' => 14701532,
                       ),
                       25 => 
                       array (
                         'key' => 'Class A',
-                        'value' => 515,
+                        'value' => 14701533,
                       ),
                       26 => 
                       array (
                         'key' => 'GERMANISCHEN LLOYD ',
-                        'value' => 516,
+                        'value' => 14701534,
                       ),
                       27 => 
                       array (
                         'key' => '2153',
-                        'value' => 517,
+                        'value' => 14701535,
                       ),
                       28 => 
                       array (
                         'key' => ' 1529/2014',
-                        'value' => 518,
+                        'value' => 14701536,
                       ),
                       29 => 
                       array (
                         'key' => '6615G',
-                        'value' => 519,
+                        'value' => 14701537,
                       ),
                       30 => 
                       array (
                         'key' => '407:2007',
-                        'value' => 520,
+                        'value' => 14701538,
                       ),
                       31 => 
                       array (
                         'key' => '1825',
-                        'value' => 521,
+                        'value' => 14701539,
                       ),
                       32 => 
                       array (
                         'key' => 'EC Regulation no. 1907/2006',
-                        'value' => 522,
+                        'value' => 14701540,
                       ),
                       33 => 
                       array (
                         'key' => 'Regulation 177.1520',
-                        'value' => 523,
+                        'value' => 14701541,
                       ),
                       34 => 
                       array (
                         'key' => 'Regulation 177.2600',
-                        'value' => 524,
+                        'value' => 14701542,
                       ),
                       35 => 
                       array (
                         'key' => 'Regulation 177.1550',
-                        'value' => 525,
+                        'value' => 14701543,
                       ),
                       36 => 
                       array (
                         'key' => 'Recommendation III',
-                        'value' => 526,
+                        'value' => 14701544,
                       ),
                       37 => 
                       array (
                         'key' => 'Recommendation XXI, Cat. 2',
-                        'value' => 527,
+                        'value' => 14701545,
                       ),
                       38 => 
                       array (
                         'key' => 'Recommendation XXI, Cat. 4',
-                        'value' => 528,
+                        'value' => 14701546,
                       ),
                       39 => 
                       array (
                         'key' => '1935/2004',
-                        'value' => 529,
+                        'value' => 14701547,
                       ),
                       40 => 
                       array (
                         'key' => '2023/2006',
-                        'value' => 530,
+                        'value' => 14701548,
                       ),
                       41 => 
                       array (
                         'key' => '10/11',
-                        'value' => 531,
+                        'value' => 14701549,
                       ),
                       42 => 
                       array (
                         'key' => 'CLASS VI',
-                        'value' => 532,
+                        'value' => 14701550,
                       ),
                       43 => 
                       array (
                         'key' => 'Licensed in accordance with BS 6920-1:2000',
-                        'value' => 533,
+                        'value' => 14701551,
                       ),
                       44 => 
                       array (
                         'key' => 'Licensed in accordance with Pipes guideline for plastics used for drinking water, DVGW W270 and VP 549',
-                        'value' => 534,
+                        'value' => 14701552,
                       ),
                       45 => 
                       array (
                         'key' => '6254.12',
-                        'value' => 536,
+                        'value' => 14701553,
                       ),
                       46 => 
                       array (
                         'key' => '6254.16',
-                        'value' => 537,
+                        'value' => 14701554,
                       ),
                       47 => 
                       array (
                         'key' => '590',
-                        'value' => 539,
+                        'value' => 14701555,
                       ),
                       48 => 
                       array (
                         'key' => '2398:2017 1A',
-                        'value' => 540,
+                        'value' => 14701556,
                       ),
                       49 => 
                       array (
                         'key' => '73411-B',
-                        'value' => 541,
+                        'value' => 14701557,
                       ),
                       50 => 
                       array (
                         'key' => 'J20 R3/R4 D3 - HT - EC',
-                        'value' => 545,
+                        'value' => 14701558,
                       ),
                       51 => 
                       array (
                         'key' => 'DB/SBB',
-                        'value' => 547,
+                        'value' => 14701559,
                       ),
                       52 => 
                       array (
                         'key' => '11851 - 1.4301',
-                        'value' => 1551,
+                        'value' => 14701560,
                       ),
                       53 => 
                       array (
                         'key' => '100R13',
-                        'value' => 2555,
+                        'value' => 14701561,
                       ),
                       54 => 
                       array (
                         'key' => '856 4SH',
-                        'value' => 2556,
+                        'value' => 14701562,
                       ),
                       55 => 
                       array (
                         'key' => '853 1SN',
-                        'value' => 2558,
+                        'value' => 14701563,
                       ),
                       56 => 
                       array (
                         'key' => '100R15',
-                        'value' => 2559,
+                        'value' => 14701564,
                       ),
                       57 => 
                       array (
                         'key' => '100R12',
-                        'value' => 2560,
+                        'value' => 14701565,
                       ),
                       58 => 
                       array (
                         'key' => '3821:2020',
-                        'value' => 2561,
+                        'value' => 14701566,
                       ),
                       59 => 
                       array (
                         'key' => '16436-1:2016 Class 3 (30 bar)',
-                        'value' => 2564,
+                        'value' => 14701567,
                       ),
                       60 => 
                       array (
                         'key' => '16436-1:2016 CLASS 3 (30 bar)',
-                        'value' => 2565,
+                        'value' => 14701568,
                       ),
                       61 => 
                       array (
                         'key' => '856 4SP',
-                        'value' => 2566,
+                        'value' => 14701569,
                       ),
                       62 => 
                       array (
                         'key' => '100R16',
-                        'value' => 2568,
+                        'value' => 14701570,
                       ),
                       63 => 
                       array (
                         'key' => '857 2SC',
-                        'value' => 2569,
+                        'value' => 14701571,
                       ),
                       64 => 
                       array (
                         'key' => '100R1AT',
-                        'value' => 2570,
+                        'value' => 14701572,
                       ),
                       65 => 
                       array (
                         'key' => '100R2AT',
-                        'value' => 2571,
+                        'value' => 14701573,
                       ),
                       66 => 
                       array (
                         'key' => '853 2SN',
-                        'value' => 2572,
+                        'value' => 14701574,
                       ),
                       67 => 
                       array (
                         'key' => '100R19',
-                        'value' => 2573,
+                        'value' => 14701575,
                       ),
                       68 => 
                       array (
                         'key' => '100R17',
-                        'value' => 2574,
+                        'value' => 14701576,
                       ),
                       69 => 
                       array (
                         'key' => '11237 R19',
-                        'value' => 2575,
+                        'value' => 14701577,
                       ),
                       70 => 
                       array (
                         'key' => '20023 4SH',
-                        'value' => 2576,
+                        'value' => 14701578,
                       ),
                       71 => 
                       array (
                         'key' => '20023 4SP',
-                        'value' => 2577,
+                        'value' => 14701579,
                       ),
                       72 => 
                       array (
                         'key' => 'MSHA',
-                        'value' => 2579,
+                        'value' => 14701580,
                       ),
                       73 => 
                       array (
                         'key' => 'Dry Food',
-                        'value' => 2580,
+                        'value' => 14701581,
                       ),
                       74 => 
                       array (
                         'key' => 'New node',
-                        'value' => 2581,
+                        'value' => 14701582,
                       ),
                       75 => 
                       array (
                         'key' => '73379 Typ B1',
-                        'value' => 2583,
+                        'value' => 14701583,
                       ),
                       76 => 
                       array (
                         'key' => 'J30 R9',
-                        'value' => 2585,
+                        'value' => 14701584,
                       ),
                       77 => 
                       array (
                         'key' => '73379 Typ A1',
-                        'value' => 2586,
+                        'value' => 14701585,
                       ),
                       78 => 
                       array (
                         'key' => 'BWGL',
-                        'value' => 2587,
+                        'value' => 14701586,
                       ),
                       79 => 
                       array (
                         'key' => '16421 (W270)',
-                        'value' => 2588,
+                        'value' => 14701587,
                       ),
                       80 => 
                       array (
                         'key' => '15807 (UIC830-1V)',
-                        'value' => 2590,
+                        'value' => 14701588,
                       ),
                       81 => 
                       array (
                         'key' => 'DVGW',
-                        'value' => 2591,
+                        'value' => 14701589,
                       ),
                       82 => 
                       array (
                         'key' => 'VP549',
-                        'value' => 2592,
+                        'value' => 14701590,
                       ),
                     ),
                      'width' => 300,
@@ -937,7 +991,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -1124,157 +1178,157 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'EPDM',
-                            'value' => 345,
+                            'value' => 14702988,
                           ),
                           1 => 
                           array (
                             'key' => 'NBR',
-                            'value' => 346,
+                            'value' => 14702989,
                           ),
                           2 => 
                           array (
                             'key' => 'NR',
-                            'value' => 347,
+                            'value' => 14702990,
                           ),
                           3 => 
                           array (
                             'key' => 'CR',
-                            'value' => 348,
+                            'value' => 14702991,
                           ),
                           4 => 
                           array (
                             'key' => 'CR-EPDM',
-                            'value' => 349,
+                            'value' => 14702992,
                           ),
                           5 => 
                           array (
                             'key' => 'UPE',
-                            'value' => 350,
+                            'value' => 14702993,
                           ),
                           6 => 
                           array (
                             'key' => 'FEP',
-                            'value' => 351,
+                            'value' => 14702994,
                           ),
                           7 => 
                           array (
                             'key' => 'CIIR',
-                            'value' => 352,
+                            'value' => 14702995,
                           ),
                           8 => 
                           array (
                             'key' => 'SBR',
-                            'value' => 353,
+                            'value' => 14702996,
                           ),
                           9 => 
                           array (
                             'key' => 'PA',
-                            'value' => 354,
+                            'value' => 14702997,
                           ),
                           10 => 
                           array (
                             'key' => 'Special elastomer',
-                            'value' => 508,
+                            'value' => 14702998,
                           ),
                           11 => 
                           array (
                             'key' => 'SBR-EPDM',
-                            'value' => 509,
+                            'value' => 14702999,
                           ),
                           12 => 
                           array (
                             'key' => 'CSM/BR',
-                            'value' => 510,
+                            'value' => 14703000,
                           ),
                           13 => 
                           array (
                             'key' => 'Fluoroplastic ',
-                            'value' => 581,
+                            'value' => 14703001,
                           ),
                           14 => 
                           array (
                             'key' => 'AEM',
-                            'value' => 589,
+                            'value' => 14703002,
                           ),
                           15 => 
                           array (
                             'key' => 'SBR-BR',
-                            'value' => 612,
+                            'value' => 14703003,
                           ),
                           16 => 
                           array (
                             'key' => 'SBR-NR',
-                            'value' => 1616,
+                            'value' => 14703004,
                           ),
                           17 => 
                           array (
                             'key' => 'no fuel solubility',
-                            'value' => 1642,
+                            'value' => 14703005,
                           ),
                           18 => 
                           array (
                             'key' => 'Synthetic rubber',
-                            'value' => 2622,
+                            'value' => 14703006,
                           ),
                           19 => 
                           array (
                             'key' => 'CPE',
-                            'value' => 2628,
+                            'value' => 14703007,
                           ),
                           20 => 
                           array (
                             'key' => 'CM',
-                            'value' => 2646,
+                            'value' => 14703008,
                           ),
                           21 => 
                           array (
                             'key' => 'FPM',
-                            'value' => 2648,
+                            'value' => 14703009,
                           ),
                           22 => 
                           array (
                             'key' => 'ECO',
-                            'value' => 2685,
+                            'value' => 14703010,
                           ),
                           23 => 
                           array (
                             'key' => 'FPM/HNBR',
-                            'value' => 2687,
+                            'value' => 14703011,
                           ),
                           24 => 
                           array (
                             'key' => 'FPM/AEM',
-                            'value' => 2692,
+                            'value' => 14703012,
                           ),
                           25 => 
                           array (
                             'key' => 'FPM/ECO',
-                            'value' => 2694,
+                            'value' => 14703013,
                           ),
                           26 => 
                           array (
                             'key' => 'HNBR',
-                            'value' => 2700,
+                            'value' => 14703014,
                           ),
                           27 => 
                           array (
                             'key' => 'UHMWPE',
-                            'value' => 2727,
+                            'value' => 14703015,
                           ),
                           28 => 
                           array (
                             'key' => 'PU',
-                            'value' => 2736,
+                            'value' => 14703016,
                           ),
                           29 => 
                           array (
                             'key' => 'EPDM black or EPM white',
-                            'value' => 2780,
+                            'value' => 14703017,
                           ),
                           30 => 
                           array (
                             'key' => 'PTFE',
-                            'value' => 2802,
+                            'value' => 14703018,
                           ),
                         ),
                          'width' => 300,
@@ -1310,57 +1364,57 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'transparent',
-                            'value' => 355,
+                            'value' => 14702921,
                           ),
                           1 => 
                           array (
                             'key' => 'white',
-                            'value' => 356,
+                            'value' => 14702922,
                           ),
                           2 => 
                           array (
                             'key' => 'black',
-                            'value' => 357,
+                            'value' => 14702923,
                           ),
                           3 => 
                           array (
                             'key' => 'grey',
-                            'value' => 358,
+                            'value' => 14702924,
                           ),
                           4 => 
                           array (
                             'key' => 'bright',
-                            'value' => 359,
+                            'value' => 14702925,
                           ),
                           5 => 
                           array (
                             'key' => 'blue',
-                            'value' => 381,
+                            'value' => 14702926,
                           ),
                           6 => 
                           array (
                             'key' => 'red',
-                            'value' => 382,
+                            'value' => 14702927,
                           ),
                           7 => 
                           array (
                             'key' => 'orange',
-                            'value' => 383,
+                            'value' => 14702928,
                           ),
                           8 => 
                           array (
                             'key' => 'black or white',
-                            'value' => 2779,
+                            'value' => 14702929,
                           ),
                           9 => 
                           array (
                             'key' => 'light grey',
-                            'value' => 2799,
+                            'value' => 14702930,
                           ),
                           10 => 
                           array (
                             'key' => 'white with magnetic and X-ray detectable grey elastomer layer behind',
-                            'value' => 2800,
+                            'value' => 14702931,
                           ),
                         ),
                          'width' => 300,
@@ -1396,77 +1450,77 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Synthetic fibres',
-                            'value' => 366,
+                            'value' => 14703296,
                           ),
                           1 => 
                           array (
                             'key' => 'Aramid',
-                            'value' => 367,
+                            'value' => 14703297,
                           ),
                           2 => 
                           array (
                             'key' => '2 galvanized reinforcements',
-                            'value' => 514,
+                            'value' => 14703298,
                           ),
                           3 => 
                           array (
                             'key' => 'Synthetic corded plies',
-                            'value' => 515,
+                            'value' => 14703299,
                           ),
                           4 => 
                           array (
                             'key' => 'Textile reinforcement with 2 embedded Cu-wires',
-                            'value' => 567,
+                            'value' => 14703300,
                           ),
                           5 => 
                           array (
                             'key' => 'high tension steel wire',
-                            'value' => 575,
+                            'value' => 14703301,
                           ),
                           6 => 
                           array (
                             'key' => 'Synthetic yarns with steel wire braid',
-                            'value' => 609,
+                            'value' => 14703302,
                           ),
                           7 => 
                           array (
                             'key' => '4 alternating layers of spiraled high-tensile wire',
-                            'value' => 2627,
+                            'value' => 14703303,
                           ),
                           8 => 
                           array (
                             'key' => 'Steel wire braids with embedded additional weights',
-                            'value' => 2636,
+                            'value' => 14703304,
                           ),
                           9 => 
                           array (
                             'key' => 'PPS',
-                            'value' => 2658,
+                            'value' => 14703305,
                           ),
                           10 => 
                           array (
                             'key' => 'CMD',
-                            'value' => 2695,
+                            'value' => 14703306,
                           ),
                           11 => 
                           array (
                             'key' => 'CO',
-                            'value' => 2697,
+                            'value' => 14703307,
                           ),
                           12 => 
                           array (
                             'key' => 'Synthetic yarns, rubberised, black, optionally with embedded steel wire spiral',
-                            'value' => 2705,
+                            'value' => 14703308,
                           ),
                           13 => 
                           array (
                             'key' => 'Steel cord layers',
-                            'value' => 2721,
+                            'value' => 14703309,
                           ),
                           14 => 
                           array (
                             'key' => 'Stainless steel braids (1.4401), glass fibre braids and elastomer interlayers',
-                            'value' => 2732,
+                            'value' => 14703310,
                           ),
                         ),
                          'width' => 300,
@@ -1502,52 +1556,52 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'With integrated steel wire helix',
-                            'value' => 368,
+                            'value' => 14702977,
                           ),
                           1 => 
                           array (
                             'key' => 'With integrated plastic helix',
-                            'value' => 369,
+                            'value' => 14702978,
                           ),
                           2 => 
                           array (
                             'key' => 'With 2 spiralled copper strands',
-                            'value' => 511,
+                            'value' => 14702979,
                           ),
                           3 => 
                           array (
                             'key' => 'With copper wire',
-                            'value' => 512,
+                            'value' => 14702980,
                           ),
                           4 => 
                           array (
                             'key' => 'With spring wire spiral',
-                            'value' => 513,
+                            'value' => 14702981,
                           ),
                           5 => 
                           array (
                             'key' => 'With galvanised spring steel helix',
-                            'value' => 531,
+                            'value' => 14702982,
                           ),
                           6 => 
                           array (
                             'key' => 'With steel helix from DN 25',
-                            'value' => 2653,
+                            'value' => 14702983,
                           ),
                           7 => 
                           array (
                             'key' => 'With steel wire braid',
-                            'value' => 2661,
+                            'value' => 14702984,
                           ),
                           8 => 
                           array (
                             'key' => 'With antistatic wire',
-                            'value' => 2717,
+                            'value' => 14702985,
                           ),
                           9 => 
                           array (
                             'key' => 'With integrated steel wire spiral and antistatic wire',
-                            'value' => 2718,
+                            'value' => 14702986,
                           ),
                         ),
                          'width' => 300,
@@ -1583,142 +1637,142 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'homogenous',
-                            'value' => 360,
+                            'value' => 14703240,
                           ),
                           1 => 
                           array (
                             'key' => 'smooth',
-                            'value' => 361,
+                            'value' => 14703241,
                           ),
                           2 => 
                           array (
                             'key' => 'non-porous',
-                            'value' => 362,
+                            'value' => 14703242,
                           ),
                           3 => 
                           array (
                             'key' => 'plasticizer-free',
-                            'value' => 363,
+                            'value' => 14703243,
                           ),
                           4 => 
                           array (
                             'key' => 'high-performing',
-                            'value' => 364,
+                            'value' => 14703244,
                           ),
                           5 => 
                           array (
                             'key' => 'anti-adhesive',
-                            'value' => 365,
+                            'value' => 14703245,
                           ),
                           6 => 
                           array (
                             'key' => 'highly abrasion resisitant ',
-                            'value' => 516,
+                            'value' => 14703246,
                           ),
                           7 => 
                           array (
                             'key' => 'impermeable',
-                            'value' => 517,
+                            'value' => 14703247,
                           ),
                           8 => 
                           array (
                             'key' => 'seamless',
-                            'value' => 518,
+                            'value' => 14703248,
                           ),
                           9 => 
                           array (
                             'key' => 'electrically noncondctive',
-                            'value' => 530,
+                            'value' => 14703249,
                           ),
                           10 => 
                           array (
                             'key' => 'meets FDA (21 CFR 177.1550) and USP CLASS VI',
-                            'value' => 533,
+                            'value' => 14703250,
                           ),
                           11 => 
                           array (
                             'key' => 'absolutely neutral to taste and odour',
-                            'value' => 538,
+                            'value' => 14703251,
                           ),
                           12 => 
                           array (
                             'key' => 'according to recommendation XXI, cat. 2 of BfR',
-                            'value' => 557,
+                            'value' => 14703252,
                           ),
                           13 => 
                           array (
                             'key' => 'according to FDA (21 CFR 177.2600)',
-                            'value' => 559,
+                            'value' => 14703253,
                           ),
                           14 => 
                           array (
                             'key' => 'resistant to oil and fats',
-                            'value' => 572,
+                            'value' => 14703254,
                           ),
                           15 => 
                           array (
                             'key' => ' with Conti Orange Wear Indicator',
-                            'value' => 578,
+                            'value' => 14703255,
                           ),
                           16 => 
                           array (
                             'key' => 'with black coiled OHM conductive stripe',
-                            'value' => 584,
+                            'value' => 14703256,
                           ),
                           17 => 
                           array (
                             'key' => 'electrically conductive, R < 10<sup>6</sup> Ω/m',
-                            'value' => 588,
+                            'value' => 14703257,
                           ),
                           18 => 
                           array (
                             'key' => 'highly abrasion resistant (acc. to DIN ISO 4649-A: <60mm³)',
-                            'value' => 613,
+                            'value' => 14703258,
                           ),
                           19 => 
                           array (
                             'key' => 'no fuel solubility',
-                            'value' => 1643,
+                            'value' => 14703259,
                           ),
                           20 => 
                           array (
                             'key' => 'electrically conductive, R < 10<sup>6</sup> Ω',
-                            'value' => 2668,
+                            'value' => 14703260,
                           ),
                           21 => 
                           array (
                             'key' => 'electrically conductive, R < 10<sup>9</sup> Ω/m',
-                            'value' => 2711,
+                            'value' => 14703261,
                           ),
                           22 => 
                           array (
                             'key' => 'electrically insulating, R > 10<sup>9</sup> Ω/m',
-                            'value' => 2712,
+                            'value' => 14703262,
                           ),
                           23 => 
                           array (
                             'key' => 'according to FDA ',
-                            'value' => 2729,
+                            'value' => 14703263,
                           ),
                           24 => 
                           array (
                             'key' => 'almost odourless',
-                            'value' => 2737,
+                            'value' => 14703264,
                           ),
                           25 => 
                           array (
                             'key' => 'Partial lining with special fleece and fluidisation channels underneath (max. 2 bar)',
-                            'value' => 2753,
+                            'value' => 14703265,
                           ),
                           26 => 
                           array (
                             'key' => 'extruded',
-                            'value' => 2778,
+                            'value' => 14703266,
                           ),
                           27 => 
                           array (
                             'key' => 'can be detected magnetically or by X-rays',
-                            'value' => 2798,
+                            'value' => 14703267,
                           ),
                         ),
                          'width' => 300,
@@ -1844,137 +1898,137 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'EPDM',
-                            'value' => 370,
+                            'value' => 14702944,
                           ),
                           1 => 
                           array (
                             'key' => 'NBR',
-                            'value' => 371,
+                            'value' => 14702945,
                           ),
                           2 => 
                           array (
                             'key' => 'NR',
-                            'value' => 372,
+                            'value' => 14702946,
                           ),
                           3 => 
                           array (
                             'key' => 'CR',
-                            'value' => 373,
+                            'value' => 14702947,
                           ),
                           4 => 
                           array (
                             'key' => 'CR-EPDM',
-                            'value' => 374,
+                            'value' => 14702948,
                           ),
                           5 => 
                           array (
                             'key' => 'UPE',
-                            'value' => 375,
+                            'value' => 14702949,
                           ),
                           6 => 
                           array (
                             'key' => 'FEP',
-                            'value' => 376,
+                            'value' => 14702950,
                           ),
                           7 => 
                           array (
                             'key' => 'CIIR',
-                            'value' => 377,
+                            'value' => 14702951,
                           ),
                           8 => 
                           array (
                             'key' => 'SBR',
-                            'value' => 378,
+                            'value' => 14702952,
                           ),
                           9 => 
                           array (
                             'key' => 'PA',
-                            'value' => 379,
+                            'value' => 14702953,
                           ),
                           10 => 
                           array (
                             'key' => 'SBR-EPDM',
-                            'value' => 519,
+                            'value' => 14702954,
                           ),
                           11 => 
                           array (
                             'key' => 'CSM-BR ',
-                            'value' => 547,
+                            'value' => 14702955,
                           ),
                           12 => 
                           array (
                             'key' => 'Spezial elastomer',
-                            'value' => 560,
+                            'value' => 14702956,
                           ),
                           13 => 
                           array (
                             'key' => 'AEM',
-                            'value' => 590,
+                            'value' => 14702957,
                           ),
                           14 => 
                           array (
                             'key' => 'CM',
-                            'value' => 605,
+                            'value' => 14702958,
                           ),
                           15 => 
                           array (
                             'key' => 'SBR-BR',
-                            'value' => 611,
+                            'value' => 14702959,
                           ),
                           16 => 
                           array (
                             'key' => 'CR-BR',
-                            'value' => 1613,
+                            'value' => 14702960,
                           ),
                           17 => 
                           array (
                             'key' => 'IR-BR',
-                            'value' => 1615,
+                            'value' => 14702961,
                           ),
                           18 => 
                           array (
                             'key' => 'SBR-NR',
-                            'value' => 2619,
+                            'value' => 14702962,
                           ),
                           19 => 
                           array (
                             'key' => 'Synthetic rubber',
-                            'value' => 2623,
+                            'value' => 14702963,
                           ),
                           20 => 
                           array (
                             'key' => 'CPE',
-                            'value' => 2629,
+                            'value' => 14702964,
                           ),
                           21 => 
                           array (
                             'key' => 'CMD',
-                            'value' => 2643,
+                            'value' => 14702965,
                           ),
                           22 => 
                           array (
                             'key' => 'PES',
-                            'value' => 2654,
+                            'value' => 14702966,
                           ),
                           23 => 
                           array (
                             'key' => 'CSM',
-                            'value' => 2688,
+                            'value' => 14702967,
                           ),
                           24 => 
                           array (
                             'key' => 'ECO',
-                            'value' => 2696,
+                            'value' => 14702968,
                           ),
                           25 => 
                           array (
                             'key' => 'CO',
-                            'value' => 2698,
+                            'value' => 14702969,
                           ),
                           26 => 
                           array (
                             'key' => 'NBR-PVC',
-                            'value' => 2722,
+                            'value' => 14702970,
                           ),
                         ),
                          'width' => 300,
@@ -2010,52 +2064,52 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'blue',
-                            'value' => 452,
+                            'value' => 14702933,
                           ),
                           1 => 
                           array (
                             'key' => 'grey',
-                            'value' => 453,
+                            'value' => 14702934,
                           ),
                           2 => 
                           array (
                             'key' => 'bright',
-                            'value' => 454,
+                            'value' => 14702935,
                           ),
                           3 => 
                           array (
                             'key' => 'orange',
-                            'value' => 455,
+                            'value' => 14702936,
                           ),
                           4 => 
                           array (
                             'key' => 'red',
-                            'value' => 456,
+                            'value' => 14702937,
                           ),
                           5 => 
                           array (
                             'key' => 'black',
-                            'value' => 457,
+                            'value' => 14702938,
                           ),
                           6 => 
                           array (
                             'key' => 'transparent',
-                            'value' => 458,
+                            'value' => 14702939,
                           ),
                           7 => 
                           array (
                             'key' => 'white',
-                            'value' => 459,
+                            'value' => 14702940,
                           ),
                           8 => 
                           array (
                             'key' => 'red-orange',
-                            'value' => 545,
+                            'value' => 14702941,
                           ),
                           9 => 
                           array (
                             'key' => 'blue and red',
-                            'value' => 549,
+                            'value' => 14702942,
                           ),
                         ),
                          'width' => 300,
@@ -2091,22 +2145,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'fabric patterned',
-                            'value' => 386,
+                            'value' => 14702972,
                           ),
                           1 => 
                           array (
                             'key' => 'smooth',
-                            'value' => 387,
+                            'value' => 14702973,
                           ),
                           2 => 
                           array (
                             'key' => 'strongly corrugated',
-                            'value' => 520,
+                            'value' => 14702974,
                           ),
                           3 => 
                           array (
                             'key' => 'grooved',
-                            'value' => 591,
+                            'value' => 14702975,
                           ),
                         ),
                          'width' => 300,
@@ -2142,132 +2196,132 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'abrasion resistant',
-                            'value' => 388,
+                            'value' => 14703269,
                           ),
                           1 => 
                           array (
                             'key' => 'resistant to ozone, weather and UV',
-                            'value' => 389,
+                            'value' => 14703270,
                           ),
                           2 => 
                           array (
                             'key' => 'resistant to oil and fats',
-                            'value' => 390,
+                            'value' => 14703271,
                           ),
                           3 => 
                           array (
                             'key' => 'resistant to excrements',
-                            'value' => 391,
+                            'value' => 14703272,
                           ),
                           4 => 
                           array (
                             'key' => 'chemical-resistant',
-                            'value' => 392,
+                            'value' => 14703273,
                           ),
                           5 => 
                           array (
                             'key' => 'resistant to fats',
-                            'value' => 521,
+                            'value' => 14703274,
                           ),
                           6 => 
                           array (
                             'key' => 'from DN 28 upward fabric patterned',
-                            'value' => 522,
+                            'value' => 14703275,
                           ),
                           7 => 
                           array (
                             'key' => 'from DN 28 upward CR-cover (fabric patterned)',
-                            'value' => 523,
+                            'value' => 14703276,
                           ),
                           8 => 
                           array (
                             'key' => 'wear-resisitant',
-                            'value' => 524,
+                            'value' => 14703277,
                           ),
                           9 => 
                           array (
                             'key' => 'flame resistant',
-                            'value' => 532,
+                            'value' => 14703278,
                           ),
                           10 => 
                           array (
                             'key' => 'from DN 32 upward CR-cover (fabric patterned)',
-                            'value' => 542,
+                            'value' => 14703279,
                           ),
                           11 => 
                           array (
                             'key' => 'from DN 32 upward fabric patterned',
-                            'value' => 546,
+                            'value' => 14703280,
                           ),
                           12 => 
                           array (
                             'key' => 'resistant to process water and oily air',
-                            'value' => 551,
+                            'value' => 14703281,
                           ),
                           13 => 
                           array (
                             'key' => 'resistant to short influence of oil and chemicals',
-                            'value' => 555,
+                            'value' => 14703282,
                           ),
                           14 => 
                           array (
                             'key' => 'ageing resistant',
-                            'value' => 558,
+                            'value' => 14703283,
                           ),
                           15 => 
                           array (
                             'key' => 'with black coiled OHM conductive stripe',
-                            'value' => 583,
+                            'value' => 14703284,
                           ),
                           16 => 
                           array (
                             'key' => 'from DN 25 upward fabric patterned',
-                            'value' => 610,
+                            'value' => 14703285,
                           ),
                           17 => 
                           array (
                             'key' => 'hydrocarbon resistant',
-                            'value' => 1614,
+                            'value' => 14703286,
                           ),
                           18 => 
                           array (
                             'key' => 'electrically conductive',
-                            'value' => 1646,
+                            'value' => 14703287,
                           ),
                           19 => 
                           array (
                             'key' => 'flame-resistant (MSHA compliant)',
-                            'value' => 2624,
+                            'value' => 14703288,
                           ),
                           20 => 
                           array (
                             'key' => 'resistant to chicken and fish fat',
-                            'value' => 2641,
+                            'value' => 14703289,
                           ),
                           21 => 
                           array (
                             'key' => 'electrically conductive, R < 10<sup>6</sup> Ω',
-                            'value' => 2669,
+                            'value' => 14703290,
                           ),
                           22 => 
                           array (
                             'key' => 'optional',
-                            'value' => 2706,
+                            'value' => 14703291,
                           ),
                           23 => 
                           array (
                             'key' => 'with heat protection cover',
-                            'value' => 2709,
+                            'value' => 14703292,
                           ),
                           24 => 
                           array (
                             'key' => 'highly abrasion resistant (acc. to DIN ISO 4649-A: <60mm³)',
-                            'value' => 2710,
+                            'value' => 14703293,
                           ),
                           25 => 
                           array (
                             'key' => 'Electrically conductive, R < 10<sup>6</sup> Ω/m',
-                            'value' => 2733,
+                            'value' => 14703294,
                           ),
                         ),
                          'width' => 300,
@@ -2393,387 +2447,387 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Foodstuff industry',
-                            'value' => 1,
+                            'value' => 14701014,
                           ),
                           1 => 
                           array (
                             'key' => 'Beverage industry',
-                            'value' => 2,
+                            'value' => 14701015,
                           ),
                           2 => 
                           array (
                             'key' => 'Camping and caravanning',
-                            'value' => 3,
+                            'value' => 14701016,
                           ),
                           3 => 
                           array (
                             'key' => 'Commercial kitchens',
-                            'value' => 4,
+                            'value' => 14701017,
                           ),
                           4 => 
                           array (
                             'key' => 'Municipal emergency water supply',
-                            'value' => 5,
+                            'value' => 14701018,
                           ),
                           5 => 
                           array (
                             'key' => 'Outdoor events',
-                            'value' => 6,
+                            'value' => 14701019,
                           ),
                           6 => 
                           array (
                             'key' => 'Construction industry',
-                            'value' => 7,
+                            'value' => 14701020,
                           ),
                           7 => 
                           array (
                             'key' => 'Open land',
-                            'value' => 8,
+                            'value' => 14701021,
                           ),
                           8 => 
                           array (
                             'key' => 'Metal surface treatment',
-                            'value' => 9,
+                            'value' => 14701022,
                           ),
                           9 => 
                           array (
                             'key' => 'General industry',
-                            'value' => 10,
+                            'value' => 14701023,
                           ),
                           10 => 
                           array (
                             'key' => 'Over- and underground workings',
-                            'value' => 11,
+                            'value' => 14701024,
                           ),
                           11 => 
                           array (
                             'key' => 'Municipal enterprises',
-                            'value' => 12,
+                            'value' => 14701025,
                           ),
                           12 => 
                           array (
                             'key' => 'Agricultural sector',
-                            'value' => 13,
+                            'value' => 14701026,
                           ),
                           13 => 
                           array (
                             'key' => 'Industry',
-                            'value' => 14,
+                            'value' => 14701027,
                           ),
                           14 => 
                           array (
                             'key' => 'Fleets',
-                            'value' => 15,
+                            'value' => 14701028,
                           ),
                           15 => 
                           array (
                             'key' => 'Garages',
-                            'value' => 16,
+                            'value' => 14701029,
                           ),
                           16 => 
                           array (
                             'key' => 'Workshops',
-                            'value' => 17,
+                            'value' => 14701030,
                           ),
                           17 => 
                           array (
                             'key' => 'Landscaping and gardening',
-                            'value' => 18,
+                            'value' => 14701031,
                           ),
                           18 => 
                           array (
                             'key' => 'Mobile or stationary hose lines',
-                            'value' => 19,
+                            'value' => 14701032,
                           ),
                           19 => 
                           array (
                             'key' => 'Commercial washing machines and dishwashers',
-                            'value' => 20,
+                            'value' => 14701033,
                           ),
                           20 => 
                           array (
                             'key' => 'Private Area',
-                            'value' => 21,
+                            'value' => 14701034,
                           ),
                           21 => 
                           array (
                             'key' => 'Railway industry',
-                            'value' => 22,
+                            'value' => 14701035,
                           ),
                           22 => 
                           array (
                             'key' => 'White goods industry',
-                            'value' => 23,
+                            'value' => 14701036,
                           ),
                           23 => 
                           array (
                             'key' => 'Shipyards',
-                            'value' => 24,
+                            'value' => 14701037,
                           ),
                           24 => 
                           array (
                             'key' => 'Yacht construction',
-                            'value' => 25,
+                            'value' => 14701038,
                           ),
                           25 => 
                           array (
                             'key' => 'Machinery and plant engineering',
-                            'value' => 26,
+                            'value' => 14701039,
                           ),
                           26 => 
                           array (
                             'key' => 'Cooling systems in combustion engines',
-                            'value' => 27,
+                            'value' => 14701040,
                           ),
                           27 => 
                           array (
                             'key' => 'Cooling and heating systems',
-                            'value' => 28,
+                            'value' => 14701041,
                           ),
                           28 => 
                           array (
                             'key' => 'Passenger and commercial vehicles',
-                            'value' => 29,
+                            'value' => 14701042,
                           ),
                           29 => 
                           array (
                             'key' => 'Mining industry',
-                            'value' => 30,
+                            'value' => 14701043,
                           ),
                           30 => 
                           array (
                             'key' => 'Public festivals',
-                            'value' => 31,
+                            'value' => 14701044,
                           ),
                           31 => 
                           array (
                             'key' => 'Weekly, Christmas and fair markets',
-                            'value' => 32,
+                            'value' => 14701045,
                           ),
                           32 => 
                           array (
                             'key' => 'Furnaces',
-                            'value' => 33,
+                            'value' => 14701046,
                           ),
                           33 => 
                           array (
                             'key' => 'Ex zones',
-                            'value' => 34,
+                            'value' => 14701047,
                           ),
                           34 => 
                           array (
                             'key' => 'Breweries',
-                            'value' => 35,
+                            'value' => 14701048,
                           ),
                           35 => 
                           array (
                             'key' => 'Distillereies',
-                            'value' => 36,
+                            'value' => 14701049,
                           ),
                           36 => 
                           array (
                             'key' => 'Wine press houses',
-                            'value' => 37,
+                            'value' => 14701050,
                           ),
                           37 => 
                           array (
                             'key' => 'Filling machines',
-                            'value' => 38,
+                            'value' => 14701051,
                           ),
                           38 => 
                           array (
                             'key' => 'Other installations in the brewing, beverage and spirits industry',
-                            'value' => 39,
+                            'value' => 14701052,
                           ),
                           39 => 
                           array (
                             'key' => 'Foodstuffs companies',
-                            'value' => 40,
+                            'value' => 14701053,
                           ),
                           40 => 
                           array (
                             'key' => 'Pharmaceutical and cosmetic industry',
-                            'value' => 42,
+                            'value' => 14701054,
                           ),
                           41 => 
                           array (
                             'key' => 'Dairies',
-                            'value' => 43,
+                            'value' => 14701055,
                           ),
                           42 => 
                           array (
                             'key' => 'Cheese dairies',
-                            'value' => 44,
+                            'value' => 14701056,
                           ),
                           43 => 
                           array (
                             'key' => 'Margarine factories',
-                            'value' => 45,
+                            'value' => 14701057,
                           ),
                           44 => 
                           array (
                             'key' => 'Fish processing',
-                            'value' => 46,
+                            'value' => 14701058,
                           ),
                           45 => 
                           array (
                             'key' => 'Abattoirs',
-                            'value' => 47,
+                            'value' => 14701059,
                           ),
                           46 => 
                           array (
                             'key' => 'Oil mills',
-                            'value' => 48,
+                            'value' => 14701060,
                           ),
                           47 => 
                           array (
                             'key' => 'Rendering plants',
-                            'value' => 49,
+                            'value' => 14701061,
                           ),
                           48 => 
                           array (
                             'key' => 'Large-scale butcheries',
-                            'value' => 50,
+                            'value' => 14701062,
                           ),
                           49 => 
                           array (
                             'key' => 'Jam factories',
-                            'value' => 51,
+                            'value' => 14701063,
                           ),
                           50 => 
                           array (
                             'key' => 'Milk collection vehicles',
-                            'value' => 52,
+                            'value' => 14701064,
                           ),
                           51 => 
                           array (
                             'key' => 'Chemical and petrochemical industry',
-                            'value' => 53,
+                            'value' => 14701065,
                           ),
                           52 => 
                           array (
                             'key' => 'Horticultural companies',
-                            'value' => 54,
+                            'value' => 14701066,
                           ),
                           53 => 
                           array (
                             'key' => 'Refineries',
-                            'value' => 55,
+                            'value' => 14701067,
                           ),
                           54 => 
                           array (
                             'key' => 'Shipping industry',
-                            'value' => 56,
+                            'value' => 14701068,
                           ),
                           55 => 
                           array (
                             'key' => 'Silo vehicles',
-                            'value' => 57,
+                            'value' => 14701069,
                           ),
                           56 => 
                           array (
                             'key' => 'Quarry',
-                            'value' => 58,
+                            'value' => 14701070,
                           ),
                           57 => 
                           array (
                             'key' => 'Compressed air and compressor manufacturers',
-                            'value' => 59,
+                            'value' => 14701071,
                           ),
                           58 => 
                           array (
                             'key' => 'Steel and iron industry',
-                            'value' => 60,
+                            'value' => 14701072,
                           ),
                           59 => 
                           array (
                             'key' => 'Petrol stations',
-                            'value' => 61,
+                            'value' => 14701073,
                           ),
                           60 => 
                           array (
                             'key' => 'Largescale garages',
-                            'value' => 62,
+                            'value' => 14701074,
                           ),
                           61 => 
                           array (
                             'key' => 'Field of compressed air handling',
-                            'value' => 63,
+                            'value' => 14701075,
                           ),
                           62 => 
                           array (
                             'key' => 'Installation and heating system companies',
-                            'value' => 64,
+                            'value' => 14701076,
                           ),
                           63 => 
                           array (
                             'key' => 'Foundries',
-                            'value' => 65,
+                            'value' => 14701077,
                           ),
                           64 => 
                           array (
                             'key' => 'Construction of bridges',
-                            'value' => 66,
+                            'value' => 14701078,
                           ),
                           65 => 
                           array (
                             'key' => 'Welding shops',
-                            'value' => 67,
+                            'value' => 14701079,
                           ),
                           66 => 
                           array (
                             'key' => 'Manufacturers of welding apparatus',
-                            'value' => 68,
+                            'value' => 14701080,
                           ),
                           67 => 
                           array (
                             'key' => 'Steel construction',
-                            'value' => 69,
+                            'value' => 14701081,
                           ),
                           68 => 
                           array (
                             'key' => 'Automobile industry',
-                            'value' => 70,
+                            'value' => 14701082,
                           ),
                           69 => 
                           array (
                             'key' => 'Welding and brazing machines',
-                            'value' => 71,
+                            'value' => 14701083,
                           ),
                           70 => 
                           array (
                             'key' => 'Pressure controlled gas units',
-                            'value' => 72,
+                            'value' => 14701084,
                           ),
                           71 => 
                           array (
                             'key' => 'Mushroom heaters, grills, flame weeding devices',
-                            'value' => 73,
+                            'value' => 14701085,
                           ),
                           72 => 
                           array (
                             'key' => 'Forestry',
-                            'value' => 74,
+                            'value' => 14701086,
                           ),
                           73 => 
                           array (
                             'key' => 'Mineral oil industry',
-                            'value' => 75,
+                            'value' => 14701087,
                           ),
                           74 => 
                           array (
                             'key' => 'Buliding cleaning services',
-                            'value' => 76,
+                            'value' => 14701088,
                           ),
                           75 => 
                           array (
                             'key' => 'Processing of metal surfaces',
-                            'value' => 77,
+                            'value' => 14701089,
                           ),
                           76 => 
                           array (
                             'key' => 'Iron foundries',
-                            'value' => 78,
+                            'value' => 14701090,
                           ),
                         ),
                          'width' => 300,

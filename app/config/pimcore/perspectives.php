@@ -614,6 +614,14 @@ return [
                 'sort' => 1,
                 'id' => 'contitech_ifseu_product_objects',
             ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
         ]
     ],
     
@@ -636,7 +644,14 @@ return [
                 'sort' => 1,
                 'id' => 'contitech_ifseu_product_objects',
             ],
-            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
         ]
     ],
     
@@ -659,7 +674,14 @@ return [
                 'sort' => 1,
                 'id' => 'contitech_ifseu_product_objects',
             ],
-            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
         ]
     ],
     
@@ -682,7 +704,14 @@ return [
                 'sort' => 1,
                 'id' => 'contitech_ifseu_product_objects',
             ],
-            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
         ]
     ],
     
@@ -705,7 +734,14 @@ return [
                 'sort' => 1,
                 'id' => 'contitech_ifseu_product_objects',
             ],
-            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
         ]
     ],
     

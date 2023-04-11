@@ -31,8 +31,7 @@ class ApplicationsOptionsProvider implements SelectOptionsProviderInterface {
         {
             if($listItem instanceof DataObject\IFSEUApplications)
             {
-            // $optionsData[] = array ('key' => $listItem->getApplicationName(),'value' => $listItem->getApplicationID());
-            $optionsData[] = array ('key' => $listItem->getApplicationName(),'value' => $listItem->getId());
+            $optionsData[] = array ('key' => $listItem->getApplicationName(),'value' => $listItem->getID());
             }
         }
 

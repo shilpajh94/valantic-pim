@@ -6,6 +6,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
+use IFSEU\ProductBundle\Services\CompletenessPercentageService;
 
 class ProductService
 {
@@ -48,6 +49,8 @@ class ProductService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
+    private $mapBricksArray;
+    private $percentageCompletionService;
 
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
@@ -57,8 +60,10 @@ class ProductService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct()
-    {
+    public function __construct(
+        CompletenessPercentageService $percentageCompletionService
+    ) {
+        $this->percentageCompletionService = $percentageCompletionService;        
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
@@ -80,7 +85,7 @@ class ProductService
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT'];
+        $this->langArr = ['de', 'en', 'es', 'fr', 'pt', 'ru_RU', 'it_IT','zh','da','fi_FI','nl_NL','nn_NO','pl_PL','sv_SE','en_GB'];
         $tables = $this->common->getParameter($this->materialConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
@@ -243,6 +248,7 @@ class ProductService
         $this->relationTableDataDeleteArray = [];
         $this->dependencyTableDataArray = [];
         $this->bricksDataArray = [];
+        $this->mapBricksArray = [];
         foreach ($this->langArr as $lang) {
             $this->localisedQueryTableDataArray[$lang] = [];    
         }
@@ -284,6 +290,13 @@ class ProductService
         }
         if (!empty($this->dependencyTableDataArray)) {
             $this->productModel->insertIntoProductTable($this->dependencyTableDataArray, 'dependencies');
+        }
+        if (!empty($this->mapBricksArray)) {
+            foreach ($this->mapBricksArray as $tbl => $data) {
+                if (!empty($data)) {
+                    $this->productModel->insertIntoProductTable($data, $tbl);
+                }
+            }
         }
         if (!empty($this->bricksDataArray)) {
             foreach ($this->bricksDataArray as $tbl => $data) {
@@ -356,6 +369,7 @@ class ProductService
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
+            $this->getBricksDataForMapping($objId);
 
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
             $groupNames = trim($groupNames, ',');
@@ -381,7 +395,7 @@ class ProductService
         $recData =  (array) json_decode($row['record']);
         $status = 'Failed';
         $errorFlag = false;
-        $prodHier6 = $recData[$this->getRecordIndexByKey('prodHier6')];
+        $prodHier6 = substr($recData[$this->getRecordIndexByKey('prodHier7')],0,13);
         $prodHier7 = $recData[$this->getRecordIndexByKey('prodHier7')];
 
         if (array_key_exists($siopCode, $this->categories)) {
@@ -390,7 +404,7 @@ class ProductService
 
                 if($this->productModel->checkHierarchyExistAtLevel($prodHier6, 6) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
                     
-                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                    // if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
                         $record = array(
                             'code'  =>  $siopCode,
@@ -401,9 +415,9 @@ class ProductService
 
                         $status = $result['status'];
                         $msg    = $result['msg'];
-                    } else {
-                        $msg = 'Material Group code can not be empty.';
-                    }
+                    // } else {
+                    //     $msg = 'Material Group code can not be empty.';
+                    // }
                 }
                 else
                 {
@@ -439,7 +453,6 @@ class ProductService
 
     private function processLevelInfo($record, $recData, $errorFlag) 
     {
-
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
 
         if ($levelInfo['status']) {
@@ -513,7 +526,7 @@ class ProductService
                 $siopData[$index] = null;
             }
         }
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -566,7 +579,6 @@ class ProductService
             if (!empty($grossWeight)) {
 
                 if (!empty($weightUnit)) {
-
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
                     $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
                     $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
@@ -589,7 +601,7 @@ class ProductService
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
-        $siopFullCode = trim($record[$this->getRecordIndexByKey('code')]);
+        $siopFullCode = trim($record[$this->getRecordIndexByKey('prodHier7')]);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
@@ -707,7 +719,13 @@ class ProductService
             }
         }
     }
-    
+    public function getBricksDataForMapping($objId){
+        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+
+        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+    }
     public function setBricksData($objId, $bricks, $type) {
         foreach ($bricks as $brick) {
             if (in_array($brick, $this->allBricksList)) {
@@ -736,7 +754,8 @@ class ProductService
             if (!empty($objectId)) {
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
-                    $object->save();
+                    // $object->save();
+                    $this->percentageCompletionService->completenessPercentage($object, 'import');
                 }
             }
         }
