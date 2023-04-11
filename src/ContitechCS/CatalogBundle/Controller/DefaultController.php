@@ -1213,7 +1213,16 @@ class DefaultController extends AbstractController
 
                     if($contiRollChildProducts)
                     {
-                        foreach ($contiRollChildProducts as $child) {
+                        $contiRollChildSortedProducts =[];
+
+                        foreach($contiRollChildProducts as $nc)
+                        {
+                            $contiRollChildSortedProducts[$nc->getSortOrder()] = $nc;
+                        }
+
+                        ksort($contiRollChildSortedProducts);
+
+                        foreach ($contiRollChildSortedProducts as $child) {
 
                             $data = [];
                             $contiData = [];
