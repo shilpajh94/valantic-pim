@@ -49,6 +49,7 @@ class ProductService
     private $relationTableDataDeleteArray;
     private $dependencyTableDataArray;
     private $bricksDataArray;
+    private $mapBricksArray;
     private $percentageCompletionService;
 
     
@@ -247,6 +248,7 @@ class ProductService
         $this->relationTableDataDeleteArray = [];
         $this->dependencyTableDataArray = [];
         $this->bricksDataArray = [];
+        $this->mapBricksArray = [];
         foreach ($this->langArr as $lang) {
             $this->localisedQueryTableDataArray[$lang] = [];    
         }
@@ -288,6 +290,13 @@ class ProductService
         }
         if (!empty($this->dependencyTableDataArray)) {
             $this->productModel->insertIntoProductTable($this->dependencyTableDataArray, 'dependencies');
+        }
+        if (!empty($this->mapBricksArray)) {
+            foreach ($this->mapBricksArray as $tbl => $data) {
+                if (!empty($data)) {
+                    $this->productModel->insertIntoProductTable($data, $tbl);
+                }
+            }
         }
         if (!empty($this->bricksDataArray)) {
             foreach ($this->bricksDataArray as $tbl => $data) {
@@ -360,6 +369,7 @@ class ProductService
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
+            $this->getBricksDataForMapping($objId);
 
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
             $groupNames = trim($groupNames, ',');
@@ -709,7 +719,13 @@ class ProductService
             }
         }
     }
-    
+    public function getBricksDataForMapping($objId){
+        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+
+        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+    }
     public function setBricksData($objId, $bricks, $type) {
         foreach ($bricks as $brick) {
             if (in_array($brick, $this->allBricksList)) {
