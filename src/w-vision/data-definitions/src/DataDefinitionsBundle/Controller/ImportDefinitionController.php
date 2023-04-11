@@ -631,6 +631,13 @@ class ImportDefinitionController extends ResourceController
         if(!$asset){
             return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definitions_file_not_uploaded')]);
         }
+        $id = $request->get('importDefinitionId');
+        $definition = $this->repository->find($id);
+        if ($definition instanceof ImportDefinitionInterface) {
+            if(!$definition->getMapping()){
+                return $this->viewHandler->handle(['success' => false, 'msg' =>'Field not mapped with any columns ']);
+            }
+        }
         $fullPath           = $asset->getFileSystemPath();
         $importFilePimcoreAssetId   = $asset->getId();
 
