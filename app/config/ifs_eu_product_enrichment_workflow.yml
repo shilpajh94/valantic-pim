@@ -169,7 +169,7 @@ pimcore:
                     to: in_editor_edit_after_publish
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
                     options:
-                        label: 'Send to Editor'
+                        label: 'Send to Editor For Fixes'
                         notes:
                             commentEnabled: true
                             commentRequired: false

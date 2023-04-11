@@ -64,8 +64,17 @@ class CategoryDataExport implements IDataExport
                             $categoryFilteredNonLocalizedAttributeField = array_keys($categoryFilteredNonLocalizedAttribute);
                             
                             $b2bCategoriesChucks = array_chunk($b2bCategories,50);
-                            $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
-                            $file = fopen($filePath,"w+");
+
+                            // $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
+                            // $file = fopen($filePath,"w+");
+
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
+                            $file1 = fopen($filePath1,"w+");
+
+                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
+                            $file2 = fopen($filePath2,"w+");
+
+
                             $areHeadersAlreadyAdded = false;
                             foreach ($b2bCategoriesChucks as $batchNum => $categoryIds) 
                             {
@@ -160,24 +169,50 @@ class CategoryDataExport implements IDataExport
                                 {
                                     if(!$areHeadersAlreadyAdded)
                                     {
+                                        //dd($headerMapping);
                                         $keys = array_keys($finalPritingList[0]);
                                         $displayKeys = [];
-
-                                        foreach ($keys as $keyIndex => $keyName) {
-                                            $displayKeys[$keyName] = (isset($this->headerMapping[$keyName])) ? $this->headerMapping[$keyName] : 'Language';
+                                        $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                        foreach ($headerMapping as $headerIndex => $headerName) {
+                                                $displayKeys[$headerIndex] = $headerName;
                                         }
-
-                                        fputcsv($file, $displayKeys);
+                                        $displayKeys=array_merge($staticHeaderMappingArr,$displayKeys);
+                                        fputcsv($file1, $displayKeys);
+                                        fputcsv($file2, $displayKeys);
                                         $areHeadersAlreadyAdded = true;
                                     }
-                                    
+
                                     foreach($finalPritingList as $key=>$record){
-                                        fputcsv($file, $record);
+                                        foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
+                                            if(array_key_exists($keyHeader,$record)){
+                                                $mapping_record[$keyHeaderValue] = strip_tags($record[$keyHeader]);
+                                                if($keyHeader!='SalesForce_ID'){
+                                                    unset($record[$keyHeader]);
+                                                }
+                                                
+                                            }else if($keyHeaderValue=='BussinessUnit'){
+                                                $mapping_record[$keyHeaderValue]=$this->bu;
+                                            }else if($keyHeaderValue=='Language'){
+                                                $mapping_record[$keyHeaderValue]='';
+                                            }
+                                        }
+                                        $record=array_merge($mapping_record,$record);
+                                        if($record['SalesForce_ID'])
+                                        {
+                                            unset($record['SalesForce_ID']);
+                                            fputcsv($file2, $record);
+                                        }
+                                        else{
+                                            unset($record['SalesForce_ID']);
+                                            fputcsv($file1, $record);
+                                        }
                                     }
                                 }
                             }
 
-                            fclose($file);
+                            // fclose($file);
+                            fclose($file1);
+                            fclose($file2);
 
                             echo $message = "{$this->bu}: B2B category data csv file created";
                             echo PHP_EOL;
@@ -216,20 +251,14 @@ class CategoryDataExport implements IDataExport
         }
     }
 
-    public function getAssetPublicPath(Asset $asset, $imageTransformationSize = null): string
-    {
-        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
-        if( ($asset instanceof Image) && $imageTransformationSize){
-            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
-            $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . strval($imageTransformationSize)));
-        }
-        return $sourcePath;
-    }
-
     public function uploadFile()
     {
-        $customFileName = "{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
-        $this->helper->uploadFile($customFileName);
+        // $customFileName = "{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
+        $customFileName1 = "SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
+        $this->helper->uploadFile($customFileName1);
+
+        $customFileName2 = "SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
+        $this->helper->uploadFile($customFileName2);
     }
 
     public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)

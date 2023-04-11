@@ -1,0 +1,12 @@
+parameters:
+        staticWire:
+            fieldName: staticWire
+        assembly:
+            fieldName: assembly
+        bendRestrictor:
+            fieldName: bendRestrictor
+        swivel:
+            fieldName: swivel
+        flange:
+            fieldName: flange
+        

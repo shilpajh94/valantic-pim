@@ -32,20 +32,33 @@ class PimDataExportHelper
 
     public function uploadFile($customFileName)
     {
-        try {
-            $localFile    = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-            if(!file_exists($localFile)) 
-            {
-                echo "ERROR: Looking for file - ".$customFileName. ". But file not created in folder - '".B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."'";
-                echo PHP_EOL;
-                return null;
+        $remotefile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
+        $localfile = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
+        try 
+        {
+            $conn = ftp_connect(B2B_TRANSLATION_SFTP_HOST);
+            if(!$conn) {
+                echo 'Error: could not connect to ftp server';
+                exit;
             }
-            else{
-                $SFTPConObj = new SFTPConnection(B2B_TRANSLATION_SFTP_HOST, B2B_TRANSLATION_SFTP_PORT);
-                $SFTPConObj->login(B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
-                $remoteFile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH."/".$customFileName;
-                $SFTPConObj->uploadFile($localFile, $remoteFile);
+
+            $login = ftp_login($conn, B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
+            $mode = ftp_pasv($conn, TRUE);
+
+            if ((!$conn) || (!$login) || (!$mode)) {
+                die("FTP connection has failed !");
             }
+
+            if (ftp_put($conn, $remotefile, $localfile, FTP_ASCII)) {
+                echo "Successfully uploaded file - '$remotefile'";
+            } else {
+                echo "There was a problem while uploading '$remotefile'\n";
+                ftp_quit($conn);
+                exit;
+            }
+            
+            ftp_close($conn);
+
         } catch (\Throwable $th) {
             echo PHP_EOL;
             echo "ERROR: File not uploaded to the server.";

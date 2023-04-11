@@ -90,6 +90,12 @@ services:
 
 
     
+
+    # Event Listener 
+    IFSEU\ImportBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
     # Helpers
     ifs_eu_import.common_helper:
         class: IFSEU\ImportBundle\Helper\Common
@@ -145,9 +151,19 @@ services:
     ifs_eu_import.category_import_service:
         class: IFSEU\ImportBundle\Services\CategoryService
         public: true
-
+    ifs_eu_import.unit_conversion_import_service:
+        class: IFSEU\ImportBundle\Services\UnitConverterService
+        public: true
     IFSEU\ProductBundle\Services\IFSEUMandatoryValidationService:
         public: true
-
     Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
-            class: IFSEU\ProductBundle\Controller\ClassController
+        class: IFSEU\ProductBundle\Controller\ClassController
+
+    IFSEU\ProductBundle\Workflow\IFSEUProductEnrichmentListener:
+        tags:
+            - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.completed, method: ifsEuWorkflowNotification }
+            - { name: kernel.event_listener, event: workflow.ifs_eu_product_enrichment.transition, method: ifsEuWorkflowActions }
+
+    ifs_eu_import.appServices:
+        class: IFSEU\ImportBundle\Services\AppService
+        public: true

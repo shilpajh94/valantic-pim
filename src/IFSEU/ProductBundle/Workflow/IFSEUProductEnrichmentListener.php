@@ -143,7 +143,6 @@ class IFSEUProductEnrichmentListener
             $toEmails = $this->getUserEmailsListByRoles($to, $product);
             // $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
             $actionRemark = $this->getActionRemarks($product);
-
             $params = [
                 'template' => $template,
                 'toEmails' => $toEmails,
@@ -152,6 +151,7 @@ class IFSEUProductEnrichmentListener
                     'actionRemark' => $actionRemark
                 ]
             ];
+
             $this->sendMail($params);
         }
 

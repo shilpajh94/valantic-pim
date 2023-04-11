@@ -1,13 +1,24 @@
 MandatoryAttributes:
-    - MaterialNumber 
-    - SIOPLevel1
-    - SIOPLevel2
-    - SIOPLevel3
-    - SIOPLevel4
-    - EANCode
-    - CommercialDescription 
-    - WebDescription
-    - SearchKeywords
-    - FeaturesBenefitsBulletPoint
-    - FieldsOfApplication 
-    - Proposition65WarningAttributesRequired
+    # Fields Of Application:
+    #     fieldName: FieldsOfApplication 
+    #     fieldLevel: base
+    #     fieldType: objectBrick
+    #     objectBrickName: IFSEUHoseBase
+    # Features Benefits Bullet Point:
+    #     fieldName: FeaturesBenefitsBulletPoint 
+    #     fieldLevel: base
+    #     fieldType: class
+    # Commercial Description:
+    #     fieldName: CommercialDescription 
+    #     fieldLevel: base
+    #     fieldType: class
+    # Web Description:
+    #     fieldName: WebDescription 
+    #     fieldLevel: fert
+    #     fieldType: class
+    # Proposition65 Warning Attributes Required:
+    #     fieldName: Proposition65WarningAttributesRequired 
+    #     fieldLevel: fert
+    #     fieldType: class
+
+    

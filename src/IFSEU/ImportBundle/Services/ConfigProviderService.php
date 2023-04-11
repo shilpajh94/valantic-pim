@@ -50,7 +50,7 @@ class ConfigProviderService
 
     public function getUnitConversionConfig()
     {
-        return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
+        return $this->getConfigFromYmlFile(IFS_EU_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
     }
     
     public function getEditableProductAttributesImportConfig()

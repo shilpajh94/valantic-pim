@@ -1,0 +1,29 @@
+# for all valid units refer AppBundle\Lib\UnitConversion\Unit.php
+
+#    IFSEUHoseSkeleton
+Id_group:
+    IdInch: 'IN'
+    IdMM: 'MM'
+WallThickness_group:
+    wallThicknessInch: 'IN'
+    wallThicknessMM: 'MM'
+Od_group:
+    OdIn: 'IN'
+    Odmm: 'MM'
+WorkingPressure_group:
+    workingPressureBAR: 'BAR'
+    workingPressurePSI: 'PSI'
+BurstPressure_group:
+    BurstPressurePSI: 'PSI'
+    BurstPressureBar: 'BAR'
+Vacuum_group:
+    VacuumMM: 'MM'
+    VacuumIN: 'IN'
+TestPressure_group:
+    testPressureBar: 'BAR'
+    testPressurePSI: 'PSI'
+BendingRadius_group:
+    BendingRadiusMM: 'MM'
+    BendingRadiusIN: 'IN'
+
+

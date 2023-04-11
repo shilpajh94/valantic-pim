@@ -6,6 +6,7 @@ use IFSEU\ImportBundle\Model\SalesMaterialModel;
 use Elements\Bundle\ProcessManagerBundle;
 use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
+use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 use Pimcore\Model\DataObject;
 
 
@@ -65,7 +66,7 @@ class SalesMaterialService
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
         $salesOrganizationsFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER)->getId();
         $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
-        $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
+        $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
     }
@@ -248,6 +249,9 @@ class SalesMaterialService
         foreach ($data as $rowCount => $rowvalueRecord) {
             
             $rowvalue = json_decode($rowvalueRecord['record']);
+            if($rowvalue == null){
+                continue;
+            }
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
 
             $plantName = $rowvalue[$columnPlant];
