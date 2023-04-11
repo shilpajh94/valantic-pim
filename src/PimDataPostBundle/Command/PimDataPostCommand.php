@@ -25,7 +25,7 @@ class PimDataPostCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->postDataForB2BShop();
-        $this->postDataForB2CShop();
+        //$this->postDataForB2CShop();
       
         $this->removeEntriesFromPimDeletedAssets();
 
