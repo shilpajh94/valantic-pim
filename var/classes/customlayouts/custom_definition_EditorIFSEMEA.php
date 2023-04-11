@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-06T19:46:54+05:30
+* Generated at: 2023-04-08T14:00:44+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorIFSEMEA',
    'description' => NULL,
    'creationDate' => 1679912282,
-   'modificationDate' => 1680790614,
+   'modificationDate' => 1680942644,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',

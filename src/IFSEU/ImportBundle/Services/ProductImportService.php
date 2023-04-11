@@ -405,7 +405,7 @@ class ProductImportService
 
                 if($this->productModel->checkHierarchyExistAtLevel($prodHier6, 6) && $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
                     
-                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                    // if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
                         $record = array(
                             'code'  =>  $siopCode,
@@ -417,9 +417,9 @@ class ProductImportService
 
                         $status = $result['status'];
                         $msg    = $result['msg'];
-                    } else {
-                        $msg = 'Material Group code can not be empty.';
-                    }
+                    // } else {
+                    //     $msg = 'Material Group code can not be empty.';
+                    // }
                 }
                 else
                 {
