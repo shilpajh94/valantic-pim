@@ -54,9 +54,9 @@ class ProductAssetMappingService
             if ($downloadOrMapping == 'M') {
                 foreach($csvInfo['data'] as $rowData)
                 {
-                    if($rowData[1]!= '')
+                    if($rowData[0]!= '')
                     {
-                        $getImagesDataByPath = $this->getImagesDataByPath($rowData[1]);
+                        $getImagesDataByPath = $this->getImagesDataByPath($rowData[0]);
                         
                         if(count($getImagesDataByPath) == 0)
                         {
@@ -97,14 +97,15 @@ class ProductAssetMappingService
     {
         $productName = $rowData[1];
         $columnName = str_replace(" ","",$columnName);
-        $pimColumnName = $this->getPimColumnName($columnName);
+        $pimColumnName = $this->getPimColumnName($rowData[2]);
         
         if($pimColumnName != '')
         {
             echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new IFSEUProduct\Listing();
-            $allProductObject->setCondition("productBrandName = ?", [$productName]);
+            $allProductObject->setCondition("o_key = ?", [$productName]);
             $allProductObject->load();
+            
             foreach($allProductObject as $productObject)
             { 
                 try{
