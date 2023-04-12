@@ -94,7 +94,7 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
                     })
                 }else{
                     hideTabClassNames.forEach((hideTabClassName)=>{
-                        Ext.select(hideTabClassName).addCls('x-mask');
+                        //Ext.select(hideTabClassName).addCls('x-mask');
                     })
                 }
                
@@ -102,7 +102,11 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
             for(attribute  of attributes.attributes ){
                 object.edit.dataFields[attribute].component.setDisabled(true);
                 if(attribute == 'localizedfields'){
-                    object.edit.dataFields[attribute].component.setDisabled(true);
+                    let panelId=object.edit.dataFields[attribute].tabPanel.body.component.id;
+                    let PanelBodyId=panelId+'-body';
+                    Ext.get(PanelBodyId).setStyle('pointer-events', 'none');
+                    object.edit.dataFields[attribute].component.setDisabled(false);
+                    //object.edit.dataFields[attribute].tabPanel.body.component.setDisabled(true);
                 }
                 if(attribute=='Base'){
                     object.edit.dataFields[attribute].component.setDisabled(true)
