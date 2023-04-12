@@ -56,7 +56,7 @@ class CompletenessPercentageService
                                 $this->objectbricks($bricks, $lang, $attributes, $count, $totalFields, $emptyObjectBrickAttributes, $emptyObjectBrickAttributesCounter, $emptyAttributesLocalized, $emptyFieldLocalizedCounter);
                             }
                         } else {
-                            if ($fieldName != "SalesOrgData" && $fieldName != "Plants") {
+                            if ($fieldName != "SalesOrgData" && $fieldName != "Plants" && $fieldName != "priceData") {
                                 $key = ucfirst($fieldName);
                                 $skippedField = SkippedFieldList::CompletenessPercentageList();
                                 if (!in_array($key, $skippedField)) {
