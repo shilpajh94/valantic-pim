@@ -57,27 +57,29 @@ class ProductAssetMappingService
                     if($rowData[0]!= '')
                     {
                         $getImagesDataByPath = $this->getImagesDataByPath($rowData[0]);
-                        
+                       
                         if(count($getImagesDataByPath) == 0)
                         {
                             $this->insertLog($rowData, 'Mapping', 'Failed', 'Hierarchy path doesn`t exist or haven`t assets in pimcore !!', '');
                         }
                         foreach($getImagesDataByPath as $assetObject)
                         {
-                            $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
                             
+                            $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
+                           
                             $this->saveIFSEUProductColumn($rowData, $assetObject, $assetColumnName);
                         }
-                        $getFolderDataByPath = $this->getFolderDataByPath($rowData[1]);
-                        foreach($getFolderDataByPath as $assetFolderObject)
-                        {
-                            $getImagesDataByPath = $this->getImagesDataByPath($rowData[1].$assetFolderObject->getFilename()."/");
-                            foreach($getImagesDataByPath as $assetObject)
-                            {
-                                $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
-                                $this->saveIFSEUProductColumn($rowData, $assetObject, $assetColumnName);
-                            }
-                        }   
+                        // $getFolderDataByPath = $this->getFolderDataByPath($rowData[0]);
+                       
+                        // foreach($getFolderDataByPath as $assetFolderObject)
+                        // {
+                        //     $getImagesDataByPath = $this->getImagesDataByPath($rowData[1].$assetFolderObject->getFilename()."/");
+                        //     foreach($getImagesDataByPath as $assetObject)
+                        //     {
+                        //         $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
+                        //         $this->saveIFSEUProductColumn($rowData, $assetObject, $assetColumnName);
+                        //     }
+                        // }   
                     }
                 }
 
@@ -228,9 +230,10 @@ class ProductAssetMappingService
 
     private function getImagesDataByPath(string $assetHierarchyFilePath): ? array
     {
-        $assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
+        //$assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
+        $fileName = end(explode("/",$assetHierarchyFilePath));
         $getAsset = new Asset\Listing();
-        $getAsset->setCondition("path = ? AND type = 'image'", [$assetHierarchyFilePath]);
+        $getAsset->setCondition("filename = ? AND type = 'image'", [$fileName]);
         return $getAsset->load();
     }
 
