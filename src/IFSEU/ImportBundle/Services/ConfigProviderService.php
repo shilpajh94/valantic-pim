@@ -28,6 +28,12 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_CONFIG_FILE_PATH);
     }
+
+    public function getAssetConfig()
+    {
+        return $this->getConfigFromYmlFile(IFS_EU_ASSET_CONFIG_FILE_PATH);
+    }
+
     public function getProductImportConfig()
     {
         return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_IMPORT_CONFIG_FILE_PATH);
