@@ -70,7 +70,7 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                 layout: 'border',
                 title: t('data_definitions_provider_settings'),
                 iconCls: 'data_definitions_icon_provider',
-                disabled: true
+                // disabled: true
             });
         }
 
