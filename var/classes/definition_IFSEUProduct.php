@@ -6271,7 +6271,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                      'fieldtype' => 'image',
-                                     'width' => 220,
+                                     'width' => 230,
                                      'height' => 150,
                                      'uploadPath' => '',
                                      'queryColumnType' => 'int(11)',
@@ -10631,7 +10631,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'phpdocType' => 'string',
                                      'dynamicOptions' => false,
                                      'name' => 'californiaProposition65ChemicalName1',
-                                     'title' => 'California Proposition65 Chemical Name1',
+                                     'title' => 'California Proposition 65 Chemical Name1',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -19358,16 +19358,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'queryColumnType' => 'text',
                                      'relationType' => true,
                                      'objectsAllowed' => false,
-                                     'assetsAllowed' => false,
+                                     'assetsAllowed' => true,
                                      'assetTypes' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'assetTypes' => 'document',
+                                      ),
                                     ),
                                      'documentsAllowed' => false,
                                      'documentTypes' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'documentTypes' => '',
+                                      ),
                                     ),
                                      'classes' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'classes' => '',
+                                      ),
                                     ),
                                      'pathFormatterClass' => '',
                                      'name' => 'Gallery',
@@ -20793,7 +20805,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'LeftPrintCatalogImage',
                          'title' => 'Left Image',
-                         'tooltip' => 'Left print catalog image for hydraulic hose and hydraulic fitting hose.',
+                         'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -20817,7 +20829,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'RightPrintCatalogImage',
                          'title' => 'Right Image',
-                         'tooltip' => 'Right print catalog image for hydraulic hose and hydraulic fitting hose.',
+                         'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -20841,12 +20853,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'DrawingPictureForCatalog',
                          'title' => 'Drawing Picture',
-                         'tooltip' => 'Drawing Picture For Catalog',
+                         'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => '',
+                         'style' => 'float:left; margin-right:20px; clear:left;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

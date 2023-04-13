@@ -91,7 +91,10 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEUSaveAndPublishCommand: 
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:save' }
-    
+
+    IFSEU\ImportBundle\OneTimeImportCommand\MaterialGroupMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-material-group-master-data-import-command' }    
 
     # Event Listener 
     IFSEU\ImportBundle\EventListener\ObjectListener:
