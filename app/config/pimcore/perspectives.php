@@ -622,6 +622,14 @@ return [
                 'sort' => 2,
                 'id' => 'contitech_ifseu_material_master_list',
             ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
         ]
     ],
     
@@ -651,6 +659,14 @@ return [
                 'hidden' => false,
                 'sort' => 2,
                 'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
             ],
         ]
     ],
@@ -682,6 +698,14 @@ return [
                 'sort' => 2,
                 'id' => 'contitech_ifseu_material_master_list',
             ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
         ]
     ],
     
@@ -712,6 +736,14 @@ return [
                 'sort' => 2,
                 'id' => 'contitech_ifseu_material_master_list',
             ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
         ]
     ],
     
@@ -741,6 +773,14 @@ return [
                 'hidden' => false,
                 'sort' => 2,
                 'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
             ],
         ]
     ],
