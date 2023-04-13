@@ -88,6 +88,9 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:one-time-import:product-asset-import' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\MaterialGroupMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-material-group-master-data-import-command' }
 
     
 
