@@ -7722,8 +7722,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "columnAction" => "openObject",
-                "id" => "extModel1730-1"
+                "id" => "extModel317-1"
             ],
             [
                 "name" => "Legal Text",
@@ -7732,7 +7731,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-2"
+                "id" => "extModel317-2"
             ],
             [
                 "name" => "Brand Short Text 1",
@@ -7741,7 +7740,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-3"
+                "id" => "extModel317-3"
             ],
             [
                 "name" => "Brand Short Text 2",
@@ -7750,7 +7749,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-4"
+                "id" => "extModel317-4"
             ],
             [
                 "name" => "SAP Description",
@@ -7759,7 +7758,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-5"
+                "id" => "extModel317-5"
             ],
             [
                 "name" => "Legal Text (de)",
@@ -7768,7 +7767,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-6"
+                "id" => "extModel317-6"
             ],
             [
                 "name" => "Brand Short Text 1 (de)",
@@ -7777,7 +7776,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-7"
+                "id" => "extModel317-7"
             ],
             [
                 "name" => "Brand Short Text 2 (de)",
@@ -7786,7 +7785,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-8"
+                "id" => "extModel317-8"
             ],
             [
                 "name" => "SAP Description (de)",
@@ -7795,7 +7794,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-9"
+                "id" => "extModel317-9"
             ],
             [
                 "name" => "Legal Text (it)",
@@ -7804,7 +7803,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-10"
+                "id" => "extModel317-10"
             ],
             [
                 "name" => "Brand Short Text 1 (it)",
@@ -7813,7 +7812,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-11"
+                "id" => "extModel317-11"
             ],
             [
                 "name" => "Brand Short Text 2 (it)",
@@ -7822,7 +7821,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-12"
+                "id" => "extModel317-12"
             ],
             [
                 "name" => "SAP Description (it)",
@@ -7831,7 +7830,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-13"
+                "id" => "extModel317-13"
             ],
             [
                 "name" => "Legal Text (fr)",
@@ -7840,7 +7839,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-14"
+                "id" => "extModel317-14"
             ],
             [
                 "name" => "Brand Short Text 1 (fr)",
@@ -7849,7 +7848,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-15"
+                "id" => "extModel317-15"
             ],
             [
                 "name" => "Brand Short Text 2 (fr)",
@@ -7858,7 +7857,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-16"
+                "id" => "extModel317-16"
             ],
             [
                 "name" => "SAP Description (fr)",
@@ -7867,7 +7866,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-17"
+                "id" => "extModel317-17"
             ],
             [
                 "name" => "Legal Text (es)",
@@ -7876,7 +7875,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-18"
+                "id" => "extModel317-18"
             ],
             [
                 "name" => "Brand Short Text 1 (es)",
@@ -7885,7 +7884,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-19"
+                "id" => "extModel317-19"
             ],
             [
                 "name" => "Brand Short Text 2 (es)",
@@ -7894,7 +7893,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-20"
+                "id" => "extModel317-20"
             ],
             [
                 "name" => "SAP Description (es)",
@@ -7903,7 +7902,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-21"
+                "id" => "extModel317-21"
             ],
             [
                 "name" => "Legal Text (zh)",
@@ -7912,7 +7911,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-22"
+                "id" => "extModel317-22"
             ],
             [
                 "name" => "Brand Short Text 1 (zh)",
@@ -7921,7 +7920,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-23"
+                "id" => "extModel317-23"
             ],
             [
                 "name" => "Brand Short Text 2 (zh)",
@@ -7930,7 +7929,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-24"
+                "id" => "extModel317-24"
             ],
             [
                 "name" => "SAP Description (zh)",
@@ -7939,7 +7938,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-25"
+                "id" => "extModel317-25"
             ],
             [
                 "name" => "Brand Short Text 1 (pt)",
@@ -7948,7 +7947,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-26"
+                "id" => "extModel317-26"
             ],
             [
                 "name" => "Brand Short Text 2 (pt)",
@@ -7957,7 +7956,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-27"
+                "id" => "extModel317-27"
             ],
             [
                 "name" => "SAP Description (pt)",
@@ -7966,7 +7965,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-28"
+                "id" => "extModel317-28"
             ],
             [
                 "name" => "HeadLine Web",
@@ -7975,7 +7974,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-29"
+                "id" => "extModel317-29"
             ],
             [
                 "name" => "Marking2",
@@ -7984,7 +7983,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-30"
+                "id" => "extModel317-30"
             ],
             [
                 "name" => "Search Keywords",
@@ -7993,7 +7992,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-31"
+                "id" => "extModel317-31"
             ],
             [
                 "name" => "Commercial Description",
@@ -8002,7 +8001,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-32"
+                "id" => "extModel317-32"
             ],
             [
                 "name" => "Technical Description",
@@ -9478,7 +9477,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1730-196"
+                "id" => "extModel317-33"
             ]
         ],
         "niceName" => "IFSEU - Translation Missing Report",
@@ -9494,7 +9493,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1681123070,
+        "modificationDate" => 1681132163,
         "creationDate" => 1675954821,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [

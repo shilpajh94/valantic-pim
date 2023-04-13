@@ -521,9 +521,9 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             if (pimcore.plugin.datadefinitions.provider[provider] !== undefined) {
                 if (this.data.provider === null) {
                     this.data.provider = provider;
-                    this.save(function () {
+                    // this.save(function () {
                         this.updateProviderMapViews();
-                    }.bind(this));
+                    // }.bind(this));
                 } else {
                     this.data.provider = provider;
                     this.updateProviderMapViews();
