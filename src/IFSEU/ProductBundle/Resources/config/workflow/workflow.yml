@@ -140,17 +140,58 @@ parameters:
                 methods:
                     - checkForMandatoryValidation
 
+        send_to_pm_for_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_editor_for_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_marcom_for_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_editor_edit_after_publish:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
         in_marcom_edit_after_publish:
             condition:
                 methods:
                     - checkForMandatoryValidation
+
+        in_pm_review_after_marcom:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
 
         in_pm_review_after_editor_edit:
             condition:
                 methods:
                     - checkForMandatoryValidation
 
+        in_editor_edit_after_marcom_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_marcom_edit_after_pm_review:
+             condition:
+                methods:
+                    - checkForMandatoryValidation
+
         in_marcom_edit_after_editor_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_editor_edit_after_pm_review:
             condition:
                 methods:
                     - checkForMandatoryValidation

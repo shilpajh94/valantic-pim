@@ -1,7 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-14T13:24:37+05:30
+* Generated at: 2023-04-14T11:19:28+02:00
+* Changed by: system (0)
 * IP: 127.0.0.1
 */ 
 
@@ -10,8 +11,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'ProductManagementIFSEMEA',
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
-   'creationDate' => 1681288759,
-   'modificationDate' => 1681458877,
+   'creationDate' => 1681282224,
+   'modificationDate' => 1681463968,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -2811,7 +2812,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'title' => 'Commercial Description',
                                          'tooltip' => '',
                                          'mandatory' => false,
-                                         'noteditable' => true,
+                                         'noteditable' => false,
                                          'index' => false,
                                          'locked' => false,
                                          'style' => 'margin-left:20px;',
