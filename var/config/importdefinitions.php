@@ -54,13 +54,13 @@ return [
             "csvId" => "20368"
         ],
         "creationDate" => 1681387265,
-        "modificationDate" => 1681464869,
+        "modificationDate" => 1681472016,
         "mapping" => [
             [
                 "primaryIdentifier" => FALSE,
                 "setter" => NULL,
                 "setterConfig" => NULL,
-                "fromColumn" => "TempratureC",
+                "fromColumn" => "minTempratureC",
                 "toColumn" => "minimumTemperatureC",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
@@ -74,7 +74,7 @@ return [
                 "primaryIdentifier" => FALSE,
                 "setter" => NULL,
                 "setterConfig" => NULL,
-                "fromColumn" => "TempratureC",
+                "fromColumn" => "maxTempratureC",
                 "toColumn" => "maximumTemperatureC",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
@@ -88,8 +88,22 @@ return [
                 "primaryIdentifier" => FALSE,
                 "setter" => NULL,
                 "setterConfig" => NULL,
-                "fromColumn" => "TempratureF",
+                "fromColumn" => "minTempratureF",
                 "toColumn" => "minimumTemperatureF",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "maxTempratureF",
+                "toColumn" => "maximumTemperatureF",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
                     "separator" => "|",
@@ -105,8 +119,25 @@ return [
                     "brickField" => "Base",
                     "class" => "IFSEUHoseBase"
                 ],
-                "fromColumn" => "TempratureC",
+                "fromColumn" => "odIn",
                 "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdDec",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Base",
+                    "class" => "IFSEUHoseBase"
+                ],
+                "fromColumn" => "OdMM",
+                "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdMM",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
                     "separator" => "|",
@@ -122,8 +153,59 @@ return [
                     "brickField" => "Skeleton",
                     "class" => "IFSEUHoseSkeleton"
                 ],
-                "fromColumn" => "TempratureC",
-                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~OdIn",
+                "fromColumn" => "odIn",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdInch",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "OdMM",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdMM",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "WorkingPressureBar",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressureBAR",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "WorkingPressurePSI",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressurePSI",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
                     "separator" => "|",

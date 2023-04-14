@@ -20,6 +20,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Getter\GetterInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ExportMapping;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping;
 use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
 class ObjectbrickSetter implements SetterInterface, GetterInterface
 {
@@ -28,8 +29,10 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
      */
 
     private $appService;
+    private $appServiceIFSEU;
     public function __construct(){
         $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
+        $this->appServiceIFSEU = \Pimcore::getContainer()->get('ifs_eu_import.appServices');
 
     }
     public function set(Concrete $object, $value, ImportMapping $map, $data)
@@ -58,7 +61,6 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                 
                 $brickClassGetter = sprintf('get%s', ucfirst($class));    
                 // $brickClassSetter = sprintf('set%s', ucfirst($class));
-               
                 $brickFieldObject = $brick->$brickClassGetter();
 
                 if (!$brickFieldObject instanceof AbstractData) {
@@ -78,7 +80,14 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                     }else{
                         $brickFieldObject->$setter($value);
                     }
-                    $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
+
+                    if($object->getClassName()=='IFSEUProduct'){
+                        if(!empty($value)){
+                            $this->appServiceIFSEU->updateAttributeGroup($brickFieldObject, $brickField, $value); 
+                        }
+                    }else{
+                        $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
+                    }
                 }
             }
         }
