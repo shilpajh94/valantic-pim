@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-14T11:48:18+05:30
+* Generated at: 2023-04-14T13:23:28+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681453084,
+   'modificationDate' => 1681458792,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -21855,7 +21855,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'fieldtype' => 'image',
                          'width' => 300,
                          'height' => '',
-                         'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
+                         'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',

@@ -80,8 +80,6 @@ parameters:
                     # - ProductManagementIFSEMEA
                 roles:
                     - ProductManagementIFSEMEA
-                    - EditorIFSEMEA
-                    - MarComIFSEMEA
         in_editor_edit_after_marcom_review:
             templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Editor for Fixes'
             notificationTo: 

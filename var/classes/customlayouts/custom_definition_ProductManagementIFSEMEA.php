@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-14T11:49:22+05:30
+* Generated at: 2023-04-14T13:24:37+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1681453162,
+   'modificationDate' => 1681458877,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -21389,7 +21389,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'fieldtype' => 'image',
                          'width' => 300,
                          'height' => '',
-                         'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
+                         'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
