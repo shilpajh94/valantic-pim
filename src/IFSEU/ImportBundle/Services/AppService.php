@@ -123,7 +123,6 @@ class AppService
      */
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
-        DataImportLogger::log(json_encode($attributeName));
         if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
