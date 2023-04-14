@@ -26,4 +26,18 @@ BendingRadius_group:
     BendingRadiusMM: 'MM'
     BendingRadiusIN: 'IN'
 
+#Brand level 
+
+minimumTemperature__group:
+    minimumTemperatureF: 'F'
+    minimumTemperatureC: 'C'
+maximumTemperatureF__group:
+    maximumTemperatureC: 'C'
+    maximumTemperatureF: 'F'
+#IFSEUHoseBase
+hoseId__group:
+    hoseIdMM: 'MM'
+    hoseIdDec: 'IN'
+
+
 

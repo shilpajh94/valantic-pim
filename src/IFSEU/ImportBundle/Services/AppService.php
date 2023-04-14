@@ -10,6 +10,8 @@ use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use Pimcore\Model\DataObject\Service;
 use Symfony\Component\HttpFoundation\Request;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+
 
 class AppService
 {
@@ -121,6 +123,7 @@ class AppService
      */
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
+        DataImportLogger::log(json_encode($attributeName));
         if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
