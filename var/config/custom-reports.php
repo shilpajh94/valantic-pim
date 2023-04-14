@@ -7404,7 +7404,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`materialNumber` AS `Material Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\ncat7.`description` AS `SIOP Level 7`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit'\nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit'\nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review'\nWHEN wf.`place` = 'published' THEN 'Published'\nEND as `Status`,\no1.`o_id`\nFROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nJOIN element_workflow_state wf ON wf.cid = n.cid \n  LEFT JOIN object_IFSEUProduct o1 ON o1.oo_id = n.cid \n  LEFT JOIN `object_localized_query_IFSEUProduct_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat1 ON cat1.oo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat2 ON cat2.oo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat3 ON cat3.oo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat4 ON cat4.oo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat5 ON cat5.oo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat6 ON cat6.oo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2))\n  LEFT JOIN object_localized_IFSEUProductCategory_en cat7 ON cat7.oo_id = SUBSTRING(o1.SIOPLevel7,2,(LENGTH(o1.SIOPLevel7) - 2)) \nWHERE (o1.`o_published` =1)",
+                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`materialNumber` AS `Material Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\ncat7.`description` AS `SIOP Level 7`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit'\nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit'\nWHEN wf.`place` = 'in_pm_review_after_publish' THEN 'In Product Manger Review'\nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review'\nWHEN wf.`place` = 'published' THEN 'Published'\nEND as `Status`,\no1.`o_id`\nFROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nJOIN element_workflow_state wf ON wf.cid = n.cid \n  LEFT JOIN object_IFSEUProduct o1 ON o1.oo_id = n.cid \n  LEFT JOIN `object_localized_query_IFSEUProduct_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat1 ON cat1.oo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat2 ON cat2.oo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat3 ON cat3.oo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat4 ON cat4.oo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat5 ON cat5.oo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat6 ON cat6.oo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2))\n  LEFT JOIN object_localized_IFSEUProductCategory_en cat7 ON cat7.oo_id = SUBSTRING(o1.SIOPLevel7,2,(LENGTH(o1.SIOPLevel7) - 2)) \nWHERE (o1.`o_published` =1)",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -7419,7 +7419,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-1"
+                "id" => "extModel2579-1"
             ],
             [
                 "name" => "Material Number",
@@ -7428,7 +7428,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-2"
+                "id" => "extModel2579-2"
             ],
             [
                 "name" => "SAP Description",
@@ -7437,7 +7437,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-3"
+                "id" => "extModel2579-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -7446,7 +7446,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-4"
+                "id" => "extModel2579-4"
             ],
             [
                 "name" => "Pending Since",
@@ -7455,7 +7455,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-5"
+                "id" => "extModel2579-5"
             ],
             [
                 "name" => "Last Action Date",
@@ -7464,7 +7464,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-6"
+                "id" => "extModel2579-6"
             ],
             [
                 "name" => "Product Type",
@@ -7473,7 +7473,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-7"
+                "id" => "extModel2579-7"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -7482,7 +7482,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-8"
+                "id" => "extModel2579-8"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -7491,7 +7491,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-9"
+                "id" => "extModel2579-9"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -7500,7 +7500,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-10"
+                "id" => "extModel2579-10"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -7509,7 +7509,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-11"
+                "id" => "extModel2579-11"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -7518,7 +7518,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-12"
+                "id" => "extModel2579-12"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -7527,7 +7527,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-13"
+                "id" => "extModel2579-13"
             ],
             [
                 "name" => "SIOP Level 7",
@@ -7536,7 +7536,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-14"
+                "id" => "extModel2579-14"
             ],
             [
                 "name" => "Status",
@@ -7545,7 +7545,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel470-15"
+                "id" => "extModel2579-15"
             ],
             [
                 "name" => "o_id",
@@ -7555,7 +7555,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel470-16"
+                "id" => "extModel2579-16"
             ]
         ],
         "niceName" => "IFSEU - WorkflowPendingProducts",
@@ -7571,7 +7571,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1681132196,
+        "modificationDate" => 1681452313,
         "creationDate" => 1675054385,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
