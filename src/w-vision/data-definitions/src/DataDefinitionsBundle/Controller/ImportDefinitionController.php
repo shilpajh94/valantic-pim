@@ -646,7 +646,6 @@ class ImportDefinitionController extends ResourceController
         $fd                 = fopen($tempFilePath, "w");
         fputs($fd, $csvContent);
         
-        
         // insert the record into the data definition import
         $dataImport  = new DataDefinitionImport();
         $dataImport->setName($name);
