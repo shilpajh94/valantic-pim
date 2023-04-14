@@ -93,3 +93,11 @@ With helix:
     fieldName: withHelix
     fieldType: Boolean Select
     objectType: IFSEUHoseBase
+HoseId inch:
+    fieldName: hoseIdDec
+    fieldType: Number
+    objectType: IFSEUHoseBase
+HoseId mm:
+    fieldName: hoseIdMM
+    fieldType: Number
+    objectType: IFSEUHoseBase

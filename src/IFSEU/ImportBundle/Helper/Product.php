@@ -223,7 +223,9 @@ class Product
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
+        //dd($rowData);
         $conversionAttributeArr=[];
+        $convertFieldsValue=[];
         foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
         { 
             $fieldName  = $brickAttributeConfig['fieldName'];
@@ -235,15 +237,19 @@ class Product
                 
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
                 $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
-                if($attributeGroupName && !empty($fieldValue)){
+                if(!empty($attributeGroupName) && !empty($fieldValue)){
                     $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $convertFieldsValue[$key]=$convertValues;
+                    }
                 }
                 if($fieldType=='Boolean Select')
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
                 }
-                if(array_key_exists($fieldName, $conversionAttributeArr)){
-                    $bricksData= $conversionAttributeArr;
+                $bricksData[$fieldName] = $fieldValue;
+                if(array_key_exists($fieldName, $convertFieldsValue)){
+                    $bricksData= $convertFieldsValue;
                 }else{
                     $bricksData[$fieldName] = $fieldValue;
                 }

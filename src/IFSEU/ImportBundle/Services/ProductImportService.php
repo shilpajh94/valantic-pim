@@ -146,7 +146,9 @@ class ProductImportService
             $this->csvHeader = array_flip($csvInfo['header']);
             try {
                 $this->initImportTable();
-                Logger::log(self::LOGGER_MODULE)->info("Product import started"); 
+                //dd("2222");
+                Logger::log(self::LOGGER_MODULE)->info("Product import started");
+                
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
@@ -157,7 +159,7 @@ class ProductImportService
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
                 $this->productModel->updateMaster();
                 Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
-    
+
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                     echo "Object Saving started for completeness.".PHP_EOL;         
                     $this->saveProducts($this->updatedArticlesArray);
@@ -645,9 +647,55 @@ class ProductImportService
             $category = trim($record[$this->getRecordIndexByKey('Category')]);
             $categoryDataInSheet = str_replace(" / ", " - ", $category);
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
+            $conversionAttributeArr=[];
+            $queryTableData['Category'] = null;
+            /*$queryTableData['minimumTemperatureC'] = null;
+            $queryTableData['minimumTemperatureF'] = null;
+            $queryTableData['maximumTemperatureC'] = null;
+            $queryTableData['maximumTemperatureF'] = null;*/
+            /*$minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $minimumTemperatureF = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $maximumTemperatureF = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);*/
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
             }
+            /*if(!empty($minimumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($minimumTemperatureF)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureF');
+                if($attributeGroupName && !empty($minimumTemperatureF)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureF', floatval($minimumTemperatureF));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+                if($attributeGroupName && !empty($maximumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureF)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureF');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureF', floatval($maximumTemperatureF));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }*/
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -735,9 +783,55 @@ class ProductImportService
             $category = trim($record[$this->getRecordIndexByKey('Category')]);
             $categoryDataInSheet = str_replace(" / ", " - ", $category);
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
+            $conversionAttributeArr=[];
+            $storeTableDataArray['Category'] = null;
+            /*$storeTableDataArray['minimumTemperatureC'] = null;
+            $storeTableDataArray['minimumTemperatureF'] = null;
+            $storeTableDataArray['maximumTemperatureC'] = null;
+            $storeTableDataArray['maximumTemperatureF'] = null;*/
+            /*$minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $minimumTemperatureF = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $maximumTemperatureF = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);*/
             if(!empty($getCatagoryID)) {
                 $storeTableDataArray['Category'] = $getCatagoryID;
             }
+            /*if(!empty($minimumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($minimumTemperatureF)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureF');
+                if($attributeGroupName && !empty($minimumTemperatureF)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureF', floatval($minimumTemperatureF));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+                if($attributeGroupName && !empty($maximumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureF)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureF');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureF', floatval($maximumTemperatureF));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }*/
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
     }

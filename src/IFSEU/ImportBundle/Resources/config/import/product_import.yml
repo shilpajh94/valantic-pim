@@ -35,6 +35,10 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       Category:  'Category'
+      minimumTemperatureC: 'minimumTemperatureC'
+      minimumTemperatureF: 'minimumTemperatureF'
+      maximumTemperatureC: 'maximumTemperatureC'
+      maximumTemperatureF: 'maximumTemperatureF'
     #Fert Attribute 
       EANCode: 'EAN Code'
       weightg: 'Weight g/unit'
