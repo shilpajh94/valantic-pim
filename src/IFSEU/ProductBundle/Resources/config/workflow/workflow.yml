@@ -74,7 +74,7 @@ parameters:
                 roles:
                     - MarComIFSEMEA
         in_pm_review_after_editor_edit:
-            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Notification for Publish Product'
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
             notificationTo: 
                 users:
                     # - ProductManagementIFSEMEA
@@ -125,7 +125,7 @@ parameters:
                 roles:
                     - EditorIFSEMEA
         in_pm_review:
-            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Notification for Publish Product'
             notificationTo: 
                 users:
                     # - ProductManagementIFSEMEA

@@ -642,7 +642,9 @@ class ProductImportService
             }
         }
         if(strtolower($productType) == 'base'){
-            $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
+            $category = trim($record[$this->getRecordIndexByKey('Category')]);
+            $categoryDataInSheet = str_replace(" / ", " - ", $category);
+            $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
             }
@@ -730,7 +732,9 @@ class ProductImportService
             }
         }
         if(strtolower($productType) == 'base'){
-            $getCatagoryID = $this->getCategoryCodeId(trim($record[$this->getRecordIndexByKey('Category')]));
+            $category = trim($record[$this->getRecordIndexByKey('Category')]);
+            $categoryDataInSheet = str_replace(" / ", " - ", $category);
+            $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             if(!empty($getCatagoryID)) {
                 $storeTableDataArray['Category'] = $getCatagoryID;
             }

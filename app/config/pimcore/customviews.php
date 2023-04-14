@@ -442,7 +442,49 @@ return [
 
 
         /** custom view for ifseu project **/
-
+        
+        [
+            'treetype' => 'asset',
+            'name' => 'Product Assets',
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
+            'id' => 'contitech_ifseu_asset_products',
+            'rootfolder' => '/Contitech_IFS_EMEA/Product Assets',
+            'showroot' => true,
+            'position' => 'left',
+            'sort' => '5',
+            'expanded' => false,
+            'treeContextMenu' => [
+                'asset' => [
+                    'items' => [
+                        'add' => [
+//                            "hidden" => 1,                                    // hide "Add asset" menu (including subentries)
+                            'items' => [
+//                                'upload' => 0,                                  // hide "Upload"
+//                                "uploadCompatibility" => 0,                     // hide "Upload Compatibility Mode"
+//                                "uploadZip" => 0,                               // hide "Upload ZIP Archive"
+//                                "importFromServer" => 0,                        // don't show "Import from Server"
+//                                'uploadFromUrl' => 0                            // hide "Upload From URL"
+                            ]
+                        ],
+                        'addFolder' => 1,                                       // show (!) "Add Folder" (shown by default anyway)
+                        'rename' => 0,                                          // hide "Rename"
+//                        "copy" => 0,                                            // hide "Copy"
+//                        "cut" => 0,                                             // hide "Cut"
+                        'paste' => 0,                                           // hide "Paste"
+                        'pasteCut' => 0,                                        // hide "Paste cut element"
+                        'delete' => 0,                                          // hide "Delete"
+                        'searchAndMove' => 0,                                   // hide "Search And Move"
+                        'lock' => 0,                                            // hide "Lock"
+                        'unlock' => 0,                                          // hide "Unlock"
+                        'lockAndPropagate' => 0,                                // hide "Lock and propagate"
+                        'unlockAndPropagate' => 0,                              // hide "Unlock and propagate"
+                        'reload' => [                                           // show reload (shown by default anyway)
+                            'hidden' => false
+                        ]
+                    ]
+                ]
+            ]
+        ],
         [
             'treetype' => 'object',
             'name' => 'Master Data',
