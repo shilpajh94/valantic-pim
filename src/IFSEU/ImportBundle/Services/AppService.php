@@ -10,6 +10,8 @@ use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use Pimcore\Model\DataObject\Service;
 use Symfony\Component\HttpFoundation\Request;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+
 
 class AppService
 {

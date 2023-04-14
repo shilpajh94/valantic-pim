@@ -25,5 +25,199 @@ return [
         "stopOnException" => NULL,
         "failureNotificationDocument" => NULL,
         "successNotificationDocument" => NULL
+    ],
+    2 => [
+        "importLevel" => "Base",
+        "primaryKey" => "materialNumber",
+        "loader" => "primary_key",
+        "objectPath" => NULL,
+        "cleaner" => NULL,
+        "key" => NULL,
+        "filter" => NULL,
+        "renameExistingObjects" => FALSE,
+        "relocateExistingObjects" => FALSE,
+        "skipNewObjects" => TRUE,
+        "skipExistingObjects" => FALSE,
+        "createVersion" => TRUE,
+        "omitMandatoryCheck" => FALSE,
+        "forceLoadObject" => FALSE,
+        "id" => 2,
+        "name" => "testqqq",
+        "provider" => "csv",
+        "class" => "IFSEUProduct",
+        "configuration" => [
+            "csvExample" => NULL,
+            "delimiter" => ",",
+            "enclosure" => "\"",
+            "csvHeaders" => NULL,
+            "csvFile" => "New1.csv",
+            "csvId" => "20368"
+        ],
+        "creationDate" => 1681387265,
+        "modificationDate" => 1681472016,
+        "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "minTempratureC",
+                "toColumn" => "minimumTemperatureC",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "maxTempratureC",
+                "toColumn" => "maximumTemperatureC",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "minTempratureF",
+                "toColumn" => "minimumTemperatureF",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "maxTempratureF",
+                "toColumn" => "maximumTemperatureF",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Base",
+                    "class" => "IFSEUHoseBase"
+                ],
+                "fromColumn" => "odIn",
+                "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdDec",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Base",
+                    "class" => "IFSEUHoseBase"
+                ],
+                "fromColumn" => "OdMM",
+                "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdMM",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "odIn",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdInch",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "OdMM",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdMM",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "WorkingPressureBar",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressureBAR",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => "objectbrick",
+                "setterConfig" => [
+                    "brickField" => "Skeleton",
+                    "class" => "IFSEUHoseSkeleton"
+                ],
+                "fromColumn" => "WorkingPressurePSI",
+                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressurePSI",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ]
+        ],
+        "runner" => NULL,
+        "stopOnException" => FALSE,
+        "failureNotificationDocument" => NULL,
+        "successNotificationDocument" => NULL
     ]
 ];

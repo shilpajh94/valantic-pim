@@ -171,20 +171,20 @@ class Dao extends Model\Dao\PhpArrayTable
                     }
                     if($dataRaw['class'] == 'CSProducts'){
                         if($key=='class' && empty($value)){
-                            $ValidateString.='Class is Empty'."<br>";
+                            $ValidateString.='Class Level Field is required'."<br>";
                         }
                         if($key=='primaryKey' && empty($value)){
-                            $ValidateString.='Primary Key Field is Empty'."<br>";
+                            $ValidateString.='Primary Key Field is required'."<br>";
                         }
                     }else{
                         if($key=='class' && empty($value)){
-                            $ValidateString.='Class is Empty'."<br>";
+                            $ValidateString.='Class Level Field is required'."<br>";
                         }
                         if($key=='importLevel' && empty($value)){
-                            $ValidateString.='Import Level Fields is Empty'."<br>";
+                            $ValidateString.='Import Level Fields is required'."<br>";
                         }
                         if($key=='primaryKey' && empty($value)){
-                            $ValidateString.='Primary Key Field is Empty'."<br>";
+                            $ValidateString.='Primary Key Field is required'."<br>";
                         }
     
                     }

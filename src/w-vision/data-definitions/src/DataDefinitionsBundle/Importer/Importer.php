@@ -104,6 +104,7 @@ final class Importer implements ImporterInterface
     private $modelFactory;
 
     private $appService;
+    private $appServiceIFSEU;
 
     /**
      * @var bool
@@ -152,6 +153,7 @@ final class Importer implements ImporterInterface
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
         $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
+        $this->appServiceIFSEU = \Pimcore::getKernel()->getContainer()->get('ifs_eu_import.appServices');
     }
 
     /**
@@ -811,8 +813,15 @@ final class Importer implements ImporterInterface
             if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && ($value != false)){
                 $value = NULL;
             }
-            $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
-            $object->setValue($map->getToColumn(), $value);
+            if($definition->getClass()=='IFSEUProduct'){
+                if(!empty($value)){
+                    $this->appServiceIFSEU->updateAttributeGroup($object, $map->getToColumn(), $value);
+                    $object->setValue($map->getToColumn(), $value);   
+                }
+            }else{
+                $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
+                $object->setValue($map->getToColumn(), $value);
+            }
         }
     }
 

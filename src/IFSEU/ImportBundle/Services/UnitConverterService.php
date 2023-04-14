@@ -112,16 +112,14 @@ class UnitConverterService
     {
         $returnValue = null;
         $map = \Pimcore\Cache::load(self::CACHE_KEY);
-
+    
         if( $map === false ){
             $this->createAttributeToGroupMapCache();
             $map = \Pimcore\Cache::load(self::CACHE_KEY);
         }
-
         if(is_array($map) && array_key_exists($attributeName, $map) ){
             $returnValue = $map[$attributeName];
         }
-
         return $returnValue;
     }
 
