@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-12T14:49:18+02:00
+* Generated at: 2023-04-14T11:13:05+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -167,7 +167,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681303746,
+   'modificationDate' => 1681463574,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5713,11 +5713,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Certifications',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 1000,
+                     'height' => 480,
                      'collapsible' => false,
                      'collapsed' => false,
-                     'bodyStyle' => '',
+                     'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                      'datatype' => 'layout',
                      'permissions' => NULL,
                      'childs' => 
@@ -5730,11 +5730,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => '',
-                         'width' => NULL,
+                         'width' => 1000,
                          'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
-                         'bodyStyle' => 'border:0',
+                         'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                          'datatype' => 'layout',
                          'permissions' => NULL,
                          'childs' => 
@@ -5795,7 +5795,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 'value' => 14699726,
                               ),
                             ),
-                             'width' => 710,
+                             'width' => 720,
                              'defaultValue' => '',
                              'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                              'optionsProviderData' => 'rohs',
@@ -6136,7 +6136,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 'value' => 14699789,
                               ),
                             ),
-                             'width' => 710,
+                             'width' => 720,
                              'defaultValue' => '',
                              'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                              'optionsProviderData' => 'reach',
@@ -6175,7 +6175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'height' => NULL,
                              'collapsible' => false,
                              'collapsed' => false,
-                             'bodyStyle' => '',
+                             'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                              'datatype' => 'layout',
                              'permissions' => NULL,
                              'childs' => 
@@ -6271,7 +6271,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                      'fieldtype' => 'image',
-                                     'width' => 230,
+                                     'width' => 215,
                                      'height' => 150,
                                      'uploadPath' => '',
                                      'queryColumnType' => 'int(11)',
@@ -10621,7 +10621,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 14699715,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 230,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                                      'optionsProviderData' => 'californiaProposition',
@@ -14953,7 +14953,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 14699715,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 230,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                                      'optionsProviderData' => 'californiaProposition',
@@ -19285,7 +19285,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 14699715,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 230,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                                      'optionsProviderData' => 'californiaProposition',
@@ -19313,7 +19313,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 230,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -19351,7 +19351,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'optimizedAdminLoading' => false,
                                      'enableBatchEdit' => false,
                                      'allowMultipleAssignments' => false,
-                                     'width' => 440,
+                                     'width' => '',
                                      'height' => '',
                                      'maxItems' => '',
                                      'assetUploadPath' => '',
@@ -19389,7 +19389,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 50px;',
+                                     'style' => 'margin-left: 50px;overflow-x: hidden;overflow-y: hidden;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'invisible' => false,
