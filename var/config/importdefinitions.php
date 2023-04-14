@@ -54,7 +54,7 @@ return [
             "csvId" => "20368"
         ],
         "creationDate" => 1681387265,
-        "modificationDate" => 1681457154,
+        "modificationDate" => 1681464869,
         "mapping" => [
             [
                 "primaryIdentifier" => FALSE,
@@ -62,6 +62,20 @@ return [
                 "setterConfig" => NULL,
                 "fromColumn" => "TempratureC",
                 "toColumn" => "minimumTemperatureC",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "TempratureC",
+                "toColumn" => "maximumTemperatureC",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
                     "separator" => "|",
