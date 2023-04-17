@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-17T16:57:22+05:30
+* Generated at: 2023-04-17T13:37:02+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681730828,
+   'modificationDate' => 1681731407,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6277,7 +6277,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                      'fieldtype' => 'image',
-                                     'width' => 215,
+                                     'width' => 315,
                                      'height' => 150,
                                      'uploadPath' => '',
                                      'queryColumnType' => 'int(11)',
@@ -6290,7 +6290,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left:205px;',
+                                     'style' => 'margin-left:105px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -19639,7 +19639,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -19667,7 +19667,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -19931,7 +19931,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left: 45px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -19959,7 +19959,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left: 45px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -19990,7 +19990,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left: 45px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
