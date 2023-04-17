@@ -24,8 +24,8 @@ class FlowMediumOptionsProvider implements SelectOptionsProviderInterface {
         $flowMediumList = new DataObject\IFSEUFlowMedium\Listing(); 
       
        
-        // $flowMediumList->setOrderKey('name');
-        // $flowMediumList->setOrder("ASC");
+        $flowMediumList->setOrderKey('o_key');
+        $flowMediumList->setOrder("ASC");
        
         foreach($flowMediumList as $listItem)
         {

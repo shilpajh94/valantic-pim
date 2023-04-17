@@ -24,8 +24,8 @@ class CategoryOptionsProvider implements SelectOptionsProviderInterface {
         $categoryList = new DataObject\IFSEUCategory\Listing(); 
       
        
-        // $flowMediumList->setOrderKey('name');
-        // $flowMediumList->setOrder("ASC");
+        $categoryList->setOrderKey('o_key');
+        $categoryList->setOrder("ASC");
        
         foreach($categoryList as $listItem)
         {

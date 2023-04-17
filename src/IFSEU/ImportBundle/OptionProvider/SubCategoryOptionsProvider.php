@@ -24,8 +24,8 @@ class SubCategoryOptionsProvider implements SelectOptionsProviderInterface {
         $subCategoryList = new DataObject\IFSEUSubCategory\Listing(); 
       
        
-        // $flowMediumList->setOrderKey('name');
-        // $flowMediumList->setOrder("ASC");
+        $subCategoryList->setOrderKey('o_key');
+        $subCategoryList->setOrder("ASC");
        
         foreach($subCategoryList as $listItem)
         {

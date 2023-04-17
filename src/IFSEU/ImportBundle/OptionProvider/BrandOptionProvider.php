@@ -22,7 +22,8 @@ class BrandOptionProvider implements SelectOptionsProviderInterface {
          $optionsData = [];
    
         $brandList = new DataObject\IFSEUBrand\Listing(); 
-            
+        $brandList->setOrderKey('o_key');
+        $brandList->setOrder("ASC");
         foreach($brandList as $listItem)
         {
             if($listItem instanceof DataObject\IFSEUBrand)

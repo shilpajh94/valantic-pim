@@ -24,6 +24,8 @@ class PropertiesOptionsProvider implements SelectOptionsProviderInterface {
         // $propertiesList = new DataObject\IFSEUProperties\Listing(); 
        $type =  $fieldDefinition->getOptionsProviderData();
         $propertiesList =  DataObject\IFSEUProperties::getByTypeName($type);
+        $propertiesList->setOrderKey('o_key');
+        $propertiesList->setOrder("ASC");
        
         foreach($propertiesList as $listItem)
         {

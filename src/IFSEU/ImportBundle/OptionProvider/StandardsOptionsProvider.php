@@ -24,8 +24,8 @@ class StandardsOptionsProvider implements SelectOptionsProviderInterface {
         $standardsList = new DataObject\IFSEUNorm\Listing(); 
       
        
-        // $flowMediumList->setOrderKey('name');
-        // $flowMediumList->setOrder("ASC");
+        $standardsList->setOrderKey('o_key');
+        $standardsList->setOrder("ASC");
        
         foreach($standardsList as $listItem)
         {

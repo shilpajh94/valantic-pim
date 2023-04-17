@@ -24,8 +24,8 @@ class ApplicationsOptionsProvider implements SelectOptionsProviderInterface {
         $applicaList = new DataObject\IFSEUApplications\Listing(); 
       
        
-        // $flowMediumList->setOrderKey('name');
-        // $flowMediumList->setOrder("ASC");
+        $applicaList->setOrderKey('o_key');
+        $applicaList->setOrder("ASC");
        
         foreach($applicaList as $listItem)
         {
