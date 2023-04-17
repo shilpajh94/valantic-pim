@@ -11,90 +11,114 @@ pimcore:
                     label: Open
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 2
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_marcom_edit:
                     label: In Marcom Edit
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_editor_edit:
                     label: In Editor Edit
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_review:
                     label: In Product Manger Review
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 published:
                     label: Published
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_editor_edit_after_publish:
                     label: In Editor Edit
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_marcom_edit_after_publish:
                     label: In Marcom Edit
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
                 in_pm_review_after_publish:
                     label: In Product Manger Review
                     color: #377ea9
                     permissions:
-                        -
-    #                          objectLayout: 1
-                            save: true
-                            publish: false
-                            delete: false
-                            unpublish: false
-                            condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: false
+                          publish: false
+                          delete: false
+                          unpublish: false
+                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))'
+                          save: true
+                          publish: false
+                          delete: false
+                          unpublish: false                         
             transitions:
                 send_to_marcom:
                     from:
@@ -178,7 +202,7 @@ pimcore:
                     from:
                         - published
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
                     options:
                         label: 'Send to Marcom for Review'
                         notes:
