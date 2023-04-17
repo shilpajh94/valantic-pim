@@ -82,9 +82,7 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                     }
 
                     if($object->getClassName()=='IFSEUProduct'){
-                        if(!empty($value)){
                             $this->appServiceIFSEU->updateAttributeGroup($brickFieldObject, $brickField, $value); 
-                        }
                     }else{
                         $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
                     }

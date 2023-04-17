@@ -7373,7 +7373,6 @@ return [
                 "label" => "",
                 "id" => "extModel458-22"
             ]
-            
         ],
         "niceName" => "IFSEU - Missing Assets On Products",
         "group" => "IFS_EU",
@@ -7602,7 +7601,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-1"
+                "id" => "extModel1689-1"
             ],
             [
                 "name" => "Material Number",
@@ -7611,7 +7610,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-2"
+                "id" => "extModel1689-2"
             ],
             [
                 "name" => "SAP Description",
@@ -7620,43 +7619,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-3"
-            ],
-            [
-                "name" => "SIOP Full Code",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel317-4"
-            ],
-            [
-                "name" => "Path",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel317-5"
-            ],
-            [
-                "name" => "Empty Fields",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel317-6"
-            ],
-            [
-                "name" => "COMPLETED (%)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel317-7"
+                "id" => "extModel1689-3"
             ],
             [
                 "name" => "Product Type",
@@ -7665,7 +7628,43 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-8"
+                "id" => "extModel1689-8"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1689-4"
+            ],
+            [
+                "name" => "Path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1689-5"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1689-6"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1689-7"
             ],
             [
                 "name" => "Id",
@@ -7675,7 +7674,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel317-9"
+                "id" => "extModel1689-9"
             ]
         ],
         "niceName" => "IFSEU - ProductCompleteness",
@@ -7691,7 +7690,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1681132221,
+        "modificationDate" => 1681713743,
         "creationDate" => 1675059262,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [

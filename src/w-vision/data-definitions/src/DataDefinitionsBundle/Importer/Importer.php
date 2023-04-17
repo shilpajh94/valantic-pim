@@ -814,10 +814,8 @@ final class Importer implements ImporterInterface
                 $value = NULL;
             }
             if($definition->getClass()=='IFSEUProduct'){
-                if(!empty($value)){
                     $this->appServiceIFSEU->updateAttributeGroup($object, $map->getToColumn(), $value);
                     $object->setValue($map->getToColumn(), $value);   
-                }
             }else{
                 $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
                 $object->setValue($map->getToColumn(), $value);
