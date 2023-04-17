@@ -260,6 +260,7 @@ ProductManagementIFSEMEA:
     - negativeToleranceOdMM                 
     - PositiveToleranceOdMM 
 MarComIFSEMEA:
+    - FieldsOfApplication
     - staticWire       
     - staticWireType           
     - tubeCharacteristic           
@@ -311,6 +312,7 @@ MarComIFSEMEA:
     - negativeToleranceOdMM                 
     - PositiveToleranceOdMM 
 EditorIFSEMEA:
+    - FieldsOfApplication
     - staticWire       
     - staticWireType           
     - tubeCharacteristic           
