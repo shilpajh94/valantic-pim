@@ -5,6 +5,7 @@ namespace IFSEU\ImportBundle\Services;
 
 use AppBundle\Lib\UnitConversion\ConverterFactory;
 use AppBundle\Lib\UnitConversion\Unit;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
 /**
  * responsible to handle the unit conversion requirements according to the attribute_group config
@@ -44,14 +45,13 @@ class UnitConverterService
     public function setGroupValueInObjectByAttribute($object,string $attributeName,?float $value)
     {
         $attributeGroupWithValues = $this->getGroupWithValues($attributeName, $value);
-
         foreach($attributeGroupWithValues as $attributeName => $value){
             $setter = 'set'.ucfirst($attributeName);
 //            $value = $value === null ? null : round($value, 5);
 
             if($value !== null){
                 if($attributeName === "minimumTemperatureC" || $attributeName === "maximumTemperatureC"){
-                    $value = round($value);
+                    $value = round($value,2);
                 }else{
                     $value = round($value, 5);
                 }
