@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-18T05:52:05+02:00
+* Generated at: 2023-04-18T09:03:50+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681789912,
+   'modificationDate' => 1681801416,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -20270,7 +20270,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20294,9 +20294,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
-                         'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
+                         'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
@@ -20318,7 +20318,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20342,7 +20342,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20366,7 +20366,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20390,7 +20390,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20472,14 +20472,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'altImage1',
-                         'title' => 'Alternate Image 1',
+                         'title' => 'Alternate Img 1',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -20496,7 +20496,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20520,7 +20520,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20544,7 +20544,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20568,7 +20568,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20592,7 +20592,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20616,7 +20616,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20640,7 +20640,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20664,7 +20664,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20966,7 +20966,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20990,7 +20990,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -21014,7 +21014,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
