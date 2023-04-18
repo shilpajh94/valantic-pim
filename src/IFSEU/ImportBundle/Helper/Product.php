@@ -249,7 +249,7 @@ class Product
                 }
                 $bricksData[$fieldName] = $fieldValue;
                 if(array_key_exists($fieldName, $convertFieldsValue)){
-                    $bricksData= $convertFieldsValue;
+                    $bricksData[$fieldName]= $convertFieldsValue[$fieldName];
                 }else{
                     $bricksData[$fieldName] = $fieldValue;
                 }
@@ -263,10 +263,12 @@ class Product
         switch ($data) {
             case 'Y':
                 return 1;
+            case 'Yes':
+                return 1;
             case 'N':
-                return 0;
+                return -1;
             case 'FALSE':
-                return 0;
+                return -1;
             case 'TRUE':
                 return 1;
             default:

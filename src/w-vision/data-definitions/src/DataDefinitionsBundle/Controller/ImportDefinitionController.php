@@ -635,7 +635,7 @@ class ImportDefinitionController extends ResourceController
         $definition = $this->repository->find($id);
         if ($definition instanceof ImportDefinitionInterface) {
             if(!$definition->getMapping()){
-                return $this->viewHandler->handle(['success' => false, 'msg' =>'Field not mapped with any columns ']);
+                return $this->viewHandler->handle(['success' => false, 'msg' =>'Please map "To Column" with "From Column"']);
             }
         }
         $fullPath           = $asset->getFileSystemPath();
