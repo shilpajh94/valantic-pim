@@ -374,24 +374,24 @@ class ProductImportService
                 }
             }
             $objId = $this->productModel->insertInObjects($objectArr);
-            $this->products[$currentLevelPath] = $objId;
-            $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
-            $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
-            $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
-            $this->getLocalizedQueryData($objId, $record, $type);
-            $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
-            $this->getBricksDataForMapping($objId);
-
-            $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
-            $groupNames = trim($groupNames, ',');
-            if (!empty($groupNames)) {
-                $groupNamesArray = explode(',', $groupNames);
-                $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-                $this->setBricksData($objId, $bricksList, $type, $record);
-                unset($groupNames, $groupNamesArray, $bricksList);
-            }
         } else {
             $objId = $this->products[$currentLevelPath];
+        }
+        $this->products[$currentLevelPath] = $objId;
+        $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
+        $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'IFSEU');
+        $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
+        $this->getLocalizedQueryData($objId, $record, $type);
+        $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
+        $this->getBricksDataForMapping($objId);
+
+        $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
+        $groupNames = trim($groupNames, ',');
+        if (!empty($groupNames)) {
+            $groupNamesArray = explode(',', $groupNames);
+            $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+            $this->setBricksData($objId, $bricksList, $type, $record);
+            unset($groupNames, $groupNamesArray, $bricksList);
         }
 
         unset($objectIndex, $currentLevelCode, $fertLevelCode, $categoryPath, $type, $currentLevelArray, $objectKey, $objectArr, $parentPath);
@@ -575,6 +575,12 @@ class ProductImportService
             'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
             'productionLengths' => null,
+            'EhoseID' => null,
+            'unit' => null,
+            'unit3' => null,
+            'productionLengths2' => null,
+            'priceDate' => null,
+            'minimumQuantityUnit' => null,
             'Spezi' => null,
             'GrossPrice' => null,
             'Discount' => null,
@@ -595,6 +601,12 @@ class ProductImportService
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $queryTableData['productionLengths'] = trim($record[$this->getRecordIndexByKey('productionLengths')]);
+            $queryTableData['productionLengths2'] = trim($record[$this->getRecordIndexByKey('productionLengths2')]);
+            $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
+            $queryTableData['unit'] = trim($record[$this->getRecordIndexByKey('unit')]);
+            $queryTableData['unit3'] = trim($record[$this->getRecordIndexByKey('unit3')]);
+            $queryTableData['priceDate'] = trim($record[$this->getRecordIndexByKey('priceDate')]);
+            $queryTableData['minimumQuantityUnit'] = trim($record[$this->getRecordIndexByKey('minimumQuantityUnit')]);
             $queryTableData['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $queryTableData['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $queryTableData['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
@@ -649,53 +661,9 @@ class ProductImportService
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             $conversionAttributeArr=[];
             $queryTableData['Category'] = null;
-            /*$queryTableData['minimumTemperatureC'] = null;
-            $queryTableData['minimumTemperatureF'] = null;
-            $queryTableData['maximumTemperatureC'] = null;
-            $queryTableData['maximumTemperatureF'] = null;*/
-            /*$minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
-            $minimumTemperatureF = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
-            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
-            $maximumTemperatureF = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);*/
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
             }
-            /*if(!empty($minimumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($minimumTemperatureF)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureF');
-                if($attributeGroupName && !empty($minimumTemperatureF)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureF', floatval($minimumTemperatureF));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($maximumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
-                if($attributeGroupName && !empty($maximumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($maximumTemperatureF)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureF');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureF', floatval($maximumTemperatureF));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }*/
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -726,6 +694,12 @@ class ProductImportService
             'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
             'productionLengths' => null,
+            'EhoseID' => null,
+            'unit' => null,
+            'unit3' => null,
+            'productionLengths2' => null,
+            'priceDate' => null,
+            'minimumQuantityUnit' => null,
             'Spezi' => null,
             'GrossPrice' => null,
             'Discount' => null,
@@ -743,6 +717,12 @@ class ProductImportService
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['productionLengths'] = trim($record[$this->getRecordIndexByKey('productionLengths')]);
+            $storeTableDataArray['productionLengths2'] = trim($record[$this->getRecordIndexByKey('productionLengths2')]);
+            $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
+            $storeTableDataArray['unit'] = trim($record[$this->getRecordIndexByKey('unit')]);
+            $storeTableDataArray['unit3'] = trim($record[$this->getRecordIndexByKey('unit3')]);
+            $storeTableDataArray['priceDate'] = trim($record[$this->getRecordIndexByKey('priceDate')]);
+            $storeTableDataArray['minimumQuantityUnit'] = trim($record[$this->getRecordIndexByKey('minimumQuantityUnit')]);
             $storeTableDataArray['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $storeTableDataArray['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $storeTableDataArray['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
@@ -785,53 +765,9 @@ class ProductImportService
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             $conversionAttributeArr=[];
             $storeTableDataArray['Category'] = null;
-            /*$storeTableDataArray['minimumTemperatureC'] = null;
-            $storeTableDataArray['minimumTemperatureF'] = null;
-            $storeTableDataArray['maximumTemperatureC'] = null;
-            $storeTableDataArray['maximumTemperatureF'] = null;*/
-            /*$minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
-            $minimumTemperatureF = trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
-            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
-            $maximumTemperatureF = trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);*/
             if(!empty($getCatagoryID)) {
                 $storeTableDataArray['Category'] = $getCatagoryID;
             }
-            /*if(!empty($minimumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($minimumTemperatureF)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureF');
-                if($attributeGroupName && !empty($minimumTemperatureF)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureF', floatval($minimumTemperatureF));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($maximumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
-                if($attributeGroupName && !empty($maximumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($maximumTemperatureF)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureF');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureF', floatval($maximumTemperatureF));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }*/
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
     }

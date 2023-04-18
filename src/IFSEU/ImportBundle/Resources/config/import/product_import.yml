@@ -51,6 +51,13 @@ parameters:
       Department: 'Department'
       ConnectionType: 'Connection type'
       productionLengths: 'Production lengths'
+      EhoseID: 'ID'
+      unit: 'Unit'
+      unit3: 'Unit3'
+      priceDate: 'Price date'
+      productionLengths2: 'Production lengths2'
+      minimumQuantityUnit: 'Minimum qantity unit'
+
     #fert Localized Attribute
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
