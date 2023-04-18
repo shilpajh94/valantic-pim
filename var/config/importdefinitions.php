@@ -54,8 +54,22 @@ return [
             "csvId" => "20368"
         ],
         "creationDate" => 1681387265,
-        "modificationDate" => 1681472016,
+        "modificationDate" => 1681720470,
         "mapping" => [
+            [
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL,
+                "fromColumn" => "TPCode",
+                "toColumn" => "TPCode",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ]
+            ],
             [
                 "primaryIdentifier" => FALSE,
                 "setter" => NULL,
@@ -76,136 +90,6 @@ return [
                 "setterConfig" => NULL,
                 "fromColumn" => "maxTempratureC",
                 "toColumn" => "maximumTemperatureC",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => NULL,
-                "setterConfig" => NULL,
-                "fromColumn" => "minTempratureF",
-                "toColumn" => "minimumTemperatureF",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => NULL,
-                "setterConfig" => NULL,
-                "fromColumn" => "maxTempratureF",
-                "toColumn" => "maximumTemperatureF",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Base",
-                    "class" => "IFSEUHoseBase"
-                ],
-                "fromColumn" => "odIn",
-                "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdDec",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Base",
-                    "class" => "IFSEUHoseBase"
-                ],
-                "fromColumn" => "OdMM",
-                "toColumn" => "objectbrick~Base~IFSEUHoseBase~hoseIdMM",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Skeleton",
-                    "class" => "IFSEUHoseSkeleton"
-                ],
-                "fromColumn" => "odIn",
-                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdInch",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Skeleton",
-                    "class" => "IFSEUHoseSkeleton"
-                ],
-                "fromColumn" => "OdMM",
-                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~IdMM",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Skeleton",
-                    "class" => "IFSEUHoseSkeleton"
-                ],
-                "fromColumn" => "WorkingPressureBar",
-                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressureBAR",
-                "interpreter" => "generic",
-                "interpreterConfig" => [
-                    "separator" => "|",
-                    "class" => NULL,
-                    "field" => NULL,
-                    "match_unpublished" => TRUE
-                ]
-            ],
-            [
-                "primaryIdentifier" => FALSE,
-                "setter" => "objectbrick",
-                "setterConfig" => [
-                    "brickField" => "Skeleton",
-                    "class" => "IFSEUHoseSkeleton"
-                ],
-                "fromColumn" => "WorkingPressurePSI",
-                "toColumn" => "objectbrick~Skeleton~IFSEUHoseSkeleton~workingPressurePSI",
                 "interpreter" => "generic",
                 "interpreterConfig" => [
                     "separator" => "|",
