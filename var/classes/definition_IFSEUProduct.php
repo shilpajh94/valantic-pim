@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-17T13:37:02+02:00
+* Generated at: 2023-04-18T05:52:05+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681731407,
+   'modificationDate' => 1681789912,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3643,7 +3643,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
-                         'width' => 1000,
+                         'width' => '',
                          'height' => '',
                          'maxItems' => 1,
                          'queryColumnType' => 'text',
@@ -3685,7 +3685,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Publish in the table',
-                         'width' => 950,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -3727,7 +3727,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => NULL,
                                  'collapsible' => false,
                                  'collapsed' => false,
-                                 'bodyStyle' => '',
+                                 'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                                  'datatype' => 'layout',
                                  'permissions' => NULL,
                                  'childs' => 
@@ -3756,7 +3756,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 250,
+                                     'width' => 200,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -3799,7 +3799,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 250,
+                                     'width' => 200,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -3835,7 +3835,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => NULL,
                                  'collapsible' => false,
                                  'collapsed' => false,
-                                 'bodyStyle' => '',
+                                 'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                                  'datatype' => 'layout',
                                  'permissions' => NULL,
                                  'childs' => 
@@ -3864,7 +3864,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 250,
+                                     'width' => 200,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -3875,7 +3875,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left:80px;',
+                                     'style' => 'margin-left:60px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -3907,7 +3907,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => -1,
                                       ),
                                     ),
-                                     'width' => 250,
+                                     'width' => 200,
                                      'queryColumnType' => 'tinyint(1) null',
                                      'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
@@ -3918,7 +3918,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left:80px;',
+                                     'style' => 'margin-left:60px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -3943,7 +3943,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => 'Web',
-                         'width' => 950,
+                         'width' => NULL,
                          'height' => NULL,
                          'collapsible' => true,
                          'collapsed' => false,
@@ -3993,7 +3993,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 250,
+                                     'width' => 200,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -4021,7 +4021,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 250,
+                                     'width' => 200,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -4071,7 +4071,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 250,
+                                     'width' => 200,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -4087,7 +4087,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 80px;',
+                                     'style' => 'margin-left: 60px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
