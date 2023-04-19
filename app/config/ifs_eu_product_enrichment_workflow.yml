@@ -202,7 +202,7 @@ pimcore:
                     from:
                         - published
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
                     options:
                         label: 'Send to Marcom for Review'
                         notes:
