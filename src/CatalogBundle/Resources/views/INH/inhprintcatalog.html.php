@@ -199,11 +199,17 @@ if (!isset($this->parentContainer)) {
                                                 if (in_array($colInfo['feature'], $row[$colInfo['fieldName']])) {
                                                     echo "<td>Yes</td>";
                                                     $td = true;
+                                                }else{
+                                                    echo "<td>No</td>";
+                                                    $td = true;
                                                 }
                                             }
                                             else if ($colInfo['type'] == 'hoseMedia' && isset($row[$colInfo['fieldName']])) {
                                                 if (in_array($colInfo['hoseMedia'], $row[$colInfo['fieldName']])) {
                                                     echo "<td>Yes</td>";
+                                                    $td = true;
+                                                }else{
+                                                    echo "<td>No</td>";
                                                     $td = true;
                                                 }
                                             }
