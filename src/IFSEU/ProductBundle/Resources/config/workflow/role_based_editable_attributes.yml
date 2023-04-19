@@ -205,10 +205,10 @@ All:
     - negativeToleranceOdMM                 
     - PositiveToleranceOdMM                        
 ProductManagementIFSEMEA:
-    - Note2BelowTable
-    - FieldsOfApplication   
+    - Note2BelowTable 
     - flowMedium 
     - FlowMediumStability
+    - standards
     - staticWire       
     - staticWireType           
     - tubeCharacteristic           
@@ -216,51 +216,18 @@ ProductManagementIFSEMEA:
     - hoseIdMM  
     - numberOfHelixWires            
     - tubeGaugeFractional             
-    - NonStockSizes             
-    - standards              
-    - numberOfPlies            
-    - withHelix         
-    - Coupling             
-    - InnerLining           
-    - colorInnerLining           
-    - Reinforcement           
-    - Helix    
-    - propertiesInnerLayer                 
-    - CoverOuterLayer           
-    - ColorOuterLayer           
-    - Haptic           
-    - PropertiesOuterLayer 
-    - IdInch                 
-    - IdMM                 
-    - wallThicknessInch                
-    - wallThicknessMM                
-    - OdIn                 
-    - Odmm                 
+    - NonStockSizes                          
+    - numberOfPlies   
+    - Coupling 
+    - FieldsOfApplication   
     - hoseIdNominalActualId                
     - hoseIdMMActualId                  
     - FittingFamily
-    - workingPressureBAR 
-    - workingPressurePSI
-    - workingPressureMPA                
-    - VacuumBar                 
-    - VacuumMM                 
+    - workingPressureMPA 
+    - descriptive               
     - VacuumIN                 
-    - testPressureBar                 
-    - testPressurePSI                 
-    - BurstPressureBar                 
-    - BurstPressurePSI                 
-    - BurstPressurempa                 
-    - BendingRadiusIN                 
-    - BendingRadiusMM                 
-    - descriptive  
-    - negativeToleranceIdMM                 
-    - PositiveToleranceIdMM                 
-    - negativeToleranceWtMM                 
-    - PositiveToleranceWtMM                 
-    - negativeToleranceOdMM                 
-    - PositiveToleranceOdMM 
+    - BurstPressurempa 
 MarComIFSEMEA:
-    - FieldsOfApplication
     - staticWire       
     - staticWireType           
     - tubeCharacteristic           
@@ -268,51 +235,18 @@ MarComIFSEMEA:
     - hoseIdMM  
     - numberOfHelixWires            
     - tubeGaugeFractional             
-    - NonStockSizes             
-    - standards              
-    - numberOfPlies            
-    - withHelix         
-    - Coupling             
-    - InnerLining           
-    - colorInnerLining           
-    - Reinforcement           
-    - Helix    
-    - propertiesInnerLayer                 
-    - CoverOuterLayer           
-    - ColorOuterLayer           
-    - Haptic           
-    - PropertiesOuterLayer 
-    - IdInch                 
-    - IdMM                 
-    - wallThicknessInch                
-    - wallThicknessMM                
-    - OdIn                 
-    - Odmm                 
+    - NonStockSizes                           
+    - numberOfPlies   
+    - Coupling  
+    - FieldsOfApplication
     - hoseIdNominalActualId                
     - hoseIdMMActualId                  
     - FittingFamily
-    - workingPressureBAR 
-    - workingPressurePSI
-    - workingPressureMPA                
-    - VacuumBar                 
-    - VacuumMM                 
+    - workingPressureMPA 
+    - descriptive               
     - VacuumIN                 
-    - testPressureBar                 
-    - testPressurePSI                 
-    - BurstPressureBar                 
-    - BurstPressurePSI                 
-    - BurstPressurempa                 
-    - BendingRadiusIN                 
-    - BendingRadiusMM                 
-    - descriptive  
-    - negativeToleranceIdMM                 
-    - PositiveToleranceIdMM                 
-    - negativeToleranceWtMM                 
-    - PositiveToleranceWtMM                 
-    - negativeToleranceOdMM                 
-    - PositiveToleranceOdMM 
+    - BurstPressurempa 
 EditorIFSEMEA:
-    - FieldsOfApplication
     - staticWire       
     - staticWireType           
     - tubeCharacteristic           
@@ -321,10 +255,9 @@ EditorIFSEMEA:
     - numberOfHelixWires            
     - tubeGaugeFractional             
     - NonStockSizes             
-    - standards              
-    - numberOfPlies            
-    - withHelix         
-    - Coupling             
+    - numberOfPlies   
+    - Coupling          
+    - withHelix                      
     - InnerLining           
     - colorInnerLining           
     - Reinforcement           
@@ -333,30 +266,28 @@ EditorIFSEMEA:
     - CoverOuterLayer           
     - ColorOuterLayer           
     - Haptic           
-    - PropertiesOuterLayer 
+    - PropertiesOuterLayer
+    - FieldsOfApplication
+    - hoseIdNominalActualId                
+    - hoseIdMMActualId                  
+    - FittingFamily
+    - workingPressureMPA 
+    - descriptive                
+    - VacuumIN                 
+    - BurstPressurempa  
     - IdInch                 
     - IdMM                 
     - wallThicknessInch                
     - wallThicknessMM                
     - OdIn                 
-    - Odmm                 
-    - hoseIdNominalActualId                
-    - hoseIdMMActualId                  
-    - FittingFamily
+    - Odmm       
     - workingPressureBAR 
-    - workingPressurePSI
-    - workingPressureMPA                
-    - VacuumBar                 
-    - VacuumMM                 
-    - VacuumIN                 
-    - testPressureBar                 
-    - testPressurePSI                 
+    - workingPressurePSI                
+    - VacuumBar                                
     - BurstPressureBar                 
-    - BurstPressurePSI                 
-    - BurstPressurempa                 
+    - BurstPressurePSI                               
     - BendingRadiusIN                 
-    - BendingRadiusMM                 
-    - descriptive  
+    - BendingRadiusMM                  
     - negativeToleranceIdMM                 
     - PositiveToleranceIdMM                 
     - negativeToleranceWtMM                 
