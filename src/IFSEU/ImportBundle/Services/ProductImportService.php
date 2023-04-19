@@ -628,20 +628,20 @@ class ProductImportService
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $queryTableData['weightUnit'] = $weightUnit;
             $queryTableData['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
+            $queryTableData['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
+            // if (!empty($grossWeight)) {
 
-            if (!empty($grossWeight)) {
+            //     if (!empty($weightUnit)) {
 
-                if (!empty($weightUnit)) {
-
-                    $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
-                    $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
-                    $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
-                }
-            } else {
-                $queryTableData['weightKg'] = null;
-                $queryTableData['weightg'] = null;
-                $queryTableData['WeightLbsPerFTUOM'] = null;
-            }
+            //         $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
+            //         $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
+            //         $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
+            //     }
+            // } else {
+            //     $queryTableData['weightKg'] = null;
+            //     $queryTableData['weightg'] = null;
+            //     $queryTableData['WeightLbsPerFTUOM'] = null;
+            // }
 
             
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record[$this->getRecordIndexByKey('group')]));
@@ -747,17 +747,18 @@ class ProductImportService
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
             $storeTableDataArray['weightUnit'] = $weightUnit;
             $storeTableDataArray['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
-            if (!empty($grossWeight)) {
-                if (!empty($weightUnit)) {
-                    $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
-                    $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
-                    $storeTableDataArray['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
-                }
-            } else {
-                $storeTableDataArray['weightKg'] = null;
-                $storeTableDataArray['weightg'] = null;
-                $storeTableDataArray['WeightLbsPerFTUOM'] = null;
-            }
+            $storeTableDataArray['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
+            // if (!empty($grossWeight)) {
+            //     if (!empty($weightUnit)) {
+            //         $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
+            //         $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
+            //         $storeTableDataArray['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
+            //     }
+            // } else {
+            //     $storeTableDataArray['weightKg'] = null;
+            //     $storeTableDataArray['weightg'] = null;
+            //     $storeTableDataArray['WeightLbsPerFTUOM'] = null;
+            // }
         }
         if(strtolower($productType) == 'base'){
             $category = trim($record[$this->getRecordIndexByKey('Category')]);
