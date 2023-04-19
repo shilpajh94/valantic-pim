@@ -71,6 +71,9 @@ class IFSEUMandatoryValidationService
                         }
                         $value = $product->$method();
                         if (empty($value) && ($value != false || $value != '0')) {
+                            if($productType == 'fert'){
+                                $productType = 'Finished Goods';
+                            }
                             $arr[$fieldName] = "$fieldTitle in ".$productType." data";
                             $attributeNameArray[] = $fieldName;
                         }
