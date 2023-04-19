@@ -21,6 +21,15 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 	public function execute(InputInterface $input, OutputInterface $output)
 	{
 		$this->db = Db::get();
+		$getIfseuProductIdsSQL = "SELECT oo_id from object_IFSEUProduct";
+		$productIds = $this->db->fetchAll($getIfseuProductIdsSQL);
+		$trucateSql = "TRUNCATE TABLE ifseu_product_left_to_save";
+		$this->db->query($trucateSql);
+		foreach($productIds as $productId)
+		{
+			$insertSql = "INSERT INTO ifseu_product_left_to_save VALUES(".$productId['oo_id'].")";
+			$this->db->query($insertSql);
+		}
 		$sql = "SELECT `oo_id` from ifseu_product_left_to_save";
 		$record = $this->db->fetchAll($sql);
 		p_r(count($record));
