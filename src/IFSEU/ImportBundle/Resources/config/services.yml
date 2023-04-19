@@ -94,7 +94,10 @@ services:
 
     IFSEU\ImportBundle\OneTimeImportCommand\MaterialGroupMasterDataImportCommand: 
         tags:
-            - { name: 'console.command', command: 'ifs-eu-material-group-master-data-import-command' }    
+            - { name: 'console.command', command: 'ifs-eu-material-group-master-data-import-command' }
+    IFSEU\ImportBundle\OneTimeImportCommand\IFSEUWorkflowPublishCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifseu-workflow-publish' }    
 
     # Event Listener 
     IFSEU\ImportBundle\EventListener\ObjectListener:
