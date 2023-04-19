@@ -1,7 +1,7 @@
 parameters:
     b2c_api_version: v21_10
 
-    b2c_api_host: https://dev.continental-hosestore.com
+    b2c_api_host: https://development-eu01-contitech.demandware.net
 
     b2c_product_catalog: hosestore_master_catalog
     b2c_category_catalog: hosestore_navigation_catalog
