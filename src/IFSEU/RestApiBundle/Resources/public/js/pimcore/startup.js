@@ -11,11 +11,7 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
 
     pimcoreReady: function (params, broker) {
         // alert("RestApiBundle ready!");
-    },
-    postOpenObject: function (object, type) {
-        console.log(object.data.data);
     }
-    
 });
 
 var RestApiBundlePlugin = new pimcore.plugin.RestApiBundle();

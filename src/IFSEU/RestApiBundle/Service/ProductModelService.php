@@ -34,7 +34,7 @@ class ProductModelService
 
     private $model;
     private $appService;
-    private $vCatalog = [];
+    private $ehose = [];
 
     /**
      * @var Pimcore\Model\DataObject
@@ -59,19 +59,20 @@ class ProductModelService
     {
 
         $productDetail = array();
-        $this->vCatalog = $this->getVirtualCatalogFieldMapping();
+        $this->ehose = $this->getEHoseFieldMapping();
+        
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'=> ['string']];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
         // these are all ferts with offset, limit and conditions
-        $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
-        // $products = $this->model->fetchProduct($langCode, $parameterArray,'base',$this->vCatalog);
+        $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->ehose);
+        // p_r($products);die;
         if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
-            
+            // p_r($productData); die;
             $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
@@ -96,6 +97,8 @@ class ProductModelService
 
         foreach($products as $key=>$value){
 
+            // p_r($value['o_id']);
+            // p_r($value['oo_id']);
             // Using strlen as callback to preserve 0 Zero for unpublished records
             // Removing Null, Empty and False value
             $value  =   array_filter($value, 'strlen');
@@ -104,16 +107,14 @@ class ProductModelService
             if (!empty($nineDigitData)) {
                 $sixDigitData   =   $this->getBaseData($nineDigitData['o_parentId']);
             }
-            $sixDigit       =   substr($value['oldMaterialCode'],0,6);
-            $nineDigit      =   substr($value['oldMaterialCode'],0,9);
+            $sixDigit       =   $sixDigitData['oo_id'];
+            $nineDigit      =   $nineDigitData['oo_id'];
 
-            // Set Base(6Digit) data only if it is not set.
-            if(!isset($finalProductArray[$sixDigit]['6digit']) || empty($finalProductArray[$sixDigit]['6digit'])){
-
-                $sixDigitData['6digit'] =   $sixDigit;
+            // Set Base data only if it is not set.
+            if(!isset($finalProductArray[$sixDigit]) || empty($finalProductArray[$sixDigit])){
                 $siopData = $this->getSoipDetails($sixDigitData);
                 foreach ($siopData as $key => $data) {
-                    if($key == "ProductCategory") {
+                    if($key == "IFSEUProductCategory") {
                         $sixDigitData['SIOP Categories'] = $data;
                     } else {
                         $sixDigitData[$key] = $data;
@@ -123,9 +124,7 @@ class ProductModelService
                 // Get Base Object Bricks Data.
                 $baseObjectBrickData = array();
                 if(!empty($nineDigitData)){
-                    
                     $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['o_parentId'],'base');
-                    
                 }
                 if(!empty($baseObjectBrickData)){
                     $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);
@@ -134,30 +133,116 @@ class ProductModelService
                 }
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
-                $certificationImageID = $resultArrBase['certificationImage'];
-                $certificationDocumentID = $resultArrBase['document'];
-
-                unset($resultArrBase['oo_id']);
-                unset($resultArrBase['o_parentId']);
+                $DocumentID = $resultArrBase['Document'];
+                $BrandingLaylineAssets = $resultArrBase['BrandingLaylineAssets'];
+                $Certificate1ID = $resultArrBase['Certificate1'];
+                $Certificate2ID = $resultArrBase['Certificate1'];
+                $video1 = $resultArrBase['video1'];
+                $video2 = $resultArrBase['video2'];
+                $video3 = $resultArrBase['video3'];
+                
+                unset($resultArrBase['SIOPLevel1']);
+                unset($resultArrBase['SIOPLevel2']);
+                unset($resultArrBase['SIOPLevel3']);
+                unset($resultArrBase['SIOPLevel4']);
+                unset($resultArrBase['SIOPLevel5']);
+                unset($resultArrBase['SIOPLevel6']);
+                unset($resultArrBase['SIOPLevel7']);
                 unset($resultArrBase['mainImage']);
                 unset($resultArrBase['frontView']);
                 unset($resultArrBase['sideView']);
                 unset($resultArrBase['cutView']);
-                unset($resultArrBase['SIOPLevel2']);
-                unset($resultArrBase['SIOPLevel3']);
-                unset($resultArrBase['SIOPLevel4']);
+                unset($resultArrBase['epixImage']);
+                unset($resultArrBase['altImage1']);
+                unset($resultArrBase['altImage2']);
+                unset($resultArrBase['altImage3']);
+                unset($resultArrBase['altImage4']);
+                unset($resultArrBase['altImage5']);
+                unset($resultArrBase['altImage6']);
+                unset($resultArrBase['altImage7']);
+                unset($resultArrBase['altImage8']);
                 unset($resultArrBase['certificationImage']);
-                unset($resultArrBase['document']);
+                unset($resultArrBase['LeftPrintCatalogImage']);
+                unset($resultArrBase['RightPrintCatalogImage']);
+                unset($resultArrBase['DrawingPictureForCatalog']);
+                unset($resultArrBase['BrandingLaylineAssets']);
                 unset($resultArrBase['Document']);
+                unset($resultArrBase['Certificate1']);
+                unset($resultArrBase['Certificate2']);
+                unset($resultArrBase['video1']);
+                unset($resultArrBase['video2']);
+                unset($resultArrBase['video3']);
+
                 $finalProductArray[$sixDigit] = $resultArrBase;
-                // To display the 6 Digit code with "sixDigitVirtualCatalogDescription" field
-                if(isset($resultArrBase['sixDigitVirtualCatalogDescription']) && $resultArrBase['sixDigitVirtualCatalogDescription'] != '') {
-                    $finalProductArray[$sixDigit]['sixDigitVirtualCatalogDescription'] = $sixDigitData['6digit']."-".$resultArrBase['sixDigitVirtualCatalogDescription'];
+
+
+                $imageDataArray['base'] = $sixDigitData;
+            
+                $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray);
+                if(count($images) > 0){
+                    foreach ($images as $fieldkey => $image) {
+                        if(in_array($fieldkey,['LeftPrintCatalogImage','RightPrintCatalogImage','DrawingPictureForCatalog']))
+                        {
+                            $finalProductArray[$sixDigit]['CatalogAssets'][$fieldkey] = $image;
+                        }
+                        if(in_array($fieldkey,['mainImage','frontView','sideView','cutView','epixImage','TeaserImage']))
+                        {
+                            $finalProductArray[$sixDigit]['ProductImages'][$fieldkey] = $image;
+                        }
+                        if(in_array($fieldkey,['altImage1','altImage2','altImage3','altImage4','altImage5','altImage6', 'altImage7', 'altImage8', 'certificationImage']))
+                        {
+                            $finalProductArray[$sixDigit]['AlternateImages'][$fieldkey] = $image;
+                        }
+                    }
+                }
+
+                if(isset($Certificate1ID) && !empty($Certificate1ID) && ($propertyAssetData = $this->getPropertyAssetData($Certificate1ID))) 
+                {
+                    $finalProductArray[$sixDigit]['Certification']['Certificate1'] = $propertyAssetData;
+                }
+                if(isset($Certificate2ID) && !empty($Certificate2ID) && ($propertyAssetData = $this->getPropertyAssetData($Certificate2ID))) 
+                {
+                    $finalProductArray[$sixDigit]['Certification']['Certificate2'] = $propertyAssetData;
+                }
+
+                if(isset($DocumentID) && !empty($DocumentID) && ($propertyAssetData = $this->getPropertyAssetData($DocumentID))) 
+                {
+                    $finalProductArray[$sixDigit]['Documents']['Document'] = $propertyAssetData;
+                }
+                if(isset($BrandingLaylineAssets) && !empty($BrandingLaylineAssets) && ($propertyAssetData = $this->getPropertyAssetData($BrandingLaylineAssets))) 
+                {
+                    $finalProductArray[$sixDigit]['Documents']['BrandingLaylineAssets'] = $propertyAssetData;
+                }
+
+                if(isset($video1) && !empty($video1) ) 
+                {
+                    // p_r($video1);
+                    $video1 = unserialize($video1);
+                    $video1ID = $video1['data'];
+                    $propertyAssetData = $this->getPropertyAssetData($video1ID);
+                    $finalProductArray[$sixDigit]['Videos']['video1'] = $propertyAssetData;
+                }
+                if(isset($video2) && !empty($video2)) 
+                {
+                    $video2 = unserialize($video2);
+                    $video2ID = $video2['data'];
+                    $propertyAssetData = $this->getPropertyAssetData($video2ID);
+                    $finalProductArray[$sixDigit]['Videos']['video2'] = $propertyAssetData;
+                }
+                if(isset($video3) && !empty($video3)) 
+                {
+                    $video3 = unserialize($video3);
+                    $video3ID = $video3['data'];
+                    $propertyAssetData = $this->getPropertyAssetData($video3ID);
+                    $finalProductArray[$sixDigit]['Videos']['video3'] = $propertyAssetData;
                 }
             }
-            // Set Skeleton(9Digit) data only if it is not set.
-            if(!isset($finalProductArray[$sixDigit]['9digit'][$nineDigit]) || empty($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
-
+            // p_r($nineDigit);
+            // $finalProductArray[$sixDigit]['skeletonData'][] = $nineDigit;
+            // $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]
+            // p_r($nineDigit);
+            // Set Skeleton data only if it is not set.
+            if(!isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit]) || empty($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
                 // Get Skeleton Object Bricks Data.
                 $skeletonObjectBrickData    =   array();
                 if(!empty($nineDigitData)){
@@ -169,66 +254,172 @@ class ProductModelService
                 }else{
                     $resultArrSkeleton = array_merge($resultArrSkeleton1,$nineDigitData);
                 }
-                unset($resultArrSkeleton['oo_id']);
-                unset($resultArrSkeleton['o_parentId']);
+
+                unset($resultArrSkeleton['SIOPLevel1']);
+                unset($resultArrSkeleton['SIOPLevel2']);
+                unset($resultArrSkeleton['SIOPLevel3']);
+                unset($resultArrSkeleton['SIOPLevel4']);
+                unset($resultArrSkeleton['SIOPLevel5']);
+                unset($resultArrSkeleton['SIOPLevel6']);
+                unset($resultArrSkeleton['SIOPLevel7']);
                 unset($resultArrSkeleton['mainImage']);
                 unset($resultArrSkeleton['frontView']);
                 unset($resultArrSkeleton['sideView']);
                 unset($resultArrSkeleton['cutView']);
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit;
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]= $resultArrSkeleton;
+                unset($resultArrSkeleton['epixImage']);
+                unset($resultArrSkeleton['altImage1']);
+                unset($resultArrSkeleton['altImage2']);
+                unset($resultArrSkeleton['altImage3']);
+                unset($resultArrSkeleton['altImage4']);
+                unset($resultArrSkeleton['altImage5']);
+                unset($resultArrSkeleton['altImage6']);
+                unset($resultArrSkeleton['altImage7']);
+                unset($resultArrSkeleton['altImage8']);
+                unset($resultArrSkeleton['certificationImage']);
+                unset($resultArrSkeleton['LeftPrintCatalogImage']);
+                unset($resultArrSkeleton['RightPrintCatalogImage']);
+                unset($resultArrSkeleton['DrawingPictureForCatalog']);
+                unset($resultArrSkeleton['BrandingLaylineAssets']);
+                unset($resultArrSkeleton['Document']);
+                unset($resultArrSkeleton['Certificate1']);
+                unset($resultArrSkeleton['Certificate2']);
+                unset($resultArrSkeleton['video1']);
+                unset($resultArrSkeleton['video2']);
+                unset($resultArrSkeleton['video3']);
+                
+                $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['id']= $nineDigit;
+                $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]= $resultArrSkeleton;
             }
 
-            // Set Options(14Digit) data. 
-            
-            if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
+            // Set fert data.
+            if(isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
                 // Get Fert Object Bricks Data.
-                $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
+                // $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
                 $resultArrFert1['sap_id']    =   $value['materialNumber'];
                 if(!empty($fertObjectBrickData)){
                     $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);
                 }else{
                     $resultArrFert = array_merge($resultArrFert1,$value);
                 }
-                unset($resultArrFert['oo_id']);
-                unset($resultArrFert['o_parentId']);
+
+                $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
+                $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
+                $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
+                $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
+
+                $resultMasterData = [];
+                if($value['californiaProposition65ChemicalName1'])
+                {
+                    $resultMasterData['californiaProposition65ChemicalName1'] = $value['californiaProposition65ChemicalName1'];
+                }
+
+                if($value['californiaProposition65ChemicalName2'])
+                {
+                    $resultMasterData['californiaProposition65ChemicalName2'] = $value['californiaProposition65ChemicalName2'];
+                }
+
+                if($value['californiaProposition65ChemicalName3'])
+                {
+                    $resultMasterData['californiaProposition65ChemicalName3'] = $value['californiaProposition65ChemicalName3'];
+                }
+
+                if($value['reach'])
+                {
+                    $resultMasterData['reach'] = $value['reach'];
+                }
+
+                if($value['rohs'])
+                {
+                    $resultMasterData['rohs'] = $value['rohs'];
+                }
+
+                if($value['ConflictMinerals'])
+                {
+                    $resultMasterData['ConflictMinerals'] = $value['ConflictMinerals'];
+                }
+                
+                if(count($resultMasterData) > 0)
+                {
+                    $fertMasterData = $this->getFertMasterData($resultMasterData);
+
+                    if(!empty($fertMasterData)){
+                        $resultArrFert = array_merge($resultArrFert, $fertMasterData);
+                    }
+                }
+
+                if(isset($value['warningIcon']))
+                {
+                    $warningIconID = $value['warningIcon'];
+                    if(isset($warningIconID) && !empty($warningIconID) && ($propertyAssetData = $this->getPropertyAssetData($warningIconID))) 
+                    {
+                        $resultArrFert['warningIcon'] = $propertyAssetData;
+                    }
+                }
+
+                unset($resultArrFert['SIOPLevel1']);
+                unset($resultArrFert['SIOPLevel2']);
+                unset($resultArrFert['SIOPLevel3']);
+                unset($resultArrFert['SIOPLevel4']);
+                unset($resultArrFert['SIOPLevel5']);
+                unset($resultArrFert['SIOPLevel6']);
+                unset($resultArrFert['SIOPLevel7']);
                 unset($resultArrFert['mainImage']);
                 unset($resultArrFert['frontView']);
                 unset($resultArrFert['sideView']);
                 unset($resultArrFert['cutView']);
-                unset($resultArrFert['materialNumber']);
-                unset($resultArrFert['oldMaterialCode']);
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['options'][]=$resultArrFert;
+                unset($resultArrFert['epixImage']);
+                unset($resultArrFert['altImage1']);
+                unset($resultArrFert['altImage2']);
+                unset($resultArrFert['altImage3']);
+                unset($resultArrFert['altImage4']);
+                unset($resultArrFert['altImage5']);
+                unset($resultArrFert['altImage6']);
+                unset($resultArrFert['altImage7']);
+                unset($resultArrFert['altImage8']);
+                unset($resultArrFert['certificationImage']);
+                unset($resultArrFert['LeftPrintCatalogImage']);
+                unset($resultArrFert['RightPrintCatalogImage']);
+                unset($resultArrFert['DrawingPictureForCatalog']);
+                unset($resultArrFert['BrandingLaylineAssets']);
+                unset($resultArrFert['Document']);
+                unset($resultArrFert['Certificate1']);
+                unset($resultArrFert['Certificate2']);
+                unset($resultArrFert['video1']);
+                unset($resultArrFert['video2']);
+                unset($resultArrFert['video3']);
+
+                $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['finishedGoodsData'][]=$resultArrFert;
             }
+
             // Set Images.
-            $imageDataArray['fert'] = $value;
-            $imageDataArray['skeleton'] = $nineDigitData;
-            $imageDataArray['base'] = $sixDigitData;
-            $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
-            if(count($images) > 0){
-                $finalProductArray[$sixDigit]['images'] = $images;
-            }
-            // To get the base alt image & document URL
-            if(
-                isset($certificationImageID) && 
-                !empty($certificationImageID) && 
-                ($propertyAssetData = $this->getPropertyAssetData($certificationImageID) )
-            ) {
-                    $finalProductArray[$sixDigit]['CertificationImage'] = $propertyAssetData;
-            }
-
-            if(
-                isset($certificationDocumentID) && 
-                !empty($certificationDocumentID) && 
-                ( $propertyAssetData = $this->getPropertyAssetData($certificationDocumentID) ) 
-            ) {
-                    $finalProductArray[$sixDigit]['CertificationDocument'] = $propertyAssetData;
-            }
-
+            // $imageDataArray['fert'] = $value;
+            // $imageDataArray['skeleton'] = $nineDigitData;
+            
         }
-        
         return $finalProductArray;
     }
+
+    /**
+     * Method to get product fert master attribute data
+     *
+     * @param array $product product data
+     * @return array $soipDetail product category details array
+     * @throws
+     */
+    private function getFertMasterData($resultMasterData)
+    {
+        $classId = $this->appService->getPimcoreClassIdbyName('IFSEUProperties');
+
+        foreach ($resultMasterData as $key => $objectId) {
+            if($objectId)
+            {
+                $resultMasterData[$key] = $this->model->getPropertyName($objectId, $classId);
+            }
+        }
+
+        return $resultMasterData;
+    }
+
 
     /**
      * Method to get product category details
@@ -240,10 +431,16 @@ class ProductModelService
     private function getSoipDetails($product){
         $siopDetail = [];
         if(empty($product)){ return $siopDetail;}
-        $vCatalogMap = $this->getVirtualCatalogFieldMapping();
-        foreach($vCatalogMap['VirtualCatalog']['Base']['Object'] as $key=>$value){
+        $ehoseMap = $this->getEHoseFieldMapping();
+        // p_r($ehoseMap);
+        foreach($ehoseMap['ehoseAPI']['Base']['Object'] as $key=>$value){
+            // p_r($ehoseMap);
             foreach($value as $k1=>$v1){
                 if(isset($product[$k1]) && !empty($product[$k1])){
+                    // echo "[$k1]".PHP_EOL;
+                    // echo "Rama".PHP_EOL;
+                    // echo $product[$k1];
+                    // echo "OKAY".PHP_EOL;
                     $classToLoad = $this->mainClass . $key;
                     $objClass = $classToLoad . "\\Listing";
                     $productCat = new $objClass();
@@ -255,6 +452,7 @@ class ProductModelService
                     $tempArray = [];
                     if (isset($productCat) && count($productCat) > 0) {
                         $productCategory = $productCat[0];
+                        // p_r($productCategory);
                         foreach($v1['Fields'] as $fkey=>$fvalue){
                             $fCommand   =   "get".$fvalue;
                             $tempArray[strtolower($fvalue)] =  $productCategory->$fCommand();
@@ -268,7 +466,7 @@ class ProductModelService
     }
 
     /**
-     * Method to get Skeleton data(9Digit) details
+     * Method to get Skeleton data details
      *
      * @param int $skeltonParentId Object Id
      * @return array $skeltonDetail Skeleton data array
@@ -276,12 +474,12 @@ class ProductModelService
      */
     private function getSkeletonData($skeltonParentId){
         $skeltonDetail = [];
-        $skeltonDetail  =   $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->vCatalog);
+        $skeltonDetail  =   $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->ehose);
         return $skeltonDetail;
     }
 
     /**
-     * Method to get Base data(6Digit) details
+     * Method to get Base data details
      *
      * @param int $baseParentId Object Id
      * @return array $baseDetail Base data array
@@ -290,8 +488,7 @@ class ProductModelService
     private function getBaseData($baseParentId){
         $baseDetail = [];
         $brandName = '';
-        $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
-       
+        $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->ehose);
         // Getting brand name from object_query_3 table
         if(isset($baseDetail['productBrandName']) && !empty($baseDetail['productBrandName'])) {
             $brandName  =   $this->model->getBrandName($baseDetail['productBrandName']);
@@ -309,7 +506,16 @@ class ProductModelService
                 unset($baseDetail['brandConstruction']);
             }
         }
-       
+        
+        if(isset($baseDetail['Category']) && !empty($baseDetail['Category'])) {
+            $category  =   $this->model->getCategoryName($baseDetail['Category']);
+            if(!empty($category)){
+                $baseDetail['Category'] = $category;
+            }else{
+                unset($baseDetail['Category']);
+            }
+        }
+
         if(isset($baseDetail['Sub_Category']) && !empty($baseDetail['Sub_Category'])) {
             $subCategory  =   $this->model->getSubCategoryName($baseDetail['Sub_Category']);
             if(!empty($subCategory)){
@@ -327,7 +533,6 @@ class ProductModelService
         if(isset($baseDetail['FeaturesBenefitsBulletPoint']) && !empty($baseDetail['FeaturesBenefitsBulletPoint'])) {
             $classId = $this->appService->getPimcoreClassIdbyName('IFSEUProperties');
             $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint'], $classId);
-           
             if(!empty($featureList)){
                 $baseDetail['FeaturesBenefitsBulletPoint'] = $featureList;
             }
@@ -344,27 +549,36 @@ class ProductModelService
      * @return array $imageDetail Image array.
      * @throws
      */
-    private function getImagesData($existingImageArray,$imageDataArray,$oldMaterialValue){
+    private function getImagesData($existingImageArray,$imageDataArray){
 
         $imageDetail = [];
         if(!empty($existingImageArray)){
             $imageDetail =   $existingImageArray;
         }
         foreach($imageDataArray as $key=>$value){
-            $imagesFields = $this->vCatalog['VirtualCatalog'][ucfirst($key)]['Images'];
+            $imagesFields = $this->ehose['ehoseAPI'][ucfirst($key)]['Images'];
+            // echo "Image Data";
+            // p_r($imagesFields);
             $variantId = '';
-            if($key=='fert'){$variantId = $value['materialNumber'];}else if($key=='skeleton'){$variantId = substr($oldMaterialValue,0,9);}else if($key=='base'){$variantId = substr($oldMaterialValue,0,6);}
+            // if($key=='fert'){
+            //     $variantId = $value['materialNumber'];
+            // }else if($key=='skeleton'){
+            //     $variantId = substr($oldMaterialValue,0,9);
+            // }else if($key=='base'){
+            //     $variantId = substr($oldMaterialValue,0,6);
+            // }
+
             foreach($imagesFields as $ikey=>$ivalue){
                 if(isset($value[$ivalue]) && !empty($value[$ivalue])){
                     if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
                         if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
-                            $imageDetail[$value[$ivalue]] = $propertyAssetData;  
+                            $imageDetail[$ivalue] = $propertyAssetData;  
                         }
                     }
-                    if( $this->getPropertyAssetData($value[$ivalue])){
-                        $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
-                        $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
-                    }
+                    // if( $this->getPropertyAssetData($value[$ivalue])){
+                    //     $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
+                    //     $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
+                    // }
                     
                 }
             }
@@ -385,10 +599,17 @@ class ProductModelService
         $productBrickField = "get".ucfirst($productType);
 
         // Get Product Object Brick Config Details.
-        $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
+        $objectBricksMap = $this->ehose['ehoseAPI'][ucfirst($productType)]['ObjectBricks'];
+        // p_r('Mahesh');
+        // p_r($objId);
+        // p_r($productType);
+        // p_r($productBrickField);
+        // p_r($objectBricksMap);
+
         if(empty($objectBricksMap)){
             return;
         }
+
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
                 foreach($bvalue['Fields'] as $fieldName=>$fieldConfig){
@@ -402,15 +623,11 @@ class ProductModelService
                     // Get Field Definition.
 
                     if($product->$productBrickField()->$brickText()){
-
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
-                    
-                       
+                        // echo $fieldName;
+                        // p_r($fieldName ." - ". $fieldDef->getFieldtype());
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
-                            
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
-                              //dd($product->$productBrickField()->$brickText());
-                              
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
@@ -418,16 +635,13 @@ class ProductModelService
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
-                                    
                                     if($objectIndv instanceof DataObject\IFSEUApplications) {
-                                        // dd(get_class_methods($objectIndv) );
                                         $bData[] = $objectIndv->getApplicationName();
                                     }
-                                    if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
-                                        // dd(get_class_methods($objectIndv) );
-                                        $bData[] = $objectIndv->getFlowMedium();
-                                    }
-                                    
+                                    // if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
+                                    //     // dd(get_class_methods($objectIndv) );
+                                    //     $bData[] = $objectIndv->getFlowMedium();
+                                    // }   
                                    }
                                 }
                              }
@@ -435,6 +649,7 @@ class ProductModelService
                        }
                        else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
                        {
+                        // p_r($product->$productBrickField()->$brickText());
                         $bData = $product->$productBrickField()->$brickText()->$fieldText();
                         $objectIndv = DataObject::getById($bData);
                         // echo "<pre>";
@@ -446,22 +661,15 @@ class ProductModelService
                        }
                        else{
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
-                          
-                          
                        }
                     }
                     if(!empty($bData) || $bData===0){  
                         
                         if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
                             $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
-                            dd($bData);
                             $bData = round(strval($bData), $decimalPoints);
-                            
                         }
-                        
-                            
                         $productObjectBricksData[$fieldName] = $bData;
-                         
                     }
                 }
             }
@@ -481,11 +689,22 @@ class ProductModelService
     {   
         $assetId ='';
         if($assetIdflag){
-            $asset = Asset::getById($assetIdPath);
+            $assetIdPath = trim($assetIdPath,',');
+            $assetDetail = explode("|", $assetIdPath);
+            $assetFileId = $assetDetail[1];
+            if($assetFileId)
+            {
+                $asset = Asset::getById($assetFileId);
+                $assetId= $assetFileId;
+            }
+            else{
+                $asset = Asset::getById($assetIdPath);
+                $assetId= $assetIdPath;
+            }
+            
             if(!$asset){
                 return null;
             }
-            $assetId= $assetIdPath;
         }else{
             $asset = Asset::getByPath($assetIdPath);
             if(!$asset){
@@ -540,10 +759,10 @@ class ProductModelService
         $i=0;
         foreach($productData as $key=>$value){
             $formattedArray[$i] =$value;
-            // $formattedArray[$i]['9digit'] =array_values($value['9digit']);
-            if(is_array($value['images'])){
-                $formattedArray[$i]['images'] =array_values($value['images']);
-            }
+            $formattedArray[$i]['skeletonData'] =array_values($value['skeletonData']);
+            // if(is_array($value['images'])){
+            //     $formattedArray[$i]['images'] =array_values($value['images']);
+            // }
             $i++;
         }
         return $formattedArray;
@@ -554,11 +773,10 @@ class ProductModelService
      *
      * @return array $vcFieldMapping virtual catalog mapping configuration.
      */
-    public function getVirtualCatalogFieldMapping()
+    public function getEHoseFieldMapping()
     {
         $vcFieldMapping = array();
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/IFSEU/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yml";
-        
+        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/IFSEU/RestApiBundle/Resources/config/ehoseFieldMapping.yml";
 
         $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
 

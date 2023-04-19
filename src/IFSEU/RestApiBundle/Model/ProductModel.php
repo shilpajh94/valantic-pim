@@ -34,7 +34,7 @@ class ProductModel
         // Get Condition String.
         $conditionString = $this->getConditionString($conditionArray,$productType);
         // Get Field String.
-        $fieldString = $vCatalogMap['VirtualCatalog'][ucfirst($productType)]['Fields'];
+        $fieldString = $vCatalogMap['ehoseAPI'][ucfirst($productType)]['Fields'];
 
         $conArray['condition']= $conditionString;
         $conArray['fields']   = $fieldString;
@@ -96,7 +96,8 @@ class ProductModel
         }
 
         if($productType=='fert'){
-            $conditionString .= " virtualCatalogFlag=1  AND oldMaterialCode <> '' AND ";
+            $conditionString .= " virtualCatalogFlag=1  AND ";
+            // $conditionString .= " virtualCatalogFlag=1  AND oldMaterialCode <> '' AND ";
         }
 
         switch($productType){
@@ -228,7 +229,7 @@ class ProductModel
             SELECT  '.implode(",",$selectStatementAttributeArray).'
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
             WHERE '.$conArray['condition'].' '.$limitText."\n\n";
-        \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr [$this->fallbackLangCode],true));
+        \Pimcore\Log\Simple::log('ehosequery', print_r($this->sqlArr [$this->fallbackLangCode],true));
         return true;
     }
 
@@ -301,8 +302,8 @@ class ProductModel
      */
     public function getFeatures(string $oo_id, string $classId) : ?string {
         //Removing comma from begining and end
-        $oo_id = substr($oo_id,1,-1);
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `PropertyID` IN ('.$oo_id.')';
+        $oo_id = trim($oo_id, ',');
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
         $features = $this->db->fetchCol($query);
         $featureList = implode(", ",$features);
         return $featureList;
@@ -316,24 +317,34 @@ class ProductModel
      * @param string $classId object Id
      */
     public function getPropertyName(string $oo_id, string $classId) : ?string {
-        //Removing comma from begining and end
-        $oo_id = substr($oo_id,1,-1);
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `o_id` ='.$oo_id;
-        
+        $oo_id = trim($oo_id, ',');
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` ='.$oo_id;
         $propertyName = $this->db->fetchOne($query);
         return $propertyName;
     }
+    
+
+    /**
+     * Method to get the Category from object_IFSEUCategory table based on oo_id
+     *
+     * @param string $oo_id object Id
+     */
+    public function getCategoryName(int $oo_id) : ?string
+    {
+        $query = 'SELECT o_key FROM object_IFSEUCategory WHERE `oo_id` = '.$oo_id;
+        $subCategory = $this->db->fetchOne($query);
+        return $subCategory;
+    }
+
 
     /**
      * Method to get the SubCategory from object_IFSEUSubCategory table based on oo_id
      *
      * @param string $oo_id object Id
-     * 
-     * @param string $classId object Id
      */
     public function getSubCategoryName(int $oo_id) : ?string
     {
-        $query = 'SELECT o_key FROM object_IFSEUSubCategory WHERE `SubCategoryCode` = '.$oo_id;
+        $query = 'SELECT o_key FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
         $subCategory = $this->db->fetchOne($query);
         return $subCategory;
     }

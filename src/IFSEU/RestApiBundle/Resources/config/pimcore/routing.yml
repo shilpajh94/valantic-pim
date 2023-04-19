@@ -1,6 +1,6 @@
 rest_api_homepage:
     path:     /rest_api/afseu
     defaults: { _controller: IFSEURestApiBundle:Default:index }
-rest_api_cat:
-    path:     /VirtualCatalog/products/ifseu
+rest_api_ehose:
+    path:     /rest_api/ehose/ifseu/products
     defaults: { _controller: IFSEURestApiBundle:Product:getProductdata }

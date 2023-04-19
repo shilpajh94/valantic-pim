@@ -47,7 +47,7 @@ class ProductController extends FrontendController
      */
     public $security;
     
-    private $vcRestAPILogFileName   =   '';
+    private $ehoseRestAPILogFileName   =   '';
     
     /**
      * Constructor function to set variables
@@ -55,7 +55,7 @@ class ProductController extends FrontendController
     public function __construct()
     {
         $this->service = \Pimcore::getContainer()->get('ifs_eu_restapi_product_model_services');
-        $this->vcRestAPILogFileName ='ifseu_virtual_catalog_restapi_log_'. date("Ymd");
+        $this->ehoseRestAPILogFileName ='restapi_ehose_ifseu_product_log_'. date("Ymd");
         $this->security = new ApiKeyUserProvider();
     }
 
@@ -73,7 +73,7 @@ class ProductController extends FrontendController
      *
      * Method({"GET"})
      *
-     * @Route("/VirtualCatalog/products/ifseu")
+     * @Route("/rest_api/ehose/ifseu/products")
      *
      * @param Request $request
      *
@@ -89,22 +89,22 @@ class ProductController extends FrontendController
         
         if($returnValidationFlag){
             // Get Virtual catalog fields mapping configuration.
-            $vConfig = $this->service->getVirtualCatalogFieldMapping();
+            $vConfig = $this->service->getEHoseFieldMapping();
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get Virtual catalog data based on parameter request.
             $productDetail  =   $this->service->getProduct('en',$conditionArray);
             // Log Data.
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
+            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If Virtual catalog data not exist return error.
             if (empty($productDetail)) {
-                \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
-                return $this->jsonResponce($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!'), 404);
+                \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'ehose data not found!')));
+                return $this->jsonResponce($this->responseCode('ObjectNotFound', 'ehose data not found!'), 404);
             }
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($productDetail));
+            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($productDetail));
             return $this->jsonResponce($productDetail);
         }else{
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
+            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'ehose data not found!')));
             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
         }
     }

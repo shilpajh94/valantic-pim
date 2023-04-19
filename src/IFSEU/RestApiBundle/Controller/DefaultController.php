@@ -10,10 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends FrontendController
 {
     /**
-     * @Route("/rest_api/afseu/")
+     * @Route("/rest_api/ifseu/")
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world fromss rest_api');
+        return new Response('Hello world from rest_api');
     }
 }
