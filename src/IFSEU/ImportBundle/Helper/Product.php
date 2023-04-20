@@ -21,6 +21,7 @@ class Product
     public $level;
     public $siop;
     private $configProviderService;
+    private $unitConversionService;
 
     public function __construct()
     {
@@ -223,7 +224,6 @@ class Product
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
-        //dd($rowData);
         $conversionAttributeArr=[];
         $convertFieldsValue=[];
         foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
@@ -246,6 +246,13 @@ class Product
                 if($fieldType=='Boolean Select')
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
+                }
+                if($attributeLabel== 'OD mm' || $attributeLabel== 'OD inch'){
+                    if($attributeLabel== 'OD mm'){
+                        $fieldValue = $rowData['ID mm'] + ($rowData['Wall thickness mm'] * 2);
+                    }else{
+                        $fieldValue = $rowData['ID inch'] + ($rowData['Wall thickness inch'] * 2);
+                    }
                 }
                 $bricksData[$fieldName] = $fieldValue;
                 if(array_key_exists($fieldName, $convertFieldsValue)){
