@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-20T10:47:13+02:00
+* Generated at: 2023-04-20T12:14:14+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681980418,
+   'modificationDate' => 1681985640,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -7005,7 +7005,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'type' => NULL,
                              'region' => NULL,
                              'title' => '',
-                             'width' => 900,
+                             'width' => 1100,
                              'height' => 300,
                              'collapsible' => false,
                              'collapsed' => false,
@@ -7292,7 +7292,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -8026,7 +8026,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'altImage1',
-                         'title' => 'Alternate Img 1',
+                         'title' => 'Alternate Image 1',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
