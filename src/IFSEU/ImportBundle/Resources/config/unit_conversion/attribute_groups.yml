@@ -7,9 +7,9 @@ Id_group:
 WallThickness_group:
     wallThicknessInch: 'IN'
     wallThicknessMM: 'MM'
-Od_group:
-    OdIn: 'IN'
-    Odmm: 'MM'
+# Od_group:
+#     OdIn: 'IN'
+#     Odmm: 'MM'
 WorkingPressure_group:
     workingPressureBAR: 'BAR'
     workingPressurePSI: 'PSI'
