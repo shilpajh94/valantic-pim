@@ -1,7 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-20T10:08:57+05:30
+* Generated at: 2023-04-21T10:51:56+02:00
+* Changed by: system (0)
 * IP: 127.0.0.1
 */ 
 
@@ -10,8 +11,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'MarComIFSEMEA',
    'name' => 'MarComIFSEMEA',
    'description' => '',
-   'creationDate' => 1681288759,
-   'modificationDate' => 1681965537,
+   'creationDate' => 1681886290,
+   'modificationDate' => 1682067116,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -20498,7 +20499,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => '',
+                                     'style' => 'margin-left: 45px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
