@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-20T12:14:14+02:00
+* Generated at: 2023-04-21T12:42:26+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -112,6 +112,7 @@ Fields Summary:
 - Plants [reverseManyToManyObjectRelation]
 - rohs [select]
 - reach [select]
+- Gallery [advancedManyToManyRelation]
 - proposition65WarningAttributesRequired [booleanSelect]
 - prop65Message [textarea]
 - warningIcon [image]
@@ -119,7 +120,6 @@ Fields Summary:
 - californiaProposition65ChemicalName2 [select]
 - californiaProposition65ChemicalName3 [select]
 - nitrosamines [input]
-- Gallery [advancedManyToManyRelation]
 - merchantDiscount [input]
 - Discount [input]
 - GrossPrice [input]
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681985640,
+   'modificationDate' => 1682073732,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6623,6 +6623,73 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                             'columns' => 
+                            array (
+                              0 => 
+                              array (
+                                'type' => 'text',
+                                'position' => 1,
+                                'key' => 'name',
+                                'id' => 'extModel4590-1',
+                                'label' => 'Document',
+                              ),
+                            ),
+                             'columnKeys' => 
+                            array (
+                              0 => 'name',
+                            ),
+                             'fieldtype' => 'advancedManyToManyRelation',
+                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                             'optimizedAdminLoading' => false,
+                             'enableBatchEdit' => false,
+                             'allowMultipleAssignments' => false,
+                             'width' => 920,
+                             'height' => '',
+                             'maxItems' => '',
+                             'assetUploadPath' => '',
+                             'queryColumnType' => 'text',
+                             'relationType' => true,
+                             'objectsAllowed' => false,
+                             'assetsAllowed' => true,
+                             'assetTypes' => 
+                            array (
+                              0 => 
+                              array (
+                                'assetTypes' => 'document',
+                              ),
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                              0 => 
+                              array (
+                                'documentTypes' => '',
+                              ),
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => '',
+                              ),
+                            ),
+                             'pathFormatterClass' => '',
+                             'name' => 'Gallery',
+                             'title' => 'Gallery',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'fieldtype' => 'fieldcontainer',
                              'labelWidth' => 100,
@@ -6895,56 +6962,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
-                                  )),
-                                  4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
-                                     'columns' => 
-                                    array (
-                                    ),
-                                     'columnKeys' => 
-                                    array (
-                                    ),
-                                     'fieldtype' => 'advancedManyToManyRelation',
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                                     'optimizedAdminLoading' => false,
-                                     'enableBatchEdit' => false,
-                                     'allowMultipleAssignments' => false,
-                                     'width' => '',
-                                     'height' => '',
-                                     'maxItems' => '',
-                                     'assetUploadPath' => '',
-                                     'queryColumnType' => 'text',
-                                     'relationType' => true,
-                                     'objectsAllowed' => false,
-                                     'assetsAllowed' => true,
-                                     'assetTypes' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'assetTypes' => 'document',
-                                      ),
-                                    ),
-                                     'documentsAllowed' => false,
-                                     'documentTypes' => 
-                                    array (
-                                    ),
-                                     'classes' => 
-                                    array (
-                                    ),
-                                     'pathFormatterClass' => '',
-                                     'name' => 'Gallery',
-                                     'title' => 'Gallery',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 50px;overflow-x: hidden;overflow-y: hidden;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
                                   )),
                                 ),
                                  'locked' => false,
@@ -8423,9 +8440,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Document',
@@ -8681,9 +8706,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Certificate1',
@@ -8776,11 +8809,19 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
-                         'pathFormatterClass' => '',
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Certificate2',
                          'title' => 'Certificate 2',
                          'tooltip' => '',
