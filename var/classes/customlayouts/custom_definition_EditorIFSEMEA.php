@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-21T12:47:55+02:00
+* Generated at: 2023-04-21T13:05:47+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorIFSEMEA',
    'description' => '',
    'creationDate' => 1681992812,
-   'modificationDate' => 1682074075,
+   'modificationDate' => 1682075147,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -7951,12 +7951,12 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'classes' => 
                         array (
                         ),
-                         'pathFormatterClass' => '',
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'BrandingLaylineAssets',
                          'title' => 'Branding/Layline Assets',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => true,
+                         'noteditable' => false,
                          'index' => false,
                          'locked' => false,
                          'style' => '',
@@ -8255,17 +8255,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Certificate2',

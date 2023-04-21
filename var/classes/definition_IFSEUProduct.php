@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-21T12:42:26+02:00
+* Generated at: 2023-04-21T13:02:59+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682073732,
+   'modificationDate' => 1682074965,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8493,11 +8493,19 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
-                         'pathFormatterClass' => '',
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'BrandingLaylineAssets',
                          'title' => 'Branding/Layline Assets',
                          'tooltip' => '',
