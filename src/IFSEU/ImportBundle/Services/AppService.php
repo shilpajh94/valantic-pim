@@ -63,12 +63,23 @@ class AppService
     public function updateUnitConversionAttributes(IFSEUProduct $product, array $updatedData)
     {
         $brickMappingConfig = $this->configProviderService->getBrickMappingConfig()['product_type_to_product_brick_field_mapping'];
-
+        $idInch = $product->getSkeleton()->getIFSEUHoseSkeleton()->getIDInch();
+        $wallThicknessInch = $product->getSkeleton()->getIFSEUHoseSkeleton()->getwallThicknessInch();
+        if(isset($updatedData['Skeleton'][0]['data']['IdInch']))
+        {
+            $updatedData['Skeleton'][0]['data']['OdIn'] = $updatedData['Skeleton'][0]['data']['IdInch'] + ($wallThicknessInch * 2);
+        }else if(isset($updatedData['Skeleton'][0]['data']['wallThicknessInch']))
+        {
+            $updatedData['Skeleton'][0]['data']['OdIn'] = $idInch + ($updatedData['Skeleton'][0]['data']['wallThicknessInch'] * 2);
+        }
+        
         // creating brick data in required format and removing it from the update data
         $brickData = array();
         foreach ($brickMappingConfig as $level => $brickFieldNameInProduct) {
             if (array_key_exists($brickFieldNameInProduct, $updatedData)) {
+                
                 $brickData[$brickFieldNameInProduct] = $updatedData[$brickFieldNameInProduct];
+                
                 // unset the brick data from updated data
                 unset($updatedData[$brickFieldNameInProduct]);
             }
@@ -96,12 +107,13 @@ class AppService
                 if (is_array($brickUpdatedData) && count($brickUpdatedData) > 0) {
                     $itemGetter = 'get' . ucfirst($brickItemType);
                     $brickItem = $brickContainer->$itemGetter();
-
                     // iterating every attribute in the brick item
+                    
                     foreach ($brickUpdatedData as $brickAttributeName => $brickAttributeValue) {
                         if($brickAttributeValue === null){
                             $this->updateAttributeGroup($brickItem, $brickAttributeName, null);
                         }else{
+                            
                             $this->updateAttributeGroup($brickItem, $brickAttributeName, floatval($brickAttributeValue));
                         }
                     }
@@ -124,6 +136,7 @@ class AppService
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
         if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
+            
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
         return $object;
