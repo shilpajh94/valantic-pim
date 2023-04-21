@@ -1,8 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-21T12:49:02+02:00
-* Changed by: system (0)
+* Generated at: 2023-04-21T13:11:55+02:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,8 +10,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'ProductManagementIFSEMEA',
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
-   'creationDate' => 1681992812,
-   'modificationDate' => 1682074142,
+   'creationDate' => 1681897320,
+   'modificationDate' => 1682075515,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -192,391 +191,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'key' => 'AIR TRIXÂ®',
-                                        'value' => 15248410,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'AQUAPALÂ® DB',
-                                        'value' => 15248471,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'AQUAPALÂ® NEW VERSION',
-                                        'value' => 15248472,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® Fitting system',
-                                        'value' => 15248437,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGD',
-                                        'value' => 15248438,
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDS',
-                                        'value' => 15248439,
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDSU',
-                                        'value' => 15248440,
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDU',
-                                        'value' => 15248441,
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'COLLECTORÂ®',
-                                        'value' => 15248442,
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'COLLECTORÂ® FLEX',
-                                        'value' => 15248443,
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'CONTI ALLCRETEÂ® PRO TEXTILE',
-                                        'value' => 15248418,
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'CONTI ALLCRETEÂ® PRO WIRE',
-                                        'value' => 15248419,
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'CONTIÂ® BLUE STEAM',
-                                        'value' => 15248444,
-                                      ),
-                                      13 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Breathing air hose Plus',
-                                        'value' => 15248411,
-                                      ),
-                                      14 => 
-                                      array (
-                                        'key' => 'CONTIÂ® CEMENT SILO',
-                                        'value' => 15248420,
-                                      ),
-                                      15 => 
-                                      array (
-                                        'key' => 'CONTIÂ® CLEANJET - FDA',
-                                        'value' => 15248445,
-                                      ),
-                                      16 => 
-                                      array (
-                                        'key' => 'CONTIÂ® FOOD & DRINK FLEX EPDM',
-                                        'value' => 15248446,
-                                      ),
-                                      17 => 
-                                      array (
-                                        'key' => 'CONTIÂ® FOOD & DRINK FLEX UPE',
-                                        'value' => 15248447,
-                                      ),
-                                      18 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Fire hose CO',
-                                        'value' => 15248405,
-                                      ),
-                                      19 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Flux hose - blue',
-                                        'value' => 15248426,
-                                      ),
-                                      20 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Flux hose - red',
-                                        'value' => 15248427,
-                                      ),
-                                      21 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Hot air compressor hose',
-                                        'value' => 15248412,
-                                      ),
-                                      22 => 
-                                      array (
-                                        'key' => 'CONTIÂ® L5L-1',
-                                        'value' => 15248460,
-                                      ),
-                                      23 => 
-                                      array (
-                                        'key' => 'CONTIÂ® L5L-2',
-                                        'value' => 15248461,
-                                      ),
-                                      24 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M1L-OLN',
-                                        'value' => 15248462,
-                                      ),
-                                      25 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M1L-OLNW',
-                                        'value' => 15248463,
-                                      ),
-                                      26 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M4M-2',
-                                        'value' => 15248464,
-                                      ),
-                                      27 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M4M-2H',
-                                        'value' => 15248465,
-                                      ),
-                                      28 => 
-                                      array (
-                                        'key' => 'CONTIÂ® OLNC',
-                                        'value' => 15248466,
-                                      ),
-                                      29 => 
-                                      array (
-                                        'key' => 'CONTIÂ® PREMIUM SUCTION SD',
-                                        'value' => 15248421,
-                                      ),
-                                      30 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Paint spray hose PA',
-                                        'value' => 15248406,
-                                      ),
-                                      31 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Radiator Flex',
-                                        'value' => 15248473,
-                                      ),
-                                      32 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Radiator Flex - 2.000 mm',
-                                        'value' => 15248474,
-                                      ),
-                                      33 => 
-                                      array (
-                                        'key' => 'CONTIÂ® SILO AIRXTREME',
-                                        'value' => 15248413,
-                                      ),
-                                      34 => 
-                                      array (
-                                        'key' => 'CONTIÂ® SILO FOOD',
-                                        'value' => 15248448,
-                                      ),
-                                      35 => 
-                                      array (
-                                        'key' => 'CONTIÂ® TWIN AUTOGEN',
-                                        'value' => 15248428,
-                                      ),
-                                      36 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Tar spray hose',
-                                        'value' => 15248407,
-                                      ),
-                                      37 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE',
-                                        'value' => 15248422,
-                                      ),
-                                      38 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE - Flange',
-                                        'value' => 15248423,
-                                      ),
-                                      39 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE CONDUCTIVE',
-                                        'value' => 15248424,
-                                      ),
-                                      40 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE Gasket',
-                                        'value' => 15248425,
-                                      ),
-                                      41 => 
-                                      array (
-                                        'key' => 'Customized',
-                                        'value' => 15248481,
-                                      ),
-                                      42 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 5000',
-                                        'value' => 15248467,
-                                      ),
-                                      43 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 6000',
-                                        'value' => 15248468,
-                                      ),
-                                      44 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 6000 OIL',
-                                        'value' => 15248469,
-                                      ),
-                                      45 => 
-                                      array (
-                                        'key' => 'EURO TRIXÂ®',
-                                        'value' => 15248475,
-                                      ),
-                                      46 => 
-                                      array (
-                                        'key' => 'GOLD SNAKEÂ®',
-                                        'value' => 15248476,
-                                      ),
-                                      47 => 
-                                      array (
-                                        'key' => 'LACTOPALÂ®',
-                                        'value' => 15248449,
-                                      ),
-                                      48 => 
-                                      array (
-                                        'key' => 'LACTOPALÂ® L',
-                                        'value' => 15248450,
-                                      ),
-                                      49 => 
-                                      array (
-                                        'key' => 'PAGUCLAMPÂ® Fitting system',
-                                        'value' => 15248451,
-                                      ),
-                                      50 => 
-                                      array (
-                                        'key' => 'PAGUFIXÂ® Fitting system',
-                                        'value' => 15248452,
-                                      ),
-                                      51 => 
-                                      array (
-                                        'key' => 'PARKINGÂ®',
-                                        'value' => 15248414,
-                                      ),
-                                      52 => 
-                                      array (
-                                        'key' => 'PHX Acetylene hose - red',
-                                        'value' => 15248429,
-                                      ),
-                                      53 => 
-                                      array (
-                                        'key' => 'PHX Oxygen hose - blue',
-                                        'value' => 15248430,
-                                      ),
-                                      54 => 
-                                      array (
-                                        'key' => 'PURPURSCHLANGEÂ®',
-                                        'value' => 15248453,
-                                      ),
-                                      55 => 
-                                      array (
-                                        'key' => 'PURPURSCHLANGEÂ® PLUS CONDUCTIVE',
-                                        'value' => 15248454,
-                                      ),
-                                      56 => 
-                                      array (
-                                        'key' => 'Rubber protection ring',
-                                        'value' => 15248455,
-                                      ),
-                                      57 => 
-                                      array (
-                                        'key' => 'THERMIDORÂ®',
-                                        'value' => 15248477,
-                                      ),
-                                      58 => 
-                                      array (
-                                        'key' => 'TRIX BLAUSTRAHLÂ®',
-                                        'value' => 15248415,
-                                      ),
-                                      59 => 
-                                      array (
-                                        'key' => 'TRIX ROTSTRAHLÂ®',
-                                        'value' => 15248478,
-                                      ),
-                                      60 => 
-                                      array (
-                                        'key' => 'TRIXÂ® AUTOGEN - black',
-                                        'value' => 15248432,
-                                      ),
-                                      61 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Acetylene hose - red',
-                                        'value' => 15248431,
-                                      ),
-                                      62 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Brake hose',
-                                        'value' => 15248416,
-                                      ),
-                                      63 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Breathing air hose',
-                                        'value' => 15248417,
-                                      ),
-                                      64 => 
-                                      array (
-                                        'key' => 'TRIXÂ® High pressure hose',
-                                        'value' => 15248479,
-                                      ),
-                                      65 => 
-                                      array (
-                                        'key' => 'TRIXÂ® MULTIFOOD - blue',
-                                        'value' => 15248456,
-                                      ),
-                                      66 => 
-                                      array (
-                                        'key' => 'TRIXÂ® MULTIFOOD - white',
-                                        'value' => 15248457,
-                                      ),
-                                      67 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Nitrogen hose',
-                                        'value' => 15248433,
-                                      ),
-                                      68 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Oxygen hose - blue',
-                                        'value' => 15248434,
-                                      ),
-                                      69 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Paint spray hose EPDM',
-                                        'value' => 15248408,
-                                      ),
-                                      70 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Paint spray hose NBR',
-                                        'value' => 15248409,
-                                      ),
-                                      71 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Propane gas hose',
-                                        'value' => 15248435,
-                                      ),
-                                      72 => 
-                                      array (
-                                        'key' => 'TRIXÂ® SUPER',
-                                        'value' => 15248480,
-                                      ),
-                                      73 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Universal fuel gas hose',
-                                        'value' => 15248436,
-                                      ),
-                                      74 => 
-                                      array (
-                                        'key' => 'UNITRIXÂ® 60',
-                                        'value' => 15248458,
-                                      ),
-                                      75 => 
-                                      array (
-                                        'key' => 'UNITRIXÂ® 80',
-                                        'value' => 15248459,
-                                      ),
-                                      76 => 
-                                      array (
-                                        'key' => 'Water-saving gun DINGAÂ®',
-                                        'value' => 15248470,
-                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
@@ -608,391 +222,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'key' => 'AIR TRIXÂ®',
-                                        'value' => 15248410,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'AQUAPALÂ® DB',
-                                        'value' => 15248471,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'AQUAPALÂ® NEW VERSION',
-                                        'value' => 15248472,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® Fitting system',
-                                        'value' => 15248437,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGD',
-                                        'value' => 15248438,
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDS',
-                                        'value' => 15248439,
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDSU',
-                                        'value' => 15248440,
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'BLAUDIECKÂ® LGDU',
-                                        'value' => 15248441,
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'COLLECTORÂ®',
-                                        'value' => 15248442,
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'COLLECTORÂ® FLEX',
-                                        'value' => 15248443,
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'CONTI ALLCRETEÂ® PRO TEXTILE',
-                                        'value' => 15248418,
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'CONTI ALLCRETEÂ® PRO WIRE',
-                                        'value' => 15248419,
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'CONTIÂ® BLUE STEAM',
-                                        'value' => 15248444,
-                                      ),
-                                      13 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Breathing air hose Plus',
-                                        'value' => 15248411,
-                                      ),
-                                      14 => 
-                                      array (
-                                        'key' => 'CONTIÂ® CEMENT SILO',
-                                        'value' => 15248420,
-                                      ),
-                                      15 => 
-                                      array (
-                                        'key' => 'CONTIÂ® CLEANJET - FDA',
-                                        'value' => 15248445,
-                                      ),
-                                      16 => 
-                                      array (
-                                        'key' => 'CONTIÂ® FOOD & DRINK FLEX EPDM',
-                                        'value' => 15248446,
-                                      ),
-                                      17 => 
-                                      array (
-                                        'key' => 'CONTIÂ® FOOD & DRINK FLEX UPE',
-                                        'value' => 15248447,
-                                      ),
-                                      18 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Fire hose CO',
-                                        'value' => 15248405,
-                                      ),
-                                      19 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Flux hose - blue',
-                                        'value' => 15248426,
-                                      ),
-                                      20 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Flux hose - red',
-                                        'value' => 15248427,
-                                      ),
-                                      21 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Hot air compressor hose',
-                                        'value' => 15248412,
-                                      ),
-                                      22 => 
-                                      array (
-                                        'key' => 'CONTIÂ® L5L-1',
-                                        'value' => 15248460,
-                                      ),
-                                      23 => 
-                                      array (
-                                        'key' => 'CONTIÂ® L5L-2',
-                                        'value' => 15248461,
-                                      ),
-                                      24 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M1L-OLN',
-                                        'value' => 15248462,
-                                      ),
-                                      25 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M1L-OLNW',
-                                        'value' => 15248463,
-                                      ),
-                                      26 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M4M-2',
-                                        'value' => 15248464,
-                                      ),
-                                      27 => 
-                                      array (
-                                        'key' => 'CONTIÂ® M4M-2H',
-                                        'value' => 15248465,
-                                      ),
-                                      28 => 
-                                      array (
-                                        'key' => 'CONTIÂ® OLNC',
-                                        'value' => 15248466,
-                                      ),
-                                      29 => 
-                                      array (
-                                        'key' => 'CONTIÂ® PREMIUM SUCTION SD',
-                                        'value' => 15248421,
-                                      ),
-                                      30 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Paint spray hose PA',
-                                        'value' => 15248406,
-                                      ),
-                                      31 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Radiator Flex',
-                                        'value' => 15248473,
-                                      ),
-                                      32 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Radiator Flex - 2.000 mm',
-                                        'value' => 15248474,
-                                      ),
-                                      33 => 
-                                      array (
-                                        'key' => 'CONTIÂ® SILO AIRXTREME',
-                                        'value' => 15248413,
-                                      ),
-                                      34 => 
-                                      array (
-                                        'key' => 'CONTIÂ® SILO FOOD',
-                                        'value' => 15248448,
-                                      ),
-                                      35 => 
-                                      array (
-                                        'key' => 'CONTIÂ® TWIN AUTOGEN',
-                                        'value' => 15248428,
-                                      ),
-                                      36 => 
-                                      array (
-                                        'key' => 'CONTIÂ® Tar spray hose',
-                                        'value' => 15248407,
-                                      ),
-                                      37 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE',
-                                        'value' => 15248422,
-                                      ),
-                                      38 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE - Flange',
-                                        'value' => 15248423,
-                                      ),
-                                      39 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE CONDUCTIVE',
-                                        'value' => 15248424,
-                                      ),
-                                      40 => 
-                                      array (
-                                        'key' => 'CONTIÂ® ULTIMATE Gasket',
-                                        'value' => 15248425,
-                                      ),
-                                      41 => 
-                                      array (
-                                        'key' => 'Customized',
-                                        'value' => 15248481,
-                                      ),
-                                      42 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 5000',
-                                        'value' => 15248467,
-                                      ),
-                                      43 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 6000',
-                                        'value' => 15248468,
-                                      ),
-                                      44 => 
-                                      array (
-                                        'key' => 'DAMPF TRIXÂ® 6000 OIL',
-                                        'value' => 15248469,
-                                      ),
-                                      45 => 
-                                      array (
-                                        'key' => 'EURO TRIXÂ®',
-                                        'value' => 15248475,
-                                      ),
-                                      46 => 
-                                      array (
-                                        'key' => 'GOLD SNAKEÂ®',
-                                        'value' => 15248476,
-                                      ),
-                                      47 => 
-                                      array (
-                                        'key' => 'LACTOPALÂ®',
-                                        'value' => 15248449,
-                                      ),
-                                      48 => 
-                                      array (
-                                        'key' => 'LACTOPALÂ® L',
-                                        'value' => 15248450,
-                                      ),
-                                      49 => 
-                                      array (
-                                        'key' => 'PAGUCLAMPÂ® Fitting system',
-                                        'value' => 15248451,
-                                      ),
-                                      50 => 
-                                      array (
-                                        'key' => 'PAGUFIXÂ® Fitting system',
-                                        'value' => 15248452,
-                                      ),
-                                      51 => 
-                                      array (
-                                        'key' => 'PARKINGÂ®',
-                                        'value' => 15248414,
-                                      ),
-                                      52 => 
-                                      array (
-                                        'key' => 'PHX Acetylene hose - red',
-                                        'value' => 15248429,
-                                      ),
-                                      53 => 
-                                      array (
-                                        'key' => 'PHX Oxygen hose - blue',
-                                        'value' => 15248430,
-                                      ),
-                                      54 => 
-                                      array (
-                                        'key' => 'PURPURSCHLANGEÂ®',
-                                        'value' => 15248453,
-                                      ),
-                                      55 => 
-                                      array (
-                                        'key' => 'PURPURSCHLANGEÂ® PLUS CONDUCTIVE',
-                                        'value' => 15248454,
-                                      ),
-                                      56 => 
-                                      array (
-                                        'key' => 'Rubber protection ring',
-                                        'value' => 15248455,
-                                      ),
-                                      57 => 
-                                      array (
-                                        'key' => 'THERMIDORÂ®',
-                                        'value' => 15248477,
-                                      ),
-                                      58 => 
-                                      array (
-                                        'key' => 'TRIX BLAUSTRAHLÂ®',
-                                        'value' => 15248415,
-                                      ),
-                                      59 => 
-                                      array (
-                                        'key' => 'TRIX ROTSTRAHLÂ®',
-                                        'value' => 15248478,
-                                      ),
-                                      60 => 
-                                      array (
-                                        'key' => 'TRIXÂ® AUTOGEN - black',
-                                        'value' => 15248432,
-                                      ),
-                                      61 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Acetylene hose - red',
-                                        'value' => 15248431,
-                                      ),
-                                      62 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Brake hose',
-                                        'value' => 15248416,
-                                      ),
-                                      63 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Breathing air hose',
-                                        'value' => 15248417,
-                                      ),
-                                      64 => 
-                                      array (
-                                        'key' => 'TRIXÂ® High pressure hose',
-                                        'value' => 15248479,
-                                      ),
-                                      65 => 
-                                      array (
-                                        'key' => 'TRIXÂ® MULTIFOOD - blue',
-                                        'value' => 15248456,
-                                      ),
-                                      66 => 
-                                      array (
-                                        'key' => 'TRIXÂ® MULTIFOOD - white',
-                                        'value' => 15248457,
-                                      ),
-                                      67 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Nitrogen hose',
-                                        'value' => 15248433,
-                                      ),
-                                      68 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Oxygen hose - blue',
-                                        'value' => 15248434,
-                                      ),
-                                      69 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Paint spray hose EPDM',
-                                        'value' => 15248408,
-                                      ),
-                                      70 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Paint spray hose NBR',
-                                        'value' => 15248409,
-                                      ),
-                                      71 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Propane gas hose',
-                                        'value' => 15248435,
-                                      ),
-                                      72 => 
-                                      array (
-                                        'key' => 'TRIXÂ® SUPER',
-                                        'value' => 15248480,
-                                      ),
-                                      73 => 
-                                      array (
-                                        'key' => 'TRIXÂ® Universal fuel gas hose',
-                                        'value' => 15248436,
-                                      ),
-                                      74 => 
-                                      array (
-                                        'key' => 'UNITRIXÂ® 60',
-                                        'value' => 15248458,
-                                      ),
-                                      75 => 
-                                      array (
-                                        'key' => 'UNITRIXÂ® 80',
-                                        'value' => 15248459,
-                                      ),
-                                      76 => 
-                                      array (
-                                        'key' => 'Water-saving gun DINGAÂ®',
-                                        'value' => 15248470,
-                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
@@ -1052,31 +281,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'key' => 'FBWM - Food',
-                                        'value' => 15244793,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'FCHA - Fitting',
-                                        'value' => 15244794,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'MBM - Machine Building & Manufacturing',
-                                        'value' => 15244790,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'PCH - Fuels & Chemicals',
-                                        'value' => 15244792,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'SMH - Solid & Material Handling',
-                                        'value' => 15244791,
-                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
@@ -1108,66 +312,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Abrasive',
-                                        'value' => 15244718,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Accessories',
-                                        'value' => 15244728,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Air & Gas',
-                                        'value' => 15244717,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Chemical',
-                                        'value' => 15244719,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Engines',
-                                        'value' => 15244721,
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Fitting & Coupling',
-                                        'value' => 15244727,
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Food & Beverage',
-                                        'value' => 15244723,
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'Industrial Cooling',
-                                        'value' => 15244726,
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Potable Water',
-                                        'value' => 15244724,
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Railway',
-                                        'value' => 15244722,
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'Steam',
-                                        'value' => 15244720,
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Water ',
-                                        'value' => 15244725,
-                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
@@ -1223,1078 +367,1098 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'key' => '1/2” female thread',
-                                        'value' => 15240323,
+                                        'key' => '1 set consisting of 2 half shells, 4 screws and 4 nuts',
+                                        'value' => 14698730,
                                       ),
                                       1 => 
                                       array (
-                                        'key' => '  10<sup>3</sup> Ω < R < 10<sup>8</sup> Ω ',
-                                        'value' => 15240263,
+                                        'key' => '1/2” female thread',
+                                        'value' => 14698656,
                                       ),
                                       2 => 
                                       array (
-                                        'key' => ' 16 bar 232 psi (Wasser)',
-                                        'value' => 15240357,
+                                        'key' => '2 years warranty',
+                                        'value' => 14698584,
                                       ),
                                       3 => 
                                       array (
-                                        'key' => '2 bis 0',
-                                        'value' => 15240440,
+                                        'key' => '3 years warranty',
+                                        'value' => 14698605,
                                       ),
                                       4 => 
                                       array (
-                                        'key' => '2 years warranty',
-                                        'value' => 15240254,
+                                        'key' => '5 years warranty',
+                                        'value' => 14698590,
                                       ),
                                       5 => 
                                       array (
-                                        'key' => '2% Feuchtigkeit)',
-                                        'value' => 15240431,
+                                        'key' => 'A version compliant with §10 BVOSt (previously LOBA) is also available',
+                                        'value' => 14698618,
                                       ),
                                       6 => 
                                       array (
-                                        'key' => '3 years warranty',
-                                        'value' => 15240272,
+                                        'key' => 'Absolutely neutral to taste and odour',
+                                        'value' => 14698568,
                                       ),
                                       7 => 
                                       array (
-                                        'key' => ' 3/4’’ und 1’’',
-                                        'value' => 15240322,
+                                        'key' => 'Ageing resistant',
+                                        'value' => 14698585,
                                       ),
                                       8 => 
                                       array (
-                                        'key' => ' 4 Schrauben und 4 Muttern',
-                                        'value' => 15240396,
+                                        'key' => 'Air supply for fluidising channels 0.2 to 0.5 bar',
+                                        'value' => 14698774,
                                       ),
                                       9 => 
                                       array (
-                                        'key' => '5 years warranty',
-                                        'value' => 15240260,
+                                        'key' => 'Ambiant temperature up to 230°C, short time 250 °C',
+                                        'value' => 14698697,
                                       ),
                                       10 => 
                                       array (
-                                        'key' => '5B (150lbs)',
-                                        'value' => 15240384,
+                                        'key' => 'Anti UV',
+                                        'value' => 14698752,
                                       ),
                                       11 => 
                                       array (
-                                        'key' => '6 g/cm3',
-                                        'value' => 15240407,
+                                        'key' => 'Antistatic',
+                                        'value' => 14698753,
                                       ),
                                       12 => 
                                       array (
-                                        'key' => 'A version compliant with §10 BVOSt (previously LOBA) is also available',
-                                        'value' => 15240285,
+                                        'key' => 'Approved by Deutsche Bahn AG',
+                                        'value' => 14698704,
                                       ),
                                       13 => 
                                       array (
-                                        'key' => 'Absolutely neutral to taste and odour',
-                                        'value' => 15240238,
+                                        'key' => 'Aromatic content up to 50%',
+                                        'value' => 14698677,
                                       ),
                                       14 => 
                                       array (
-                                        'key' => 'Ageing resistant',
-                                        'value' => 15240255,
+                                        'key' => 'Available also with outside steel braiding',
+                                        'value' => 14698727,
                                       ),
                                       15 => 
                                       array (
-                                        'key' => ' Allgemeintoleranzen nach DIN ISO 3302-1 EN2',
-                                        'value' => 15240309,
+                                        'key' => 'Available flange systems: Victaulic, Heavy Duty (US), etc.',
+                                        'value' => 14698627,
                                       ),
                                       16 => 
                                       array (
-                                        'key' => 'Anti UV',
-                                        'value' => 15240418,
+                                        'key' => 'Base hose OLNH 22 65',
+                                        'value' => 14698700,
                                       ),
                                       17 => 
                                       array (
-                                        'key' => 'Antistatic',
-                                        'value' => 15240419,
+                                        'key' => 'Bend radius up to 1/2 that of SAE',
+                                        'value' => 14698681,
                                       ),
                                       18 => 
                                       array (
-                                        'key' => 'Approved by Deutsche Bahn AG',
-                                        'value' => 15240370,
+                                        'key' => 'Bolt Circle Standard DIN: PN10 / ANSI: 150 lbs',
+                                        'value' => 14698719,
                                       ),
                                       19 => 
                                       array (
-                                        'key' => 'Aromatic content up to 50%',
-                                        'value' => 15240344,
+                                        'key' => 'Both conductive and non-conductive version available, conductivity is provided by rubber components (no copper stranding and corresponding connection necessary)',
+                                        'value' => 14698772,
                                       ),
                                       20 => 
                                       array (
-                                        'key' => 'Available also with outside steel braiding',
-                                        'value' => 15240393,
+                                        'key' => 'Burst pressure > 180 bar / 2.611 psi, safety factor 10:1',
+                                        'value' => 14698622,
                                       ),
                                       21 => 
                                       array (
-                                        'key' => 'Base hose OLNH 22 65',
-                                        'value' => 15240366,
+                                        'key' => 'Calibrated Diameters',
+                                        'value' => 14698754,
                                       ),
                                       22 => 
                                       array (
-                                        'key' => 'Bend radius up to 1/2 that of SAE',
-                                        'value' => 15240348,
+                                        'key' => 'Can also be used for welding processes with aggressive filler agents',
+                                        'value' => 14698616,
                                       ),
                                       23 => 
                                       array (
-                                        'key' => 'Bolt Circle Standard DIN: PN10 / ANSI: 150 lbs',
-                                        'value' => 15240385,
+                                        'key' => 'Can be cleaned by CIP installations',
+                                        'value' => 14698581,
                                       ),
                                       24 => 
                                       array (
-                                        'key' => ' Brom und Sulfurichlorid',
-                                        'value' => 15240317,
+                                        'key' => 'Can be overrun',
+                                        'value' => 14698604,
                                       ),
                                       25 => 
                                       array (
-                                        'key' => ' CONTI® ULTIMATE CONDUCTIVE und CONTI® ULTIMATE Dichtung',
-                                        'value' => 15240402,
+                                        'key' => 'Can be overrun (except construction with steel wire helix)',
+                                        'value' => 14698583,
                                       ),
                                       26 => 
                                       array (
-                                        'key' => ' CONTI® ULTIMATE CONDUCTIVE und CONTI® ULTIMATE Flansch',
-                                        'value' => 15240403,
+                                        'key' => 'Can be used in accordance with the specif_x005F_x001F_ications of BSH and BMU within the framework of noise protection measures for marine mammals',
+                                        'value' => 14698684,
                                       ),
                                       27 => 
                                       array (
-                                        'key' => 'Calibrated Diameters',
-                                        'value' => 15240420,
+                                        'key' => 'Cold-elastic',
+                                        'value' => 14698577,
                                       ),
                                       28 => 
                                       array (
-                                        'key' => 'Can also be used for welding processes with aggressive filler agents',
-                                        'value' => 15240283,
+                                        'key' => 'Cold-resistant',
+                                        'value' => 14698659,
                                       ),
                                       29 => 
                                       array (
-                                        'key' => 'Can be cleaned by CIP installations',
-                                        'value' => 15240251,
+                                        'key' => 'Color-coded pressure range system for easy identification',
+                                        'value' => 14698680,
                                       ),
                                       30 => 
                                       array (
-                                        'key' => 'Can be overrun',
-                                        'value' => 15240271,
+                                        'key' => 'Compatible with CONTI® ULTIMATE, CONTI® ULTIMATE CONDUCTIVE and CONTI® ULTIMATE Flange',
+                                        'value' => 14698737,
                                       ),
                                       31 => 
                                       array (
-                                        'key' => 'Can be overrun (except construction with steel wire helix)',
-                                        'value' => 15240253,
+                                        'key' => 'Compatible with CONTI® ULTIMATE, CONTI® ULTIMATE CONDUCTIVE and CONTI® ULTIMATE gasket',
+                                        'value' => 14698736,
                                       ),
                                       32 => 
                                       array (
-                                        'key' => 'Can be used in accordance with the specif_x001F_ications of BSH and BMU within the framework of noise protection measures for marine mammals',
-                                        'value' => 15240351,
+                                        'key' => 'Compatible with standard water hose fittings',
+                                        'value' => 14698626,
                                       ),
                                       33 => 
                                       array (
-                                        'key' => 'Cold-elastic',
-                                        'value' => 15240247,
+                                        'key' => 'Conical shape ensures ease of installation',
+                                        'value' => 14698720,
                                       ),
                                       34 => 
                                       array (
-                                        'key' => 'Cold-resistant',
-                                        'value' => 15240326,
+                                        'key' => 'Conti Ultimate PN 10 Aluminium Flange System',
+                                        'value' => 14698767,
                                       ),
                                       35 => 
                                       array (
-                                        'key' => 'Color-coded pressure range system for easy identification',
-                                        'value' => 15240347,
+                                        'key' => 'ContiTech offers the following connection types: - Split flange, e.g. compact conveyor hose systems - Integral rubber flange, optional with steel backing flange - Integral steel flange, conc',
+                                        'value' => 14698714,
                                       ),
                                       36 => 
                                       array (
-                                        'key' => 'Compatible with standard water hose fittings',
-                                        'value' => 15240293,
+                                        'key' => 'Continuos temperature resistant',
+                                        'value' => 14698621,
                                       ),
                                       37 => 
                                       array (
-                                        'key' => 'Conical shape ensures ease of installation',
-                                        'value' => 15240386,
+                                        'key' => 'Continuously adjustable jet strength',
+                                        'value' => 14698654,
                                       ),
                                       38 => 
                                       array (
-                                        'key' => 'Conti Ultimate PN 10 Aluminium Flange System',
-                                        'value' => 15240433,
+                                        'key' => 'Couplings are partly hardend and with galvanized sleeve',
+                                        'value' => 14698628,
                                       ),
                                       39 => 
                                       array (
-                                        'key' => 'Continuos temperature resistant',
-                                        'value' => 15240288,
+                                        'key' => 'Couplings: all STD clamps with insert',
+                                        'value' => 14698679,
                                       ),
                                       40 => 
                                       array (
-                                        'key' => 'Continuously adjustable jet strength',
-                                        'value' => 15240321,
+                                        'key' => 'Customised production from inner diameter 80 mm to 1,200 mm',
+                                        'value' => 14698710,
                                       ),
                                       41 => 
                                       array (
-                                        'key' => 'Couplings are partly hardend and with galvanized sleeve',
-                                        'value' => 15240295,
+                                        'key' => 'Customized laser marking on request',
+                                        'value' => 14698666,
                                       ),
                                       42 => 
                                       array (
-                                        'key' => 'Couplings: all STD clamps with insert',
-                                        'value' => 15240346,
+                                        'key' => 'DN 8 mm and 10 mm only available in old version at old prices for the time being',
+                                        'value' => 14698750,
                                       ),
                                       43 => 
                                       array (
-                                        'key' => 'Customised production from inner diameter 80 mm to 1',
-                                        'value' => 15240376,
+                                        'key' => 'Dielectric strength > 6kV (tube wall)',
+                                        'value' => 14698735,
                                       ),
                                       44 => 
                                       array (
-                                        'key' => 'Customized laser marking on request',
-                                        'value' => 15240333,
+                                        'key' => 'Different lenghts upon request',
+                                        'value' => 14698629,
                                       ),
                                       45 => 
                                       array (
-                                        'key' => 'DN 8 mm and 10 mm only available in old version at old prices for the time being',
-                                        'value' => 15240416,
+                                        'key' => 'Different manufacturing technologies - absolutely consistent product quality',
+                                        'value' => 14698711,
                                       ),
                                       46 => 
                                       array (
-                                        'key' => 'Dielectric strength > 6kV (tube wall)',
-                                        'value' => 15240401,
+                                        'key' => 'Different pressure stages possible',
+                                        'value' => 14698707,
                                       ),
                                       47 => 
                                       array (
-                                        'key' => ' Dieselkraftstoff bis +40°C / +104°F',
-                                        'value' => 15240308,
+                                        'key' => 'Dimensionally stable',
+                                        'value' => 14698582,
                                       ),
                                       48 => 
                                       array (
-                                        'key' => 'Different lenghts upon request',
-                                        'value' => 15240296,
+                                        'key' => 'Drinking water approval for cold and hot water up to +60°C',
+                                        'value' => 14698749,
                                       ),
                                       49 => 
                                       array (
-                                        'key' => 'Different manufacturing technologies - absolutely consistent product quality',
-                                        'value' => 15240377,
+                                        'key' => 'During proper use as a Double Big Bubble Curtain_x005F_x001C_ (DBBC with speci_x005F_x001F_fic hole pattern), the noise level can be reduced by up to 19 dB (SEL)',
+                                        'value' => 14698685,
                                       ),
                                       50 => 
                                       array (
-                                        'key' => 'Different pressure stages possible',
-                                        'value' => 15240373,
+                                        'key' => 'Easy Pack',
+                                        'value' => 14698755,
                                       ),
                                       51 => 
                                       array (
-                                        'key' => 'Dimensionally stable',
-                                        'value' => 15240252,
+                                        'key' => 'Easy crimping thanks to an optimized combination of ferrule and insert',
+                                        'value' => 14698664,
                                       ),
                                       52 => 
                                       array (
-                                        'key' => 'Drinking water approval for cold and hot water up to +60°C',
-                                        'value' => 15240415,
+                                        'key' => 'Easy to clean',
+                                        'value' => 14698609,
                                       ),
                                       53 => 
                                       array (
-                                        'key' => 'During proper use as a Double Big Bubble Curtain_x001C_ (DBBC with speci_x001F_fic hole pattern)',
-                                        'value' => 15240352,
+                                        'key' => 'Easy to handle',
+                                        'value' => 14698570,
                                       ),
                                       54 => 
                                       array (
-                                        'key' => ' EPDM',
-                                        'value' => 15240340,
+                                        'key' => 'Electrical insulation',
+                                        'value' => 14698708,
                                       ),
                                       55 => 
                                       array (
-                                        'key' => 'Easy Pack',
-                                        'value' => 15240421,
+                                        'key' => 'Electrically conductive Ω/T',
+                                        'value' => 14698649,
                                       ),
                                       56 => 
                                       array (
-                                        'key' => 'Easy crimping thanks to an optimized combination of ferrule and insert',
-                                        'value' => 15240331,
+                                        'key' => 'Electrically conductive, 10<sup>3</sup> Ω < R < 10<sup>8</sup> Ω ',
+                                        'value' => 14698594,
                                       ),
                                       57 => 
                                       array (
-                                        'key' => 'Easy to clean',
-                                        'value' => 15240276,
+                                        'key' => 'Electrically conductive, R < 10<sup>6</sup> Ω',
+                                        'value' => 14698595,
                                       ),
                                       58 => 
                                       array (
-                                        'key' => 'Easy to handle',
-                                        'value' => 15240240,
+                                        'key' => 'Electrically conductive, R < 10<sup>6</sup> Ω/line',
+                                        'value' => 14698592,
                                       ),
                                       59 => 
                                       array (
-                                        'key' => 'Electrical conductivity Type C: 10<sup>3</sup> Ω/m to 10<sup>6</sup> Ω/m; Type E: < 10<sup>2</sup> Ω/m',
-                                        'value' => 15240275,
+                                        'key' => 'Electrically conductive, R < 10<sup>6</sup> Ω/m',
+                                        'value' => 14698593,
                                       ),
                                       60 => 
                                       array (
-                                        'key' => 'Electrical insulation',
-                                        'value' => 15240374,
+                                        'key' => 'Electrically conductive, R < 10<sup>8</sup> Ω',
+                                        'value' => 14698702,
                                       ),
                                       61 => 
                                       array (
-                                        'key' => 'Electrically conductive Ω/T',
-                                        'value' => 15240316,
+                                        'key' => 'Electrically conductive, R < 10<sup>9</sup> Ω,  through the hose wall',
+                                        'value' => 14698633,
                                       ),
                                       62 => 
                                       array (
-                                        'key' => 'Excellent impulse performance',
-                                        'value' => 15240349,
+                                        'key' => 'Electrically insulating, R > 10<sup>11</sup> Ω/m',
+                                        'value' => 14698782,
                                       ),
                                       63 => 
                                       array (
-                                        'key' => 'Excellent resistant to heat aging',
-                                        'value' => 15240315,
+                                        'key' => 'Excellent impulse performance',
+                                        'value' => 14698682,
                                       ),
                                       64 => 
                                       array (
-                                        'key' => 'Execution with and without helix possible',
-                                        'value' => 15240447,
+                                        'key' => 'Excellent resistant to heat aging',
+                                        'value' => 14698648,
                                       ),
                                       65 => 
                                       array (
-                                        'key' => 'Extremely durable',
-                                        'value' => 15240248,
+                                        'key' => 'Execution with and without helix possible',
+                                        'value' => 14698781,
                                       ),
                                       66 => 
                                       array (
-                                        'key' => 'Finished hose dimensions may be subject to change depending on specific gravity of medium transported',
-                                        'value' => 15240409,
+                                        'key' => 'Extremely durable',
+                                        'value' => 14698578,
                                       ),
                                       67 => 
                                       array (
-                                        'key' => 'Fire and toxicity behaviour according to EN 45545-2',
-                                        'value' => 15240441,
+                                        'key' => 'Finished hose dimensions may be subject to change depending on specific gravity of medium transported',
+                                        'value' => 14698743,
                                       ),
                                       68 => 
                                       array (
-                                        'key' => 'Fixed lengths with built-in couplings acc. to customers request',
-                                        'value' => 15240318,
+                                        'key' => 'Fire and toxicity behaviour according to EN 45545-2',
+                                        'value' => 14698775,
                                       ),
                                       69 => 
                                       array (
-                                        'key' => 'Flexible',
-                                        'value' => 15240282,
+                                        'key' => 'Fittings and connectors: Threaded hose f_x005F_x001F_ittings in accordance with DIN EN 14420_x005F_x001B_5, TW hose couplings in accordance with DIN EN 14420_x005F_x001B_6, Lever hose coupli',
+                                        'value' => 14698687,
                                       ),
                                       70 => 
                                       array (
-                                        'key' => 'Floatation Element: Three layers of PE foam',
-                                        'value' => 15240406,
+                                        'key' => 'Fixed lengths with built-in couplings acc. to customers request',
+                                        'value' => 14698651,
                                       ),
                                       71 => 
                                       array (
-                                        'key' => 'Floatation Element: Two layers of PE foam',
-                                        'value' => 15240410,
+                                        'key' => 'Flexible',
+                                        'value' => 14698615,
                                       ),
                                       72 => 
                                       array (
-                                        'key' => 'Fluidisation channels for connection of G¼ for DN 10 pneumatic hoses',
-                                        'value' => 15240439,
+                                        'key' => 'Floatation Element: Three layers of PE foam',
+                                        'value' => 14698740,
                                       ),
                                       73 => 
                                       array (
-                                        'key' => 'For hoses with helix',
-                                        'value' => 15240417,
+                                        'key' => 'Floatation Element: Two layers of PE foam',
+                                        'value' => 14698744,
                                       ),
                                       74 => 
                                       array (
-                                        'key' => 'For more information',
-                                        'value' => 15240444,
+                                        'key' => 'Fluidisation channels for connection of G¼ for DN 10 pneumatic hoses',
+                                        'value' => 14698773,
                                       ),
                                       75 => 
                                       array (
-                                        'key' => 'For suction operation - vacuum-tight',
-                                        'value' => 15240445,
+                                        'key' => 'For hoses with helix, use a reduced nozzle!',
+                                        'value' => 14698751,
                                       ),
                                       76 => 
                                       array (
-                                        'key' => 'Free from DOTG and SVHC',
-                                        'value' => 15240313,
+                                        'key' => 'For more information, please visit: https://www.youtube.com/watch?v=fM0TbR11jjw',
+                                        'value' => 14698778,
                                       ),
                                       77 => 
                                       array (
-                                        'key' => 'Free of twists',
-                                        'value' => 15240250,
+                                        'key' => 'For suction operation - vacuum-tight',
+                                        'value' => 14698779,
                                       ),
                                       78 => 
                                       array (
-                                        'key' => 'Gentle and environmentally friendly cleaning',
-                                        'value' => 15240320,
+                                        'key' => 'Free from DOTG and SVHC',
+                                        'value' => 14698646,
                                       ),
                                       79 => 
                                       array (
-                                        'key' => 'Gentle material treatment',
-                                        'value' => 15240443,
+                                        'key' => 'Free from aromatic process oils, nitrosamines and SVHC',
+                                        'value' => 14698637,
                                       ),
                                       80 => 
                                       array (
-                                        'key' => 'Halogen Free',
-                                        'value' => 15240425,
+                                        'key' => 'Free of twists',
+                                        'value' => 14698580,
                                       ),
                                       81 => 
                                       array (
-                                        'key' => 'Halogen-free ',
-                                        'value' => 15240356,
+                                        'key' => 'Gentle and environmentally friendly cleaning',
+                                        'value' => 14698653,
                                       ),
                                       82 => 
                                       array (
-                                        'key' => 'Heat-resistant',
-                                        'value' => 15240245,
+                                        'key' => 'Gentle material treatment',
+                                        'value' => 14698777,
                                       ),
                                       83 => 
                                       array (
-                                        'key' => ' Heavy Duty (US)',
-                                        'value' => 15240294,
+                                        'key' => 'Halogen Free',
+                                        'value' => 14698759,
                                       ),
                                       84 => 
                                       array (
-                                        'key' => ' Heißwasser ≥ 3',
-                                        'value' => 15240273,
+                                        'key' => 'Halogen-free ',
+                                        'value' => 14698689,
                                       ),
                                       85 => 
                                       array (
-                                        'key' => 'High functionality',
-                                        'value' => 15240249,
+                                        'key' => 'Heat-resistant',
+                                        'value' => 14698575,
                                       ),
                                       86 => 
                                       array (
-                                        'key' => 'High net weight and negative buoyancy thanks to embedded additional weights (DN100: ~20 t/km)',
-                                        'value' => 15240353,
+                                        'key' => 'High functionality',
+                                        'value' => 14698579,
                                       ),
                                       87 => 
                                       array (
-                                        'key' => 'High temperature resistance',
-                                        'value' => 15240361,
+                                        'key' => 'High net weight and negative buoyancy thanks to embedded additional weights (DN100: ~20 t/km)',
+                                        'value' => 14698686,
                                       ),
                                       88 => 
                                       array (
-                                        'key' => 'High-performance',
-                                        'value' => 15240246,
+                                        'key' => 'High oil resistance, RMA Class A',
+                                        'value' => 14698602,
                                       ),
                                       89 => 
                                       array (
-                                        'key' => 'Highly flexible',
-                                        'value' => 15240239,
+                                        'key' => 'High temperature resistance',
+                                        'value' => 14698695,
                                       ),
                                       90 => 
                                       array (
-                                        'key' => 'Hose 22 25 with outside steel braiding with blue colored marking',
-                                        'value' => 15240395,
+                                        'key' => 'High-performance',
+                                        'value' => 14698576,
                                       ),
                                       91 => 
                                       array (
-                                        'key' => 'Hydrolysis Resistance',
-                                        'value' => 15240423,
+                                        'key' => 'Highly flexible',
+                                        'value' => 14698569,
                                       ),
                                       92 => 
                                       array (
-                                        'key' => ' IDF ISO 2853',
-                                        'value' => 15240335,
+                                        'key' => 'Hose 22 25 with outside steel braiding with blue colored marking',
+                                        'value' => 14698729,
                                       ),
                                       93 => 
                                       array (
-                                        'key' => 'Improved resistance against pop corning',
-                                        'value' => 15240266,
+                                        'key' => 'Hose connections available in 1/2”, 3/4”, and 1”',
+                                        'value' => 14698655,
                                       ),
                                       94 => 
                                       array (
-                                        'key' => 'Indestructible',
-                                        'value' => 15240236,
+                                        'key' => 'Hydrolysis Resistance',
+                                        'value' => 14698757,
                                       ),
                                       95 => 
                                       array (
-                                        'key' => 'Inner lining must be cleaned before installation/first use!',
-                                        'value' => 15240287,
+                                        'key' => 'Improved resistance against pop corning',
+                                        'value' => 14698597,
                                       ),
                                       96 => 
                                       array (
-                                        'key' => 'Inside and outside heat resistant',
-                                        'value' => 15240291,
+                                        'key' => 'Indestructible',
+                                        'value' => 14698566,
                                       ),
                                       97 => 
                                       array (
-                                        'key' => 'Kink-resistant',
-                                        'value' => 15240244,
+                                        'key' => 'Inner lining must be cleaned before installation/first use!',
+                                        'value' => 14698620,
                                       ),
                                       98 => 
                                       array (
-                                        'key' => ' Leitfähigkeit wird durch Gummikomponenten gewährleistet (keine Kupferlitze und entsprechender Anschluss notwendig)',
-                                        'value' => 15240438,
+                                        'key' => 'Inside and outside heat resistant',
+                                        'value' => 14698624,
                                       ),
                                       99 => 
                                       array (
-                                        'key' => 'Lightweight',
-                                        'value' => 15240243,
+                                        'key' => 'Installation according to DIN 20066, general tolerances according to DIN ISO 3302-1 EN2, EC3, L3',
+                                        'value' => 14698642,
                                       ),
                                       100 => 
                                       array (
-                                        'key' => 'Lightweight hose',
-                                        'value' => 15240362,
+                                        'key' => 'Kink-resistant',
+                                        'value' => 14698574,
                                       ),
                                       101 => 
                                       array (
-                                        'key' => 'Lining and cover both resistant to oil and fats',
-                                        'value' => 15240267,
+                                        'key' => 'Length independently electrically conductive, R < 10<sup>2</sup> Ω',
+                                        'value' => 14698600,
                                       ),
                                       102 => 
                                       array (
-                                        'key' => 'Long-lasting',
-                                        'value' => 15240237,
+                                        'key' => 'Length independently electrically conductive, R < 10<sup>6</sup> Ω',
+                                        'value' => 14698601,
                                       ),
                                       103 => 
                                       array (
-                                        'key' => 'Low noise',
-                                        'value' => 15240434,
+                                        'key' => 'Lightweight',
+                                        'value' => 14698573,
                                       ),
                                       104 => 
                                       array (
-                                        'key' => 'Low resistance to flow',
-                                        'value' => 15240235,
+                                        'key' => 'Lightweight hose',
+                                        'value' => 14698696,
                                       ),
                                       105 => 
                                       array (
-                                        'key' => 'Low-energy',
-                                        'value' => 15240436,
+                                        'key' => 'Lining and cover both resistant to oil and fats',
+                                        'value' => 14698598,
                                       ),
                                       106 => 
                                       array (
-                                        'key' => 'M-type hose acc. to TRGS 727 no. 4.9.4 (Cu-wires to be grounded on both sides)',
-                                        'value' => 15240292,
+                                        'key' => 'Lining electrically conductive, R < 10<sup>6</sup> Ω/m',
+                                        'value' => 14698599,
                                       ),
                                       107 => 
                                       array (
-                                        'key' => 'Made of high-strength aluminium alloy',
-                                        'value' => 15240383,
+                                        'key' => 'Long-lasting',
+                                        'value' => 14698567,
                                       ),
                                       108 => 
                                       array (
-                                        'key' => 'Maintenance-free',
-                                        'value' => 15240435,
+                                        'key' => 'Low noise',
+                                        'value' => 14698768,
                                       ),
                                       109 => 
                                       array (
-                                        'key' => 'Material: stainless steel',
-                                        'value' => 15240398,
+                                        'key' => 'Low resistance to flow',
+                                        'value' => 14698565,
                                       ),
                                       110 => 
                                       array (
-                                        'key' => 'Meets the requirements of fire and smoke gas toxicity',
-                                        'value' => 15240302,
+                                        'key' => 'Low-energy',
+                                        'value' => 14698770,
                                       ),
                                       111 => 
                                       array (
-                                        'key' => 'Meets the requirements of fire and smoke gas toxicity DIN EN 45545-2  -  HL3 für Anforderungssatz R22 + R23',
-                                        'value' => 15240399,
+                                        'key' => 'M-type hose acc. to TRGS 727 no. 4.9.4 (Cu-wires to be grounded on both sides)',
+                                        'value' => 14698625,
                                       ),
                                       112 => 
                                       array (
-                                        'key' => 'Microrganisms Resistance',
-                                        'value' => 15240426,
+                                        'key' => 'Made of high-strength aluminium alloy',
+                                        'value' => 14698717,
                                       ),
                                       113 => 
                                       array (
-                                        'key' => 'Minimum reserve buoyancy of 25% using OCIMF standard calculations for all hose',
-                                        'value' => 15240408,
+                                        'key' => 'Maintenance-free',
+                                        'value' => 14698769,
                                       ),
                                       114 => 
                                       array (
-                                        'key' => ' Motorenschmieröle',
-                                        'value' => 15240306,
+                                        'key' => 'Material: stainless steel',
+                                        'value' => 14698732,
                                       ),
                                       115 => 
                                       array (
-                                        'key' => ' Nitrosaminen und SVHC',
-                                        'value' => 15240304,
+                                        'key' => 'Materials: CR, EPDM, NBR, ECO, HNBR, ACM, IIR, VMQ, FPM',
+                                        'value' => 14698673,
                                       ),
                                       116 => 
                                       array (
-                                        'key' => 'No change to cross-section in the coupling area',
-                                        'value' => 15240337,
+                                        'key' => 'Meets the requirements of fire and smoke gas toxicity',
+                                        'value' => 14698635,
                                       ),
                                       117 => 
                                       array (
-                                        'key' => 'No damage to lining through swaging process',
-                                        'value' => 15240332,
+                                        'key' => 'Meets the requirements of fire and smoke gas toxicity DIN EN 45545-2  -  HL3 für Anforderungssatz R22 + R23',
+                                        'value' => 14698733,
                                       ),
                                       118 => 
                                       array (
-                                        'key' => 'No usage according to EN 1360',
-                                        'value' => 15240345,
+                                        'key' => 'Microrganisms Resistance',
+                                        'value' => 14698760,
                                       ),
                                       119 => 
                                       array (
-                                        'key' => 'Noise and vibration dampening',
-                                        'value' => 15240446,
+                                        'key' => 'Minimum reserve buoyancy of 25% using OCIMF standard calculations for all hose',
+                                        'value' => 14698742,
                                       ),
                                       120 => 
                                       array (
-                                        'key' => 'Non-corrosive',
-                                        'value' => 15240382,
+                                        'key' => 'No change to cross-section in the coupling area',
+                                        'value' => 14698670,
                                       ),
                                       121 => 
                                       array (
-                                        'key' => 'Not applicable for petrol pump hose station',
-                                        'value' => 15240343,
+                                        'key' => 'No damage to lining through swaging process',
+                                        'value' => 14698665,
                                       ),
                                       122 => 
                                       array (
-                                        'key' => 'Not recommended for ex-zones',
-                                        'value' => 15240277,
+                                        'key' => 'No usage according to EN 1360',
+                                        'value' => 14698678,
                                       ),
                                       123 => 
                                       array (
-                                        'key' => 'Not suitable for medical use!',
-                                        'value' => 15240286,
+                                        'key' => 'Noise and vibration dampening',
+                                        'value' => 14698780,
                                       ),
                                       124 => 
                                       array (
-                                        'key' => 'Not suitable for pneumatic transport of bulk material in potentially explosive atmospheres according to TRGS 727 No. 6.4',
-                                        'value' => 15240411,
+                                        'key' => 'Non-corrosive',
+                                        'value' => 14698716,
                                       ),
                                       125 => 
                                       array (
-                                        'key' => 'Not suitable for the transmission of torsional forces',
-                                        'value' => 15240414,
+                                        'key' => 'Not applicable for petrol pump hose station',
+                                        'value' => 14698676,
                                       ),
                                       126 => 
                                       array (
-                                        'key' => 'O-Phtalate Free',
-                                        'value' => 15240427,
+                                        'key' => 'Not recommended for ex-zones',
+                                        'value' => 14698610,
                                       ),
                                       127 => 
                                       array (
-                                        'key' => 'Operation without motor power',
-                                        'value' => 15240437,
+                                        'key' => 'Not resistant to oleum, bromine and chlorosulfonic acid',
+                                        'value' => 14698650,
                                       ),
                                       128 => 
                                       array (
-                                        'key' => 'Optimally adapted to PAGUFIX® nozzles due to the coordinated tooth geometry',
-                                        'value' => 15240404,
+                                        'key' => 'Not suitable for medical use!',
+                                        'value' => 14698619,
                                       ),
                                       129 => 
                                       array (
-                                        'key' => 'Optionally available with chamfered ends',
-                                        'value' => 15240371,
+                                        'key' => 'Not suitable for pneumatic transport of bulk material in potentially explosive atmospheres according to TRGS 727 No. 6.4',
+                                        'value' => 14698745,
                                       ),
                                       130 => 
                                       array (
-                                        'key' => 'Outside braided with steel including a blue stip inside the braiding',
-                                        'value' => 15240365,
+                                        'key' => 'Not suitable for the transmission of torsional forces',
+                                        'value' => 14698748,
                                       ),
                                       131 => 
                                       array (
-                                        'key' => 'Outside wire braiding',
-                                        'value' => 15240400,
+                                        'key' => 'O-Phtalate Free',
+                                        'value' => 14698761,
                                       ),
                                       132 => 
                                       array (
-                                        'key' => 'Ozone Resistance',
-                                        'value' => 15240424,
+                                        'key' => 'Operation without motor power',
+                                        'value' => 14698771,
                                       ),
                                       133 => 
                                       array (
-                                        'key' => 'Perfect compression set for a fantastic fit',
-                                        'value' => 15240314,
+                                        'key' => 'Optimally adapted to PAGUFIX® nozzles due to the coordinated tooth geometry',
+                                        'value' => 14698738,
                                       ),
                                       134 => 
                                       array (
-                                        'key' => 'Perfect seal of the hose end (no wicking effect)',
-                                        'value' => 15240329,
+                                        'key' => 'Optionally available with chamfered ends',
+                                        'value' => 14698705,
                                       ),
                                       135 => 
                                       array (
-                                        'key' => 'Phtalate Free',
-                                        'value' => 15240428,
+                                        'key' => 'Outside braided with steel including a blue stip inside the braiding',
+                                        'value' => 14698699,
                                       ),
                                       136 => 
                                       array (
-                                        'key' => 'Piggable',
-                                        'value' => 15240336,
+                                        'key' => 'Outside wire braiding',
+                                        'value' => 14698734,
                                       ),
                                       137 => 
                                       array (
-                                        'key' => 'Potable Water Hose Deutsche Bahn AG Approval',
-                                        'value' => 15240279,
+                                        'key' => 'Ozone Resistance',
+                                        'value' => 14698758,
                                       ),
                                       138 => 
                                       array (
-                                        'key' => 'Produced with inner diameters from 3 - 40 mm',
-                                        'value' => 15240339,
+                                        'key' => 'Perfect compression set for a fantastic fit',
+                                        'value' => 14698647,
                                       ),
                                       139 => 
                                       array (
-                                        'key' => 'Protects the hose and fitting from external damage in daily use',
-                                        'value' => 15240405,
+                                        'key' => 'Perfect seal of the hose end (no wicking effect)',
+                                        'value' => 14698662,
                                       ),
                                       140 => 
                                       array (
-                                        'key' => '  R > 10<sup>11</sup> Ω/m',
-                                        'value' => 15240448,
+                                        'key' => 'Phtalate Free',
+                                        'value' => 14698762,
                                       ),
                                       141 => 
                                       array (
-                                        'key' => ' R < 10<sup>2</sup> Ω',
-                                        'value' => 15240268,
+                                        'key' => 'Piggable',
+                                        'value' => 14698669,
                                       ),
                                       142 => 
                                       array (
-                                        'key' => '  R < 10<sup>6</sup> Ω',
-                                        'value' => 15240264,
+                                        'key' => 'Potable Water Hose Deutsche Bahn AG Approval',
+                                        'value' => 14698612,
                                       ),
                                       143 => 
                                       array (
-                                        'key' => '  R < 10<sup>6</sup> Ω/Leitung',
-                                        'value' => 15240261,
+                                        'key' => 'Produced with inner diameters from 3 - 40 mm',
+                                        'value' => 14698672,
                                       ),
                                       144 => 
                                       array (
-                                        'key' => '  R < 10<sup>6</sup> Ω/m',
-                                        'value' => 15240262,
+                                        'key' => 'Production on electronically controlled large hose lines, which are state of the art',
+                                        'value' => 14698712,
                                       ),
                                       145 => 
                                       array (
-                                        'key' => '  R < 10<sup>8</sup> Ω',
-                                        'value' => 15240368,
+                                        'key' => 'Protects the hose and fitting from external damage in daily use',
+                                        'value' => 14698739,
                                       ),
                                       146 => 
                                       array (
-                                        'key' => ' R < 10<sup>9</sup> Ω',
-                                        'value' => 15240300,
+                                        'key' => 'Recommended fittings system DINGA® water saving gun for hot water applications',
+                                        'value' => 14698613,
                                       ),
                                       147 => 
                                       array (
-                                        'key' => ' RMA Class A',
-                                        'value' => 15240269,
+                                        'key' => 'Recommended fittings system PAGUFIX®',
+                                        'value' => 14698587,
                                       ),
                                       148 => 
                                       array (
-                                        'key' => 'Recommended fittings system DINGA® water saving gun for hot water applications',
-                                        'value' => 15240280,
+                                        'key' => 'Release agent- and fat free, free from product harmful to lacquer',
+                                        'value' => 14698589,
                                       ),
                                       149 => 
                                       array (
-                                        'key' => 'Recommended fittings system PAGUFIX®',
-                                        'value' => 15240257,
+                                        'key' => 'Reliable sealing of the hose end face, the strength member is protected from the abrasive pumped medium',
+                                        'value' => 14698721,
                                       ),
                                       150 => 
                                       array (
                                         'key' => 'Resistance to pull-off forces above operating pressure',
-                                        'value' => 15240338,
+                                        'value' => 14698671,
                                       ),
                                       151 => 
                                       array (
                                         'key' => 'Resistant to aggressive chemicals',
-                                        'value' => 15240299,
+                                        'value' => 14698632,
                                       ),
                                       152 => 
                                       array (
                                         'key' => 'Resistant to alkalis and acids',
-                                        'value' => 15240325,
+                                        'value' => 14698658,
                                       ),
                                       153 => 
                                       array (
                                         'key' => 'Resistant to all conventional lubricating oils (including Automatic-Transmission-Fluids and alloyed oils)',
-                                        'value' => 15240311,
+                                        'value' => 14698644,
                                       ),
                                       154 => 
                                       array (
                                         'key' => 'Resistant to commonly used cleaning and disinfecting products',
-                                        'value' => 15240256,
+                                        'value' => 14698586,
                                       ),
                                       155 => 
                                       array (
                                         'key' => 'Resistant to process water and oily air',
-                                        'value' => 15240284,
+                                        'value' => 14698617,
                                       ),
                                       156 => 
                                       array (
                                         'key' => 'Reusable',
-                                        'value' => 15240397,
+                                        'value' => 14698731,
                                       ),
                                       157 => 
                                       array (
                                         'key' => 'Robust',
-                                        'value' => 15240234,
+                                        'value' => 14698564,
                                       ),
                                       158 => 
                                       array (
                                         'key' => 'Rubber protection rings available in blue',
-                                        'value' => 15240334,
+                                        'value' => 14698667,
                                       ),
                                       159 => 
                                       array (
                                         'key' => 'Rubber sealing with steel reinforcement',
-                                        'value' => 15240389,
+                                        'value' => 14698723,
                                       ),
                                       160 => 
                                       array (
                                         'key' => 'SOH 21 85 with stainless steel outside braiding',
-                                        'value' => 15240367,
+                                        'value' => 14698701,
                                       ),
                                       161 => 
                                       array (
-                                        'key' => 'Sea water resistant',
-                                        'value' => 15240350,
+                                        'key' => 'Safety factor steam ≥ 10, hot water ≥ 3',
+                                        'value' => 14698606,
                                       ),
                                       162 => 
                                       array (
-                                        'key' => 'Sealing thickness: 8 mm',
-                                        'value' => 15240390,
+                                        'key' => 'Sea water resistant',
+                                        'value' => 14698683,
                                       ),
                                       163 => 
                                       array (
-                                        'key' => 'Secure connection between hose and flange',
-                                        'value' => 15240388,
+                                        'key' => 'Sealing thickness: 8 mm',
+                                        'value' => 14698724,
                                       ),
                                       164 => 
                                       array (
-                                        'key' => 'Sensitive to ozone - unused hoses must be stored with capped ends',
-                                        'value' => 15240341,
+                                        'key' => 'Secure connection between hose and flange',
+                                        'value' => 14698722,
                                       ),
                                       165 => 
                                       array (
-                                        'key' => 'Shockproof',
-                                        'value' => 15240270,
+                                        'key' => 'Sensitive to ozone - unused hoses must be stored with capped ends',
+                                        'value' => 14698674,
                                       ),
                                       166 => 
                                       array (
-                                        'key' => ' Sicherheitsfaktor 10:1',
-                                        'value' => 15240289,
+                                        'key' => 'Shockproof',
+                                        'value' => 14698603,
                                       ),
                                       167 => 
                                       array (
                                         'key' => 'Silicon Free',
-                                        'value' => 15240429,
+                                        'value' => 14698763,
                                       ),
                                       168 => 
                                       array (
-                                        'key' => 'Small bending radius',
-                                        'value' => 15240297,
+                                        'key' => 'Simple, cost-effective and flexible installation',
+                                        'value' => 14698776,
                                       ),
                                       169 => 
                                       array (
-                                        'key' => 'Suction-proof',
-                                        'value' => 15240303,
+                                        'key' => 'Small bending radius',
+                                        'value' => 14698630,
                                       ),
                                       170 => 
                                       array (
-                                        'key' => 'Suitable for VE-water ',
-                                        'value' => 15240355,
+                                        'key' => 'Smooth and hygienically clean connection, without any transition between lining and fitting',
+                                        'value' => 14698661,
                                       ),
                                       171 => 
                                       array (
-                                        'key' => 'Suitable for all wellknown brands',
-                                        'value' => 15240265,
+                                        'key' => 'Special types of couplings and other thread types available on request (e.g. SMS 1145, IDF ISO 2853, RJT BS 4825, DS 722, Aseptic DIN 11853-1, Clamp, weld-on end)',
+                                        'value' => 14698693,
                                       ),
                                       172 => 
                                       array (
-                                        'key' => 'Suitable for biodiesel and methyl ester of rapeseed (RME) upto 70°C',
-                                        'value' => 15240359,
+                                        'key' => 'Special types of couplings and other thread types available on request (e.g. SMS 1145, IDF ISO 2853, RJT BS 4825, DS 722, Aseptic DIN 11864 part 1, Clamp, weld-on end)',
+                                        'value' => 14698668,
                                       ),
                                       173 => 
                                       array (
-                                        'key' => 'Suitable for commercial portable fire extinguisher',
-                                        'value' => 15240369,
+                                        'key' => 'Suction-proof',
+                                        'value' => 14698636,
                                       ),
                                       174 => 
                                       array (
-                                        'key' => 'Suitable for compressor applications',
-                                        'value' => 15240360,
+                                        'key' => 'Suitable for VE-water ',
+                                        'value' => 14698688,
                                       ),
                                       175 => 
                                       array (
-                                        'key' => 'Suitable for hot water for a short time up to +80°C / +176°F',
-                                        'value' => 15240412,
+                                        'key' => 'Suitable for all wellknown brands',
+                                        'value' => 14698596,
                                       ),
                                       176 => 
                                       array (
-                                        'key' => 'Suitable for oily air up to +100°C / +212°F',
-                                        'value' => 15240307,
+                                        'key' => 'Suitable for biodiesel and methyl ester of rapeseed (RME) upto 70°C',
+                                        'value' => 14698692,
                                       ),
                                       177 => 
                                       array (
-                                        'key' => 'Suitable for pure alcohol up to 100%',
-                                        'value' => 15240258,
+                                        'key' => 'Suitable for both DIN EN 1092-1 (PN 10) / ANSI 16.5B (150lbs) standards',
+                                        'value' => 14698718,
                                       ),
                                       178 => 
                                       array (
-                                        'key' => 'Suitable for small bending radii',
-                                        'value' => 15240310,
+                                        'key' => 'Suitable for commercial portable fire extinguisher',
+                                        'value' => 14698703,
                                       ),
                                       179 => 
                                       array (
-                                        'key' => 'Suitable for steam fittings according to DIN EN 14223',
-                                        'value' => 15240281,
+                                        'key' => 'Suitable for compressor applications',
+                                        'value' => 14698694,
                                       ),
                                       180 => 
                                       array (
-                                        'key' => 'Suitable for CIP cleaning processes',
-                                        'value' => 15240298,
+                                        'key' => 'Suitable for greases, engine oil, hydraulic fluids from -40°C up to +100°C (-40°F up to +212°F), short term up to +120°C / +248°F',
+                                        'value' => 14698639,
                                       ),
                                       181 => 
                                       array (
-                                        'key' => 'Suited to use in ex-zones',
-                                        'value' => 15240301,
+                                        'key' => 'Suitable for heating oil type "EL" and "L", diesel fuels up to +40°C / +104°F',
+                                        'value' => 14698641,
                                       ),
                                       182 => 
                                       array (
-                                        'key' => 'Swelling resistant',
-                                        'value' => 15240342,
+                                        'key' => 'Suitable for hot water for a short time up to +80°C / +176°F',
+                                        'value' => 14698746,
                                       ),
                                       183 => 
                                       array (
-                                        'key' => ' TW_x001E_Schlauchkupplungen nach DIN EN 14420_x001E_6',
-                                        'value' => 15240354,
+                                        'key' => 'Suitable for media of up to specific gravity of 1.6g/cm3',
+                                        'value' => 14698741,
                                       ),
                                       184 => 
                                       array (
-                                        'key' => 'Temperature resistance variants available from -40°C / -40°F to +70°C / +158°F',
-                                        'value' => 15240372,
+                                        'key' => 'Suitable for oily air up to +100°C / +212°F',
+                                        'value' => 14698640,
                                       ),
                                       185 => 
                                       array (
-                                        'key' => 'Temperature-restistant',
-                                        'value' => 15240242,
+                                        'key' => 'Suitable for pure alcohol up to 100%',
+                                        'value' => 14698588,
                                       ),
                                       186 => 
                                       array (
-                                        'key' => 'Tested according to DBL 6254.12 / DBL 6254.16',
-                                        'value' => 15240375,
+                                        'key' => 'Suitable for small bending radii',
+                                        'value' => 14698643,
                                       ),
                                       187 => 
                                       array (
-                                        'key' => 'Tested with 3 mio load cycles',
-                                        'value' => 15240364,
+                                        'key' => 'Suitable for steam fittings according to DIN EN 14223',
+                                        'value' => 14698614,
                                       ),
                                       188 => 
                                       array (
-                                        'key' => 'The bending radius must not be less than this!',
-                                        'value' => 15240413,
+                                        'key' => 'Suitable for CIP cleaning processes',
+                                        'value' => 14698631,
                                       ),
                                       189 => 
                                       array (
-                                        'key' => 'The conveying angle must be from -3° to -10° over the entire length',
-                                        'value' => 15240432,
+                                        'key' => 'Suited to use in ex-zones',
+                                        'value' => 14698634,
                                       ),
                                       190 => 
                                       array (
-                                        'key' => 'The dimensions of the expanded joints are manufactured according to your specifications. Flange dimensions are to be matched to the required connections',
-                                        'value' => 15240379,
+                                        'key' => 'Swelling resistant',
+                                        'value' => 14698675,
                                       ),
                                       191 => 
                                       array (
-                                        'key' => 'These products are distributed by our partner ELAFLEX: ELAFLEX HIBY GmbH & Co. KG Schackenburgallee 121 D-22525 Hamburg (Eidelstedt) Telefon  +49 (0) 40 540 00 50 Fax        +49 (0) 40 540 0',
-                                        'value' => 15240381,
+                                        'key' => 'Temperature range for saturated steam up to max. +210°C / +410°F, short term +220°C / +428°F at 23 bar / 333 psi (saturated steam)',
+                                        'value' => 14698623,
                                       ),
                                       192 => 
                                       array (
-                                        'key' => 'Top feed in stainless steel quality (alt. in steel)',
-                                        'value' => 15240430,
+                                        'key' => 'Temperature resistance variants available from -40°C / -40°F to +70°C / +158°F',
+                                        'value' => 14698706,
                                       ),
                                       193 => 
                                       array (
-                                        'key' => ' Trennmittel- und fettfrei',
-                                        'value' => 15240259,
+                                        'key' => 'Temperature-restistant',
+                                        'value' => 14698572,
                                       ),
                                       194 => 
                                       array (
-                                        'key' => 'Type B (with copper braid) and Type F (non-metalic helix) available on request',
-                                        'value' => 15240274,
+                                        'key' => 'Tested according to DBL 6254.12 / DBL 6254.16',
+                                        'value' => 14698709,
                                       ),
                                       195 => 
                                       array (
-                                        'key' => 'Unsuitable for biodiesel and methyl ester of rapeseed (RME)',
-                                        'value' => 15240305,
+                                        'key' => 'Tested with 3 mio load cycles',
+                                        'value' => 14698698,
                                       ),
                                       196 => 
                                       array (
-                                        'key' => 'Vacuum stable',
-                                        'value' => 15240241,
+                                        'key' => 'The bending radius must not be less than this!',
+                                        'value' => 14698747,
                                       ),
                                       197 => 
                                       array (
-                                        'key' => 'Very good damping characteristic by a high volume increase',
-                                        'value' => 15240312,
+                                        'key' => 'The conveying angle must be from -3° to -10° over the entire length',
+                                        'value' => 14698766,
                                       ),
                                       198 => 
                                       array (
-                                        'key' => 'Very good for often changing media',
-                                        'value' => 15240278,
+                                        'key' => 'The dimensions of the expanded joints are manufactured according to your specifications. Flange dimensions are to be matched to the required connections',
+                                        'value' => 14698713,
                                       ),
                                       199 => 
                                       array (
-                                        'key' => 'Waste water',
-                                        'value' => 15240422,
+                                        'key' => 'The pumped medium must be dry (<0.2% moisture)',
+                                        'value' => 14698765,
                                       ),
                                       200 => 
                                       array (
-                                        'key' => 'Water flow 25 liters/minute at 5 bar / 72 psi',
-                                        'value' => 15240319,
+                                        'key' => 'These products are distributed by our partner ELAFLEX: ELAFLEX HIBY GmbH & Co. KG Schackenburgallee 121 D-22525 Hamburg (Eidelstedt) Telefon  +49 (0) 40 540 00 50 Fax        +49 (0) 40 540 0',
+                                        'value' => 14698715,
                                       ),
                                       201 => 
                                       array (
-                                        'key' => 'Working pressure up to 20 bar (290 psi) at 95°C up to 6 bar (87 psi) at 164°C',
-                                        'value' => 15240358,
+                                        'key' => 'Top feed in stainless steel quality (alt. in steel)',
+                                        'value' => 14698764,
                                       ),
                                       202 => 
                                       array (
-                                        'key' => 'Working pressure up to 25 bar / 363 psi',
-                                        'value' => 15240327,
+                                        'key' => 'Typ E: < 10<sup>2</sup> Ω/m',
+                                        'value' => 14698608,
                                       ),
                                       203 => 
                                       array (
-                                        'key' => ' auch bei Heißreinigung durch ideale Zahngeometrie',
-                                        'value' => 15240330,
+                                        'key' => 'Type B (with copper braid) and Type F (non-metalic helix) available on request',
+                                        'value' => 14698607,
                                       ),
                                       204 => 
                                       array (
-                                        'key' => ' der Festigkeitsträger wird vor dem abrasiven Fördermedium geschützt',
-                                        'value' => 15240387,
+                                        'key' => 'Unsuitable for biodiesel and methyl ester of rapeseed (RME)',
+                                        'value' => 14698638,
                                       ),
                                       205 => 
                                       array (
-                                        'key' => ' die dem neuesten Stand der Technik entsprechen',
-                                        'value' => 15240378,
+                                        'key' => 'Up to DN 25 release agent- and fat free, free from product harmful to lacquer',
+                                        'value' => 14698591,
                                       ),
                                       206 => 
                                       array (
-                                        'key' => ' hygienische Verbindung zwischen Schlauchinnenschicht und Armaturstutzen',
-                                        'value' => 15240328,
+                                        'key' => 'Vacuum stable',
+                                        'value' => 14698571,
                                       ),
                                       207 => 
                                       array (
-                                        'key' => ' kostengünstige und flexible Installation',
-                                        'value' => 15240442,
+                                        'key' => 'Very good damping characteristic by a high volume increase',
+                                        'value' => 14698645,
                                       ),
                                       208 => 
                                       array (
-                                        'key' => ' kurzfristig +220°C / +428°F bei 23 bar / 333 psi (Sattdampf)',
-                                        'value' => 15240290,
+                                        'key' => 'Very good for often changing media',
+                                        'value' => 14698611,
                                       ),
                                       209 => 
                                       array (
-                                        'key' => ' kurzzeitig bis 250°C',
-                                        'value' => 15240363,
+                                        'key' => 'Very high compression strength and resistance to to pull-off forces, also with hot cleaning through ideal tooth geometry',
+                                        'value' => 14698663,
                                       ),
                                       210 => 
                                       array (
-                                        'key' => 'low permeability',
-                                        'value' => 15240392,
+                                        'key' => 'Waste water',
+                                        'value' => 14698756,
                                       ),
                                       211 => 
                                       array (
-                                        'key' => ' max. +95°C (+203°F) - Heißwasser-Reinigungspistole',
-                                        'value' => 15240324,
+                                        'key' => 'Water flow 25 liters/minute at 5 bar / 72 psi',
+                                        'value' => 14698652,
                                       ),
                                       212 => 
                                       array (
-                                        'key' => 'not resistant to patrol fuel',
-                                        'value' => 15240394,
+                                        'key' => 'Water temperature: max. +50°C (+122°F) -  water-saving spray nozzle), max. +95°C (+203°F) - hot water cleaning nozzle',
+                                        'value' => 14698657,
                                       ),
                                       213 => 
                                       array (
-                                        'key' => ' optional mit Stahl-Hinterlegflansch - Einvulkanisierter Stahlflansch',
-                                        'value' => 15240380,
+                                        'key' => 'Working pressure up to 10 bar / 145 psi (air), 16 bar / 232 psi (water)',
+                                        'value' => 14698690,
                                       ),
                                       214 => 
                                       array (
+                                        'key' => 'Working pressure up to 20 bar (290 psi) at 95°C up to 6 bar (87 psi) at 164°C',
+                                        'value' => 14698691,
+                                      ),
+                                      215 => 
+                                      array (
+                                        'key' => 'Working pressure up to 25 bar / 363 psi',
+                                        'value' => 14698660,
+                                      ),
+                                      216 => 
+                                      array (
+                                        'key' => 'low permeability',
+                                        'value' => 14698726,
+                                      ),
+                                      217 => 
+                                      array (
+                                        'key' => 'not resistant to patrol fuel',
+                                        'value' => 14698728,
+                                      ),
+                                      218 => 
+                                      array (
                                         'key' => 'vent line',
-                                        'value' => 15240391,
+                                        'value' => 14698725,
                                       ),
                                     ),
                                      'width' => 300,
@@ -5757,6 +4921,26 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Gold',
+                                        'value' => 14699805,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Tantalum',
+                                        'value' => 14699803,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Tin',
+                                        'value' => 14699804,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Tungsten',
+                                        'value' => 14699806,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -6094,6 +5278,56 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'Benzyl butyl phthalate (BBP): < 1000 ppm,Benzyl butyl phthalate (BBP): < 1000 ppm',
+                                'value' => 14699724,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm,Bis(2-Ethylhexyl) phthalate (DEHP): < 1000 ppm',
+                                'value' => 14699723,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Cadmium (Cd): < 100 ppm,Cadmium (Cd): < 100 ppm',
+                                'value' => 14699717,
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'Dibutyl phthalate (DBP): < 1000 ppm,Dibutyl phthalate (DBP): < 1000 ppm',
+                                'value' => 14699725,
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'Diisobutyl phthalate (DIBP): < 1000 ppm,Diisobutyl phthalate (DIBP): < 1000 ppm',
+                                'value' => 14699726,
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'Hexavalent Chromium: (Cr VI) < 1000 ppm,Hexavalent Chromium: (Cr VI) < 1000 ppm',
+                                'value' => 14699720,
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'Lead (Pb): < 1000 ppm,Lead (Pb): < 1000 ppm',
+                                'value' => 14699718,
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'Mercury (Hg): < 1000 ppm,Mercury (Hg): < 1000 ppm',
+                                'value' => 14699719,
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'Polybrominated Biphenyls (PBB): < 1000 ppm,Polybrominated Biphenyls (PBB): < 1000 ppm',
+                                'value' => 14699721,
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm,Polybrominated Diphenyl Ethers (PBDE): < 1000 ppm',
+                                'value' => 14699722,
+                              ),
                             ),
                              'width' => 720,
                              'defaultValue' => '',
@@ -6125,6 +5359,316 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => '1,1,1,2-Tetrachloroethane',
+                                'value' => 14699730,
+                              ),
+                              1 => 
+                              array (
+                                'key' => '1,1,2,2-Tetrachloroethane',
+                                'value' => 14699732,
+                              ),
+                              2 => 
+                              array (
+                                'key' => '1,1,2-Trichloroethane',
+                                'value' => 14699731,
+                              ),
+                              3 => 
+                              array (
+                                'key' => '1,1-Dichloroethene',
+                                'value' => 14699729,
+                              ),
+                              4 => 
+                              array (
+                                'key' => '1,4-Dichlorobenzene',
+                                'value' => 14699733,
+                              ),
+                              5 => 
+                              array (
+                                'key' => '1-methyl-2-pyrrolidone (NMP)',
+                                'value' => 14699728,
+                              ),
+                              6 => 
+                              array (
+                                'key' => '2-(2-butoxyethoxy)ethanol (DEGBE)',
+                                'value' => 14699734,
+                              ),
+                              7 => 
+                              array (
+                                'key' => '2-(2-methoxyethoxy)ethanol (DEGME)',
+                                'value' => 14699735,
+                              ),
+                              8 => 
+                              array (
+                                'key' => '2-naphthylamine and salts,',
+                                'value' => 14699736,
+                              ),
+                              9 => 
+                              array (
+                                'key' => '4-Aminobiphenyl xenylamine and salts',
+                                'value' => 14699737,
+                              ),
+                              10 => 
+                              array (
+                                'key' => '4-Nitrobiphenyl',
+                                'value' => 14699738,
+                              ),
+                              11 => 
+                              array (
+                                'key' => 'Acrylamide',
+                                'value' => 14699739,
+                              ),
+                              12 => 
+                              array (
+                                'key' => 'Ammonium and compounds: nitrates, polysulphides, sulphide, hydrogen sulphides, inorganic salts',
+                                'value' => 14699740,
+                              ),
+                              13 => 
+                              array (
+                                'key' => 'Arsenic and compounds',
+                                'value' => 14699741,
+                              ),
+                              14 => 
+                              array (
+                                'key' => 'Asbestos fibers',
+                                'value' => 14699742,
+                              ),
+                              15 => 
+                              array (
+                                'key' => 'Azocolourants and Azodyes',
+                                'value' => 14699743,
+                              ),
+                              16 => 
+                              array (
+                                'key' => 'Benzene',
+                                'value' => 14699744,
+                              ),
+                              17 => 
+                              array (
+                                'key' => 'Benzidine and salts',
+                                'value' => 14699745,
+                              ),
+                              18 => 
+                              array (
+                                'key' => 'Bis(pentabromophenyl)ether (decaBDE)',
+                                'value' => 14699746,
+                              ),
+                              19 => 
+                              array (
+                                'key' => 'Bisphenol A',
+                                'value' => 14699747,
+                              ),
+                              20 => 
+                              array (
+                                'key' => 'Bromoacetic acid esters: Butyl bromoacetate, Propyl bromoacetate, Ethyl bromoacetate, Methyl bromoacetate',
+                                'value' => 14699748,
+                              ),
+                              21 => 
+                              array (
+                                'key' => 'CMR substances in textiles',
+                                'value' => 14699753,
+                              ),
+                              22 => 
+                              array (
+                                'key' => 'Cadmium and compounds',
+                                'value' => 14699749,
+                              ),
+                              23 => 
+                              array (
+                                'key' => 'Chloroethene and Chloroethylene (Vinyl chloride)',
+                                'value' => 14699750,
+                              ),
+                              24 => 
+                              array (
+                                'key' => 'Chloroform',
+                                'value' => 14699751,
+                              ),
+                              25 => 
+                              array (
+                                'key' => 'Chromium VI and compounds',
+                                'value' => 14699752,
+                              ),
+                              26 => 
+                              array (
+                                'key' => 'Coal tars: low-temp oils, alkalines, acids, extracts, phenols, distillates; anthracene, creosote, naphthalene oils',
+                                'value' => 14699754,
+                              ),
+                              27 => 
+                              array (
+                                'key' => 'Cyclohexane',
+                                'value' => 14699755,
+                              ),
+                              28 => 
+                              array (
+                                'key' => 'Di-µ-oxo-di-n-butylstanniohydroxyborane / Dibutyltin hydrogen borate C8H19BO3Sn (DBB)',
+                                'value' => 14699756,
+                              ),
+                              29 => 
+                              array (
+                                'key' => 'Dichloromethane',
+                                'value' => 14699757,
+                              ),
+                              30 => 
+                              array (
+                                'key' => 'Dimethylfumarate (DMF)',
+                                'value' => 14699758,
+                              ),
+                              31 => 
+                              array (
+                                'key' => 'Diphenylether, octabromo derivative C12H2Br8O',
+                                'value' => 14699759,
+                              ),
+                              32 => 
+                              array (
+                                'key' => 'Directive 1999/45/EC dangerous liquids,Directive 1999-45-EC dangerous liquids',
+                                'value' => 14699760,
+                              ),
+                              33 => 
+                              array (
+                                'key' => 'EC 1272/2008 Annex VI Part 3 carcinogens, mutagens, and reprotoxins per category 1A, 1B (Table 3.1) or 1, 2 (Table 3.2)',
+                                'value' => 14699761,
+                              ),
+                              34 => 
+                              array (
+                                'key' => 'Flammable gases (Cat 1,2), liquids (Cat 1,2,3), solids (Cat 1,2) that in water emit flamable gases (Cat 1,2,3) of pyrophoric liquids, solids (Cat 1)',
+                                'value' => 14699762,
+                              ),
+                              35 => 
+                              array (
+                                'key' => 'Hexachloroethane',
+                                'value' => 14699763,
+                              ),
+                              36 => 
+                              array (
+                                'key' => 'Lead and compounds',
+                                'value' => 14699764,
+                              ),
+                              37 => 
+                              array (
+                                'key' => 'Mercury and compounds',
+                                'value' => 14699765,
+                              ),
+                              38 => 
+                              array (
+                                'key' => 'Methanol',
+                                'value' => 14699766,
+                              ),
+                              39 => 
+                              array (
+                                'key' => 'Methylenediphenyl diisocyanate (MDI)',
+                                'value' => 14699767,
+                              ),
+                              40 => 
+                              array (
+                                'key' => 'Monomethyl -tetrachlorodiphenyl methane (Ugilec 141),',
+                                'value' => 14699768,
+                              ),
+                              41 => 
+                              array (
+                                'key' => 'Monomethyl-dibromo-diphenyl methane bromobenzylbromotoluene, mixture of isomers (DBBT)',
+                                'value' => 14699769,
+                              ),
+                              42 => 
+                              array (
+                                'key' => 'Monomethyl-dichloro-diphenyl methane (Ugilec 121/21),',
+                                'value' => 14699770,
+                              ),
+                              43 => 
+                              array (
+                                'key' => 'Nickel and compounds',
+                                'value' => 14699771,
+                              ),
+                              44 => 
+                              array (
+                                'key' => 'Nonylphenol C6H4(OH)C9H19 and Nonylphenol ethoxylates,',
+                                'value' => 14699772,
+                              ),
+                              45 => 
+                              array (
+                                'key' => 'Nonylphenol ethoxylates (NPE) (C2H4O)nC15H24O',
+                                'value' => 14699773,
+                              ),
+                              46 => 
+                              array (
+                                'key' => 'Octamethylcyclotetrasiloxane (D4), Decamethylcyclopentasiloxane (D5)',
+                                'value' => 14699774,
+                              ),
+                              47 => 
+                              array (
+                                'key' => 'Organostannic compounds',
+                                'value' => 14699775,
+                              ),
+                              48 => 
+                              array (
+                                'key' => 'Pentachloroethane',
+                                'value' => 14699776,
+                              ),
+                              49 => 
+                              array (
+                                'key' => 'Pentachlorophenol and salts, esters',
+                                'value' => 14699777,
+                              ),
+                              50 => 
+                              array (
+                                'key' => 'Perfluorooctanoic acid (PFOA) and salts',
+                                'value' => 14699778,
+                              ),
+                              51 => 
+                              array (
+                                'key' => 'Phenylmercury: 2-ethylhexanoate, acetate, neodecanoate, octanoate, propionate',
+                                'value' => 14699779,
+                              ),
+                              52 => 
+                              array (
+                                'key' => 'Phthalates: 1,2-Benzenedicarboxylic acid, di-C8-10-branched alkyl esters, C9-rich, 1,2-Benzenedicarboxylic acid, di-C9-11-branched alkyl esters, C10-rich, Di-isononyl phthalate (DINP), Di-is',
+                                'value' => 14699780,
+                              ),
+                              53 => 
+                              array (
+                                'key' => 'Phthalates: Dibutyl phthalate (DBP), Benzyl butyl phthalate (BBP), Bis (2-ethylhexyl) phthalate (DEHP)',
+                                'value' => 14699781,
+                              ),
+                              54 => 
+                              array (
+                                'key' => 'Polybromobiphenyls, Polybrominatedbiphenyls (PBB)',
+                                'value' => 14699782,
+                              ),
+                              55 => 
+                              array (
+                                'key' => 'Polychlorinated terphenyls (PCTs)',
+                                'value' => 14699783,
+                              ),
+                              56 => 
+                              array (
+                                'key' => 'Polycyclic-aromatic hydrocarbons (PAHs): Benzo[a]pyrene (BaP), Benzo[e]pyrene (BeP), Benzo[a]anthracene (BaA), Chrysen (CHR), Benzo[b]fluoranthene (BbFA), Benzo[j]fluoranthene (BjFA), Benzo[',
+                                'value' => 14699784,
+                              ),
+                              57 => 
+                              array (
+                                'key' => 'Soap bark powder (Quillaja saponaria) and saponine derivatives',
+                                'value' => 14699785,
+                              ),
+                              58 => 
+                              array (
+                                'key' => 'Toluene',
+                                'value' => 14699786,
+                              ),
+                              59 => 
+                              array (
+                                'key' => 'Trichlorobenzene',
+                                'value' => 14699787,
+                              ),
+                              60 => 
+                              array (
+                                'key' => 'Tris (2,3 dibromopropyl) phosphate',
+                                'value' => 14699788,
+                              ),
+                              61 => 
+                              array (
+                                'key' => 'Tris(aziridinyl) phosphinoxide',
+                                'value' => 14699789,
+                              ),
                             ),
                              'width' => 720,
                              'defaultValue' => '',
@@ -6309,6 +5853,4307 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-(4-methylcyclohexyl)-1-nitrosourea (Methyl-CCNU)',
+                                        'value' => 14698874,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-cyclohexyl-1-nitrosourea (CCNU) (Lomustine)',
+                                        'value' => 14698875,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => '1-Amino-2-dibromoanthraquinone',
+                                        'value' => 14698877,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => '1-Amino-2-methylanthraquinone',
+                                        'value' => 14698878,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => '1-Bromopropane (1-BP)',
+                                        'value' => 14698879,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => '1-Butadiene',
+                                        'value' => 14698865,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => '1-Butanediol dimethanesulfonate (Busulfan)',
+                                        'value' => 14698869,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => '1-Chloro-4-nitrobenzene',
+                                        'value' => 14698880,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => '1-Dibromo-3-chloropropane (DBCP)',
+                                        'value' => 14698861,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-bis(p-chloropheny)ethylene (DDE)',
+                                        'value' => 14698857,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-butene',
+                                        'value' => 14698870,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-nitrobenzene',
+                                        'value' => 14698871,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-propanol (1-DCP)',
+                                        'value' => 14698866,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => '1-Dichloroethane',
+                                        'value' => 14698858,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => '1-Dichloropropane',
+                                        'value' => 14698862,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => '1-Dichloropropene',
+                                        'value' => 14698867,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => '1-Diethylhydrazine',
+                                        'value' => 14698863,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine',
+                                        'value' => 14698864,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine (UDMH)',
+                                        'value' => 14698859,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => '1-Dinitropyrene',
+                                        'value' => 14698873,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => '1-Dioxane',
+                                        'value' => 14698872,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => '1-Hydroxyanthraquinone',
+                                        'value' => 14698881,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => '1-Naphthylamine',
+                                        'value' => 14698882,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => '1-Nitropyrene',
+                                        'value' => 14698883,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => '1-Propane sultone',
+                                        'value' => 14698868,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => '1-Tetrachloroethane',
+                                        'value' => 14698856,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => '1-Trichloropropane',
+                                        'value' => 14698860,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => '1-[(5-Nitrofurfurylidene)-amino]-2-imidazolidinone',
+                                        'value' => 14698876,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => '2-(2-Formylhydrazino)-4-(5-nitro-2-furyl)thiazole',
+                                        'value' => 14698900,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => '2-Acetylaminofluorene',
+                                        'value' => 14698901,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => '2-Amino-4-chlorophenol',
+                                        'value' => 14698902,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => '2-Amino-5-(5-nitro-2-furyl)-1-thiadiazole',
+                                        'value' => 14698903,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => '2-Aminoanthraquinone',
+                                        'value' => 14698904,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => '2-Aminofluorene',
+                                        'value' => 14698905,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => '2-Bis(bromomethyl)-1-propanediol',
+                                        'value' => 14698884,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => '2-Bromopropane (2-BP)',
+                                        'value' => 14698906,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => '2-Chloronitrobenzene',
+                                        'value' => 14698907,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => '2-Diamino-6-chloro-s-triazine (DACT)',
+                                        'value' => 14698890,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole',
+                                        'value' => 14698891,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole sulfate',
+                                        'value' => 14698892,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => '2-Diaminotoluene',
+                                        'value' => 14698893,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => '2-Dibromo-1-propanol',
+                                        'value' => 14698886,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => '2-Dichloro-1-nitrobenzene',
+                                        'value' => 14698894,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => '2-Dimethyl-N-nitrosomorpholine (DMNM)',
+                                        'value' => 14698897,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => '2-Dinitrotoluene',
+                                        'value' => 14698898,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => '2-Hexadienal (89% trans isomer; 11% cis isomer)',
+                                        'value' => 14698895,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => '2-Hexanedione',
+                                        'value' => 14698896,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => '2-Methyl-1-nitroanthraquinone (of uncertain purity)',
+                                        'value' => 14698908,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => '2-Methylaziridine (Propyleneimine)',
+                                        'value' => 14698909,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => '2-Methylimidazole',
+                                        'value' => 14698910,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => '2-Naphthylamine',
+                                        'value' => 14698911,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => '2-Nitrofluorene',
+                                        'value' => 14698912,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => '2-Nitropropane',
+                                        'value' => 14698913,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => '2-Tetrachlorodibenzo-p-dioxin (TCDD)',
+                                        'value' => 14698885,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => '2-Trichlorophenol',
+                                        'value' => 14698888,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => '2-Trimethylaniline and its strong acid salts',
+                                        'value' => 14698887,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => '2-Trinitrotoluene (TNT)',
+                                        'value' => 14698889,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => '2-Xylidine (2-Dimethylaniline)',
+                                        'value' => 14698899,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => '2?Mercaptobenzothiazole',
+                                        'value' => 14698914,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => '3\'\'-Tetrachloroazobenzene',
+                                        'value' => 14698915,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => '3\'-Dichloro-4\'-diamino-diphenyl ether',
+                                        'value' => 14698916,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine',
+                                        'value' => 14698917,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine dihydrochloride',
+                                        'value' => 14698918,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine (o-Dianisidine)',
+                                        'value' => 14698919,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine dihydrochloride',
+                                        'value' => 14698920,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine-based dyes metabolized to 3\'-dimethoxybenzidine',
+                                        'value' => 14698921,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine (ortho-Tolidine)',
+                                        'value' => 14698922,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine dihydrochloride',
+                                        'value' => 14698923,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine-based dyes metabolized to 3\'-dimethylbenzidine',
+                                        'value' => 14698924,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => '3-(N-Nitrosomethylamino) propionitrile',
+                                        'value' => 14698926,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => '3-Amino-9-ethylcarbazole hydrochloride',
+                                        'value' => 14698927,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => '3-Chloro-2-methylpropene',
+                                        'value' => 14698928,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => '3-Dinitrofluoranthene',
+                                        'value' => 14698925,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => '3-Methylcholanthrene',
+                                        'value' => 14698929,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => '3-Monochloropropane-1-diol (3-MCPD)',
+                                        'value' => 14698930,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => '4\'-Diaminodiphenyl ether (4\'-Oxydianiline)',
+                                        'value' => 14698931,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-chloroaniline)',
+                                        'value' => 14698932,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-methylaniline)',
+                                        'value' => 14698933,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(N-dimethyl)benzenamine',
+                                        'value' => 14698934,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline',
+                                        'value' => 14698935,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline dihydrochloride',
+                                        'value' => 14698936,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => '4\'-Thiodianiline',
+                                        'value' => 14698937,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => '4-(N-Nitrosomethylamino)-1-(3-pyridyl)1-butanone',
+                                        'value' => 14698938,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => '4-Amino-2-nitrophenol',
+                                        'value' => 14698939,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => '4-Aminobiphenyl (4-aminodiphenyl)',
+                                        'value' => 14698940,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => '4-Chloro-o-phenylenediamine',
+                                        'value' => 14698941,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => '4-Dimethylaminoazobenzene',
+                                        'value' => 14698942,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => '4-Methylimidazole',
+                                        'value' => 14698943,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => '4-Nitrobiphenyl',
+                                        'value' => 14698944,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => '4-Nitropyrene',
+                                        'value' => 14698945,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => '4-Vinyl-1-cyclohexene diepoxide (Vinyl cyclohexenedioxide)',
+                                        'value' => 14698946,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => '4-Vinylcyclohexene',
+                                        'value' => 14698947,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => '5-(Morpholinomethyl)-3-[(5-nitrofurfuryl-idene)-amino]-2-oxazolidinone',
+                                        'value' => 14698948,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => '5-Chloro-o-toluidine and its strong acid salts',
+                                        'value' => 14698949,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => '5-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698950,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => '5-Methylchrysene',
+                                        'value' => 14698951,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => '5-Nitroacenaphthene',
+                                        'value' => 14698952,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => '6-Nitrochrysene',
+                                        'value' => 14698953,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => '7-Dimethylbenz(a)anthracene',
+                                        'value' => 14698954,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => '7H-Dibenzo[c]carbazole',
+                                        'value' => 14698955,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => '8-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698956,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => '9-Tetrahydrocannabinol (?9-THC)',
+                                        'value' => 14698957,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'A-alpha-C (2-Amino-9H-pyrido[2-b]indole)',
+                                        'value' => 14698958,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'AF-2',
+                                        'value' => 14698970,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Abiraterone acetate',
+                                        'value' => 14698959,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'Acetaldehyde',
+                                        'value' => 14698960,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Acetamide',
+                                        'value' => 14698961,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Acetazolamide',
+                                        'value' => 14698962,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Acetochlor',
+                                        'value' => 14698963,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Acetohydroxamic acid',
+                                        'value' => 14698964,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Acifluorfen sodium',
+                                        'value' => 14698965,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Acrylamide',
+                                        'value' => 14698966,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Acrylonitrile',
+                                        'value' => 14698967,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Actinomycin D',
+                                        'value' => 14698968,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Adultb',
+                                        'value' => 14698969,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Aflatoxins',
+                                        'value' => 14698971,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Alachlor',
+                                        'value' => 14698972,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages',
+                                        'value' => 14698973,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages associated with alcohol abuse',
+                                        'value' => 14698974,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Aldrin',
+                                        'value' => 14698975,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'All-trans retinoic acid',
+                                        'value' => 14698976,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Aloe Vera-decolorized whole leaf extract',
+                                        'value' => 14698977,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Alprazolam',
+                                        'value' => 14698978,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Altretamine',
+                                        'value' => 14698979,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Amantadine hydrochloride',
+                                        'value' => 14698980,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Amikacin sulfate',
+                                        'value' => 14698981,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Aminoglutethimide',
+                                        'value' => 14698982,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Aminoglycosides',
+                                        'value' => 14698983,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Aminopterin',
+                                        'value' => 14698984,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Amiodarone hydrochloride',
+                                        'value' => 14698985,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Amitraz',
+                                        'value' => 14698986,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Amitrole',
+                                        'value' => 14698987,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Amoxapine',
+                                        'value' => 14698988,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'Amsacrine',
+                                        'value' => 14698989,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Anabolic steroids',
+                                        'value' => 14698990,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Analgesic mixtures containing Phenacetin',
+                                        'value' => 14698991,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Androstenedione',
+                                        'value' => 14698992,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Angiotensin converting enzyme (ACE) inhibitors',
+                                        'value' => 14698993,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Aniline',
+                                        'value' => 14698994,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Aniline hydrochloride',
+                                        'value' => 14698995,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Anisindione',
+                                        'value' => 14698996,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Anthraquinone',
+                                        'value' => 14698997,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Antimony oxide (Antimony trioxide)',
+                                        'value' => 14698998,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Aramite',
+                                        'value' => 14698999,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Areca nut',
+                                        'value' => 14699000,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Aristolochic acids',
+                                        'value' => 14699001,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic arsenic compounds)',
+                                        'value' => 14699002,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic oxides)',
+                                        'value' => 14699003,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Asbestos',
+                                        'value' => 14699004,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Atenolol',
+                                        'value' => 14699005,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Atrazine',
+                                        'value' => 14699006,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Auramine',
+                                        'value' => 14699007,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Auranofin',
+                                        'value' => 14699008,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Avermectin B1 (Abamectin)',
+                                        'value' => 14699009,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Azacitidine',
+                                        'value' => 14699010,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Azaserine',
+                                        'value' => 14699011,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Azathioprine',
+                                        'value' => 14699012,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Azobenzene',
+                                        'value' => 14699013,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Barbiturates',
+                                        'value' => 14699014,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Beclomethasone dipropionate',
+                                        'value' => 14699015,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Benomyl',
+                                        'value' => 14699016,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Benthiavalicarb-isopropyl',
+                                        'value' => 14699017,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Benz[a]anthracene',
+                                        'value' => 14699018,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Benzene',
+                                        'value' => 14699019,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Benzidine [and its salts]',
+                                        'value' => 14699020,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Benzidine-based dyes',
+                                        'value' => 14699021,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Benzo[a]pyrene',
+                                        'value' => 14699022,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Benzo[b]fluoranthene',
+                                        'value' => 14699023,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Benzo[j]fluoranthene',
+                                        'value' => 14699024,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Benzo[k]fluoranthene',
+                                        'value' => 14699025,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'Benzodiazepines',
+                                        'value' => 14699026,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'Benzofuran',
+                                        'value' => 14699027,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'Benzophenone',
+                                        'value' => 14699028,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'Benzotrichloride',
+                                        'value' => 14699029,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'Benzphetamine hydrochloride',
+                                        'value' => 14699030,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Benzyl chloride',
+                                        'value' => 14699031,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'Benzyl violet 4B',
+                                        'value' => 14699032,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Beryllium',
+                                        'value' => 14699033,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Beryllium and beryllium compounds',
+                                        'value' => 14699034,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Beryllium oxide',
+                                        'value' => 14699035,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Beryllium sulfate',
+                                        'value' => 14699036,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'Betel quid with tobacco',
+                                        'value' => 14699040,
+                                      ),
+                                      182 => 
+                                      array (
+                                        'key' => 'Betel quid without tobacco',
+                                        'value' => 14699041,
+                                      ),
+                                      183 => 
+                                      array (
+                                        'key' => 'Bevacizumab',
+                                        'value' => 14699042,
+                                      ),
+                                      184 => 
+                                      array (
+                                        'key' => 'Bis(2-chloro-1-methylethyl)ether grade',
+                                        'value' => 14699043,
+                                      ),
+                                      185 => 
+                                      array (
+                                        'key' => 'Bis(2-chloroethyl)ether',
+                                        'value' => 14699044,
+                                      ),
+                                      186 => 
+                                      array (
+                                        'key' => 'Bis(chloromethyl)ether',
+                                        'value' => 14699045,
+                                      ),
+                                      187 => 
+                                      array (
+                                        'key' => 'Bischloroethyl nitrosourea (BCNU) (Carmustine)',
+                                        'value' => 14699046,
+                                      ),
+                                      188 => 
+                                      array (
+                                        'key' => 'Bisphenol A (BPA)',
+                                        'value' => 14699047,
+                                      ),
+                                      189 => 
+                                      array (
+                                        'key' => 'Bitumens of steam-refined and air refined',
+                                        'value' => 14699048,
+                                      ),
+                                      190 => 
+                                      array (
+                                        'key' => 'Bracken fern',
+                                        'value' => 14699049,
+                                      ),
+                                      191 => 
+                                      array (
+                                        'key' => 'Bromacil lithium salt',
+                                        'value' => 14699050,
+                                      ),
+                                      192 => 
+                                      array (
+                                        'key' => 'Bromate',
+                                        'value' => 14699051,
+                                      ),
+                                      193 => 
+                                      array (
+                                        'key' => 'Bromochloroacetic acid',
+                                        'value' => 14699052,
+                                      ),
+                                      194 => 
+                                      array (
+                                        'key' => 'Bromodichloroacetic acid',
+                                        'value' => 14699053,
+                                      ),
+                                      195 => 
+                                      array (
+                                        'key' => 'Bromodichloromethane',
+                                        'value' => 14699054,
+                                      ),
+                                      196 => 
+                                      array (
+                                        'key' => 'Bromoethane',
+                                        'value' => 14699055,
+                                      ),
+                                      197 => 
+                                      array (
+                                        'key' => 'Bromoform',
+                                        'value' => 14699056,
+                                      ),
+                                      198 => 
+                                      array (
+                                        'key' => 'Bromoxynil',
+                                        'value' => 14699057,
+                                      ),
+                                      199 => 
+                                      array (
+                                        'key' => 'Bromoxynil octanoate',
+                                        'value' => 14699058,
+                                      ),
+                                      200 => 
+                                      array (
+                                        'key' => 'Butabarbital sodium',
+                                        'value' => 14699059,
+                                      ),
+                                      201 => 
+                                      array (
+                                        'key' => 'Butyl benzyl phthalate (BBP)d',
+                                        'value' => 14699060,
+                                      ),
+                                      202 => 
+                                      array (
+                                        'key' => 'Butylated hydroxyanisole',
+                                        'value' => 14699061,
+                                      ),
+                                      203 => 
+                                      array (
+                                        'key' => 'C.I. Acid Red 114',
+                                        'value' => 14699062,
+                                      ),
+                                      204 => 
+                                      array (
+                                        'key' => 'C.I. Basic Red 9 monohydrochloride',
+                                        'value' => 14699063,
+                                      ),
+                                      205 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 15',
+                                        'value' => 14699064,
+                                      ),
+                                      206 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 218',
+                                        'value' => 14699065,
+                                      ),
+                                      207 => 
+                                      array (
+                                        'key' => 'C.I. Disperse Yellow 3',
+                                        'value' => 14699066,
+                                      ),
+                                      208 => 
+                                      array (
+                                        'key' => 'C.I. Solvent Yellow 14',
+                                        'value' => 14699067,
+                                      ),
+                                      209 => 
+                                      array (
+                                        'key' => 'CMNP (pyrazachlor)',
+                                        'value' => 14699121,
+                                      ),
+                                      210 => 
+                                      array (
+                                        'key' => 'Cacodylic acid',
+                                        'value' => 14699068,
+                                      ),
+                                      211 => 
+                                      array (
+                                        'key' => 'Cadmium',
+                                        'value' => 14699069,
+                                      ),
+                                      212 => 
+                                      array (
+                                        'key' => 'Cadmium and cadmium compounds',
+                                        'value' => 14699070,
+                                      ),
+                                      213 => 
+                                      array (
+                                        'key' => 'Caffeic acid',
+                                        'value' => 14699071,
+                                      ),
+                                      214 => 
+                                      array (
+                                        'key' => 'Cannabis (marijuana) smoke',
+                                        'value' => 14699072,
+                                      ),
+                                      215 => 
+                                      array (
+                                        'key' => 'Captafol',
+                                        'value' => 14699073,
+                                      ),
+                                      216 => 
+                                      array (
+                                        'key' => 'Captan',
+                                        'value' => 14699074,
+                                      ),
+                                      217 => 
+                                      array (
+                                        'key' => 'Carbamazepine',
+                                        'value' => 14699075,
+                                      ),
+                                      218 => 
+                                      array (
+                                        'key' => 'Carbaryl',
+                                        'value' => 14699076,
+                                      ),
+                                      219 => 
+                                      array (
+                                        'key' => 'Carbazole',
+                                        'value' => 14699077,
+                                      ),
+                                      220 => 
+                                      array (
+                                        'key' => 'Carbon black (airborne particles of respirable size)',
+                                        'value' => 14699078,
+                                      ),
+                                      221 => 
+                                      array (
+                                        'key' => 'Carbon disulfide',
+                                        'value' => 14699079,
+                                      ),
+                                      222 => 
+                                      array (
+                                        'key' => 'Carbon monoxide',
+                                        'value' => 14699080,
+                                      ),
+                                      223 => 
+                                      array (
+                                        'key' => 'Carbon tetrachloride',
+                                        'value' => 14699081,
+                                      ),
+                                      224 => 
+                                      array (
+                                        'key' => 'Carbon-black extracts',
+                                        'value' => 14699082,
+                                      ),
+                                      225 => 
+                                      array (
+                                        'key' => 'Carboplatin',
+                                        'value' => 14699083,
+                                      ),
+                                      226 => 
+                                      array (
+                                        'key' => 'Catechol',
+                                        'value' => 14699084,
+                                      ),
+                                      227 => 
+                                      array (
+                                        'key' => 'Ceramic fibers (airborne particles of respirable size)',
+                                        'value' => 14699085,
+                                      ),
+                                      228 => 
+                                      array (
+                                        'key' => 'Certain combined chemotherapy for lymphomas',
+                                        'value' => 14699086,
+                                      ),
+                                      229 => 
+                                      array (
+                                        'key' => 'Chenodiol',
+                                        'value' => 14699087,
+                                      ),
+                                      230 => 
+                                      array (
+                                        'key' => 'Chloral',
+                                        'value' => 14699088,
+                                      ),
+                                      231 => 
+                                      array (
+                                        'key' => 'Chloral hydrate',
+                                        'value' => 14699089,
+                                      ),
+                                      232 => 
+                                      array (
+                                        'key' => 'Chlorambucil',
+                                        'value' => 14699090,
+                                      ),
+                                      233 => 
+                                      array (
+                                        'key' => 'Chloramphenicol sodium succinate',
+                                        'value' => 14699091,
+                                      ),
+                                      234 => 
+                                      array (
+                                        'key' => 'Chlorcyclizine hydrochloride',
+                                        'value' => 14699092,
+                                      ),
+                                      235 => 
+                                      array (
+                                        'key' => 'Chlordane',
+                                        'value' => 14699093,
+                                      ),
+                                      236 => 
+                                      array (
+                                        'key' => 'Chlordecone (Kepone)',
+                                        'value' => 14699094,
+                                      ),
+                                      237 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide',
+                                        'value' => 14699095,
+                                      ),
+                                      238 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide hydrochloride',
+                                        'value' => 14699096,
+                                      ),
+                                      239 => 
+                                      array (
+                                        'key' => 'Chlordimeform',
+                                        'value' => 14699097,
+                                      ),
+                                      240 => 
+                                      array (
+                                        'key' => 'Chlorendic acid',
+                                        'value' => 14699098,
+                                      ),
+                                      241 => 
+                                      array (
+                                        'key' => 'Chlorinated paraffins (Average chain length;approximately 60 percent chlorine by weight)',
+                                        'value' => 14699099,
+                                      ),
+                                      242 => 
+                                      array (
+                                        'key' => 'Chloroethane (Ethyl chloride)',
+                                        'value' => 14699100,
+                                      ),
+                                      243 => 
+                                      array (
+                                        'key' => 'Chloroform',
+                                        'value' => 14699101,
+                                      ),
+                                      244 => 
+                                      array (
+                                        'key' => 'Chloromethyl methyl ether (technical grade)',
+                                        'value' => 14699102,
+                                      ),
+                                      245 => 
+                                      array (
+                                        'key' => 'Chloroprene',
+                                        'value' => 14699103,
+                                      ),
+                                      246 => 
+                                      array (
+                                        'key' => 'Chlorothalonil',
+                                        'value' => 14699104,
+                                      ),
+                                      247 => 
+                                      array (
+                                        'key' => 'Chlorotrianisene',
+                                        'value' => 14699105,
+                                      ),
+                                      248 => 
+                                      array (
+                                        'key' => 'Chlorozotocin',
+                                        'value' => 14699106,
+                                      ),
+                                      249 => 
+                                      array (
+                                        'key' => 'Chlorpyrifos',
+                                        'value' => 14699107,
+                                      ),
+                                      250 => 
+                                      array (
+                                        'key' => 'Chromium (hexavalent compounds)',
+                                        'value' => 14699108,
+                                      ),
+                                      251 => 
+                                      array (
+                                        'key' => 'Chrysene',
+                                        'value' => 14699109,
+                                      ),
+                                      252 => 
+                                      array (
+                                        'key' => 'Ciclosporin (Cyclosporin A',
+                                        'value' => 14699110,
+                                      ),
+                                      253 => 
+                                      array (
+                                        'key' => 'Cidofovir',
+                                        'value' => 14699111,
+                                      ),
+                                      254 => 
+                                      array (
+                                        'key' => 'Cinnamyl anthranilate',
+                                        'value' => 14699112,
+                                      ),
+                                      255 => 
+                                      array (
+                                        'key' => 'Cisplatin',
+                                        'value' => 14699113,
+                                      ),
+                                      256 => 
+                                      array (
+                                        'key' => 'Citrus Red No. 2',
+                                        'value' => 14699114,
+                                      ),
+                                      257 => 
+                                      array (
+                                        'key' => 'Cladribine',
+                                        'value' => 14699115,
+                                      ),
+                                      258 => 
+                                      array (
+                                        'key' => 'Clarithromycin',
+                                        'value' => 14699116,
+                                      ),
+                                      259 => 
+                                      array (
+                                        'key' => 'Clobetasol propionate',
+                                        'value' => 14699117,
+                                      ),
+                                      260 => 
+                                      array (
+                                        'key' => 'Clofibrate',
+                                        'value' => 14699118,
+                                      ),
+                                      261 => 
+                                      array (
+                                        'key' => 'Clomiphene citrate',
+                                        'value' => 14699119,
+                                      ),
+                                      262 => 
+                                      array (
+                                        'key' => 'Clorazepate dipotassium',
+                                        'value' => 14699120,
+                                      ),
+                                      263 => 
+                                      array (
+                                        'key' => 'Cobalt [II] oxide',
+                                        'value' => 14699122,
+                                      ),
+                                      264 => 
+                                      array (
+                                        'key' => 'Cobalt metal powder',
+                                        'value' => 14699123,
+                                      ),
+                                      265 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate',
+                                        'value' => 14699124,
+                                      ),
+                                      266 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate heptahydrate',
+                                        'value' => 14699125,
+                                      ),
+                                      267 => 
+                                      array (
+                                        'key' => 'Cocaine',
+                                        'value' => 14699126,
+                                      ),
+                                      268 => 
+                                      array (
+                                        'key' => 'Coconut oil diethanolamine condensate (cocamide diethanolamine)',
+                                        'value' => 14699127,
+                                      ),
+                                      269 => 
+                                      array (
+                                        'key' => 'Codeine phosphate',
+                                        'value' => 14699128,
+                                      ),
+                                      270 => 
+                                      array (
+                                        'key' => 'Coke oven emissions',
+                                        'value' => 14699129,
+                                      ),
+                                      271 => 
+                                      array (
+                                        'key' => 'Colchicine',
+                                        'value' => 14699130,
+                                      ),
+                                      272 => 
+                                      array (
+                                        'key' => 'Conjugated estrogens',
+                                        'value' => 14699131,
+                                      ),
+                                      273 => 
+                                      array (
+                                        'key' => 'Creosotes',
+                                        'value' => 14699132,
+                                      ),
+                                      274 => 
+                                      array (
+                                        'key' => 'Cumene',
+                                        'value' => 14699133,
+                                      ),
+                                      275 => 
+                                      array (
+                                        'key' => 'Cupferron',
+                                        'value' => 14699134,
+                                      ),
+                                      276 => 
+                                      array (
+                                        'key' => 'Cyanazine',
+                                        'value' => 14699135,
+                                      ),
+                                      277 => 
+                                      array (
+                                        'key' => 'Cyanide salts that readily dissociate in solution (expressed as cyanide)f',
+                                        'value' => 14699136,
+                                      ),
+                                      278 => 
+                                      array (
+                                        'key' => 'Cycasin',
+                                        'value' => 14699137,
+                                      ),
+                                      279 => 
+                                      array (
+                                        'key' => 'Cycloate',
+                                        'value' => 14699138,
+                                      ),
+                                      280 => 
+                                      array (
+                                        'key' => 'Cycloheximide',
+                                        'value' => 14699139,
+                                      ),
+                                      281 => 
+                                      array (
+                                        'key' => 'Cyclopenta[cd]pyrene',
+                                        'value' => 14699140,
+                                      ),
+                                      282 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (anhydrous)',
+                                        'value' => 14699141,
+                                      ),
+                                      283 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (hydrated)',
+                                        'value' => 14699142,
+                                      ),
+                                      284 => 
+                                      array (
+                                        'key' => 'Cyhexatin',
+                                        'value' => 14699143,
+                                      ),
+                                      285 => 
+                                      array (
+                                        'key' => 'Cytarabine',
+                                        'value' => 14699144,
+                                      ),
+                                      286 => 
+                                      array (
+                                        'key' => 'Cytembena',
+                                        'value' => 14699145,
+                                      ),
+                                      287 => 
+                                      array (
+                                        'key' => 'D&C Orange No. 17',
+                                        'value' => 14699146,
+                                      ),
+                                      288 => 
+                                      array (
+                                        'key' => 'D&C Red No. 19',
+                                        'value' => 14699147,
+                                      ),
+                                      289 => 
+                                      array (
+                                        'key' => 'D&C Red No. 8',
+                                        'value' => 14699148,
+                                      ),
+                                      290 => 
+                                      array (
+                                        'key' => 'D&C Red No. 9',
+                                        'value' => 14699149,
+                                      ),
+                                      291 => 
+                                      array (
+                                        'key' => 'DDD (Dichlorodiphenyl-dichloroethane)',
+                                        'value' => 14699156,
+                                      ),
+                                      292 => 
+                                      array (
+                                        'key' => 'DDE (Dichlorodiphenyl-dichloroethylene)',
+                                        'value' => 14699157,
+                                      ),
+                                      293 => 
+                                      array (
+                                        'key' => 'DDT (Dichlorodiphenyl-trichloroethane)',
+                                        'value' => 14699158,
+                                      ),
+                                      294 => 
+                                      array (
+                                        'key' => 'DDVP (Dichlorvos)',
+                                        'value' => 14699159,
+                                      ),
+                                      295 => 
+                                      array (
+                                        'key' => 'Dacarbazine',
+                                        'value' => 14699150,
+                                      ),
+                                      296 => 
+                                      array (
+                                        'key' => 'Daminozide',
+                                        'value' => 14699151,
+                                      ),
+                                      297 => 
+                                      array (
+                                        'key' => 'Danazol',
+                                        'value' => 14699152,
+                                      ),
+                                      298 => 
+                                      array (
+                                        'key' => 'Dantron (Chrysazin; 1-Dihydroxyanthraquinone)',
+                                        'value' => 14699153,
+                                      ),
+                                      299 => 
+                                      array (
+                                        'key' => 'Daunomycin',
+                                        'value' => 14699154,
+                                      ),
+                                      300 => 
+                                      array (
+                                        'key' => 'Daunorubicin hydrochloride',
+                                        'value' => 14699155,
+                                      ),
+                                      301 => 
+                                      array (
+                                        'key' => 'Demeclocycline hydrochloride (internal use)',
+                                        'value' => 14699160,
+                                      ),
+                                      302 => 
+                                      array (
+                                        'key' => 'Des-ethyl atrazine (DEA)',
+                                        'value' => 14699161,
+                                      ),
+                                      303 => 
+                                      array (
+                                        'key' => 'Des-isopropyl atrazine (DIA)',
+                                        'value' => 14699162,
+                                      ),
+                                      304 => 
+                                      array (
+                                        'key' => 'Di(2-ethylhexyl)phthalate (DEHP)',
+                                        'value' => 14699163,
+                                      ),
+                                      305 => 
+                                      array (
+                                        'key' => 'Di-isodecyl phthalate (DIDP)',
+                                        'value' => 14699164,
+                                      ),
+                                      306 => 
+                                      array (
+                                        'key' => 'Di-n-butyl phthalate (DBP)',
+                                        'value' => 14699165,
+                                      ),
+                                      307 => 
+                                      array (
+                                        'key' => 'Di-n-hexyl phthalate (DnHP)',
+                                        'value' => 14699166,
+                                      ),
+                                      308 => 
+                                      array (
+                                        'key' => 'Di-n-propyl isocinchomeronate (MGK Repellent 326)',
+                                        'value' => 14699167,
+                                      ),
+                                      309 => 
+                                      array (
+                                        'key' => 'Diazepam',
+                                        'value' => 14699168,
+                                      ),
+                                      310 => 
+                                      array (
+                                        'key' => 'Diazoaminobenzene',
+                                        'value' => 14699169,
+                                      ),
+                                      311 => 
+                                      array (
+                                        'key' => 'Diazoxide',
+                                        'value' => 14699170,
+                                      ),
+                                      312 => 
+                                      array (
+                                        'key' => 'Dibenz[a]acridine',
+                                        'value' => 14699172,
+                                      ),
+                                      313 => 
+                                      array (
+                                        'key' => 'Dibenz[a]anthracene',
+                                        'value' => 14699171,
+                                      ),
+                                      314 => 
+                                      array (
+                                        'key' => 'Dibenzanthracenes',
+                                        'value' => 14699173,
+                                      ),
+                                      315 => 
+                                      array (
+                                        'key' => 'Dibenzo[a]pyrene',
+                                        'value' => 14699174,
+                                      ),
+                                      316 => 
+                                      array (
+                                        'key' => 'Dibromoacetic acid',
+                                        'value' => 14699175,
+                                      ),
+                                      317 => 
+                                      array (
+                                        'key' => 'Dibromoacetonitrile',
+                                        'value' => 14699176,
+                                      ),
+                                      318 => 
+                                      array (
+                                        'key' => 'Dichloroacetic acid',
+                                        'value' => 14699177,
+                                      ),
+                                      319 => 
+                                      array (
+                                        'key' => 'Dichloromethane (Methylene chloride)',
+                                        'value' => 14699178,
+                                      ),
+                                      320 => 
+                                      array (
+                                        'key' => 'Dichlorophene',
+                                        'value' => 14699179,
+                                      ),
+                                      321 => 
+                                      array (
+                                        'key' => 'Dichlorphenamide',
+                                        'value' => 14699180,
+                                      ),
+                                      322 => 
+                                      array (
+                                        'key' => 'Diclofop methyl',
+                                        'value' => 14699181,
+                                      ),
+                                      323 => 
+                                      array (
+                                        'key' => 'Dicumarol',
+                                        'value' => 14699182,
+                                      ),
+                                      324 => 
+                                      array (
+                                        'key' => 'Dieldrin',
+                                        'value' => 14699183,
+                                      ),
+                                      325 => 
+                                      array (
+                                        'key' => 'Diepoxybutane',
+                                        'value' => 14699184,
+                                      ),
+                                      326 => 
+                                      array (
+                                        'key' => 'Diesel engine exhaust',
+                                        'value' => 14699185,
+                                      ),
+                                      327 => 
+                                      array (
+                                        'key' => 'Diethanolamine',
+                                        'value' => 14699186,
+                                      ),
+                                      328 => 
+                                      array (
+                                        'key' => 'Diethyl sulfate',
+                                        'value' => 14699187,
+                                      ),
+                                      329 => 
+                                      array (
+                                        'key' => 'Diethylstilbestrol (DES)',
+                                        'value' => 14699188,
+                                      ),
+                                      330 => 
+                                      array (
+                                        'key' => 'Diflunisal',
+                                        'value' => 14699189,
+                                      ),
+                                      331 => 
+                                      array (
+                                        'key' => 'Diglycidyl resorcinol ether (DGRE)',
+                                        'value' => 14699190,
+                                      ),
+                                      332 => 
+                                      array (
+                                        'key' => 'Dihydroergotamine mesylate',
+                                        'value' => 14699191,
+                                      ),
+                                      333 => 
+                                      array (
+                                        'key' => 'Dihydrosafrole',
+                                        'value' => 14699192,
+                                      ),
+                                      334 => 
+                                      array (
+                                        'key' => 'Diisononyl phthalate (DINP)',
+                                        'value' => 14699193,
+                                      ),
+                                      335 => 
+                                      array (
+                                        'key' => 'Diisopropyl sulfate',
+                                        'value' => 14699194,
+                                      ),
+                                      336 => 
+                                      array (
+                                        'key' => 'Diltiazem hydrochloride',
+                                        'value' => 14699195,
+                                      ),
+                                      337 => 
+                                      array (
+                                        'key' => 'Dimethyl sulfate',
+                                        'value' => 14699196,
+                                      ),
+                                      338 => 
+                                      array (
+                                        'key' => 'Dimethylcarbamoyl chloride',
+                                        'value' => 14699197,
+                                      ),
+                                      339 => 
+                                      array (
+                                        'key' => 'Dimethylvinylchloride',
+                                        'value' => 14699198,
+                                      ),
+                                      340 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene (technical grade)',
+                                        'value' => 14699199,
+                                      ),
+                                      341 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene mixture-/2-',
+                                        'value' => 14699200,
+                                      ),
+                                      342 => 
+                                      array (
+                                        'key' => 'Dinocap',
+                                        'value' => 14699201,
+                                      ),
+                                      343 => 
+                                      array (
+                                        'key' => 'Dinoseb',
+                                        'value' => 14699202,
+                                      ),
+                                      344 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin)',
+                                        'value' => 14699203,
+                                      ),
+                                      345 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin) salt',
+                                        'value' => 14699204,
+                                      ),
+                                      346 => 
+                                      array (
+                                        'key' => 'Direct Black 38 (technical grade)',
+                                        'value' => 14699205,
+                                      ),
+                                      347 => 
+                                      array (
+                                        'key' => 'Direct Blue 6 (technical grade)',
+                                        'value' => 14699206,
+                                      ),
+                                      348 => 
+                                      array (
+                                        'key' => 'Direct Brown 95 (technical grade)',
+                                        'value' => 14699207,
+                                      ),
+                                      349 => 
+                                      array (
+                                        'key' => 'Disodium cyanodithioimidocarbonate',
+                                        'value' => 14699208,
+                                      ),
+                                      350 => 
+                                      array (
+                                        'key' => 'Disperse Blue 1',
+                                        'value' => 14699209,
+                                      ),
+                                      351 => 
+                                      array (
+                                        'key' => 'Diuron',
+                                        'value' => 14699210,
+                                      ),
+                                      352 => 
+                                      array (
+                                        'key' => 'Doxorubicin hydrochloride (Adriamycin)',
+                                        'value' => 14699211,
+                                      ),
+                                      353 => 
+                                      array (
+                                        'key' => 'Doxycycline (internal use)',
+                                        'value' => 14699212,
+                                      ),
+                                      354 => 
+                                      array (
+                                        'key' => 'Doxycycline calcium (internal use)',
+                                        'value' => 14699213,
+                                      ),
+                                      355 => 
+                                      array (
+                                        'key' => 'Doxycycline hyclate (internal use)',
+                                        'value' => 14699214,
+                                      ),
+                                      356 => 
+                                      array (
+                                        'key' => 'Doxycycline monohydrate (internal use)',
+                                        'value' => 14699215,
+                                      ),
+                                      357 => 
+                                      array (
+                                        'key' => 'Emissions from combustion of coal',
+                                        'value' => 14699216,
+                                      ),
+                                      358 => 
+                                      array (
+                                        'key' => 'Emissions from high-temperature unrefined rapeseed oil',
+                                        'value' => 14699217,
+                                      ),
+                                      359 => 
+                                      array (
+                                        'key' => 'Endrin',
+                                        'value' => 14699218,
+                                      ),
+                                      360 => 
+                                      array (
+                                        'key' => 'Environmental tobacco smoke (ETS)',
+                                        'value' => 14699219,
+                                      ),
+                                      361 => 
+                                      array (
+                                        'key' => 'Epichlorohydrin',
+                                        'value' => 14699220,
+                                      ),
+                                      362 => 
+                                      array (
+                                        'key' => 'Epoxiconazole',
+                                        'value' => 14699221,
+                                      ),
+                                      363 => 
+                                      array (
+                                        'key' => 'Ergotamine tartrate',
+                                        'value' => 14699222,
+                                      ),
+                                      364 => 
+                                      array (
+                                        'key' => 'Erionite',
+                                        'value' => 14699223,
+                                      ),
+                                      365 => 
+                                      array (
+                                        'key' => 'Estradiol 17B',
+                                        'value' => 14699224,
+                                      ),
+                                      366 => 
+                                      array (
+                                        'key' => 'Estragole',
+                                        'value' => 14699225,
+                                      ),
+                                      367 => 
+                                      array (
+                                        'key' => 'Estrogen-progestogen (combined) used as menopausal therapy',
+                                        'value' => 14699226,
+                                      ),
+                                      368 => 
+                                      array (
+                                        'key' => 'Estrogens',
+                                        'value' => 14699227,
+                                      ),
+                                      369 => 
+                                      array (
+                                        'key' => 'Estrone',
+                                        'value' => 14699228,
+                                      ),
+                                      370 => 
+                                      array (
+                                        'key' => 'Estropipate',
+                                        'value' => 14699229,
+                                      ),
+                                      371 => 
+                                      array (
+                                        'key' => 'Ethinylestradiol',
+                                        'value' => 14699230,
+                                      ),
+                                      372 => 
+                                      array (
+                                        'key' => 'Ethionamide',
+                                        'value' => 14699231,
+                                      ),
+                                      373 => 
+                                      array (
+                                        'key' => 'Ethoprop',
+                                        'value' => 14699232,
+                                      ),
+                                      374 => 
+                                      array (
+                                        'key' => 'Ethyl acrylate',
+                                        'value' => 14699233,
+                                      ),
+                                      375 => 
+                                      array (
+                                        'key' => 'Ethyl alcohol in alcoholic beverages',
+                                        'value' => 14699234,
+                                      ),
+                                      376 => 
+                                      array (
+                                        'key' => 'Ethyl dipropylthiocarbamate',
+                                        'value' => 14699235,
+                                      ),
+                                      377 => 
+                                      array (
+                                        'key' => 'Ethyl methanesulfonate',
+                                        'value' => 14699236,
+                                      ),
+                                      378 => 
+                                      array (
+                                        'key' => 'Ethyl-4\'-dichlorobenzilate',
+                                        'value' => 14699237,
+                                      ),
+                                      379 => 
+                                      array (
+                                        'key' => 'Ethylbenzene',
+                                        'value' => 14699238,
+                                      ),
+                                      380 => 
+                                      array (
+                                        'key' => 'Ethylene dibromide',
+                                        'value' => 14699239,
+                                      ),
+                                      381 => 
+                                      array (
+                                        'key' => 'Ethylene dichloride (1-Dichloroethane)',
+                                        'value' => 14699240,
+                                      ),
+                                      382 => 
+                                      array (
+                                        'key' => 'Ethylene glycol (ingested)',
+                                        'value' => 14699241,
+                                      ),
+                                      383 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether',
+                                        'value' => 14699242,
+                                      ),
+                                      384 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether acetate',
+                                        'value' => 14699243,
+                                      ),
+                                      385 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether',
+                                        'value' => 14699244,
+                                      ),
+                                      386 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether acetate',
+                                        'value' => 14699245,
+                                      ),
+                                      387 => 
+                                      array (
+                                        'key' => 'Ethylene oxide',
+                                        'value' => 14699246,
+                                      ),
+                                      388 => 
+                                      array (
+                                        'key' => 'Ethylene thiourea',
+                                        'value' => 14699247,
+                                      ),
+                                      389 => 
+                                      array (
+                                        'key' => 'Ethyleneimine (Aziridine)',
+                                        'value' => 14699248,
+                                      ),
+                                      390 => 
+                                      array (
+                                        'key' => 'Etodolac',
+                                        'value' => 14699249,
+                                      ),
+                                      391 => 
+                                      array (
+                                        'key' => 'Etoposide',
+                                        'value' => 14699250,
+                                      ),
+                                      392 => 
+                                      array (
+                                        'key' => 'Etoposide in combination with cisplatin and bleomycin',
+                                        'value' => 14699251,
+                                      ),
+                                      393 => 
+                                      array (
+                                        'key' => 'Etretinate',
+                                        'value' => 14699252,
+                                      ),
+                                      394 => 
+                                      array (
+                                        'key' => 'Fenoxaprop ethyl',
+                                        'value' => 14699253,
+                                      ),
+                                      395 => 
+                                      array (
+                                        'key' => 'Fenoxycarb',
+                                        'value' => 14699254,
+                                      ),
+                                      396 => 
+                                      array (
+                                        'key' => 'Filgrastim',
+                                        'value' => 14699255,
+                                      ),
+                                      397 => 
+                                      array (
+                                        'key' => 'Fluazifop butyl',
+                                        'value' => 14699256,
+                                      ),
+                                      398 => 
+                                      array (
+                                        'key' => 'Flunisolide',
+                                        'value' => 14699257,
+                                      ),
+                                      399 => 
+                                      array (
+                                        'key' => 'Fluorouracil',
+                                        'value' => 14699258,
+                                      ),
+                                      400 => 
+                                      array (
+                                        'key' => 'Fluoxymesterone',
+                                        'value' => 14699259,
+                                      ),
+                                      401 => 
+                                      array (
+                                        'key' => 'Flurazepam hydrochloride',
+                                        'value' => 14699260,
+                                      ),
+                                      402 => 
+                                      array (
+                                        'key' => 'Flurbiprofen',
+                                        'value' => 14699261,
+                                      ),
+                                      403 => 
+                                      array (
+                                        'key' => 'Flutamide',
+                                        'value' => 14699262,
+                                      ),
+                                      404 => 
+                                      array (
+                                        'key' => 'Fluticasone propionate',
+                                        'value' => 14699263,
+                                      ),
+                                      405 => 
+                                      array (
+                                        'key' => 'Fluvalinate',
+                                        'value' => 14699264,
+                                      ),
+                                      406 => 
+                                      array (
+                                        'key' => 'Folpet',
+                                        'value' => 14699265,
+                                      ),
+                                      407 => 
+                                      array (
+                                        'key' => 'Formaldehyde (gas)',
+                                        'value' => 14699266,
+                                      ),
+                                      408 => 
+                                      array (
+                                        'key' => 'Fumonisin B1',
+                                        'value' => 14699267,
+                                      ),
+                                      409 => 
+                                      array (
+                                        'key' => 'Furan',
+                                        'value' => 14699268,
+                                      ),
+                                      410 => 
+                                      array (
+                                        'key' => 'Furazolidone',
+                                        'value' => 14699269,
+                                      ),
+                                      411 => 
+                                      array (
+                                        'key' => 'Furfuryl alcohol',
+                                        'value' => 14699270,
+                                      ),
+                                      412 => 
+                                      array (
+                                        'key' => 'Furmecyclox',
+                                        'value' => 14699271,
+                                      ),
+                                      413 => 
+                                      array (
+                                        'key' => 'Fusarin C',
+                                        'value' => 14699272,
+                                      ),
+                                      414 => 
+                                      array (
+                                        'key' => 'Gallium arsenide',
+                                        'value' => 14699273,
+                                      ),
+                                      415 => 
+                                      array (
+                                        'key' => 'Ganciclovir',
+                                        'value' => 14699274,
+                                      ),
+                                      416 => 
+                                      array (
+                                        'key' => 'Ganciclovir sodium',
+                                        'value' => 14699275,
+                                      ),
+                                      417 => 
+                                      array (
+                                        'key' => 'Gasoline engine exhaust (condensates/extracts)',
+                                        'value' => 14699276,
+                                      ),
+                                      418 => 
+                                      array (
+                                        'key' => 'Gemfibrozil',
+                                        'value' => 14699277,
+                                      ),
+                                      419 => 
+                                      array (
+                                        'key' => 'Gentian violet (Crystal violet)',
+                                        'value' => 14699278,
+                                      ),
+                                      420 => 
+                                      array (
+                                        'key' => 'Glass wool fibers (inhalable and biopersistent)',
+                                        'value' => 14699279,
+                                      ),
+                                      421 => 
+                                      array (
+                                        'key' => 'Glu-P-1 (2-Amino-6-methyldipyrido[1- a:3\'\'-d]imidazole)',
+                                        'value' => 14699280,
+                                      ),
+                                      422 => 
+                                      array (
+                                        'key' => 'Glu-P-2 (2-Aminodipyrido[1-a:3\'\'-d]imidazole)',
+                                        'value' => 14699281,
+                                      ),
+                                      423 => 
+                                      array (
+                                        'key' => 'Glycidaldehyde',
+                                        'value' => 14699282,
+                                      ),
+                                      424 => 
+                                      array (
+                                        'key' => 'Glycidol',
+                                        'value' => 14699283,
+                                      ),
+                                      425 => 
+                                      array (
+                                        'key' => 'Glyphosate',
+                                        'value' => 14699284,
+                                      ),
+                                      426 => 
+                                      array (
+                                        'key' => 'Goldenseal root powder',
+                                        'value' => 14699285,
+                                      ),
+                                      427 => 
+                                      array (
+                                        'key' => 'Goserelin acetate',
+                                        'value' => 14699286,
+                                      ),
+                                      428 => 
+                                      array (
+                                        'key' => 'Griseofulvin',
+                                        'value' => 14699287,
+                                      ),
+                                      429 => 
+                                      array (
+                                        'key' => 'Gyromitrin (Acetaldehyde methylformylhydrazone)',
+                                        'value' => 14699288,
+                                      ),
+                                      430 => 
+                                      array (
+                                        'key' => 'HC Blue 1',
+                                        'value' => 14699293,
+                                      ),
+                                      431 => 
+                                      array (
+                                        'key' => 'Halazepam',
+                                        'value' => 14699289,
+                                      ),
+                                      432 => 
+                                      array (
+                                        'key' => 'Halobetasol propionate',
+                                        'value' => 14699290,
+                                      ),
+                                      433 => 
+                                      array (
+                                        'key' => 'Haloperidol',
+                                        'value' => 14699291,
+                                      ),
+                                      434 => 
+                                      array (
+                                        'key' => 'Halothane',
+                                        'value' => 14699292,
+                                      ),
+                                      435 => 
+                                      array (
+                                        'key' => 'Heptachlor',
+                                        'value' => 14699294,
+                                      ),
+                                      436 => 
+                                      array (
+                                        'key' => 'Heptachlor epoxide',
+                                        'value' => 14699295,
+                                      ),
+                                      437 => 
+                                      array (
+                                        'key' => 'Herbal remedies containing plant species of the genus Aristolochia',
+                                        'value' => 14699296,
+                                      ),
+                                      438 => 
+                                      array (
+                                        'key' => 'Hexachlorobenzene',
+                                        'value' => 14699297,
+                                      ),
+                                      439 => 
+                                      array (
+                                        'key' => 'Hexachlorobutadiene',
+                                        'value' => 14699298,
+                                      ),
+                                      440 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (alpha isomer)',
+                                        'value' => 14699299,
+                                      ),
+                                      441 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (beta isomer)',
+                                        'value' => 14699300,
+                                      ),
+                                      442 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (gamma isomer)',
+                                        'value' => 14699301,
+                                      ),
+                                      443 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (technical grade)',
+                                        'value' => 14699302,
+                                      ),
+                                      444 => 
+                                      array (
+                                        'key' => 'Hexachlorodibenzodioxin',
+                                        'value' => 14699303,
+                                      ),
+                                      445 => 
+                                      array (
+                                        'key' => 'Hexachloroethane',
+                                        'value' => 14699304,
+                                      ),
+                                      446 => 
+                                      array (
+                                        'key' => 'Hexamethylphosphoramide',
+                                        'value' => 14699305,
+                                      ),
+                                      447 => 
+                                      array (
+                                        'key' => 'Histrelin acetate',
+                                        'value' => 14699306,
+                                      ),
+                                      448 => 
+                                      array (
+                                        'key' => 'Hydramethylnon',
+                                        'value' => 14699307,
+                                      ),
+                                      449 => 
+                                      array (
+                                        'key' => 'Hydrazine',
+                                        'value' => 14699308,
+                                      ),
+                                      450 => 
+                                      array (
+                                        'key' => 'Hydrazine sulfate',
+                                        'value' => 14699309,
+                                      ),
+                                      451 => 
+                                      array (
+                                        'key' => 'Hydrazobenzene (1-Diphenylhydrazine)',
+                                        'value' => 14699310,
+                                      ),
+                                      452 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanide (HCN) and cyanide salts (CN salts)',
+                                        'value' => 14699311,
+                                      ),
+                                      453 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanidef',
+                                        'value' => 14699312,
+                                      ),
+                                      454 => 
+                                      array (
+                                        'key' => 'Hydroxyurea',
+                                        'value' => 14699313,
+                                      ),
+                                      455 => 
+                                      array (
+                                        'key' => 'IQ (2-Amino-3-methylimidazo[4-f] quinoline)',
+                                        'value' => 14699323,
+                                      ),
+                                      456 => 
+                                      array (
+                                        'key' => 'Idarubicin hydrochloride',
+                                        'value' => 14699314,
+                                      ),
+                                      457 => 
+                                      array (
+                                        'key' => 'Ifosfamide',
+                                        'value' => 14699315,
+                                      ),
+                                      458 => 
+                                      array (
+                                        'key' => 'Imazalil',
+                                        'value' => 14699316,
+                                      ),
+                                      459 => 
+                                      array (
+                                        'key' => 'Indeno[1-cd]pyrene',
+                                        'value' => 14699317,
+                                      ),
+                                      460 => 
+                                      array (
+                                        'key' => 'Indium phosphide',
+                                        'value' => 14699318,
+                                      ),
+                                      461 => 
+                                      array (
+                                        'key' => 'Infant boys 29 days to 24 monthsb',
+                                        'value' => 14699319,
+                                      ),
+                                      462 => 
+                                      array (
+                                        'key' => 'Iodine-131',
+                                        'value' => 14699320,
+                                      ),
+                                      463 => 
+                                      array (
+                                        'key' => 'Iprodione',
+                                        'value' => 14699321,
+                                      ),
+                                      464 => 
+                                      array (
+                                        'key' => 'Iprovalicarb',
+                                        'value' => 14699322,
+                                      ),
+                                      465 => 
+                                      array (
+                                        'key' => 'Iron dextran complex',
+                                        'value' => 14699324,
+                                      ),
+                                      466 => 
+                                      array (
+                                        'key' => 'Isobutyl nitrite',
+                                        'value' => 14699325,
+                                      ),
+                                      467 => 
+                                      array (
+                                        'key' => 'Isoprene',
+                                        'value' => 14699326,
+                                      ),
+                                      468 => 
+                                      array (
+                                        'key' => 'Isopyrazam',
+                                        'value' => 14699327,
+                                      ),
+                                      469 => 
+                                      array (
+                                        'key' => 'Isotretinoin',
+                                        'value' => 14699328,
+                                      ),
+                                      470 => 
+                                      array (
+                                        'key' => 'Isoxaflutole',
+                                        'value' => 14699329,
+                                      ),
+                                      471 => 
+                                      array (
+                                        'key' => 'Kresoxim-methyl',
+                                        'value' => 14699330,
+                                      ),
+                                      472 => 
+                                      array (
+                                        'key' => 'Lactofen',
+                                        'value' => 14699331,
+                                      ),
+                                      473 => 
+                                      array (
+                                        'key' => 'Lasiocarpine',
+                                        'value' => 14699332,
+                                      ),
+                                      474 => 
+                                      array (
+                                        'key' => 'Lead',
+                                        'value' => 14699333,
+                                      ),
+                                      475 => 
+                                      array (
+                                        'key' => 'Lead acetate',
+                                        'value' => 14699334,
+                                      ),
+                                      476 => 
+                                      array (
+                                        'key' => 'Lead and lead compounds',
+                                        'value' => 14699335,
+                                      ),
+                                      477 => 
+                                      array (
+                                        'key' => 'Lead phosphate',
+                                        'value' => 14699336,
+                                      ),
+                                      478 => 
+                                      array (
+                                        'key' => 'Lead subacetate',
+                                        'value' => 14699337,
+                                      ),
+                                      479 => 
+                                      array (
+                                        'key' => 'Leather dust',
+                                        'value' => 14699338,
+                                      ),
+                                      480 => 
+                                      array (
+                                        'key' => 'Leuprolide acetate',
+                                        'value' => 14699339,
+                                      ),
+                                      481 => 
+                                      array (
+                                        'key' => 'Levodopa',
+                                        'value' => 14699340,
+                                      ),
+                                      482 => 
+                                      array (
+                                        'key' => 'Levonorgestrel implants',
+                                        'value' => 14699341,
+                                      ),
+                                      483 => 
+                                      array (
+                                        'key' => 'Lindane and other hexachlorocyclohexane isomers',
+                                        'value' => 14699342,
+                                      ),
+                                      484 => 
+                                      array (
+                                        'key' => 'Linuron',
+                                        'value' => 14699343,
+                                      ),
+                                      485 => 
+                                      array (
+                                        'key' => 'Lithium carbonate',
+                                        'value' => 14699344,
+                                      ),
+                                      486 => 
+                                      array (
+                                        'key' => 'Lithium citrate',
+                                        'value' => 14699345,
+                                      ),
+                                      487 => 
+                                      array (
+                                        'key' => 'Lorazepam',
+                                        'value' => 14699346,
+                                      ),
+                                      488 => 
+                                      array (
+                                        'key' => 'Lovastatin',
+                                        'value' => 14699347,
+                                      ),
+                                      489 => 
+                                      array (
+                                        'key' => 'Lynestrenol',
+                                        'value' => 14699348,
+                                      ),
+                                      490 => 
+                                      array (
+                                        'key' => 'MON 13900 (furilazole)',
+                                        'value' => 14699406,
+                                      ),
+                                      491 => 
+                                      array (
+                                        'key' => 'MON 4660 (dichloroacetyl-1-oxa-4-azaspiro(4)-decane',
+                                        'value' => 14699407,
+                                      ),
+                                      492 => 
+                                      array (
+                                        'key' => 'MOPP (vincristine-prednisone-nitrogen mustard-procarbazine mixture)',
+                                        'value' => 14699409,
+                                      ),
+                                      493 => 
+                                      array (
+                                        'key' => 'MX (3-chloro-4-dichloromethyl-5-hydroxy-2(5H)-furanone)',
+                                        'value' => 14699411,
+                                      ),
+                                      494 => 
+                                      array (
+                                        'key' => 'Malathion',
+                                        'value' => 14699350,
+                                      ),
+                                      495 => 
+                                      array (
+                                        'key' => 'Malonaldehyde salt',
+                                        'value' => 14699351,
+                                      ),
+                                      496 => 
+                                      array (
+                                        'key' => 'Mancozeb',
+                                        'value' => 14699352,
+                                      ),
+                                      497 => 
+                                      array (
+                                        'key' => 'Maneb',
+                                        'value' => 14699353,
+                                      ),
+                                      498 => 
+                                      array (
+                                        'key' => 'Marijuana smoke',
+                                        'value' => 14699354,
+                                      ),
+                                      499 => 
+                                      array (
+                                        'key' => 'Me-A-alpha-C (2-Amino-3-methyl-9H-pyrido[2-b]indole)',
+                                        'value' => 14699355,
+                                      ),
+                                      500 => 
+                                      array (
+                                        'key' => 'MeIQ (2-Amino-3-dimethylimidazo[4-f]quinoline)',
+                                        'value' => 14699359,
+                                      ),
+                                      501 => 
+                                      array (
+                                        'key' => 'MeIQx (2-Amino-3-dimethylimidazo[4-f]quinoxaline)',
+                                        'value' => 14699360,
+                                      ),
+                                      502 => 
+                                      array (
+                                        'key' => 'Mebendazole',
+                                        'value' => 14699356,
+                                      ),
+                                      503 => 
+                                      array (
+                                        'key' => 'Medroxyprogesterone acetate',
+                                        'value' => 14699357,
+                                      ),
+                                      504 => 
+                                      array (
+                                        'key' => 'Megestrol acetate',
+                                        'value' => 14699358,
+                                      ),
+                                      505 => 
+                                      array (
+                                        'key' => 'Melphalan',
+                                        'value' => 14699361,
+                                      ),
+                                      506 => 
+                                      array (
+                                        'key' => 'Menotropins',
+                                        'value' => 14699362,
+                                      ),
+                                      507 => 
+                                      array (
+                                        'key' => 'Mepanipyrim',
+                                        'value' => 14699363,
+                                      ),
+                                      508 => 
+                                      array (
+                                        'key' => 'Meprobamate',
+                                        'value' => 14699364,
+                                      ),
+                                      509 => 
+                                      array (
+                                        'key' => 'Mercaptopurine',
+                                        'value' => 14699365,
+                                      ),
+                                      510 => 
+                                      array (
+                                        'key' => 'Mercury and mercury compounds',
+                                        'value' => 14699366,
+                                      ),
+                                      511 => 
+                                      array (
+                                        'key' => 'Merphalan',
+                                        'value' => 14699367,
+                                      ),
+                                      512 => 
+                                      array (
+                                        'key' => 'Mestranol',
+                                        'value' => 14699368,
+                                      ),
+                                      513 => 
+                                      array (
+                                        'key' => 'Metam potassium',
+                                        'value' => 14699369,
+                                      ),
+                                      514 => 
+                                      array (
+                                        'key' => 'Methacycline hydrochloride',
+                                        'value' => 14699370,
+                                      ),
+                                      515 => 
+                                      array (
+                                        'key' => 'Metham sodium',
+                                        'value' => 14699371,
+                                      ),
+                                      516 => 
+                                      array (
+                                        'key' => 'Methanol',
+                                        'value' => 14699372,
+                                      ),
+                                      517 => 
+                                      array (
+                                        'key' => 'Methazole',
+                                        'value' => 14699373,
+                                      ),
+                                      518 => 
+                                      array (
+                                        'key' => 'Methimazole',
+                                        'value' => 14699374,
+                                      ),
+                                      519 => 
+                                      array (
+                                        'key' => 'Methotrexate',
+                                        'value' => 14699375,
+                                      ),
+                                      520 => 
+                                      array (
+                                        'key' => 'Methotrexate sodium',
+                                        'value' => 14699376,
+                                      ),
+                                      521 => 
+                                      array (
+                                        'key' => 'Methyl bromide a structural fumigant',
+                                        'value' => 14699377,
+                                      ),
+                                      522 => 
+                                      array (
+                                        'key' => 'Methyl carbamate',
+                                        'value' => 14699378,
+                                      ),
+                                      523 => 
+                                      array (
+                                        'key' => 'Methyl chloride',
+                                        'value' => 14699379,
+                                      ),
+                                      524 => 
+                                      array (
+                                        'key' => 'Methyl iodide',
+                                        'value' => 14699380,
+                                      ),
+                                      525 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone',
+                                        'value' => 14699381,
+                                      ),
+                                      526 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone (MIBK)',
+                                        'value' => 14699382,
+                                      ),
+                                      527 => 
+                                      array (
+                                        'key' => 'Methyl isocyanate (MIC)',
+                                        'value' => 14699383,
+                                      ),
+                                      528 => 
+                                      array (
+                                        'key' => 'Methyl mercury',
+                                        'value' => 14699384,
+                                      ),
+                                      529 => 
+                                      array (
+                                        'key' => 'Methyl methanesulfonate',
+                                        'value' => 14699385,
+                                      ),
+                                      530 => 
+                                      array (
+                                        'key' => 'Methyl-n-butyl ketone',
+                                        'value' => 14699386,
+                                      ),
+                                      531 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol',
+                                        'value' => 14699387,
+                                      ),
+                                      532 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol acetate',
+                                        'value' => 14699388,
+                                      ),
+                                      533 => 
+                                      array (
+                                        'key' => 'Methyleugenol',
+                                        'value' => 14699389,
+                                      ),
+                                      534 => 
+                                      array (
+                                        'key' => 'Methylhydrazine',
+                                        'value' => 14699390,
+                                      ),
+                                      535 => 
+                                      array (
+                                        'key' => 'Methylhydrazine and its salts',
+                                        'value' => 14699391,
+                                      ),
+                                      536 => 
+                                      array (
+                                        'key' => 'Methylhydrazine sulfate',
+                                        'value' => 14699392,
+                                      ),
+                                      537 => 
+                                      array (
+                                        'key' => 'Methylmercury compounds',
+                                        'value' => 14699393,
+                                      ),
+                                      538 => 
+                                      array (
+                                        'key' => 'Methyltestosterone',
+                                        'value' => 14699394,
+                                      ),
+                                      539 => 
+                                      array (
+                                        'key' => 'Methylthiouracil',
+                                        'value' => 14699395,
+                                      ),
+                                      540 => 
+                                      array (
+                                        'key' => 'Metiram',
+                                        'value' => 14699396,
+                                      ),
+                                      541 => 
+                                      array (
+                                        'key' => 'Metronidazole',
+                                        'value' => 14699397,
+                                      ),
+                                      542 => 
+                                      array (
+                                        'key' => 'Michler\'s ketone',
+                                        'value' => 14699398,
+                                      ),
+                                      543 => 
+                                      array (
+                                        'key' => 'Midazolam hydrochloride',
+                                        'value' => 14699399,
+                                      ),
+                                      544 => 
+                                      array (
+                                        'key' => 'Minocycline hydrochloride (internal use)',
+                                        'value' => 14699400,
+                                      ),
+                                      545 => 
+                                      array (
+                                        'key' => 'Mirex',
+                                        'value' => 14699401,
+                                      ),
+                                      546 => 
+                                      array (
+                                        'key' => 'Misoprostol',
+                                        'value' => 14699402,
+                                      ),
+                                      547 => 
+                                      array (
+                                        'key' => 'Mitomycin C',
+                                        'value' => 14699403,
+                                      ),
+                                      548 => 
+                                      array (
+                                        'key' => 'Mitoxantrone hydrochloride',
+                                        'value' => 14699404,
+                                      ),
+                                      549 => 
+                                      array (
+                                        'key' => 'Molinate',
+                                        'value' => 14699405,
+                                      ),
+                                      550 => 
+                                      array (
+                                        'key' => 'Monocrotaline',
+                                        'value' => 14699408,
+                                      ),
+                                      551 => 
+                                      array (
+                                        'key' => 'Mustard Gas',
+                                        'value' => 14699410,
+                                      ),
+                                      552 => 
+                                      array (
+                                        'key' => 'Myclobutanil',
+                                        'value' => 14699412,
+                                      ),
+                                      553 => 
+                                      array (
+                                        'key' => 'N\'-Diacetylbenzidine',
+                                        'value' => 14699413,
+                                      ),
+                                      554 => 
+                                      array (
+                                        'key' => 'N-Bis(2-chloroethyl)-2-naphthylamine (Chlornapazine)',
+                                        'value' => 14699414,
+                                      ),
+                                      555 => 
+                                      array (
+                                        'key' => 'N-Carboxymethyl-N-nitrosourea',
+                                        'value' => 14699419,
+                                      ),
+                                      556 => 
+                                      array (
+                                        'key' => 'N-Dimethyl-p-toluidine',
+                                        'value' => 14699415,
+                                      ),
+                                      557 => 
+                                      array (
+                                        'key' => 'N-Dimethylacetamide',
+                                        'value' => 14699416,
+                                      ),
+                                      558 => 
+                                      array (
+                                        'key' => 'N-Dimethylformamide',
+                                        'value' => 14699417,
+                                      ),
+                                      559 => 
+                                      array (
+                                        'key' => 'N-Methyl-N\'-nitro-N-nitrosoguanidine',
+                                        'value' => 14699421,
+                                      ),
+                                      560 => 
+                                      array (
+                                        'key' => 'N-Methylolacrylamide',
+                                        'value' => 14699422,
+                                      ),
+                                      561 => 
+                                      array (
+                                        'key' => 'N-Methylpyrrolidone',
+                                        'value' => 14699423,
+                                      ),
+                                      562 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-ethylurea',
+                                        'value' => 14699424,
+                                      ),
+                                      563 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurea',
+                                        'value' => 14699425,
+                                      ),
+                                      564 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurethane',
+                                        'value' => 14699426,
+                                      ),
+                                      565 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-butylamine',
+                                        'value' => 14699427,
+                                      ),
+                                      566 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-propylamine',
+                                        'value' => 14699428,
+                                      ),
+                                      567 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethanolamine',
+                                        'value' => 14699429,
+                                      ),
+                                      568 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethylamine',
+                                        'value' => 14699430,
+                                      ),
+                                      569 => 
+                                      array (
+                                        'key' => 'N-Nitrosodimethylamine',
+                                        'value' => 14699431,
+                                      ),
+                                      570 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiphenylamine',
+                                        'value' => 14699432,
+                                      ),
+                                      571 => 
+                                      array (
+                                        'key' => 'N-Nitrosohexamethyleneimine',
+                                        'value' => 14699433,
+                                      ),
+                                      572 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-butylamine',
+                                        'value' => 14699434,
+                                      ),
+                                      573 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-decylamine',
+                                        'value' => 14699435,
+                                      ),
+                                      574 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-dodecylamine',
+                                        'value' => 14699436,
+                                      ),
+                                      575 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-heptylamine',
+                                        'value' => 14699437,
+                                      ),
+                                      576 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-hexylamine',
+                                        'value' => 14699438,
+                                      ),
+                                      577 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-nonylamine',
+                                        'value' => 14699439,
+                                      ),
+                                      578 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-octylamine',
+                                        'value' => 14699440,
+                                      ),
+                                      579 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-pentylamine',
+                                        'value' => 14699441,
+                                      ),
+                                      580 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-propylamine',
+                                        'value' => 14699442,
+                                      ),
+                                      581 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-tetradecylamine',
+                                        'value' => 14699443,
+                                      ),
+                                      582 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-undecylamine',
+                                        'value' => 14699444,
+                                      ),
+                                      583 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylethylamine',
+                                        'value' => 14699445,
+                                      ),
+                                      584 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylvinylamine',
+                                        'value' => 14699446,
+                                      ),
+                                      585 => 
+                                      array (
+                                        'key' => 'N-Nitrosomorpholine',
+                                        'value' => 14699447,
+                                      ),
+                                      586 => 
+                                      array (
+                                        'key' => 'N-Nitrosonornicotine',
+                                        'value' => 14699448,
+                                      ),
+                                      587 => 
+                                      array (
+                                        'key' => 'N-Nitrosopiperidine',
+                                        'value' => 14699449,
+                                      ),
+                                      588 => 
+                                      array (
+                                        'key' => 'N-Nitrosopyrrolidine',
+                                        'value' => 14699450,
+                                      ),
+                                      589 => 
+                                      array (
+                                        'key' => 'N-Nitrososarcosine',
+                                        'value' => 14699451,
+                                      ),
+                                      590 => 
+                                      array (
+                                        'key' => 'N-[4-(5-Nitro-2-furyl)-2-thiazolyl]acetamide',
+                                        'value' => 14699418,
+                                      ),
+                                      591 => 
+                                      array (
+                                        'key' => 'Nabam',
+                                        'value' => 14699452,
+                                      ),
+                                      592 => 
+                                      array (
+                                        'key' => 'Nafarelin acetate',
+                                        'value' => 14699453,
+                                      ),
+                                      593 => 
+                                      array (
+                                        'key' => 'Nafenopin',
+                                        'value' => 14699454,
+                                      ),
+                                      594 => 
+                                      array (
+                                        'key' => 'Nalidixic acid',
+                                        'value' => 14699455,
+                                      ),
+                                      595 => 
+                                      array (
+                                        'key' => 'Naphthalene',
+                                        'value' => 14699456,
+                                      ),
+                                      596 => 
+                                      array (
+                                        'key' => 'Neomycin sulfate (internal use)',
+                                        'value' => 14699457,
+                                      ),
+                                      597 => 
+                                      array (
+                                        'key' => 'Neonatal infant boys 0 to 28 daysb',
+                                        'value' => 14699458,
+                                      ),
+                                      598 => 
+                                      array (
+                                        'key' => 'Netilmicin sulfate',
+                                        'value' => 14699459,
+                                      ),
+                                      599 => 
+                                      array (
+                                        'key' => 'Nickel (Metallic)',
+                                        'value' => 14699460,
+                                      ),
+                                      600 => 
+                                      array (
+                                        'key' => 'Nickel (soluble compounds)',
+                                        'value' => 14699461,
+                                      ),
+                                      601 => 
+                                      array (
+                                        'key' => 'Nickel acetate',
+                                        'value' => 14699462,
+                                      ),
+                                      602 => 
+                                      array (
+                                        'key' => 'Nickel carbonate',
+                                        'value' => 14699463,
+                                      ),
+                                      603 => 
+                                      array (
+                                        'key' => 'Nickel carbonyl',
+                                        'value' => 14699464,
+                                      ),
+                                      604 => 
+                                      array (
+                                        'key' => 'Nickel compounds',
+                                        'value' => 14699465,
+                                      ),
+                                      605 => 
+                                      array (
+                                        'key' => 'Nickel hydroxide',
+                                        'value' => 14699466,
+                                      ),
+                                      606 => 
+                                      array (
+                                        'key' => 'Nickel oxide',
+                                        'value' => 14699467,
+                                      ),
+                                      607 => 
+                                      array (
+                                        'key' => 'Nickel refinery dust from the pyrometallurgical process',
+                                        'value' => 14699468,
+                                      ),
+                                      608 => 
+                                      array (
+                                        'key' => 'Nickel subsulfide',
+                                        'value' => 14699469,
+                                      ),
+                                      609 => 
+                                      array (
+                                        'key' => 'Nickelocene',
+                                        'value' => 14699470,
+                                      ),
+                                      610 => 
+                                      array (
+                                        'key' => 'Nicotine',
+                                        'value' => 14699471,
+                                      ),
+                                      611 => 
+                                      array (
+                                        'key' => 'Nifedipine',
+                                        'value' => 14699472,
+                                      ),
+                                      612 => 
+                                      array (
+                                        'key' => 'Nimodipine',
+                                        'value' => 14699473,
+                                      ),
+                                      613 => 
+                                      array (
+                                        'key' => 'Niridazole',
+                                        'value' => 14699474,
+                                      ),
+                                      614 => 
+                                      array (
+                                        'key' => 'Nitrapyrin',
+                                        'value' => 14699475,
+                                      ),
+                                      615 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid',
+                                        'value' => 14699476,
+                                      ),
+                                      616 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid salt monohydrate',
+                                        'value' => 14699477,
+                                      ),
+                                      617 => 
+                                      array (
+                                        'key' => 'Nitrobenzene',
+                                        'value' => 14699478,
+                                      ),
+                                      618 => 
+                                      array (
+                                        'key' => 'Nitrofen (technical grade)',
+                                        'value' => 14699479,
+                                      ),
+                                      619 => 
+                                      array (
+                                        'key' => 'Nitrofurantoin',
+                                        'value' => 14699480,
+                                      ),
+                                      620 => 
+                                      array (
+                                        'key' => 'Nitrofurazone',
+                                        'value' => 14699481,
+                                      ),
+                                      621 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard (Mechlorethamine)',
+                                        'value' => 14699482,
+                                      ),
+                                      622 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide',
+                                        'value' => 14699484,
+                                      ),
+                                      623 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide hydrochloride',
+                                        'value' => 14699485,
+                                      ),
+                                      624 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard hydrochloride (Mechlorethamine hydrochloride)',
+                                        'value' => 14699483,
+                                      ),
+                                      625 => 
+                                      array (
+                                        'key' => 'Nitromethane',
+                                        'value' => 14699486,
+                                      ),
+                                      626 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone)',
+                                        'value' => 14699487,
+                                      ),
+                                      627 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Ethinyl estradiol',
+                                        'value' => 14699488,
+                                      ),
+                                      628 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Mestranol',
+                                        'value' => 14699489,
+                                      ),
+                                      629 => 
+                                      array (
+                                        'key' => 'Norethisterone acetate (Norethindrone acetate)',
+                                        'value' => 14699490,
+                                      ),
+                                      630 => 
+                                      array (
+                                        'key' => 'Norethynodrel',
+                                        'value' => 14699491,
+                                      ),
+                                      631 => 
+                                      array (
+                                        'key' => 'Norgestrel',
+                                        'value' => 14699492,
+                                      ),
+                                      632 => 
+                                      array (
+                                        'key' => 'Ochratoxin A',
+                                        'value' => 14699507,
+                                      ),
+                                      633 => 
+                                      array (
+                                        'key' => 'Oil Orange SS',
+                                        'value' => 14699508,
+                                      ),
+                                      634 => 
+                                      array (
+                                        'key' => 'Oral contraceptives',
+                                        'value' => 14699509,
+                                      ),
+                                      635 => 
+                                      array (
+                                        'key' => 'Oryzalin',
+                                        'value' => 14699510,
+                                      ),
+                                      636 => 
+                                      array (
+                                        'key' => 'Oxadiazon',
+                                        'value' => 14699511,
+                                      ),
+                                      637 => 
+                                      array (
+                                        'key' => 'Oxazepam',
+                                        'value' => 14699512,
+                                      ),
+                                      638 => 
+                                      array (
+                                        'key' => 'Oxydemeton methyl',
+                                        'value' => 14699513,
+                                      ),
+                                      639 => 
+                                      array (
+                                        'key' => 'Oxymetholone',
+                                        'value' => 14699514,
+                                      ),
+                                      640 => 
+                                      array (
+                                        'key' => 'Oxytetracycline (internal use)',
+                                        'value' => 14699515,
+                                      ),
+                                      641 => 
+                                      array (
+                                        'key' => 'Oxytetracycline hydrochloride (internal use)',
+                                        'value' => 14699516,
+                                      ),
+                                      642 => 
+                                      array (
+                                        'key' => 'Oxythioquinox (Chinomethionat)',
+                                        'value' => 14699517,
+                                      ),
+                                      643 => 
+                                      array (
+                                        'key' => 'Paclitaxel',
+                                        'value' => 14699530,
+                                      ),
+                                      644 => 
+                                      array (
+                                        'key' => 'Palygorskite fibers (> 5æm in length)',
+                                        'value' => 14699531,
+                                      ),
+                                      645 => 
+                                      array (
+                                        'key' => 'Panfuran S',
+                                        'value' => 14699532,
+                                      ),
+                                      646 => 
+                                      array (
+                                        'key' => 'Paramethadione',
+                                        'value' => 14699534,
+                                      ),
+                                      647 => 
+                                      array (
+                                        'key' => 'Parathion',
+                                        'value' => 14699535,
+                                      ),
+                                      648 => 
+                                      array (
+                                        'key' => 'Penicillamine',
+                                        'value' => 14699536,
+                                      ),
+                                      649 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol',
+                                        'value' => 14699538,
+                                      ),
+                                      650 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol and by-products of its synthesis (complex mixture)',
+                                        'value' => 14699539,
+                                      ),
+                                      651 => 
+                                      array (
+                                        'key' => 'Pentobarbital sodium',
+                                        'value' => 14699540,
+                                      ),
+                                      652 => 
+                                      array (
+                                        'key' => 'Pentosan polysulfate sodium',
+                                        'value' => 14699541,
+                                      ),
+                                      653 => 
+                                      array (
+                                        'key' => 'Pentostatin',
+                                        'value' => 14699542,
+                                      ),
+                                      654 => 
+                                      array (
+                                        'key' => 'Perfluorooctane sulfonate (PFOS)',
+                                        'value' => 14699543,
+                                      ),
+                                      655 => 
+                                      array (
+                                        'key' => 'Perfluorooctanoic acid (PFOA)',
+                                        'value' => 14699544,
+                                      ),
+                                      656 => 
+                                      array (
+                                        'key' => 'Pertuzumab',
+                                        'value' => 14699545,
+                                      ),
+                                      657 => 
+                                      array (
+                                        'key' => 'Phenacemide',
+                                        'value' => 14699546,
+                                      ),
+                                      658 => 
+                                      array (
+                                        'key' => 'Phenacetin',
+                                        'value' => 14699547,
+                                      ),
+                                      659 => 
+                                      array (
+                                        'key' => 'Phenazopyridine',
+                                        'value' => 14699548,
+                                      ),
+                                      660 => 
+                                      array (
+                                        'key' => 'Phenazopyridine hydrochloride',
+                                        'value' => 14699549,
+                                      ),
+                                      661 => 
+                                      array (
+                                        'key' => 'Phenesterin',
+                                        'value' => 14699550,
+                                      ),
+                                      662 => 
+                                      array (
+                                        'key' => 'Phenobarbital',
+                                        'value' => 14699551,
+                                      ),
+                                      663 => 
+                                      array (
+                                        'key' => 'Phenolphthalein',
+                                        'value' => 14699552,
+                                      ),
+                                      664 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine',
+                                        'value' => 14699553,
+                                      ),
+                                      665 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine hydrochloride',
+                                        'value' => 14699554,
+                                      ),
+                                      666 => 
+                                      array (
+                                        'key' => 'Phenprocoumon',
+                                        'value' => 14699555,
+                                      ),
+                                      667 => 
+                                      array (
+                                        'key' => 'Phenyl glycidyl ether',
+                                        'value' => 14699556,
+                                      ),
+                                      668 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine',
+                                        'value' => 14699557,
+                                      ),
+                                      669 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine and its salts',
+                                        'value' => 14699558,
+                                      ),
+                                      670 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine hydrochloride',
+                                        'value' => 14699559,
+                                      ),
+                                      671 => 
+                                      array (
+                                        'key' => 'PhiP(2-Amino-1-methyl-6-phenylimidazol[4-b]pyridine)',
+                                        'value' => 14699560,
+                                      ),
+                                      672 => 
+                                      array (
+                                        'key' => 'Pimozide',
+                                        'value' => 14699561,
+                                      ),
+                                      673 => 
+                                      array (
+                                        'key' => 'Pioglitazone',
+                                        'value' => 14699562,
+                                      ),
+                                      674 => 
+                                      array (
+                                        'key' => 'Pipobroman',
+                                        'value' => 14699563,
+                                      ),
+                                      675 => 
+                                      array (
+                                        'key' => 'Pirimicarb',
+                                        'value' => 14699564,
+                                      ),
+                                      676 => 
+                                      array (
+                                        'key' => 'Plicamycin',
+                                        'value' => 14699565,
+                                      ),
+                                      677 => 
+                                      array (
+                                        'key' => 'Polybrominated biphenyls',
+                                        'value' => 14699566,
+                                      ),
+                                      678 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls',
+                                        'value' => 14699567,
+                                      ),
+                                      679 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls (containing 60 or more percent chlorine by molecular weight)',
+                                        'value' => 14699568,
+                                      ),
+                                      680 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzo-p-dioxins',
+                                        'value' => 14699569,
+                                      ),
+                                      681 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzofurans',
+                                        'value' => 14699570,
+                                      ),
+                                      682 => 
+                                      array (
+                                        'key' => 'Polygeenan',
+                                        'value' => 14699571,
+                                      ),
+                                      683 => 
+                                      array (
+                                        'key' => 'Ponceau 3R',
+                                        'value' => 14699572,
+                                      ),
+                                      684 => 
+                                      array (
+                                        'key' => 'Ponceau MX',
+                                        'value' => 14699573,
+                                      ),
+                                      685 => 
+                                      array (
+                                        'key' => 'Potassium bromate',
+                                        'value' => 14699574,
+                                      ),
+                                      686 => 
+                                      array (
+                                        'key' => 'Potassium cyanidef',
+                                        'value' => 14699575,
+                                      ),
+                                      687 => 
+                                      array (
+                                        'key' => 'Potassium dimethyldithiocarbamate',
+                                        'value' => 14699576,
+                                      ),
+                                      688 => 
+                                      array (
+                                        'key' => 'Pravastatin sodium',
+                                        'value' => 14699577,
+                                      ),
+                                      689 => 
+                                      array (
+                                        'key' => 'Prednisolone sodium phosphate',
+                                        'value' => 14699578,
+                                      ),
+                                      690 => 
+                                      array (
+                                        'key' => 'Primidone',
+                                        'value' => 14699579,
+                                      ),
+                                      691 => 
+                                      array (
+                                        'key' => 'Procarbazine',
+                                        'value' => 14699580,
+                                      ),
+                                      692 => 
+                                      array (
+                                        'key' => 'Procarbazine hydrochloride',
+                                        'value' => 14699581,
+                                      ),
+                                      693 => 
+                                      array (
+                                        'key' => 'Procymidone',
+                                        'value' => 14699582,
+                                      ),
+                                      694 => 
+                                      array (
+                                        'key' => 'Progesterone',
+                                        'value' => 14699583,
+                                      ),
+                                      695 => 
+                                      array (
+                                        'key' => 'Pronamide',
+                                        'value' => 14699584,
+                                      ),
+                                      696 => 
+                                      array (
+                                        'key' => 'Propachlor',
+                                        'value' => 14699585,
+                                      ),
+                                      697 => 
+                                      array (
+                                        'key' => 'Propargite',
+                                        'value' => 14699586,
+                                      ),
+                                      698 => 
+                                      array (
+                                        'key' => 'Propazine',
+                                        'value' => 14699587,
+                                      ),
+                                      699 => 
+                                      array (
+                                        'key' => 'Propoxur',
+                                        'value' => 14699588,
+                                      ),
+                                      700 => 
+                                      array (
+                                        'key' => 'Propylene glycol mono-t-butyl ether',
+                                        'value' => 14699589,
+                                      ),
+                                      701 => 
+                                      array (
+                                        'key' => 'Propylene oxide',
+                                        'value' => 14699590,
+                                      ),
+                                      702 => 
+                                      array (
+                                        'key' => 'Propylthiouracil',
+                                        'value' => 14699591,
+                                      ),
+                                      703 => 
+                                      array (
+                                        'key' => 'Pulegone',
+                                        'value' => 14699592,
+                                      ),
+                                      704 => 
+                                      array (
+                                        'key' => 'Pymetrozine',
+                                        'value' => 14699593,
+                                      ),
+                                      705 => 
+                                      array (
+                                        'key' => 'Pyridine',
+                                        'value' => 14699594,
+                                      ),
+                                      706 => 
+                                      array (
+                                        'key' => 'Pyrimethamine',
+                                        'value' => 14699595,
+                                      ),
+                                      707 => 
+                                      array (
+                                        'key' => 'Quazepam',
+                                        'value' => 14699596,
+                                      ),
+                                      708 => 
+                                      array (
+                                        'key' => 'Quinoline and its strong acid salts',
+                                        'value' => 14699597,
+                                      ),
+                                      709 => 
+                                      array (
+                                        'key' => 'Quizalofop-ethyl',
+                                        'value' => 14699598,
+                                      ),
+                                      710 => 
+                                      array (
+                                        'key' => 'Radionuclides',
+                                        'value' => 14699599,
+                                      ),
+                                      711 => 
+                                      array (
+                                        'key' => 'Reserpine',
+                                        'value' => 14699600,
+                                      ),
+                                      712 => 
+                                      array (
+                                        'key' => 'Residual (heavy) fuel oils',
+                                        'value' => 14699601,
+                                      ),
+                                      713 => 
+                                      array (
+                                        'key' => 'Resmethrin',
+                                        'value' => 14699602,
+                                      ),
+                                      714 => 
+                                      array (
+                                        'key' => 'Ribavirin',
+                                        'value' => 14699603,
+                                      ),
+                                      715 => 
+                                      array (
+                                        'key' => 'Riddelliine',
+                                        'value' => 14699604,
+                                      ),
+                                      716 => 
+                                      array (
+                                        'key' => 'Rifampin',
+                                        'value' => 14699605,
+                                      ),
+                                      717 => 
+                                      array (
+                                        'key' => 'S-Tributyl phosphorotrithioate (Tribufos)',
+                                        'value' => 14699606,
+                                      ),
+                                      718 => 
+                                      array (
+                                        'key' => 'Safrole',
+                                        'value' => 14699607,
+                                      ),
+                                      719 => 
+                                      array (
+                                        'key' => 'Salted fish-style',
+                                        'value' => 14699608,
+                                      ),
+                                      720 => 
+                                      array (
+                                        'key' => 'Secobarbital sodium',
+                                        'value' => 14699609,
+                                      ),
+                                      721 => 
+                                      array (
+                                        'key' => 'Sedaxane',
+                                        'value' => 14699610,
+                                      ),
+                                      722 => 
+                                      array (
+                                        'key' => 'Selenium sulfide',
+                                        'value' => 14699611,
+                                      ),
+                                      723 => 
+                                      array (
+                                        'key' => 'Sermorelin acetate',
+                                        'value' => 14699612,
+                                      ),
+                                      724 => 
+                                      array (
+                                        'key' => 'Shale-oils',
+                                        'value' => 14699613,
+                                      ),
+                                      725 => 
+                                      array (
+                                        'key' => 'Silica (airborne particles of respirable size)',
+                                        'value' => 14699614,
+                                      ),
+                                      726 => 
+                                      array (
+                                        'key' => 'Simazine',
+                                        'value' => 14699615,
+                                      ),
+                                      727 => 
+                                      array (
+                                        'key' => 'Sodium cyanidef',
+                                        'value' => 14699616,
+                                      ),
+                                      728 => 
+                                      array (
+                                        'key' => 'Sodium dimethyldithiocarbamate',
+                                        'value' => 14699617,
+                                      ),
+                                      729 => 
+                                      array (
+                                        'key' => 'Sodium fluoroacetate',
+                                        'value' => 14699618,
+                                      ),
+                                      730 => 
+                                      array (
+                                        'key' => 'Soots mineral oils (untreated and mildly treated oils and used engine oils)',
+                                        'value' => 14699619,
+                                      ),
+                                      731 => 
+                                      array (
+                                        'key' => 'Spirodiclofen',
+                                        'value' => 14699620,
+                                      ),
+                                      732 => 
+                                      array (
+                                        'key' => 'Spironolactone',
+                                        'value' => 14699621,
+                                      ),
+                                      733 => 
+                                      array (
+                                        'key' => 'Stanozolol',
+                                        'value' => 14699622,
+                                      ),
+                                      734 => 
+                                      array (
+                                        'key' => 'Sterigmatocystin',
+                                        'value' => 14699623,
+                                      ),
+                                      735 => 
+                                      array (
+                                        'key' => 'Streptomycin sulfate',
+                                        'value' => 14699624,
+                                      ),
+                                      736 => 
+                                      array (
+                                        'key' => 'Streptozocin (streptozotocin)',
+                                        'value' => 14699625,
+                                      ),
+                                      737 => 
+                                      array (
+                                        'key' => 'Streptozotocin (streptozocin)',
+                                        'value' => 14699626,
+                                      ),
+                                      738 => 
+                                      array (
+                                        'key' => 'Strong inorganic acid mists containing sulfuric acid',
+                                        'value' => 14699627,
+                                      ),
+                                      739 => 
+                                      array (
+                                        'key' => 'Styrene',
+                                        'value' => 14699628,
+                                      ),
+                                      740 => 
+                                      array (
+                                        'key' => 'Styrene oxide',
+                                        'value' => 14699629,
+                                      ),
+                                      741 => 
+                                      array (
+                                        'key' => 'Sulfallate',
+                                        'value' => 14699630,
+                                      ),
+                                      742 => 
+                                      array (
+                                        'key' => 'Sulfasalazine (Salicylazosulfapyridine)',
+                                        'value' => 14699631,
+                                      ),
+                                      743 => 
+                                      array (
+                                        'key' => 'Sulfur dioxidee',
+                                        'value' => 14699632,
+                                      ),
+                                      744 => 
+                                      array (
+                                        'key' => 'Sulindac',
+                                        'value' => 14699633,
+                                      ),
+                                      745 => 
+                                      array (
+                                        'key' => 'TRIM? VX',
+                                        'value' => 14699683,
+                                      ),
+                                      746 => 
+                                      array (
+                                        'key' => 'Talc containing asbestiform fibers',
+                                        'value' => 14699634,
+                                      ),
+                                      747 => 
+                                      array (
+                                        'key' => 'Tamoxifen and its salts',
+                                        'value' => 14699635,
+                                      ),
+                                      748 => 
+                                      array (
+                                        'key' => 'Tamoxifen citrate',
+                                        'value' => 14699636,
+                                      ),
+                                      749 => 
+                                      array (
+                                        'key' => 'Temazepam',
+                                        'value' => 14699637,
+                                      ),
+                                      750 => 
+                                      array (
+                                        'key' => 'Teniposide',
+                                        'value' => 14699638,
+                                      ),
+                                      751 => 
+                                      array (
+                                        'key' => 'Terbacil',
+                                        'value' => 14699639,
+                                      ),
+                                      752 => 
+                                      array (
+                                        'key' => 'Teriparatide',
+                                        'value' => 14699640,
+                                      ),
+                                      753 => 
+                                      array (
+                                        'key' => 'Terrazole',
+                                        'value' => 14699641,
+                                      ),
+                                      754 => 
+                                      array (
+                                        'key' => 'Testosterone and its esters',
+                                        'value' => 14699642,
+                                      ),
+                                      755 => 
+                                      array (
+                                        'key' => 'Testosterone cypionate',
+                                        'value' => 14699643,
+                                      ),
+                                      756 => 
+                                      array (
+                                        'key' => 'Testosterone enanthate',
+                                        'value' => 14699644,
+                                      ),
+                                      757 => 
+                                      array (
+                                        'key' => 'Tetrabromobisphenol A',
+                                        'value' => 14699645,
+                                      ),
+                                      758 => 
+                                      array (
+                                        'key' => 'Tetrachloroethylene (Perchloroethylene)',
+                                        'value' => 14699646,
+                                      ),
+                                      759 => 
+                                      array (
+                                        'key' => 'Tetrachlorvinphos',
+                                        'value' => 14699647,
+                                      ),
+                                      760 => 
+                                      array (
+                                        'key' => 'Tetracycline (internal use)',
+                                        'value' => 14699648,
+                                      ),
+                                      761 => 
+                                      array (
+                                        'key' => 'Tetracycline hydrochloride (internal use)',
+                                        'value' => 14699649,
+                                      ),
+                                      762 => 
+                                      array (
+                                        'key' => 'Tetracyclines (internal use)',
+                                        'value' => 14699650,
+                                      ),
+                                      763 => 
+                                      array (
+                                        'key' => 'Tetrafluoroethylene',
+                                        'value' => 14699651,
+                                      ),
+                                      764 => 
+                                      array (
+                                        'key' => 'Tetranitromethane',
+                                        'value' => 14699652,
+                                      ),
+                                      765 => 
+                                      array (
+                                        'key' => 'Thalidomide',
+                                        'value' => 14699653,
+                                      ),
+                                      766 => 
+                                      array (
+                                        'key' => 'Thioacetamide',
+                                        'value' => 14699654,
+                                      ),
+                                      767 => 
+                                      array (
+                                        'key' => 'Thiodicarb',
+                                        'value' => 14699655,
+                                      ),
+                                      768 => 
+                                      array (
+                                        'key' => 'Thioguanine',
+                                        'value' => 14699656,
+                                      ),
+                                      769 => 
+                                      array (
+                                        'key' => 'Thiophanate methyl',
+                                        'value' => 14699657,
+                                      ),
+                                      770 => 
+                                      array (
+                                        'key' => 'Thiouracil',
+                                        'value' => 14699658,
+                                      ),
+                                      771 => 
+                                      array (
+                                        'key' => 'Thiourea',
+                                        'value' => 14699659,
+                                      ),
+                                      772 => 
+                                      array (
+                                        'key' => 'Thorium dioxide',
+                                        'value' => 14699660,
+                                      ),
+                                      773 => 
+                                      array (
+                                        'key' => 'Titanium dioxide (airborne particles of respirable size)',
+                                        'value' => 14699661,
+                                      ),
+                                      774 => 
+                                      array (
+                                        'key' => 'Tobacco smoke',
+                                        'value' => 14699662,
+                                      ),
+                                      775 => 
+                                      array (
+                                        'key' => 'Tobacco smoke (primary)',
+                                        'value' => 14699663,
+                                      ),
+                                      776 => 
+                                      array (
+                                        'key' => 'Tobacco use of smokeless products',
+                                        'value' => 14699664,
+                                      ),
+                                      777 => 
+                                      array (
+                                        'key' => 'Tobramycin sulfate',
+                                        'value' => 14699665,
+                                      ),
+                                      778 => 
+                                      array (
+                                        'key' => 'Toluene',
+                                        'value' => 14699666,
+                                      ),
+                                      779 => 
+                                      array (
+                                        'key' => 'Toluene diisocyanate',
+                                        'value' => 14699667,
+                                      ),
+                                      780 => 
+                                      array (
+                                        'key' => 'Topiramate',
+                                        'value' => 14699668,
+                                      ),
+                                      781 => 
+                                      array (
+                                        'key' => 'Toxaphene (Polychlorinated camphenes)',
+                                        'value' => 14699669,
+                                      ),
+                                      782 => 
+                                      array (
+                                        'key' => 'Toxins derived from Fusarium moniliforme (Fusarium verticillioides)',
+                                        'value' => 14699670,
+                                      ),
+                                      783 => 
+                                      array (
+                                        'key' => 'Treosulfan',
+                                        'value' => 14699672,
+                                      ),
+                                      784 => 
+                                      array (
+                                        'key' => 'Triadimefon',
+                                        'value' => 14699673,
+                                      ),
+                                      785 => 
+                                      array (
+                                        'key' => 'Triamterene',
+                                        'value' => 14699674,
+                                      ),
+                                      786 => 
+                                      array (
+                                        'key' => 'Triazolam',
+                                        'value' => 14699675,
+                                      ),
+                                      787 => 
+                                      array (
+                                        'key' => 'Tributyltin methacrylate',
+                                        'value' => 14699676,
+                                      ),
+                                      788 => 
+                                      array (
+                                        'key' => 'Trichlormethine (Trimustine hydrochloride)',
+                                        'value' => 14699677,
+                                      ),
+                                      789 => 
+                                      array (
+                                        'key' => 'Trichloroacetic acid',
+                                        'value' => 14699678,
+                                      ),
+                                      790 => 
+                                      array (
+                                        'key' => 'Trichloroethylene',
+                                        'value' => 14699679,
+                                      ),
+                                      791 => 
+                                      array (
+                                        'key' => 'Trientine hydrochloride',
+                                        'value' => 14699680,
+                                      ),
+                                      792 => 
+                                      array (
+                                        'key' => 'Triforine',
+                                        'value' => 14699681,
+                                      ),
+                                      793 => 
+                                      array (
+                                        'key' => 'Trilostane',
+                                        'value' => 14699682,
+                                      ),
+                                      794 => 
+                                      array (
+                                        'key' => 'Trimethadione',
+                                        'value' => 14699684,
+                                      ),
+                                      795 => 
+                                      array (
+                                        'key' => 'Trimethyl phosphate',
+                                        'value' => 14699685,
+                                      ),
+                                      796 => 
+                                      array (
+                                        'key' => 'Trimetrexate glucuronate',
+                                        'value' => 14699686,
+                                      ),
+                                      797 => 
+                                      array (
+                                        'key' => 'Triphenyltin hydroxide',
+                                        'value' => 14699687,
+                                      ),
+                                      798 => 
+                                      array (
+                                        'key' => 'Tris(1-aziridinyl)phosphine sulfide (Thiotepa)',
+                                        'value' => 14699689,
+                                      ),
+                                      799 => 
+                                      array (
+                                        'key' => 'Tris(1-dichloro-2-propyl) phosphate (TDCPP)',
+                                        'value' => 14699688,
+                                      ),
+                                      800 => 
+                                      array (
+                                        'key' => 'Tris(2-chloroethyl) phosphate',
+                                        'value' => 14699691,
+                                      ),
+                                      801 => 
+                                      array (
+                                        'key' => 'Tris(2-dibromopropyl)phosphate',
+                                        'value' => 14699690,
+                                      ),
+                                      802 => 
+                                      array (
+                                        'key' => 'Trp-P-1 (Tryptophan-P-1)',
+                                        'value' => 14699692,
+                                      ),
+                                      803 => 
+                                      array (
+                                        'key' => 'Trp-P-2 (Tryptophan-P-2)',
+                                        'value' => 14699693,
+                                      ),
+                                      804 => 
+                                      array (
+                                        'key' => 'Trypan blue (commercial grade)',
+                                        'value' => 14699694,
+                                      ),
+                                      805 => 
+                                      array (
+                                        'key' => 'Unleaded gasoline (wholly vaporized)',
+                                        'value' => 14699695,
+                                      ),
+                                      806 => 
+                                      array (
+                                        'key' => 'Uracil mustard',
+                                        'value' => 14699696,
+                                      ),
+                                      807 => 
+                                      array (
+                                        'key' => 'Urethane (Ethyl carbamate)',
+                                        'value' => 14699697,
+                                      ),
+                                      808 => 
+                                      array (
+                                        'key' => 'Urofollitropin',
+                                        'value' => 14699698,
+                                      ),
+                                      809 => 
+                                      array (
+                                        'key' => 'Valproate (Valproic acid)',
+                                        'value' => 14699699,
+                                      ),
+                                      810 => 
+                                      array (
+                                        'key' => 'Vanadium pentoxide (orthorhombic crystalline form)',
+                                        'value' => 14699700,
+                                      ),
+                                      811 => 
+                                      array (
+                                        'key' => 'Vinblastine sulfate',
+                                        'value' => 14699701,
+                                      ),
+                                      812 => 
+                                      array (
+                                        'key' => 'Vinclozolin',
+                                        'value' => 14699702,
+                                      ),
+                                      813 => 
+                                      array (
+                                        'key' => 'Vincristine sulfate',
+                                        'value' => 14699703,
+                                      ),
+                                      814 => 
+                                      array (
+                                        'key' => 'Vinyl bromide',
+                                        'value' => 14699704,
+                                      ),
+                                      815 => 
+                                      array (
+                                        'key' => 'Vinyl chloride',
+                                        'value' => 14699705,
+                                      ),
+                                      816 => 
+                                      array (
+                                        'key' => 'Vinyl fluoride',
+                                        'value' => 14699706,
+                                      ),
+                                      817 => 
+                                      array (
+                                        'key' => 'Vinyl trichloride (1-Trichloroethane)',
+                                        'value' => 14699707,
+                                      ),
+                                      818 => 
+                                      array (
+                                        'key' => 'Vinylidene chloride 
+(1-Dichloroethylene)',
+                                        'value' => 14699708,
+                                      ),
+                                      819 => 
+                                      array (
+                                        'key' => 'Vismodegib',
+                                        'value' => 14699709,
+                                      ),
+                                      820 => 
+                                      array (
+                                        'key' => 'Warfarin',
+                                        'value' => 14699710,
+                                      ),
+                                      821 => 
+                                      array (
+                                        'key' => 'Wood dust',
+                                        'value' => 14699711,
+                                      ),
+                                      822 => 
+                                      array (
+                                        'key' => 'Zalcitabine',
+                                        'value' => 14699712,
+                                      ),
+                                      823 => 
+                                      array (
+                                        'key' => 'Zidovudine (AZT)',
+                                        'value' => 14699713,
+                                      ),
+                                      824 => 
+                                      array (
+                                        'key' => 'Zileuton',
+                                        'value' => 14699714,
+                                      ),
+                                      825 => 
+                                      array (
+                                        'key' => 'beta-Butyrolactone',
+                                        'value' => 14699037,
+                                      ),
+                                      826 => 
+                                      array (
+                                        'key' => 'beta-Myrcene',
+                                        'value' => 14699038,
+                                      ),
+                                      827 => 
+                                      array (
+                                        'key' => 'beta-Propiolactone',
+                                        'value' => 14699039,
+                                      ),
+                                      828 => 
+                                      array (
+                                        'key' => 'm-Dinitrobenzene',
+                                        'value' => 14699349,
+                                      ),
+                                      829 => 
+                                      array (
+                                        'key' => 'n-Hexane',
+                                        'value' => 14699420,
+                                      ),
+                                      830 => 
+                                      array (
+                                        'key' => 'o\'-DDT',
+                                        'value' => 14699493,
+                                      ),
+                                      831 => 
+                                      array (
+                                        'key' => 'o-Aminoazotoluene',
+                                        'value' => 14699494,
+                                      ),
+                                      832 => 
+                                      array (
+                                        'key' => 'o-Anisidine',
+                                        'value' => 14699495,
+                                      ),
+                                      833 => 
+                                      array (
+                                        'key' => 'o-Anisidine hydrochloride',
+                                        'value' => 14699496,
+                                      ),
+                                      834 => 
+                                      array (
+                                        'key' => 'o-Dinitrobenzene',
+                                        'value' => 14699497,
+                                      ),
+                                      835 => 
+                                      array (
+                                        'key' => 'o-Nitroanisole',
+                                        'value' => 14699498,
+                                      ),
+                                      836 => 
+                                      array (
+                                        'key' => 'o-Nitrotoluene',
+                                        'value' => 14699499,
+                                      ),
+                                      837 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine',
+                                        'value' => 14699500,
+                                      ),
+                                      838 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine and its salts',
+                                        'value' => 14699501,
+                                      ),
+                                      839 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine dihydrochloride',
+                                        'value' => 14699502,
+                                      ),
+                                      840 => 
+                                      array (
+                                        'key' => 'o-Phenylphenate',
+                                        'value' => 14699503,
+                                      ),
+                                      841 => 
+                                      array (
+                                        'key' => 'o-Phenylphenol',
+                                        'value' => 14699504,
+                                      ),
+                                      842 => 
+                                      array (
+                                        'key' => 'o-Toluidine',
+                                        'value' => 14699505,
+                                      ),
+                                      843 => 
+                                      array (
+                                        'key' => 'o-Toluidine hydrochloride',
+                                        'value' => 14699506,
+                                      ),
+                                      844 => 
+                                      array (
+                                        'key' => 'p\'-DDT',
+                                        'value' => 14699518,
+                                      ),
+                                      845 => 
+                                      array (
+                                        'key' => 'p-Aminoazobenzene',
+                                        'value' => 14699520,
+                                      ),
+                                      846 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine',
+                                        'value' => 14699521,
+                                      ),
+                                      847 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine acid salts of',
+                                        'value' => 14699522,
+                                      ),
+                                      848 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline',
+                                        'value' => 14699524,
+                                      ),
+                                      849 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline hydrochloride',
+                                        'value' => 14699525,
+                                      ),
+                                      850 => 
+                                      array (
+                                        'key' => 'p-Cresidine',
+                                        'value' => 14699526,
+                                      ),
+                                      851 => 
+                                      array (
+                                        'key' => 'p-Dichlorobenzene',
+                                        'value' => 14699527,
+                                      ),
+                                      852 => 
+                                      array (
+                                        'key' => 'p-Dinitrobenzene',
+                                        'value' => 14699528,
+                                      ),
+                                      853 => 
+                                      array (
+                                        'key' => 'p-Nitrosodiphenylamine',
+                                        'value' => 14699529,
+                                      ),
+                                      854 => 
+                                      array (
+                                        'key' => 'p-a-Tetrachlorotoluene',
+                                        'value' => 14699519,
+                                      ),
+                                      855 => 
+                                      array (
+                                        'key' => 'p-chloro-à-trifluorotoluene (para-Chlorobenzotrifluoride)',
+                                        'value' => 14699523,
+                                      ),
+                                      856 => 
+                                      array (
+                                        'key' => 'para-Nitroanisole',
+                                        'value' => 14699533,
+                                      ),
+                                      857 => 
+                                      array (
+                                        'key' => 'pentabromodiphenyl ether mixture [DE-71 (technical grade)]',
+                                        'value' => 14699537,
+                                      ),
+                                      858 => 
+                                      array (
+                                        'key' => 'trans-2-[(Dimethylamino)methylimino]-5-[2-(5-nitro-2-furyl)vinyl]-1-oxadiazole',
+                                        'value' => 14699671,
+                                      ),
+                                      859 => 
+                                      array (
+                                        'key' => 'à-Methyl styrene (alpha-Methylstyrene)',
+                                        'value' => 14699715,
+                                      ),
                                     ),
                                      'width' => 230,
                                      'defaultValue' => '',
@@ -6340,6 +10185,4307 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-(4-methylcyclohexyl)-1-nitrosourea (Methyl-CCNU)',
+                                        'value' => 14698874,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-cyclohexyl-1-nitrosourea (CCNU) (Lomustine)',
+                                        'value' => 14698875,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => '1-Amino-2-dibromoanthraquinone',
+                                        'value' => 14698877,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => '1-Amino-2-methylanthraquinone',
+                                        'value' => 14698878,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => '1-Bromopropane (1-BP)',
+                                        'value' => 14698879,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => '1-Butadiene',
+                                        'value' => 14698865,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => '1-Butanediol dimethanesulfonate (Busulfan)',
+                                        'value' => 14698869,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => '1-Chloro-4-nitrobenzene',
+                                        'value' => 14698880,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => '1-Dibromo-3-chloropropane (DBCP)',
+                                        'value' => 14698861,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-bis(p-chloropheny)ethylene (DDE)',
+                                        'value' => 14698857,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-butene',
+                                        'value' => 14698870,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-nitrobenzene',
+                                        'value' => 14698871,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-propanol (1-DCP)',
+                                        'value' => 14698866,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => '1-Dichloroethane',
+                                        'value' => 14698858,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => '1-Dichloropropane',
+                                        'value' => 14698862,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => '1-Dichloropropene',
+                                        'value' => 14698867,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => '1-Diethylhydrazine',
+                                        'value' => 14698863,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine',
+                                        'value' => 14698864,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine (UDMH)',
+                                        'value' => 14698859,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => '1-Dinitropyrene',
+                                        'value' => 14698873,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => '1-Dioxane',
+                                        'value' => 14698872,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => '1-Hydroxyanthraquinone',
+                                        'value' => 14698881,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => '1-Naphthylamine',
+                                        'value' => 14698882,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => '1-Nitropyrene',
+                                        'value' => 14698883,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => '1-Propane sultone',
+                                        'value' => 14698868,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => '1-Tetrachloroethane',
+                                        'value' => 14698856,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => '1-Trichloropropane',
+                                        'value' => 14698860,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => '1-[(5-Nitrofurfurylidene)-amino]-2-imidazolidinone',
+                                        'value' => 14698876,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => '2-(2-Formylhydrazino)-4-(5-nitro-2-furyl)thiazole',
+                                        'value' => 14698900,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => '2-Acetylaminofluorene',
+                                        'value' => 14698901,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => '2-Amino-4-chlorophenol',
+                                        'value' => 14698902,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => '2-Amino-5-(5-nitro-2-furyl)-1-thiadiazole',
+                                        'value' => 14698903,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => '2-Aminoanthraquinone',
+                                        'value' => 14698904,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => '2-Aminofluorene',
+                                        'value' => 14698905,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => '2-Bis(bromomethyl)-1-propanediol',
+                                        'value' => 14698884,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => '2-Bromopropane (2-BP)',
+                                        'value' => 14698906,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => '2-Chloronitrobenzene',
+                                        'value' => 14698907,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => '2-Diamino-6-chloro-s-triazine (DACT)',
+                                        'value' => 14698890,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole',
+                                        'value' => 14698891,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole sulfate',
+                                        'value' => 14698892,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => '2-Diaminotoluene',
+                                        'value' => 14698893,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => '2-Dibromo-1-propanol',
+                                        'value' => 14698886,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => '2-Dichloro-1-nitrobenzene',
+                                        'value' => 14698894,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => '2-Dimethyl-N-nitrosomorpholine (DMNM)',
+                                        'value' => 14698897,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => '2-Dinitrotoluene',
+                                        'value' => 14698898,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => '2-Hexadienal (89% trans isomer; 11% cis isomer)',
+                                        'value' => 14698895,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => '2-Hexanedione',
+                                        'value' => 14698896,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => '2-Methyl-1-nitroanthraquinone (of uncertain purity)',
+                                        'value' => 14698908,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => '2-Methylaziridine (Propyleneimine)',
+                                        'value' => 14698909,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => '2-Methylimidazole',
+                                        'value' => 14698910,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => '2-Naphthylamine',
+                                        'value' => 14698911,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => '2-Nitrofluorene',
+                                        'value' => 14698912,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => '2-Nitropropane',
+                                        'value' => 14698913,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => '2-Tetrachlorodibenzo-p-dioxin (TCDD)',
+                                        'value' => 14698885,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => '2-Trichlorophenol',
+                                        'value' => 14698888,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => '2-Trimethylaniline and its strong acid salts',
+                                        'value' => 14698887,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => '2-Trinitrotoluene (TNT)',
+                                        'value' => 14698889,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => '2-Xylidine (2-Dimethylaniline)',
+                                        'value' => 14698899,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => '2?Mercaptobenzothiazole',
+                                        'value' => 14698914,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => '3\'\'-Tetrachloroazobenzene',
+                                        'value' => 14698915,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => '3\'-Dichloro-4\'-diamino-diphenyl ether',
+                                        'value' => 14698916,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine',
+                                        'value' => 14698917,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine dihydrochloride',
+                                        'value' => 14698918,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine (o-Dianisidine)',
+                                        'value' => 14698919,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine dihydrochloride',
+                                        'value' => 14698920,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine-based dyes metabolized to 3\'-dimethoxybenzidine',
+                                        'value' => 14698921,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine (ortho-Tolidine)',
+                                        'value' => 14698922,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine dihydrochloride',
+                                        'value' => 14698923,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine-based dyes metabolized to 3\'-dimethylbenzidine',
+                                        'value' => 14698924,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => '3-(N-Nitrosomethylamino) propionitrile',
+                                        'value' => 14698926,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => '3-Amino-9-ethylcarbazole hydrochloride',
+                                        'value' => 14698927,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => '3-Chloro-2-methylpropene',
+                                        'value' => 14698928,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => '3-Dinitrofluoranthene',
+                                        'value' => 14698925,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => '3-Methylcholanthrene',
+                                        'value' => 14698929,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => '3-Monochloropropane-1-diol (3-MCPD)',
+                                        'value' => 14698930,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => '4\'-Diaminodiphenyl ether (4\'-Oxydianiline)',
+                                        'value' => 14698931,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-chloroaniline)',
+                                        'value' => 14698932,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-methylaniline)',
+                                        'value' => 14698933,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(N-dimethyl)benzenamine',
+                                        'value' => 14698934,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline',
+                                        'value' => 14698935,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline dihydrochloride',
+                                        'value' => 14698936,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => '4\'-Thiodianiline',
+                                        'value' => 14698937,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => '4-(N-Nitrosomethylamino)-1-(3-pyridyl)1-butanone',
+                                        'value' => 14698938,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => '4-Amino-2-nitrophenol',
+                                        'value' => 14698939,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => '4-Aminobiphenyl (4-aminodiphenyl)',
+                                        'value' => 14698940,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => '4-Chloro-o-phenylenediamine',
+                                        'value' => 14698941,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => '4-Dimethylaminoazobenzene',
+                                        'value' => 14698942,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => '4-Methylimidazole',
+                                        'value' => 14698943,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => '4-Nitrobiphenyl',
+                                        'value' => 14698944,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => '4-Nitropyrene',
+                                        'value' => 14698945,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => '4-Vinyl-1-cyclohexene diepoxide (Vinyl cyclohexenedioxide)',
+                                        'value' => 14698946,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => '4-Vinylcyclohexene',
+                                        'value' => 14698947,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => '5-(Morpholinomethyl)-3-[(5-nitrofurfuryl-idene)-amino]-2-oxazolidinone',
+                                        'value' => 14698948,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => '5-Chloro-o-toluidine and its strong acid salts',
+                                        'value' => 14698949,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => '5-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698950,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => '5-Methylchrysene',
+                                        'value' => 14698951,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => '5-Nitroacenaphthene',
+                                        'value' => 14698952,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => '6-Nitrochrysene',
+                                        'value' => 14698953,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => '7-Dimethylbenz(a)anthracene',
+                                        'value' => 14698954,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => '7H-Dibenzo[c]carbazole',
+                                        'value' => 14698955,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => '8-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698956,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => '9-Tetrahydrocannabinol (?9-THC)',
+                                        'value' => 14698957,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'A-alpha-C (2-Amino-9H-pyrido[2-b]indole)',
+                                        'value' => 14698958,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'AF-2',
+                                        'value' => 14698970,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Abiraterone acetate',
+                                        'value' => 14698959,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'Acetaldehyde',
+                                        'value' => 14698960,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Acetamide',
+                                        'value' => 14698961,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Acetazolamide',
+                                        'value' => 14698962,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Acetochlor',
+                                        'value' => 14698963,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Acetohydroxamic acid',
+                                        'value' => 14698964,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Acifluorfen sodium',
+                                        'value' => 14698965,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Acrylamide',
+                                        'value' => 14698966,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Acrylonitrile',
+                                        'value' => 14698967,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Actinomycin D',
+                                        'value' => 14698968,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Adultb',
+                                        'value' => 14698969,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Aflatoxins',
+                                        'value' => 14698971,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Alachlor',
+                                        'value' => 14698972,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages',
+                                        'value' => 14698973,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages associated with alcohol abuse',
+                                        'value' => 14698974,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Aldrin',
+                                        'value' => 14698975,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'All-trans retinoic acid',
+                                        'value' => 14698976,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Aloe Vera-decolorized whole leaf extract',
+                                        'value' => 14698977,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Alprazolam',
+                                        'value' => 14698978,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Altretamine',
+                                        'value' => 14698979,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Amantadine hydrochloride',
+                                        'value' => 14698980,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Amikacin sulfate',
+                                        'value' => 14698981,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Aminoglutethimide',
+                                        'value' => 14698982,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Aminoglycosides',
+                                        'value' => 14698983,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Aminopterin',
+                                        'value' => 14698984,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Amiodarone hydrochloride',
+                                        'value' => 14698985,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Amitraz',
+                                        'value' => 14698986,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Amitrole',
+                                        'value' => 14698987,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Amoxapine',
+                                        'value' => 14698988,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'Amsacrine',
+                                        'value' => 14698989,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Anabolic steroids',
+                                        'value' => 14698990,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Analgesic mixtures containing Phenacetin',
+                                        'value' => 14698991,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Androstenedione',
+                                        'value' => 14698992,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Angiotensin converting enzyme (ACE) inhibitors',
+                                        'value' => 14698993,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Aniline',
+                                        'value' => 14698994,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Aniline hydrochloride',
+                                        'value' => 14698995,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Anisindione',
+                                        'value' => 14698996,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Anthraquinone',
+                                        'value' => 14698997,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Antimony oxide (Antimony trioxide)',
+                                        'value' => 14698998,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Aramite',
+                                        'value' => 14698999,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Areca nut',
+                                        'value' => 14699000,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Aristolochic acids',
+                                        'value' => 14699001,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic arsenic compounds)',
+                                        'value' => 14699002,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic oxides)',
+                                        'value' => 14699003,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Asbestos',
+                                        'value' => 14699004,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Atenolol',
+                                        'value' => 14699005,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Atrazine',
+                                        'value' => 14699006,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Auramine',
+                                        'value' => 14699007,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Auranofin',
+                                        'value' => 14699008,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Avermectin B1 (Abamectin)',
+                                        'value' => 14699009,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Azacitidine',
+                                        'value' => 14699010,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Azaserine',
+                                        'value' => 14699011,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Azathioprine',
+                                        'value' => 14699012,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Azobenzene',
+                                        'value' => 14699013,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Barbiturates',
+                                        'value' => 14699014,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Beclomethasone dipropionate',
+                                        'value' => 14699015,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Benomyl',
+                                        'value' => 14699016,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Benthiavalicarb-isopropyl',
+                                        'value' => 14699017,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Benz[a]anthracene',
+                                        'value' => 14699018,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Benzene',
+                                        'value' => 14699019,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Benzidine [and its salts]',
+                                        'value' => 14699020,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Benzidine-based dyes',
+                                        'value' => 14699021,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Benzo[a]pyrene',
+                                        'value' => 14699022,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Benzo[b]fluoranthene',
+                                        'value' => 14699023,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Benzo[j]fluoranthene',
+                                        'value' => 14699024,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Benzo[k]fluoranthene',
+                                        'value' => 14699025,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'Benzodiazepines',
+                                        'value' => 14699026,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'Benzofuran',
+                                        'value' => 14699027,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'Benzophenone',
+                                        'value' => 14699028,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'Benzotrichloride',
+                                        'value' => 14699029,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'Benzphetamine hydrochloride',
+                                        'value' => 14699030,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Benzyl chloride',
+                                        'value' => 14699031,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'Benzyl violet 4B',
+                                        'value' => 14699032,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Beryllium',
+                                        'value' => 14699033,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Beryllium and beryllium compounds',
+                                        'value' => 14699034,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Beryllium oxide',
+                                        'value' => 14699035,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Beryllium sulfate',
+                                        'value' => 14699036,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'Betel quid with tobacco',
+                                        'value' => 14699040,
+                                      ),
+                                      182 => 
+                                      array (
+                                        'key' => 'Betel quid without tobacco',
+                                        'value' => 14699041,
+                                      ),
+                                      183 => 
+                                      array (
+                                        'key' => 'Bevacizumab',
+                                        'value' => 14699042,
+                                      ),
+                                      184 => 
+                                      array (
+                                        'key' => 'Bis(2-chloro-1-methylethyl)ether grade',
+                                        'value' => 14699043,
+                                      ),
+                                      185 => 
+                                      array (
+                                        'key' => 'Bis(2-chloroethyl)ether',
+                                        'value' => 14699044,
+                                      ),
+                                      186 => 
+                                      array (
+                                        'key' => 'Bis(chloromethyl)ether',
+                                        'value' => 14699045,
+                                      ),
+                                      187 => 
+                                      array (
+                                        'key' => 'Bischloroethyl nitrosourea (BCNU) (Carmustine)',
+                                        'value' => 14699046,
+                                      ),
+                                      188 => 
+                                      array (
+                                        'key' => 'Bisphenol A (BPA)',
+                                        'value' => 14699047,
+                                      ),
+                                      189 => 
+                                      array (
+                                        'key' => 'Bitumens of steam-refined and air refined',
+                                        'value' => 14699048,
+                                      ),
+                                      190 => 
+                                      array (
+                                        'key' => 'Bracken fern',
+                                        'value' => 14699049,
+                                      ),
+                                      191 => 
+                                      array (
+                                        'key' => 'Bromacil lithium salt',
+                                        'value' => 14699050,
+                                      ),
+                                      192 => 
+                                      array (
+                                        'key' => 'Bromate',
+                                        'value' => 14699051,
+                                      ),
+                                      193 => 
+                                      array (
+                                        'key' => 'Bromochloroacetic acid',
+                                        'value' => 14699052,
+                                      ),
+                                      194 => 
+                                      array (
+                                        'key' => 'Bromodichloroacetic acid',
+                                        'value' => 14699053,
+                                      ),
+                                      195 => 
+                                      array (
+                                        'key' => 'Bromodichloromethane',
+                                        'value' => 14699054,
+                                      ),
+                                      196 => 
+                                      array (
+                                        'key' => 'Bromoethane',
+                                        'value' => 14699055,
+                                      ),
+                                      197 => 
+                                      array (
+                                        'key' => 'Bromoform',
+                                        'value' => 14699056,
+                                      ),
+                                      198 => 
+                                      array (
+                                        'key' => 'Bromoxynil',
+                                        'value' => 14699057,
+                                      ),
+                                      199 => 
+                                      array (
+                                        'key' => 'Bromoxynil octanoate',
+                                        'value' => 14699058,
+                                      ),
+                                      200 => 
+                                      array (
+                                        'key' => 'Butabarbital sodium',
+                                        'value' => 14699059,
+                                      ),
+                                      201 => 
+                                      array (
+                                        'key' => 'Butyl benzyl phthalate (BBP)d',
+                                        'value' => 14699060,
+                                      ),
+                                      202 => 
+                                      array (
+                                        'key' => 'Butylated hydroxyanisole',
+                                        'value' => 14699061,
+                                      ),
+                                      203 => 
+                                      array (
+                                        'key' => 'C.I. Acid Red 114',
+                                        'value' => 14699062,
+                                      ),
+                                      204 => 
+                                      array (
+                                        'key' => 'C.I. Basic Red 9 monohydrochloride',
+                                        'value' => 14699063,
+                                      ),
+                                      205 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 15',
+                                        'value' => 14699064,
+                                      ),
+                                      206 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 218',
+                                        'value' => 14699065,
+                                      ),
+                                      207 => 
+                                      array (
+                                        'key' => 'C.I. Disperse Yellow 3',
+                                        'value' => 14699066,
+                                      ),
+                                      208 => 
+                                      array (
+                                        'key' => 'C.I. Solvent Yellow 14',
+                                        'value' => 14699067,
+                                      ),
+                                      209 => 
+                                      array (
+                                        'key' => 'CMNP (pyrazachlor)',
+                                        'value' => 14699121,
+                                      ),
+                                      210 => 
+                                      array (
+                                        'key' => 'Cacodylic acid',
+                                        'value' => 14699068,
+                                      ),
+                                      211 => 
+                                      array (
+                                        'key' => 'Cadmium',
+                                        'value' => 14699069,
+                                      ),
+                                      212 => 
+                                      array (
+                                        'key' => 'Cadmium and cadmium compounds',
+                                        'value' => 14699070,
+                                      ),
+                                      213 => 
+                                      array (
+                                        'key' => 'Caffeic acid',
+                                        'value' => 14699071,
+                                      ),
+                                      214 => 
+                                      array (
+                                        'key' => 'Cannabis (marijuana) smoke',
+                                        'value' => 14699072,
+                                      ),
+                                      215 => 
+                                      array (
+                                        'key' => 'Captafol',
+                                        'value' => 14699073,
+                                      ),
+                                      216 => 
+                                      array (
+                                        'key' => 'Captan',
+                                        'value' => 14699074,
+                                      ),
+                                      217 => 
+                                      array (
+                                        'key' => 'Carbamazepine',
+                                        'value' => 14699075,
+                                      ),
+                                      218 => 
+                                      array (
+                                        'key' => 'Carbaryl',
+                                        'value' => 14699076,
+                                      ),
+                                      219 => 
+                                      array (
+                                        'key' => 'Carbazole',
+                                        'value' => 14699077,
+                                      ),
+                                      220 => 
+                                      array (
+                                        'key' => 'Carbon black (airborne particles of respirable size)',
+                                        'value' => 14699078,
+                                      ),
+                                      221 => 
+                                      array (
+                                        'key' => 'Carbon disulfide',
+                                        'value' => 14699079,
+                                      ),
+                                      222 => 
+                                      array (
+                                        'key' => 'Carbon monoxide',
+                                        'value' => 14699080,
+                                      ),
+                                      223 => 
+                                      array (
+                                        'key' => 'Carbon tetrachloride',
+                                        'value' => 14699081,
+                                      ),
+                                      224 => 
+                                      array (
+                                        'key' => 'Carbon-black extracts',
+                                        'value' => 14699082,
+                                      ),
+                                      225 => 
+                                      array (
+                                        'key' => 'Carboplatin',
+                                        'value' => 14699083,
+                                      ),
+                                      226 => 
+                                      array (
+                                        'key' => 'Catechol',
+                                        'value' => 14699084,
+                                      ),
+                                      227 => 
+                                      array (
+                                        'key' => 'Ceramic fibers (airborne particles of respirable size)',
+                                        'value' => 14699085,
+                                      ),
+                                      228 => 
+                                      array (
+                                        'key' => 'Certain combined chemotherapy for lymphomas',
+                                        'value' => 14699086,
+                                      ),
+                                      229 => 
+                                      array (
+                                        'key' => 'Chenodiol',
+                                        'value' => 14699087,
+                                      ),
+                                      230 => 
+                                      array (
+                                        'key' => 'Chloral',
+                                        'value' => 14699088,
+                                      ),
+                                      231 => 
+                                      array (
+                                        'key' => 'Chloral hydrate',
+                                        'value' => 14699089,
+                                      ),
+                                      232 => 
+                                      array (
+                                        'key' => 'Chlorambucil',
+                                        'value' => 14699090,
+                                      ),
+                                      233 => 
+                                      array (
+                                        'key' => 'Chloramphenicol sodium succinate',
+                                        'value' => 14699091,
+                                      ),
+                                      234 => 
+                                      array (
+                                        'key' => 'Chlorcyclizine hydrochloride',
+                                        'value' => 14699092,
+                                      ),
+                                      235 => 
+                                      array (
+                                        'key' => 'Chlordane',
+                                        'value' => 14699093,
+                                      ),
+                                      236 => 
+                                      array (
+                                        'key' => 'Chlordecone (Kepone)',
+                                        'value' => 14699094,
+                                      ),
+                                      237 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide',
+                                        'value' => 14699095,
+                                      ),
+                                      238 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide hydrochloride',
+                                        'value' => 14699096,
+                                      ),
+                                      239 => 
+                                      array (
+                                        'key' => 'Chlordimeform',
+                                        'value' => 14699097,
+                                      ),
+                                      240 => 
+                                      array (
+                                        'key' => 'Chlorendic acid',
+                                        'value' => 14699098,
+                                      ),
+                                      241 => 
+                                      array (
+                                        'key' => 'Chlorinated paraffins (Average chain length;approximately 60 percent chlorine by weight)',
+                                        'value' => 14699099,
+                                      ),
+                                      242 => 
+                                      array (
+                                        'key' => 'Chloroethane (Ethyl chloride)',
+                                        'value' => 14699100,
+                                      ),
+                                      243 => 
+                                      array (
+                                        'key' => 'Chloroform',
+                                        'value' => 14699101,
+                                      ),
+                                      244 => 
+                                      array (
+                                        'key' => 'Chloromethyl methyl ether (technical grade)',
+                                        'value' => 14699102,
+                                      ),
+                                      245 => 
+                                      array (
+                                        'key' => 'Chloroprene',
+                                        'value' => 14699103,
+                                      ),
+                                      246 => 
+                                      array (
+                                        'key' => 'Chlorothalonil',
+                                        'value' => 14699104,
+                                      ),
+                                      247 => 
+                                      array (
+                                        'key' => 'Chlorotrianisene',
+                                        'value' => 14699105,
+                                      ),
+                                      248 => 
+                                      array (
+                                        'key' => 'Chlorozotocin',
+                                        'value' => 14699106,
+                                      ),
+                                      249 => 
+                                      array (
+                                        'key' => 'Chlorpyrifos',
+                                        'value' => 14699107,
+                                      ),
+                                      250 => 
+                                      array (
+                                        'key' => 'Chromium (hexavalent compounds)',
+                                        'value' => 14699108,
+                                      ),
+                                      251 => 
+                                      array (
+                                        'key' => 'Chrysene',
+                                        'value' => 14699109,
+                                      ),
+                                      252 => 
+                                      array (
+                                        'key' => 'Ciclosporin (Cyclosporin A',
+                                        'value' => 14699110,
+                                      ),
+                                      253 => 
+                                      array (
+                                        'key' => 'Cidofovir',
+                                        'value' => 14699111,
+                                      ),
+                                      254 => 
+                                      array (
+                                        'key' => 'Cinnamyl anthranilate',
+                                        'value' => 14699112,
+                                      ),
+                                      255 => 
+                                      array (
+                                        'key' => 'Cisplatin',
+                                        'value' => 14699113,
+                                      ),
+                                      256 => 
+                                      array (
+                                        'key' => 'Citrus Red No. 2',
+                                        'value' => 14699114,
+                                      ),
+                                      257 => 
+                                      array (
+                                        'key' => 'Cladribine',
+                                        'value' => 14699115,
+                                      ),
+                                      258 => 
+                                      array (
+                                        'key' => 'Clarithromycin',
+                                        'value' => 14699116,
+                                      ),
+                                      259 => 
+                                      array (
+                                        'key' => 'Clobetasol propionate',
+                                        'value' => 14699117,
+                                      ),
+                                      260 => 
+                                      array (
+                                        'key' => 'Clofibrate',
+                                        'value' => 14699118,
+                                      ),
+                                      261 => 
+                                      array (
+                                        'key' => 'Clomiphene citrate',
+                                        'value' => 14699119,
+                                      ),
+                                      262 => 
+                                      array (
+                                        'key' => 'Clorazepate dipotassium',
+                                        'value' => 14699120,
+                                      ),
+                                      263 => 
+                                      array (
+                                        'key' => 'Cobalt [II] oxide',
+                                        'value' => 14699122,
+                                      ),
+                                      264 => 
+                                      array (
+                                        'key' => 'Cobalt metal powder',
+                                        'value' => 14699123,
+                                      ),
+                                      265 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate',
+                                        'value' => 14699124,
+                                      ),
+                                      266 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate heptahydrate',
+                                        'value' => 14699125,
+                                      ),
+                                      267 => 
+                                      array (
+                                        'key' => 'Cocaine',
+                                        'value' => 14699126,
+                                      ),
+                                      268 => 
+                                      array (
+                                        'key' => 'Coconut oil diethanolamine condensate (cocamide diethanolamine)',
+                                        'value' => 14699127,
+                                      ),
+                                      269 => 
+                                      array (
+                                        'key' => 'Codeine phosphate',
+                                        'value' => 14699128,
+                                      ),
+                                      270 => 
+                                      array (
+                                        'key' => 'Coke oven emissions',
+                                        'value' => 14699129,
+                                      ),
+                                      271 => 
+                                      array (
+                                        'key' => 'Colchicine',
+                                        'value' => 14699130,
+                                      ),
+                                      272 => 
+                                      array (
+                                        'key' => 'Conjugated estrogens',
+                                        'value' => 14699131,
+                                      ),
+                                      273 => 
+                                      array (
+                                        'key' => 'Creosotes',
+                                        'value' => 14699132,
+                                      ),
+                                      274 => 
+                                      array (
+                                        'key' => 'Cumene',
+                                        'value' => 14699133,
+                                      ),
+                                      275 => 
+                                      array (
+                                        'key' => 'Cupferron',
+                                        'value' => 14699134,
+                                      ),
+                                      276 => 
+                                      array (
+                                        'key' => 'Cyanazine',
+                                        'value' => 14699135,
+                                      ),
+                                      277 => 
+                                      array (
+                                        'key' => 'Cyanide salts that readily dissociate in solution (expressed as cyanide)f',
+                                        'value' => 14699136,
+                                      ),
+                                      278 => 
+                                      array (
+                                        'key' => 'Cycasin',
+                                        'value' => 14699137,
+                                      ),
+                                      279 => 
+                                      array (
+                                        'key' => 'Cycloate',
+                                        'value' => 14699138,
+                                      ),
+                                      280 => 
+                                      array (
+                                        'key' => 'Cycloheximide',
+                                        'value' => 14699139,
+                                      ),
+                                      281 => 
+                                      array (
+                                        'key' => 'Cyclopenta[cd]pyrene',
+                                        'value' => 14699140,
+                                      ),
+                                      282 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (anhydrous)',
+                                        'value' => 14699141,
+                                      ),
+                                      283 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (hydrated)',
+                                        'value' => 14699142,
+                                      ),
+                                      284 => 
+                                      array (
+                                        'key' => 'Cyhexatin',
+                                        'value' => 14699143,
+                                      ),
+                                      285 => 
+                                      array (
+                                        'key' => 'Cytarabine',
+                                        'value' => 14699144,
+                                      ),
+                                      286 => 
+                                      array (
+                                        'key' => 'Cytembena',
+                                        'value' => 14699145,
+                                      ),
+                                      287 => 
+                                      array (
+                                        'key' => 'D&C Orange No. 17',
+                                        'value' => 14699146,
+                                      ),
+                                      288 => 
+                                      array (
+                                        'key' => 'D&C Red No. 19',
+                                        'value' => 14699147,
+                                      ),
+                                      289 => 
+                                      array (
+                                        'key' => 'D&C Red No. 8',
+                                        'value' => 14699148,
+                                      ),
+                                      290 => 
+                                      array (
+                                        'key' => 'D&C Red No. 9',
+                                        'value' => 14699149,
+                                      ),
+                                      291 => 
+                                      array (
+                                        'key' => 'DDD (Dichlorodiphenyl-dichloroethane)',
+                                        'value' => 14699156,
+                                      ),
+                                      292 => 
+                                      array (
+                                        'key' => 'DDE (Dichlorodiphenyl-dichloroethylene)',
+                                        'value' => 14699157,
+                                      ),
+                                      293 => 
+                                      array (
+                                        'key' => 'DDT (Dichlorodiphenyl-trichloroethane)',
+                                        'value' => 14699158,
+                                      ),
+                                      294 => 
+                                      array (
+                                        'key' => 'DDVP (Dichlorvos)',
+                                        'value' => 14699159,
+                                      ),
+                                      295 => 
+                                      array (
+                                        'key' => 'Dacarbazine',
+                                        'value' => 14699150,
+                                      ),
+                                      296 => 
+                                      array (
+                                        'key' => 'Daminozide',
+                                        'value' => 14699151,
+                                      ),
+                                      297 => 
+                                      array (
+                                        'key' => 'Danazol',
+                                        'value' => 14699152,
+                                      ),
+                                      298 => 
+                                      array (
+                                        'key' => 'Dantron (Chrysazin; 1-Dihydroxyanthraquinone)',
+                                        'value' => 14699153,
+                                      ),
+                                      299 => 
+                                      array (
+                                        'key' => 'Daunomycin',
+                                        'value' => 14699154,
+                                      ),
+                                      300 => 
+                                      array (
+                                        'key' => 'Daunorubicin hydrochloride',
+                                        'value' => 14699155,
+                                      ),
+                                      301 => 
+                                      array (
+                                        'key' => 'Demeclocycline hydrochloride (internal use)',
+                                        'value' => 14699160,
+                                      ),
+                                      302 => 
+                                      array (
+                                        'key' => 'Des-ethyl atrazine (DEA)',
+                                        'value' => 14699161,
+                                      ),
+                                      303 => 
+                                      array (
+                                        'key' => 'Des-isopropyl atrazine (DIA)',
+                                        'value' => 14699162,
+                                      ),
+                                      304 => 
+                                      array (
+                                        'key' => 'Di(2-ethylhexyl)phthalate (DEHP)',
+                                        'value' => 14699163,
+                                      ),
+                                      305 => 
+                                      array (
+                                        'key' => 'Di-isodecyl phthalate (DIDP)',
+                                        'value' => 14699164,
+                                      ),
+                                      306 => 
+                                      array (
+                                        'key' => 'Di-n-butyl phthalate (DBP)',
+                                        'value' => 14699165,
+                                      ),
+                                      307 => 
+                                      array (
+                                        'key' => 'Di-n-hexyl phthalate (DnHP)',
+                                        'value' => 14699166,
+                                      ),
+                                      308 => 
+                                      array (
+                                        'key' => 'Di-n-propyl isocinchomeronate (MGK Repellent 326)',
+                                        'value' => 14699167,
+                                      ),
+                                      309 => 
+                                      array (
+                                        'key' => 'Diazepam',
+                                        'value' => 14699168,
+                                      ),
+                                      310 => 
+                                      array (
+                                        'key' => 'Diazoaminobenzene',
+                                        'value' => 14699169,
+                                      ),
+                                      311 => 
+                                      array (
+                                        'key' => 'Diazoxide',
+                                        'value' => 14699170,
+                                      ),
+                                      312 => 
+                                      array (
+                                        'key' => 'Dibenz[a]acridine',
+                                        'value' => 14699172,
+                                      ),
+                                      313 => 
+                                      array (
+                                        'key' => 'Dibenz[a]anthracene',
+                                        'value' => 14699171,
+                                      ),
+                                      314 => 
+                                      array (
+                                        'key' => 'Dibenzanthracenes',
+                                        'value' => 14699173,
+                                      ),
+                                      315 => 
+                                      array (
+                                        'key' => 'Dibenzo[a]pyrene',
+                                        'value' => 14699174,
+                                      ),
+                                      316 => 
+                                      array (
+                                        'key' => 'Dibromoacetic acid',
+                                        'value' => 14699175,
+                                      ),
+                                      317 => 
+                                      array (
+                                        'key' => 'Dibromoacetonitrile',
+                                        'value' => 14699176,
+                                      ),
+                                      318 => 
+                                      array (
+                                        'key' => 'Dichloroacetic acid',
+                                        'value' => 14699177,
+                                      ),
+                                      319 => 
+                                      array (
+                                        'key' => 'Dichloromethane (Methylene chloride)',
+                                        'value' => 14699178,
+                                      ),
+                                      320 => 
+                                      array (
+                                        'key' => 'Dichlorophene',
+                                        'value' => 14699179,
+                                      ),
+                                      321 => 
+                                      array (
+                                        'key' => 'Dichlorphenamide',
+                                        'value' => 14699180,
+                                      ),
+                                      322 => 
+                                      array (
+                                        'key' => 'Diclofop methyl',
+                                        'value' => 14699181,
+                                      ),
+                                      323 => 
+                                      array (
+                                        'key' => 'Dicumarol',
+                                        'value' => 14699182,
+                                      ),
+                                      324 => 
+                                      array (
+                                        'key' => 'Dieldrin',
+                                        'value' => 14699183,
+                                      ),
+                                      325 => 
+                                      array (
+                                        'key' => 'Diepoxybutane',
+                                        'value' => 14699184,
+                                      ),
+                                      326 => 
+                                      array (
+                                        'key' => 'Diesel engine exhaust',
+                                        'value' => 14699185,
+                                      ),
+                                      327 => 
+                                      array (
+                                        'key' => 'Diethanolamine',
+                                        'value' => 14699186,
+                                      ),
+                                      328 => 
+                                      array (
+                                        'key' => 'Diethyl sulfate',
+                                        'value' => 14699187,
+                                      ),
+                                      329 => 
+                                      array (
+                                        'key' => 'Diethylstilbestrol (DES)',
+                                        'value' => 14699188,
+                                      ),
+                                      330 => 
+                                      array (
+                                        'key' => 'Diflunisal',
+                                        'value' => 14699189,
+                                      ),
+                                      331 => 
+                                      array (
+                                        'key' => 'Diglycidyl resorcinol ether (DGRE)',
+                                        'value' => 14699190,
+                                      ),
+                                      332 => 
+                                      array (
+                                        'key' => 'Dihydroergotamine mesylate',
+                                        'value' => 14699191,
+                                      ),
+                                      333 => 
+                                      array (
+                                        'key' => 'Dihydrosafrole',
+                                        'value' => 14699192,
+                                      ),
+                                      334 => 
+                                      array (
+                                        'key' => 'Diisononyl phthalate (DINP)',
+                                        'value' => 14699193,
+                                      ),
+                                      335 => 
+                                      array (
+                                        'key' => 'Diisopropyl sulfate',
+                                        'value' => 14699194,
+                                      ),
+                                      336 => 
+                                      array (
+                                        'key' => 'Diltiazem hydrochloride',
+                                        'value' => 14699195,
+                                      ),
+                                      337 => 
+                                      array (
+                                        'key' => 'Dimethyl sulfate',
+                                        'value' => 14699196,
+                                      ),
+                                      338 => 
+                                      array (
+                                        'key' => 'Dimethylcarbamoyl chloride',
+                                        'value' => 14699197,
+                                      ),
+                                      339 => 
+                                      array (
+                                        'key' => 'Dimethylvinylchloride',
+                                        'value' => 14699198,
+                                      ),
+                                      340 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene (technical grade)',
+                                        'value' => 14699199,
+                                      ),
+                                      341 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene mixture-/2-',
+                                        'value' => 14699200,
+                                      ),
+                                      342 => 
+                                      array (
+                                        'key' => 'Dinocap',
+                                        'value' => 14699201,
+                                      ),
+                                      343 => 
+                                      array (
+                                        'key' => 'Dinoseb',
+                                        'value' => 14699202,
+                                      ),
+                                      344 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin)',
+                                        'value' => 14699203,
+                                      ),
+                                      345 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin) salt',
+                                        'value' => 14699204,
+                                      ),
+                                      346 => 
+                                      array (
+                                        'key' => 'Direct Black 38 (technical grade)',
+                                        'value' => 14699205,
+                                      ),
+                                      347 => 
+                                      array (
+                                        'key' => 'Direct Blue 6 (technical grade)',
+                                        'value' => 14699206,
+                                      ),
+                                      348 => 
+                                      array (
+                                        'key' => 'Direct Brown 95 (technical grade)',
+                                        'value' => 14699207,
+                                      ),
+                                      349 => 
+                                      array (
+                                        'key' => 'Disodium cyanodithioimidocarbonate',
+                                        'value' => 14699208,
+                                      ),
+                                      350 => 
+                                      array (
+                                        'key' => 'Disperse Blue 1',
+                                        'value' => 14699209,
+                                      ),
+                                      351 => 
+                                      array (
+                                        'key' => 'Diuron',
+                                        'value' => 14699210,
+                                      ),
+                                      352 => 
+                                      array (
+                                        'key' => 'Doxorubicin hydrochloride (Adriamycin)',
+                                        'value' => 14699211,
+                                      ),
+                                      353 => 
+                                      array (
+                                        'key' => 'Doxycycline (internal use)',
+                                        'value' => 14699212,
+                                      ),
+                                      354 => 
+                                      array (
+                                        'key' => 'Doxycycline calcium (internal use)',
+                                        'value' => 14699213,
+                                      ),
+                                      355 => 
+                                      array (
+                                        'key' => 'Doxycycline hyclate (internal use)',
+                                        'value' => 14699214,
+                                      ),
+                                      356 => 
+                                      array (
+                                        'key' => 'Doxycycline monohydrate (internal use)',
+                                        'value' => 14699215,
+                                      ),
+                                      357 => 
+                                      array (
+                                        'key' => 'Emissions from combustion of coal',
+                                        'value' => 14699216,
+                                      ),
+                                      358 => 
+                                      array (
+                                        'key' => 'Emissions from high-temperature unrefined rapeseed oil',
+                                        'value' => 14699217,
+                                      ),
+                                      359 => 
+                                      array (
+                                        'key' => 'Endrin',
+                                        'value' => 14699218,
+                                      ),
+                                      360 => 
+                                      array (
+                                        'key' => 'Environmental tobacco smoke (ETS)',
+                                        'value' => 14699219,
+                                      ),
+                                      361 => 
+                                      array (
+                                        'key' => 'Epichlorohydrin',
+                                        'value' => 14699220,
+                                      ),
+                                      362 => 
+                                      array (
+                                        'key' => 'Epoxiconazole',
+                                        'value' => 14699221,
+                                      ),
+                                      363 => 
+                                      array (
+                                        'key' => 'Ergotamine tartrate',
+                                        'value' => 14699222,
+                                      ),
+                                      364 => 
+                                      array (
+                                        'key' => 'Erionite',
+                                        'value' => 14699223,
+                                      ),
+                                      365 => 
+                                      array (
+                                        'key' => 'Estradiol 17B',
+                                        'value' => 14699224,
+                                      ),
+                                      366 => 
+                                      array (
+                                        'key' => 'Estragole',
+                                        'value' => 14699225,
+                                      ),
+                                      367 => 
+                                      array (
+                                        'key' => 'Estrogen-progestogen (combined) used as menopausal therapy',
+                                        'value' => 14699226,
+                                      ),
+                                      368 => 
+                                      array (
+                                        'key' => 'Estrogens',
+                                        'value' => 14699227,
+                                      ),
+                                      369 => 
+                                      array (
+                                        'key' => 'Estrone',
+                                        'value' => 14699228,
+                                      ),
+                                      370 => 
+                                      array (
+                                        'key' => 'Estropipate',
+                                        'value' => 14699229,
+                                      ),
+                                      371 => 
+                                      array (
+                                        'key' => 'Ethinylestradiol',
+                                        'value' => 14699230,
+                                      ),
+                                      372 => 
+                                      array (
+                                        'key' => 'Ethionamide',
+                                        'value' => 14699231,
+                                      ),
+                                      373 => 
+                                      array (
+                                        'key' => 'Ethoprop',
+                                        'value' => 14699232,
+                                      ),
+                                      374 => 
+                                      array (
+                                        'key' => 'Ethyl acrylate',
+                                        'value' => 14699233,
+                                      ),
+                                      375 => 
+                                      array (
+                                        'key' => 'Ethyl alcohol in alcoholic beverages',
+                                        'value' => 14699234,
+                                      ),
+                                      376 => 
+                                      array (
+                                        'key' => 'Ethyl dipropylthiocarbamate',
+                                        'value' => 14699235,
+                                      ),
+                                      377 => 
+                                      array (
+                                        'key' => 'Ethyl methanesulfonate',
+                                        'value' => 14699236,
+                                      ),
+                                      378 => 
+                                      array (
+                                        'key' => 'Ethyl-4\'-dichlorobenzilate',
+                                        'value' => 14699237,
+                                      ),
+                                      379 => 
+                                      array (
+                                        'key' => 'Ethylbenzene',
+                                        'value' => 14699238,
+                                      ),
+                                      380 => 
+                                      array (
+                                        'key' => 'Ethylene dibromide',
+                                        'value' => 14699239,
+                                      ),
+                                      381 => 
+                                      array (
+                                        'key' => 'Ethylene dichloride (1-Dichloroethane)',
+                                        'value' => 14699240,
+                                      ),
+                                      382 => 
+                                      array (
+                                        'key' => 'Ethylene glycol (ingested)',
+                                        'value' => 14699241,
+                                      ),
+                                      383 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether',
+                                        'value' => 14699242,
+                                      ),
+                                      384 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether acetate',
+                                        'value' => 14699243,
+                                      ),
+                                      385 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether',
+                                        'value' => 14699244,
+                                      ),
+                                      386 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether acetate',
+                                        'value' => 14699245,
+                                      ),
+                                      387 => 
+                                      array (
+                                        'key' => 'Ethylene oxide',
+                                        'value' => 14699246,
+                                      ),
+                                      388 => 
+                                      array (
+                                        'key' => 'Ethylene thiourea',
+                                        'value' => 14699247,
+                                      ),
+                                      389 => 
+                                      array (
+                                        'key' => 'Ethyleneimine (Aziridine)',
+                                        'value' => 14699248,
+                                      ),
+                                      390 => 
+                                      array (
+                                        'key' => 'Etodolac',
+                                        'value' => 14699249,
+                                      ),
+                                      391 => 
+                                      array (
+                                        'key' => 'Etoposide',
+                                        'value' => 14699250,
+                                      ),
+                                      392 => 
+                                      array (
+                                        'key' => 'Etoposide in combination with cisplatin and bleomycin',
+                                        'value' => 14699251,
+                                      ),
+                                      393 => 
+                                      array (
+                                        'key' => 'Etretinate',
+                                        'value' => 14699252,
+                                      ),
+                                      394 => 
+                                      array (
+                                        'key' => 'Fenoxaprop ethyl',
+                                        'value' => 14699253,
+                                      ),
+                                      395 => 
+                                      array (
+                                        'key' => 'Fenoxycarb',
+                                        'value' => 14699254,
+                                      ),
+                                      396 => 
+                                      array (
+                                        'key' => 'Filgrastim',
+                                        'value' => 14699255,
+                                      ),
+                                      397 => 
+                                      array (
+                                        'key' => 'Fluazifop butyl',
+                                        'value' => 14699256,
+                                      ),
+                                      398 => 
+                                      array (
+                                        'key' => 'Flunisolide',
+                                        'value' => 14699257,
+                                      ),
+                                      399 => 
+                                      array (
+                                        'key' => 'Fluorouracil',
+                                        'value' => 14699258,
+                                      ),
+                                      400 => 
+                                      array (
+                                        'key' => 'Fluoxymesterone',
+                                        'value' => 14699259,
+                                      ),
+                                      401 => 
+                                      array (
+                                        'key' => 'Flurazepam hydrochloride',
+                                        'value' => 14699260,
+                                      ),
+                                      402 => 
+                                      array (
+                                        'key' => 'Flurbiprofen',
+                                        'value' => 14699261,
+                                      ),
+                                      403 => 
+                                      array (
+                                        'key' => 'Flutamide',
+                                        'value' => 14699262,
+                                      ),
+                                      404 => 
+                                      array (
+                                        'key' => 'Fluticasone propionate',
+                                        'value' => 14699263,
+                                      ),
+                                      405 => 
+                                      array (
+                                        'key' => 'Fluvalinate',
+                                        'value' => 14699264,
+                                      ),
+                                      406 => 
+                                      array (
+                                        'key' => 'Folpet',
+                                        'value' => 14699265,
+                                      ),
+                                      407 => 
+                                      array (
+                                        'key' => 'Formaldehyde (gas)',
+                                        'value' => 14699266,
+                                      ),
+                                      408 => 
+                                      array (
+                                        'key' => 'Fumonisin B1',
+                                        'value' => 14699267,
+                                      ),
+                                      409 => 
+                                      array (
+                                        'key' => 'Furan',
+                                        'value' => 14699268,
+                                      ),
+                                      410 => 
+                                      array (
+                                        'key' => 'Furazolidone',
+                                        'value' => 14699269,
+                                      ),
+                                      411 => 
+                                      array (
+                                        'key' => 'Furfuryl alcohol',
+                                        'value' => 14699270,
+                                      ),
+                                      412 => 
+                                      array (
+                                        'key' => 'Furmecyclox',
+                                        'value' => 14699271,
+                                      ),
+                                      413 => 
+                                      array (
+                                        'key' => 'Fusarin C',
+                                        'value' => 14699272,
+                                      ),
+                                      414 => 
+                                      array (
+                                        'key' => 'Gallium arsenide',
+                                        'value' => 14699273,
+                                      ),
+                                      415 => 
+                                      array (
+                                        'key' => 'Ganciclovir',
+                                        'value' => 14699274,
+                                      ),
+                                      416 => 
+                                      array (
+                                        'key' => 'Ganciclovir sodium',
+                                        'value' => 14699275,
+                                      ),
+                                      417 => 
+                                      array (
+                                        'key' => 'Gasoline engine exhaust (condensates/extracts)',
+                                        'value' => 14699276,
+                                      ),
+                                      418 => 
+                                      array (
+                                        'key' => 'Gemfibrozil',
+                                        'value' => 14699277,
+                                      ),
+                                      419 => 
+                                      array (
+                                        'key' => 'Gentian violet (Crystal violet)',
+                                        'value' => 14699278,
+                                      ),
+                                      420 => 
+                                      array (
+                                        'key' => 'Glass wool fibers (inhalable and biopersistent)',
+                                        'value' => 14699279,
+                                      ),
+                                      421 => 
+                                      array (
+                                        'key' => 'Glu-P-1 (2-Amino-6-methyldipyrido[1- a:3\'\'-d]imidazole)',
+                                        'value' => 14699280,
+                                      ),
+                                      422 => 
+                                      array (
+                                        'key' => 'Glu-P-2 (2-Aminodipyrido[1-a:3\'\'-d]imidazole)',
+                                        'value' => 14699281,
+                                      ),
+                                      423 => 
+                                      array (
+                                        'key' => 'Glycidaldehyde',
+                                        'value' => 14699282,
+                                      ),
+                                      424 => 
+                                      array (
+                                        'key' => 'Glycidol',
+                                        'value' => 14699283,
+                                      ),
+                                      425 => 
+                                      array (
+                                        'key' => 'Glyphosate',
+                                        'value' => 14699284,
+                                      ),
+                                      426 => 
+                                      array (
+                                        'key' => 'Goldenseal root powder',
+                                        'value' => 14699285,
+                                      ),
+                                      427 => 
+                                      array (
+                                        'key' => 'Goserelin acetate',
+                                        'value' => 14699286,
+                                      ),
+                                      428 => 
+                                      array (
+                                        'key' => 'Griseofulvin',
+                                        'value' => 14699287,
+                                      ),
+                                      429 => 
+                                      array (
+                                        'key' => 'Gyromitrin (Acetaldehyde methylformylhydrazone)',
+                                        'value' => 14699288,
+                                      ),
+                                      430 => 
+                                      array (
+                                        'key' => 'HC Blue 1',
+                                        'value' => 14699293,
+                                      ),
+                                      431 => 
+                                      array (
+                                        'key' => 'Halazepam',
+                                        'value' => 14699289,
+                                      ),
+                                      432 => 
+                                      array (
+                                        'key' => 'Halobetasol propionate',
+                                        'value' => 14699290,
+                                      ),
+                                      433 => 
+                                      array (
+                                        'key' => 'Haloperidol',
+                                        'value' => 14699291,
+                                      ),
+                                      434 => 
+                                      array (
+                                        'key' => 'Halothane',
+                                        'value' => 14699292,
+                                      ),
+                                      435 => 
+                                      array (
+                                        'key' => 'Heptachlor',
+                                        'value' => 14699294,
+                                      ),
+                                      436 => 
+                                      array (
+                                        'key' => 'Heptachlor epoxide',
+                                        'value' => 14699295,
+                                      ),
+                                      437 => 
+                                      array (
+                                        'key' => 'Herbal remedies containing plant species of the genus Aristolochia',
+                                        'value' => 14699296,
+                                      ),
+                                      438 => 
+                                      array (
+                                        'key' => 'Hexachlorobenzene',
+                                        'value' => 14699297,
+                                      ),
+                                      439 => 
+                                      array (
+                                        'key' => 'Hexachlorobutadiene',
+                                        'value' => 14699298,
+                                      ),
+                                      440 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (alpha isomer)',
+                                        'value' => 14699299,
+                                      ),
+                                      441 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (beta isomer)',
+                                        'value' => 14699300,
+                                      ),
+                                      442 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (gamma isomer)',
+                                        'value' => 14699301,
+                                      ),
+                                      443 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (technical grade)',
+                                        'value' => 14699302,
+                                      ),
+                                      444 => 
+                                      array (
+                                        'key' => 'Hexachlorodibenzodioxin',
+                                        'value' => 14699303,
+                                      ),
+                                      445 => 
+                                      array (
+                                        'key' => 'Hexachloroethane',
+                                        'value' => 14699304,
+                                      ),
+                                      446 => 
+                                      array (
+                                        'key' => 'Hexamethylphosphoramide',
+                                        'value' => 14699305,
+                                      ),
+                                      447 => 
+                                      array (
+                                        'key' => 'Histrelin acetate',
+                                        'value' => 14699306,
+                                      ),
+                                      448 => 
+                                      array (
+                                        'key' => 'Hydramethylnon',
+                                        'value' => 14699307,
+                                      ),
+                                      449 => 
+                                      array (
+                                        'key' => 'Hydrazine',
+                                        'value' => 14699308,
+                                      ),
+                                      450 => 
+                                      array (
+                                        'key' => 'Hydrazine sulfate',
+                                        'value' => 14699309,
+                                      ),
+                                      451 => 
+                                      array (
+                                        'key' => 'Hydrazobenzene (1-Diphenylhydrazine)',
+                                        'value' => 14699310,
+                                      ),
+                                      452 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanide (HCN) and cyanide salts (CN salts)',
+                                        'value' => 14699311,
+                                      ),
+                                      453 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanidef',
+                                        'value' => 14699312,
+                                      ),
+                                      454 => 
+                                      array (
+                                        'key' => 'Hydroxyurea',
+                                        'value' => 14699313,
+                                      ),
+                                      455 => 
+                                      array (
+                                        'key' => 'IQ (2-Amino-3-methylimidazo[4-f] quinoline)',
+                                        'value' => 14699323,
+                                      ),
+                                      456 => 
+                                      array (
+                                        'key' => 'Idarubicin hydrochloride',
+                                        'value' => 14699314,
+                                      ),
+                                      457 => 
+                                      array (
+                                        'key' => 'Ifosfamide',
+                                        'value' => 14699315,
+                                      ),
+                                      458 => 
+                                      array (
+                                        'key' => 'Imazalil',
+                                        'value' => 14699316,
+                                      ),
+                                      459 => 
+                                      array (
+                                        'key' => 'Indeno[1-cd]pyrene',
+                                        'value' => 14699317,
+                                      ),
+                                      460 => 
+                                      array (
+                                        'key' => 'Indium phosphide',
+                                        'value' => 14699318,
+                                      ),
+                                      461 => 
+                                      array (
+                                        'key' => 'Infant boys 29 days to 24 monthsb',
+                                        'value' => 14699319,
+                                      ),
+                                      462 => 
+                                      array (
+                                        'key' => 'Iodine-131',
+                                        'value' => 14699320,
+                                      ),
+                                      463 => 
+                                      array (
+                                        'key' => 'Iprodione',
+                                        'value' => 14699321,
+                                      ),
+                                      464 => 
+                                      array (
+                                        'key' => 'Iprovalicarb',
+                                        'value' => 14699322,
+                                      ),
+                                      465 => 
+                                      array (
+                                        'key' => 'Iron dextran complex',
+                                        'value' => 14699324,
+                                      ),
+                                      466 => 
+                                      array (
+                                        'key' => 'Isobutyl nitrite',
+                                        'value' => 14699325,
+                                      ),
+                                      467 => 
+                                      array (
+                                        'key' => 'Isoprene',
+                                        'value' => 14699326,
+                                      ),
+                                      468 => 
+                                      array (
+                                        'key' => 'Isopyrazam',
+                                        'value' => 14699327,
+                                      ),
+                                      469 => 
+                                      array (
+                                        'key' => 'Isotretinoin',
+                                        'value' => 14699328,
+                                      ),
+                                      470 => 
+                                      array (
+                                        'key' => 'Isoxaflutole',
+                                        'value' => 14699329,
+                                      ),
+                                      471 => 
+                                      array (
+                                        'key' => 'Kresoxim-methyl',
+                                        'value' => 14699330,
+                                      ),
+                                      472 => 
+                                      array (
+                                        'key' => 'Lactofen',
+                                        'value' => 14699331,
+                                      ),
+                                      473 => 
+                                      array (
+                                        'key' => 'Lasiocarpine',
+                                        'value' => 14699332,
+                                      ),
+                                      474 => 
+                                      array (
+                                        'key' => 'Lead',
+                                        'value' => 14699333,
+                                      ),
+                                      475 => 
+                                      array (
+                                        'key' => 'Lead acetate',
+                                        'value' => 14699334,
+                                      ),
+                                      476 => 
+                                      array (
+                                        'key' => 'Lead and lead compounds',
+                                        'value' => 14699335,
+                                      ),
+                                      477 => 
+                                      array (
+                                        'key' => 'Lead phosphate',
+                                        'value' => 14699336,
+                                      ),
+                                      478 => 
+                                      array (
+                                        'key' => 'Lead subacetate',
+                                        'value' => 14699337,
+                                      ),
+                                      479 => 
+                                      array (
+                                        'key' => 'Leather dust',
+                                        'value' => 14699338,
+                                      ),
+                                      480 => 
+                                      array (
+                                        'key' => 'Leuprolide acetate',
+                                        'value' => 14699339,
+                                      ),
+                                      481 => 
+                                      array (
+                                        'key' => 'Levodopa',
+                                        'value' => 14699340,
+                                      ),
+                                      482 => 
+                                      array (
+                                        'key' => 'Levonorgestrel implants',
+                                        'value' => 14699341,
+                                      ),
+                                      483 => 
+                                      array (
+                                        'key' => 'Lindane and other hexachlorocyclohexane isomers',
+                                        'value' => 14699342,
+                                      ),
+                                      484 => 
+                                      array (
+                                        'key' => 'Linuron',
+                                        'value' => 14699343,
+                                      ),
+                                      485 => 
+                                      array (
+                                        'key' => 'Lithium carbonate',
+                                        'value' => 14699344,
+                                      ),
+                                      486 => 
+                                      array (
+                                        'key' => 'Lithium citrate',
+                                        'value' => 14699345,
+                                      ),
+                                      487 => 
+                                      array (
+                                        'key' => 'Lorazepam',
+                                        'value' => 14699346,
+                                      ),
+                                      488 => 
+                                      array (
+                                        'key' => 'Lovastatin',
+                                        'value' => 14699347,
+                                      ),
+                                      489 => 
+                                      array (
+                                        'key' => 'Lynestrenol',
+                                        'value' => 14699348,
+                                      ),
+                                      490 => 
+                                      array (
+                                        'key' => 'MON 13900 (furilazole)',
+                                        'value' => 14699406,
+                                      ),
+                                      491 => 
+                                      array (
+                                        'key' => 'MON 4660 (dichloroacetyl-1-oxa-4-azaspiro(4)-decane',
+                                        'value' => 14699407,
+                                      ),
+                                      492 => 
+                                      array (
+                                        'key' => 'MOPP (vincristine-prednisone-nitrogen mustard-procarbazine mixture)',
+                                        'value' => 14699409,
+                                      ),
+                                      493 => 
+                                      array (
+                                        'key' => 'MX (3-chloro-4-dichloromethyl-5-hydroxy-2(5H)-furanone)',
+                                        'value' => 14699411,
+                                      ),
+                                      494 => 
+                                      array (
+                                        'key' => 'Malathion',
+                                        'value' => 14699350,
+                                      ),
+                                      495 => 
+                                      array (
+                                        'key' => 'Malonaldehyde salt',
+                                        'value' => 14699351,
+                                      ),
+                                      496 => 
+                                      array (
+                                        'key' => 'Mancozeb',
+                                        'value' => 14699352,
+                                      ),
+                                      497 => 
+                                      array (
+                                        'key' => 'Maneb',
+                                        'value' => 14699353,
+                                      ),
+                                      498 => 
+                                      array (
+                                        'key' => 'Marijuana smoke',
+                                        'value' => 14699354,
+                                      ),
+                                      499 => 
+                                      array (
+                                        'key' => 'Me-A-alpha-C (2-Amino-3-methyl-9H-pyrido[2-b]indole)',
+                                        'value' => 14699355,
+                                      ),
+                                      500 => 
+                                      array (
+                                        'key' => 'MeIQ (2-Amino-3-dimethylimidazo[4-f]quinoline)',
+                                        'value' => 14699359,
+                                      ),
+                                      501 => 
+                                      array (
+                                        'key' => 'MeIQx (2-Amino-3-dimethylimidazo[4-f]quinoxaline)',
+                                        'value' => 14699360,
+                                      ),
+                                      502 => 
+                                      array (
+                                        'key' => 'Mebendazole',
+                                        'value' => 14699356,
+                                      ),
+                                      503 => 
+                                      array (
+                                        'key' => 'Medroxyprogesterone acetate',
+                                        'value' => 14699357,
+                                      ),
+                                      504 => 
+                                      array (
+                                        'key' => 'Megestrol acetate',
+                                        'value' => 14699358,
+                                      ),
+                                      505 => 
+                                      array (
+                                        'key' => 'Melphalan',
+                                        'value' => 14699361,
+                                      ),
+                                      506 => 
+                                      array (
+                                        'key' => 'Menotropins',
+                                        'value' => 14699362,
+                                      ),
+                                      507 => 
+                                      array (
+                                        'key' => 'Mepanipyrim',
+                                        'value' => 14699363,
+                                      ),
+                                      508 => 
+                                      array (
+                                        'key' => 'Meprobamate',
+                                        'value' => 14699364,
+                                      ),
+                                      509 => 
+                                      array (
+                                        'key' => 'Mercaptopurine',
+                                        'value' => 14699365,
+                                      ),
+                                      510 => 
+                                      array (
+                                        'key' => 'Mercury and mercury compounds',
+                                        'value' => 14699366,
+                                      ),
+                                      511 => 
+                                      array (
+                                        'key' => 'Merphalan',
+                                        'value' => 14699367,
+                                      ),
+                                      512 => 
+                                      array (
+                                        'key' => 'Mestranol',
+                                        'value' => 14699368,
+                                      ),
+                                      513 => 
+                                      array (
+                                        'key' => 'Metam potassium',
+                                        'value' => 14699369,
+                                      ),
+                                      514 => 
+                                      array (
+                                        'key' => 'Methacycline hydrochloride',
+                                        'value' => 14699370,
+                                      ),
+                                      515 => 
+                                      array (
+                                        'key' => 'Metham sodium',
+                                        'value' => 14699371,
+                                      ),
+                                      516 => 
+                                      array (
+                                        'key' => 'Methanol',
+                                        'value' => 14699372,
+                                      ),
+                                      517 => 
+                                      array (
+                                        'key' => 'Methazole',
+                                        'value' => 14699373,
+                                      ),
+                                      518 => 
+                                      array (
+                                        'key' => 'Methimazole',
+                                        'value' => 14699374,
+                                      ),
+                                      519 => 
+                                      array (
+                                        'key' => 'Methotrexate',
+                                        'value' => 14699375,
+                                      ),
+                                      520 => 
+                                      array (
+                                        'key' => 'Methotrexate sodium',
+                                        'value' => 14699376,
+                                      ),
+                                      521 => 
+                                      array (
+                                        'key' => 'Methyl bromide a structural fumigant',
+                                        'value' => 14699377,
+                                      ),
+                                      522 => 
+                                      array (
+                                        'key' => 'Methyl carbamate',
+                                        'value' => 14699378,
+                                      ),
+                                      523 => 
+                                      array (
+                                        'key' => 'Methyl chloride',
+                                        'value' => 14699379,
+                                      ),
+                                      524 => 
+                                      array (
+                                        'key' => 'Methyl iodide',
+                                        'value' => 14699380,
+                                      ),
+                                      525 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone',
+                                        'value' => 14699381,
+                                      ),
+                                      526 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone (MIBK)',
+                                        'value' => 14699382,
+                                      ),
+                                      527 => 
+                                      array (
+                                        'key' => 'Methyl isocyanate (MIC)',
+                                        'value' => 14699383,
+                                      ),
+                                      528 => 
+                                      array (
+                                        'key' => 'Methyl mercury',
+                                        'value' => 14699384,
+                                      ),
+                                      529 => 
+                                      array (
+                                        'key' => 'Methyl methanesulfonate',
+                                        'value' => 14699385,
+                                      ),
+                                      530 => 
+                                      array (
+                                        'key' => 'Methyl-n-butyl ketone',
+                                        'value' => 14699386,
+                                      ),
+                                      531 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol',
+                                        'value' => 14699387,
+                                      ),
+                                      532 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol acetate',
+                                        'value' => 14699388,
+                                      ),
+                                      533 => 
+                                      array (
+                                        'key' => 'Methyleugenol',
+                                        'value' => 14699389,
+                                      ),
+                                      534 => 
+                                      array (
+                                        'key' => 'Methylhydrazine',
+                                        'value' => 14699390,
+                                      ),
+                                      535 => 
+                                      array (
+                                        'key' => 'Methylhydrazine and its salts',
+                                        'value' => 14699391,
+                                      ),
+                                      536 => 
+                                      array (
+                                        'key' => 'Methylhydrazine sulfate',
+                                        'value' => 14699392,
+                                      ),
+                                      537 => 
+                                      array (
+                                        'key' => 'Methylmercury compounds',
+                                        'value' => 14699393,
+                                      ),
+                                      538 => 
+                                      array (
+                                        'key' => 'Methyltestosterone',
+                                        'value' => 14699394,
+                                      ),
+                                      539 => 
+                                      array (
+                                        'key' => 'Methylthiouracil',
+                                        'value' => 14699395,
+                                      ),
+                                      540 => 
+                                      array (
+                                        'key' => 'Metiram',
+                                        'value' => 14699396,
+                                      ),
+                                      541 => 
+                                      array (
+                                        'key' => 'Metronidazole',
+                                        'value' => 14699397,
+                                      ),
+                                      542 => 
+                                      array (
+                                        'key' => 'Michler\'s ketone',
+                                        'value' => 14699398,
+                                      ),
+                                      543 => 
+                                      array (
+                                        'key' => 'Midazolam hydrochloride',
+                                        'value' => 14699399,
+                                      ),
+                                      544 => 
+                                      array (
+                                        'key' => 'Minocycline hydrochloride (internal use)',
+                                        'value' => 14699400,
+                                      ),
+                                      545 => 
+                                      array (
+                                        'key' => 'Mirex',
+                                        'value' => 14699401,
+                                      ),
+                                      546 => 
+                                      array (
+                                        'key' => 'Misoprostol',
+                                        'value' => 14699402,
+                                      ),
+                                      547 => 
+                                      array (
+                                        'key' => 'Mitomycin C',
+                                        'value' => 14699403,
+                                      ),
+                                      548 => 
+                                      array (
+                                        'key' => 'Mitoxantrone hydrochloride',
+                                        'value' => 14699404,
+                                      ),
+                                      549 => 
+                                      array (
+                                        'key' => 'Molinate',
+                                        'value' => 14699405,
+                                      ),
+                                      550 => 
+                                      array (
+                                        'key' => 'Monocrotaline',
+                                        'value' => 14699408,
+                                      ),
+                                      551 => 
+                                      array (
+                                        'key' => 'Mustard Gas',
+                                        'value' => 14699410,
+                                      ),
+                                      552 => 
+                                      array (
+                                        'key' => 'Myclobutanil',
+                                        'value' => 14699412,
+                                      ),
+                                      553 => 
+                                      array (
+                                        'key' => 'N\'-Diacetylbenzidine',
+                                        'value' => 14699413,
+                                      ),
+                                      554 => 
+                                      array (
+                                        'key' => 'N-Bis(2-chloroethyl)-2-naphthylamine (Chlornapazine)',
+                                        'value' => 14699414,
+                                      ),
+                                      555 => 
+                                      array (
+                                        'key' => 'N-Carboxymethyl-N-nitrosourea',
+                                        'value' => 14699419,
+                                      ),
+                                      556 => 
+                                      array (
+                                        'key' => 'N-Dimethyl-p-toluidine',
+                                        'value' => 14699415,
+                                      ),
+                                      557 => 
+                                      array (
+                                        'key' => 'N-Dimethylacetamide',
+                                        'value' => 14699416,
+                                      ),
+                                      558 => 
+                                      array (
+                                        'key' => 'N-Dimethylformamide',
+                                        'value' => 14699417,
+                                      ),
+                                      559 => 
+                                      array (
+                                        'key' => 'N-Methyl-N\'-nitro-N-nitrosoguanidine',
+                                        'value' => 14699421,
+                                      ),
+                                      560 => 
+                                      array (
+                                        'key' => 'N-Methylolacrylamide',
+                                        'value' => 14699422,
+                                      ),
+                                      561 => 
+                                      array (
+                                        'key' => 'N-Methylpyrrolidone',
+                                        'value' => 14699423,
+                                      ),
+                                      562 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-ethylurea',
+                                        'value' => 14699424,
+                                      ),
+                                      563 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurea',
+                                        'value' => 14699425,
+                                      ),
+                                      564 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurethane',
+                                        'value' => 14699426,
+                                      ),
+                                      565 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-butylamine',
+                                        'value' => 14699427,
+                                      ),
+                                      566 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-propylamine',
+                                        'value' => 14699428,
+                                      ),
+                                      567 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethanolamine',
+                                        'value' => 14699429,
+                                      ),
+                                      568 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethylamine',
+                                        'value' => 14699430,
+                                      ),
+                                      569 => 
+                                      array (
+                                        'key' => 'N-Nitrosodimethylamine',
+                                        'value' => 14699431,
+                                      ),
+                                      570 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiphenylamine',
+                                        'value' => 14699432,
+                                      ),
+                                      571 => 
+                                      array (
+                                        'key' => 'N-Nitrosohexamethyleneimine',
+                                        'value' => 14699433,
+                                      ),
+                                      572 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-butylamine',
+                                        'value' => 14699434,
+                                      ),
+                                      573 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-decylamine',
+                                        'value' => 14699435,
+                                      ),
+                                      574 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-dodecylamine',
+                                        'value' => 14699436,
+                                      ),
+                                      575 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-heptylamine',
+                                        'value' => 14699437,
+                                      ),
+                                      576 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-hexylamine',
+                                        'value' => 14699438,
+                                      ),
+                                      577 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-nonylamine',
+                                        'value' => 14699439,
+                                      ),
+                                      578 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-octylamine',
+                                        'value' => 14699440,
+                                      ),
+                                      579 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-pentylamine',
+                                        'value' => 14699441,
+                                      ),
+                                      580 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-propylamine',
+                                        'value' => 14699442,
+                                      ),
+                                      581 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-tetradecylamine',
+                                        'value' => 14699443,
+                                      ),
+                                      582 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-undecylamine',
+                                        'value' => 14699444,
+                                      ),
+                                      583 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylethylamine',
+                                        'value' => 14699445,
+                                      ),
+                                      584 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylvinylamine',
+                                        'value' => 14699446,
+                                      ),
+                                      585 => 
+                                      array (
+                                        'key' => 'N-Nitrosomorpholine',
+                                        'value' => 14699447,
+                                      ),
+                                      586 => 
+                                      array (
+                                        'key' => 'N-Nitrosonornicotine',
+                                        'value' => 14699448,
+                                      ),
+                                      587 => 
+                                      array (
+                                        'key' => 'N-Nitrosopiperidine',
+                                        'value' => 14699449,
+                                      ),
+                                      588 => 
+                                      array (
+                                        'key' => 'N-Nitrosopyrrolidine',
+                                        'value' => 14699450,
+                                      ),
+                                      589 => 
+                                      array (
+                                        'key' => 'N-Nitrososarcosine',
+                                        'value' => 14699451,
+                                      ),
+                                      590 => 
+                                      array (
+                                        'key' => 'N-[4-(5-Nitro-2-furyl)-2-thiazolyl]acetamide',
+                                        'value' => 14699418,
+                                      ),
+                                      591 => 
+                                      array (
+                                        'key' => 'Nabam',
+                                        'value' => 14699452,
+                                      ),
+                                      592 => 
+                                      array (
+                                        'key' => 'Nafarelin acetate',
+                                        'value' => 14699453,
+                                      ),
+                                      593 => 
+                                      array (
+                                        'key' => 'Nafenopin',
+                                        'value' => 14699454,
+                                      ),
+                                      594 => 
+                                      array (
+                                        'key' => 'Nalidixic acid',
+                                        'value' => 14699455,
+                                      ),
+                                      595 => 
+                                      array (
+                                        'key' => 'Naphthalene',
+                                        'value' => 14699456,
+                                      ),
+                                      596 => 
+                                      array (
+                                        'key' => 'Neomycin sulfate (internal use)',
+                                        'value' => 14699457,
+                                      ),
+                                      597 => 
+                                      array (
+                                        'key' => 'Neonatal infant boys 0 to 28 daysb',
+                                        'value' => 14699458,
+                                      ),
+                                      598 => 
+                                      array (
+                                        'key' => 'Netilmicin sulfate',
+                                        'value' => 14699459,
+                                      ),
+                                      599 => 
+                                      array (
+                                        'key' => 'Nickel (Metallic)',
+                                        'value' => 14699460,
+                                      ),
+                                      600 => 
+                                      array (
+                                        'key' => 'Nickel (soluble compounds)',
+                                        'value' => 14699461,
+                                      ),
+                                      601 => 
+                                      array (
+                                        'key' => 'Nickel acetate',
+                                        'value' => 14699462,
+                                      ),
+                                      602 => 
+                                      array (
+                                        'key' => 'Nickel carbonate',
+                                        'value' => 14699463,
+                                      ),
+                                      603 => 
+                                      array (
+                                        'key' => 'Nickel carbonyl',
+                                        'value' => 14699464,
+                                      ),
+                                      604 => 
+                                      array (
+                                        'key' => 'Nickel compounds',
+                                        'value' => 14699465,
+                                      ),
+                                      605 => 
+                                      array (
+                                        'key' => 'Nickel hydroxide',
+                                        'value' => 14699466,
+                                      ),
+                                      606 => 
+                                      array (
+                                        'key' => 'Nickel oxide',
+                                        'value' => 14699467,
+                                      ),
+                                      607 => 
+                                      array (
+                                        'key' => 'Nickel refinery dust from the pyrometallurgical process',
+                                        'value' => 14699468,
+                                      ),
+                                      608 => 
+                                      array (
+                                        'key' => 'Nickel subsulfide',
+                                        'value' => 14699469,
+                                      ),
+                                      609 => 
+                                      array (
+                                        'key' => 'Nickelocene',
+                                        'value' => 14699470,
+                                      ),
+                                      610 => 
+                                      array (
+                                        'key' => 'Nicotine',
+                                        'value' => 14699471,
+                                      ),
+                                      611 => 
+                                      array (
+                                        'key' => 'Nifedipine',
+                                        'value' => 14699472,
+                                      ),
+                                      612 => 
+                                      array (
+                                        'key' => 'Nimodipine',
+                                        'value' => 14699473,
+                                      ),
+                                      613 => 
+                                      array (
+                                        'key' => 'Niridazole',
+                                        'value' => 14699474,
+                                      ),
+                                      614 => 
+                                      array (
+                                        'key' => 'Nitrapyrin',
+                                        'value' => 14699475,
+                                      ),
+                                      615 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid',
+                                        'value' => 14699476,
+                                      ),
+                                      616 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid salt monohydrate',
+                                        'value' => 14699477,
+                                      ),
+                                      617 => 
+                                      array (
+                                        'key' => 'Nitrobenzene',
+                                        'value' => 14699478,
+                                      ),
+                                      618 => 
+                                      array (
+                                        'key' => 'Nitrofen (technical grade)',
+                                        'value' => 14699479,
+                                      ),
+                                      619 => 
+                                      array (
+                                        'key' => 'Nitrofurantoin',
+                                        'value' => 14699480,
+                                      ),
+                                      620 => 
+                                      array (
+                                        'key' => 'Nitrofurazone',
+                                        'value' => 14699481,
+                                      ),
+                                      621 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard (Mechlorethamine)',
+                                        'value' => 14699482,
+                                      ),
+                                      622 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide',
+                                        'value' => 14699484,
+                                      ),
+                                      623 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide hydrochloride',
+                                        'value' => 14699485,
+                                      ),
+                                      624 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard hydrochloride (Mechlorethamine hydrochloride)',
+                                        'value' => 14699483,
+                                      ),
+                                      625 => 
+                                      array (
+                                        'key' => 'Nitromethane',
+                                        'value' => 14699486,
+                                      ),
+                                      626 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone)',
+                                        'value' => 14699487,
+                                      ),
+                                      627 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Ethinyl estradiol',
+                                        'value' => 14699488,
+                                      ),
+                                      628 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Mestranol',
+                                        'value' => 14699489,
+                                      ),
+                                      629 => 
+                                      array (
+                                        'key' => 'Norethisterone acetate (Norethindrone acetate)',
+                                        'value' => 14699490,
+                                      ),
+                                      630 => 
+                                      array (
+                                        'key' => 'Norethynodrel',
+                                        'value' => 14699491,
+                                      ),
+                                      631 => 
+                                      array (
+                                        'key' => 'Norgestrel',
+                                        'value' => 14699492,
+                                      ),
+                                      632 => 
+                                      array (
+                                        'key' => 'Ochratoxin A',
+                                        'value' => 14699507,
+                                      ),
+                                      633 => 
+                                      array (
+                                        'key' => 'Oil Orange SS',
+                                        'value' => 14699508,
+                                      ),
+                                      634 => 
+                                      array (
+                                        'key' => 'Oral contraceptives',
+                                        'value' => 14699509,
+                                      ),
+                                      635 => 
+                                      array (
+                                        'key' => 'Oryzalin',
+                                        'value' => 14699510,
+                                      ),
+                                      636 => 
+                                      array (
+                                        'key' => 'Oxadiazon',
+                                        'value' => 14699511,
+                                      ),
+                                      637 => 
+                                      array (
+                                        'key' => 'Oxazepam',
+                                        'value' => 14699512,
+                                      ),
+                                      638 => 
+                                      array (
+                                        'key' => 'Oxydemeton methyl',
+                                        'value' => 14699513,
+                                      ),
+                                      639 => 
+                                      array (
+                                        'key' => 'Oxymetholone',
+                                        'value' => 14699514,
+                                      ),
+                                      640 => 
+                                      array (
+                                        'key' => 'Oxytetracycline (internal use)',
+                                        'value' => 14699515,
+                                      ),
+                                      641 => 
+                                      array (
+                                        'key' => 'Oxytetracycline hydrochloride (internal use)',
+                                        'value' => 14699516,
+                                      ),
+                                      642 => 
+                                      array (
+                                        'key' => 'Oxythioquinox (Chinomethionat)',
+                                        'value' => 14699517,
+                                      ),
+                                      643 => 
+                                      array (
+                                        'key' => 'Paclitaxel',
+                                        'value' => 14699530,
+                                      ),
+                                      644 => 
+                                      array (
+                                        'key' => 'Palygorskite fibers (> 5æm in length)',
+                                        'value' => 14699531,
+                                      ),
+                                      645 => 
+                                      array (
+                                        'key' => 'Panfuran S',
+                                        'value' => 14699532,
+                                      ),
+                                      646 => 
+                                      array (
+                                        'key' => 'Paramethadione',
+                                        'value' => 14699534,
+                                      ),
+                                      647 => 
+                                      array (
+                                        'key' => 'Parathion',
+                                        'value' => 14699535,
+                                      ),
+                                      648 => 
+                                      array (
+                                        'key' => 'Penicillamine',
+                                        'value' => 14699536,
+                                      ),
+                                      649 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol',
+                                        'value' => 14699538,
+                                      ),
+                                      650 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol and by-products of its synthesis (complex mixture)',
+                                        'value' => 14699539,
+                                      ),
+                                      651 => 
+                                      array (
+                                        'key' => 'Pentobarbital sodium',
+                                        'value' => 14699540,
+                                      ),
+                                      652 => 
+                                      array (
+                                        'key' => 'Pentosan polysulfate sodium',
+                                        'value' => 14699541,
+                                      ),
+                                      653 => 
+                                      array (
+                                        'key' => 'Pentostatin',
+                                        'value' => 14699542,
+                                      ),
+                                      654 => 
+                                      array (
+                                        'key' => 'Perfluorooctane sulfonate (PFOS)',
+                                        'value' => 14699543,
+                                      ),
+                                      655 => 
+                                      array (
+                                        'key' => 'Perfluorooctanoic acid (PFOA)',
+                                        'value' => 14699544,
+                                      ),
+                                      656 => 
+                                      array (
+                                        'key' => 'Pertuzumab',
+                                        'value' => 14699545,
+                                      ),
+                                      657 => 
+                                      array (
+                                        'key' => 'Phenacemide',
+                                        'value' => 14699546,
+                                      ),
+                                      658 => 
+                                      array (
+                                        'key' => 'Phenacetin',
+                                        'value' => 14699547,
+                                      ),
+                                      659 => 
+                                      array (
+                                        'key' => 'Phenazopyridine',
+                                        'value' => 14699548,
+                                      ),
+                                      660 => 
+                                      array (
+                                        'key' => 'Phenazopyridine hydrochloride',
+                                        'value' => 14699549,
+                                      ),
+                                      661 => 
+                                      array (
+                                        'key' => 'Phenesterin',
+                                        'value' => 14699550,
+                                      ),
+                                      662 => 
+                                      array (
+                                        'key' => 'Phenobarbital',
+                                        'value' => 14699551,
+                                      ),
+                                      663 => 
+                                      array (
+                                        'key' => 'Phenolphthalein',
+                                        'value' => 14699552,
+                                      ),
+                                      664 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine',
+                                        'value' => 14699553,
+                                      ),
+                                      665 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine hydrochloride',
+                                        'value' => 14699554,
+                                      ),
+                                      666 => 
+                                      array (
+                                        'key' => 'Phenprocoumon',
+                                        'value' => 14699555,
+                                      ),
+                                      667 => 
+                                      array (
+                                        'key' => 'Phenyl glycidyl ether',
+                                        'value' => 14699556,
+                                      ),
+                                      668 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine',
+                                        'value' => 14699557,
+                                      ),
+                                      669 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine and its salts',
+                                        'value' => 14699558,
+                                      ),
+                                      670 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine hydrochloride',
+                                        'value' => 14699559,
+                                      ),
+                                      671 => 
+                                      array (
+                                        'key' => 'PhiP(2-Amino-1-methyl-6-phenylimidazol[4-b]pyridine)',
+                                        'value' => 14699560,
+                                      ),
+                                      672 => 
+                                      array (
+                                        'key' => 'Pimozide',
+                                        'value' => 14699561,
+                                      ),
+                                      673 => 
+                                      array (
+                                        'key' => 'Pioglitazone',
+                                        'value' => 14699562,
+                                      ),
+                                      674 => 
+                                      array (
+                                        'key' => 'Pipobroman',
+                                        'value' => 14699563,
+                                      ),
+                                      675 => 
+                                      array (
+                                        'key' => 'Pirimicarb',
+                                        'value' => 14699564,
+                                      ),
+                                      676 => 
+                                      array (
+                                        'key' => 'Plicamycin',
+                                        'value' => 14699565,
+                                      ),
+                                      677 => 
+                                      array (
+                                        'key' => 'Polybrominated biphenyls',
+                                        'value' => 14699566,
+                                      ),
+                                      678 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls',
+                                        'value' => 14699567,
+                                      ),
+                                      679 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls (containing 60 or more percent chlorine by molecular weight)',
+                                        'value' => 14699568,
+                                      ),
+                                      680 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzo-p-dioxins',
+                                        'value' => 14699569,
+                                      ),
+                                      681 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzofurans',
+                                        'value' => 14699570,
+                                      ),
+                                      682 => 
+                                      array (
+                                        'key' => 'Polygeenan',
+                                        'value' => 14699571,
+                                      ),
+                                      683 => 
+                                      array (
+                                        'key' => 'Ponceau 3R',
+                                        'value' => 14699572,
+                                      ),
+                                      684 => 
+                                      array (
+                                        'key' => 'Ponceau MX',
+                                        'value' => 14699573,
+                                      ),
+                                      685 => 
+                                      array (
+                                        'key' => 'Potassium bromate',
+                                        'value' => 14699574,
+                                      ),
+                                      686 => 
+                                      array (
+                                        'key' => 'Potassium cyanidef',
+                                        'value' => 14699575,
+                                      ),
+                                      687 => 
+                                      array (
+                                        'key' => 'Potassium dimethyldithiocarbamate',
+                                        'value' => 14699576,
+                                      ),
+                                      688 => 
+                                      array (
+                                        'key' => 'Pravastatin sodium',
+                                        'value' => 14699577,
+                                      ),
+                                      689 => 
+                                      array (
+                                        'key' => 'Prednisolone sodium phosphate',
+                                        'value' => 14699578,
+                                      ),
+                                      690 => 
+                                      array (
+                                        'key' => 'Primidone',
+                                        'value' => 14699579,
+                                      ),
+                                      691 => 
+                                      array (
+                                        'key' => 'Procarbazine',
+                                        'value' => 14699580,
+                                      ),
+                                      692 => 
+                                      array (
+                                        'key' => 'Procarbazine hydrochloride',
+                                        'value' => 14699581,
+                                      ),
+                                      693 => 
+                                      array (
+                                        'key' => 'Procymidone',
+                                        'value' => 14699582,
+                                      ),
+                                      694 => 
+                                      array (
+                                        'key' => 'Progesterone',
+                                        'value' => 14699583,
+                                      ),
+                                      695 => 
+                                      array (
+                                        'key' => 'Pronamide',
+                                        'value' => 14699584,
+                                      ),
+                                      696 => 
+                                      array (
+                                        'key' => 'Propachlor',
+                                        'value' => 14699585,
+                                      ),
+                                      697 => 
+                                      array (
+                                        'key' => 'Propargite',
+                                        'value' => 14699586,
+                                      ),
+                                      698 => 
+                                      array (
+                                        'key' => 'Propazine',
+                                        'value' => 14699587,
+                                      ),
+                                      699 => 
+                                      array (
+                                        'key' => 'Propoxur',
+                                        'value' => 14699588,
+                                      ),
+                                      700 => 
+                                      array (
+                                        'key' => 'Propylene glycol mono-t-butyl ether',
+                                        'value' => 14699589,
+                                      ),
+                                      701 => 
+                                      array (
+                                        'key' => 'Propylene oxide',
+                                        'value' => 14699590,
+                                      ),
+                                      702 => 
+                                      array (
+                                        'key' => 'Propylthiouracil',
+                                        'value' => 14699591,
+                                      ),
+                                      703 => 
+                                      array (
+                                        'key' => 'Pulegone',
+                                        'value' => 14699592,
+                                      ),
+                                      704 => 
+                                      array (
+                                        'key' => 'Pymetrozine',
+                                        'value' => 14699593,
+                                      ),
+                                      705 => 
+                                      array (
+                                        'key' => 'Pyridine',
+                                        'value' => 14699594,
+                                      ),
+                                      706 => 
+                                      array (
+                                        'key' => 'Pyrimethamine',
+                                        'value' => 14699595,
+                                      ),
+                                      707 => 
+                                      array (
+                                        'key' => 'Quazepam',
+                                        'value' => 14699596,
+                                      ),
+                                      708 => 
+                                      array (
+                                        'key' => 'Quinoline and its strong acid salts',
+                                        'value' => 14699597,
+                                      ),
+                                      709 => 
+                                      array (
+                                        'key' => 'Quizalofop-ethyl',
+                                        'value' => 14699598,
+                                      ),
+                                      710 => 
+                                      array (
+                                        'key' => 'Radionuclides',
+                                        'value' => 14699599,
+                                      ),
+                                      711 => 
+                                      array (
+                                        'key' => 'Reserpine',
+                                        'value' => 14699600,
+                                      ),
+                                      712 => 
+                                      array (
+                                        'key' => 'Residual (heavy) fuel oils',
+                                        'value' => 14699601,
+                                      ),
+                                      713 => 
+                                      array (
+                                        'key' => 'Resmethrin',
+                                        'value' => 14699602,
+                                      ),
+                                      714 => 
+                                      array (
+                                        'key' => 'Ribavirin',
+                                        'value' => 14699603,
+                                      ),
+                                      715 => 
+                                      array (
+                                        'key' => 'Riddelliine',
+                                        'value' => 14699604,
+                                      ),
+                                      716 => 
+                                      array (
+                                        'key' => 'Rifampin',
+                                        'value' => 14699605,
+                                      ),
+                                      717 => 
+                                      array (
+                                        'key' => 'S-Tributyl phosphorotrithioate (Tribufos)',
+                                        'value' => 14699606,
+                                      ),
+                                      718 => 
+                                      array (
+                                        'key' => 'Safrole',
+                                        'value' => 14699607,
+                                      ),
+                                      719 => 
+                                      array (
+                                        'key' => 'Salted fish-style',
+                                        'value' => 14699608,
+                                      ),
+                                      720 => 
+                                      array (
+                                        'key' => 'Secobarbital sodium',
+                                        'value' => 14699609,
+                                      ),
+                                      721 => 
+                                      array (
+                                        'key' => 'Sedaxane',
+                                        'value' => 14699610,
+                                      ),
+                                      722 => 
+                                      array (
+                                        'key' => 'Selenium sulfide',
+                                        'value' => 14699611,
+                                      ),
+                                      723 => 
+                                      array (
+                                        'key' => 'Sermorelin acetate',
+                                        'value' => 14699612,
+                                      ),
+                                      724 => 
+                                      array (
+                                        'key' => 'Shale-oils',
+                                        'value' => 14699613,
+                                      ),
+                                      725 => 
+                                      array (
+                                        'key' => 'Silica (airborne particles of respirable size)',
+                                        'value' => 14699614,
+                                      ),
+                                      726 => 
+                                      array (
+                                        'key' => 'Simazine',
+                                        'value' => 14699615,
+                                      ),
+                                      727 => 
+                                      array (
+                                        'key' => 'Sodium cyanidef',
+                                        'value' => 14699616,
+                                      ),
+                                      728 => 
+                                      array (
+                                        'key' => 'Sodium dimethyldithiocarbamate',
+                                        'value' => 14699617,
+                                      ),
+                                      729 => 
+                                      array (
+                                        'key' => 'Sodium fluoroacetate',
+                                        'value' => 14699618,
+                                      ),
+                                      730 => 
+                                      array (
+                                        'key' => 'Soots mineral oils (untreated and mildly treated oils and used engine oils)',
+                                        'value' => 14699619,
+                                      ),
+                                      731 => 
+                                      array (
+                                        'key' => 'Spirodiclofen',
+                                        'value' => 14699620,
+                                      ),
+                                      732 => 
+                                      array (
+                                        'key' => 'Spironolactone',
+                                        'value' => 14699621,
+                                      ),
+                                      733 => 
+                                      array (
+                                        'key' => 'Stanozolol',
+                                        'value' => 14699622,
+                                      ),
+                                      734 => 
+                                      array (
+                                        'key' => 'Sterigmatocystin',
+                                        'value' => 14699623,
+                                      ),
+                                      735 => 
+                                      array (
+                                        'key' => 'Streptomycin sulfate',
+                                        'value' => 14699624,
+                                      ),
+                                      736 => 
+                                      array (
+                                        'key' => 'Streptozocin (streptozotocin)',
+                                        'value' => 14699625,
+                                      ),
+                                      737 => 
+                                      array (
+                                        'key' => 'Streptozotocin (streptozocin)',
+                                        'value' => 14699626,
+                                      ),
+                                      738 => 
+                                      array (
+                                        'key' => 'Strong inorganic acid mists containing sulfuric acid',
+                                        'value' => 14699627,
+                                      ),
+                                      739 => 
+                                      array (
+                                        'key' => 'Styrene',
+                                        'value' => 14699628,
+                                      ),
+                                      740 => 
+                                      array (
+                                        'key' => 'Styrene oxide',
+                                        'value' => 14699629,
+                                      ),
+                                      741 => 
+                                      array (
+                                        'key' => 'Sulfallate',
+                                        'value' => 14699630,
+                                      ),
+                                      742 => 
+                                      array (
+                                        'key' => 'Sulfasalazine (Salicylazosulfapyridine)',
+                                        'value' => 14699631,
+                                      ),
+                                      743 => 
+                                      array (
+                                        'key' => 'Sulfur dioxidee',
+                                        'value' => 14699632,
+                                      ),
+                                      744 => 
+                                      array (
+                                        'key' => 'Sulindac',
+                                        'value' => 14699633,
+                                      ),
+                                      745 => 
+                                      array (
+                                        'key' => 'TRIM? VX',
+                                        'value' => 14699683,
+                                      ),
+                                      746 => 
+                                      array (
+                                        'key' => 'Talc containing asbestiform fibers',
+                                        'value' => 14699634,
+                                      ),
+                                      747 => 
+                                      array (
+                                        'key' => 'Tamoxifen and its salts',
+                                        'value' => 14699635,
+                                      ),
+                                      748 => 
+                                      array (
+                                        'key' => 'Tamoxifen citrate',
+                                        'value' => 14699636,
+                                      ),
+                                      749 => 
+                                      array (
+                                        'key' => 'Temazepam',
+                                        'value' => 14699637,
+                                      ),
+                                      750 => 
+                                      array (
+                                        'key' => 'Teniposide',
+                                        'value' => 14699638,
+                                      ),
+                                      751 => 
+                                      array (
+                                        'key' => 'Terbacil',
+                                        'value' => 14699639,
+                                      ),
+                                      752 => 
+                                      array (
+                                        'key' => 'Teriparatide',
+                                        'value' => 14699640,
+                                      ),
+                                      753 => 
+                                      array (
+                                        'key' => 'Terrazole',
+                                        'value' => 14699641,
+                                      ),
+                                      754 => 
+                                      array (
+                                        'key' => 'Testosterone and its esters',
+                                        'value' => 14699642,
+                                      ),
+                                      755 => 
+                                      array (
+                                        'key' => 'Testosterone cypionate',
+                                        'value' => 14699643,
+                                      ),
+                                      756 => 
+                                      array (
+                                        'key' => 'Testosterone enanthate',
+                                        'value' => 14699644,
+                                      ),
+                                      757 => 
+                                      array (
+                                        'key' => 'Tetrabromobisphenol A',
+                                        'value' => 14699645,
+                                      ),
+                                      758 => 
+                                      array (
+                                        'key' => 'Tetrachloroethylene (Perchloroethylene)',
+                                        'value' => 14699646,
+                                      ),
+                                      759 => 
+                                      array (
+                                        'key' => 'Tetrachlorvinphos',
+                                        'value' => 14699647,
+                                      ),
+                                      760 => 
+                                      array (
+                                        'key' => 'Tetracycline (internal use)',
+                                        'value' => 14699648,
+                                      ),
+                                      761 => 
+                                      array (
+                                        'key' => 'Tetracycline hydrochloride (internal use)',
+                                        'value' => 14699649,
+                                      ),
+                                      762 => 
+                                      array (
+                                        'key' => 'Tetracyclines (internal use)',
+                                        'value' => 14699650,
+                                      ),
+                                      763 => 
+                                      array (
+                                        'key' => 'Tetrafluoroethylene',
+                                        'value' => 14699651,
+                                      ),
+                                      764 => 
+                                      array (
+                                        'key' => 'Tetranitromethane',
+                                        'value' => 14699652,
+                                      ),
+                                      765 => 
+                                      array (
+                                        'key' => 'Thalidomide',
+                                        'value' => 14699653,
+                                      ),
+                                      766 => 
+                                      array (
+                                        'key' => 'Thioacetamide',
+                                        'value' => 14699654,
+                                      ),
+                                      767 => 
+                                      array (
+                                        'key' => 'Thiodicarb',
+                                        'value' => 14699655,
+                                      ),
+                                      768 => 
+                                      array (
+                                        'key' => 'Thioguanine',
+                                        'value' => 14699656,
+                                      ),
+                                      769 => 
+                                      array (
+                                        'key' => 'Thiophanate methyl',
+                                        'value' => 14699657,
+                                      ),
+                                      770 => 
+                                      array (
+                                        'key' => 'Thiouracil',
+                                        'value' => 14699658,
+                                      ),
+                                      771 => 
+                                      array (
+                                        'key' => 'Thiourea',
+                                        'value' => 14699659,
+                                      ),
+                                      772 => 
+                                      array (
+                                        'key' => 'Thorium dioxide',
+                                        'value' => 14699660,
+                                      ),
+                                      773 => 
+                                      array (
+                                        'key' => 'Titanium dioxide (airborne particles of respirable size)',
+                                        'value' => 14699661,
+                                      ),
+                                      774 => 
+                                      array (
+                                        'key' => 'Tobacco smoke',
+                                        'value' => 14699662,
+                                      ),
+                                      775 => 
+                                      array (
+                                        'key' => 'Tobacco smoke (primary)',
+                                        'value' => 14699663,
+                                      ),
+                                      776 => 
+                                      array (
+                                        'key' => 'Tobacco use of smokeless products',
+                                        'value' => 14699664,
+                                      ),
+                                      777 => 
+                                      array (
+                                        'key' => 'Tobramycin sulfate',
+                                        'value' => 14699665,
+                                      ),
+                                      778 => 
+                                      array (
+                                        'key' => 'Toluene',
+                                        'value' => 14699666,
+                                      ),
+                                      779 => 
+                                      array (
+                                        'key' => 'Toluene diisocyanate',
+                                        'value' => 14699667,
+                                      ),
+                                      780 => 
+                                      array (
+                                        'key' => 'Topiramate',
+                                        'value' => 14699668,
+                                      ),
+                                      781 => 
+                                      array (
+                                        'key' => 'Toxaphene (Polychlorinated camphenes)',
+                                        'value' => 14699669,
+                                      ),
+                                      782 => 
+                                      array (
+                                        'key' => 'Toxins derived from Fusarium moniliforme (Fusarium verticillioides)',
+                                        'value' => 14699670,
+                                      ),
+                                      783 => 
+                                      array (
+                                        'key' => 'Treosulfan',
+                                        'value' => 14699672,
+                                      ),
+                                      784 => 
+                                      array (
+                                        'key' => 'Triadimefon',
+                                        'value' => 14699673,
+                                      ),
+                                      785 => 
+                                      array (
+                                        'key' => 'Triamterene',
+                                        'value' => 14699674,
+                                      ),
+                                      786 => 
+                                      array (
+                                        'key' => 'Triazolam',
+                                        'value' => 14699675,
+                                      ),
+                                      787 => 
+                                      array (
+                                        'key' => 'Tributyltin methacrylate',
+                                        'value' => 14699676,
+                                      ),
+                                      788 => 
+                                      array (
+                                        'key' => 'Trichlormethine (Trimustine hydrochloride)',
+                                        'value' => 14699677,
+                                      ),
+                                      789 => 
+                                      array (
+                                        'key' => 'Trichloroacetic acid',
+                                        'value' => 14699678,
+                                      ),
+                                      790 => 
+                                      array (
+                                        'key' => 'Trichloroethylene',
+                                        'value' => 14699679,
+                                      ),
+                                      791 => 
+                                      array (
+                                        'key' => 'Trientine hydrochloride',
+                                        'value' => 14699680,
+                                      ),
+                                      792 => 
+                                      array (
+                                        'key' => 'Triforine',
+                                        'value' => 14699681,
+                                      ),
+                                      793 => 
+                                      array (
+                                        'key' => 'Trilostane',
+                                        'value' => 14699682,
+                                      ),
+                                      794 => 
+                                      array (
+                                        'key' => 'Trimethadione',
+                                        'value' => 14699684,
+                                      ),
+                                      795 => 
+                                      array (
+                                        'key' => 'Trimethyl phosphate',
+                                        'value' => 14699685,
+                                      ),
+                                      796 => 
+                                      array (
+                                        'key' => 'Trimetrexate glucuronate',
+                                        'value' => 14699686,
+                                      ),
+                                      797 => 
+                                      array (
+                                        'key' => 'Triphenyltin hydroxide',
+                                        'value' => 14699687,
+                                      ),
+                                      798 => 
+                                      array (
+                                        'key' => 'Tris(1-aziridinyl)phosphine sulfide (Thiotepa)',
+                                        'value' => 14699689,
+                                      ),
+                                      799 => 
+                                      array (
+                                        'key' => 'Tris(1-dichloro-2-propyl) phosphate (TDCPP)',
+                                        'value' => 14699688,
+                                      ),
+                                      800 => 
+                                      array (
+                                        'key' => 'Tris(2-chloroethyl) phosphate',
+                                        'value' => 14699691,
+                                      ),
+                                      801 => 
+                                      array (
+                                        'key' => 'Tris(2-dibromopropyl)phosphate',
+                                        'value' => 14699690,
+                                      ),
+                                      802 => 
+                                      array (
+                                        'key' => 'Trp-P-1 (Tryptophan-P-1)',
+                                        'value' => 14699692,
+                                      ),
+                                      803 => 
+                                      array (
+                                        'key' => 'Trp-P-2 (Tryptophan-P-2)',
+                                        'value' => 14699693,
+                                      ),
+                                      804 => 
+                                      array (
+                                        'key' => 'Trypan blue (commercial grade)',
+                                        'value' => 14699694,
+                                      ),
+                                      805 => 
+                                      array (
+                                        'key' => 'Unleaded gasoline (wholly vaporized)',
+                                        'value' => 14699695,
+                                      ),
+                                      806 => 
+                                      array (
+                                        'key' => 'Uracil mustard',
+                                        'value' => 14699696,
+                                      ),
+                                      807 => 
+                                      array (
+                                        'key' => 'Urethane (Ethyl carbamate)',
+                                        'value' => 14699697,
+                                      ),
+                                      808 => 
+                                      array (
+                                        'key' => 'Urofollitropin',
+                                        'value' => 14699698,
+                                      ),
+                                      809 => 
+                                      array (
+                                        'key' => 'Valproate (Valproic acid)',
+                                        'value' => 14699699,
+                                      ),
+                                      810 => 
+                                      array (
+                                        'key' => 'Vanadium pentoxide (orthorhombic crystalline form)',
+                                        'value' => 14699700,
+                                      ),
+                                      811 => 
+                                      array (
+                                        'key' => 'Vinblastine sulfate',
+                                        'value' => 14699701,
+                                      ),
+                                      812 => 
+                                      array (
+                                        'key' => 'Vinclozolin',
+                                        'value' => 14699702,
+                                      ),
+                                      813 => 
+                                      array (
+                                        'key' => 'Vincristine sulfate',
+                                        'value' => 14699703,
+                                      ),
+                                      814 => 
+                                      array (
+                                        'key' => 'Vinyl bromide',
+                                        'value' => 14699704,
+                                      ),
+                                      815 => 
+                                      array (
+                                        'key' => 'Vinyl chloride',
+                                        'value' => 14699705,
+                                      ),
+                                      816 => 
+                                      array (
+                                        'key' => 'Vinyl fluoride',
+                                        'value' => 14699706,
+                                      ),
+                                      817 => 
+                                      array (
+                                        'key' => 'Vinyl trichloride (1-Trichloroethane)',
+                                        'value' => 14699707,
+                                      ),
+                                      818 => 
+                                      array (
+                                        'key' => 'Vinylidene chloride 
+(1-Dichloroethylene)',
+                                        'value' => 14699708,
+                                      ),
+                                      819 => 
+                                      array (
+                                        'key' => 'Vismodegib',
+                                        'value' => 14699709,
+                                      ),
+                                      820 => 
+                                      array (
+                                        'key' => 'Warfarin',
+                                        'value' => 14699710,
+                                      ),
+                                      821 => 
+                                      array (
+                                        'key' => 'Wood dust',
+                                        'value' => 14699711,
+                                      ),
+                                      822 => 
+                                      array (
+                                        'key' => 'Zalcitabine',
+                                        'value' => 14699712,
+                                      ),
+                                      823 => 
+                                      array (
+                                        'key' => 'Zidovudine (AZT)',
+                                        'value' => 14699713,
+                                      ),
+                                      824 => 
+                                      array (
+                                        'key' => 'Zileuton',
+                                        'value' => 14699714,
+                                      ),
+                                      825 => 
+                                      array (
+                                        'key' => 'beta-Butyrolactone',
+                                        'value' => 14699037,
+                                      ),
+                                      826 => 
+                                      array (
+                                        'key' => 'beta-Myrcene',
+                                        'value' => 14699038,
+                                      ),
+                                      827 => 
+                                      array (
+                                        'key' => 'beta-Propiolactone',
+                                        'value' => 14699039,
+                                      ),
+                                      828 => 
+                                      array (
+                                        'key' => 'm-Dinitrobenzene',
+                                        'value' => 14699349,
+                                      ),
+                                      829 => 
+                                      array (
+                                        'key' => 'n-Hexane',
+                                        'value' => 14699420,
+                                      ),
+                                      830 => 
+                                      array (
+                                        'key' => 'o\'-DDT',
+                                        'value' => 14699493,
+                                      ),
+                                      831 => 
+                                      array (
+                                        'key' => 'o-Aminoazotoluene',
+                                        'value' => 14699494,
+                                      ),
+                                      832 => 
+                                      array (
+                                        'key' => 'o-Anisidine',
+                                        'value' => 14699495,
+                                      ),
+                                      833 => 
+                                      array (
+                                        'key' => 'o-Anisidine hydrochloride',
+                                        'value' => 14699496,
+                                      ),
+                                      834 => 
+                                      array (
+                                        'key' => 'o-Dinitrobenzene',
+                                        'value' => 14699497,
+                                      ),
+                                      835 => 
+                                      array (
+                                        'key' => 'o-Nitroanisole',
+                                        'value' => 14699498,
+                                      ),
+                                      836 => 
+                                      array (
+                                        'key' => 'o-Nitrotoluene',
+                                        'value' => 14699499,
+                                      ),
+                                      837 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine',
+                                        'value' => 14699500,
+                                      ),
+                                      838 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine and its salts',
+                                        'value' => 14699501,
+                                      ),
+                                      839 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine dihydrochloride',
+                                        'value' => 14699502,
+                                      ),
+                                      840 => 
+                                      array (
+                                        'key' => 'o-Phenylphenate',
+                                        'value' => 14699503,
+                                      ),
+                                      841 => 
+                                      array (
+                                        'key' => 'o-Phenylphenol',
+                                        'value' => 14699504,
+                                      ),
+                                      842 => 
+                                      array (
+                                        'key' => 'o-Toluidine',
+                                        'value' => 14699505,
+                                      ),
+                                      843 => 
+                                      array (
+                                        'key' => 'o-Toluidine hydrochloride',
+                                        'value' => 14699506,
+                                      ),
+                                      844 => 
+                                      array (
+                                        'key' => 'p\'-DDT',
+                                        'value' => 14699518,
+                                      ),
+                                      845 => 
+                                      array (
+                                        'key' => 'p-Aminoazobenzene',
+                                        'value' => 14699520,
+                                      ),
+                                      846 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine',
+                                        'value' => 14699521,
+                                      ),
+                                      847 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine acid salts of',
+                                        'value' => 14699522,
+                                      ),
+                                      848 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline',
+                                        'value' => 14699524,
+                                      ),
+                                      849 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline hydrochloride',
+                                        'value' => 14699525,
+                                      ),
+                                      850 => 
+                                      array (
+                                        'key' => 'p-Cresidine',
+                                        'value' => 14699526,
+                                      ),
+                                      851 => 
+                                      array (
+                                        'key' => 'p-Dichlorobenzene',
+                                        'value' => 14699527,
+                                      ),
+                                      852 => 
+                                      array (
+                                        'key' => 'p-Dinitrobenzene',
+                                        'value' => 14699528,
+                                      ),
+                                      853 => 
+                                      array (
+                                        'key' => 'p-Nitrosodiphenylamine',
+                                        'value' => 14699529,
+                                      ),
+                                      854 => 
+                                      array (
+                                        'key' => 'p-a-Tetrachlorotoluene',
+                                        'value' => 14699519,
+                                      ),
+                                      855 => 
+                                      array (
+                                        'key' => 'p-chloro-à-trifluorotoluene (para-Chlorobenzotrifluoride)',
+                                        'value' => 14699523,
+                                      ),
+                                      856 => 
+                                      array (
+                                        'key' => 'para-Nitroanisole',
+                                        'value' => 14699533,
+                                      ),
+                                      857 => 
+                                      array (
+                                        'key' => 'pentabromodiphenyl ether mixture [DE-71 (technical grade)]',
+                                        'value' => 14699537,
+                                      ),
+                                      858 => 
+                                      array (
+                                        'key' => 'trans-2-[(Dimethylamino)methylimino]-5-[2-(5-nitro-2-furyl)vinyl]-1-oxadiazole',
+                                        'value' => 14699671,
+                                      ),
+                                      859 => 
+                                      array (
+                                        'key' => 'à-Methyl styrene (alpha-Methylstyrene)',
+                                        'value' => 14699715,
+                                      ),
                                     ),
                                      'width' => 230,
                                      'defaultValue' => '',
@@ -6371,6 +14517,4307 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'select',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-(4-methylcyclohexyl)-1-nitrosourea (Methyl-CCNU)',
+                                        'value' => 14698874,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => '1-(2-Chloroethyl)-3-cyclohexyl-1-nitrosourea (CCNU) (Lomustine)',
+                                        'value' => 14698875,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => '1-Amino-2-dibromoanthraquinone',
+                                        'value' => 14698877,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => '1-Amino-2-methylanthraquinone',
+                                        'value' => 14698878,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => '1-Bromopropane (1-BP)',
+                                        'value' => 14698879,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => '1-Butadiene',
+                                        'value' => 14698865,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => '1-Butanediol dimethanesulfonate (Busulfan)',
+                                        'value' => 14698869,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => '1-Chloro-4-nitrobenzene',
+                                        'value' => 14698880,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => '1-Dibromo-3-chloropropane (DBCP)',
+                                        'value' => 14698861,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-bis(p-chloropheny)ethylene (DDE)',
+                                        'value' => 14698857,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-butene',
+                                        'value' => 14698870,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-nitrobenzene',
+                                        'value' => 14698871,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => '1-Dichloro-2-propanol (1-DCP)',
+                                        'value' => 14698866,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => '1-Dichloroethane',
+                                        'value' => 14698858,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => '1-Dichloropropane',
+                                        'value' => 14698862,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => '1-Dichloropropene',
+                                        'value' => 14698867,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => '1-Diethylhydrazine',
+                                        'value' => 14698863,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine',
+                                        'value' => 14698864,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => '1-Dimethylhydrazine (UDMH)',
+                                        'value' => 14698859,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => '1-Dinitropyrene',
+                                        'value' => 14698873,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => '1-Dioxane',
+                                        'value' => 14698872,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => '1-Hydroxyanthraquinone',
+                                        'value' => 14698881,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => '1-Naphthylamine',
+                                        'value' => 14698882,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => '1-Nitropyrene',
+                                        'value' => 14698883,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => '1-Propane sultone',
+                                        'value' => 14698868,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => '1-Tetrachloroethane',
+                                        'value' => 14698856,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => '1-Trichloropropane',
+                                        'value' => 14698860,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => '1-[(5-Nitrofurfurylidene)-amino]-2-imidazolidinone',
+                                        'value' => 14698876,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => '2-(2-Formylhydrazino)-4-(5-nitro-2-furyl)thiazole',
+                                        'value' => 14698900,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => '2-Acetylaminofluorene',
+                                        'value' => 14698901,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => '2-Amino-4-chlorophenol',
+                                        'value' => 14698902,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => '2-Amino-5-(5-nitro-2-furyl)-1-thiadiazole',
+                                        'value' => 14698903,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => '2-Aminoanthraquinone',
+                                        'value' => 14698904,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => '2-Aminofluorene',
+                                        'value' => 14698905,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => '2-Bis(bromomethyl)-1-propanediol',
+                                        'value' => 14698884,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => '2-Bromopropane (2-BP)',
+                                        'value' => 14698906,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => '2-Chloronitrobenzene',
+                                        'value' => 14698907,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => '2-Diamino-6-chloro-s-triazine (DACT)',
+                                        'value' => 14698890,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole',
+                                        'value' => 14698891,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => '2-Diaminoanisole sulfate',
+                                        'value' => 14698892,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => '2-Diaminotoluene',
+                                        'value' => 14698893,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => '2-Dibromo-1-propanol',
+                                        'value' => 14698886,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => '2-Dichloro-1-nitrobenzene',
+                                        'value' => 14698894,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => '2-Dimethyl-N-nitrosomorpholine (DMNM)',
+                                        'value' => 14698897,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => '2-Dinitrotoluene',
+                                        'value' => 14698898,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => '2-Hexadienal (89% trans isomer; 11% cis isomer)',
+                                        'value' => 14698895,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => '2-Hexanedione',
+                                        'value' => 14698896,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => '2-Methyl-1-nitroanthraquinone (of uncertain purity)',
+                                        'value' => 14698908,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => '2-Methylaziridine (Propyleneimine)',
+                                        'value' => 14698909,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => '2-Methylimidazole',
+                                        'value' => 14698910,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => '2-Naphthylamine',
+                                        'value' => 14698911,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => '2-Nitrofluorene',
+                                        'value' => 14698912,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => '2-Nitropropane',
+                                        'value' => 14698913,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => '2-Tetrachlorodibenzo-p-dioxin (TCDD)',
+                                        'value' => 14698885,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => '2-Trichlorophenol',
+                                        'value' => 14698888,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => '2-Trimethylaniline and its strong acid salts',
+                                        'value' => 14698887,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => '2-Trinitrotoluene (TNT)',
+                                        'value' => 14698889,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => '2-Xylidine (2-Dimethylaniline)',
+                                        'value' => 14698899,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => '2?Mercaptobenzothiazole',
+                                        'value' => 14698914,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => '3\'\'-Tetrachloroazobenzene',
+                                        'value' => 14698915,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => '3\'-Dichloro-4\'-diamino-diphenyl ether',
+                                        'value' => 14698916,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine',
+                                        'value' => 14698917,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => '3\'-Dichlorobenzidine dihydrochloride',
+                                        'value' => 14698918,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine (o-Dianisidine)',
+                                        'value' => 14698919,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine dihydrochloride',
+                                        'value' => 14698920,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => '3\'-Dimethoxybenzidine-based dyes metabolized to 3\'-dimethoxybenzidine',
+                                        'value' => 14698921,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine (ortho-Tolidine)',
+                                        'value' => 14698922,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine dihydrochloride',
+                                        'value' => 14698923,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => '3\'-Dimethylbenzidine-based dyes metabolized to 3\'-dimethylbenzidine',
+                                        'value' => 14698924,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => '3-(N-Nitrosomethylamino) propionitrile',
+                                        'value' => 14698926,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => '3-Amino-9-ethylcarbazole hydrochloride',
+                                        'value' => 14698927,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => '3-Chloro-2-methylpropene',
+                                        'value' => 14698928,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => '3-Dinitrofluoranthene',
+                                        'value' => 14698925,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => '3-Methylcholanthrene',
+                                        'value' => 14698929,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => '3-Monochloropropane-1-diol (3-MCPD)',
+                                        'value' => 14698930,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => '4\'-Diaminodiphenyl ether (4\'-Oxydianiline)',
+                                        'value' => 14698931,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-chloroaniline)',
+                                        'value' => 14698932,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(2-methylaniline)',
+                                        'value' => 14698933,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => '4\'-Methylene bis(N-dimethyl)benzenamine',
+                                        'value' => 14698934,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline',
+                                        'value' => 14698935,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => '4\'-Methylenedianiline dihydrochloride',
+                                        'value' => 14698936,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => '4\'-Thiodianiline',
+                                        'value' => 14698937,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => '4-(N-Nitrosomethylamino)-1-(3-pyridyl)1-butanone',
+                                        'value' => 14698938,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => '4-Amino-2-nitrophenol',
+                                        'value' => 14698939,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => '4-Aminobiphenyl (4-aminodiphenyl)',
+                                        'value' => 14698940,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => '4-Chloro-o-phenylenediamine',
+                                        'value' => 14698941,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => '4-Dimethylaminoazobenzene',
+                                        'value' => 14698942,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => '4-Methylimidazole',
+                                        'value' => 14698943,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => '4-Nitrobiphenyl',
+                                        'value' => 14698944,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => '4-Nitropyrene',
+                                        'value' => 14698945,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => '4-Vinyl-1-cyclohexene diepoxide (Vinyl cyclohexenedioxide)',
+                                        'value' => 14698946,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => '4-Vinylcyclohexene',
+                                        'value' => 14698947,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => '5-(Morpholinomethyl)-3-[(5-nitrofurfuryl-idene)-amino]-2-oxazolidinone',
+                                        'value' => 14698948,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => '5-Chloro-o-toluidine and its strong acid salts',
+                                        'value' => 14698949,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => '5-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698950,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => '5-Methylchrysene',
+                                        'value' => 14698951,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => '5-Nitroacenaphthene',
+                                        'value' => 14698952,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => '6-Nitrochrysene',
+                                        'value' => 14698953,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => '7-Dimethylbenz(a)anthracene',
+                                        'value' => 14698954,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => '7H-Dibenzo[c]carbazole',
+                                        'value' => 14698955,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => '8-Methoxypsoralen with ultraviolet A therapy',
+                                        'value' => 14698956,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => '9-Tetrahydrocannabinol (?9-THC)',
+                                        'value' => 14698957,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'A-alpha-C (2-Amino-9H-pyrido[2-b]indole)',
+                                        'value' => 14698958,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'AF-2',
+                                        'value' => 14698970,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Abiraterone acetate',
+                                        'value' => 14698959,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'Acetaldehyde',
+                                        'value' => 14698960,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Acetamide',
+                                        'value' => 14698961,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Acetazolamide',
+                                        'value' => 14698962,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Acetochlor',
+                                        'value' => 14698963,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Acetohydroxamic acid',
+                                        'value' => 14698964,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Acifluorfen sodium',
+                                        'value' => 14698965,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Acrylamide',
+                                        'value' => 14698966,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Acrylonitrile',
+                                        'value' => 14698967,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Actinomycin D',
+                                        'value' => 14698968,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Adultb',
+                                        'value' => 14698969,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Aflatoxins',
+                                        'value' => 14698971,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Alachlor',
+                                        'value' => 14698972,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages',
+                                        'value' => 14698973,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Alcoholic beverages associated with alcohol abuse',
+                                        'value' => 14698974,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Aldrin',
+                                        'value' => 14698975,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'All-trans retinoic acid',
+                                        'value' => 14698976,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Aloe Vera-decolorized whole leaf extract',
+                                        'value' => 14698977,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Alprazolam',
+                                        'value' => 14698978,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Altretamine',
+                                        'value' => 14698979,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Amantadine hydrochloride',
+                                        'value' => 14698980,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Amikacin sulfate',
+                                        'value' => 14698981,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Aminoglutethimide',
+                                        'value' => 14698982,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Aminoglycosides',
+                                        'value' => 14698983,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Aminopterin',
+                                        'value' => 14698984,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Amiodarone hydrochloride',
+                                        'value' => 14698985,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Amitraz',
+                                        'value' => 14698986,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Amitrole',
+                                        'value' => 14698987,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Amoxapine',
+                                        'value' => 14698988,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'Amsacrine',
+                                        'value' => 14698989,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Anabolic steroids',
+                                        'value' => 14698990,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Analgesic mixtures containing Phenacetin',
+                                        'value' => 14698991,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Androstenedione',
+                                        'value' => 14698992,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Angiotensin converting enzyme (ACE) inhibitors',
+                                        'value' => 14698993,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Aniline',
+                                        'value' => 14698994,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Aniline hydrochloride',
+                                        'value' => 14698995,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Anisindione',
+                                        'value' => 14698996,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Anthraquinone',
+                                        'value' => 14698997,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Antimony oxide (Antimony trioxide)',
+                                        'value' => 14698998,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Aramite',
+                                        'value' => 14698999,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Areca nut',
+                                        'value' => 14699000,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Aristolochic acids',
+                                        'value' => 14699001,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic arsenic compounds)',
+                                        'value' => 14699002,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Arsenic (inorganic oxides)',
+                                        'value' => 14699003,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Asbestos',
+                                        'value' => 14699004,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Atenolol',
+                                        'value' => 14699005,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Atrazine',
+                                        'value' => 14699006,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Auramine',
+                                        'value' => 14699007,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Auranofin',
+                                        'value' => 14699008,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Avermectin B1 (Abamectin)',
+                                        'value' => 14699009,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Azacitidine',
+                                        'value' => 14699010,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Azaserine',
+                                        'value' => 14699011,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Azathioprine',
+                                        'value' => 14699012,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Azobenzene',
+                                        'value' => 14699013,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Barbiturates',
+                                        'value' => 14699014,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Beclomethasone dipropionate',
+                                        'value' => 14699015,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Benomyl',
+                                        'value' => 14699016,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Benthiavalicarb-isopropyl',
+                                        'value' => 14699017,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Benz[a]anthracene',
+                                        'value' => 14699018,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Benzene',
+                                        'value' => 14699019,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Benzidine [and its salts]',
+                                        'value' => 14699020,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Benzidine-based dyes',
+                                        'value' => 14699021,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Benzo[a]pyrene',
+                                        'value' => 14699022,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Benzo[b]fluoranthene',
+                                        'value' => 14699023,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Benzo[j]fluoranthene',
+                                        'value' => 14699024,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Benzo[k]fluoranthene',
+                                        'value' => 14699025,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'Benzodiazepines',
+                                        'value' => 14699026,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'Benzofuran',
+                                        'value' => 14699027,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'Benzophenone',
+                                        'value' => 14699028,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'Benzotrichloride',
+                                        'value' => 14699029,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'Benzphetamine hydrochloride',
+                                        'value' => 14699030,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Benzyl chloride',
+                                        'value' => 14699031,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'Benzyl violet 4B',
+                                        'value' => 14699032,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Beryllium',
+                                        'value' => 14699033,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Beryllium and beryllium compounds',
+                                        'value' => 14699034,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Beryllium oxide',
+                                        'value' => 14699035,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Beryllium sulfate',
+                                        'value' => 14699036,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'Betel quid with tobacco',
+                                        'value' => 14699040,
+                                      ),
+                                      182 => 
+                                      array (
+                                        'key' => 'Betel quid without tobacco',
+                                        'value' => 14699041,
+                                      ),
+                                      183 => 
+                                      array (
+                                        'key' => 'Bevacizumab',
+                                        'value' => 14699042,
+                                      ),
+                                      184 => 
+                                      array (
+                                        'key' => 'Bis(2-chloro-1-methylethyl)ether grade',
+                                        'value' => 14699043,
+                                      ),
+                                      185 => 
+                                      array (
+                                        'key' => 'Bis(2-chloroethyl)ether',
+                                        'value' => 14699044,
+                                      ),
+                                      186 => 
+                                      array (
+                                        'key' => 'Bis(chloromethyl)ether',
+                                        'value' => 14699045,
+                                      ),
+                                      187 => 
+                                      array (
+                                        'key' => 'Bischloroethyl nitrosourea (BCNU) (Carmustine)',
+                                        'value' => 14699046,
+                                      ),
+                                      188 => 
+                                      array (
+                                        'key' => 'Bisphenol A (BPA)',
+                                        'value' => 14699047,
+                                      ),
+                                      189 => 
+                                      array (
+                                        'key' => 'Bitumens of steam-refined and air refined',
+                                        'value' => 14699048,
+                                      ),
+                                      190 => 
+                                      array (
+                                        'key' => 'Bracken fern',
+                                        'value' => 14699049,
+                                      ),
+                                      191 => 
+                                      array (
+                                        'key' => 'Bromacil lithium salt',
+                                        'value' => 14699050,
+                                      ),
+                                      192 => 
+                                      array (
+                                        'key' => 'Bromate',
+                                        'value' => 14699051,
+                                      ),
+                                      193 => 
+                                      array (
+                                        'key' => 'Bromochloroacetic acid',
+                                        'value' => 14699052,
+                                      ),
+                                      194 => 
+                                      array (
+                                        'key' => 'Bromodichloroacetic acid',
+                                        'value' => 14699053,
+                                      ),
+                                      195 => 
+                                      array (
+                                        'key' => 'Bromodichloromethane',
+                                        'value' => 14699054,
+                                      ),
+                                      196 => 
+                                      array (
+                                        'key' => 'Bromoethane',
+                                        'value' => 14699055,
+                                      ),
+                                      197 => 
+                                      array (
+                                        'key' => 'Bromoform',
+                                        'value' => 14699056,
+                                      ),
+                                      198 => 
+                                      array (
+                                        'key' => 'Bromoxynil',
+                                        'value' => 14699057,
+                                      ),
+                                      199 => 
+                                      array (
+                                        'key' => 'Bromoxynil octanoate',
+                                        'value' => 14699058,
+                                      ),
+                                      200 => 
+                                      array (
+                                        'key' => 'Butabarbital sodium',
+                                        'value' => 14699059,
+                                      ),
+                                      201 => 
+                                      array (
+                                        'key' => 'Butyl benzyl phthalate (BBP)d',
+                                        'value' => 14699060,
+                                      ),
+                                      202 => 
+                                      array (
+                                        'key' => 'Butylated hydroxyanisole',
+                                        'value' => 14699061,
+                                      ),
+                                      203 => 
+                                      array (
+                                        'key' => 'C.I. Acid Red 114',
+                                        'value' => 14699062,
+                                      ),
+                                      204 => 
+                                      array (
+                                        'key' => 'C.I. Basic Red 9 monohydrochloride',
+                                        'value' => 14699063,
+                                      ),
+                                      205 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 15',
+                                        'value' => 14699064,
+                                      ),
+                                      206 => 
+                                      array (
+                                        'key' => 'C.I. Direct Blue 218',
+                                        'value' => 14699065,
+                                      ),
+                                      207 => 
+                                      array (
+                                        'key' => 'C.I. Disperse Yellow 3',
+                                        'value' => 14699066,
+                                      ),
+                                      208 => 
+                                      array (
+                                        'key' => 'C.I. Solvent Yellow 14',
+                                        'value' => 14699067,
+                                      ),
+                                      209 => 
+                                      array (
+                                        'key' => 'CMNP (pyrazachlor)',
+                                        'value' => 14699121,
+                                      ),
+                                      210 => 
+                                      array (
+                                        'key' => 'Cacodylic acid',
+                                        'value' => 14699068,
+                                      ),
+                                      211 => 
+                                      array (
+                                        'key' => 'Cadmium',
+                                        'value' => 14699069,
+                                      ),
+                                      212 => 
+                                      array (
+                                        'key' => 'Cadmium and cadmium compounds',
+                                        'value' => 14699070,
+                                      ),
+                                      213 => 
+                                      array (
+                                        'key' => 'Caffeic acid',
+                                        'value' => 14699071,
+                                      ),
+                                      214 => 
+                                      array (
+                                        'key' => 'Cannabis (marijuana) smoke',
+                                        'value' => 14699072,
+                                      ),
+                                      215 => 
+                                      array (
+                                        'key' => 'Captafol',
+                                        'value' => 14699073,
+                                      ),
+                                      216 => 
+                                      array (
+                                        'key' => 'Captan',
+                                        'value' => 14699074,
+                                      ),
+                                      217 => 
+                                      array (
+                                        'key' => 'Carbamazepine',
+                                        'value' => 14699075,
+                                      ),
+                                      218 => 
+                                      array (
+                                        'key' => 'Carbaryl',
+                                        'value' => 14699076,
+                                      ),
+                                      219 => 
+                                      array (
+                                        'key' => 'Carbazole',
+                                        'value' => 14699077,
+                                      ),
+                                      220 => 
+                                      array (
+                                        'key' => 'Carbon black (airborne particles of respirable size)',
+                                        'value' => 14699078,
+                                      ),
+                                      221 => 
+                                      array (
+                                        'key' => 'Carbon disulfide',
+                                        'value' => 14699079,
+                                      ),
+                                      222 => 
+                                      array (
+                                        'key' => 'Carbon monoxide',
+                                        'value' => 14699080,
+                                      ),
+                                      223 => 
+                                      array (
+                                        'key' => 'Carbon tetrachloride',
+                                        'value' => 14699081,
+                                      ),
+                                      224 => 
+                                      array (
+                                        'key' => 'Carbon-black extracts',
+                                        'value' => 14699082,
+                                      ),
+                                      225 => 
+                                      array (
+                                        'key' => 'Carboplatin',
+                                        'value' => 14699083,
+                                      ),
+                                      226 => 
+                                      array (
+                                        'key' => 'Catechol',
+                                        'value' => 14699084,
+                                      ),
+                                      227 => 
+                                      array (
+                                        'key' => 'Ceramic fibers (airborne particles of respirable size)',
+                                        'value' => 14699085,
+                                      ),
+                                      228 => 
+                                      array (
+                                        'key' => 'Certain combined chemotherapy for lymphomas',
+                                        'value' => 14699086,
+                                      ),
+                                      229 => 
+                                      array (
+                                        'key' => 'Chenodiol',
+                                        'value' => 14699087,
+                                      ),
+                                      230 => 
+                                      array (
+                                        'key' => 'Chloral',
+                                        'value' => 14699088,
+                                      ),
+                                      231 => 
+                                      array (
+                                        'key' => 'Chloral hydrate',
+                                        'value' => 14699089,
+                                      ),
+                                      232 => 
+                                      array (
+                                        'key' => 'Chlorambucil',
+                                        'value' => 14699090,
+                                      ),
+                                      233 => 
+                                      array (
+                                        'key' => 'Chloramphenicol sodium succinate',
+                                        'value' => 14699091,
+                                      ),
+                                      234 => 
+                                      array (
+                                        'key' => 'Chlorcyclizine hydrochloride',
+                                        'value' => 14699092,
+                                      ),
+                                      235 => 
+                                      array (
+                                        'key' => 'Chlordane',
+                                        'value' => 14699093,
+                                      ),
+                                      236 => 
+                                      array (
+                                        'key' => 'Chlordecone (Kepone)',
+                                        'value' => 14699094,
+                                      ),
+                                      237 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide',
+                                        'value' => 14699095,
+                                      ),
+                                      238 => 
+                                      array (
+                                        'key' => 'Chlordiazepoxide hydrochloride',
+                                        'value' => 14699096,
+                                      ),
+                                      239 => 
+                                      array (
+                                        'key' => 'Chlordimeform',
+                                        'value' => 14699097,
+                                      ),
+                                      240 => 
+                                      array (
+                                        'key' => 'Chlorendic acid',
+                                        'value' => 14699098,
+                                      ),
+                                      241 => 
+                                      array (
+                                        'key' => 'Chlorinated paraffins (Average chain length;approximately 60 percent chlorine by weight)',
+                                        'value' => 14699099,
+                                      ),
+                                      242 => 
+                                      array (
+                                        'key' => 'Chloroethane (Ethyl chloride)',
+                                        'value' => 14699100,
+                                      ),
+                                      243 => 
+                                      array (
+                                        'key' => 'Chloroform',
+                                        'value' => 14699101,
+                                      ),
+                                      244 => 
+                                      array (
+                                        'key' => 'Chloromethyl methyl ether (technical grade)',
+                                        'value' => 14699102,
+                                      ),
+                                      245 => 
+                                      array (
+                                        'key' => 'Chloroprene',
+                                        'value' => 14699103,
+                                      ),
+                                      246 => 
+                                      array (
+                                        'key' => 'Chlorothalonil',
+                                        'value' => 14699104,
+                                      ),
+                                      247 => 
+                                      array (
+                                        'key' => 'Chlorotrianisene',
+                                        'value' => 14699105,
+                                      ),
+                                      248 => 
+                                      array (
+                                        'key' => 'Chlorozotocin',
+                                        'value' => 14699106,
+                                      ),
+                                      249 => 
+                                      array (
+                                        'key' => 'Chlorpyrifos',
+                                        'value' => 14699107,
+                                      ),
+                                      250 => 
+                                      array (
+                                        'key' => 'Chromium (hexavalent compounds)',
+                                        'value' => 14699108,
+                                      ),
+                                      251 => 
+                                      array (
+                                        'key' => 'Chrysene',
+                                        'value' => 14699109,
+                                      ),
+                                      252 => 
+                                      array (
+                                        'key' => 'Ciclosporin (Cyclosporin A',
+                                        'value' => 14699110,
+                                      ),
+                                      253 => 
+                                      array (
+                                        'key' => 'Cidofovir',
+                                        'value' => 14699111,
+                                      ),
+                                      254 => 
+                                      array (
+                                        'key' => 'Cinnamyl anthranilate',
+                                        'value' => 14699112,
+                                      ),
+                                      255 => 
+                                      array (
+                                        'key' => 'Cisplatin',
+                                        'value' => 14699113,
+                                      ),
+                                      256 => 
+                                      array (
+                                        'key' => 'Citrus Red No. 2',
+                                        'value' => 14699114,
+                                      ),
+                                      257 => 
+                                      array (
+                                        'key' => 'Cladribine',
+                                        'value' => 14699115,
+                                      ),
+                                      258 => 
+                                      array (
+                                        'key' => 'Clarithromycin',
+                                        'value' => 14699116,
+                                      ),
+                                      259 => 
+                                      array (
+                                        'key' => 'Clobetasol propionate',
+                                        'value' => 14699117,
+                                      ),
+                                      260 => 
+                                      array (
+                                        'key' => 'Clofibrate',
+                                        'value' => 14699118,
+                                      ),
+                                      261 => 
+                                      array (
+                                        'key' => 'Clomiphene citrate',
+                                        'value' => 14699119,
+                                      ),
+                                      262 => 
+                                      array (
+                                        'key' => 'Clorazepate dipotassium',
+                                        'value' => 14699120,
+                                      ),
+                                      263 => 
+                                      array (
+                                        'key' => 'Cobalt [II] oxide',
+                                        'value' => 14699122,
+                                      ),
+                                      264 => 
+                                      array (
+                                        'key' => 'Cobalt metal powder',
+                                        'value' => 14699123,
+                                      ),
+                                      265 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate',
+                                        'value' => 14699124,
+                                      ),
+                                      266 => 
+                                      array (
+                                        'key' => 'Cobalt sulfate heptahydrate',
+                                        'value' => 14699125,
+                                      ),
+                                      267 => 
+                                      array (
+                                        'key' => 'Cocaine',
+                                        'value' => 14699126,
+                                      ),
+                                      268 => 
+                                      array (
+                                        'key' => 'Coconut oil diethanolamine condensate (cocamide diethanolamine)',
+                                        'value' => 14699127,
+                                      ),
+                                      269 => 
+                                      array (
+                                        'key' => 'Codeine phosphate',
+                                        'value' => 14699128,
+                                      ),
+                                      270 => 
+                                      array (
+                                        'key' => 'Coke oven emissions',
+                                        'value' => 14699129,
+                                      ),
+                                      271 => 
+                                      array (
+                                        'key' => 'Colchicine',
+                                        'value' => 14699130,
+                                      ),
+                                      272 => 
+                                      array (
+                                        'key' => 'Conjugated estrogens',
+                                        'value' => 14699131,
+                                      ),
+                                      273 => 
+                                      array (
+                                        'key' => 'Creosotes',
+                                        'value' => 14699132,
+                                      ),
+                                      274 => 
+                                      array (
+                                        'key' => 'Cumene',
+                                        'value' => 14699133,
+                                      ),
+                                      275 => 
+                                      array (
+                                        'key' => 'Cupferron',
+                                        'value' => 14699134,
+                                      ),
+                                      276 => 
+                                      array (
+                                        'key' => 'Cyanazine',
+                                        'value' => 14699135,
+                                      ),
+                                      277 => 
+                                      array (
+                                        'key' => 'Cyanide salts that readily dissociate in solution (expressed as cyanide)f',
+                                        'value' => 14699136,
+                                      ),
+                                      278 => 
+                                      array (
+                                        'key' => 'Cycasin',
+                                        'value' => 14699137,
+                                      ),
+                                      279 => 
+                                      array (
+                                        'key' => 'Cycloate',
+                                        'value' => 14699138,
+                                      ),
+                                      280 => 
+                                      array (
+                                        'key' => 'Cycloheximide',
+                                        'value' => 14699139,
+                                      ),
+                                      281 => 
+                                      array (
+                                        'key' => 'Cyclopenta[cd]pyrene',
+                                        'value' => 14699140,
+                                      ),
+                                      282 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (anhydrous)',
+                                        'value' => 14699141,
+                                      ),
+                                      283 => 
+                                      array (
+                                        'key' => 'Cyclophosphamide (hydrated)',
+                                        'value' => 14699142,
+                                      ),
+                                      284 => 
+                                      array (
+                                        'key' => 'Cyhexatin',
+                                        'value' => 14699143,
+                                      ),
+                                      285 => 
+                                      array (
+                                        'key' => 'Cytarabine',
+                                        'value' => 14699144,
+                                      ),
+                                      286 => 
+                                      array (
+                                        'key' => 'Cytembena',
+                                        'value' => 14699145,
+                                      ),
+                                      287 => 
+                                      array (
+                                        'key' => 'D&C Orange No. 17',
+                                        'value' => 14699146,
+                                      ),
+                                      288 => 
+                                      array (
+                                        'key' => 'D&C Red No. 19',
+                                        'value' => 14699147,
+                                      ),
+                                      289 => 
+                                      array (
+                                        'key' => 'D&C Red No. 8',
+                                        'value' => 14699148,
+                                      ),
+                                      290 => 
+                                      array (
+                                        'key' => 'D&C Red No. 9',
+                                        'value' => 14699149,
+                                      ),
+                                      291 => 
+                                      array (
+                                        'key' => 'DDD (Dichlorodiphenyl-dichloroethane)',
+                                        'value' => 14699156,
+                                      ),
+                                      292 => 
+                                      array (
+                                        'key' => 'DDE (Dichlorodiphenyl-dichloroethylene)',
+                                        'value' => 14699157,
+                                      ),
+                                      293 => 
+                                      array (
+                                        'key' => 'DDT (Dichlorodiphenyl-trichloroethane)',
+                                        'value' => 14699158,
+                                      ),
+                                      294 => 
+                                      array (
+                                        'key' => 'DDVP (Dichlorvos)',
+                                        'value' => 14699159,
+                                      ),
+                                      295 => 
+                                      array (
+                                        'key' => 'Dacarbazine',
+                                        'value' => 14699150,
+                                      ),
+                                      296 => 
+                                      array (
+                                        'key' => 'Daminozide',
+                                        'value' => 14699151,
+                                      ),
+                                      297 => 
+                                      array (
+                                        'key' => 'Danazol',
+                                        'value' => 14699152,
+                                      ),
+                                      298 => 
+                                      array (
+                                        'key' => 'Dantron (Chrysazin; 1-Dihydroxyanthraquinone)',
+                                        'value' => 14699153,
+                                      ),
+                                      299 => 
+                                      array (
+                                        'key' => 'Daunomycin',
+                                        'value' => 14699154,
+                                      ),
+                                      300 => 
+                                      array (
+                                        'key' => 'Daunorubicin hydrochloride',
+                                        'value' => 14699155,
+                                      ),
+                                      301 => 
+                                      array (
+                                        'key' => 'Demeclocycline hydrochloride (internal use)',
+                                        'value' => 14699160,
+                                      ),
+                                      302 => 
+                                      array (
+                                        'key' => 'Des-ethyl atrazine (DEA)',
+                                        'value' => 14699161,
+                                      ),
+                                      303 => 
+                                      array (
+                                        'key' => 'Des-isopropyl atrazine (DIA)',
+                                        'value' => 14699162,
+                                      ),
+                                      304 => 
+                                      array (
+                                        'key' => 'Di(2-ethylhexyl)phthalate (DEHP)',
+                                        'value' => 14699163,
+                                      ),
+                                      305 => 
+                                      array (
+                                        'key' => 'Di-isodecyl phthalate (DIDP)',
+                                        'value' => 14699164,
+                                      ),
+                                      306 => 
+                                      array (
+                                        'key' => 'Di-n-butyl phthalate (DBP)',
+                                        'value' => 14699165,
+                                      ),
+                                      307 => 
+                                      array (
+                                        'key' => 'Di-n-hexyl phthalate (DnHP)',
+                                        'value' => 14699166,
+                                      ),
+                                      308 => 
+                                      array (
+                                        'key' => 'Di-n-propyl isocinchomeronate (MGK Repellent 326)',
+                                        'value' => 14699167,
+                                      ),
+                                      309 => 
+                                      array (
+                                        'key' => 'Diazepam',
+                                        'value' => 14699168,
+                                      ),
+                                      310 => 
+                                      array (
+                                        'key' => 'Diazoaminobenzene',
+                                        'value' => 14699169,
+                                      ),
+                                      311 => 
+                                      array (
+                                        'key' => 'Diazoxide',
+                                        'value' => 14699170,
+                                      ),
+                                      312 => 
+                                      array (
+                                        'key' => 'Dibenz[a]acridine',
+                                        'value' => 14699172,
+                                      ),
+                                      313 => 
+                                      array (
+                                        'key' => 'Dibenz[a]anthracene',
+                                        'value' => 14699171,
+                                      ),
+                                      314 => 
+                                      array (
+                                        'key' => 'Dibenzanthracenes',
+                                        'value' => 14699173,
+                                      ),
+                                      315 => 
+                                      array (
+                                        'key' => 'Dibenzo[a]pyrene',
+                                        'value' => 14699174,
+                                      ),
+                                      316 => 
+                                      array (
+                                        'key' => 'Dibromoacetic acid',
+                                        'value' => 14699175,
+                                      ),
+                                      317 => 
+                                      array (
+                                        'key' => 'Dibromoacetonitrile',
+                                        'value' => 14699176,
+                                      ),
+                                      318 => 
+                                      array (
+                                        'key' => 'Dichloroacetic acid',
+                                        'value' => 14699177,
+                                      ),
+                                      319 => 
+                                      array (
+                                        'key' => 'Dichloromethane (Methylene chloride)',
+                                        'value' => 14699178,
+                                      ),
+                                      320 => 
+                                      array (
+                                        'key' => 'Dichlorophene',
+                                        'value' => 14699179,
+                                      ),
+                                      321 => 
+                                      array (
+                                        'key' => 'Dichlorphenamide',
+                                        'value' => 14699180,
+                                      ),
+                                      322 => 
+                                      array (
+                                        'key' => 'Diclofop methyl',
+                                        'value' => 14699181,
+                                      ),
+                                      323 => 
+                                      array (
+                                        'key' => 'Dicumarol',
+                                        'value' => 14699182,
+                                      ),
+                                      324 => 
+                                      array (
+                                        'key' => 'Dieldrin',
+                                        'value' => 14699183,
+                                      ),
+                                      325 => 
+                                      array (
+                                        'key' => 'Diepoxybutane',
+                                        'value' => 14699184,
+                                      ),
+                                      326 => 
+                                      array (
+                                        'key' => 'Diesel engine exhaust',
+                                        'value' => 14699185,
+                                      ),
+                                      327 => 
+                                      array (
+                                        'key' => 'Diethanolamine',
+                                        'value' => 14699186,
+                                      ),
+                                      328 => 
+                                      array (
+                                        'key' => 'Diethyl sulfate',
+                                        'value' => 14699187,
+                                      ),
+                                      329 => 
+                                      array (
+                                        'key' => 'Diethylstilbestrol (DES)',
+                                        'value' => 14699188,
+                                      ),
+                                      330 => 
+                                      array (
+                                        'key' => 'Diflunisal',
+                                        'value' => 14699189,
+                                      ),
+                                      331 => 
+                                      array (
+                                        'key' => 'Diglycidyl resorcinol ether (DGRE)',
+                                        'value' => 14699190,
+                                      ),
+                                      332 => 
+                                      array (
+                                        'key' => 'Dihydroergotamine mesylate',
+                                        'value' => 14699191,
+                                      ),
+                                      333 => 
+                                      array (
+                                        'key' => 'Dihydrosafrole',
+                                        'value' => 14699192,
+                                      ),
+                                      334 => 
+                                      array (
+                                        'key' => 'Diisononyl phthalate (DINP)',
+                                        'value' => 14699193,
+                                      ),
+                                      335 => 
+                                      array (
+                                        'key' => 'Diisopropyl sulfate',
+                                        'value' => 14699194,
+                                      ),
+                                      336 => 
+                                      array (
+                                        'key' => 'Diltiazem hydrochloride',
+                                        'value' => 14699195,
+                                      ),
+                                      337 => 
+                                      array (
+                                        'key' => 'Dimethyl sulfate',
+                                        'value' => 14699196,
+                                      ),
+                                      338 => 
+                                      array (
+                                        'key' => 'Dimethylcarbamoyl chloride',
+                                        'value' => 14699197,
+                                      ),
+                                      339 => 
+                                      array (
+                                        'key' => 'Dimethylvinylchloride',
+                                        'value' => 14699198,
+                                      ),
+                                      340 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene (technical grade)',
+                                        'value' => 14699199,
+                                      ),
+                                      341 => 
+                                      array (
+                                        'key' => 'Dinitrotoluene mixture-/2-',
+                                        'value' => 14699200,
+                                      ),
+                                      342 => 
+                                      array (
+                                        'key' => 'Dinocap',
+                                        'value' => 14699201,
+                                      ),
+                                      343 => 
+                                      array (
+                                        'key' => 'Dinoseb',
+                                        'value' => 14699202,
+                                      ),
+                                      344 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin)',
+                                        'value' => 14699203,
+                                      ),
+                                      345 => 
+                                      array (
+                                        'key' => 'Diphenylhydantoin (Phenytoin) salt',
+                                        'value' => 14699204,
+                                      ),
+                                      346 => 
+                                      array (
+                                        'key' => 'Direct Black 38 (technical grade)',
+                                        'value' => 14699205,
+                                      ),
+                                      347 => 
+                                      array (
+                                        'key' => 'Direct Blue 6 (technical grade)',
+                                        'value' => 14699206,
+                                      ),
+                                      348 => 
+                                      array (
+                                        'key' => 'Direct Brown 95 (technical grade)',
+                                        'value' => 14699207,
+                                      ),
+                                      349 => 
+                                      array (
+                                        'key' => 'Disodium cyanodithioimidocarbonate',
+                                        'value' => 14699208,
+                                      ),
+                                      350 => 
+                                      array (
+                                        'key' => 'Disperse Blue 1',
+                                        'value' => 14699209,
+                                      ),
+                                      351 => 
+                                      array (
+                                        'key' => 'Diuron',
+                                        'value' => 14699210,
+                                      ),
+                                      352 => 
+                                      array (
+                                        'key' => 'Doxorubicin hydrochloride (Adriamycin)',
+                                        'value' => 14699211,
+                                      ),
+                                      353 => 
+                                      array (
+                                        'key' => 'Doxycycline (internal use)',
+                                        'value' => 14699212,
+                                      ),
+                                      354 => 
+                                      array (
+                                        'key' => 'Doxycycline calcium (internal use)',
+                                        'value' => 14699213,
+                                      ),
+                                      355 => 
+                                      array (
+                                        'key' => 'Doxycycline hyclate (internal use)',
+                                        'value' => 14699214,
+                                      ),
+                                      356 => 
+                                      array (
+                                        'key' => 'Doxycycline monohydrate (internal use)',
+                                        'value' => 14699215,
+                                      ),
+                                      357 => 
+                                      array (
+                                        'key' => 'Emissions from combustion of coal',
+                                        'value' => 14699216,
+                                      ),
+                                      358 => 
+                                      array (
+                                        'key' => 'Emissions from high-temperature unrefined rapeseed oil',
+                                        'value' => 14699217,
+                                      ),
+                                      359 => 
+                                      array (
+                                        'key' => 'Endrin',
+                                        'value' => 14699218,
+                                      ),
+                                      360 => 
+                                      array (
+                                        'key' => 'Environmental tobacco smoke (ETS)',
+                                        'value' => 14699219,
+                                      ),
+                                      361 => 
+                                      array (
+                                        'key' => 'Epichlorohydrin',
+                                        'value' => 14699220,
+                                      ),
+                                      362 => 
+                                      array (
+                                        'key' => 'Epoxiconazole',
+                                        'value' => 14699221,
+                                      ),
+                                      363 => 
+                                      array (
+                                        'key' => 'Ergotamine tartrate',
+                                        'value' => 14699222,
+                                      ),
+                                      364 => 
+                                      array (
+                                        'key' => 'Erionite',
+                                        'value' => 14699223,
+                                      ),
+                                      365 => 
+                                      array (
+                                        'key' => 'Estradiol 17B',
+                                        'value' => 14699224,
+                                      ),
+                                      366 => 
+                                      array (
+                                        'key' => 'Estragole',
+                                        'value' => 14699225,
+                                      ),
+                                      367 => 
+                                      array (
+                                        'key' => 'Estrogen-progestogen (combined) used as menopausal therapy',
+                                        'value' => 14699226,
+                                      ),
+                                      368 => 
+                                      array (
+                                        'key' => 'Estrogens',
+                                        'value' => 14699227,
+                                      ),
+                                      369 => 
+                                      array (
+                                        'key' => 'Estrone',
+                                        'value' => 14699228,
+                                      ),
+                                      370 => 
+                                      array (
+                                        'key' => 'Estropipate',
+                                        'value' => 14699229,
+                                      ),
+                                      371 => 
+                                      array (
+                                        'key' => 'Ethinylestradiol',
+                                        'value' => 14699230,
+                                      ),
+                                      372 => 
+                                      array (
+                                        'key' => 'Ethionamide',
+                                        'value' => 14699231,
+                                      ),
+                                      373 => 
+                                      array (
+                                        'key' => 'Ethoprop',
+                                        'value' => 14699232,
+                                      ),
+                                      374 => 
+                                      array (
+                                        'key' => 'Ethyl acrylate',
+                                        'value' => 14699233,
+                                      ),
+                                      375 => 
+                                      array (
+                                        'key' => 'Ethyl alcohol in alcoholic beverages',
+                                        'value' => 14699234,
+                                      ),
+                                      376 => 
+                                      array (
+                                        'key' => 'Ethyl dipropylthiocarbamate',
+                                        'value' => 14699235,
+                                      ),
+                                      377 => 
+                                      array (
+                                        'key' => 'Ethyl methanesulfonate',
+                                        'value' => 14699236,
+                                      ),
+                                      378 => 
+                                      array (
+                                        'key' => 'Ethyl-4\'-dichlorobenzilate',
+                                        'value' => 14699237,
+                                      ),
+                                      379 => 
+                                      array (
+                                        'key' => 'Ethylbenzene',
+                                        'value' => 14699238,
+                                      ),
+                                      380 => 
+                                      array (
+                                        'key' => 'Ethylene dibromide',
+                                        'value' => 14699239,
+                                      ),
+                                      381 => 
+                                      array (
+                                        'key' => 'Ethylene dichloride (1-Dichloroethane)',
+                                        'value' => 14699240,
+                                      ),
+                                      382 => 
+                                      array (
+                                        'key' => 'Ethylene glycol (ingested)',
+                                        'value' => 14699241,
+                                      ),
+                                      383 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether',
+                                        'value' => 14699242,
+                                      ),
+                                      384 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monoethyl ether acetate',
+                                        'value' => 14699243,
+                                      ),
+                                      385 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether',
+                                        'value' => 14699244,
+                                      ),
+                                      386 => 
+                                      array (
+                                        'key' => 'Ethylene glycol monomethyl ether acetate',
+                                        'value' => 14699245,
+                                      ),
+                                      387 => 
+                                      array (
+                                        'key' => 'Ethylene oxide',
+                                        'value' => 14699246,
+                                      ),
+                                      388 => 
+                                      array (
+                                        'key' => 'Ethylene thiourea',
+                                        'value' => 14699247,
+                                      ),
+                                      389 => 
+                                      array (
+                                        'key' => 'Ethyleneimine (Aziridine)',
+                                        'value' => 14699248,
+                                      ),
+                                      390 => 
+                                      array (
+                                        'key' => 'Etodolac',
+                                        'value' => 14699249,
+                                      ),
+                                      391 => 
+                                      array (
+                                        'key' => 'Etoposide',
+                                        'value' => 14699250,
+                                      ),
+                                      392 => 
+                                      array (
+                                        'key' => 'Etoposide in combination with cisplatin and bleomycin',
+                                        'value' => 14699251,
+                                      ),
+                                      393 => 
+                                      array (
+                                        'key' => 'Etretinate',
+                                        'value' => 14699252,
+                                      ),
+                                      394 => 
+                                      array (
+                                        'key' => 'Fenoxaprop ethyl',
+                                        'value' => 14699253,
+                                      ),
+                                      395 => 
+                                      array (
+                                        'key' => 'Fenoxycarb',
+                                        'value' => 14699254,
+                                      ),
+                                      396 => 
+                                      array (
+                                        'key' => 'Filgrastim',
+                                        'value' => 14699255,
+                                      ),
+                                      397 => 
+                                      array (
+                                        'key' => 'Fluazifop butyl',
+                                        'value' => 14699256,
+                                      ),
+                                      398 => 
+                                      array (
+                                        'key' => 'Flunisolide',
+                                        'value' => 14699257,
+                                      ),
+                                      399 => 
+                                      array (
+                                        'key' => 'Fluorouracil',
+                                        'value' => 14699258,
+                                      ),
+                                      400 => 
+                                      array (
+                                        'key' => 'Fluoxymesterone',
+                                        'value' => 14699259,
+                                      ),
+                                      401 => 
+                                      array (
+                                        'key' => 'Flurazepam hydrochloride',
+                                        'value' => 14699260,
+                                      ),
+                                      402 => 
+                                      array (
+                                        'key' => 'Flurbiprofen',
+                                        'value' => 14699261,
+                                      ),
+                                      403 => 
+                                      array (
+                                        'key' => 'Flutamide',
+                                        'value' => 14699262,
+                                      ),
+                                      404 => 
+                                      array (
+                                        'key' => 'Fluticasone propionate',
+                                        'value' => 14699263,
+                                      ),
+                                      405 => 
+                                      array (
+                                        'key' => 'Fluvalinate',
+                                        'value' => 14699264,
+                                      ),
+                                      406 => 
+                                      array (
+                                        'key' => 'Folpet',
+                                        'value' => 14699265,
+                                      ),
+                                      407 => 
+                                      array (
+                                        'key' => 'Formaldehyde (gas)',
+                                        'value' => 14699266,
+                                      ),
+                                      408 => 
+                                      array (
+                                        'key' => 'Fumonisin B1',
+                                        'value' => 14699267,
+                                      ),
+                                      409 => 
+                                      array (
+                                        'key' => 'Furan',
+                                        'value' => 14699268,
+                                      ),
+                                      410 => 
+                                      array (
+                                        'key' => 'Furazolidone',
+                                        'value' => 14699269,
+                                      ),
+                                      411 => 
+                                      array (
+                                        'key' => 'Furfuryl alcohol',
+                                        'value' => 14699270,
+                                      ),
+                                      412 => 
+                                      array (
+                                        'key' => 'Furmecyclox',
+                                        'value' => 14699271,
+                                      ),
+                                      413 => 
+                                      array (
+                                        'key' => 'Fusarin C',
+                                        'value' => 14699272,
+                                      ),
+                                      414 => 
+                                      array (
+                                        'key' => 'Gallium arsenide',
+                                        'value' => 14699273,
+                                      ),
+                                      415 => 
+                                      array (
+                                        'key' => 'Ganciclovir',
+                                        'value' => 14699274,
+                                      ),
+                                      416 => 
+                                      array (
+                                        'key' => 'Ganciclovir sodium',
+                                        'value' => 14699275,
+                                      ),
+                                      417 => 
+                                      array (
+                                        'key' => 'Gasoline engine exhaust (condensates/extracts)',
+                                        'value' => 14699276,
+                                      ),
+                                      418 => 
+                                      array (
+                                        'key' => 'Gemfibrozil',
+                                        'value' => 14699277,
+                                      ),
+                                      419 => 
+                                      array (
+                                        'key' => 'Gentian violet (Crystal violet)',
+                                        'value' => 14699278,
+                                      ),
+                                      420 => 
+                                      array (
+                                        'key' => 'Glass wool fibers (inhalable and biopersistent)',
+                                        'value' => 14699279,
+                                      ),
+                                      421 => 
+                                      array (
+                                        'key' => 'Glu-P-1 (2-Amino-6-methyldipyrido[1- a:3\'\'-d]imidazole)',
+                                        'value' => 14699280,
+                                      ),
+                                      422 => 
+                                      array (
+                                        'key' => 'Glu-P-2 (2-Aminodipyrido[1-a:3\'\'-d]imidazole)',
+                                        'value' => 14699281,
+                                      ),
+                                      423 => 
+                                      array (
+                                        'key' => 'Glycidaldehyde',
+                                        'value' => 14699282,
+                                      ),
+                                      424 => 
+                                      array (
+                                        'key' => 'Glycidol',
+                                        'value' => 14699283,
+                                      ),
+                                      425 => 
+                                      array (
+                                        'key' => 'Glyphosate',
+                                        'value' => 14699284,
+                                      ),
+                                      426 => 
+                                      array (
+                                        'key' => 'Goldenseal root powder',
+                                        'value' => 14699285,
+                                      ),
+                                      427 => 
+                                      array (
+                                        'key' => 'Goserelin acetate',
+                                        'value' => 14699286,
+                                      ),
+                                      428 => 
+                                      array (
+                                        'key' => 'Griseofulvin',
+                                        'value' => 14699287,
+                                      ),
+                                      429 => 
+                                      array (
+                                        'key' => 'Gyromitrin (Acetaldehyde methylformylhydrazone)',
+                                        'value' => 14699288,
+                                      ),
+                                      430 => 
+                                      array (
+                                        'key' => 'HC Blue 1',
+                                        'value' => 14699293,
+                                      ),
+                                      431 => 
+                                      array (
+                                        'key' => 'Halazepam',
+                                        'value' => 14699289,
+                                      ),
+                                      432 => 
+                                      array (
+                                        'key' => 'Halobetasol propionate',
+                                        'value' => 14699290,
+                                      ),
+                                      433 => 
+                                      array (
+                                        'key' => 'Haloperidol',
+                                        'value' => 14699291,
+                                      ),
+                                      434 => 
+                                      array (
+                                        'key' => 'Halothane',
+                                        'value' => 14699292,
+                                      ),
+                                      435 => 
+                                      array (
+                                        'key' => 'Heptachlor',
+                                        'value' => 14699294,
+                                      ),
+                                      436 => 
+                                      array (
+                                        'key' => 'Heptachlor epoxide',
+                                        'value' => 14699295,
+                                      ),
+                                      437 => 
+                                      array (
+                                        'key' => 'Herbal remedies containing plant species of the genus Aristolochia',
+                                        'value' => 14699296,
+                                      ),
+                                      438 => 
+                                      array (
+                                        'key' => 'Hexachlorobenzene',
+                                        'value' => 14699297,
+                                      ),
+                                      439 => 
+                                      array (
+                                        'key' => 'Hexachlorobutadiene',
+                                        'value' => 14699298,
+                                      ),
+                                      440 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (alpha isomer)',
+                                        'value' => 14699299,
+                                      ),
+                                      441 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (beta isomer)',
+                                        'value' => 14699300,
+                                      ),
+                                      442 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (gamma isomer)',
+                                        'value' => 14699301,
+                                      ),
+                                      443 => 
+                                      array (
+                                        'key' => 'Hexachlorocyclohexane (technical grade)',
+                                        'value' => 14699302,
+                                      ),
+                                      444 => 
+                                      array (
+                                        'key' => 'Hexachlorodibenzodioxin',
+                                        'value' => 14699303,
+                                      ),
+                                      445 => 
+                                      array (
+                                        'key' => 'Hexachloroethane',
+                                        'value' => 14699304,
+                                      ),
+                                      446 => 
+                                      array (
+                                        'key' => 'Hexamethylphosphoramide',
+                                        'value' => 14699305,
+                                      ),
+                                      447 => 
+                                      array (
+                                        'key' => 'Histrelin acetate',
+                                        'value' => 14699306,
+                                      ),
+                                      448 => 
+                                      array (
+                                        'key' => 'Hydramethylnon',
+                                        'value' => 14699307,
+                                      ),
+                                      449 => 
+                                      array (
+                                        'key' => 'Hydrazine',
+                                        'value' => 14699308,
+                                      ),
+                                      450 => 
+                                      array (
+                                        'key' => 'Hydrazine sulfate',
+                                        'value' => 14699309,
+                                      ),
+                                      451 => 
+                                      array (
+                                        'key' => 'Hydrazobenzene (1-Diphenylhydrazine)',
+                                        'value' => 14699310,
+                                      ),
+                                      452 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanide (HCN) and cyanide salts (CN salts)',
+                                        'value' => 14699311,
+                                      ),
+                                      453 => 
+                                      array (
+                                        'key' => 'Hydrogen cyanidef',
+                                        'value' => 14699312,
+                                      ),
+                                      454 => 
+                                      array (
+                                        'key' => 'Hydroxyurea',
+                                        'value' => 14699313,
+                                      ),
+                                      455 => 
+                                      array (
+                                        'key' => 'IQ (2-Amino-3-methylimidazo[4-f] quinoline)',
+                                        'value' => 14699323,
+                                      ),
+                                      456 => 
+                                      array (
+                                        'key' => 'Idarubicin hydrochloride',
+                                        'value' => 14699314,
+                                      ),
+                                      457 => 
+                                      array (
+                                        'key' => 'Ifosfamide',
+                                        'value' => 14699315,
+                                      ),
+                                      458 => 
+                                      array (
+                                        'key' => 'Imazalil',
+                                        'value' => 14699316,
+                                      ),
+                                      459 => 
+                                      array (
+                                        'key' => 'Indeno[1-cd]pyrene',
+                                        'value' => 14699317,
+                                      ),
+                                      460 => 
+                                      array (
+                                        'key' => 'Indium phosphide',
+                                        'value' => 14699318,
+                                      ),
+                                      461 => 
+                                      array (
+                                        'key' => 'Infant boys 29 days to 24 monthsb',
+                                        'value' => 14699319,
+                                      ),
+                                      462 => 
+                                      array (
+                                        'key' => 'Iodine-131',
+                                        'value' => 14699320,
+                                      ),
+                                      463 => 
+                                      array (
+                                        'key' => 'Iprodione',
+                                        'value' => 14699321,
+                                      ),
+                                      464 => 
+                                      array (
+                                        'key' => 'Iprovalicarb',
+                                        'value' => 14699322,
+                                      ),
+                                      465 => 
+                                      array (
+                                        'key' => 'Iron dextran complex',
+                                        'value' => 14699324,
+                                      ),
+                                      466 => 
+                                      array (
+                                        'key' => 'Isobutyl nitrite',
+                                        'value' => 14699325,
+                                      ),
+                                      467 => 
+                                      array (
+                                        'key' => 'Isoprene',
+                                        'value' => 14699326,
+                                      ),
+                                      468 => 
+                                      array (
+                                        'key' => 'Isopyrazam',
+                                        'value' => 14699327,
+                                      ),
+                                      469 => 
+                                      array (
+                                        'key' => 'Isotretinoin',
+                                        'value' => 14699328,
+                                      ),
+                                      470 => 
+                                      array (
+                                        'key' => 'Isoxaflutole',
+                                        'value' => 14699329,
+                                      ),
+                                      471 => 
+                                      array (
+                                        'key' => 'Kresoxim-methyl',
+                                        'value' => 14699330,
+                                      ),
+                                      472 => 
+                                      array (
+                                        'key' => 'Lactofen',
+                                        'value' => 14699331,
+                                      ),
+                                      473 => 
+                                      array (
+                                        'key' => 'Lasiocarpine',
+                                        'value' => 14699332,
+                                      ),
+                                      474 => 
+                                      array (
+                                        'key' => 'Lead',
+                                        'value' => 14699333,
+                                      ),
+                                      475 => 
+                                      array (
+                                        'key' => 'Lead acetate',
+                                        'value' => 14699334,
+                                      ),
+                                      476 => 
+                                      array (
+                                        'key' => 'Lead and lead compounds',
+                                        'value' => 14699335,
+                                      ),
+                                      477 => 
+                                      array (
+                                        'key' => 'Lead phosphate',
+                                        'value' => 14699336,
+                                      ),
+                                      478 => 
+                                      array (
+                                        'key' => 'Lead subacetate',
+                                        'value' => 14699337,
+                                      ),
+                                      479 => 
+                                      array (
+                                        'key' => 'Leather dust',
+                                        'value' => 14699338,
+                                      ),
+                                      480 => 
+                                      array (
+                                        'key' => 'Leuprolide acetate',
+                                        'value' => 14699339,
+                                      ),
+                                      481 => 
+                                      array (
+                                        'key' => 'Levodopa',
+                                        'value' => 14699340,
+                                      ),
+                                      482 => 
+                                      array (
+                                        'key' => 'Levonorgestrel implants',
+                                        'value' => 14699341,
+                                      ),
+                                      483 => 
+                                      array (
+                                        'key' => 'Lindane and other hexachlorocyclohexane isomers',
+                                        'value' => 14699342,
+                                      ),
+                                      484 => 
+                                      array (
+                                        'key' => 'Linuron',
+                                        'value' => 14699343,
+                                      ),
+                                      485 => 
+                                      array (
+                                        'key' => 'Lithium carbonate',
+                                        'value' => 14699344,
+                                      ),
+                                      486 => 
+                                      array (
+                                        'key' => 'Lithium citrate',
+                                        'value' => 14699345,
+                                      ),
+                                      487 => 
+                                      array (
+                                        'key' => 'Lorazepam',
+                                        'value' => 14699346,
+                                      ),
+                                      488 => 
+                                      array (
+                                        'key' => 'Lovastatin',
+                                        'value' => 14699347,
+                                      ),
+                                      489 => 
+                                      array (
+                                        'key' => 'Lynestrenol',
+                                        'value' => 14699348,
+                                      ),
+                                      490 => 
+                                      array (
+                                        'key' => 'MON 13900 (furilazole)',
+                                        'value' => 14699406,
+                                      ),
+                                      491 => 
+                                      array (
+                                        'key' => 'MON 4660 (dichloroacetyl-1-oxa-4-azaspiro(4)-decane',
+                                        'value' => 14699407,
+                                      ),
+                                      492 => 
+                                      array (
+                                        'key' => 'MOPP (vincristine-prednisone-nitrogen mustard-procarbazine mixture)',
+                                        'value' => 14699409,
+                                      ),
+                                      493 => 
+                                      array (
+                                        'key' => 'MX (3-chloro-4-dichloromethyl-5-hydroxy-2(5H)-furanone)',
+                                        'value' => 14699411,
+                                      ),
+                                      494 => 
+                                      array (
+                                        'key' => 'Malathion',
+                                        'value' => 14699350,
+                                      ),
+                                      495 => 
+                                      array (
+                                        'key' => 'Malonaldehyde salt',
+                                        'value' => 14699351,
+                                      ),
+                                      496 => 
+                                      array (
+                                        'key' => 'Mancozeb',
+                                        'value' => 14699352,
+                                      ),
+                                      497 => 
+                                      array (
+                                        'key' => 'Maneb',
+                                        'value' => 14699353,
+                                      ),
+                                      498 => 
+                                      array (
+                                        'key' => 'Marijuana smoke',
+                                        'value' => 14699354,
+                                      ),
+                                      499 => 
+                                      array (
+                                        'key' => 'Me-A-alpha-C (2-Amino-3-methyl-9H-pyrido[2-b]indole)',
+                                        'value' => 14699355,
+                                      ),
+                                      500 => 
+                                      array (
+                                        'key' => 'MeIQ (2-Amino-3-dimethylimidazo[4-f]quinoline)',
+                                        'value' => 14699359,
+                                      ),
+                                      501 => 
+                                      array (
+                                        'key' => 'MeIQx (2-Amino-3-dimethylimidazo[4-f]quinoxaline)',
+                                        'value' => 14699360,
+                                      ),
+                                      502 => 
+                                      array (
+                                        'key' => 'Mebendazole',
+                                        'value' => 14699356,
+                                      ),
+                                      503 => 
+                                      array (
+                                        'key' => 'Medroxyprogesterone acetate',
+                                        'value' => 14699357,
+                                      ),
+                                      504 => 
+                                      array (
+                                        'key' => 'Megestrol acetate',
+                                        'value' => 14699358,
+                                      ),
+                                      505 => 
+                                      array (
+                                        'key' => 'Melphalan',
+                                        'value' => 14699361,
+                                      ),
+                                      506 => 
+                                      array (
+                                        'key' => 'Menotropins',
+                                        'value' => 14699362,
+                                      ),
+                                      507 => 
+                                      array (
+                                        'key' => 'Mepanipyrim',
+                                        'value' => 14699363,
+                                      ),
+                                      508 => 
+                                      array (
+                                        'key' => 'Meprobamate',
+                                        'value' => 14699364,
+                                      ),
+                                      509 => 
+                                      array (
+                                        'key' => 'Mercaptopurine',
+                                        'value' => 14699365,
+                                      ),
+                                      510 => 
+                                      array (
+                                        'key' => 'Mercury and mercury compounds',
+                                        'value' => 14699366,
+                                      ),
+                                      511 => 
+                                      array (
+                                        'key' => 'Merphalan',
+                                        'value' => 14699367,
+                                      ),
+                                      512 => 
+                                      array (
+                                        'key' => 'Mestranol',
+                                        'value' => 14699368,
+                                      ),
+                                      513 => 
+                                      array (
+                                        'key' => 'Metam potassium',
+                                        'value' => 14699369,
+                                      ),
+                                      514 => 
+                                      array (
+                                        'key' => 'Methacycline hydrochloride',
+                                        'value' => 14699370,
+                                      ),
+                                      515 => 
+                                      array (
+                                        'key' => 'Metham sodium',
+                                        'value' => 14699371,
+                                      ),
+                                      516 => 
+                                      array (
+                                        'key' => 'Methanol',
+                                        'value' => 14699372,
+                                      ),
+                                      517 => 
+                                      array (
+                                        'key' => 'Methazole',
+                                        'value' => 14699373,
+                                      ),
+                                      518 => 
+                                      array (
+                                        'key' => 'Methimazole',
+                                        'value' => 14699374,
+                                      ),
+                                      519 => 
+                                      array (
+                                        'key' => 'Methotrexate',
+                                        'value' => 14699375,
+                                      ),
+                                      520 => 
+                                      array (
+                                        'key' => 'Methotrexate sodium',
+                                        'value' => 14699376,
+                                      ),
+                                      521 => 
+                                      array (
+                                        'key' => 'Methyl bromide a structural fumigant',
+                                        'value' => 14699377,
+                                      ),
+                                      522 => 
+                                      array (
+                                        'key' => 'Methyl carbamate',
+                                        'value' => 14699378,
+                                      ),
+                                      523 => 
+                                      array (
+                                        'key' => 'Methyl chloride',
+                                        'value' => 14699379,
+                                      ),
+                                      524 => 
+                                      array (
+                                        'key' => 'Methyl iodide',
+                                        'value' => 14699380,
+                                      ),
+                                      525 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone',
+                                        'value' => 14699381,
+                                      ),
+                                      526 => 
+                                      array (
+                                        'key' => 'Methyl isobutyl ketone (MIBK)',
+                                        'value' => 14699382,
+                                      ),
+                                      527 => 
+                                      array (
+                                        'key' => 'Methyl isocyanate (MIC)',
+                                        'value' => 14699383,
+                                      ),
+                                      528 => 
+                                      array (
+                                        'key' => 'Methyl mercury',
+                                        'value' => 14699384,
+                                      ),
+                                      529 => 
+                                      array (
+                                        'key' => 'Methyl methanesulfonate',
+                                        'value' => 14699385,
+                                      ),
+                                      530 => 
+                                      array (
+                                        'key' => 'Methyl-n-butyl ketone',
+                                        'value' => 14699386,
+                                      ),
+                                      531 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol',
+                                        'value' => 14699387,
+                                      ),
+                                      532 => 
+                                      array (
+                                        'key' => 'Methylazoxymethanol acetate',
+                                        'value' => 14699388,
+                                      ),
+                                      533 => 
+                                      array (
+                                        'key' => 'Methyleugenol',
+                                        'value' => 14699389,
+                                      ),
+                                      534 => 
+                                      array (
+                                        'key' => 'Methylhydrazine',
+                                        'value' => 14699390,
+                                      ),
+                                      535 => 
+                                      array (
+                                        'key' => 'Methylhydrazine and its salts',
+                                        'value' => 14699391,
+                                      ),
+                                      536 => 
+                                      array (
+                                        'key' => 'Methylhydrazine sulfate',
+                                        'value' => 14699392,
+                                      ),
+                                      537 => 
+                                      array (
+                                        'key' => 'Methylmercury compounds',
+                                        'value' => 14699393,
+                                      ),
+                                      538 => 
+                                      array (
+                                        'key' => 'Methyltestosterone',
+                                        'value' => 14699394,
+                                      ),
+                                      539 => 
+                                      array (
+                                        'key' => 'Methylthiouracil',
+                                        'value' => 14699395,
+                                      ),
+                                      540 => 
+                                      array (
+                                        'key' => 'Metiram',
+                                        'value' => 14699396,
+                                      ),
+                                      541 => 
+                                      array (
+                                        'key' => 'Metronidazole',
+                                        'value' => 14699397,
+                                      ),
+                                      542 => 
+                                      array (
+                                        'key' => 'Michler\'s ketone',
+                                        'value' => 14699398,
+                                      ),
+                                      543 => 
+                                      array (
+                                        'key' => 'Midazolam hydrochloride',
+                                        'value' => 14699399,
+                                      ),
+                                      544 => 
+                                      array (
+                                        'key' => 'Minocycline hydrochloride (internal use)',
+                                        'value' => 14699400,
+                                      ),
+                                      545 => 
+                                      array (
+                                        'key' => 'Mirex',
+                                        'value' => 14699401,
+                                      ),
+                                      546 => 
+                                      array (
+                                        'key' => 'Misoprostol',
+                                        'value' => 14699402,
+                                      ),
+                                      547 => 
+                                      array (
+                                        'key' => 'Mitomycin C',
+                                        'value' => 14699403,
+                                      ),
+                                      548 => 
+                                      array (
+                                        'key' => 'Mitoxantrone hydrochloride',
+                                        'value' => 14699404,
+                                      ),
+                                      549 => 
+                                      array (
+                                        'key' => 'Molinate',
+                                        'value' => 14699405,
+                                      ),
+                                      550 => 
+                                      array (
+                                        'key' => 'Monocrotaline',
+                                        'value' => 14699408,
+                                      ),
+                                      551 => 
+                                      array (
+                                        'key' => 'Mustard Gas',
+                                        'value' => 14699410,
+                                      ),
+                                      552 => 
+                                      array (
+                                        'key' => 'Myclobutanil',
+                                        'value' => 14699412,
+                                      ),
+                                      553 => 
+                                      array (
+                                        'key' => 'N\'-Diacetylbenzidine',
+                                        'value' => 14699413,
+                                      ),
+                                      554 => 
+                                      array (
+                                        'key' => 'N-Bis(2-chloroethyl)-2-naphthylamine (Chlornapazine)',
+                                        'value' => 14699414,
+                                      ),
+                                      555 => 
+                                      array (
+                                        'key' => 'N-Carboxymethyl-N-nitrosourea',
+                                        'value' => 14699419,
+                                      ),
+                                      556 => 
+                                      array (
+                                        'key' => 'N-Dimethyl-p-toluidine',
+                                        'value' => 14699415,
+                                      ),
+                                      557 => 
+                                      array (
+                                        'key' => 'N-Dimethylacetamide',
+                                        'value' => 14699416,
+                                      ),
+                                      558 => 
+                                      array (
+                                        'key' => 'N-Dimethylformamide',
+                                        'value' => 14699417,
+                                      ),
+                                      559 => 
+                                      array (
+                                        'key' => 'N-Methyl-N\'-nitro-N-nitrosoguanidine',
+                                        'value' => 14699421,
+                                      ),
+                                      560 => 
+                                      array (
+                                        'key' => 'N-Methylolacrylamide',
+                                        'value' => 14699422,
+                                      ),
+                                      561 => 
+                                      array (
+                                        'key' => 'N-Methylpyrrolidone',
+                                        'value' => 14699423,
+                                      ),
+                                      562 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-ethylurea',
+                                        'value' => 14699424,
+                                      ),
+                                      563 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurea',
+                                        'value' => 14699425,
+                                      ),
+                                      564 => 
+                                      array (
+                                        'key' => 'N-Nitroso-N-methylurethane',
+                                        'value' => 14699426,
+                                      ),
+                                      565 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-butylamine',
+                                        'value' => 14699427,
+                                      ),
+                                      566 => 
+                                      array (
+                                        'key' => 'N-Nitrosodi-n-propylamine',
+                                        'value' => 14699428,
+                                      ),
+                                      567 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethanolamine',
+                                        'value' => 14699429,
+                                      ),
+                                      568 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiethylamine',
+                                        'value' => 14699430,
+                                      ),
+                                      569 => 
+                                      array (
+                                        'key' => 'N-Nitrosodimethylamine',
+                                        'value' => 14699431,
+                                      ),
+                                      570 => 
+                                      array (
+                                        'key' => 'N-Nitrosodiphenylamine',
+                                        'value' => 14699432,
+                                      ),
+                                      571 => 
+                                      array (
+                                        'key' => 'N-Nitrosohexamethyleneimine',
+                                        'value' => 14699433,
+                                      ),
+                                      572 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-butylamine',
+                                        'value' => 14699434,
+                                      ),
+                                      573 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-decylamine',
+                                        'value' => 14699435,
+                                      ),
+                                      574 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-dodecylamine',
+                                        'value' => 14699436,
+                                      ),
+                                      575 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-heptylamine',
+                                        'value' => 14699437,
+                                      ),
+                                      576 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-hexylamine',
+                                        'value' => 14699438,
+                                      ),
+                                      577 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-nonylamine',
+                                        'value' => 14699439,
+                                      ),
+                                      578 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-octylamine',
+                                        'value' => 14699440,
+                                      ),
+                                      579 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-pentylamine',
+                                        'value' => 14699441,
+                                      ),
+                                      580 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-propylamine',
+                                        'value' => 14699442,
+                                      ),
+                                      581 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-tetradecylamine',
+                                        'value' => 14699443,
+                                      ),
+                                      582 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethyl-n-undecylamine',
+                                        'value' => 14699444,
+                                      ),
+                                      583 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylethylamine',
+                                        'value' => 14699445,
+                                      ),
+                                      584 => 
+                                      array (
+                                        'key' => 'N-Nitrosomethylvinylamine',
+                                        'value' => 14699446,
+                                      ),
+                                      585 => 
+                                      array (
+                                        'key' => 'N-Nitrosomorpholine',
+                                        'value' => 14699447,
+                                      ),
+                                      586 => 
+                                      array (
+                                        'key' => 'N-Nitrosonornicotine',
+                                        'value' => 14699448,
+                                      ),
+                                      587 => 
+                                      array (
+                                        'key' => 'N-Nitrosopiperidine',
+                                        'value' => 14699449,
+                                      ),
+                                      588 => 
+                                      array (
+                                        'key' => 'N-Nitrosopyrrolidine',
+                                        'value' => 14699450,
+                                      ),
+                                      589 => 
+                                      array (
+                                        'key' => 'N-Nitrososarcosine',
+                                        'value' => 14699451,
+                                      ),
+                                      590 => 
+                                      array (
+                                        'key' => 'N-[4-(5-Nitro-2-furyl)-2-thiazolyl]acetamide',
+                                        'value' => 14699418,
+                                      ),
+                                      591 => 
+                                      array (
+                                        'key' => 'Nabam',
+                                        'value' => 14699452,
+                                      ),
+                                      592 => 
+                                      array (
+                                        'key' => 'Nafarelin acetate',
+                                        'value' => 14699453,
+                                      ),
+                                      593 => 
+                                      array (
+                                        'key' => 'Nafenopin',
+                                        'value' => 14699454,
+                                      ),
+                                      594 => 
+                                      array (
+                                        'key' => 'Nalidixic acid',
+                                        'value' => 14699455,
+                                      ),
+                                      595 => 
+                                      array (
+                                        'key' => 'Naphthalene',
+                                        'value' => 14699456,
+                                      ),
+                                      596 => 
+                                      array (
+                                        'key' => 'Neomycin sulfate (internal use)',
+                                        'value' => 14699457,
+                                      ),
+                                      597 => 
+                                      array (
+                                        'key' => 'Neonatal infant boys 0 to 28 daysb',
+                                        'value' => 14699458,
+                                      ),
+                                      598 => 
+                                      array (
+                                        'key' => 'Netilmicin sulfate',
+                                        'value' => 14699459,
+                                      ),
+                                      599 => 
+                                      array (
+                                        'key' => 'Nickel (Metallic)',
+                                        'value' => 14699460,
+                                      ),
+                                      600 => 
+                                      array (
+                                        'key' => 'Nickel (soluble compounds)',
+                                        'value' => 14699461,
+                                      ),
+                                      601 => 
+                                      array (
+                                        'key' => 'Nickel acetate',
+                                        'value' => 14699462,
+                                      ),
+                                      602 => 
+                                      array (
+                                        'key' => 'Nickel carbonate',
+                                        'value' => 14699463,
+                                      ),
+                                      603 => 
+                                      array (
+                                        'key' => 'Nickel carbonyl',
+                                        'value' => 14699464,
+                                      ),
+                                      604 => 
+                                      array (
+                                        'key' => 'Nickel compounds',
+                                        'value' => 14699465,
+                                      ),
+                                      605 => 
+                                      array (
+                                        'key' => 'Nickel hydroxide',
+                                        'value' => 14699466,
+                                      ),
+                                      606 => 
+                                      array (
+                                        'key' => 'Nickel oxide',
+                                        'value' => 14699467,
+                                      ),
+                                      607 => 
+                                      array (
+                                        'key' => 'Nickel refinery dust from the pyrometallurgical process',
+                                        'value' => 14699468,
+                                      ),
+                                      608 => 
+                                      array (
+                                        'key' => 'Nickel subsulfide',
+                                        'value' => 14699469,
+                                      ),
+                                      609 => 
+                                      array (
+                                        'key' => 'Nickelocene',
+                                        'value' => 14699470,
+                                      ),
+                                      610 => 
+                                      array (
+                                        'key' => 'Nicotine',
+                                        'value' => 14699471,
+                                      ),
+                                      611 => 
+                                      array (
+                                        'key' => 'Nifedipine',
+                                        'value' => 14699472,
+                                      ),
+                                      612 => 
+                                      array (
+                                        'key' => 'Nimodipine',
+                                        'value' => 14699473,
+                                      ),
+                                      613 => 
+                                      array (
+                                        'key' => 'Niridazole',
+                                        'value' => 14699474,
+                                      ),
+                                      614 => 
+                                      array (
+                                        'key' => 'Nitrapyrin',
+                                        'value' => 14699475,
+                                      ),
+                                      615 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid',
+                                        'value' => 14699476,
+                                      ),
+                                      616 => 
+                                      array (
+                                        'key' => 'Nitrilotriacetic acid salt monohydrate',
+                                        'value' => 14699477,
+                                      ),
+                                      617 => 
+                                      array (
+                                        'key' => 'Nitrobenzene',
+                                        'value' => 14699478,
+                                      ),
+                                      618 => 
+                                      array (
+                                        'key' => 'Nitrofen (technical grade)',
+                                        'value' => 14699479,
+                                      ),
+                                      619 => 
+                                      array (
+                                        'key' => 'Nitrofurantoin',
+                                        'value' => 14699480,
+                                      ),
+                                      620 => 
+                                      array (
+                                        'key' => 'Nitrofurazone',
+                                        'value' => 14699481,
+                                      ),
+                                      621 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard (Mechlorethamine)',
+                                        'value' => 14699482,
+                                      ),
+                                      622 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide',
+                                        'value' => 14699484,
+                                      ),
+                                      623 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard N-oxide hydrochloride',
+                                        'value' => 14699485,
+                                      ),
+                                      624 => 
+                                      array (
+                                        'key' => 'Nitrogen mustard hydrochloride (Mechlorethamine hydrochloride)',
+                                        'value' => 14699483,
+                                      ),
+                                      625 => 
+                                      array (
+                                        'key' => 'Nitromethane',
+                                        'value' => 14699486,
+                                      ),
+                                      626 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone)',
+                                        'value' => 14699487,
+                                      ),
+                                      627 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Ethinyl estradiol',
+                                        'value' => 14699488,
+                                      ),
+                                      628 => 
+                                      array (
+                                        'key' => 'Norethisterone (Norethindrone) /Mestranol',
+                                        'value' => 14699489,
+                                      ),
+                                      629 => 
+                                      array (
+                                        'key' => 'Norethisterone acetate (Norethindrone acetate)',
+                                        'value' => 14699490,
+                                      ),
+                                      630 => 
+                                      array (
+                                        'key' => 'Norethynodrel',
+                                        'value' => 14699491,
+                                      ),
+                                      631 => 
+                                      array (
+                                        'key' => 'Norgestrel',
+                                        'value' => 14699492,
+                                      ),
+                                      632 => 
+                                      array (
+                                        'key' => 'Ochratoxin A',
+                                        'value' => 14699507,
+                                      ),
+                                      633 => 
+                                      array (
+                                        'key' => 'Oil Orange SS',
+                                        'value' => 14699508,
+                                      ),
+                                      634 => 
+                                      array (
+                                        'key' => 'Oral contraceptives',
+                                        'value' => 14699509,
+                                      ),
+                                      635 => 
+                                      array (
+                                        'key' => 'Oryzalin',
+                                        'value' => 14699510,
+                                      ),
+                                      636 => 
+                                      array (
+                                        'key' => 'Oxadiazon',
+                                        'value' => 14699511,
+                                      ),
+                                      637 => 
+                                      array (
+                                        'key' => 'Oxazepam',
+                                        'value' => 14699512,
+                                      ),
+                                      638 => 
+                                      array (
+                                        'key' => 'Oxydemeton methyl',
+                                        'value' => 14699513,
+                                      ),
+                                      639 => 
+                                      array (
+                                        'key' => 'Oxymetholone',
+                                        'value' => 14699514,
+                                      ),
+                                      640 => 
+                                      array (
+                                        'key' => 'Oxytetracycline (internal use)',
+                                        'value' => 14699515,
+                                      ),
+                                      641 => 
+                                      array (
+                                        'key' => 'Oxytetracycline hydrochloride (internal use)',
+                                        'value' => 14699516,
+                                      ),
+                                      642 => 
+                                      array (
+                                        'key' => 'Oxythioquinox (Chinomethionat)',
+                                        'value' => 14699517,
+                                      ),
+                                      643 => 
+                                      array (
+                                        'key' => 'Paclitaxel',
+                                        'value' => 14699530,
+                                      ),
+                                      644 => 
+                                      array (
+                                        'key' => 'Palygorskite fibers (> 5æm in length)',
+                                        'value' => 14699531,
+                                      ),
+                                      645 => 
+                                      array (
+                                        'key' => 'Panfuran S',
+                                        'value' => 14699532,
+                                      ),
+                                      646 => 
+                                      array (
+                                        'key' => 'Paramethadione',
+                                        'value' => 14699534,
+                                      ),
+                                      647 => 
+                                      array (
+                                        'key' => 'Parathion',
+                                        'value' => 14699535,
+                                      ),
+                                      648 => 
+                                      array (
+                                        'key' => 'Penicillamine',
+                                        'value' => 14699536,
+                                      ),
+                                      649 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol',
+                                        'value' => 14699538,
+                                      ),
+                                      650 => 
+                                      array (
+                                        'key' => 'Pentachlorophenol and by-products of its synthesis (complex mixture)',
+                                        'value' => 14699539,
+                                      ),
+                                      651 => 
+                                      array (
+                                        'key' => 'Pentobarbital sodium',
+                                        'value' => 14699540,
+                                      ),
+                                      652 => 
+                                      array (
+                                        'key' => 'Pentosan polysulfate sodium',
+                                        'value' => 14699541,
+                                      ),
+                                      653 => 
+                                      array (
+                                        'key' => 'Pentostatin',
+                                        'value' => 14699542,
+                                      ),
+                                      654 => 
+                                      array (
+                                        'key' => 'Perfluorooctane sulfonate (PFOS)',
+                                        'value' => 14699543,
+                                      ),
+                                      655 => 
+                                      array (
+                                        'key' => 'Perfluorooctanoic acid (PFOA)',
+                                        'value' => 14699544,
+                                      ),
+                                      656 => 
+                                      array (
+                                        'key' => 'Pertuzumab',
+                                        'value' => 14699545,
+                                      ),
+                                      657 => 
+                                      array (
+                                        'key' => 'Phenacemide',
+                                        'value' => 14699546,
+                                      ),
+                                      658 => 
+                                      array (
+                                        'key' => 'Phenacetin',
+                                        'value' => 14699547,
+                                      ),
+                                      659 => 
+                                      array (
+                                        'key' => 'Phenazopyridine',
+                                        'value' => 14699548,
+                                      ),
+                                      660 => 
+                                      array (
+                                        'key' => 'Phenazopyridine hydrochloride',
+                                        'value' => 14699549,
+                                      ),
+                                      661 => 
+                                      array (
+                                        'key' => 'Phenesterin',
+                                        'value' => 14699550,
+                                      ),
+                                      662 => 
+                                      array (
+                                        'key' => 'Phenobarbital',
+                                        'value' => 14699551,
+                                      ),
+                                      663 => 
+                                      array (
+                                        'key' => 'Phenolphthalein',
+                                        'value' => 14699552,
+                                      ),
+                                      664 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine',
+                                        'value' => 14699553,
+                                      ),
+                                      665 => 
+                                      array (
+                                        'key' => 'Phenoxybenzamine hydrochloride',
+                                        'value' => 14699554,
+                                      ),
+                                      666 => 
+                                      array (
+                                        'key' => 'Phenprocoumon',
+                                        'value' => 14699555,
+                                      ),
+                                      667 => 
+                                      array (
+                                        'key' => 'Phenyl glycidyl ether',
+                                        'value' => 14699556,
+                                      ),
+                                      668 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine',
+                                        'value' => 14699557,
+                                      ),
+                                      669 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine and its salts',
+                                        'value' => 14699558,
+                                      ),
+                                      670 => 
+                                      array (
+                                        'key' => 'Phenylhydrazine hydrochloride',
+                                        'value' => 14699559,
+                                      ),
+                                      671 => 
+                                      array (
+                                        'key' => 'PhiP(2-Amino-1-methyl-6-phenylimidazol[4-b]pyridine)',
+                                        'value' => 14699560,
+                                      ),
+                                      672 => 
+                                      array (
+                                        'key' => 'Pimozide',
+                                        'value' => 14699561,
+                                      ),
+                                      673 => 
+                                      array (
+                                        'key' => 'Pioglitazone',
+                                        'value' => 14699562,
+                                      ),
+                                      674 => 
+                                      array (
+                                        'key' => 'Pipobroman',
+                                        'value' => 14699563,
+                                      ),
+                                      675 => 
+                                      array (
+                                        'key' => 'Pirimicarb',
+                                        'value' => 14699564,
+                                      ),
+                                      676 => 
+                                      array (
+                                        'key' => 'Plicamycin',
+                                        'value' => 14699565,
+                                      ),
+                                      677 => 
+                                      array (
+                                        'key' => 'Polybrominated biphenyls',
+                                        'value' => 14699566,
+                                      ),
+                                      678 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls',
+                                        'value' => 14699567,
+                                      ),
+                                      679 => 
+                                      array (
+                                        'key' => 'Polychlorinated biphenyls (containing 60 or more percent chlorine by molecular weight)',
+                                        'value' => 14699568,
+                                      ),
+                                      680 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzo-p-dioxins',
+                                        'value' => 14699569,
+                                      ),
+                                      681 => 
+                                      array (
+                                        'key' => 'Polychlorinated dibenzofurans',
+                                        'value' => 14699570,
+                                      ),
+                                      682 => 
+                                      array (
+                                        'key' => 'Polygeenan',
+                                        'value' => 14699571,
+                                      ),
+                                      683 => 
+                                      array (
+                                        'key' => 'Ponceau 3R',
+                                        'value' => 14699572,
+                                      ),
+                                      684 => 
+                                      array (
+                                        'key' => 'Ponceau MX',
+                                        'value' => 14699573,
+                                      ),
+                                      685 => 
+                                      array (
+                                        'key' => 'Potassium bromate',
+                                        'value' => 14699574,
+                                      ),
+                                      686 => 
+                                      array (
+                                        'key' => 'Potassium cyanidef',
+                                        'value' => 14699575,
+                                      ),
+                                      687 => 
+                                      array (
+                                        'key' => 'Potassium dimethyldithiocarbamate',
+                                        'value' => 14699576,
+                                      ),
+                                      688 => 
+                                      array (
+                                        'key' => 'Pravastatin sodium',
+                                        'value' => 14699577,
+                                      ),
+                                      689 => 
+                                      array (
+                                        'key' => 'Prednisolone sodium phosphate',
+                                        'value' => 14699578,
+                                      ),
+                                      690 => 
+                                      array (
+                                        'key' => 'Primidone',
+                                        'value' => 14699579,
+                                      ),
+                                      691 => 
+                                      array (
+                                        'key' => 'Procarbazine',
+                                        'value' => 14699580,
+                                      ),
+                                      692 => 
+                                      array (
+                                        'key' => 'Procarbazine hydrochloride',
+                                        'value' => 14699581,
+                                      ),
+                                      693 => 
+                                      array (
+                                        'key' => 'Procymidone',
+                                        'value' => 14699582,
+                                      ),
+                                      694 => 
+                                      array (
+                                        'key' => 'Progesterone',
+                                        'value' => 14699583,
+                                      ),
+                                      695 => 
+                                      array (
+                                        'key' => 'Pronamide',
+                                        'value' => 14699584,
+                                      ),
+                                      696 => 
+                                      array (
+                                        'key' => 'Propachlor',
+                                        'value' => 14699585,
+                                      ),
+                                      697 => 
+                                      array (
+                                        'key' => 'Propargite',
+                                        'value' => 14699586,
+                                      ),
+                                      698 => 
+                                      array (
+                                        'key' => 'Propazine',
+                                        'value' => 14699587,
+                                      ),
+                                      699 => 
+                                      array (
+                                        'key' => 'Propoxur',
+                                        'value' => 14699588,
+                                      ),
+                                      700 => 
+                                      array (
+                                        'key' => 'Propylene glycol mono-t-butyl ether',
+                                        'value' => 14699589,
+                                      ),
+                                      701 => 
+                                      array (
+                                        'key' => 'Propylene oxide',
+                                        'value' => 14699590,
+                                      ),
+                                      702 => 
+                                      array (
+                                        'key' => 'Propylthiouracil',
+                                        'value' => 14699591,
+                                      ),
+                                      703 => 
+                                      array (
+                                        'key' => 'Pulegone',
+                                        'value' => 14699592,
+                                      ),
+                                      704 => 
+                                      array (
+                                        'key' => 'Pymetrozine',
+                                        'value' => 14699593,
+                                      ),
+                                      705 => 
+                                      array (
+                                        'key' => 'Pyridine',
+                                        'value' => 14699594,
+                                      ),
+                                      706 => 
+                                      array (
+                                        'key' => 'Pyrimethamine',
+                                        'value' => 14699595,
+                                      ),
+                                      707 => 
+                                      array (
+                                        'key' => 'Quazepam',
+                                        'value' => 14699596,
+                                      ),
+                                      708 => 
+                                      array (
+                                        'key' => 'Quinoline and its strong acid salts',
+                                        'value' => 14699597,
+                                      ),
+                                      709 => 
+                                      array (
+                                        'key' => 'Quizalofop-ethyl',
+                                        'value' => 14699598,
+                                      ),
+                                      710 => 
+                                      array (
+                                        'key' => 'Radionuclides',
+                                        'value' => 14699599,
+                                      ),
+                                      711 => 
+                                      array (
+                                        'key' => 'Reserpine',
+                                        'value' => 14699600,
+                                      ),
+                                      712 => 
+                                      array (
+                                        'key' => 'Residual (heavy) fuel oils',
+                                        'value' => 14699601,
+                                      ),
+                                      713 => 
+                                      array (
+                                        'key' => 'Resmethrin',
+                                        'value' => 14699602,
+                                      ),
+                                      714 => 
+                                      array (
+                                        'key' => 'Ribavirin',
+                                        'value' => 14699603,
+                                      ),
+                                      715 => 
+                                      array (
+                                        'key' => 'Riddelliine',
+                                        'value' => 14699604,
+                                      ),
+                                      716 => 
+                                      array (
+                                        'key' => 'Rifampin',
+                                        'value' => 14699605,
+                                      ),
+                                      717 => 
+                                      array (
+                                        'key' => 'S-Tributyl phosphorotrithioate (Tribufos)',
+                                        'value' => 14699606,
+                                      ),
+                                      718 => 
+                                      array (
+                                        'key' => 'Safrole',
+                                        'value' => 14699607,
+                                      ),
+                                      719 => 
+                                      array (
+                                        'key' => 'Salted fish-style',
+                                        'value' => 14699608,
+                                      ),
+                                      720 => 
+                                      array (
+                                        'key' => 'Secobarbital sodium',
+                                        'value' => 14699609,
+                                      ),
+                                      721 => 
+                                      array (
+                                        'key' => 'Sedaxane',
+                                        'value' => 14699610,
+                                      ),
+                                      722 => 
+                                      array (
+                                        'key' => 'Selenium sulfide',
+                                        'value' => 14699611,
+                                      ),
+                                      723 => 
+                                      array (
+                                        'key' => 'Sermorelin acetate',
+                                        'value' => 14699612,
+                                      ),
+                                      724 => 
+                                      array (
+                                        'key' => 'Shale-oils',
+                                        'value' => 14699613,
+                                      ),
+                                      725 => 
+                                      array (
+                                        'key' => 'Silica (airborne particles of respirable size)',
+                                        'value' => 14699614,
+                                      ),
+                                      726 => 
+                                      array (
+                                        'key' => 'Simazine',
+                                        'value' => 14699615,
+                                      ),
+                                      727 => 
+                                      array (
+                                        'key' => 'Sodium cyanidef',
+                                        'value' => 14699616,
+                                      ),
+                                      728 => 
+                                      array (
+                                        'key' => 'Sodium dimethyldithiocarbamate',
+                                        'value' => 14699617,
+                                      ),
+                                      729 => 
+                                      array (
+                                        'key' => 'Sodium fluoroacetate',
+                                        'value' => 14699618,
+                                      ),
+                                      730 => 
+                                      array (
+                                        'key' => 'Soots mineral oils (untreated and mildly treated oils and used engine oils)',
+                                        'value' => 14699619,
+                                      ),
+                                      731 => 
+                                      array (
+                                        'key' => 'Spirodiclofen',
+                                        'value' => 14699620,
+                                      ),
+                                      732 => 
+                                      array (
+                                        'key' => 'Spironolactone',
+                                        'value' => 14699621,
+                                      ),
+                                      733 => 
+                                      array (
+                                        'key' => 'Stanozolol',
+                                        'value' => 14699622,
+                                      ),
+                                      734 => 
+                                      array (
+                                        'key' => 'Sterigmatocystin',
+                                        'value' => 14699623,
+                                      ),
+                                      735 => 
+                                      array (
+                                        'key' => 'Streptomycin sulfate',
+                                        'value' => 14699624,
+                                      ),
+                                      736 => 
+                                      array (
+                                        'key' => 'Streptozocin (streptozotocin)',
+                                        'value' => 14699625,
+                                      ),
+                                      737 => 
+                                      array (
+                                        'key' => 'Streptozotocin (streptozocin)',
+                                        'value' => 14699626,
+                                      ),
+                                      738 => 
+                                      array (
+                                        'key' => 'Strong inorganic acid mists containing sulfuric acid',
+                                        'value' => 14699627,
+                                      ),
+                                      739 => 
+                                      array (
+                                        'key' => 'Styrene',
+                                        'value' => 14699628,
+                                      ),
+                                      740 => 
+                                      array (
+                                        'key' => 'Styrene oxide',
+                                        'value' => 14699629,
+                                      ),
+                                      741 => 
+                                      array (
+                                        'key' => 'Sulfallate',
+                                        'value' => 14699630,
+                                      ),
+                                      742 => 
+                                      array (
+                                        'key' => 'Sulfasalazine (Salicylazosulfapyridine)',
+                                        'value' => 14699631,
+                                      ),
+                                      743 => 
+                                      array (
+                                        'key' => 'Sulfur dioxidee',
+                                        'value' => 14699632,
+                                      ),
+                                      744 => 
+                                      array (
+                                        'key' => 'Sulindac',
+                                        'value' => 14699633,
+                                      ),
+                                      745 => 
+                                      array (
+                                        'key' => 'TRIM? VX',
+                                        'value' => 14699683,
+                                      ),
+                                      746 => 
+                                      array (
+                                        'key' => 'Talc containing asbestiform fibers',
+                                        'value' => 14699634,
+                                      ),
+                                      747 => 
+                                      array (
+                                        'key' => 'Tamoxifen and its salts',
+                                        'value' => 14699635,
+                                      ),
+                                      748 => 
+                                      array (
+                                        'key' => 'Tamoxifen citrate',
+                                        'value' => 14699636,
+                                      ),
+                                      749 => 
+                                      array (
+                                        'key' => 'Temazepam',
+                                        'value' => 14699637,
+                                      ),
+                                      750 => 
+                                      array (
+                                        'key' => 'Teniposide',
+                                        'value' => 14699638,
+                                      ),
+                                      751 => 
+                                      array (
+                                        'key' => 'Terbacil',
+                                        'value' => 14699639,
+                                      ),
+                                      752 => 
+                                      array (
+                                        'key' => 'Teriparatide',
+                                        'value' => 14699640,
+                                      ),
+                                      753 => 
+                                      array (
+                                        'key' => 'Terrazole',
+                                        'value' => 14699641,
+                                      ),
+                                      754 => 
+                                      array (
+                                        'key' => 'Testosterone and its esters',
+                                        'value' => 14699642,
+                                      ),
+                                      755 => 
+                                      array (
+                                        'key' => 'Testosterone cypionate',
+                                        'value' => 14699643,
+                                      ),
+                                      756 => 
+                                      array (
+                                        'key' => 'Testosterone enanthate',
+                                        'value' => 14699644,
+                                      ),
+                                      757 => 
+                                      array (
+                                        'key' => 'Tetrabromobisphenol A',
+                                        'value' => 14699645,
+                                      ),
+                                      758 => 
+                                      array (
+                                        'key' => 'Tetrachloroethylene (Perchloroethylene)',
+                                        'value' => 14699646,
+                                      ),
+                                      759 => 
+                                      array (
+                                        'key' => 'Tetrachlorvinphos',
+                                        'value' => 14699647,
+                                      ),
+                                      760 => 
+                                      array (
+                                        'key' => 'Tetracycline (internal use)',
+                                        'value' => 14699648,
+                                      ),
+                                      761 => 
+                                      array (
+                                        'key' => 'Tetracycline hydrochloride (internal use)',
+                                        'value' => 14699649,
+                                      ),
+                                      762 => 
+                                      array (
+                                        'key' => 'Tetracyclines (internal use)',
+                                        'value' => 14699650,
+                                      ),
+                                      763 => 
+                                      array (
+                                        'key' => 'Tetrafluoroethylene',
+                                        'value' => 14699651,
+                                      ),
+                                      764 => 
+                                      array (
+                                        'key' => 'Tetranitromethane',
+                                        'value' => 14699652,
+                                      ),
+                                      765 => 
+                                      array (
+                                        'key' => 'Thalidomide',
+                                        'value' => 14699653,
+                                      ),
+                                      766 => 
+                                      array (
+                                        'key' => 'Thioacetamide',
+                                        'value' => 14699654,
+                                      ),
+                                      767 => 
+                                      array (
+                                        'key' => 'Thiodicarb',
+                                        'value' => 14699655,
+                                      ),
+                                      768 => 
+                                      array (
+                                        'key' => 'Thioguanine',
+                                        'value' => 14699656,
+                                      ),
+                                      769 => 
+                                      array (
+                                        'key' => 'Thiophanate methyl',
+                                        'value' => 14699657,
+                                      ),
+                                      770 => 
+                                      array (
+                                        'key' => 'Thiouracil',
+                                        'value' => 14699658,
+                                      ),
+                                      771 => 
+                                      array (
+                                        'key' => 'Thiourea',
+                                        'value' => 14699659,
+                                      ),
+                                      772 => 
+                                      array (
+                                        'key' => 'Thorium dioxide',
+                                        'value' => 14699660,
+                                      ),
+                                      773 => 
+                                      array (
+                                        'key' => 'Titanium dioxide (airborne particles of respirable size)',
+                                        'value' => 14699661,
+                                      ),
+                                      774 => 
+                                      array (
+                                        'key' => 'Tobacco smoke',
+                                        'value' => 14699662,
+                                      ),
+                                      775 => 
+                                      array (
+                                        'key' => 'Tobacco smoke (primary)',
+                                        'value' => 14699663,
+                                      ),
+                                      776 => 
+                                      array (
+                                        'key' => 'Tobacco use of smokeless products',
+                                        'value' => 14699664,
+                                      ),
+                                      777 => 
+                                      array (
+                                        'key' => 'Tobramycin sulfate',
+                                        'value' => 14699665,
+                                      ),
+                                      778 => 
+                                      array (
+                                        'key' => 'Toluene',
+                                        'value' => 14699666,
+                                      ),
+                                      779 => 
+                                      array (
+                                        'key' => 'Toluene diisocyanate',
+                                        'value' => 14699667,
+                                      ),
+                                      780 => 
+                                      array (
+                                        'key' => 'Topiramate',
+                                        'value' => 14699668,
+                                      ),
+                                      781 => 
+                                      array (
+                                        'key' => 'Toxaphene (Polychlorinated camphenes)',
+                                        'value' => 14699669,
+                                      ),
+                                      782 => 
+                                      array (
+                                        'key' => 'Toxins derived from Fusarium moniliforme (Fusarium verticillioides)',
+                                        'value' => 14699670,
+                                      ),
+                                      783 => 
+                                      array (
+                                        'key' => 'Treosulfan',
+                                        'value' => 14699672,
+                                      ),
+                                      784 => 
+                                      array (
+                                        'key' => 'Triadimefon',
+                                        'value' => 14699673,
+                                      ),
+                                      785 => 
+                                      array (
+                                        'key' => 'Triamterene',
+                                        'value' => 14699674,
+                                      ),
+                                      786 => 
+                                      array (
+                                        'key' => 'Triazolam',
+                                        'value' => 14699675,
+                                      ),
+                                      787 => 
+                                      array (
+                                        'key' => 'Tributyltin methacrylate',
+                                        'value' => 14699676,
+                                      ),
+                                      788 => 
+                                      array (
+                                        'key' => 'Trichlormethine (Trimustine hydrochloride)',
+                                        'value' => 14699677,
+                                      ),
+                                      789 => 
+                                      array (
+                                        'key' => 'Trichloroacetic acid',
+                                        'value' => 14699678,
+                                      ),
+                                      790 => 
+                                      array (
+                                        'key' => 'Trichloroethylene',
+                                        'value' => 14699679,
+                                      ),
+                                      791 => 
+                                      array (
+                                        'key' => 'Trientine hydrochloride',
+                                        'value' => 14699680,
+                                      ),
+                                      792 => 
+                                      array (
+                                        'key' => 'Triforine',
+                                        'value' => 14699681,
+                                      ),
+                                      793 => 
+                                      array (
+                                        'key' => 'Trilostane',
+                                        'value' => 14699682,
+                                      ),
+                                      794 => 
+                                      array (
+                                        'key' => 'Trimethadione',
+                                        'value' => 14699684,
+                                      ),
+                                      795 => 
+                                      array (
+                                        'key' => 'Trimethyl phosphate',
+                                        'value' => 14699685,
+                                      ),
+                                      796 => 
+                                      array (
+                                        'key' => 'Trimetrexate glucuronate',
+                                        'value' => 14699686,
+                                      ),
+                                      797 => 
+                                      array (
+                                        'key' => 'Triphenyltin hydroxide',
+                                        'value' => 14699687,
+                                      ),
+                                      798 => 
+                                      array (
+                                        'key' => 'Tris(1-aziridinyl)phosphine sulfide (Thiotepa)',
+                                        'value' => 14699689,
+                                      ),
+                                      799 => 
+                                      array (
+                                        'key' => 'Tris(1-dichloro-2-propyl) phosphate (TDCPP)',
+                                        'value' => 14699688,
+                                      ),
+                                      800 => 
+                                      array (
+                                        'key' => 'Tris(2-chloroethyl) phosphate',
+                                        'value' => 14699691,
+                                      ),
+                                      801 => 
+                                      array (
+                                        'key' => 'Tris(2-dibromopropyl)phosphate',
+                                        'value' => 14699690,
+                                      ),
+                                      802 => 
+                                      array (
+                                        'key' => 'Trp-P-1 (Tryptophan-P-1)',
+                                        'value' => 14699692,
+                                      ),
+                                      803 => 
+                                      array (
+                                        'key' => 'Trp-P-2 (Tryptophan-P-2)',
+                                        'value' => 14699693,
+                                      ),
+                                      804 => 
+                                      array (
+                                        'key' => 'Trypan blue (commercial grade)',
+                                        'value' => 14699694,
+                                      ),
+                                      805 => 
+                                      array (
+                                        'key' => 'Unleaded gasoline (wholly vaporized)',
+                                        'value' => 14699695,
+                                      ),
+                                      806 => 
+                                      array (
+                                        'key' => 'Uracil mustard',
+                                        'value' => 14699696,
+                                      ),
+                                      807 => 
+                                      array (
+                                        'key' => 'Urethane (Ethyl carbamate)',
+                                        'value' => 14699697,
+                                      ),
+                                      808 => 
+                                      array (
+                                        'key' => 'Urofollitropin',
+                                        'value' => 14699698,
+                                      ),
+                                      809 => 
+                                      array (
+                                        'key' => 'Valproate (Valproic acid)',
+                                        'value' => 14699699,
+                                      ),
+                                      810 => 
+                                      array (
+                                        'key' => 'Vanadium pentoxide (orthorhombic crystalline form)',
+                                        'value' => 14699700,
+                                      ),
+                                      811 => 
+                                      array (
+                                        'key' => 'Vinblastine sulfate',
+                                        'value' => 14699701,
+                                      ),
+                                      812 => 
+                                      array (
+                                        'key' => 'Vinclozolin',
+                                        'value' => 14699702,
+                                      ),
+                                      813 => 
+                                      array (
+                                        'key' => 'Vincristine sulfate',
+                                        'value' => 14699703,
+                                      ),
+                                      814 => 
+                                      array (
+                                        'key' => 'Vinyl bromide',
+                                        'value' => 14699704,
+                                      ),
+                                      815 => 
+                                      array (
+                                        'key' => 'Vinyl chloride',
+                                        'value' => 14699705,
+                                      ),
+                                      816 => 
+                                      array (
+                                        'key' => 'Vinyl fluoride',
+                                        'value' => 14699706,
+                                      ),
+                                      817 => 
+                                      array (
+                                        'key' => 'Vinyl trichloride (1-Trichloroethane)',
+                                        'value' => 14699707,
+                                      ),
+                                      818 => 
+                                      array (
+                                        'key' => 'Vinylidene chloride 
+(1-Dichloroethylene)',
+                                        'value' => 14699708,
+                                      ),
+                                      819 => 
+                                      array (
+                                        'key' => 'Vismodegib',
+                                        'value' => 14699709,
+                                      ),
+                                      820 => 
+                                      array (
+                                        'key' => 'Warfarin',
+                                        'value' => 14699710,
+                                      ),
+                                      821 => 
+                                      array (
+                                        'key' => 'Wood dust',
+                                        'value' => 14699711,
+                                      ),
+                                      822 => 
+                                      array (
+                                        'key' => 'Zalcitabine',
+                                        'value' => 14699712,
+                                      ),
+                                      823 => 
+                                      array (
+                                        'key' => 'Zidovudine (AZT)',
+                                        'value' => 14699713,
+                                      ),
+                                      824 => 
+                                      array (
+                                        'key' => 'Zileuton',
+                                        'value' => 14699714,
+                                      ),
+                                      825 => 
+                                      array (
+                                        'key' => 'beta-Butyrolactone',
+                                        'value' => 14699037,
+                                      ),
+                                      826 => 
+                                      array (
+                                        'key' => 'beta-Myrcene',
+                                        'value' => 14699038,
+                                      ),
+                                      827 => 
+                                      array (
+                                        'key' => 'beta-Propiolactone',
+                                        'value' => 14699039,
+                                      ),
+                                      828 => 
+                                      array (
+                                        'key' => 'm-Dinitrobenzene',
+                                        'value' => 14699349,
+                                      ),
+                                      829 => 
+                                      array (
+                                        'key' => 'n-Hexane',
+                                        'value' => 14699420,
+                                      ),
+                                      830 => 
+                                      array (
+                                        'key' => 'o\'-DDT',
+                                        'value' => 14699493,
+                                      ),
+                                      831 => 
+                                      array (
+                                        'key' => 'o-Aminoazotoluene',
+                                        'value' => 14699494,
+                                      ),
+                                      832 => 
+                                      array (
+                                        'key' => 'o-Anisidine',
+                                        'value' => 14699495,
+                                      ),
+                                      833 => 
+                                      array (
+                                        'key' => 'o-Anisidine hydrochloride',
+                                        'value' => 14699496,
+                                      ),
+                                      834 => 
+                                      array (
+                                        'key' => 'o-Dinitrobenzene',
+                                        'value' => 14699497,
+                                      ),
+                                      835 => 
+                                      array (
+                                        'key' => 'o-Nitroanisole',
+                                        'value' => 14699498,
+                                      ),
+                                      836 => 
+                                      array (
+                                        'key' => 'o-Nitrotoluene',
+                                        'value' => 14699499,
+                                      ),
+                                      837 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine',
+                                        'value' => 14699500,
+                                      ),
+                                      838 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine and its salts',
+                                        'value' => 14699501,
+                                      ),
+                                      839 => 
+                                      array (
+                                        'key' => 'o-Phenylenediamine dihydrochloride',
+                                        'value' => 14699502,
+                                      ),
+                                      840 => 
+                                      array (
+                                        'key' => 'o-Phenylphenate',
+                                        'value' => 14699503,
+                                      ),
+                                      841 => 
+                                      array (
+                                        'key' => 'o-Phenylphenol',
+                                        'value' => 14699504,
+                                      ),
+                                      842 => 
+                                      array (
+                                        'key' => 'o-Toluidine',
+                                        'value' => 14699505,
+                                      ),
+                                      843 => 
+                                      array (
+                                        'key' => 'o-Toluidine hydrochloride',
+                                        'value' => 14699506,
+                                      ),
+                                      844 => 
+                                      array (
+                                        'key' => 'p\'-DDT',
+                                        'value' => 14699518,
+                                      ),
+                                      845 => 
+                                      array (
+                                        'key' => 'p-Aminoazobenzene',
+                                        'value' => 14699520,
+                                      ),
+                                      846 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine',
+                                        'value' => 14699521,
+                                      ),
+                                      847 => 
+                                      array (
+                                        'key' => 'p-Chloro-o-toluidine acid salts of',
+                                        'value' => 14699522,
+                                      ),
+                                      848 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline',
+                                        'value' => 14699524,
+                                      ),
+                                      849 => 
+                                      array (
+                                        'key' => 'p-Chloroaniline hydrochloride',
+                                        'value' => 14699525,
+                                      ),
+                                      850 => 
+                                      array (
+                                        'key' => 'p-Cresidine',
+                                        'value' => 14699526,
+                                      ),
+                                      851 => 
+                                      array (
+                                        'key' => 'p-Dichlorobenzene',
+                                        'value' => 14699527,
+                                      ),
+                                      852 => 
+                                      array (
+                                        'key' => 'p-Dinitrobenzene',
+                                        'value' => 14699528,
+                                      ),
+                                      853 => 
+                                      array (
+                                        'key' => 'p-Nitrosodiphenylamine',
+                                        'value' => 14699529,
+                                      ),
+                                      854 => 
+                                      array (
+                                        'key' => 'p-a-Tetrachlorotoluene',
+                                        'value' => 14699519,
+                                      ),
+                                      855 => 
+                                      array (
+                                        'key' => 'p-chloro-à-trifluorotoluene (para-Chlorobenzotrifluoride)',
+                                        'value' => 14699523,
+                                      ),
+                                      856 => 
+                                      array (
+                                        'key' => 'para-Nitroanisole',
+                                        'value' => 14699533,
+                                      ),
+                                      857 => 
+                                      array (
+                                        'key' => 'pentabromodiphenyl ether mixture [DE-71 (technical grade)]',
+                                        'value' => 14699537,
+                                      ),
+                                      858 => 
+                                      array (
+                                        'key' => 'trans-2-[(Dimethylamino)methylimino]-5-[2-(5-nitro-2-furyl)vinyl]-1-oxadiazole',
+                                        'value' => 14699671,
+                                      ),
+                                      859 => 
+                                      array (
+                                        'key' => 'à-Methyl styrene (alpha-Methylstyrene)',
+                                        'value' => 14699715,
+                                      ),
                                     ),
                                      'width' => 230,
                                      'defaultValue' => '',
@@ -8255,17 +20702,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Certificate2',
