@@ -649,15 +649,13 @@ class ProductModelService
                        }
                        else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
                        {
-                        // p_r($product->$productBrickField()->$brickText());
-                        $bData = $product->$productBrickField()->$brickText()->$fieldText();
-                        $objectIndv = DataObject::getById($bData);
-                        // echo "<pre>";
-                        // print_r($fieldName);
-                        // print_r($bData);
-                        $bData = $objectIndv->getPropertyName();
-                        // dd($bData);
-                        
+                            // p_r($product->$productBrickField()->$brickText());
+                            $bData = $product->$productBrickField()->$brickText()->$fieldText();
+                            $objectIndv = DataObject::getById($bData);
+                            if($objectIndv)
+                            {
+                                $bData = $objectIndv->getPropertyName();
+                            }
                        }
                        else{
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();

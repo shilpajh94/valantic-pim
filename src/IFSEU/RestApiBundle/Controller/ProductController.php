@@ -85,7 +85,8 @@ class ProductController extends FrontendController
     public function getProductdataAction(Request $request)
     {
         // Get Apikey validation.
-        $returnValidationFlag =   true; //$this->validateApiKey($request);
+        $returnValidationFlag =   $this->validateApiKey($request);
+        // $returnValidationFlag =   true;
         
         if($returnValidationFlag){
             // Get Virtual catalog fields mapping configuration.
@@ -124,7 +125,7 @@ class ProductController extends FrontendController
         $parameterArray['siop']= $request->get('siop');
         $parameterArray['page']= $request->get('page');
         $parameterArray['limit']= $request->get('limit');
-        $parameterArray['updatedFrom'] = $request->get('updatedFrom');
+        // $parameterArray['updatedFrom'] = $request->get('updatedFrom');
         return  $parameterArray;    
     }
     

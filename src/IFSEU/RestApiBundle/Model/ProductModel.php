@@ -110,9 +110,14 @@ class ProductModel
                 if(isset($conditionArray['siop']) && !empty($conditionArray['siop'])){
                     $conditionString    .=   " siopFullCode ='".$conditionArray['siop']."'  AND ";
                 }
-                if(isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])){
-                    $conditionString    .=   " o_modificationDate >= ".strtotime($conditionArray['updatedFrom'])." AND  o_modificationDate <=".strtotime(date('Y-m-d H:i:s'))."  AND ";
-                }
+                // if(isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])){
+                    $currentDateTime = date('Y-m-d H:i:s'); 
+                    $currentDateTimeStamp = strtotime($currentDateTime); 
+                    $previousDateTimeStamp = strtotime(' -1 day');
+
+                    // $conditionString    .=   " o_modificationDate >= ".strtotime($conditionArray['updatedFrom'])." AND  o_modificationDate <=".$currentDateTimeStamp."  AND ";
+                    $conditionString    .=   " o_modificationDate >= ".$previousDateTimeStamp." AND  o_modificationDate <=".$currentDateTimeStamp."  AND ";
+                // }
                 break;
             case 'skeleton':
                 // Code to be executed if productType=skelton
