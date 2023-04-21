@@ -1,12 +1,7 @@
 <?php 
 
 /** 
-<<<<<<< HEAD
-* Generated at: 2023-04-20T14:25:56+02:00
-* Changed by: system (0)
-=======
 * Generated at: 2023-04-20T10:08:57+05:30
->>>>>>> IFSEU_Dev
 * IP: 127.0.0.1
 */ 
 
@@ -15,13 +10,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'MarComIFSEMEA',
    'name' => 'MarComIFSEMEA',
    'description' => '',
-<<<<<<< HEAD
-   'creationDate' => 1681992812,
-   'modificationDate' => 1681993556,
-=======
    'creationDate' => 1681288759,
    'modificationDate' => 1681965537,
->>>>>>> IFSEU_Dev
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
