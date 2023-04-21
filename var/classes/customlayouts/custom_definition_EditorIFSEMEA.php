@@ -1,7 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-21T13:11:55+02:00
+* Generated at: 2023-04-21T13:05:47+02:00
+* Changed by: system (0)
 * IP: 127.0.0.1
 */ 
 
@@ -10,8 +11,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'EditorIFSEMEA',
    'name' => 'EditorIFSEMEA',
    'description' => '',
-   'creationDate' => 1681897320,
-   'modificationDate' => 1682075515,
+   'creationDate' => 1681992812,
+   'modificationDate' => 1682075147,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -20398,12 +20399,12 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'classes' => 
                         array (
                         ),
-                         'pathFormatterClass' => '',
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'BrandingLaylineAssets',
                          'title' => 'Branding/Layline Assets',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => true,
+                         'noteditable' => false,
                          'index' => false,
                          'locked' => false,
                          'style' => '',
