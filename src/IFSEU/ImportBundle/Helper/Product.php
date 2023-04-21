@@ -274,6 +274,8 @@ class Product
                 return 1;
             case 'N':
                 return -1;
+            case 'No':
+                return -1;
             case 'FALSE':
                 return -1;
             case 'TRUE':
