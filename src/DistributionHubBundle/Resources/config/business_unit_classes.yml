@@ -18,6 +18,18 @@ config:
           [
               "IFSEUProduct",
               "IFSEUSalesMaterialMaster",
-              "IFSEUPlantMaterialMaster"
+              "IFSEUPlantMaterialMaster",
+              "IFSEUApplications",
+              "IFSEUBrand",
+              "IFSEUCategory",
+              "IFSEUCountries",
+              "IFSEUDistributionChannel",
+              "IFSEUFlowMedium",
+              "IFSEUMaterialGroup",
+              "IFSEUMedium",
+              "IFSEUNorm",
+              "IFSEUProductCategory",
+              "IFSEUProperties",
+              "IFSEUSubCategory"
           ]
 
