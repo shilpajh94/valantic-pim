@@ -13,3 +13,11 @@ config:
               "PTGEUPlantMaterialMaster",
               "PTGEUSalesMaterialMaster"
           ]
+    IFSEMEA:
+        Class:
+          [
+              "IFSEUProduct",
+              "IFSEUSalesMaterialMaster",
+              "IFSEUPlantMaterialMaster"
+          ]
+

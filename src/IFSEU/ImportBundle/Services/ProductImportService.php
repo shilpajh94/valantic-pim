@@ -617,7 +617,7 @@ class ProductImportService
             $queryTableData['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
 
             if (!empty(trim($record[$this->getRecordIndexByKey('EANCode')]))) {
-                $queryTableData['EANCode'] = "0".trim($record[$this->getRecordIndexByKey('EANCode')]);
+                $queryTableData['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             } else {
                 $queryTableData['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             }
@@ -736,7 +736,7 @@ class ProductImportService
             $storeTableDataArray['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
             $storeTableDataArray['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
             if (!empty(trim($record[$this->getRecordIndexByKey('EANCode')]))) {
-                $storeTableDataArray['EANCode'] = "0".trim($record[$this->getRecordIndexByKey('EANCode')]);
+                $storeTableDataArray['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             } else {
                 $storeTableDataArray['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             }

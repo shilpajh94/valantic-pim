@@ -131,7 +131,9 @@ class BasicConfigController extends AdminController
         $getAllRoles= $this->getBusinessUnitRolesFromConfig();
         $rolesIFSPTG= array("IFSPTG_US" => $getAllRoles['config']['IFSPTG_US']['Roles']);
         $rolesPTGEU = array("PTG_EU" => $getAllRoles['config']['PTG_EU']['Roles']);
-        return array_merge($rolesIFSPTG, $rolesPTGEU);
+        $rolesIFSEMEA = array("IFSEMEA" => $getAllRoles['config']['IFSEMEA']['Roles']);
+
+        return array_merge($rolesIFSPTG, $rolesPTGEU, $rolesIFSEMEA);
     }
 
     /**
