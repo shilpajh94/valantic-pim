@@ -637,6 +637,19 @@ parameters:
                 OverallLengthMm: ''
                 SkiveType: ''
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+        Fitting-Banjo:
+            widthSetting:
+                DescriptivePartNumber: ''
+                articleNumber: ''
+                HoseID1InFract: ''
+                BoltHoleSizeInFract: ''
+                BoltHoleSizeInDec: ''
+                BoltHoleSizeMM: ''
+                CutOffLengthIN: ''
+                CutOffLengthMM: ''
+                OverallLengthIN: ''
+                OverallLengthMm: ''
+            columns: ['DescriptivePartNumber', 'articleNumber', 'HoseID1InFract', 'BoltHoleSizeInFract', 'BoltHoleSizeInDec' , 'BoltHoleSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
     shortDescriptionSortKeys: 
         "": ""
         "Female": "Female"

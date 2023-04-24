@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-02-21T12:44:34+05:30
+* Generated at: 2023-04-19T08:53:45+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -162,7 +162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1676963664,
+   'modificationDate' => 1681874602,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -37593,300 +37593,305 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
+                    'key' => 'Fitting-Banjo',
+                    'value' => 'Fitting-Banjo',
+                  ),
+                  1 => 
+                  array (
                     'key' => 'Fitting Accessories-AC Adapter',
                     'value' => 'Fitting Accessories-AC Adapter',
                   ),
-                  1 => 
+                  2 => 
                   array (
                     'key' => 'Fitting Accessories-AC Clip',
                     'value' => 'Fitting Accessories-AC Clip',
                   ),
-                  2 => 
+                  3 => 
                   array (
                     'key' => 'Fitting Accessories-AC Nut',
                     'value' => 'Fitting Accessories-AC Nut',
                   ),
-                  3 => 
+                  4 => 
                   array (
                     'key' => 'Fitting Accessories-AC Orifice',
                     'value' => 'Fitting Accessories-AC Orifice',
                   ),
-                  4 => 
+                  5 => 
                   array (
                     'key' => 'Fitting Accessories-AC O-ring',
                     'value' => 'Fitting Accessories-AC O-ring',
                   ),
-                  5 => 
+                  6 => 
                   array (
                     'key' => 'Fitting Accessories-AC O-ring 2',
                     'value' => 'Fitting Accessories-AC O-ring 2',
                   ),
-                  6 => 
+                  7 => 
                   array (
                     'key' => 'Fitting Accessories-AC Sleeve',
                     'value' => 'Fitting Accessories-AC Sleeve',
                   ),
-                  7 => 
+                  8 => 
                   array (
                     'key' => 'Fitting Accessories-AC Tools',
                     'value' => 'Fitting Accessories-AC Tools',
                   ),
-                  8 => 
+                  9 => 
                   array (
                     'key' => 'Fitting Accessories-AC Valve Adapter',
                     'value' => 'Fitting Accessories-AC Valve Adapter',
                   ),
-                  9 => 
+                  10 => 
                   array (
                     'key' => 'Fitting Accessories-AC Valve Caps',
                     'value' => 'Fitting Accessories-AC Valve Caps',
                   ),
-                  10 => 
+                  11 => 
                   array (
                     'key' => 'Fitting Accessories-AC Valve Core',
                     'value' => 'Fitting Accessories-AC Valve Core',
                   ),
-                  11 => 
+                  12 => 
                   array (
                     'key' => 'Fitting Accessories-AC Washer',
                     'value' => 'Fitting Accessories-AC Washer',
                   ),
-                  12 => 
+                  13 => 
                   array (
                     'key' => 'Fitting-AC Joiner',
                     'value' => 'Fitting-AC Joiner',
                   ),
-                  13 => 
+                  14 => 
                   array (
                     'key' => 'Fitting-AC Joiner Elbow',
                     'value' => 'Fitting-AC Joiner Elbow',
                   ),
-                  14 => 
+                  15 => 
                   array (
                     'key' => 'Fitting-AC Joiner T',
                     'value' => 'Fitting-AC Joiner T',
                   ),
-                  15 => 
+                  16 => 
                   array (
                     'key' => 'Fitting-AC Joiner Valve',
                     'value' => 'Fitting-AC Joiner Valve',
                   ),
-                  16 => 
+                  17 => 
                   array (
                     'key' => 'Fitting-AC Straight 1',
                     'value' => 'Fitting-AC Straight 1',
                   ),
-                  17 => 
+                  18 => 
                   array (
                     'key' => 'Fitting-AC Tube',
                     'value' => 'Fitting-AC Tube',
                   ),
-                  18 => 
+                  19 => 
                   array (
                     'key' => 'Fitting-AC Valve',
                     'value' => 'Fitting-AC Valve',
                   ),
-                  19 => 
+                  20 => 
                   array (
                     'key' => 'Fitting-AC Valve 2',
                     'value' => 'Fitting-AC Valve 2',
                   ),
-                  20 => 
+                  21 => 
                   array (
                     'key' => 'Fitting-AC Valve 3',
                     'value' => 'Fitting-AC Valve 3',
                   ),
-                  21 => 
+                  22 => 
                   array (
                     'key' => 'Fitting-Elbow',
                     'value' => 'Fitting-Elbow',
                   ),
-                  22 => 
+                  23 => 
                   array (
                     'key' => 'Fitting-Elbow 2',
                     'value' => 'Fitting-Elbow 2',
                   ),
-                  23 => 
+                  24 => 
                   array (
                     'key' => 'Fitting-Elbow 3',
                     'value' => 'Fitting-Elbow 3',
                   ),
-                  24 => 
+                  25 => 
                   array (
                     'key' => 'Fitting-Elbow 4',
                     'value' => 'Fitting-Elbow 4',
                   ),
-                  25 => 
+                  26 => 
                   array (
                     'key' => 'Fitting-Elbow 5',
                     'value' => 'Fitting-Elbow 5',
                   ),
-                  26 => 
+                  27 => 
                   array (
                     'key' => 'Fitting-Elbow 6',
                     'value' => 'Fitting-Elbow 6',
                   ),
-                  27 => 
+                  28 => 
                   array (
                     'key' => 'Fitting-Elbow Reatt',
                     'value' => 'Fitting-Elbow Reatt',
                   ),
-                  28 => 
+                  29 => 
                   array (
                     'key' => 'Fitting-Elbow Reatt 2',
                     'value' => 'Fitting-Elbow Reatt 2',
                   ),
-                  29 => 
+                  30 => 
                   array (
                     'key' => 'Fitting-Elbow Skive',
                     'value' => 'Fitting-Elbow Skive',
                   ),
-                  30 => 
+                  31 => 
                   array (
                     'key' => 'Fitting-Ferrule',
                     'value' => 'Fitting-Ferrule',
                   ),
-                  31 => 
+                  32 => 
                   array (
                     'key' => 'Fitting-Flange Elbow 2',
                     'value' => 'Fitting-Flange Elbow 2',
                   ),
-                  32 => 
+                  33 => 
                   array (
                     'key' => 'Fitting-Flange Elbow',
                     'value' => 'Fitting-Flange Elbow',
                   ),
-                  33 => 
+                  34 => 
                   array (
                     'key' => 'Fitting-Flange Elbow Skive',
                     'value' => 'Fitting-Flange Elbow Skive',
                   ),
-                  34 => 
+                  35 => 
                   array (
                     'key' => 'Fitting-Flange Straight',
                     'value' => 'Fitting-Flange Straight',
                   ),
-                  35 => 
+                  36 => 
                   array (
                     'key' => 'Fitting-Flange Straight Skive',
                     'value' => 'Fitting-Flange Straight Skive',
                   ),
-                  36 => 
+                  37 => 
                   array (
                     'key' => 'Fitting-Joiner',
                     'value' => 'Fitting-Joiner',
                   ),
-                  37 => 
+                  38 => 
                   array (
                     'key' => 'Fitting-Standpipe Elbow',
                     'value' => 'Fitting-Standpipe Elbow',
                   ),
-                  38 => 
+                  39 => 
                   array (
                     'key' => 'Fitting-Standpipe Elbow 2',
                     'value' => 'Fitting-Standpipe Elbow 2',
                   ),
-                  39 => 
+                  40 => 
                   array (
                     'key' => 'Fitting-Standpipe Straight',
                     'value' => 'Fitting-Standpipe Straight',
                   ),
-                  40 => 
+                  41 => 
                   array (
                     'key' => 'Fitting-Straight',
                     'value' => 'Fitting-Straight',
                   ),
-                  41 => 
+                  42 => 
                   array (
                     'key' => 'Fitting-Straight 2',
                     'value' => 'Fitting-Straight 2',
                   ),
-                  42 => 
+                  43 => 
                   array (
                     'key' => 'Fitting-Straight Reatt',
                     'value' => 'Fitting-Straight Reatt',
                   ),
-                  43 => 
+                  44 => 
                   array (
                     'key' => 'Fitting-Straight Reatt 2',
                     'value' => 'Fitting-Straight Reatt 2',
                   ),
-                  44 => 
+                  45 => 
                   array (
                     'key' => 'Fitting-Straight Skive',
                     'value' => 'Fitting-Straight Skive',
                   ),
-                  45 => 
+                  46 => 
                   array (
                     'key' => 'Fitting-Straight Skive 2',
                     'value' => 'Fitting-Straight Skive 2',
                   ),
-                  46 => 
+                  47 => 
                   array (
                     'key' => 'Fitting-Union',
                     'value' => 'Fitting-Union',
                   ),
-                  47 => 
+                  48 => 
                   array (
                     'key' => 'Fitting-Union Skive',
                     'value' => 'Fitting-Union Skive',
                   ),
-                  48 => 
+                  49 => 
                   array (
                     'key' => 'Hose Attribute Table 1',
                     'value' => 'Hose Attribute Table 1',
                   ),
-                  49 => 
+                  50 => 
                   array (
                     'key' => 'Hose Attribute Table 2',
                     'value' => 'Hose Attribute Table 2',
                   ),
-                  50 => 
+                  51 => 
                   array (
                     'key' => 'Hose Attribute Table 3',
                     'value' => 'Hose Attribute Table 3',
                   ),
-                  51 => 
+                  52 => 
                   array (
                     'key' => 'Hose Attribute Table 4',
                     'value' => 'Hose Attribute Table 4',
                   ),
-                  52 => 
+                  53 => 
                   array (
                     'key' => 'Hose Attribute Table 5',
                     'value' => 'Hose Attribute Table 5',
                   ),
-                  53 => 
+                  54 => 
                   array (
                     'key' => 'Hose Attribute Table 6',
                     'value' => 'Hose Attribute Table 6',
                   ),
-                  54 => 
+                  55 => 
                   array (
                     'key' => 'Hose Attribute Table 7',
                     'value' => 'Hose Attribute Table 7',
                   ),
-                  55 => 
+                  56 => 
                   array (
                     'key' => 'Hose Attribute Table 8',
                     'value' => 'Hose Attribute Table 8',
                   ),
-                  56 => 
+                  57 => 
                   array (
                     'key' => 'Hose Attribute Table 9',
                     'value' => 'Hose Attribute Table 9',
                   ),
-                  57 => 
+                  58 => 
                   array (
                     'key' => 'Hose Attribute Table 10',
                     'value' => 'Hose Attribute Table 10',
                   ),
-                  58 => 
+                  59 => 
                   array (
                     'key' => 'Hose Attribute Table 11',
                     'value' => 'Hose Attribute Table 11',
                   ),
-                  59 => 
+                  60 => 
                   array (
                     'key' => 'Hose Attribute Table 13',
                     'value' => 'Hose Attribute Table 13',

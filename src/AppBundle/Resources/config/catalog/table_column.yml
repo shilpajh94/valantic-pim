@@ -964,6 +964,32 @@ parameters:
                 fieldLevel: NoNeedProcessing
                 fieldLabel: Elbow Type
                 fieldType: Input
+            BoltHoleSizeInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size In Fract
+                groupName: BoltHoleSize
+                unitName: fract
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (in)
+                fieldType: Number
+                groupName: BoltHoleSize
+                unitName: in
+                numberOfDecimalPoints: 2
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (mm)
+                groupName: BoltHoleSize
+                unitName: mm
+                numberOfDecimalPoints: 2
+                fieldType: Number
+                parent:
+                    name: AccessoriesFert
     Industrial Hose Section Page:
         INHPrintCatalog:
             id:
