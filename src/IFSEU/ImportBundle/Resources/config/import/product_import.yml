@@ -50,13 +50,13 @@ parameters:
       Spezi: 'Spezi'
       Department: 'Department'
       ConnectionType: 'Connection type'
-      productionLengths: 'Production lengths'
+      productLength: 'Product length'
       EhoseID: 'ID'
-      unit: 'Unit'
-      unit3: 'Unit3'
+      ProductLengthUnit: 'Product Length unit'
+      MinimumQuantityMeasurementUnit: 'Minimum quantity measurement unit'
       priceDate: 'Price date'
-      productionLengths2: 'Production lengths2'
-      minimumQuantityUnit: 'Minimum qantity unit'
+      productionLength: 'Production length'
+      minimumQuantityUnit: 'Minimum quantity unit'
 
     #fert Localized Attribute
       Conditions: 'Conditions'

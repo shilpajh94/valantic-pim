@@ -574,11 +574,11 @@ class ProductImportService
             'weightg' => null,
             'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
-            'productionLengths' => null,
+            'productLength' => null,
             'EhoseID' => null,
-            'unit' => null,
-            'unit3' => null,
-            'productionLengths2' => null,
+            'ProductLengthUnit' => null,
+            'MinimumQuantityMeasurementUnit' => null,
+            'productionLength' => null,
             'priceDate' => null,
             'minimumQuantityUnit' => null,
             'Spezi' => null,
@@ -600,11 +600,11 @@ class ProductImportService
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $queryTableData['productionLengths'] = trim($record[$this->getRecordIndexByKey('productionLengths')]);
-            $queryTableData['productionLengths2'] = trim($record[$this->getRecordIndexByKey('productionLengths2')]);
+            $queryTableData['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
+            $queryTableData['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
             $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
-            $queryTableData['unit'] = trim($record[$this->getRecordIndexByKey('unit')]);
-            $queryTableData['unit3'] = trim($record[$this->getRecordIndexByKey('unit3')]);
+            $queryTableData['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
+            $queryTableData['MinimumQuantityMeasurementUnit'] = trim($record[$this->getRecordIndexByKey('MinimumQuantityMeasurementUnit')]);
             $queryTableData['priceDate'] = trim($record[$this->getRecordIndexByKey('priceDate')]);
             $queryTableData['minimumQuantityUnit'] = trim($record[$this->getRecordIndexByKey('minimumQuantityUnit')]);
             $queryTableData['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
@@ -693,11 +693,11 @@ class ProductImportService
             'weightg' => null,
             'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
-            'productionLengths' => null,
+            'productLength' => null,
             'EhoseID' => null,
-            'unit' => null,
-            'unit3' => null,
-            'productionLengths2' => null,
+            'ProductLengthUnit' => null,
+            'MinimumQuantityMeasurementUnit' => null,
+            'productionLength' => null,
             'priceDate' => null,
             'minimumQuantityUnit' => null,
             'Spezi' => null,
@@ -716,11 +716,11 @@ class ProductImportService
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $storeTableDataArray['productionLengths'] = trim($record[$this->getRecordIndexByKey('productionLengths')]);
-            $storeTableDataArray['productionLengths2'] = trim($record[$this->getRecordIndexByKey('productionLengths2')]);
+            $storeTableDataArray['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
+            $storeTableDataArray['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
             $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
-            $storeTableDataArray['unit'] = trim($record[$this->getRecordIndexByKey('unit')]);
-            $storeTableDataArray['unit3'] = trim($record[$this->getRecordIndexByKey('unit3')]);
+            $storeTableDataArray['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
+            $storeTableDataArray['MinimumQuantityMeasurementUnit'] = trim($record[$this->getRecordIndexByKey('MinimumQuantityMeasurementUnit')]);
             $storeTableDataArray['priceDate'] = trim($record[$this->getRecordIndexByKey('priceDate')]);
             $storeTableDataArray['minimumQuantityUnit'] = trim($record[$this->getRecordIndexByKey('minimumQuantityUnit')]);
             $storeTableDataArray['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
@@ -928,10 +928,14 @@ class ProductImportService
         switch ($data) {
             case 'Y':
                 return 1;
+            case 'Yes':
+                return 1;
             case 'N':
-                return 0;
+                return -1;
+            case 'No':
+                return -1;
             case 'FALSE':
-                return 0;
+                return -1;
             case 'TRUE':
                 return 1;
             default:
