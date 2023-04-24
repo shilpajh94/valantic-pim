@@ -1,7 +1,7 @@
 parameters:
     b2b_api_version: v50.0
 
-    b2b_api_host: https://continental-contitech--qa.sandbox.my.salesforce.com
+    b2b_api_host: https://continental-contitech--staging.sandbox.my.salesforce.com
     b2b_composite_graph_api_url: /services/data/%b2b_api_version%/composite/graph
 
     # follow the following format to add more entries
@@ -9,12 +9,12 @@ parameters:
     b2b_Product2:
         url: /services/data/%b2b_api_version%/sobjects/Product2
         external_id: B2B_External_Id__c
-        RecordTypeId: 0121j000003COSVAA4
+        RecordTypeId: 0121w0000002uXNAAY
 
     b2b_ProductCategory:
         url: /services/data/%b2b_api_version%/sobjects/ProductCategory
         external_id: B2B_External_Id__c
-        catalogId: 0ZS1j0000008RdWGAU
+        catalogId: 0ZS1w0000004CZGGA2
 
     b2b_ProductCategoryProduct:
         url: /services/data/%b2b_api_version%/sobjects/ProductCategoryProduct
