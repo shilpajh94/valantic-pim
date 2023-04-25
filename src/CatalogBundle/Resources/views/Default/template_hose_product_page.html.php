@@ -19,10 +19,11 @@ if (!isset($this->parentContainer)) {
 
 <?php
 $partNumbers = [];
+$incr = 0;
 if ($data):
     foreach ($data as $catalogGroupKey => $catalogGroupData):
-
         foreach ($catalogGroupData as $md5key => $brandData):
+            // p_r($catalogGroupKey);
             ?>
             <div class="template">
                 <section class="segregate">
@@ -78,14 +79,16 @@ if ($data):
 
                                     <?php 
                                         if($this->editmode): 
-                                            if($this->input("HHPP_Footer_HoseType_{$md5key}")->isEmpty()): 
-                                                echo $this->input("HHPP_Footer_HoseType_{$md5key}")->setDataFromResource('High Pressure');
+                                            if($this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}")->isEmpty()): 
+                                                // echo $this->input("HHPP_Footer_HoseType_{$md5key}")->setDataFromResource('High Pressure');
+                                                echo $this->input("HHPP_Footer_HoseType_{$md5Key}_{$incr}")->setDataFromResource($catalogGroupKey);
                                             else: 
-                                                echo $this->input("HHPP_Footer_HoseType_{$md5key}"); 
+                                                echo $this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}"); 
                                             endif; 
                                         else:
-                                            echo $this->input("HHPP_Footer_HoseType_{$md5key}");
+                                            echo $this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}");
                                         endif; 
+                                        $incr++;
                                     ?>
 
                                     </span>
@@ -181,13 +184,14 @@ if ($data):
                                         <?php
 
                                         if($this->editmode): 
-                                            if($this->input("HHPP_Footer_HoseType1_{$md5key}")->isEmpty()): 
-                                                echo $this->input("HHPP_Footer_HoseType1_{$md5key}")->setDataFromResource('High Pressure');
+                                            if($this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}")->isEmpty()): 
+                                                // echo $this->input("HHPP_Footer_HoseType1_{$md5key}")->setDataFromResource('High Pressure');
+                                                echo $this->input("HHPP_Footer_HoseType1_{$md5Key}_{$incr}")->setDataFromResource($catalogGroupKey);
                                             else: 
-                                                echo $this->input("HHPP_Footer_HoseType1_{$md5key}"); 
+                                                echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}"); 
                                             endif; 
                                         else:
-                                            echo $this->input("HHPP_Footer_HoseType1_{$md5key}");
+                                            echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}");
                                         endif; 
 
                                         ?>
