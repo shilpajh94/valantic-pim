@@ -34,13 +34,13 @@ if ($data):
                         <?php
 
                         if($this->editmode): 
-                            if($this->input("HHPP_Header_{$md5key}")->isEmpty()): 
-                                echo $this->input("HHPP_Header_{$md5key}")->setDataFromResource('Hydraulic Hose');
+                            if($this->input("HHPP_Header_{$md5key}_{$incr}")->isEmpty()): 
+                                echo $this->input("HHPP_Header_{$md5key}_{$incr}")->setDataFromResource('Hydraulic Hose');
                             else: 
-                                echo $this->input("HHPP_Header_{$md5key}"); 
+                                echo $this->input("HHPP_Header_{$md5key}_{$incr}"); 
                             endif; 
                         else:
-                            echo $this->input("HHPP_Header_{$md5key}");
+                            echo $this->input("HHPP_Header_{$md5key}_{$incr}");
                         endif; 
 
                         ?>
@@ -51,13 +51,13 @@ if ($data):
                             <span class="logo">
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text1_{$md5key}")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text1_{$md5key}_{$incr}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}_{$incr}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}"); ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}_{$incr}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text1_{$md5key}") ?>
+                                        <?= $this->input("HHPP_Logo_Text1_{$md5key}_{$incr}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -66,13 +66,13 @@ if ($data):
                                 <h5>
                                     <?php 
                                         if($this->editmode): 
-                                            if($this->input("HHPP_Footer_BrandName_{$md5key}")->isEmpty()): 
-                                                echo $this->input("HHPP_Footer_BrandName_{$md5key}")->setDataFromResource($brandData['brandName']);
+                                            if($this->input("HHPP_Footer_BrandName_{$md5key}_{$incr}")->isEmpty()): 
+                                                echo $this->input("HHPP_Footer_BrandName_{$md5key}_{$incr}")->setDataFromResource($brandData['brandName']);
                                             else: 
-                                                echo $this->input("HHPP_Footer_BrandName_{$md5key}"); 
+                                                echo $this->input("HHPP_Footer_BrandName_{$md5key}_{$incr}"); 
                                             endif; 
                                         else:
-                                            echo $this->input("HHPP_Footer_BrandName_{$md5key}");
+                                            echo $this->input("HHPP_Footer_BrandName_{$md5key}_{$incr}");
                                         endif; 
                                     ?>
 
@@ -102,13 +102,13 @@ if ($data):
 
                                         <?php 
                                             if($this->editmode): 
-                                                if($this->input("HHPP_Footer_Compatibility_{$md5key}")->isEmpty()): 
-                                                    echo $this->input("HHPP_Footer_Compatibility_{$md5key}")->setDataFromResource('Compatible fittings');
+                                                if($this->input("HHPP_Footer_Compatibility_{$md5key}_{$incr}")->isEmpty()): 
+                                                    echo $this->input("HHPP_Footer_Compatibility_{$md5key}_{$incr}")->setDataFromResource('Compatible fittings');
                                                 else: 
-                                                    echo $this->input("HHPP_Footer_Compatibility_{$md5key}"); 
+                                                    echo $this->input("HHPP_Footer_Compatibility_{$md5key}_{$incr}"); 
                                                 endif; 
                                             else:
-                                                echo $this->input("HHPP_Footer_Compatibility_{$md5key}");
+                                                echo $this->input("HHPP_Footer_Compatibility_{$md5key}_{$incr}");
                                             endif; 
                                         ?>
 
@@ -118,13 +118,13 @@ if ($data):
                                     $compatibility_description = "All fittings compatible with ".$brandData['brandName']." are listed in Section 1 (starting on page 131).";
                                     
                                     if($this->editmode): 
-                                        if($this->input("HHPP_Footer_Compatibility_Description_{$md5key}")->isEmpty()): 
-                                            echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}")->setDataFromResource($compatibility_description);
+                                        if($this->input("HHPP_Footer_Compatibility_Description_{$md5key}_{$incr}")->isEmpty()): 
+                                            echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}_{$incr}")->setDataFromResource($compatibility_description);
                                         else: 
-                                            echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}"); 
+                                            echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}_{$incr}"); 
                                         endif; 
                                     else:
-                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}");
+                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}_{$incr}");
                                     endif; 
                                     
                                     ?>
@@ -139,13 +139,13 @@ if ($data):
                                     <b>
                                         <?php 
                                             if($this->editmode): 
-                                                if($this->input("HHPP_Footer_Compatibility1_{$md5key}")->isEmpty()): 
-                                                    echo $this->input("HHPP_Footer_Compatibility1_{$md5key}")->setDataFromResource('Compatible fittings');
+                                                if($this->input("HHPP_Footer_Compatibility1_{$md5key}_{$incr2}")->isEmpty()): 
+                                                    echo $this->input("HHPP_Footer_Compatibility1_{$md5key}_{$incr2}")->setDataFromResource('Compatible fittings');
                                                 else: 
-                                                    echo $this->input("HHPP_Footer_Compatibility1_{$md5key}"); 
+                                                    echo $this->input("HHPP_Footer_Compatibility1_{$md5key}_{$incr2}"); 
                                                 endif; 
                                             else:
-                                                echo $this->input("HHPP_Footer_Compatibility1_{$md5key}");
+                                                echo $this->input("HHPP_Footer_Compatibility1_{$md5key}_{$incr2}");
                                             endif; 
                                         ?>
 
@@ -155,13 +155,13 @@ if ($data):
                                     $compatibility_description = "All fittings compatible with ".$brandData['brandName']." are listed in Section 1 (starting on page 131).";
                                     
                                     if($this->editmode): 
-                                        if($this->input("HHPP_Footer_Compatibility_Description1_{$md5key}")->isEmpty()): 
-                                            echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}")->setDataFromResource($compatibility_description);
+                                        if($this->input("HHPP_Footer_Compatibility_Description1_{$md5key}_{$incr2}")->isEmpty()): 
+                                            echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}_{$incr2}")->setDataFromResource($compatibility_description);
                                         else: 
-                                            echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}"); 
+                                            echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}_{$incr2}"); 
                                         endif; 
                                     else:
-                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}");
+                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}_{$incr2}");
                                     endif; 
                                     
                                     ?>
@@ -171,13 +171,13 @@ if ($data):
                                     <?php
 
                                     if($this->editmode): 
-                                        if($this->input("HHPP_Footer_BrandName1_{$md5key}")->isEmpty()): 
-                                            echo $this->input("HHPP_Footer_BrandName1_{$md5key}")->setDataFromResource($brandData['brandName']);
+                                        if($this->input("HHPP_Footer_BrandName1_{$md5key}_{$incr2}")->isEmpty()): 
+                                            echo $this->input("HHPP_Footer_BrandName1_{$md5key}_{$incr2}")->setDataFromResource($brandData['brandName']);
                                         else: 
-                                            echo $this->input("HHPP_Footer_BrandName1_{$md5key}"); 
+                                            echo $this->input("HHPP_Footer_BrandName1_{$md5key}_{$incr2}"); 
                                         endif; 
                                     else:
-                                        echo $this->input("HHPP_Footer_BrandName1_{$md5key}");
+                                        echo $this->input("HHPP_Footer_BrandName1_{$md5key}_{$incr2}");
                                     endif;
 
                                     ?>
@@ -208,13 +208,13 @@ if ($data):
 
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text2_{$md5key}")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text2_{$md5key}_{$incr2}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}_{$incr2}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}"); ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}_{$incr2}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text2_{$md5key}") ?>
+                                        <?= $this->input("HHPP_Logo_Text2_{$md5key}_{$incr2}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -226,13 +226,13 @@ if ($data):
                             <?php
 
                             if($this->editmode): 
-                                if($this->input("HHPP_Heading_{$md5key}")->isEmpty()): 
-                                    echo $this->input("HHPP_Heading_{$md5key}")->setDataFromResource($brandData['brandName']);
+                                if($this->input("HHPP_Heading_{$md5key}_{$incr2}")->isEmpty()): 
+                                    echo $this->input("HHPP_Heading_{$md5key}_{$incr2}")->setDataFromResource($brandData['brandName']);
                                 else: 
-                                    echo $this->input("HHPP_Heading_{$md5key}"); 
+                                    echo $this->input("HHPP_Heading_{$md5key}_{$incr2}"); 
                                 endif; 
                             else:
-                                echo $this->input("HHPP_Heading_{$md5key}");
+                                echo $this->input("HHPP_Heading_{$md5key}_{$incr2}");
                             endif; 
 
                             ?>
@@ -242,26 +242,26 @@ if ($data):
                                 <?php
 
                                 if($this->editmode): 
-                                    if($this->wysiwyg("HHPP_LongDescription_{$md5key}")->isEmpty()): 
-                                        echo $this->wysiwyg("HHPP_LongDescription_{$md5key}")->setDataFromResource($brandData['longDescription']);
+                                    if($this->wysiwyg("HHPP_LongDescription_{$md5key}_{$incr2}")->isEmpty()): 
+                                        echo $this->wysiwyg("HHPP_LongDescription_{$md5key}_{$incr2}")->setDataFromResource($brandData['longDescription']);
                                     else: 
-                                        echo $this->wysiwyg("HHPP_LongDescription_{$md5key}"); 
+                                        echo $this->wysiwyg("HHPP_LongDescription_{$md5key}_{$incr2}"); 
                                     endif; 
                                 else:
-                                    echo $this->wysiwyg("HHPP_LongDescription_{$md5key}");
+                                    echo $this->wysiwyg("HHPP_LongDescription_{$md5key}_{$incr2}");
                                 endif; 
 
                                 ?>
                             </p>
                             <?php
                             if ($this->editmode) {
-                                if(!$this->image("HHPP_Image_Left_{$md5key}")->isEmpty())
-                                        echo $this->image("HHPP_Image_Left_{$md5key}",["class" => "leftImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Left_{$md5key}_{$incr2}")->isEmpty())
+                                        echo $this->image("HHPP_Image_Left_{$md5key}_{$incr2}",["class" => "leftImg", "width" => 600, "height" => 200]);
                                 else
-                                        echo $this->image("HHPP_Image_Left_{$md5key}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($brandData['LeftPrintCatalogImageObj']);
+                                        echo $this->image("HHPP_Image_Left_{$md5key}_{$incr2}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($brandData['LeftPrintCatalogImageObj']);
                             } else {
                                 // if(!$this->image("HHPP_Image_Left_{$md5key}")->isEmpty())
-                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$md5key}");
+                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$md5key}_{$incr2}");
 
                                 if($imgSrcObj1)
                                 {
@@ -273,13 +273,13 @@ if ($data):
                             ?>
                             <?php
                             if ($this->editmode) {
-                                if(!$this->image("HHPP_Image_Right_{$md5key}")->isEmpty())
-                                        echo $this->image("HHPP_Image_Right_{$md5key}",["class" => "rightImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Right_{$md5key}_{$incr2}")->isEmpty())
+                                        echo $this->image("HHPP_Image_Right_{$md5key}_{$incr2}",["class" => "rightImg", "width" => 600, "height" => 200]);
                                 else
-                                        echo $this->image("HHPP_Image_Right_{$md5key}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($brandData['RightPrintCatalogImageObj']);
+                                        echo $this->image("HHPP_Image_Right_{$md5key}_{$incr2}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($brandData['RightPrintCatalogImageObj']);
                             } else {
                                 // if(!$this->image("HHPP_Image_Right_{$md5key}")->isEmpty())
-                                $imgSrcObj2 = $this->image("HHPP_Image_Right_{$md5key}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                $imgSrcObj2 = $this->image("HHPP_Image_Right_{$md5key}_{$incr2}", ["class" => "rightImg", "width" => 600, "height" => 200]);
 
                                 if($imgSrcObj2)
                                 {
@@ -312,13 +312,13 @@ if ($data):
                                                                 if(count($brandData['standardMetHoseListData']) > 0)
                                                                 {
                                                                     if($this->editmode): 
-                                                                        if($this->input("meetPerformanceRequirements_{$md5key}")->isEmpty()): 
-                                                                            echo $this->input("meetPerformanceRequirements_{$md5key}")->setDataFromResource("Meets or exceeds the performance requirements of:");
+                                                                        if($this->input("meetPerformanceRequirements_{$md5key}_{$incr2}")->isEmpty()): 
+                                                                            echo $this->input("meetPerformanceRequirements_{$md5key}_{$incr2}")->setDataFromResource("Meets or exceeds the performance requirements of:");
                                                                         else: 
-                                                                            echo $this->input("meetPerformanceRequirements_{$md5key}"); 
+                                                                            echo $this->input("meetPerformanceRequirements_{$md5key}_{$incr2}"); 
                                                                         endif; 
                                                                     else:
-                                                                        echo $this->input("meetPerformanceRequirements_{$md5key}");
+                                                                        echo $this->input("meetPerformanceRequirements_{$md5key}_{$incr2}");
                                                                     endif; 
                                                                 }         
                                                                 echo "<br/>";                                                   
@@ -337,7 +337,7 @@ if ($data):
                                                                 // endif; 
                                                                 ?>
                                                             
-                                                            <div class="is-highlight"> <?= $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($standard['name']); ?></div>
+                                                            <div class="is-highlight"> <?= $this->input("standardMetHose{$md5key}_{$hoseMetCount}_{$incr2}")->setDataFromResource($standard['name']); ?></div>
                                                                 
                                                                 <?php
                                                                 $hoseMetCount++;
@@ -349,7 +349,7 @@ if ($data):
                                                         <div class="standard-hose-met-flame">
 
                                                             <?php
-                                                                $hoseMetFlameCount = 0;
+                                                                $hoseMetFlameCount = 1;
                                                                 foreach ($brandData['standardMetHoseMeetFlameResistence'] as $key => $standard2): 
                                                                 ?>
                                                                 <?php
@@ -373,7 +373,7 @@ if ($data):
                                                         </div>
 
                                                         <div class="custom-specs-text">
-                                                            <?= $this->wysiwyg("customSpecsText{$md5key}"); ?>
+                                                            <?= $this->wysiwyg("customSpecsText{$md5key}_{$incr2}"); ?>
                                                         </div>
                                                 </div>
                                                 <?php endif; ?>
@@ -523,7 +523,7 @@ if ($data):
                             <?php
                             // p_r($sds);
                             ?>
-                            <p class="small"><?= $this->input("customer_data_{$md5key}", ['placeholder' => 'Enter comment']); ?></p>
+                            <p class="small"><?= $this->input("customer_data_{$md5key}_{$incr2}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
 
                     </article>
