@@ -65,12 +65,22 @@ class AppService
         $brickMappingConfig = $this->configProviderService->getBrickMappingConfig()['product_type_to_product_brick_field_mapping'];
         $idInch = $product->getSkeleton()->getIFSEUHoseSkeleton()->getIDInch();
         $wallThicknessInch = $product->getSkeleton()->getIFSEUHoseSkeleton()->getwallThicknessInch();
+        $idMM = $product->getSkeleton()->getIFSEUHoseSkeleton()->getIDMM();
+        $wallThicknessMM = $product->getSkeleton()->getIFSEUHoseSkeleton()->getwallThicknessMM();
         if(isset($updatedData['Skeleton'][0]['data']['IdInch']))
         {
             $updatedData['Skeleton'][0]['data']['OdIn'] = $updatedData['Skeleton'][0]['data']['IdInch'] + ($wallThicknessInch * 2);
         }else if(isset($updatedData['Skeleton'][0]['data']['wallThicknessInch']))
         {
             $updatedData['Skeleton'][0]['data']['OdIn'] = $idInch + ($updatedData['Skeleton'][0]['data']['wallThicknessInch'] * 2);
+        }
+
+        if(isset($updatedData['Skeleton'][0]['data']['IdMM']))
+        {
+            $updatedData['Skeleton'][0]['data']['Odmm'] = $updatedData['Skeleton'][0]['data']['IdMM'] + ($wallThicknessMM * 2);
+        }else if(isset($updatedData['Skeleton'][0]['data']['wallThicknessMM']))
+        {
+            $updatedData['Skeleton'][0]['data']['Odmm'] = $idMM + ($updatedData['Skeleton'][0]['data']['wallThicknessMM'] * 2);
         }
         
         // creating brick data in required format and removing it from the update data
@@ -136,7 +146,7 @@ class AppService
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
         if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
-            
+           
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
         return $object;
