@@ -20,6 +20,7 @@ if (!isset($this->parentContainer)) {
 <?php
 $partNumbers = [];
 $incr = 0;
+$incr2 = 0;
 if ($data):
     foreach ($data as $catalogGroupKey => $catalogGroupData):
         foreach ($catalogGroupData as $md5key => $brandData):
@@ -86,7 +87,9 @@ if ($data):
                                                 echo $this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}"); 
                                             endif; 
                                         else:
-                                            echo $this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}");
+                                            // echo $this->input("HHPP_Footer_HoseType_{$md5key}_{$incr}");
+                                            echo $this->input("HHPP_Footer_HoseType_{$md5Key}_{$incr}")->setDataFromResource($catalogGroupKey);
+
                                         endif; 
                                         $incr++;
                                     ?>
@@ -184,16 +187,17 @@ if ($data):
                                         <?php
 
                                         if($this->editmode): 
-                                            if($this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}")->isEmpty()): 
+                                            if($this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr2}")->isEmpty()): 
                                                 // echo $this->input("HHPP_Footer_HoseType1_{$md5key}")->setDataFromResource('High Pressure');
-                                                echo $this->input("HHPP_Footer_HoseType1_{$md5Key}_{$incr}")->setDataFromResource($catalogGroupKey);
+                                                echo $this->input("HHPP_Footer_HoseType1_{$md5Key}_{$incr2}")->setDataFromResource($catalogGroupKey);
                                             else: 
-                                                echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}"); 
+                                                echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr2}"); 
                                             endif; 
                                         else:
-                                            echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr}");
+                                            // echo $this->input("HHPP_Footer_HoseType1_{$md5key}_{$incr2}");
+                                            echo $this->input("HHPP_Footer_HoseType1_{$md5Key}_{$incr2}")->setDataFromResource($catalogGroupKey);
                                         endif; 
-
+                                        $incr2++;
                                         ?>
 
                                     </span>
