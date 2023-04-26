@@ -35,10 +35,22 @@ parameters:
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
       Category:  'Category'
-      minimumTemperatureC: 'minimumTemperatureC'
+      minimumTemperatureC: 'minTemperature (C)'
       minimumTemperatureF: 'minimumTemperatureF'
-      maximumTemperatureC: 'maximumTemperatureC'
+      maximumTemperatureC: 'maxTemperature (C)'
       maximumTemperatureF: 'maximumTemperatureF'
+      temporaryUntilC: 'Temporary until (C)'
+      temporaryUntilT: 'Temporary until (t)'
+      DampableUntil1C: 'Dampable until 1 (C)'
+      DampableUntil1T: 'Dampable until 1 (t)'
+      DampableUntil2C: 'Dampable until 2 (C)'
+      DampableUntil2T: 'Dampable until 2 (t)'
+      onlyOpenSystem: 'Open system'
+      FeaturesBenefitsBulletPoint: 'Features & Benefits Bullet points'
+      #base Localization Attribute
+      headlineWeb: 'Headline Web'
+      Marking2: 'Marking 2'
+
     #Fert Attribute 
       EANCode: 'EAN Code'
       weightg: 'Weight g/unit'
@@ -57,6 +69,7 @@ parameters:
       priceDate: 'Price date'
       productionLength: 'Production length'
       minimumQuantityUnit: 'Minimum quantity unit'
+      WebsiteLink: 'Website'
 
     #fert Localized Attribute
       Conditions: 'Conditions'

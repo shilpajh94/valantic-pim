@@ -116,10 +116,18 @@ class ProductImportService
         }
         $this->materialGroup = [];
         $this->countryOrigin = [];
+        $this->productProperties = [];
+        $this->fieldsOfApplication = [];
+        $this->flowMedium = [];
+        $this->standards = [];
         $this->BaseLevelCategory = [];
         $materialGrpList = $this->productModel->getMaterialGroupData();
         $countryOriginList = $this->productModel->getCountryOriginData();
         $baseLevelCategoryList = $this->productModel->getCatagoryData();
+        $propertiesList = $this->productModel->getPropertiesData();
+        $fieldsOfApplicationList = $this->productModel->getfieldsOfApplicationData();
+        $flowMediumList = $this->productModel->getflowMediumData();
+        $standardsList = $this->productModel->getstandardsData();
         foreach($materialGrpList as $materialGrp) {
             $code = $materialGrp['code'];
             $this->materialGroup[$code] = $materialGrp['oo_id'];
@@ -134,6 +142,26 @@ class ProductImportService
             $categoryName = $baseLevelCategoryData['o_key'];
             $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['oo_id'];
             unset($categoryName);
+        }
+        foreach($propertiesList as $propertiesListData){
+            $propertyType=$propertiesListData['TypeName'];
+            $propertyValue=$propertiesListData['o_key'];
+            $this->productProperties[$propertyType][$propertyValue]=$propertiesListData['oo_id'];
+        }
+        foreach($fieldsOfApplicationList as $fieldsOfApplicationData) {
+            $applicationName = $fieldsOfApplicationData['o_key'];
+            $this->fieldsOfApplication[$applicationName] = $fieldsOfApplicationData['oo_id'];
+            unset($applicationName);
+        }
+        foreach($flowMediumList as $flowMediumData) {
+            $flowMediumName = $flowMediumData['o_key'];
+            $this->flowMedium[$flowMediumName] = $flowMediumData['oo_id'];
+            unset($flowMediumName);
+        }
+        foreach($standardsList as $standardsData) {
+            $standardsName = $standardsData['o_key'];
+            $this->standards[$standardsName] = $standardsData['oo_id'];
+            unset($standardsName);
         }
     }
       
@@ -509,12 +537,19 @@ class ProductImportService
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         
         foreach ($this->langArr as $lang) {
-            $value = null;
+            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking2= null;
             if ($lang == 'en' && strtolower($productType) == 'fert') {
                 $value = $record[$this->getRecordIndexByKey('description')];
                 $ConditionsValue = $record[$this->getRecordIndexByKey('Conditions')];
                 $minimumOrder = $record[$this->getRecordIndexByKey('minimumOrder')];
                 $shippingConditions = $record[$this->getRecordIndexByKey('shippingConditions')];
+                $headlineWeb = $record[$this->getRecordIndexByKey('headlineWeb')];
+                $marking2 = $record[$this->getRecordIndexByKey('Marking2')];
+            }
+
+            if($lang == 'en' && strtolower($productType) == 'base') {
+                $headlineWeb = $record[$this->getRecordIndexByKey('headlineWeb')];
+                $marking2 = $record[$this->getRecordIndexByKey('Marking2')];
             }
             $this->localisedDataTableDataArray[] = [
                 'ooo_id' => $objId,
@@ -522,7 +557,8 @@ class ProductImportService
                 'sapDescription' => $value,
                 'Conditions'=>$ConditionsValue,
                 'minimumOrder'=>$minimumOrder,
-                'shippingConditions'=>$shippingConditions
+                'headlineWeb'=>$headlineWeb,
+                'Marking2'=>$marking2
             ];
             $this->localisedQueryTableDataArray[$lang][] = [
                 'ooo_id' => $objId,
@@ -530,12 +566,16 @@ class ProductImportService
                 'sapDescription' => $value,
                 'Conditions'=>$ConditionsValue,
                 'minimumOrder'=>$minimumOrder,
-                'shippingConditions'=>$shippingConditions
+                'shippingConditions'=>$shippingConditions,
+                'headlineWeb'=>$headlineWeb,
+                'Marking2'=>$marking2
             ];
         }
+        //dd($this->localisedQueryTableDataArray);
     }
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
+
         $siopData = [];
         for ($k=1; $k<=7; $k++) {
             $index = 'SIOPLevel'.$k;
@@ -590,7 +630,8 @@ class ProductImportService
             'Department' => null,
             'ConnectionType' => null,
             'countryOfOrigin__id' => null,
-            'countryOfOrigin__type' => null
+            'countryOfOrigin__type' => null,
+            'WebsiteLink' => null,
         ];
         
         if (strtolower($productType) == 'fert') {
@@ -610,6 +651,7 @@ class ProductImportService
             $queryTableData['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $queryTableData['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $queryTableData['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
+            $queryTableData['WebsiteLink'] = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
             $queryTableData['OnStock'] = trim($record[$this->getRecordIndexByKey('OnStock')]);
             $queryTableData['CustomsTariffNumber'] = trim($record[$this->getRecordIndexByKey('CustomsTariffNumber')]);
             $queryTableData['Note'] = trim($record[$this->getRecordIndexByKey('Note')]);
@@ -656,14 +698,67 @@ class ProductImportService
             }
         }
         if(strtolower($productType) == 'base'){
+            $queryTableData['Category'] = null;
+            $queryTableData['minimumTemperatureC'] = null;
+            $queryTableData['maximumTemperatureC'] = null;
+            $queryTableData['FeaturesBenefitsBulletPoint'] = null;
             $category = trim($record[$this->getRecordIndexByKey('Category')]);
             $categoryDataInSheet = str_replace(" / ", " - ", $category);
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             $conversionAttributeArr=[];
-            $queryTableData['Category'] = null;
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
             }
+            $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+
+            if(!empty($minimumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+                if($attributeGroupName && !empty($maximumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $queryTableData[$key]=$convertValues;
+                    }
+                }
+            }
+            $queryTableData['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
+            $queryTableData['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
+            $queryTableData['DampableUntil1C'] = trim($record[$this->getRecordIndexByKey('DampableUntil1C')]);
+            $queryTableData['DampableUntil1T'] = trim($record[$this->getRecordIndexByKey('DampableUntil1T')]);
+            $queryTableData['DampableUntil2C'] = trim($record[$this->getRecordIndexByKey('DampableUntil2C')]);
+            $queryTableData['DampableUntil2T'] = trim($record[$this->getRecordIndexByKey('DampableUntil2T')]);
+            $queryTableData['onlyOpenSystem'] = trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
+
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
+
+                $propertyType='propertiesGeneral';
+                $fieldValue=trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]);
+                $fieldsValueArr=explode(',',$fieldValue);
+                $propertyIdsArr=[];
+                foreach($fieldsValueArr as $values){
+                    if(!empty($values)){
+                        $values=trim($values);
+                        if(array_key_exists($values,$this->productProperties[$propertyType])){
+                            $propertyIdsArr[]=$this->productProperties[$propertyType][$values];
+                        }
+                    }
+                }
+                if(!empty($propertyIdsArr)){
+                    $propertyIds=implode(',',$propertyIdsArr);
+                    $queryTableData['FeaturesBenefitsBulletPoint']=$propertyIds;
+                }
+            }
+
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -707,7 +802,8 @@ class ProductImportService
             'CustomsTariffNumber' => null,
             'Note' => null,
             'Department' => null,
-            'ConnectionType' => null
+            'ConnectionType' => null,
+            'WebsiteLink' => null,
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
@@ -726,6 +822,7 @@ class ProductImportService
             $storeTableDataArray['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $storeTableDataArray['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $storeTableDataArray['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
+            $storeTableDataArray['WebsiteLink'] = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
 
             if(!empty(trim($record[$this->getRecordIndexByKey('OnStock')]))){
                 $OnStockValue =  trim($record[$this->getRecordIndexByKey('OnStock')]);
@@ -766,8 +863,58 @@ class ProductImportService
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
             $conversionAttributeArr=[];
             $storeTableDataArray['Category'] = null;
+            $storeTableDataArray['minimumTemperatureC'] = null;
+            $storeTableDataArray['maximumTemperatureC'] = null;
+            $storeTableDataArray['FeaturesBenefitsBulletPoint'] = null;
             if(!empty($getCatagoryID)) {
                 $storeTableDataArray['Category'] = $getCatagoryID;
+            }
+            $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
+            $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+
+            if(!empty($minimumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+                if($attributeGroupName && !empty($minimumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }
+            if(!empty($maximumTemperatureC)){
+                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+                if($attributeGroupName && !empty($maximumTemperatureC)){
+                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+                    foreach($conversionAttributeArr as $key=>$convertValues){
+                        $storeTableDataArray[$key]=$convertValues;
+                    }
+                }
+            }
+            $storeTableDataArray['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
+            $storeTableDataArray['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
+            $storeTableDataArray['DampableUntil1C'] = trim($record[$this->getRecordIndexByKey('DampableUntil1C')]);
+            $storeTableDataArray['DampableUntil1T'] = trim($record[$this->getRecordIndexByKey('DampableUntil1T')]);
+            $storeTableDataArray['DampableUntil2C'] = trim($record[$this->getRecordIndexByKey('DampableUntil2C')]);
+            $storeTableDataArray['DampableUntil2T'] = trim($record[$this->getRecordIndexByKey('DampableUntil2T')]);
+            $storeTableDataArray['onlyOpenSystem'] = trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
+            if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
+
+                $propertyType='propertiesGeneral';
+                $fieldValue=trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]);
+                $fieldsValueArr=explode(',',$fieldValue);
+                $propertyIdsArr=[];
+                foreach($fieldsValueArr as $values){
+                    if(!empty($values)){
+                        $values=trim($values);
+                        if(array_key_exists($values,$this->productProperties[$propertyType])){
+                            $propertyIdsArr[]=$this->productProperties[$propertyType][$values];
+                        }
+                    }
+                }
+                if(!empty($propertyIdsArr)){
+                    $propertyIds=implode(',',$propertyIdsArr);
+                    $storeTableDataArray['FeaturesBenefitsBulletPoint']=$propertyIds;
+                }
             }
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
@@ -874,7 +1021,11 @@ class ProductImportService
                     foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                         $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
                         //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
+                        if($brick=='IFSEUHoseBase'){
+                            $bricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
+                        }
                         $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
+                        //dd($tableData);
                         $this->bricksDataArray[$tblName][] = $tableData;
                     }
                 }
@@ -891,6 +1042,100 @@ class ProductImportService
             } 
         }
         return null;
+    }
+
+    public function hoseBaseBricksAttribute($bricksData,$brick){
+        //dd($bricksData);
+        $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
+        $propertiesAttributeArr=['InnerLining'=>'innerlining','colorInnerLining'=>'colorInn','Reinforcement'=>'reinforcements','Helix'=>'helix','propertiesInnerLayer'=>'propertiesInn','ColorOuterLayer'=>'colorOut','CoverOuterLayer'=>'cover','Haptic'=>'haptic','PropertiesOuterLayer'=>'propertiesOut'];
+        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
+        {
+            $fieldMasterType=''; 
+            $fieldName  = $brickAttributeConfig['fieldName'];
+            $fieldType = $brickAttributeConfig['fieldType'];
+            $objectType = $brickAttributeConfig['objectType'];
+            $attributeLabel  = trim($attributeLabel);
+            if(($objectType==$brick) && ($fieldType=='Select' || $fieldType=='Multiselection'))
+            {
+                
+                if(isset($brickAttributeConfig['fieldMasterType'])){
+
+                    $fieldMasterType=$brickAttributeConfig['fieldMasterType'];
+                    $fieldValue = $bricksData[$fieldName];
+                    if($fieldMasterType=='Properties'){
+                        if(array_key_exists($fieldName,$propertiesAttributeArr)){
+                            $propertyType=$propertiesAttributeArr[$fieldName];
+                            $fieldsValueArr=explode(',',$fieldValue);
+                            $propertyIdsArr=[];
+                            foreach($fieldsValueArr as $values){
+                                if(!empty($values)){
+                                    $values=trim($values);
+                                    if(array_key_exists($values,$this->productProperties[$propertyType])){
+                                        $propertyIdsArr[]=$this->productProperties[$propertyType][$values];
+                                    }
+                                }
+                            }
+                            if(!empty($propertyIdsArr)){
+                                $propertyIds=implode(',',$propertyIdsArr);
+                                $bricksData[$fieldName]=$propertyIds;
+                            }
+                        }
+                    }
+                    if($fieldMasterType=='Application'){
+                        $fieldsValueArr=explode(',',$fieldValue);
+                        $fieldsApplicationIdsArr=[];
+                        foreach($fieldsValueArr as $values){
+                            if(!empty($values)){
+                                $values=trim($values);
+                                if(array_key_exists($values,$this->fieldsOfApplication)){
+                                    $fieldsApplicationIdsArr[]=$this->fieldsOfApplication[$values];
+                                }
+                            }
+                        }
+                        if(!empty($fieldsApplicationIdsArr)){
+                            $fieldsApplicationIds=implode(',',$fieldsApplicationIdsArr);
+                            $bricksData[$fieldName]=$fieldsApplicationIds;
+                        }
+                    }
+                    if($fieldMasterType=='FlowMedium'){
+                        $fieldsValueArr=explode(',',$fieldValue);
+                        $flowMediumIdsArr=[];
+                        foreach($fieldsValueArr as $values){
+                            $values=trim($values);
+                            if(!empty($values)){
+                                if(array_key_exists($values,$this->flowMedium)){
+                                    $flowMediumIdsArr[]=$this->flowMedium[$values];
+                                }
+                            }
+                        }
+                        if(!empty($flowMediumIdsArr)){
+                            $flowMediumIds=implode(',',$flowMediumIdsArr);
+                            $bricksData[$fieldName]=$flowMediumIds;
+                        }
+                    }
+                    if($fieldMasterType=='Standards'){
+                        $fieldsValueArr=explode(',',$fieldValue);
+                        $standardsIdsArr=[];
+                        foreach($fieldsValueArr as $values){
+                            $values=trim($values);
+                            if(!empty($values)){
+                                if(array_key_exists($values,$this->standards)){
+                                    $standardsIdsArr[]=$this->standards[$values];
+                                }
+                            }
+                        }
+                        //dd($standardsIdsArr);
+                        if(!empty($standardsIdsArr)){
+                            $standardsIds=implode(',',$standardsIdsArr);
+                            $bricksData[$fieldName]=$standardsIds;
+                        }
+                    }
+                }
+            }
+        }
+        //dd($brickAttributesConfigData);
+        //dd($bricksData);
+        return $bricksData;
     }
 
     public function getCountryOriginCodeId($countryOriginName){

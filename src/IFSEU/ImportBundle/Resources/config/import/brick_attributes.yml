@@ -101,3 +101,63 @@ HoseId mm:
     fieldName: hoseIdMM
     fieldType: Number
     objectType: IFSEUHoseBase
+Inner Lining:
+    fieldName: InnerLining
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Inner layer Color:
+    fieldName: colorInnerLining
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Inner layer Reinforcement:
+    fieldName: Reinforcement
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Inner layer Helix:
+    fieldName: Helix
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Inner layer Properties:
+    fieldName: propertiesInnerLayer
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Outer layer Color:
+    fieldName: ColorOuterLayer
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Cover Material:
+    fieldName: CoverOuterLayer
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Outer layer Haptic:
+    fieldName: Haptic
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Outer layer Properties:
+    fieldName: PropertiesOuterLayer
+    fieldType: Select
+    objectType: IFSEUHoseBase
+    fieldMasterType: Properties
+Fields of application:
+    fieldName: FieldsOfApplication
+    fieldType: Multiselection
+    objectType: IFSEUHoseBase
+    fieldMasterType: Application
+Flow Medium:
+    fieldName: flowMedium
+    fieldType: Multiselection
+    objectType: IFSEUHoseBase
+    fieldMasterType: FlowMedium
+Standards:
+    fieldName: standards
+    fieldType: Multiselection
+    objectType: IFSEUHoseBase
+    fieldMasterType: Standards

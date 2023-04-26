@@ -309,6 +309,23 @@ class ProductModel
         return $this->db->fetchAll($query);
     }
 
+    public function getPropertiesData(){
+        $query = "SELECT oo_id,TypeName,o_key FROM `object_IFSEUProperties` ";
+        return $this->db->fetchAll($query);
+    }
+    public function getfieldsOfApplicationData(){
+        $query = "SELECT oo_id,o_key FROM `object_IFSEUApplications` ";
+        return $this->db->fetchAll($query);
+    }
+    public function getflowMediumData(){
+        $query = "SELECT oo_id,o_key FROM `object_IFSEUFlowMedium` ";
+        return $this->db->fetchAll($query);
+    }
+    public function getstandardsData(){
+        $query = "SELECT oo_id,o_key FROM `object_IFSEUNorm` ";
+        return $this->db->fetchAll($query);
+    }
+
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` ";
         return $this->db->fetchAll($query);
