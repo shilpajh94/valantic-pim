@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-08T12:11:07+05:30
+* Generated at: 2023-04-26T12:29:35+05:30
 * IP: 127.0.0.1
 
 
@@ -15,6 +15,7 @@ Fields Summary:
 - hoseIdNominalActualId [numeric]
 - hoseIdMMActualId [numeric]
 - FittingFamily [multiselect]
+- withHelix [booleanSelect]
 - SkeletonBrickMapping [input]
 - workingPressureBAR [numeric]
 - workingPressurePSI [numeric]
@@ -369,18 +370,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   ),
                   1 => 
                   array (
-                    'key' => 'Stainless Steel',
-                    'value' => 14704135,
-                  ),
-                  2 => 
-                  array (
                     'key' => 'Brass',
                     'value' => 14704136,
                   ),
-                  3 => 
+                  2 => 
                   array (
                     'key' => 'Carbon Steel',
                     'value' => 14704137,
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'Stainless Steel',
+                    'value' => 14704135,
                   ),
                   4 => 
                   array (
@@ -414,6 +415,49 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               9 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                 'fieldtype' => 'booleanSelect',
+                 'yesLabel' => 'Yes',
+                 'noLabel' => 'No',
+                 'emptyLabel' => 'Empty',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Empty',
+                    'value' => 0,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Yes',
+                    'value' => 1,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'No',
+                    'value' => -1,
+                  ),
+                ),
+                 'width' => 200,
+                 'queryColumnType' => 'tinyint(1) null',
+                 'columnType' => 'tinyint(1) null',
+                 'phpdocType' => 'boolean',
+                 'name' => 'withHelix',
+                 'title' => 'With Helix',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              10 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => NULL,

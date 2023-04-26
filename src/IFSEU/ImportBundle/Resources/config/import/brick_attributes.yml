@@ -92,7 +92,7 @@ Positive tolerance OD mm:
 With helix:
     fieldName: withHelix
     fieldType: Boolean Select
-    objectType: IFSEUHoseBase
+    objectType: IFSEUHoseSkeleton
 HoseId inch:
     fieldName: hoseIdDec
     fieldType: Number
@@ -123,7 +123,7 @@ Inner layer Helix:
     fieldMasterType: Properties
 Inner layer Properties:
     fieldName: propertiesInnerLayer
-    fieldType: Select
+    fieldType: Multiselection
     objectType: IFSEUHoseBase
     fieldMasterType: Properties
 Outer layer Color:
@@ -143,7 +143,7 @@ Outer layer Haptic:
     fieldMasterType: Properties
 Outer layer Properties:
     fieldName: PropertiesOuterLayer
-    fieldType: Select
+    fieldType: Multiselection
     objectType: IFSEUHoseBase
     fieldMasterType: Properties
 Fields of application:

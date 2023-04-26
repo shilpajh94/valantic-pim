@@ -28,6 +28,8 @@ ehoseAPI:
                 - string
             TPCode:
                 - string
+            Note2InformationBelowTable:
+                - string
             siopFullCode:
                 - string
             SIOPLevel1:
@@ -228,8 +230,6 @@ ehoseAPI:
                     hoseIdDec:
                         - string
                     hoseIdMM: 
-                        - string
-                    Note2BelowTable:
                         - string
                     FlowMediumStability:
                         - string

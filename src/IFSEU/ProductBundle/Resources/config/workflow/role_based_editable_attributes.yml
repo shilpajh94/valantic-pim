@@ -7,8 +7,8 @@ All:
     - FeaturesBenefitsBulletPoint
     - TPCode
     - HeadlineWeb
-    - LegalText
-    - BrandShortText1 
+    - productBrandNamePerLanguage
+    - Marking1 
     - BrandShortText2 
     - Marking2 
     - SearchKeywords 
@@ -155,7 +155,7 @@ All:
     - tubeCharacteristic           
     - hoseIdDec            
     - hoseIdMM            
-    - Note2BelowTable             
+    - Note2InformationBelowTable             
     - FlowMediumStability          
     - numberOfHelixWires            
     - tubeGaugeFractional             
@@ -205,7 +205,6 @@ All:
     - negativeToleranceOdMM                 
     - PositiveToleranceOdMM                        
 ProductManagementIFSEMEA:
-    - Note2BelowTable 
     - flowMedium 
     - FlowMediumStability
     - standards

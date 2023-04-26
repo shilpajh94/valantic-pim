@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-25T12:38:47+05:30
+* Generated at: 2023-04-26T12:52:03+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -18,11 +18,12 @@ Fields Summary:
 - TPCode [input]
 - localizedfields [localizedfields]
 -- headlineWeb [input]
--- legalText [input]
--- BrandShortText1 [input]
+-- productBrandNamePerLanguage [input]
 -- BrandShortText2 [input]
+-- Marking1 [input]
 -- Marking2 [input]
 -- searchKeywords [multiselect]
+-- Note2InformationBelowTable [input]
 -- commercialDescription [wysiwyg]
 -- technicalDescription [wysiwyg]
 -- sapDescription [textarea]
@@ -89,13 +90,13 @@ Fields Summary:
 - rebateFlag [booleanSelect]
 - BusinessUnit [select]
 - Spezi [input]
-- eHoseProduct [select]
 - oldMaterialCode [input]
 - manufacturer [input]
 - stccCode [input]
 - manufacturerPartNumber [input]
 - returnFlag [booleanSelect]
 - OutsidePurchaseFlag [checkbox]
+- eHoseProduct [checkbox]
 - CustomsTariffNumber [input]
 - b2BexternalID [input]
 - sapDescriptionLanguage [input]
@@ -174,7 +175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682406509,
+   'modificationDate' => 1682493709,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2818,8 +2819,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'regex' => '',
                                          'unique' => false,
                                          'showCharCount' => false,
-                                         'name' => 'legalText',
-                                         'title' => 'Legal Text',
+                                         'name' => 'productBrandNamePerLanguage',
+                                         'title' => 'Product Brand Name Per Language',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
@@ -2846,8 +2847,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'regex' => '',
                                          'unique' => false,
                                          'showCharCount' => false,
-                                         'name' => 'BrandShortText1',
-                                         'title' => 'Brand Short Text 1',
+                                         'name' => 'BrandShortText2',
+                                         'title' => 'Brand Short Text 2',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
@@ -2874,8 +2875,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'regex' => '',
                                          'unique' => false,
                                          'showCharCount' => false,
-                                         'name' => 'BrandShortText2',
-                                         'title' => 'Brand Short Text 2',
+                                         'name' => 'Marking1',
+                                         'title' => 'Marking 1',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
@@ -2948,6 +2949,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                      )),
+                                      6 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'defaultValue' => NULL,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'Note2InformationBelowTable',
+                                         'title' => 'Note 2 ( Information Below Table)',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                     ),
                                      'locked' => false,
@@ -5746,47 +5775,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  14 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'fieldtype' => 'select',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'No',
-                                        'value' => 'No',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Yes',
-                                        'value' => 'Yes',
-                                      ),
-                                    ),
-                                     'width' => '',
-                                     'defaultValue' => '',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'dynamicOptions' => false,
-                                     'name' => 'eHoseProduct',
-                                     'title' => 'eHose Product',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => true,
-                                     'index' => false,
-                                     'locked' => NULL,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => true,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -5988,6 +5976,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   6 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                                     'fieldtype' => 'checkbox',
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'tinyint(1)',
+                                     'columnType' => 'tinyint(1)',
+                                     'phpdocType' => 'boolean',
+                                     'name' => 'eHoseProduct',
+                                     'title' => 'eHose Product',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => NULL,
@@ -6015,7 +6026,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  7 => 
+                                  8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => NULL,
@@ -6043,7 +6054,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  8 => 
+                                  9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 250,
@@ -6071,7 +6082,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  9 => 
+                                  10 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                                      'fieldtype' => 'localizedfields',
                                      'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',

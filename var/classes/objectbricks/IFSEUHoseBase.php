@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-21T10:14:04+05:30
+* Generated at: 2023-04-26T12:31:44+05:30
 * IP: 127.0.0.1
 
 
@@ -11,25 +11,23 @@ Fields Summary:
 - tubeCharacteristic [select]
 - hoseIdDec [numeric]
 - hoseIdMM [numeric]
-- Note2BelowTable [input]
 - FlowMediumStability [booleanSelect]
+- Coupling [input]
 - BaseBrickMapping [input]
 - numberOfHelixWires [numeric]
 - tubeGaugeFractional [input]
 - NonStockSizes [input]
 - standards [multiselect]
 - numberOfPlies [numeric]
-- withHelix [booleanSelect]
-- Coupling [input]
 - InnerLining [select]
 - colorInnerLining [select]
 - Reinforcement [select]
 - Helix [select]
-- propertiesInnerLayer [select]
+- propertiesInnerLayer [multiselect]
 - CoverOuterLayer [select]
 - ColorOuterLayer [select]
 - Haptic [select]
-- PropertiesOuterLayer [select]
+- PropertiesOuterLayer [multiselect]
 - FieldsOfApplication [multiselect]
 - flowMedium [multiselect]
 */ 
@@ -329,34 +327,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Note2BelowTable',
-                     'title' => 'Note 2 (Below Table)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
@@ -398,6 +368,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                  )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Coupling',
+                     'title' => 'Coupling',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -1013,77 +1011,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'withHelix',
-                     'title' => 'With Helix',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Coupling',
-                     'title' => 'Coupling',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
                 ),
                  'locked' => false,
               )),
@@ -1630,8 +1557,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
                          'options' => 
                         array (
                           0 => 
@@ -1776,13 +1703,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'defaultValue' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesInn',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
                          'dynamicOptions' => false,
                          'name' => 'propertiesInnerLayer',
                          'title' => 'Properties',
@@ -1790,7 +1718,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1798,7 +1726,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -2189,8 +2116,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
                          'options' => 
                         array (
                           0 => 
@@ -2325,13 +2252,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'defaultValue' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesOut',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
                          'dynamicOptions' => false,
                          'name' => 'PropertiesOuterLayer',
                          'title' => 'Properties',
@@ -2339,7 +2267,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -2347,7 +2275,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,

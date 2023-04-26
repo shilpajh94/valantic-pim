@@ -50,6 +50,8 @@ parameters:
       #base Localization Attribute
       headlineWeb: 'Headline Web'
       Marking2: 'Marking 2'
+      Marking1: 'Marking 1'
+      Note2InformationBelowTable: 'Notes'
 
     #Fert Attribute 
       EANCode: 'EAN Code'
