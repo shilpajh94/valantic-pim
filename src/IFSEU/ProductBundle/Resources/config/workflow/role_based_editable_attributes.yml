@@ -118,7 +118,8 @@ All:
     - ListPrice    
     - OnStock   
     - Amount    
-    - ProductionLengths      
+    - ProductionLengths   
+    - additionalDiscount   
     - ConnectionType    
     - Note    
     - Currency    

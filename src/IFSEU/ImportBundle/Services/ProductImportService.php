@@ -53,6 +53,14 @@ class ProductImportService
     private $mapBricksArray;
     private $percentageCompletionService;
     private $unitConversionService;
+    private $countryOrigin;
+    private $productProperties;
+    private $fieldsOfApplication;
+    private $flowMedium;
+    private $standards;
+    private $BaseLevelCategory;
+    private $BrandName;
+    private $SubCategory;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const GROSS_WEIGHT_UNITS = [
@@ -122,6 +130,9 @@ class ProductImportService
         $this->flowMedium = [];
         $this->standards = [];
         $this->BaseLevelCategory = [];
+        $this->BrandName = [];
+        $this->SubCategory = [];
+
         $materialGrpList = $this->productModel->getMaterialGroupData();
         $countryOriginList = $this->productModel->getCountryOriginData();
         $baseLevelCategoryList = $this->productModel->getCatagoryData();
@@ -129,6 +140,9 @@ class ProductImportService
         $fieldsOfApplicationList = $this->productModel->getfieldsOfApplicationData();
         $flowMediumList = $this->productModel->getflowMediumData();
         $standardsList = $this->productModel->getstandardsData();
+        $BrandNameList = $this->productModel->getBrandsData();
+        $subCategoryList = $this->productModel->getSubCategoryData();
+
         foreach($materialGrpList as $materialGrp) {
             $code = $materialGrp['code'];
             $this->materialGroup[$code] = $materialGrp['oo_id'];
@@ -164,6 +178,17 @@ class ProductImportService
             $this->standards[$standardsName] = $standardsData['oo_id'];
             unset($standardsName);
         }
+        foreach($subCategoryList as $subCategoryData) {
+            $subCategoryName = $subCategoryData['o_key'];
+            $this->SubCategory[$subCategoryName] = $subCategoryData['oo_id'];
+            unset($subCategoryName);
+        }
+        foreach($BrandNameList as $brandNameData) {
+            $brandName = $brandNameData['o_key'];
+            $this->BrandName[$brandName] = $brandNameData['oo_id'];
+            unset($brandName);
+        }
+
     }
       
     public function import()
@@ -181,7 +206,7 @@ class ProductImportService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
+                // $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -558,6 +583,7 @@ class ProductImportService
                 'sapDescription' => $value,
                 'Conditions'=>$ConditionsValue,
                 'minimumOrder'=>$minimumOrder,
+                'shippingConditions'=>$shippingConditions,
                 'headlineWeb'=>$headlineWeb,
                 'Marking2'=>$marking2,
                 'Marking1'=>$marking1,
@@ -636,7 +662,8 @@ class ProductImportService
             'countryOfOrigin__id' => null,
             'countryOfOrigin__type' => null,
             'WebsiteLink' => null,
-            'eHoseProduct' => null
+            'eHoseProduct' => null,
+            'additionalDiscount' => null
         ];
         
         if (strtolower($productType) == 'fert') {
@@ -648,6 +675,7 @@ class ProductImportService
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $queryTableData['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $queryTableData['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
+            $queryTableData['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
             $queryTableData['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
             $queryTableData['MinimumQuantityMeasurementUnit'] = trim($record[$this->getRecordIndexByKey('MinimumQuantityMeasurementUnit')]);
@@ -694,6 +722,8 @@ class ProductImportService
             $queryTableData['minimumTemperatureC'] = null;
             $queryTableData['maximumTemperatureC'] = null;
             $queryTableData['FeaturesBenefitsBulletPoint'] = null;
+            $queryTableData['productBrandName'] = null;
+            $queryTableData['Sub_Category'] = null;
 
             $queryTableData['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $queryTableData['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
@@ -715,6 +745,15 @@ class ProductImportService
             if(!empty($getCatagoryID)) {
                 $queryTableData['Category'] = $getCatagoryID;
             }
+
+            $productBrandName = trim($record[$this->getRecordIndexByKey('productBrandName')]);
+            $productBrandNameId = $this->getproductBrandNameId($productBrandName);
+            $queryTableData['productBrandName'] = $productBrandNameId;
+
+            $subCategory = trim($record[$this->getRecordIndexByKey('Sub_Category')]);
+            $subCategoryId = $this->getSubCategoryId($subCategory);
+            $queryTableData['Sub_Category'] = $subCategoryId;
+
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
 
@@ -806,6 +845,7 @@ class ProductImportService
             'ConnectionType' => null,
             'WebsiteLink' => null,
             'eHoseProduct' => null,
+            'additionalDiscount' => null
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
@@ -816,6 +856,7 @@ class ProductImportService
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $storeTableDataArray['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
+            $storeTableDataArray['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
             $storeTableDataArray['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
             $storeTableDataArray['MinimumQuantityMeasurementUnit'] = trim($record[$this->getRecordIndexByKey('MinimumQuantityMeasurementUnit')]);
@@ -859,6 +900,8 @@ class ProductImportService
             $storeTableDataArray['minimumTemperatureC'] = null;
             $storeTableDataArray['maximumTemperatureC'] = null;
             $storeTableDataArray['FeaturesBenefitsBulletPoint'] = null;
+            $storeTableDataArray['productBrandName'] = null;
+            $storeTableDataArray['Sub_Category'] = null;
 
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
@@ -875,6 +918,13 @@ class ProductImportService
                 $storeTableDataArray['onlyOpenSystem'] = $this->getBooleanValue($onlyOpenSystem);
             }
 
+            $productBrandName = trim($record[$this->getRecordIndexByKey('productBrandName')]);
+            $productBrandNameId = $this->getproductBrandNameId($productBrandName);
+            $storeTableDataArray['productBrandName'] = $productBrandNameId;
+
+            $subCategory = trim($record[$this->getRecordIndexByKey('Sub_Category')]);
+            $subCategoryId = $this->getSubCategoryId($subCategory);
+            $storeTableDataArray['Sub_Category'] = $subCategoryId;
 
             if(!empty($getCatagoryID)) {
                 $storeTableDataArray['Category'] = $getCatagoryID;
@@ -1123,6 +1173,7 @@ class ProductImportService
                         $standardsIdsArr=[];
                         foreach($fieldsValueArr as $values){
                             $values=trim($values);
+                            $values = str_replace("/", "-", $values);
                             if(!empty($values)){
                                 if(array_key_exists($values,$this->standards)){
                                     $standardsIdsArr[]=$this->standards[$values];
@@ -1154,6 +1205,24 @@ class ProductImportService
         if (!empty($categoryName)) {
             if (!empty($this->BaseLevelCategory[$categoryName])) {
                 return $this->BaseLevelCategory[$categoryName];
+            } 
+        }
+        return null;
+    }
+
+    public function getproductBrandNameId($productBrandName){
+        if (!empty($productBrandName)) {
+            if (!empty($this->BrandName[$productBrandName])) {
+                return $this->BrandName[$productBrandName];
+            } 
+        }
+        return null;
+    }
+
+    public function getSubCategoryId($subCategory){
+        if (!empty($subCategory)) {
+            if (!empty($this->SubCategory[$subCategory])) {
+                return $this->SubCategory[$subCategory];
             } 
         }
         return null;

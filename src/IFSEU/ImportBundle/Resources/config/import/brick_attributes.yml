@@ -41,11 +41,11 @@ Burst pressure psi:
     fieldName: BurstPressurePSI
     fieldType: Number
     objectType: IFSEUHoseSkeleton
-VAKUUM bar:
+Vacuum bar:
     fieldName: VacuumBar
     fieldType: Number
     objectType: IFSEUHoseSkeleton
-VAKUUM mmHg:
+Vacuum mmHg:
     fieldName: VacuumMM
     fieldType: Number
     objectType: IFSEUHoseSkeleton

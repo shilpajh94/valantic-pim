@@ -237,7 +237,7 @@ class Product
                 
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
                 $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
-                if(!empty($attributeGroupName) && !empty($fieldValue)){
+                if(!($attributeLabel== 'OD mm' || $attributeLabel== 'OD inch') && !empty($attributeGroupName) && !empty($fieldValue)){
                     $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
                     foreach($conversionAttributeArr as $key=>$convertValues){
                         $convertFieldsValue[$key]=$convertValues;

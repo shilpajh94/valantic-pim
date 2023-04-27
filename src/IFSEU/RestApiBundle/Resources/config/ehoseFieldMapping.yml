@@ -592,6 +592,8 @@ ehoseAPI:
                 - string
             productionLengths:
                 - string   
+            additionalDiscount:
+                - string   
             Amount:
                 - string
             OnStock:

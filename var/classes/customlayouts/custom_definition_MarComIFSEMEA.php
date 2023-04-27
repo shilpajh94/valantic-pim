@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-26T15:42:53+05:30
+* Generated at: 2023-04-27T11:45:38+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1682503973,
+   'modificationDate' => 1682576138,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -2791,7 +2791,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'title' => 'Note 2 ( Information Below Table)',
                                          'tooltip' => '',
                                          'mandatory' => false,
-                                         'noteditable' => false,
+                                         'noteditable' => true,
                                          'index' => false,
                                          'locked' => false,
                                          'style' => '',
@@ -20250,6 +20250,34 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 220,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'additionalDiscount',
+                                     'title' => 'Additional Discount',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Yes',
@@ -20292,7 +20320,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  8 => 
+                                  9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                      'fieldtype' => 'textarea',
                                      'width' => 220,

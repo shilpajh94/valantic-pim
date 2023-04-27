@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-26T12:52:03+05:30
+* Generated at: 2023-04-27T10:56:11+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -129,6 +129,7 @@ Fields Summary:
 - listPrice [input]
 - productLength [numeric]
 - ProductLengthUnit [input]
+- additionalDiscount [input]
 - OnStock [booleanSelect]
 - productionLength [textarea]
 - Amount [input]
@@ -175,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682493709,
+   'modificationDate' => 1682573154,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3063,7 +3064,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => '',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 200,
                              'border' => false,
                              'provideSplitView' => false,
@@ -3110,7 +3111,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => '',
                                  'width' => '',
                                  'height' => '',
-                                 'maxTabs' => NULL,
+                                 'maxTabs' => 20,
                                  'labelWidth' => 210,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -3258,7 +3259,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => '',
                                  'width' => 900,
                                  'height' => 300,
-                                 'maxTabs' => NULL,
+                                 'maxTabs' => 20,
                                  'labelWidth' => 100,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -3348,7 +3349,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => '',
                                  'width' => '',
                                  'height' => '',
-                                 'maxTabs' => NULL,
+                                 'maxTabs' => 20,
                                  'labelWidth' => 100,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -5988,7 +5989,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -6121,7 +6122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'title' => '',
                                      'width' => '',
                                      'height' => '',
-                                     'maxTabs' => NULL,
+                                     'maxTabs' => 20,
                                      'labelWidth' => 210,
                                      'border' => false,
                                      'provideSplitView' => false,
@@ -20783,6 +20784,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 220,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'additionalDiscount',
+                                     'title' => 'Additional Discount',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Yes',
@@ -20825,7 +20854,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  8 => 
+                                  9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                      'fieldtype' => 'textarea',
                                      'width' => 220,
@@ -21271,7 +21300,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => '',
                              'width' => 900,
                              'height' => 300,
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 100,
                              'border' => false,
                              'provideSplitView' => false,
@@ -22537,7 +22566,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 100,
                  'border' => false,
                  'provideSplitView' => false,

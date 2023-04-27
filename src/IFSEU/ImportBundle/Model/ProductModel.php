@@ -325,6 +325,15 @@ class ProductModel
         $query = "SELECT oo_id,o_key FROM `object_IFSEUNorm` ";
         return $this->db->fetchAll($query);
     }
+    public function getBrandsData(){
+        $query = "SELECT oo_id,o_key FROM `object_IFSEUBrand` ";
+        return $this->db->fetchAll($query);
+    }
+    public function getSubCategoryData(){
+        $query = "SELECT oo_id,o_key FROM `object_IFSEUSubCategory` ";
+        return $this->db->fetchAll($query);
+    }
+
 
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` ";

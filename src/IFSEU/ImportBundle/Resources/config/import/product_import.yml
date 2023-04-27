@@ -34,6 +34,8 @@ parameters:
       industryStandard: 'Industry Standard #'
       manufacture:  'Manufacter'
       manufacturePartNumber:  'Manufacter Part Numb'
+      productBrandName: 'Product Brand Name'
+      Sub_Category: 'Sub-Category'
       Category:  'Category'
       minimumTemperatureC: 'minTemperature (C)'
       minimumTemperatureF: 'minimumTemperatureF'
@@ -72,7 +74,7 @@ parameters:
       productionLength: 'Production length'
       minimumQuantityUnit: 'Minimum quantity unit'
       WebsiteLink: 'Website'
-
+      additionalDiscount: 'Additional discount'
     #fert Localized Attribute
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
