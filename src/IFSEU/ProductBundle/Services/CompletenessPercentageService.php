@@ -66,7 +66,7 @@ class CompletenessPercentageService
                                         $fieldValue = $fieldValue->getItems();
                                     }
                                     $totalFields++;
-                                    if (!empty($fieldValue)) {
+                                    if (!empty($fieldValue) || ($fieldValue=='0')) {
                                         $count++;
                                     } else {
                                         $emptyAttributes .= self::NEW_LINE_AND_NEW_TAB . ++$emptyFieldCounter . ") " . $fieldTitle;
@@ -119,7 +119,7 @@ class CompletenessPercentageService
             $skippedField = SkippedFieldList::CompletenessPercentageList();
             if (!in_array($key, $skippedField)) {
                 $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang);
-                if (!empty($localizedFieldValue)) {
+                if (!empty($localizedFieldValue) || ($localizedFieldValue=='0')) {
                     $count++;
                 } else {
                     $emptyFieldLabels .= self::NEW_LINE_AND_NEW_TAB . ++$emptyFieldLocalizedCounter . ") " . $localizedFieldTitle;
@@ -168,7 +168,7 @@ class CompletenessPercentageService
                                 $totalFields++;
                                 $fieldGetter = "get" . ucfirst($name);
                                 $value = $brickData->$fieldGetter($lang);
-                                if (!empty($value)) {
+                                if (!empty($value) || ($value=='0')) {
                                     $count++;
                                 } else {
                                     $emptyLocalizedFieldLabels .= self::NEW_LINE_AND_NEW_TAB . ++$emptyFieldLocalizedCounter . ") " . $brickName . '~' . $attrTitle;
@@ -188,7 +188,7 @@ class CompletenessPercentageService
                             }
                             $totalFields++;
                             $value = $brickData->$keyGetter();
-                            if (!empty($value)) {
+                            if (!empty($value) || ($value=='0')) {
                                 $count++;
                             } else {
                                 if (empty($emptyObjectBrickAttributes)) {
