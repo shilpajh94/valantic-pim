@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-04-12T08:14:53+02:00
+* Generated at: 2023-04-27T14:45:54+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSFeaturesAndBenefits',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1649744093,
+   'modificationDate' => 1682586954,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -157,7 +157,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => NULL,
                  'border' => false,
                  'provideSplitView' => false,

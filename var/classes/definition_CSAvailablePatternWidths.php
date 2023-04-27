@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-13T04:36:34-05:00
+* Generated at: 2023-04-27T14:44:52+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSAvailablePatternWidths',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1639388194,
+   'modificationDate' => 1682586891,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -217,7 +217,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => '',
                      'width' => '',
                      'height' => '',
-                     'maxTabs' => NULL,
+                     'maxTabs' => 20,
                      'labelWidth' => 200,
                      'border' => false,
                      'provideSplitView' => false,

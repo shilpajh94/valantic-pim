@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-19T08:53:45+05:30
+* Generated at: 2023-04-27T14:28:29+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -162,7 +162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1681874602,
+   'modificationDate' => 1682585892,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -18775,7 +18775,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => '',
                              'width' => '',
                              'height' => 650,
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 100,
                              'border' => false,
                              'provideSplitView' => false,
@@ -18822,7 +18822,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => '',
                                  'width' => '',
                                  'height' => '',
-                                 'maxTabs' => NULL,
+                                 'maxTabs' => 20,
                                  'labelWidth' => 210,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -18912,7 +18912,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'title' => '',
                                  'width' => '',
                                  'height' => '',
-                                 'maxTabs' => NULL,
+                                 'maxTabs' => 20,
                                  'labelWidth' => 200,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -21295,7 +21295,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'title' => '',
                                      'width' => '',
                                      'height' => '',
-                                     'maxTabs' => NULL,
+                                     'maxTabs' => 20,
                                      'labelWidth' => 210,
                                      'border' => false,
                                      'provideSplitView' => false,
@@ -38043,7 +38043,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => false,
                  'provideSplitView' => false,

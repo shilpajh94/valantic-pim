@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-28T08:05:31+05:30
+* Generated at: 2023-04-27T14:58:32+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622169331,
+   'modificationDate' => 1682587712,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => NULL,
                  'border' => false,
                  'provideSplitView' => false,
