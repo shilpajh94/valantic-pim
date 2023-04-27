@@ -247,18 +247,17 @@ class Product
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
                 }
-                if($attributeLabel== 'OD mm' || $attributeLabel== 'OD inch'){
-                    if($attributeLabel== 'OD mm'){
-                        $fieldValue = $rowData['ID mm'] + ($rowData['Wall thickness mm'] * 2);
-                    }else{
-                        $fieldValue = $rowData['ID inch'] + ($rowData['Wall thickness inch'] * 2);
-                    }
-                }
+                
                 $bricksData[$fieldName] = $fieldValue;
-                if(array_key_exists($fieldName, $convertFieldsValue)){
-                    $bricksData[$fieldName]= $convertFieldsValue[$fieldName];
-                }else{
-                    $bricksData[$fieldName] = $fieldValue;
+            }
+        }
+        if(!empty($convertFieldsValue)){
+            $checkfields=['IdInch','IdMM','wallThicknessInch','wallThicknessMM'];
+            foreach($convertFieldsValue as $key=>$convertedValues){
+                $bricksData[$key] = $convertedValues;
+                if(in_array($key,$checkfields)){
+                    $bricksData['OdIn']=$convertFieldsValue['IdInch']+($convertFieldsValue['wallThicknessInch']*2);
+                    $bricksData['Odmm']=$convertFieldsValue['IdMM']+($convertFieldsValue['wallThicknessMM']*2);
                 }
             }
         }
