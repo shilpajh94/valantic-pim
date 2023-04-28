@@ -67,12 +67,10 @@ class ProductModelService
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->ehose);
-        // p_r($products);die;
         if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
-            // p_r($productData); die;
             $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
@@ -97,8 +95,6 @@ class ProductModelService
 
         foreach($products as $key=>$value){
 
-            // p_r($value['o_id']);
-            // p_r($value['oo_id']);
             // Using strlen as callback to preserve 0 Zero for unpublished records
             // Removing Null, Empty and False value
             $value  =   array_filter($value, 'strlen');
@@ -131,6 +127,8 @@ class ProductModelService
                 }else{
                     $resultArrBase = $sixDigitData;
                 }
+
+                
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
                 $DocumentID = $resultArrBase['Document'];
@@ -216,7 +214,6 @@ class ProductModelService
 
                 if(isset($video1) && !empty($video1) ) 
                 {
-                    // p_r($video1);
                     $video1 = unserialize($video1);
                     $video1ID = $video1['data'];
                     $propertyAssetData = $this->getPropertyAssetData($video1ID);
@@ -237,10 +234,9 @@ class ProductModelService
                     $finalProductArray[$sixDigit]['Videos']['video3'] = $propertyAssetData;
                 }
             }
-            // p_r($nineDigit);
+
             // $finalProductArray[$sixDigit]['skeletonData'][] = $nineDigit;
             // $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]
-            // p_r($nineDigit);
             // Set Skeleton data only if it is not set.
             if(!isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit]) || empty($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
                 // Get Skeleton Object Bricks Data.
@@ -432,15 +428,9 @@ class ProductModelService
         $siopDetail = [];
         if(empty($product)){ return $siopDetail;}
         $ehoseMap = $this->getEHoseFieldMapping();
-        // p_r($ehoseMap);
         foreach($ehoseMap['ehoseAPI']['Base']['Object'] as $key=>$value){
-            // p_r($ehoseMap);
             foreach($value as $k1=>$v1){
                 if(isset($product[$k1]) && !empty($product[$k1])){
-                    // echo "[$k1]".PHP_EOL;
-                    // echo "Rama".PHP_EOL;
-                    // echo $product[$k1];
-                    // echo "OKAY".PHP_EOL;
                     $classToLoad = $this->mainClass . $key;
                     $objClass = $classToLoad . "\\Listing";
                     $productCat = new $objClass();
@@ -452,7 +442,6 @@ class ProductModelService
                     $tempArray = [];
                     if (isset($productCat) && count($productCat) > 0) {
                         $productCategory = $productCat[0];
-                        // p_r($productCategory);
                         foreach($v1['Fields'] as $fkey=>$fvalue){
                             $fCommand   =   "get".$fvalue;
                             $tempArray[strtolower($fvalue)] =  $productCategory->$fCommand();
@@ -557,8 +546,6 @@ class ProductModelService
         }
         foreach($imageDataArray as $key=>$value){
             $imagesFields = $this->ehose['ehoseAPI'][ucfirst($key)]['Images'];
-            // echo "Image Data";
-            // p_r($imagesFields);
             $variantId = '';
             // if($key=='fert'){
             //     $variantId = $value['materialNumber'];
@@ -600,11 +587,6 @@ class ProductModelService
 
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->ehose['ehoseAPI'][ucfirst($productType)]['ObjectBricks'];
-        // p_r('Mahesh');
-        // p_r($objId);
-        // p_r($productType);
-        // p_r($productBrickField);
-        // p_r($objectBricksMap);
 
         if(empty($objectBricksMap)){
             return;
@@ -624,32 +606,34 @@ class ProductModelService
 
                     if($product->$productBrickField()->$brickText()){
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
-                        // echo $fieldName;
-                        // p_r($fieldName ." - ". $fieldDef->getFieldtype());
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
-                                   if($fieldName ==='brandName'){
-                                    $bData[] =  $mvalue;
-                                   }else{
-                                    $objectIndv = DataObject::getById($mvalue);
-                                    if($objectIndv instanceof DataObject\IFSEUApplications) {
-                                        $bData[] = $objectIndv->getApplicationName();
+                                    if($fieldName ==='brandName')
+                                    {
+                                        $bData[] =  $mvalue;
                                     }
-                                    // if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
-                                    //     // dd(get_class_methods($objectIndv) );
-                                    //     $bData[] = $objectIndv->getFlowMedium();
-                                    // }   
-                                   }
+                                    else
+                                    {
+                                        $objectIndv = DataObject::getById($mvalue);
+                                        if($objectIndv instanceof DataObject\IFSEUApplications) {
+                                            $bData[] = $objectIndv->getApplicationName();
+                                        }
+                                        else if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
+                                            $bData[] = $objectIndv->getFlowMedium();
+                                        }
+                                        else{
+                                            $bData[] = $objectIndv->getPropertyName();
+                                        }
+                                    }
                                 }
                              }
 
                        }
                        else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
                        {
-                            // p_r($product->$productBrickField()->$brickText());
                             $bData = $product->$productBrickField()->$brickText()->$fieldText();
                             $objectIndv = DataObject::getById($bData);
                             if($objectIndv)
@@ -664,7 +648,7 @@ class ProductModelService
                     if(!empty($bData) || $bData===0){  
                         
                         if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
-                            $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                            $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_EHOSE_API;
                             $bData = round(strval($bData), $decimalPoints);
                         }
                         $productObjectBricksData[$fieldName] = $bData;
@@ -767,9 +751,9 @@ class ProductModelService
     }
 
     /**
-     * Method to get Virtual Catalog Field Mapping.
+     * Method to get eHose Field Mapping.
      *
-     * @return array $vcFieldMapping virtual catalog mapping configuration.
+     * @return array $vcFieldMapping eHose mapping configuration.
      */
     public function getEHoseFieldMapping()
     {
