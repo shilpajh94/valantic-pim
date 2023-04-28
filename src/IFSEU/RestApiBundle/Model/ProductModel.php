@@ -344,4 +344,34 @@ class ProductModel
         return $subCategory;
     }
 
+    /**
+     * Method to get the localized field data from object_localized_data_IFSEUProduct table for all the languages based on ooo_id
+     *
+     * @param string $ooo_id object Id
+     */
+    public function getProductLocalizedData(int $ooo_id, array $fieldList) : ?array
+    {
+        $fields[] = 'language';
+        $fields = array_merge($fields, $fieldList);
+        $fieldFormattedString = implode(",",$fields);
+        $query = "SELECT {$fieldFormattedString} FROM object_localized_data_IFSEUProduct WHERE `ooo_id` = {$ooo_id}";
+        $resultSet = $this->db->fetchAll($query);
+
+        $resultSetFormatted = [];
+        if($resultSet)
+        {
+            foreach ($resultSet as $key => $value) {
+                $language = $value['language'];
+                unset($value['language']);
+                $value = array_filter($value);
+
+                if($value)
+                {
+                    $resultSetFormatted[$language] = $value;
+                }
+            }
+        }
+        return $resultSetFormatted;
+    }
+
 }

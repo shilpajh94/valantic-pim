@@ -128,6 +128,12 @@ class ProductModelService
                     $resultArrBase = $sixDigitData;
                 }
 
+                $localizedData = $this->getProductLocalizedData($sixDigit, 'base');
+                if($localizedData)
+                {
+                    $resultArrBase['localizedfields'] = $localizedData;
+                }
+
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
@@ -289,8 +295,10 @@ class ProductModelService
 
             // Set fert data.
             if(isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
+                // p_r($value['oo_id']); die;
                 // Get Fert Object Bricks Data.
                 // $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
+               
                 $resultArrFert1['sap_id']    =   $value['materialNumber'];
                 if(!empty($fertObjectBrickData)){
                     $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);
@@ -298,6 +306,9 @@ class ProductModelService
                     $resultArrFert = array_merge($resultArrFert1,$value);
                 }
 
+                
+
+                $resultArrFert['eHoseProduct'] = ($resultArrFert['eHoseProduct'] == '1') ? 'Yes' : 'No';
                 $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
                 $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
                 $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
@@ -352,6 +363,13 @@ class ProductModelService
                     }
                 }
 
+                
+                $localizedData = $this->getProductLocalizedData($value['oo_id'], 'fert');
+                if($localizedData)
+                {
+                    $resultArrFert['localizedfields'] = $localizedData;
+                }
+                
                 unset($resultArrFert['SIOPLevel1']);
                 unset($resultArrFert['SIOPLevel2']);
                 unset($resultArrFert['SIOPLevel3']);
@@ -571,6 +589,27 @@ class ProductModelService
             }
         }
         return $imageDetail;
+    }
+
+    /**
+     * Method to get object localized field detail
+     *
+     * @param int $objId Object Id
+     * @param string $productType Product Type (Fert/Skeleton/Base)
+     * @return array $productObjectBricksData objectBrick Data.
+     * @throws
+     */
+    private function getProductLocalizedData($objId,$productType){
+        $productObjectBricksData = [];
+
+        // Get Product Object Brick Config Details.
+        $localizedFieldMapping = $this->ehose['ehoseAPI'][ucfirst($productType)]['Localizedfields'];
+
+        if(empty($localizedFieldMapping)){
+            return;
+        }
+        $productObjectBricksData =  $this->model->getProductLocalizedData($objId, $localizedFieldMapping);
+        return $productObjectBricksData;
     }
 
     /**
