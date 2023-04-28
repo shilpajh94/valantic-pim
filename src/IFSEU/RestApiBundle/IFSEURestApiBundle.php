@@ -10,7 +10,7 @@ class IFSEURestApiBundle extends AbstractPimcoreBundle
         return  "IFSEU REST API Bundle";
     }
     public function getDescription(){
-        return  "Bundle for getting Virtual catalog from IFSEU via REST API";
+        return  "Bundle for getting eHose data from IFSEU via REST API";
     }
     public function getVersion(){
         return "0.0.1";
