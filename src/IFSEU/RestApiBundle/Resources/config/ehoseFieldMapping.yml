@@ -96,8 +96,6 @@ ehoseAPI:
                 - numeric: 2
             DampableUntil2T:
                 - numeric: 2
-            # VirtualCatalogReinforcement:
-            #     - string
             o_published:
                 - string
             # FeaturesBenefitsBulletPoint:
@@ -245,8 +243,6 @@ ehoseAPI:
                         - string
                     numberOfPlies:
                         - string
-                    withHelix:
-                        - string
                     Coupling:
                         - string
                     InnerLining:
@@ -359,8 +355,6 @@ ehoseAPI:
                 - numeric: 2
             DampableUntil2T:
                 - numeric: 2
-            # VirtualCatalogReinforcement:
-            #     - string
             o_published:
                 - string
             # FeaturesBenefitsBulletPoint:
@@ -482,6 +476,8 @@ ehoseAPI:
                         - numeric: 2
                     PositiveToleranceOdMM:
                         - numeric: 2
+                    withHelix:
+                        - string
     Fert:
         Fields:
             oo_id:
@@ -570,8 +566,6 @@ ehoseAPI:
                 - numeric: 2
             DampableUntil2T:
                 - numeric: 2
-            # VirtualCatalogReinforcement:
-            #     - string
             o_published:
                 - string
             # FeaturesBenefitsBulletPoint:
@@ -590,8 +584,8 @@ ehoseAPI:
                 - string
             ConnectionType:
                 - string
-            productionLengths:
-                - string   
+            # productionLengths:
+            #     - string   
             additionalDiscount:
                 - string   
             Amount:
