@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-26T12:31:44+05:30
+* Generated at: 2023-04-28T12:19:03+05:30
 * IP: 127.0.0.1
 
 
@@ -1718,7 +1718,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -2267,7 +2267,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -3790,7 +3790,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         ),
                          'width' => 300,
                          'height' => '',
-                         'maxItems' => 10,
+                         'maxItems' => '',
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
                          'optionsProviderData' => '',

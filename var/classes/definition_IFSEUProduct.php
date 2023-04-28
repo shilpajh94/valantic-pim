@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T10:56:11+05:30
+* Generated at: 2023-04-28T12:16:26+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -176,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682573154,
+   'modificationDate' => 1682664366,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2679,7 +2679,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     ),
                                      'width' => 300,
                                      'height' => '',
-                                     'maxItems' => 5,
+                                     'maxItems' => '',
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                                      'optionsProviderData' => 'propertiesGeneral',
@@ -3143,7 +3143,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 740,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -3171,7 +3171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 740,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -3199,7 +3199,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 740,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -3227,7 +3227,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 740,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -3257,7 +3257,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'region' => NULL,
                                  'layout' => NULL,
                                  'title' => '',
-                                 'width' => 900,
+                                 'width' => 1100,
                                  'height' => 300,
                                  'maxTabs' => 20,
                                  'labelWidth' => 100,
@@ -20801,7 +20801,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -21184,7 +21184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -21212,7 +21212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -21240,7 +21240,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -21268,7 +21268,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -21298,7 +21298,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'region' => NULL,
                              'layout' => NULL,
                              'title' => '',
-                             'width' => 900,
+                             'width' => 1100,
                              'height' => 300,
                              'maxTabs' => 20,
                              'labelWidth' => 100,
